@@ -1,0 +1,12 @@
+{
+  "wilayas": [
+    {
+      "id": 1,
+      "name": "ورڤلة",
+      "municipalities": []
+    }
+  ],
+  "doctors": [],
+  "appointments": [],
+  "notifications": []
+}

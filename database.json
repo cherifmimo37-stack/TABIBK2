@@ -3,10 +3,85 @@
     {
       "id": 1,
       "name": "ورڤلة",
-      "municipalities": []
+      "municipalities": [
+        "ورڤلة",
+        "الرويسات",
+        "عين البيضاء",
+        "سيدي خويلد",
+        "حاسي بن عبد الله",
+        "حاسي مسعود",
+        "البرمة",
+        "انقوسة",
+        "الحجيرة",
+        "الطيبات",
+        "تقرت"
+      ]
     }
   ],
-  "doctors": [],
+
+  "doctors": [
+    {
+      "id": 1,
+      "name": "د. أحمد بن سالم",
+      "specialty": "طب عام",
+      "wilaya": "ورڤلة",
+      "municipality": "ورڤلة",
+      "phone": "0550000001",
+      "whatsapp": "0550000001",
+      "status": "active",
+      "consultationDuration": 15
+    },
+
+    {
+      "id": 2,
+      "name": "د. سارة قادري",
+      "specialty": "طب الأطفال",
+      "wilaya": "ورڤلة",
+      "municipality": "الرويسات",
+      "phone": "0550000002",
+      "whatsapp": "0550000002",
+      "status": "active",
+      "consultationDuration": 15
+    },
+
+    {
+      "id": 3,
+      "name": "د. محمد بوعلام",
+      "specialty": "أمراض القلب",
+      "wilaya": "ورڤلة",
+      "municipality": "عين البيضاء",
+      "phone": "0550000003",
+      "whatsapp": "0550000003",
+      "status": "active",
+      "consultationDuration": 20
+    },
+
+    {
+      "id": 4,
+      "name": "د. ليلى منصوري",
+      "specialty": "طب النساء",
+      "wilaya": "ورڤلة",
+      "municipality": "سيدي خويلد",
+      "phone": "0550000004",
+      "whatsapp": "0550000004",
+      "status": "active",
+      "consultationDuration": 20
+    },
+
+    {
+      "id": 5,
+      "name": "د. ياسين حمدي",
+      "specialty": "طب الأسنان",
+      "wilaya": "ورڤلة",
+      "municipality": "حاسي مسعود",
+      "phone": "0550000005",
+      "whatsapp": "0550000005",
+      "status": "active",
+      "consultationDuration": 30
+    }
+  ],
+
   "appointments": [],
+
   "notifications": []
 }

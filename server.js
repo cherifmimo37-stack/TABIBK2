@@ -182,7 +182,7 @@ app.get(
 // DOCTORS
 // ==================================================
 
-app.get("/api/doctors", (req, res) => {
+app.get("/api/doctors", checkAdminKey, (req, res) => {
 
     const database = readDatabase();
 

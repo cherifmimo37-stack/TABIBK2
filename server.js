@@ -1244,6 +1244,129 @@ app.get(
     }
 );
 
+// =====================================================
+// TABIBK ADMIN - ADD DOCTOR
+// =====================================================
+
+app.post(
+    "/api/admin/doctors",
+    checkAdminKey,
+    (req, res) => {
+
+        try {
+
+            const database = readDatabase();
+
+            const {
+                name,
+                specialty,
+                wilaya,
+                municipality,
+                phone,
+                whatsapp,
+                consultationDuration
+            } = req.body;
+
+            if (
+                !name ||
+                !specialty ||
+                !wilaya ||
+                !municipality ||
+                !phone
+            ) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "يرجى ملء جميع البيانات المطلوبة"
+                });
+
+            }
+
+            const doctors =
+                database.doctors || [];
+
+            const newId =
+                doctors.length > 0
+                    ? Math.max(
+                        ...doctors.map(
+                            d => Number(d.id) || 0
+                        )
+                    ) + 1
+                    : 1;
+
+            const doctor = {
+
+                id: newId,
+
+                name:
+                    String(name).trim(),
+
+                specialty:
+                    String(specialty).trim(),
+
+                wilaya:
+                    String(wilaya).trim(),
+
+                municipality:
+                    String(municipality).trim(),
+
+                phone:
+                    String(phone).trim(),
+
+                whatsapp:
+                    String(
+                        whatsapp || phone
+                    ).trim(),
+
+                status:
+                    "active",
+
+                consultationDuration:
+                    Number(
+                        consultationDuration
+                    ) || 15
+
+            };
+
+            doctors.push(doctor);
+
+            database.doctors =
+                doctors;
+
+            saveDatabase(database);
+
+            res.status(201).json({
+
+                success: true,
+
+                message:
+                    "تمت إضافة الطبيب بنجاح ✅",
+
+                doctor
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "ADMIN ADD DOCTOR ERROR:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "حدث خطأ أثناء إضافة الطبيب"
+
+            });
+
+        }
+
+    }
+);
 
 // =====================================================
 // إحصائيات الإدارة

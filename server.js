@@ -1014,6 +1014,54 @@ app.get(
 // TABIBK ADMIN API
 // =====================================================
 
+// =====================================================
+// TABIBK ADMIN AUTHENTICATION
+// =====================================================
+
+function checkAdminKey(req, res, next) {
+
+    const adminKey =
+        req.headers["x-admin-key"];
+
+    const serverKey =
+        process.env.ADMIN_KEY;
+
+
+    if (!serverKey) {
+
+        return res.status(500).json({
+
+            success: false,
+
+            message:
+                "ADMIN_KEY غير مضبوط في السيرفر"
+
+        });
+
+    }
+
+
+    if (
+        !adminKey ||
+        adminKey !== serverKey
+    ) {
+
+        return res.status(401).json({
+
+            success: false,
+
+            message:
+                "غير مصرح بالدخول"
+
+        });
+
+    }
+
+
+    next();
+
+}
+
 // عرض جميع المواعيد للإدارة
 app.get("/api/appointments", (req, res) => {
 

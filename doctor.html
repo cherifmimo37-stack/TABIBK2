@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+      content="#0b132b">
+
+<title>TABIBK | لوحة الطبيب</title>
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Cairo", sans-serif;
+    background: #f5f7fb;
+    color: #101828;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    background:
+        linear-gradient(135deg, #0b132b, #172554);
+
+    color: white;
+
+    padding: 18px 16px 28px;
+
+    border-radius: 0 0 30px 30px;
+
+    box-shadow:
+        0 8px 25px rgba(11,19,43,.18);
+}
+
+.header-content {
+    max-width: 650px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon {
+    width: 48px;
+    height: 48px;
+
+    background: #d4af37;
+    color: #0b132b;
+
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+.brand-text strong {
+    display: block;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.brand-text span {
+    font-size: 11px;
+    color: #e5e7eb;
+}
+
+/* ================= CONTAINER ================= */
+
+.container {
+    max-width: 650px;
+    margin: auto;
+
+    padding: 20px 16px 40px;
+}
+
+/* ================= CARD ================= */
+
+.card {
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 20px;
+
+    margin-bottom: 16px;
+
+    border: 1px solid #eef0f4;
+
+    box-shadow:
+        0 6px 25px rgba(16,24,40,.06);
+}
+
+/* ================= TITLE ================= */
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+.card-title-icon {
+    width: 40px;
+    height: 40px;
+
+    background: #fff8df;
+
+    color: #b18a16;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-title h2 {
+    font-size: 17px;
+    font-weight: 800;
+}
+
+/* ================= SELECT ================= */
+
+select {
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    border: 1px solid #dfe3ea;
+
+    background: #fafbfc;
+
+    font-family: "Cairo", sans-serif;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+select:focus {
+    border-color: #d4af37;
+
+    box-shadow:
+        0 0 0 3px rgba(212,175,55,.12);
+}
+
+/* ================= DOCTOR PROFILE ================= */
+
+.doctor-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.avatar {
+    width: 62px;
+    height: 62px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(135deg,#0b132b,#263b73);
+
+    color: #d4af37;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info strong {
+    display: block;
+
+    font-size: 17px;
+
+    margin-bottom: 3px;
+}
+
+.profile-info span {
+    display: block;
+
+    color: #667085;
+
+    font-size: 12px;
+}
+
+.status {
+    margin-top: 7px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    font-size: 11px;
+
+    color: #12b76a;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #12b76a;
+}
+
+/* ================= STATS ================= */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.stat {
+    background: #f8fafc;
+
+    border-radius: 16px;
+
+    padding: 14px 8px;
+
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+
+    font-size: 21px;
+
+    color: #0b132b;
+}
+
+.stat span {
+    font-size: 10px;
+
+    color: #667085;
+}
+
+/* ================= APPOINTMENT ================= */
+
+.appointments {
+    display: grid;
+
+    gap: 12px;
+}
+
+.appointment {
+    border: 1px solid #e7eaf0;
+
+    border-radius: 18px;
+
+    padding: 16px;
+
+    background: #fff;
+}
+
+.appointment-head {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.patient-avatar {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 14px;
+
+    background: #eef2ff;
+
+    color: #172554;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.patient-info {
+    flex: 1;
+}
+
+.patient-info strong {
+    display: block;
+
+    font-size: 14px;
+}
+
+.patient-info span {
+    display: block;
+
+    color: #667085;
+
+    font-size: 11px;
+}
+
+.queue {
+    min-width: 43px;
+
+    height: 43px;
+
+    border-radius: 13px;
+
+    background: #fff8df;
+
+    color: #8a6a0d;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.queue strong {
+    font-size: 16px;
+}
+
+.queue span {
+    font-size: 8px;
+}
+
+/* ================= DETAILS ================= */
+
+.details {
+    margin-top: 12px;
+
+    padding-top: 12px;
+
+    border-top: 1px solid #f0f1f4;
+
+    font-size: 11px;
+
+    color: #667085;
+
+    line-height: 2;
+}
+
+.details i {
+    width: 20px;
+
+    color: #b18a16;
+}
+
+/* ================= BADGES ================= */
+
+.badge {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.pending {
+    background: #fff7e6;
+    color: #b54708;
+}
+
+.confirmed {
+    background: #ecfdf3;
+    color: #027a48;
+}
+
+.in_progress {
+    background: #eff8ff;
+    color: #175cd3;
+}
+
+.completed {
+    background: #f2f4f7;
+    color: #475467;
+}
+
+.rejected {
+    background: #fef3f2;
+    color: #b42318;
+}
+
+/* ================= BUTTONS ================= */
+
+.actions {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 8px;
+
+    margin-top: 13px;
+}
+
+.action-btn {
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 11px 8px;
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.accept {
+    background: #ecfdf3;
+    color: #027a48;
+}
+
+.reject {
+    background: #fef3f2;
+    color: #b42318;
+}
+
+.start {
+    background: #eff8ff;
+    color: #175cd3;
+}
+
+.complete {
+    background: #f2f4f7;
+    color: #344054;
+}
+
+.action-btn:active {
+    transform: scale(.97);
+}
+
+/* ================= EMPTY ================= */
+
+.empty {
+    text-align: center;
+
+    padding: 30px 10px;
+
+    color: #98a2b3;
+
+    font-size: 13px;
+}
+
+.empty i {
+    display: block;
+
+    font-size: 32px;
+
+    margin-bottom: 10px;
+}
+
+/* ================= LOADING ================= */
+
+.loading {
+    text-align: center;
+
+    padding: 25px;
+
+    color: #667085;
+
+    font-size: 13px;
+}
+
+/* ================= REFRESH ================= */
+
+.refresh-btn {
+    width: 100%;
+
+    border: 1px solid #d4af37;
+
+    background: white;
+
+    color: #8a6a0d;
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    font-family: "Cairo", sans-serif;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    margin-top: 14px;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    text-align: center;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    padding: 10px 20px 25px;
+}
+
+footer strong {
+    color: #8a6a0d;
+}
+
+@media(max-width:450px) {
+
+    .stats {
+        gap: 7px;
+    }
+
+    .stat {
+        padding: 11px 5px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="header-content">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+            </div>
+
+            <div class="brand-text">
+
+                <strong>TABIBK</strong>
+
+                <span>
+                    لوحة الطبيب
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- ================= SELECT DOCTOR ================= -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <div class="card-title-icon">
+
+            <i class="fa-solid fa-stethoscope"></i>
+
+        </div>
+
+        <h2>
+            اختيار الطبيب
+        </h2>
+
+    </div>
+
+
+    <select
+        id="doctorSelect"
+        onchange="selectDoctor()">
+
+        <option value="">
+            جاري تحميل الأطباء...
+        </option>
+
+    </select>
+
+</section>
+
+
+<!-- ================= PROFILE ================= -->
+
+<section
+    id="profileCard"
+    class="card hidden">
+
+    <div class="doctor-profile">
+
+        <div class="avatar">
+
+            <i class="fa-solid fa-user-doctor"></i>
+
+        </div>
+
+        <div class="profile-info">
+
+            <strong id="doctorName">
+                -
+            </strong>
+
+            <span id="doctorSpecialty">
+                -
+            </span>
+
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                متصل
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <strong id="totalCount">
+                0
+            </strong>
+
+            <span>
+                كل الحجوزات
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong id="waitingCount">
+                0
+            </strong>
+
+            <span>
+                قيد الانتظار
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong id="confirmedCount">
+                0
+            </strong>
+
+            <span>
+                مؤكدة
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= APPOINTMENTS ================= -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <div class="card-title-icon">
+
+            <i class="fa-solid fa-calendar-check"></i>
+
+        </div>
+
+        <h2>
+            الحجوزات
+        </h2>
+
+    </div>
+
+
+    <div id="appointmentsList">
+
+        <div class="empty">
+
+            <i class="fa-solid fa-calendar-xmark"></i>
+
+            اختر الطبيب لعرض الحجوزات
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="refresh-btn"
+        onclick="loadAppointments()">
+
+        <i class="fa-solid fa-rotate"></i>
+
+        تحديث الحجوزات
+
+    </button>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <strong>TABIBK</strong>
+
+    <br>
+
+    نظام حجز المواعيد الطبية
+
+</footer>
+
+
+<script>
+
+/* =========================================
+   API
+========================================= */
+
+const API = "";
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let currentDoctorId = null;
+
+
+/* =========================================
+   LOAD DOCTORS
+========================================= */
+
+async function loadDoctors() {
+
+    const select =
+        document.getElementById(
+            "doctorSelect"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/doctors"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !data.success ||
+            !data.doctors.length
+        ) {
+
+            select.innerHTML =
+                `<option>
+                    لا يوجد أطباء
+                </option>`;
+
+            return;
+
+        }
+
+
+        select.innerHTML =
+            `<option value="">
+                اختر الطبيب
+            </option>`;
+
+
+        data.doctors.forEach(
+            doctor => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    doctor.id;
+
+                option.textContent =
+                    `${doctor.name} — ${doctor.specialty}`;
+
+                select.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        select.innerHTML =
+            `<option>
+                خطأ في الاتصال بالسيرفر
+            </option>`;
+
+    }
+
+}
+
+
+/* =========================================
+   SELECT DOCTOR
+========================================= */
+
+function selectDoctor() {
+
+    const select =
+        document.getElementById(
+            "doctorSelect"
+        );
+
+
+    currentDoctorId =
+        Number(select.value);
+
+
+    if (!currentDoctorId) {
+
+        document
+            .getElementById(
+                "profileCard"
+            )
+            .classList.add(
+                "hidden"
+            );
+
+        return;
+
+    }
+
+
+    loadDoctorProfile();
+
+    loadAppointments();
+
+}
+
+
+/* =========================================
+   LOAD PROFILE
+========================================= */
+
+async function loadDoctorProfile() {
+
+    try {
+
+        const response =
+            await fetch(
+                API +
+                `/api/doctors/${currentDoctorId}`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) return;
+
+
+        const doctor =
+            data.doctor;
+
+
+        document.getElementById(
+            "doctorName"
+        ).textContent =
+            doctor.name;
+
+
+        document.getElementById(
+            "doctorSpecialty"
+        ).textContent =
+            doctor.specialty;
+
+
+        document
+            .getElementById(
+                "profileCard"
+            )
+            .classList.remove(
+                "hidden"
+            );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =========================================
+   LOAD APPOINTMENTS
+========================================= */
+
+async function loadAppointments() {
+
+    if (!currentDoctorId) {
+
+        return;
+
+    }
+
+
+    const list =
+        document.getElementById(
+            "appointmentsList"
+        );
+
+
+    list.innerHTML =
+        `<div class="loading">
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            جاري تحميل الحجوزات...
+
+        </div>`;
+
+
+    try {
+
+        const response =
+            await fetch(
+                API +
+                `/api/doctors/${currentDoctorId}/appointments`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            list.innerHTML =
+                `<div class="empty">
+                    تعذر تحميل الحجوزات
+                </div>`;
+
+            return;
+
+        }
+
+
+        const appointments =
+            data.appointments || [];
+
+
+        updateStats(
+            appointments
+        );
+
+
+        if (!appointments.length) {
+
+            list.innerHTML =
+                `<div class="empty">
+
+                    <i class="fa-solid fa-calendar-xmark"></i>
+
+                    لا توجد حجوزات حالياً
+
+                </div>`;
+
+            return;
+
+        }
+
+
+        list.innerHTML = "";
+
+
+        appointments
+            .sort(
+                (a,b) =>
+                    a.queueNumber -
+                    b.queueNumber
+            )
+            .forEach(
+                appointment => {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "appointment";
+
+
+                    div.innerHTML =
+                        appointmentHTML(
+                            appointment
+                        );
+
+
+                    list.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        list.innerHTML =
+            `<div class="empty">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                تعذر الاتصال بالسيرفر
+
+            </div>`;
+
+    }
+
+}
+
+
+/* =========================================
+   UPDATE STATS
+========================================= */
+
+function updateStats(
+    appointments
+) {
+
+    document.getElementById(
+        "totalCount"
+    ).textContent =
+        appointments.length;
+
+
+    document.getElementById(
+        "waitingCount"
+    ).textContent =
+        appointments.filter(
+            a =>
+                a.status ===
+                "pending"
+        ).length;
+
+
+    document.getElementById(
+        "confirmedCount"
+    ).textContent =
+        appointments.filter(
+            a =>
+                a.status ===
+                "confirmed"
+        ).length;
+
+}
+
+
+/* =========================================
+   APPOINTMENT HTML
+========================================= */
+
+function appointmentHTML(
+    appointment
+) {
+
+    let statusText =
+        "قيد الانتظار";
+
+
+    if (
+        appointment.status ===
+        "confirmed"
+    ) {
+
+        statusText =
+            "تم التأكيد";
+
+    }
+
+
+    if (
+        appointment.status ===
+        "rejected"
+    ) {
+
+        statusText =
+            "مرفوض";
+
+    }
+
+
+    if (
+        appointment.status ===
+        "in_progress"
+    ) {
+
+        statusText =
+            "قيد المعاينة";
+
+    }
+
+
+    if (
+        appointment.status ===
+        "completed"
+    ) {
+
+        statusText =
+            "مكتمل";
+
+    }
+
+
+    let actions = "";
+
+
+    if (
+        appointment.status ===
+        "pending"
+    ) {
+
+        actions = `
+
+            <div class="actions">
+
+                <button
+                    class="action-btn accept"
+                    onclick="acceptAppointment('${appointment.bookingNumber}')">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    قبول الحجز
+
+                </button>
+
+
+                <button
+                    class="action-btn reject"
+                    onclick="rejectAppointment('${appointment.bookingNumber}')">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                    رفض
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    if (
+        appointment.status ===
+        "confirmed"
+    ) {
+
+        actions = `
+
+            <div class="actions">
+
+                <button
+                    class="action-btn start"
+                    onclick="startAppointment('${appointment.bookingNumber}')">
+
+                    <i class="fa-solid fa-play"></i>
+
+                    بدء المعاينة
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    if (
+        appointment.status ===
+        "in_progress"
+    ) {
+
+        actions = `
+
+            <div class="actions">
+
+                <button
+                    class="action-btn complete"
+                    onclick="completeAppointment('${appointment.bookingNumber}')">
+
+                    <i class="fa-solid fa-check-double"></i>
+
+                    إنهاء الموعد
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="appointment-head">
+
+            <div class="patient-avatar">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+
+            <div class="patient-info">
+
+                <strong>
+                    ${appointment.patientName}
+                </strong>
+
+                <span>
+                    ${appointment.patientPhone}
+                </span>
+
+            </div>
+
+
+            <div class="queue">
+
+                <strong>
+                    ${appointment.queueNumber}
+                </strong>
+
+                <span>
+                    الطابور
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="details">
+
+            <div>
+
+                <i class="fa-solid fa-ticket"></i>
+
+                ${appointment.bookingNumber}
+
+            </div>
+
+
+            <div>
+
+                <i class="fa-solid fa-comment-medical"></i>
+
+                ${appointment.reason || "بدون سبب محدد"}
+
+            </div>
+
+
+            <span
+                class="badge ${appointment.status}">
+
+                ${statusText}
+
+            </span>
+
+        </div>
+
+
+        ${actions}
+
+    `;
+
+}
+
+
+/* =========================================
+   ACTION REQUEST
+========================================= */
+
+async function appointmentAction(
+    bookingNumber,
+    action
+) {
+
+    try {
+
+        const response =
+            await fetch(
+                API +
+                `/api/appointments/${encodeURIComponent(bookingNumber)}/${action}`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    }
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            alert(
+                data.message ||
+                "حدث خطأ"
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            data.message ||
+            "تمت العملية بنجاح"
+        );
+
+
+        loadAppointments();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "حدث خطأ في الاتصال بالسيرفر"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   ACCEPT
+========================================= */
+
+function acceptAppointment(
+    bookingNumber
+) {
+
+    if (
+        !confirm(
+            "هل تريد تأكيد هذا الحجز؟"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    appointmentAction(
+        bookingNumber,
+        "accept"
+    );
+
+}
+
+
+/* =========================================
+   REJECT
+========================================= */
+
+function rejectAppointment(
+    bookingNumber
+) {
+
+    if (
+        !confirm(
+            "هل تريد رفض هذا الحجز؟"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    appointmentAction(
+        bookingNumber,
+        "reject"
+    );
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+function startAppointment(
+    bookingNumber
+) {
+
+    if (
+        !confirm(
+            "هل تريد بدء معاينة هذا المريض؟"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    appointmentAction(
+        bookingNumber,
+        "start"
+    );
+
+}
+
+
+/* =========================================
+   COMPLETE
+========================================= */
+
+function completeAppointment(
+    bookingNumber
+) {
+
+    if (
+        !confirm(
+            "هل تريد إنهاء هذا الموعد؟"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    appointmentAction(
+        bookingNumber,
+        "complete"
+    );
+
+}
+
+
+/* =========================================
+   AUTO REFRESH
+========================================= */
+
+setInterval(
+    () => {
+
+        if (currentDoctorId) {
+
+            loadAppointments();
+
+        }
+
+    },
+    10000
+);
+
+
+/* =========================================
+   START
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadDoctors();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

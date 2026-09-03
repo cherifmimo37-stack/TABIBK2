@@ -1277,6 +1277,48 @@ body {
 
 }
 
+
+    .add-doctor-btn {
+
+    width: 100%;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 14px;
+
+    margin-bottom: 15px;
+
+    background: var(--navy);
+
+    color: var(--gold-light);
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition: 0.2s;
+}
+
+.add-doctor-btn:active {
+
+    transform: scale(0.98);
+}
+
+    
 </style>
 
 </head>
@@ -1679,7 +1721,15 @@ body {
 
             </div>
 
-
+<button
+    type="button"
+    id="addDoctorButton"
+    class="add-doctor-btn"
+>
+    <i class="fa-solid fa-user-doctor"></i>
+    إضافة طبيب جديد
+</button>
+            
             <div id="doctorsList">
 
                 <div class="loading">

@@ -2675,7 +2675,7 @@ async function loadDoctors() {
 
     const data =
         await adminFetch(
-            "/api/doctors"
+            "/api/admin/doctors"
         );
 
 
@@ -2693,8 +2693,6 @@ async function loadDoctors() {
     updateStats();
 
 }
-
-
 /* =====================================================
    RENDER DOCTORS
 ===================================================== */

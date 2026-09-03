@@ -5,28 +5,44 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-<meta name="theme-color"
-      content="#0b132b">
+<meta
+    name="theme-color"
+    content="#0b132b"
+>
 
 <title>TABIBK | لوحة الطبيب</title>
 
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
 
-<link rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -35,135 +51,216 @@
 }
 
 body {
+
     font-family: "Cairo", sans-serif;
-    background: #f5f7fb;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f5f7fb 0%,
+            #eef2f7 100%
+        );
+
     color: #101828;
+
+    min-height: 100vh;
 }
 
-/* ================= HEADER ================= */
+/* =====================================================
+   HIDDEN
+===================================================== */
+
+.hidden {
+    display: none !important;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
 
 header {
+
     background:
-        linear-gradient(135deg, #0b132b, #172554);
+        linear-gradient(
+            135deg,
+            #0b132b,
+            #172554
+        );
 
     color: white;
 
-    padding: 18px 16px 28px;
+    padding:
+        18px
+        16px
+        28px;
 
-    border-radius: 0 0 30px 30px;
+    border-radius:
+        0
+        0
+        32px
+        32px;
 
     box-shadow:
-        0 8px 25px rgba(11,19,43,.18);
+        0 10px 30px
+        rgba(11,19,43,.20);
 }
 
 .header-content {
-    max-width: 650px;
+
+    max-width: 700px;
+
     margin: auto;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 }
 
 .brand {
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
 }
 
 .brand-icon {
-    width: 48px;
-    height: 48px;
+
+    width: 50px;
+
+    height: 50px;
 
     background: #d4af37;
+
     color: #0b132b;
 
-    border-radius: 15px;
+    border-radius: 16px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
-    font-size: 22px;
+    font-size: 23px;
+
+    box-shadow:
+        0 8px 18px
+        rgba(212,175,55,.25);
 }
 
 .brand-text strong {
+
     display: block;
-    font-size: 22px;
+
+    font-size: 23px;
+
     font-weight: 800;
 }
 
 .brand-text span {
+
     font-size: 11px;
-    color: #e5e7eb;
+
+    color: #dbe2f0;
 }
 
-/* ================= CONTAINER ================= */
+/* =====================================================
+   CONTAINER
+===================================================== */
 
 .container {
-    max-width: 650px;
+
+    max-width: 700px;
+
     margin: auto;
 
-    padding: 20px 16px 40px;
+    padding:
+        20px
+        16px
+        45px;
 }
 
-/* ================= CARD ================= */
+/* =====================================================
+   CARD
+===================================================== */
 
 .card {
+
     background: white;
 
-    border-radius: 22px;
+    border-radius: 23px;
 
     padding: 20px;
 
     margin-bottom: 16px;
 
-    border: 1px solid #eef0f4;
+    border:
+        1px solid #e9edf3;
 
     box-shadow:
-        0 6px 25px rgba(16,24,40,.06);
+        0 7px 28px
+        rgba(16,24,40,.07);
 }
 
-/* ================= TITLE ================= */
+/* =====================================================
+   TITLE
+===================================================== */
 
 .card-title {
+
     display: flex;
+
     align-items: center;
+
     gap: 10px;
 
     margin-bottom: 18px;
 }
 
 .card-title-icon {
-    width: 40px;
-    height: 40px;
+
+    width: 42px;
+
+    height: 42px;
 
     background: #fff8df;
 
-    color: #b18a16;
+    color: #a27d12;
 
-    border-radius: 12px;
+    border-radius: 13px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 }
 
 .card-title h2 {
+
     font-size: 17px;
+
     font-weight: 800;
 }
 
-/* ================= SELECT ================= */
+/* =====================================================
+   SELECT
+===================================================== */
 
 select {
+
     width: 100%;
 
     padding: 14px;
 
-    border-radius: 14px;
+    border-radius: 15px;
 
-    border: 1px solid #dfe3ea;
+    border:
+        1px solid #dfe3ea;
 
     background: #fafbfc;
 
@@ -172,46 +269,67 @@ select {
     outline: none;
 
     font-size: 14px;
+
+    color: #101828;
 }
 
 select:focus {
+
     border-color: #d4af37;
 
     box-shadow:
-        0 0 0 3px rgba(212,175,55,.12);
+        0 0 0 3px
+        rgba(212,175,55,.12);
 }
 
-/* ================= DOCTOR PROFILE ================= */
+/* =====================================================
+   DOCTOR PROFILE
+===================================================== */
 
 .doctor-profile {
+
     display: flex;
+
     align-items: center;
+
     gap: 14px;
 }
 
 .avatar {
-    width: 62px;
-    height: 62px;
 
-    border-radius: 18px;
+    width: 64px;
+
+    height: 64px;
+
+    border-radius: 19px;
 
     background:
-        linear-gradient(135deg,#0b132b,#263b73);
+        linear-gradient(
+            135deg,
+            #0b132b,
+            #263b73
+        );
 
     color: #d4af37;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
-    font-size: 27px;
+    font-size: 28px;
+
+    flex-shrink: 0;
 }
 
 .profile-info {
+
     flex: 1;
 }
 
 .profile-info strong {
+
     display: block;
 
     font-size: 17px;
@@ -220,6 +338,7 @@ select:focus {
 }
 
 .profile-info span {
+
     display: block;
 
     color: #667085;
@@ -228,6 +347,7 @@ select:focus {
 }
 
 .status {
+
     margin-top: 7px;
 
     display: inline-flex;
@@ -242,17 +362,26 @@ select:focus {
 }
 
 .status-dot {
-    width: 7px;
-    height: 7px;
+
+    width: 8px;
+
+    height: 8px;
 
     border-radius: 50%;
 
     background: #12b76a;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(18,183,106,.10);
 }
 
-/* ================= STATS ================= */
+/* =====================================================
+   STATS
+===================================================== */
 
 .stats {
+
     display: grid;
 
     grid-template-columns:
@@ -264,6 +393,7 @@ select:focus {
 }
 
 .stat {
+
     background: #f8fafc;
 
     border-radius: 16px;
@@ -271,41 +401,274 @@ select:focus {
     padding: 14px 8px;
 
     text-align: center;
+
+    border:
+        1px solid #eef1f5;
 }
 
 .stat strong {
+
     display: block;
 
-    font-size: 21px;
+    font-size: 22px;
 
     color: #0b132b;
 }
 
 .stat span {
+
     font-size: 10px;
 
     color: #667085;
 }
 
-/* ================= APPOINTMENT ================= */
+/* =====================================================
+   TURN DASHBOARD
+===================================================== */
+
+.turn-dashboard {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0b132b,
+            #172554
+        );
+
+    color: white;
+
+    border-radius: 24px;
+
+    padding: 22px;
+
+    margin-bottom: 16px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 35px
+        rgba(11,19,43,.22);
+}
+
+.turn-dashboard::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+
+    height: 180px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(212,175,55,.08);
+
+    left: -70px;
+
+    top: -80px;
+}
+
+.turn-header {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.turn-header h2 {
+
+    font-size: 16px;
+
+    font-weight: 800;
+}
+
+.live-badge {
+
+    background:
+        rgba(18,183,106,.15);
+
+    color: #5df0a7;
+
+    border:
+        1px solid
+        rgba(93,240,167,.25);
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.current-turn {
+
+    position: relative;
+
+    text-align: center;
+
+    padding: 10px 0 20px;
+}
+
+.turn-label {
+
+    font-size: 12px;
+
+    color: #c7d0e4;
+
+    display: block;
+
+    margin-bottom: 3px;
+}
+
+.turn-number {
+
+    font-size: 58px;
+
+    line-height: 1.1;
+
+    font-weight: 800;
+
+    color: #d4af37;
+
+    text-shadow:
+        0 5px 20px
+        rgba(212,175,55,.20);
+}
+
+.current-patient {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-top: 4px;
+}
+
+.turn-info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 10px;
+
+    position: relative;
+}
+
+.turn-info {
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 15px;
+
+    padding: 13px;
+
+    text-align: center;
+}
+
+.turn-info i {
+
+    color: #d4af37;
+
+    margin-bottom: 5px;
+
+    display: block;
+}
+
+.turn-info strong {
+
+    display: block;
+
+    font-size: 18px;
+}
+
+.turn-info span {
+
+    color: #c7d0e4;
+
+    font-size: 10px;
+}
+
+.no-current {
+
+    color: #c7d0e4;
+
+    font-size: 13px;
+
+    padding: 20px;
+}
+
+/* =====================================================
+   APPOINTMENTS
+===================================================== */
 
 .appointments {
+
     display: grid;
 
     gap: 12px;
 }
 
 .appointment {
-    border: 1px solid #e7eaf0;
 
-    border-radius: 18px;
+    border:
+        1px solid #e7eaf0;
+
+    border-radius: 19px;
 
     padding: 16px;
 
     background: #fff;
+
+    transition: .2s;
+}
+
+.appointment.current {
+
+    border:
+        2px solid #d4af37;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fffdf5,
+            #ffffff
+        );
+
+    box-shadow:
+        0 7px 22px
+        rgba(212,175,55,.13);
+}
+
+.appointment.next {
+
+    border:
+        2px solid #b8c7ed;
+
+    background:
+        #fbfcff;
 }
 
 .appointment-head {
+
     display: flex;
 
     align-items: center;
@@ -314,8 +677,10 @@ select:focus {
 }
 
 .patient-avatar {
-    width: 45px;
-    height: 45px;
+
+    width: 46px;
+
+    height: 46px;
 
     border-radius: 14px;
 
@@ -326,20 +691,34 @@ select:focus {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
+
+    flex-shrink: 0;
 }
 
 .patient-info {
+
     flex: 1;
+
+    min-width: 0;
 }
 
 .patient-info strong {
+
     display: block;
 
     font-size: 14px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
 }
 
 .patient-info span {
+
     display: block;
 
     color: #667085;
@@ -348,11 +727,12 @@ select:focus {
 }
 
 .queue {
-    min-width: 43px;
 
-    height: 43px;
+    min-width: 48px;
 
-    border-radius: 13px;
+    height: 48px;
+
+    border-radius: 14px;
 
     background: #fff8df;
 
@@ -365,24 +745,82 @@ select:focus {
     align-items: center;
 
     justify-content: center;
+
+    flex-shrink: 0;
 }
 
 .queue strong {
-    font-size: 16px;
+
+    font-size: 17px;
 }
 
 .queue span {
+
     font-size: 8px;
 }
 
-/* ================= DETAILS ================= */
+/* =====================================================
+   CURRENT LABEL
+===================================================== */
+
+.turn-label-card {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: #fff8df;
+
+    color: #8a6a0d;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    margin-top: 9px;
+}
+
+.next-label-card {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: #eff8ff;
+
+    color: #175cd3;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    margin-top: 9px;
+}
+
+/* =====================================================
+   DETAILS
+===================================================== */
 
 .details {
+
     margin-top: 12px;
 
     padding-top: 12px;
 
-    border-top: 1px solid #f0f1f4;
+    border-top:
+        1px solid #f0f1f4;
 
     font-size: 11px;
 
@@ -392,14 +830,18 @@ select:focus {
 }
 
 .details i {
+
     width: 20px;
 
     color: #b18a16;
 }
 
-/* ================= BADGES ================= */
+/* =====================================================
+   BADGES
+===================================================== */
 
 .badge {
+
     display: inline-block;
 
     margin-top: 8px;
@@ -414,33 +856,46 @@ select:focus {
 }
 
 .pending {
+
     background: #fff7e6;
+
     color: #b54708;
 }
 
 .confirmed {
+
     background: #ecfdf3;
+
     color: #027a48;
 }
 
 .in_progress {
+
     background: #eff8ff;
+
     color: #175cd3;
 }
 
 .completed {
+
     background: #f2f4f7;
+
     color: #475467;
 }
 
 .rejected {
+
     background: #fef3f2;
+
     color: #b42318;
 }
 
-/* ================= BUTTONS ================= */
+/* =====================================================
+   BUTTONS
+===================================================== */
 
 .actions {
+
     display: grid;
 
     grid-template-columns:
@@ -452,48 +907,66 @@ select:focus {
 }
 
 .action-btn {
+
     border: none;
 
-    border-radius: 12px;
+    border-radius: 13px;
 
     padding: 11px 8px;
 
-    font-family: "Cairo", sans-serif;
+    font-family:
+        "Cairo",
+        sans-serif;
 
     font-size: 11px;
 
     font-weight: 700;
 
     cursor: pointer;
+
+    transition: .15s;
+}
+
+.action-btn:active {
+
+    transform:
+        scale(.96);
 }
 
 .accept {
+
     background: #ecfdf3;
+
     color: #027a48;
 }
 
 .reject {
+
     background: #fef3f2;
+
     color: #b42318;
 }
 
 .start {
+
     background: #eff8ff;
+
     color: #175cd3;
 }
 
 .complete {
+
     background: #f2f4f7;
+
     color: #344054;
 }
 
-.action-btn:active {
-    transform: scale(.97);
-}
-
-/* ================= EMPTY ================= */
+/* =====================================================
+   EMPTY
+===================================================== */
 
 .empty {
+
     text-align: center;
 
     padding: 30px 10px;
@@ -504,16 +977,20 @@ select:focus {
 }
 
 .empty i {
+
     display: block;
 
-    font-size: 32px;
+    font-size: 34px;
 
     margin-bottom: 10px;
 }
 
-/* ================= LOADING ================= */
+/* =====================================================
+   LOADING
+===================================================== */
 
 .loading {
+
     text-align: center;
 
     padding: 25px;
@@ -523,12 +1000,16 @@ select:focus {
     font-size: 13px;
 }
 
-/* ================= REFRESH ================= */
+/* =====================================================
+   REFRESH
+===================================================== */
 
 .refresh-btn {
+
     width: 100%;
 
-    border: 1px solid #d4af37;
+    border:
+        1px solid #d4af37;
 
     background: white;
 
@@ -538,39 +1019,69 @@ select:focus {
 
     border-radius: 14px;
 
-    font-family: "Cairo", sans-serif;
+    font-family:
+        "Cairo",
+        sans-serif;
 
     font-weight: 700;
 
     cursor: pointer;
 
     margin-top: 14px;
+
+    transition: .2s;
 }
 
-/* ================= FOOTER ================= */
+.refresh-btn:active {
+
+    transform:
+        scale(.98);
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
 
 footer {
+
     text-align: center;
 
     color: #98a2b3;
 
     font-size: 11px;
 
-    padding: 10px 20px 25px;
+    padding:
+        10px
+        20px
+        25px;
 }
 
 footer strong {
+
     color: #8a6a0d;
 }
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:450px) {
 
     .stats {
+
         gap: 7px;
     }
 
     .stat {
-        padding: 11px 5px;
+
+        padding:
+            11px
+            5px;
+    }
+
+    .turn-number {
+
+        font-size: 52px;
     }
 
 }
@@ -580,6 +1091,10 @@ footer strong {
 </head>
 
 <body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
@@ -595,7 +1110,9 @@ footer strong {
 
             <div class="brand-text">
 
-                <strong>TABIBK</strong>
+                <strong>
+                    TABIBK
+                </strong>
 
                 <span>
                     لوحة الطبيب
@@ -613,7 +1130,9 @@ footer strong {
 <main class="container">
 
 
-<!-- ================= SELECT DOCTOR ================= -->
+<!-- =====================================================
+     SELECT DOCTOR
+===================================================== -->
 
 <section class="card">
 
@@ -634,7 +1153,8 @@ footer strong {
 
     <select
         id="doctorSelect"
-        onchange="selectDoctor()">
+        onchange="selectDoctor()"
+    >
 
         <option value="">
             جاري تحميل الأطباء...
@@ -645,11 +1165,14 @@ footer strong {
 </section>
 
 
-<!-- ================= PROFILE ================= -->
+<!-- =====================================================
+     PROFILE
+===================================================== -->
 
 <section
     id="profileCard"
-    class="card hidden">
+    class="card hidden"
+>
 
     <div class="doctor-profile">
 
@@ -658,6 +1181,7 @@ footer strong {
             <i class="fa-solid fa-user-doctor"></i>
 
         </div>
+
 
         <div class="profile-info">
 
@@ -727,7 +1251,97 @@ footer strong {
 </section>
 
 
-<!-- ================= APPOINTMENTS ================= -->
+<!-- =====================================================
+     TURN DASHBOARD
+===================================================== -->
+
+<section
+    id="turnDashboard"
+    class="turn-dashboard hidden"
+>
+
+    <div class="turn-header">
+
+        <h2>
+            <i class="fa-solid fa-list-ol"></i>
+            نظام الدور
+        </h2>
+
+        <span class="live-badge">
+
+            <i class="fa-solid fa-circle"></i>
+            مباشر
+
+        </span>
+
+    </div>
+
+
+    <div
+        id="currentTurnBox"
+        class="current-turn"
+    >
+
+        <span class="turn-label">
+            المريض الحالي
+        </span>
+
+        <div
+            id="currentTurnNumber"
+            class="turn-number"
+        >
+            -
+        </div>
+
+        <div
+            id="currentPatientName"
+            class="current-patient"
+        >
+            لا يوجد مريض حالي
+        </div>
+
+    </div>
+
+
+    <div class="turn-info-grid">
+
+        <div class="turn-info">
+
+            <i class="fa-solid fa-forward"></i>
+
+            <strong id="nextTurn">
+                -
+            </strong>
+
+            <span>
+                المريض التالي
+            </span>
+
+        </div>
+
+
+        <div class="turn-info">
+
+            <i class="fa-solid fa-users"></i>
+
+            <strong id="patientsBefore">
+                0
+            </strong>
+
+            <span>
+                مرضى قبل المريض
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     APPOINTMENTS
+===================================================== -->
 
 <section class="card">
 
@@ -761,7 +1375,8 @@ footer strong {
 
     <button
         class="refresh-btn"
-        onclick="loadAppointments()">
+        onclick="loadAppointments()"
+    >
 
         <i class="fa-solid fa-rotate"></i>
 
@@ -771,12 +1386,15 @@ footer strong {
 
 </section>
 
+
 </main>
 
 
 <footer>
 
-    <strong>TABIBK</strong>
+    <strong>
+        TABIBK
+    </strong>
 
     <br>
 
@@ -787,23 +1405,25 @@ footer strong {
 
 <script>
 
-/* =========================================
+/* =====================================================
    API
-========================================= */
+===================================================== */
 
 const API = "";
 
 
-/* =========================================
+/* =====================================================
    VARIABLES
-========================================= */
+===================================================== */
 
 let currentDoctorId = null;
 
+let lastCurrentTurn = null;
 
-/* =========================================
+
+/* =====================================================
    LOAD DOCTORS
-========================================= */
+===================================================== */
 
 async function loadDoctors() {
 
@@ -812,18 +1432,16 @@ async function loadDoctors() {
             "doctorSelect"
         );
 
-
     try {
 
         const response =
             await fetch(
-                API + "/api/doctors"
+                API +
+                "/api/doctors"
             );
-
 
         const data =
             await response.json();
-
 
         if (
             !data.success ||
@@ -831,20 +1449,21 @@ async function loadDoctors() {
         ) {
 
             select.innerHTML =
-                `<option>
+                `
+                <option value="">
                     لا يوجد أطباء
-                </option>`;
+                </option>
+                `;
 
             return;
-
         }
 
-
         select.innerHTML =
-            `<option value="">
+            `
+            <option value="">
                 اختر الطبيب
-            </option>`;
-
+            </option>
+            `;
 
         data.doctors.forEach(
             doctor => {
@@ -867,24 +1486,25 @@ async function loadDoctors() {
             }
         );
 
-
     } catch (error) {
 
         console.error(error);
 
         select.innerHTML =
-            `<option>
+            `
+            <option value="">
                 خطأ في الاتصال بالسيرفر
-            </option>`;
+            </option>
+            `;
 
     }
 
 }
 
 
-/* =========================================
+/* =====================================================
    SELECT DOCTOR
-========================================= */
+===================================================== */
 
 function selectDoctor() {
 
@@ -893,10 +1513,10 @@ function selectDoctor() {
             "doctorSelect"
         );
 
-
     currentDoctorId =
         Number(select.value);
 
+    lastCurrentTurn = null;
 
     if (!currentDoctorId) {
 
@@ -908,10 +1528,16 @@ function selectDoctor() {
                 "hidden"
             );
 
+        document
+            .getElementById(
+                "turnDashboard"
+            )
+            .classList.add(
+                "hidden"
+            );
+
         return;
-
     }
-
 
     loadDoctorProfile();
 
@@ -920,9 +1546,9 @@ function selectDoctor() {
 }
 
 
-/* =========================================
+/* =====================================================
    LOAD PROFILE
-========================================= */
+===================================================== */
 
 async function loadDoctorProfile() {
 
@@ -934,29 +1560,26 @@ async function loadDoctorProfile() {
                 `/api/doctors/${currentDoctorId}`
             );
 
-
         const data =
             await response.json();
 
+        if (!data.success) {
 
-        if (!data.success) return;
-
+            return;
+        }
 
         const doctor =
             data.doctor;
-
 
         document.getElementById(
             "doctorName"
         ).textContent =
             doctor.name;
 
-
         document.getElementById(
             "doctorSpecialty"
         ).textContent =
             doctor.specialty;
-
 
         document
             .getElementById(
@@ -966,7 +1589,6 @@ async function loadDoctorProfile() {
                 "hidden"
             );
 
-
     } catch (error) {
 
         console.error(error);
@@ -976,34 +1598,32 @@ async function loadDoctorProfile() {
 }
 
 
-/* =========================================
+/* =====================================================
    LOAD APPOINTMENTS
-========================================= */
+===================================================== */
 
 async function loadAppointments() {
 
     if (!currentDoctorId) {
 
         return;
-
     }
-
 
     const list =
         document.getElementById(
             "appointmentsList"
         );
 
-
     list.innerHTML =
-        `<div class="loading">
+        `
+        <div class="loading">
 
             <i class="fa-solid fa-spinner fa-spin"></i>
 
             جاري تحميل الحجوزات...
 
-        </div>`;
-
+        </div>
+        `;
 
     try {
 
@@ -1013,25 +1633,36 @@ async function loadAppointments() {
                 `/api/doctors/${currentDoctorId}/appointments`
             );
 
-
         const data =
             await response.json();
-
 
         if (!data.success) {
 
             list.innerHTML =
-                `<div class="empty">
+                `
+                <div class="empty">
+
                     تعذر تحميل الحجوزات
-                </div>`;
+
+                </div>
+                `;
 
             return;
-
         }
 
-
-        const appointments =
+        let appointments =
             data.appointments || [];
+
+
+        /*
+            ترتيب الحجوزات حسب رقم الدور
+        */
+
+        appointments.sort(
+            (a, b) =>
+                a.queueNumber -
+                b.queueNumber
+        );
 
 
         updateStats(
@@ -1039,79 +1670,325 @@ async function loadAppointments() {
         );
 
 
+        updateTurnDashboard(
+            appointments
+        );
+
+
         if (!appointments.length) {
 
             list.innerHTML =
-                `<div class="empty">
+                `
+                <div class="empty">
 
                     <i class="fa-solid fa-calendar-xmark"></i>
 
                     لا توجد حجوزات حالياً
 
-                </div>`;
+                </div>
+                `;
 
             return;
-
         }
 
 
         list.innerHTML = "";
 
 
-        appointments
-            .sort(
-                (a,b) =>
-                    a.queueNumber -
-                    b.queueNumber
-            )
-            .forEach(
-                appointment => {
+        appointments.forEach(
+            appointment => {
 
-                    const div =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    div.className =
-                        "appointment";
-
-
-                    div.innerHTML =
-                        appointmentHTML(
-                            appointment
-                        );
-
-
-                    list.appendChild(
-                        div
+                const div =
+                    document.createElement(
+                        "div"
                     );
 
-                }
-            );
+                div.className =
+                    "appointment";
 
+                div.innerHTML =
+                    appointmentHTML(
+                        appointment,
+                        appointments
+                    );
+
+                list.appendChild(
+                    div
+                );
+
+            }
+        );
 
     } catch (error) {
 
         console.error(error);
 
         list.innerHTML =
-            `<div class="empty">
+            `
+            <div class="empty">
 
                 <i class="fa-solid fa-triangle-exclamation"></i>
 
                 تعذر الاتصال بالسيرفر
 
-            </div>`;
+            </div>
+            `;
 
     }
 
 }
 
 
-/* =========================================
-   UPDATE STATS
-========================================= */
+/* =====================================================
+   FIND CURRENT PATIENT
+===================================================== */
+
+function getCurrentPatient(
+    appointments
+) {
+
+    /*
+       المريض الذي حالته
+       in_progress هو الحالي
+    */
+
+    const inProgress =
+        appointments.find(
+            appointment =>
+                appointment.status ===
+                "in_progress"
+        );
+
+    if (inProgress) {
+
+        return inProgress;
+    }
+
+
+    /*
+       إذا لم توجد معاينة جارية،
+       نبحث عن أول حجز مؤكد
+    */
+
+    const confirmed =
+        appointments.find(
+            appointment =>
+                appointment.status ===
+                "confirmed"
+        );
+
+    return confirmed || null;
+
+}
+
+
+/* =====================================================
+   FIND NEXT PATIENT
+===================================================== */
+
+function getNextPatient(
+    appointments
+) {
+
+    return appointments.find(
+        appointment =>
+            appointment.status ===
+            "confirmed"
+    ) || null;
+
+}
+
+
+/* =====================================================
+   TURN DASHBOARD
+===================================================== */
+
+function updateTurnDashboard(
+    appointments
+) {
+
+    const dashboard =
+        document.getElementById(
+            "turnDashboard"
+        );
+
+    dashboard.classList.remove(
+        "hidden"
+    );
+
+
+    const activeAppointments =
+        appointments.filter(
+            appointment =>
+                appointment.status !==
+                    "rejected" &&
+                appointment.status !==
+                    "completed"
+        );
+
+
+    const currentPatient =
+        getCurrentPatient(
+            activeAppointments
+        );
+
+
+    const nextPatient =
+        getNextPatient(
+            activeAppointments
+        );
+
+
+    const currentNumber =
+        document.getElementById(
+            "currentTurnNumber"
+        );
+
+    const currentName =
+        document.getElementById(
+            "currentPatientName"
+        );
+
+    const nextNumber =
+        document.getElementById(
+            "nextTurn"
+        );
+
+    const before =
+        document.getElementById(
+            "patientsBefore"
+        );
+
+
+    if (currentPatient) {
+
+        currentNumber.textContent =
+            String(
+                currentPatient.queueNumber
+            ).padStart(
+                2,
+                "0"
+            );
+
+        currentName.textContent =
+            currentPatient.patientName;
+
+    } else {
+
+        currentNumber.textContent =
+            "-";
+
+        currentName.textContent =
+            "لا توجد معاينة حالياً";
+    }
+
+
+    /*
+       المريض التالي
+    */
+
+    if (
+        nextPatient &&
+        (
+            !currentPatient ||
+            nextPatient.id !==
+                currentPatient.id
+        )
+    ) {
+
+        nextNumber.textContent =
+            String(
+                nextPatient.queueNumber
+            ).padStart(
+                2,
+                "0"
+            );
+
+    } else {
+
+        /*
+           إذا كان الحالي نفسه
+           نبحث عن مؤكد بعده
+        */
+
+        const following =
+            activeAppointments.find(
+                appointment =>
+                    appointment.status ===
+                        "confirmed" &&
+                    (
+                        !currentPatient ||
+                        appointment.queueNumber >
+                            currentPatient.queueNumber
+                    )
+            );
+
+        nextNumber.textContent =
+            following
+                ? String(
+                    following.queueNumber
+                ).padStart(
+                    2,
+                    "0"
+                )
+                : "-";
+    }
+
+
+    /*
+       عدد المرضى قبل المريض الحالي
+    */
+
+    if (currentPatient) {
+
+        const patientsBeforeCount =
+            activeAppointments.filter(
+                appointment =>
+                    appointment.queueNumber <
+                    currentPatient.queueNumber
+            ).length;
+
+        before.textContent =
+            Math.max(
+                0,
+                patientsBeforeCount
+            );
+
+    } else {
+
+        before.textContent =
+            activeAppointments.length;
+    }
+
+
+    /*
+       صوت عند انتقال الدور
+    */
+
+    if (
+        currentPatient &&
+        lastCurrentTurn !== null &&
+        currentPatient.queueNumber !==
+            lastCurrentTurn
+    ) {
+
+        playNotificationSound();
+    }
+
+
+    if (currentPatient) {
+
+        lastCurrentTurn =
+            currentPatient.queueNumber;
+
+    }
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
 
 function updateStats(
     appointments
@@ -1129,7 +2006,9 @@ function updateStats(
         appointments.filter(
             a =>
                 a.status ===
-                "pending"
+                    "pending" ||
+                a.status ===
+                    "confirmed"
         ).length;
 
 
@@ -1145,12 +2024,13 @@ function updateStats(
 }
 
 
-/* =========================================
+/* =====================================================
    APPOINTMENT HTML
-========================================= */
+===================================================== */
 
 function appointmentHTML(
-    appointment
+    appointment,
+    appointments
 ) {
 
     let statusText =
@@ -1164,7 +2044,6 @@ function appointmentHTML(
 
         statusText =
             "تم التأكيد";
-
     }
 
 
@@ -1175,7 +2054,6 @@ function appointmentHTML(
 
         statusText =
             "مرفوض";
-
     }
 
 
@@ -1186,7 +2064,6 @@ function appointmentHTML(
 
         statusText =
             "قيد المعاينة";
-
     }
 
 
@@ -1197,25 +2074,63 @@ function appointmentHTML(
 
         statusText =
             "مكتمل";
+    }
 
+
+    /*
+       تحديد الحالي
+    */
+
+    const current =
+        appointment.status ===
+        "in_progress";
+
+
+    /*
+       تحديد التالي
+    */
+
+    const next =
+        appointment.status ===
+        "confirmed";
+
+
+    let extraClass = "";
+
+    if (current) {
+
+        extraClass =
+            " current";
+    }
+
+    else if (next) {
+
+        extraClass =
+            " next";
     }
 
 
     let actions = "";
 
 
+    /*
+       قبول / رفض
+    */
+
     if (
         appointment.status ===
         "pending"
     ) {
 
-        actions = `
+        actions =
 
+            `
             <div class="actions">
 
                 <button
                     class="action-btn accept"
-                    onclick="acceptAppointment('${appointment.bookingNumber}')">
+                    onclick="acceptAppointment('${appointment.bookingNumber}')"
+                >
 
                     <i class="fa-solid fa-check"></i>
 
@@ -1226,7 +2141,8 @@ function appointmentHTML(
 
                 <button
                     class="action-btn reject"
-                    onclick="rejectAppointment('${appointment.bookingNumber}')">
+                    onclick="rejectAppointment('${appointment.bookingNumber}')"
+                >
 
                     <i class="fa-solid fa-xmark"></i>
 
@@ -1235,24 +2151,28 @@ function appointmentHTML(
                 </button>
 
             </div>
-
-        `;
-
+            `;
     }
 
+
+    /*
+       بدء المعاينة
+    */
 
     if (
         appointment.status ===
         "confirmed"
     ) {
 
-        actions = `
+        actions =
 
+            `
             <div class="actions">
 
                 <button
                     class="action-btn start"
-                    onclick="startAppointment('${appointment.bookingNumber}')">
+                    onclick="startAppointment('${appointment.bookingNumber}')"
+                >
 
                     <i class="fa-solid fa-play"></i>
 
@@ -1261,24 +2181,28 @@ function appointmentHTML(
                 </button>
 
             </div>
-
-        `;
-
+            `;
     }
 
+
+    /*
+       إنهاء الموعد
+    */
 
     if (
         appointment.status ===
         "in_progress"
     ) {
 
-        actions = `
+        actions =
 
+            `
             <div class="actions">
 
                 <button
                     class="action-btn complete"
-                    onclick="completeAppointment('${appointment.bookingNumber}')">
+                    onclick="completeAppointment('${appointment.bookingNumber}')"
+                >
 
                     <i class="fa-solid fa-check-double"></i>
 
@@ -1287,91 +2211,135 @@ function appointmentHTML(
                 </button>
 
             </div>
+            `;
+    }
 
-        `;
 
+    let turnLabel = "";
+
+
+    if (current) {
+
+        turnLabel =
+
+            `
+            <div class="turn-label-card">
+
+                <i class="fa-solid fa-bullseye"></i>
+
+                المريض الحالي
+
+            </div>
+            `;
+    }
+
+    else if (next) {
+
+        turnLabel =
+
+            `
+            <div class="next-label-card">
+
+                <i class="fa-solid fa-forward"></i>
+
+                في الانتظار
+
+            </div>
+            `;
     }
 
 
     return `
 
-        <div class="appointment-head">
+        <div class="appointment${extraClass}">
 
-            <div class="patient-avatar">
+            <div class="appointment-head">
 
-                <i class="fa-solid fa-user"></i>
+
+                <div class="patient-avatar">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+
+                <div class="patient-info">
+
+                    <strong>
+                        ${appointment.patientName}
+                    </strong>
+
+                    <span>
+                        ${appointment.patientPhone}
+                    </span>
+
+                </div>
+
+
+                <div class="queue">
+
+                    <strong>
+                        ${appointment.queueNumber}
+                    </strong>
+
+                    <span>
+                        الطابور
+                    </span>
+
+                </div>
 
             </div>
 
 
-            <div class="patient-info">
+            ${turnLabel}
 
-                <strong>
-                    ${appointment.patientName}
-                </strong>
 
-                <span>
-                    ${appointment.patientPhone}
+            <div class="details">
+
+                <div>
+
+                    <i class="fa-solid fa-ticket"></i>
+
+                    ${appointment.bookingNumber}
+
+                </div>
+
+
+                <div>
+
+                    <i class="fa-solid fa-comment-medical"></i>
+
+                    ${
+                        appointment.reason ||
+                        "بدون سبب محدد"
+                    }
+
+                </div>
+
+
+                <span
+                    class="badge ${appointment.status}"
+                >
+
+                    ${statusText}
+
                 </span>
 
             </div>
 
 
-            <div class="queue">
-
-                <strong>
-                    ${appointment.queueNumber}
-                </strong>
-
-                <span>
-                    الطابور
-                </span>
-
-            </div>
+            ${actions}
 
         </div>
-
-
-        <div class="details">
-
-            <div>
-
-                <i class="fa-solid fa-ticket"></i>
-
-                ${appointment.bookingNumber}
-
-            </div>
-
-
-            <div>
-
-                <i class="fa-solid fa-comment-medical"></i>
-
-                ${appointment.reason || "بدون سبب محدد"}
-
-            </div>
-
-
-            <span
-                class="badge ${appointment.status}">
-
-                ${statusText}
-
-            </span>
-
-        </div>
-
-
-        ${actions}
 
     `;
 
 }
 
 
-/* =========================================
+/* =====================================================
    ACTION REQUEST
-========================================= */
+===================================================== */
 
 async function appointmentAction(
     bookingNumber,
@@ -1407,7 +2375,6 @@ async function appointmentAction(
             );
 
             return;
-
         }
 
 
@@ -1417,8 +2384,7 @@ async function appointmentAction(
         );
 
 
-        loadAppointments();
-
+        await loadAppointments();
 
     } catch (error) {
 
@@ -1433,9 +2399,9 @@ async function appointmentAction(
 }
 
 
-/* =========================================
+/* =====================================================
    ACCEPT
-========================================= */
+===================================================== */
 
 function acceptAppointment(
     bookingNumber
@@ -1448,7 +2414,6 @@ function acceptAppointment(
     ) {
 
         return;
-
     }
 
 
@@ -1460,9 +2425,9 @@ function acceptAppointment(
 }
 
 
-/* =========================================
+/* =====================================================
    REJECT
-========================================= */
+===================================================== */
 
 function rejectAppointment(
     bookingNumber
@@ -1475,7 +2440,6 @@ function rejectAppointment(
     ) {
 
         return;
-
     }
 
 
@@ -1487,9 +2451,9 @@ function rejectAppointment(
 }
 
 
-/* =========================================
+/* =====================================================
    START
-========================================= */
+===================================================== */
 
 function startAppointment(
     bookingNumber
@@ -1502,7 +2466,6 @@ function startAppointment(
     ) {
 
         return;
-
     }
 
 
@@ -1514,9 +2477,9 @@ function startAppointment(
 }
 
 
-/* =========================================
+/* =====================================================
    COMPLETE
-========================================= */
+===================================================== */
 
 function completeAppointment(
     bookingNumber
@@ -1529,7 +2492,6 @@ function completeAppointment(
     ) {
 
         return;
-
     }
 
 
@@ -1541,9 +2503,91 @@ function completeAppointment(
 }
 
 
-/* =========================================
+/* =====================================================
+   NOTIFICATION SOUND
+===================================================== */
+
+function playNotificationSound() {
+
+    try {
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if (!AudioContext) {
+
+            return;
+        }
+
+        const context =
+            new AudioContext();
+
+        const oscillator =
+            context.createOscillator();
+
+        const gain =
+            context.createGain();
+
+
+        oscillator.type =
+            "sine";
+
+        oscillator.frequency.value =
+            880;
+
+        gain.gain.value =
+            0.08;
+
+
+        oscillator.connect(
+            gain
+        );
+
+        gain.connect(
+            context.destination
+        );
+
+
+        oscillator.start();
+
+
+        setTimeout(
+            () => {
+
+                oscillator.frequency.value =
+                    1100;
+
+            },
+            150
+        );
+
+
+        setTimeout(
+            () => {
+
+                oscillator.stop();
+
+                context.close();
+
+            },
+            350
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Sound unavailable"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
    AUTO REFRESH
-========================================= */
+===================================================== */
 
 setInterval(
     () => {
@@ -1555,13 +2599,13 @@ setInterval(
         }
 
     },
-    10000
+    5000
 );
 
 
-/* =========================================
+/* =====================================================
    START
-========================================= */
+===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1576,4 +2620,4 @@ document.addEventListener(
 
 </body>
 
-</html>
+      </html>

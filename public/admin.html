@@ -1,0 +1,3494 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta name="theme-color" content="#101827">
+
+<title>
+    TABIBK | لوحة الإدارة
+</title>
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+
+    --gold: #d4af37;
+    --gold-light: #f5d76e;
+
+    --navy: #101827;
+    --navy-2: #172235;
+    --navy-3: #202d43;
+
+    --white: #ffffff;
+    --text: #1d2635;
+    --muted: #788396;
+
+    --green: #16a34a;
+    --red: #dc2626;
+    --blue: #2563eb;
+    --orange: #f59e0b;
+
+    --bg: #f3f5f8;
+
+    --shadow:
+        0 10px 30px rgba(16,24,39,.08);
+
+    --radius: 18px;
+}
+
+body {
+
+    font-family: "Cairo", sans-serif;
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    min-height: 100vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d1421,
+            #172235
+        );
+
+    color: white;
+
+    padding: 18px 16px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.18);
+}
+
+.header-content {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.logo {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: var(--navy);
+
+    font-size: 22px;
+
+    box-shadow:
+        0 5px 15px rgba(212,175,55,.25);
+}
+
+.brand h1 {
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    line-height: 1.1;
+}
+
+.brand span {
+
+    display: block;
+
+    color: #c8d0dc;
+
+    font-size: 11px;
+
+    margin-top: 3px;
+}
+
+.refresh-btn {
+
+    border: none;
+
+    background: rgba(255,255,255,.1);
+
+    color: white;
+
+    width: 44px;
+
+    height: 44px;
+
+    border-radius: 13px;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.refresh-btn:hover {
+
+    background: var(--gold);
+
+    color: var(--navy);
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+
+    width: min(1200px, 94%);
+
+    margin: 25px auto 50px;
+}
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title {
+
+    margin-bottom: 20px;
+}
+
+.page-title h2 {
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+    color: var(--navy);
+}
+
+.page-title p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 4px;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.stat {
+
+    background: white;
+
+    border-radius: var(--radius);
+
+    padding: 20px;
+
+    box-shadow: var(--shadow);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    border: 1px solid #e9edf2;
+}
+
+.stat-icon {
+
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.stat:nth-child(1)
+.stat-icon {
+
+    background: #e8f0ff;
+
+    color: var(--blue);
+}
+
+.stat-icon.blue {
+
+    background: #e8f0ff;
+
+    color: var(--blue);
+}
+
+.stat-icon.green {
+
+    background: #e7f8ee;
+
+    color: var(--green);
+}
+
+.stat-icon.orange {
+
+    background: #fff4dd;
+
+    color: var(--orange);
+}
+
+.stat-icon.red {
+
+    background: #ffe9e9;
+
+    color: var(--red);
+}
+
+.stat-info {
+
+    flex: 1;
+}
+
+.stat-info strong {
+
+    display: block;
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+    color: var(--navy);
+}
+
+.stat-info span {
+
+    font-size: 12px;
+
+    color: var(--muted);
+}
+
+/* =========================
+   NAV TABS
+========================= */
+
+.tabs {
+
+    display: flex;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    margin-bottom: 20px;
+
+    padding-bottom: 4px;
+
+    scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+
+    display: none;
+}
+
+.tab {
+
+    border: none;
+
+    background: white;
+
+    color: #667085;
+
+    padding: 12px 17px;
+
+    border-radius: 13px;
+
+    font-family: inherit;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.05);
+
+    transition: .2s;
+}
+
+.tab.active {
+
+    background: var(--navy);
+
+    color: white;
+}
+
+.tab i {
+
+    margin-left: 5px;
+}
+
+/* =========================
+   PANELS
+========================= */
+
+.panel {
+
+    display: none;
+}
+
+.panel.active {
+
+    display: block;
+
+    animation:
+        fadeIn .25s ease;
+}
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(5px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+.card {
+
+    background: white;
+
+    border-radius: var(--radius);
+
+    padding: 20px;
+
+    box-shadow: var(--shadow);
+
+    border: 1px solid #e9edf2;
+
+    margin-bottom: 18px;
+}
+
+.card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+.card-header h3 {
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+    color: var(--navy);
+}
+
+.card-header p {
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box {
+
+    position: relative;
+
+    margin-bottom: 15px;
+}
+
+.search-box i {
+
+    position: absolute;
+
+    right: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: var(--muted);
+}
+
+.search-box input {
+
+    width: 100%;
+
+    border: 1px solid #e0e5eb;
+
+    background: #f8fafc;
+
+    padding: 13px 43px 13px 14px;
+
+    border-radius: 13px;
+
+    font-family: inherit;
+
+    outline: none;
+
+    font-size: 13px;
+}
+
+.search-box input:focus {
+
+    border-color: var(--gold);
+
+    background: white;
+}
+
+/* =========================
+   APPOINTMENTS
+========================= */
+
+.appointment {
+
+    border: 1px solid #e6eaf0;
+
+    border-radius: 16px;
+
+    padding: 16px;
+
+    margin-bottom: 12px;
+
+    background: #fff;
+}
+
+.appointment-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+.patient {
+
+    display: flex;
+
+    gap: 11px;
+
+    align-items: center;
+}
+
+.patient-icon {
+
+    width: 43px;
+
+    height: 43px;
+
+    border-radius: 13px;
+
+    background: #edf2f7;
+
+    color: var(--navy);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.patient strong {
+
+    display: block;
+
+    font-size: 14px;
+}
+
+.patient span {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+.booking {
+
+    background: #fff8df;
+
+    color: #8a6910;
+
+    padding: 5px 9px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.details {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 8px;
+
+    margin-bottom: 12px;
+}
+
+.detail {
+
+    background: #f7f9fb;
+
+    border-radius: 10px;
+
+    padding: 9px;
+}
+
+.detail small {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-bottom: 2px;
+}
+
+.detail strong {
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.status.pending {
+
+    background: #fff4d7;
+
+    color: #a36d00;
+}
+
+.status.confirmed {
+
+    background: #e6f8ed;
+
+    color: #13863d;
+}
+
+.status.in_progress {
+
+    background: #e7efff;
+
+    color: #2458c4;
+}
+
+.status.completed {
+
+    background: #edf0f4;
+
+    color: #566170;
+}
+
+.status.rejected {
+
+    background: #ffe8e8;
+
+    color: #c32929;
+}
+
+.actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 12px;
+}
+
+.btn {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 9px 12px;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.btn:hover {
+
+    transform: translateY(-1px);
+
+    opacity: .9;
+}
+
+.btn-green {
+
+    background: var(--green);
+
+    color: white;
+}
+
+.btn-red {
+
+    background: var(--red);
+
+    color: white;
+}
+
+.btn-blue {
+
+    background: var(--blue);
+
+    color: white;
+}
+
+.btn-dark {
+
+    background: var(--navy);
+
+    color: white;
+}
+
+.btn-gold {
+
+    background: var(--gold);
+
+    color: var(--navy);
+}
+
+.btn-light {
+
+    background: #edf1f5;
+
+    color: var(--navy);
+}
+
+/* =========================
+   DOCTORS
+========================= */
+
+.doctor {
+
+    border: 1px solid #e7ebef;
+
+    border-radius: 16px;
+
+    padding: 16px;
+
+    margin-bottom: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+.doctor-avatar {
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--navy),
+            #26364e
+        );
+
+    color: var(--gold-light);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+
+    flex-shrink: 0;
+}
+
+.doctor-info {
+
+    flex: 1;
+}
+
+.doctor-info h4 {
+
+    font-size: 14px;
+
+    font-weight: 900;
+}
+
+.doctor-info p {
+
+    font-size: 11px;
+
+    color: var(--muted);
+
+    margin-top: 2px;
+}
+
+.doctor-meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    margin-top: 7px;
+}
+
+.meta {
+
+    background: #f1f4f7;
+
+    padding: 4px 7px;
+
+    border-radius: 7px;
+
+    font-size: 9px;
+
+    color: #5c6777;
+}
+
+.doctor-actions {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+.notification {
+
+    padding: 14px;
+
+    border: 1px solid #e7ebef;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 10px;
+}
+
+.notification-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 12px;
+
+    background: #fff4d9;
+
+    color: #9b7719;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+.notification strong {
+
+    display: block;
+
+    font-size: 13px;
+}
+
+.notification p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 3px;
+
+    line-height: 1.7;
+}
+
+.notification small {
+
+    color: #9aa3af;
+
+    font-size: 9px;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    color: var(--muted);
+}
+
+.empty i {
+
+    font-size: 38px;
+
+    margin-bottom: 10px;
+
+    opacity: .4;
+}
+
+.empty p {
+
+    font-size: 13px;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+
+    text-align: center;
+
+    padding: 30px;
+
+    color: var(--muted);
+}
+
+.loading i {
+
+    font-size: 25px;
+
+    animation:
+        spin 1s linear infinite;
+}
+
+@keyframes spin {
+
+    to {
+
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+
+    position: fixed;
+
+    bottom: 20px;
+
+    right: 50%;
+
+    transform:
+        translateX(50%)
+        translateY(100px);
+
+    background: var(--navy);
+
+    color: white;
+
+    padding: 13px 18px;
+
+    border-radius: 12px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    z-index: 9999;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.2);
+
+    transition: .3s;
+
+    opacity: 0;
+}
+
+.toast.show {
+
+    transform:
+        translateX(50%)
+        translateY(0);
+
+    opacity: 1;
+}
+
+.toast.success {
+
+    background: var(--green);
+}
+
+.toast.error {
+
+    background: var(--red);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .doctor {
+
+        align-items: flex-start;
+    }
+
+}
+
+@media (max-width: 520px) {
+
+    .container {
+
+        width: 94%;
+
+        margin-top: 18px;
+    }
+
+    .header {
+
+        padding: 13px;
+    }
+
+    .brand h1 {
+
+        font-size: 17px;
+    }
+
+    .logo {
+
+        width: 43px;
+
+        height: 43px;
+
+        font-size: 19px;
+    }
+
+    .stats {
+
+        gap: 10px;
+    }
+
+    .stat {
+
+        padding: 14px;
+
+        gap: 9px;
+    }
+
+    .stat-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+        font-size: 17px;
+    }
+
+    .stat-info strong {
+
+        font-size: 20px;
+    }
+
+    .stat-info span {
+
+        font-size: 10px;
+    }
+
+    .doctor {
+
+        display: block;
+
+        text-align: center;
+    }
+
+    .doctor-avatar {
+
+        margin: 0 auto 10px;
+    }
+
+    .doctor-info {
+
+        margin-bottom: 12px;
+    }
+
+    .doctor-actions {
+
+        flex-direction: row;
+
+        justify-content: center;
+    }
+
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0,0,0,.55);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 5000;
+}
+
+.modal.show {
+
+    display: flex;
+}
+
+.modal-box {
+
+    width: min(500px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.25);
+
+    animation:
+        modalIn .2s ease;
+}
+
+@keyframes modalIn {
+
+    from {
+
+        transform: scale(.95);
+
+        opacity: 0;
+    }
+
+    to {
+
+        transform: scale(1);
+
+        opacity: 1;
+    }
+}
+
+.modal-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.modal-header h3 {
+
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+.close {
+
+    border: none;
+
+    background: #f0f2f5;
+
+    width: 35px;
+
+    height: 35px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.form-group {
+
+    margin-bottom: 13px;
+}
+
+.form-group label {
+
+    display: block;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+
+    color: #566170;
+}
+
+.form-group input,
+.form-group select {
+
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border-radius: 10px;
+
+    border: 1px solid #dfe4ea;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    background: #fafbfc;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+
+    border-color: var(--gold);
+
+    background: white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="header-content">
+
+        <div class="brand">
+
+            <div class="logo">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+            <div>
+
+                <h1>
+                    TABIBK
+                </h1>
+
+                <span>
+                    لوحة الإدارة
+                </span>
+
+            </div>
+
+        </div>
+
+        <button
+            class="refresh-btn"
+            onclick="refreshAll()"
+            title="تحديث"
+        >
+
+            <i class="fa-solid fa-rotate"></i>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+    <div class="page-title">
+
+        <h2>
+            لوحة التحكم
+        </h2>
+
+        <p>
+            إدارة نظام حجز المواعيد الطبية
+        </p>
+
+    </div>
+
+
+    <!-- ================= STATS ================= -->
+
+    <section class="stats">
+
+        <div class="stat">
+
+            <div class="stat-icon blue">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+            </div>
+
+            <div class="stat-info">
+
+                <strong id="totalAppointments">
+                    0
+                </strong>
+
+                <span>
+                    إجمالي المواعيد
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon orange">
+
+                <i class="fa-solid fa-clock"></i>
+
+            </div>
+
+            <div class="stat-info">
+
+                <strong id="pendingAppointments">
+                    0
+                </strong>
+
+                <span>
+                    قيد الانتظار
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon green">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+
+            <div class="stat-info">
+
+                <strong id="confirmedAppointments">
+                    0
+                </strong>
+
+                <span>
+                    مؤكدة
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon red">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+            </div>
+
+            <div class="stat-info">
+
+                <strong id="totalDoctors">
+                    0
+                </strong>
+
+                <span>
+                    الأطباء
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= TABS ================= -->
+
+    <div class="tabs">
+
+        <button
+            class="tab active"
+            onclick="showPanel('appointments', this)"
+        >
+
+            <i class="fa-solid fa-calendar-days"></i>
+
+            المواعيد
+
+        </button>
+
+
+        <button
+            class="tab"
+            onclick="showPanel('doctors', this)"
+        >
+
+            <i class="fa-solid fa-user-doctor"></i>
+
+            الأطباء
+
+        </button>
+
+
+        <button
+            class="tab"
+            onclick="showPanel('notifications', this)"
+        >
+
+            <i class="fa-solid fa-bell"></i>
+
+            الإشعارات
+
+        </button>
+
+    </div>
+
+
+    <!-- ================= APPOINTMENTS ================= -->
+
+    <section
+        id="appointmentsPanel"
+        class="panel active"
+    >
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h3>
+                        جميع المواعيد
+                    </h3>
+
+                    <p>
+                        متابعة وإدارة حجوزات المرضى
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    id="appointmentSearch"
+                    type="search"
+                    placeholder="ابحث باسم المريض أو رقم الحجز..."
+                    oninput="filterAppointments()"
+                >
+
+            </div>
+
+
+            <div id="appointmentsList">
+
+                <div class="loading">
+
+                    <i class="fa-solid fa-spinner"></i>
+
+                    <p>
+                        جاري تحميل المواعيد...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DOCTORS ================= -->
+
+    <section
+        id="doctorsPanel"
+        class="panel"
+    >
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h3>
+                        إدارة الأطباء
+                    </h3>
+
+                    <p>
+                        الأطباء المسجلون في TABIBK
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="doctorsList">
+
+                <div class="loading">
+
+                    <i class="fa-solid fa-spinner"></i>
+
+                    <p>
+                        جاري تحميل الأطباء...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= NOTIFICATIONS ================= -->
+
+    <section
+        id="notificationsPanel"
+        class="panel"
+    >
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h3>
+                        الإشعارات
+                    </h3>
+
+                    <p>
+                        آخر إشعارات النظام
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="notificationsList">
+
+                <div class="loading">
+
+                    <i class="fa-solid fa-spinner"></i>
+
+                    <p>
+                        جاري تحميل الإشعارات...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= MODAL ================= -->
+
+<div
+    class="modal"
+    id="doctorModal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                معلومات الطبيب
+            </h3>
+
+            <button
+                class="close"
+                onclick="closeDoctorModal()"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div id="doctorModalContent">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div
+    id="toast"
+    class="toast"
+>
+</div>
+
+
+<script>
+
+/* =====================================================
+   TABIBK ADMIN
+===================================================== */
+
+const API = "";
+
+
+/* =====================================================
+   GLOBAL DATA
+===================================================== */
+
+let appointments = [];
+
+let doctors = [];
+
+let notifications = [];
+
+
+/* =====================================================
+   PANEL
+===================================================== */
+
+function showPanel(name, button) {
+
+    document
+        .querySelectorAll(".panel")
+        .forEach(panel => {
+
+            panel.classList.remove("active");
+
+        });
+
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(tab => {
+
+            tab.classList.remove("active");
+
+        });
+
+
+    const panel =
+        document.getElementById(
+            name + "Panel"
+        );
+
+
+    if (panel) {
+
+        panel.classList.add("active");
+
+    }
+
+
+    if (button) {
+
+        button.classList.add("active");
+
+    }
+
+
+    if (name === "appointments") {
+
+        loadAppointments();
+
+    }
+
+
+    if (name === "doctors") {
+
+        loadDoctors();
+
+    }
+
+
+    if (name === "notifications") {
+
+        loadNotifications();
+
+    }
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message, type = "success") {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.className =
+        "toast show " + type;
+
+
+    setTimeout(() => {
+
+        toast.className = "toast";
+
+    }, 2500);
+
+}
+
+
+/* =====================================================
+   API HELPER
+===================================================== */
+
+async function apiFetch(url, options = {}) {
+
+    const response =
+        await fetch(
+            API + url,
+            options
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.message ||
+            "حدث خطأ في السيرفر"
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =====================================================
+   LOAD ALL
+===================================================== */
+
+async function refreshAll() {
+
+    const icon =
+        document.querySelector(
+            ".refresh-btn i"
+        );
+
+
+    icon.classList.add("fa-spin");
+
+
+    try {
+
+        await Promise.all([
+            loadAppointments(),
+            loadDoctors(),
+            loadNotifications()
+        ]);
+
+
+        showToast(
+            "تم تحديث لوحة الإدارة بنجاح"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "تعذر تحديث البيانات",
+            "error"
+        );
+
+    }
+
+    finally {
+
+        setTimeout(() => {
+
+            icon.classList.remove("fa-spin");
+
+        }, 500);
+
+    }
+
+}
+
+
+/* =====================================================
+   APPOINTMENTS
+===================================================== */
+
+async function loadAppointments() {
+
+    const list =
+        document.getElementById(
+            "appointmentsList"
+        );
+
+
+    try {
+
+        /*
+         * السيرفر الحالي لا يحتوي على
+         * GET /api/appointments
+         *
+         * لذلك نحاول جلب البيانات من
+         * endpoint الإدارة إذا تم توفيره.
+         */
+
+        const data =
+            await apiFetch(
+                "/api/appointments"
+            );
+
+
+        appointments =
+            Array.isArray(data)
+                ? data
+                : (
+                    data.appointments ||
+                    []
+                );
+
+
+        renderAppointments();
+
+        updateStats();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        /*
+         * إذا كان endpoint غير موجود
+         * نعرض رسالة واضحة بدلاً من كسر الصفحة.
+         */
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-calendar-xmark"></i>
+
+                <p>
+                    لا يمكن تحميل المواعيد من لوحة الإدارة حالياً.
+                </p>
+
+                <small>
+                    سيتم تفعيل إدارة جميع المواعيد من السيرفر في الخطوة التالية.
+                </small>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER APPOINTMENTS
+===================================================== */
+
+function renderAppointments(data = appointments) {
+
+    const list =
+        document.getElementById(
+            "appointmentsList"
+        );
+
+
+    if (!data.length) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-calendar-xmark"></i>
+
+                <p>
+                    لا توجد مواعيد
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        data
+        .slice()
+        .reverse()
+        .map(
+            appointment =>
+                appointmentHTML(
+                    appointment
+                )
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   APPOINTMENT HTML
+===================================================== */
+
+function appointmentHTML(a) {
+
+    const status =
+        a.status || "pending";
+
+
+    const statusText =
+        getStatusText(status);
+
+
+    const booking =
+        a.bookingNumber ||
+        a.booking ||
+        "بدون رقم";
+
+
+    const patient =
+        a.patientName ||
+        "مريض";
+
+
+    const phone =
+        a.patientPhone ||
+        "غير متوفر";
+
+
+    const reason =
+        a.reason ||
+        a.visitReason ||
+        "غير محدد";
+
+
+    const queue =
+        a.queueNumber ||
+        "-";
+
+
+    const doctor =
+        a.doctorName ||
+        findDoctorName(
+            a.doctorId
+        );
+
+
+    return `
+
+        <div
+            class="appointment"
+            data-search="
+                ${escapeHTML(patient)}
+                ${escapeHTML(booking)}
+                ${escapeHTML(phone)}
+            "
+        >
+
+            <div class="appointment-top">
+
+                <div class="patient">
+
+                    <div class="patient-icon">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            ${escapeHTML(patient)}
+                        </strong>
+
+                        <span>
+                            ${escapeHTML(phone)}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <span class="booking">
+
+                    ${escapeHTML(booking)}
+
+                </span>
+
+            </div>
+
+
+            <div class="details">
+
+                <div class="detail">
+
+                    <small>
+                        الطبيب
+                    </small>
+
+                    <strong>
+                        ${escapeHTML(doctor)}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <small>
+                        رقم الدور
+                    </small>
+
+                    <strong>
+                        ${escapeHTML(String(queue))}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <small>
+                        سبب الزيارة
+                    </small>
+
+                    <strong>
+                        ${escapeHTML(reason)}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <small>
+                        الحالة
+                    </small>
+
+                    <span class="status ${status}">
+
+                        ${statusIcon(status)}
+
+                        ${statusText}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="actions">
+
+                ${appointmentActions(a)}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+function appointmentActions(a) {
+
+    const status =
+        a.status || "pending";
+
+
+    const booking =
+        a.bookingNumber;
+
+
+    let html = "";
+
+
+    if (
+        status === "pending" &&
+        booking
+    ) {
+
+        html += `
+
+            <button
+                class="btn btn-green"
+                onclick="
+                    changeAppointmentStatus(
+                        '${escapeJS(booking)}',
+                        'accept'
+                    )
+                "
+            >
+
+                <i class="fa-solid fa-check"></i>
+
+                قبول
+
+            </button>
+
+
+            <button
+                class="btn btn-red"
+                onclick="
+                    changeAppointmentStatus(
+                        '${escapeJS(booking)}',
+                        'reject'
+                    )
+                "
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+                رفض
+
+            </button>
+
+        `;
+
+    }
+
+
+    if (
+        status === "confirmed" &&
+        booking
+    ) {
+
+        html += `
+
+            <button
+                class="btn btn-blue"
+                onclick="
+                    changeAppointmentStatus(
+                        '${escapeJS(booking)}',
+                        'start'
+                    )
+                "
+            >
+
+                <i class="fa-solid fa-play"></i>
+
+                بدء الكشف
+
+            </button>
+
+        `;
+
+    }
+
+
+    if (
+        status === "in_progress" &&
+        booking
+    ) {
+
+        html += `
+
+            <button
+                class="btn btn-dark"
+                onclick="
+                    changeAppointmentStatus(
+                        '${escapeJS(booking)}',
+                        'complete'
+                    )
+                "
+            >
+
+                <i class="fa-solid fa-flag-checkered"></i>
+
+                إنهاء الكشف
+
+            </button>
+
+        `;
+
+    }
+
+
+    if (a.patientPhone) {
+
+        const phone =
+            String(
+                a.patientPhone
+            ).replace(
+                /[^0-9+]/g,
+                ""
+            );
+
+
+        html += `
+
+            <button
+                class="btn btn-light"
+                onclick="
+                    window.location.href =
+                    'tel:${escapeJS(phone)}'
+                "
+            >
+
+                <i class="fa-solid fa-phone"></i>
+
+                اتصال
+
+            </button>
+
+        `;
+
+    }
+
+
+    if (!html) {
+
+        html = `
+
+            <span
+                style="
+                    font-size:11px;
+                    color:#8b95a3;
+                "
+            >
+
+                لا توجد إجراءات
+
+            </span>
+
+        `;
+
+    }
+
+
+    return html;
+
+}
+
+
+/* =====================================================
+   CHANGE STATUS
+===================================================== */
+
+async function changeAppointmentStatus(
+    bookingNumber,
+    action
+) {
+
+    const messages = {
+
+        accept:
+            "هل تريد قبول هذا الموعد؟",
+
+        reject:
+            "هل تريد رفض هذا الموعد؟",
+
+        start:
+            "هل تريد بدء الكشف؟",
+
+        complete:
+            "هل تريد إنهاء الكشف؟"
+
+    };
+
+
+    if (
+        !confirm(
+            messages[action] ||
+            "هل أنت متأكد؟"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const endpoints = {
+
+        accept:
+            `/api/appointments/${encodeURIComponent(bookingNumber)}/accept`,
+
+        reject:
+            `/api/appointments/${encodeURIComponent(bookingNumber)}/reject`,
+
+        start:
+            `/api/appointments/${encodeURIComponent(bookingNumber)}/start`,
+
+        complete:
+            `/api/appointments/${encodeURIComponent(bookingNumber)}/complete`
+
+    };
+
+
+    try {
+
+        await apiFetch(
+            endpoints[action],
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                }
+            }
+        );
+
+
+        showToast(
+            "تم تحديث حالة الموعد بنجاح"
+        );
+
+
+        await loadAppointments();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showToast(
+            error.message ||
+            "حدث خطأ",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   DOCTORS
+===================================================== */
+
+async function loadDoctors() {
+
+    const list =
+        document.getElementById(
+            "doctorsList"
+        );
+
+
+    try {
+
+        const data =
+            await apiFetch(
+                "/api/doctors"
+            );
+
+
+        doctors =
+            Array.isArray(data)
+                ? data
+                : (
+                    data.doctors ||
+                    []
+                );
+
+
+        renderDoctors();
+
+        updateStats();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+                <p>
+                    تعذر تحميل الأطباء
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER DOCTORS
+===================================================== */
+
+function renderDoctors(data = doctors) {
+
+    const list =
+        document.getElementById(
+            "doctorsList"
+        );
+
+
+    if (!data.length) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+                <p>
+                    لا يوجد أطباء
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        data
+        .map(
+            doctor =>
+                doctorHTML(
+                    doctor
+                )
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   DOCTOR HTML
+===================================================== */
+
+function doctorHTML(d) {
+
+    const active =
+        d.status === "active";
+
+
+    const statusHTML =
+        active
+
+        ? `
+            <span
+                class="meta"
+                style="
+                    color:#13863d;
+                    background:#e7f8ee;
+                "
+            >
+                <i class="fa-solid fa-circle"></i>
+                نشط
+            </span>
+        `
+
+        : `
+            <span
+                class="meta"
+                style="
+                    color:#c32929;
+                    background:#ffe8e8;
+                "
+            >
+                <i class="fa-solid fa-circle"></i>
+                غير نشط
+            </span>
+        `;
+
+
+    return `
+
+        <div class="doctor">
+
+            <div class="doctor-avatar">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+            </div>
+
+
+            <div class="doctor-info">
+
+                <h4>
+
+                    ${escapeHTML(
+                        d.name ||
+                        "طبيب"
+                    )}
+
+                </h4>
+
+
+                <p>
+
+                    ${escapeHTML(
+                        d.specialty ||
+                        "تخصص غير محدد"
+                    )}
+
+                </p>
+
+
+                <div class="doctor-meta">
+
+                    <span class="meta">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        ${escapeHTML(
+                            d.municipality ||
+                            "-"
+                        )}
+
+                    </span>
+
+
+                    <span class="meta">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        ${escapeHTML(
+                            d.phone ||
+                            "-"
+                        )}
+
+                    </span>
+
+
+                    <span class="meta">
+
+                        <i class="fa-brands fa-whatsapp"></i>
+
+                        ${escapeHTML(
+                            d.whatsapp ||
+                            "-"
+                        )}
+
+                    </span>
+
+
+                    ${statusHTML}
+
+                </div>
+
+            </div>
+
+
+            <div class="doctor-actions">
+
+                <button
+                    class="btn btn-gold"
+                    onclick="
+                        openDoctorModal(
+                            ${Number(d.id)}
+                        )
+                    "
+                >
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    عرض
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   DOCTOR MODAL
+===================================================== */
+
+function openDoctorModal(id) {
+
+    const doctor =
+        doctors.find(
+            d =>
+                Number(d.id) ===
+                Number(id)
+        );
+
+
+    if (!doctor) {
+
+        return;
+
+    }
+
+
+    const content =
+        document.getElementById(
+            "doctorModalContent"
+        );
+
+
+    content.innerHTML = `
+
+        <div
+            style="
+                text-align:center;
+                margin-bottom:20px;
+            "
+        >
+
+            <div
+                class="doctor-avatar"
+                style="
+                    margin:auto;
+                    width:70px;
+                    height:70px;
+                    font-size:28px;
+                "
+            >
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+            </div>
+
+            <h3
+                style="
+                    margin-top:10px;
+                    font-size:18px;
+                "
+            >
+
+                ${escapeHTML(
+                    doctor.name ||
+                    "طبيب"
+                )}
+
+            </h3>
+
+            <p
+                style="
+                    color:#788396;
+                    font-size:12px;
+                "
+            >
+
+                ${escapeHTML(
+                    doctor.specialty ||
+                    "-"
+                )}
+
+            </p>
+
+        </div>
+
+
+        <div class="details">
+
+            <div class="detail">
+
+                <small>
+                    الولاية
+                </small>
+
+                <strong>
+                    ${escapeHTML(
+                        doctor.wilaya ||
+                        "-"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <small>
+                    البلدية
+                </small>
+
+                <strong>
+                    ${escapeHTML(
+                        doctor.municipality ||
+                        "-"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <small>
+                    الهاتف
+                </small>
+
+                <strong>
+                    ${escapeHTML(
+                        doctor.phone ||
+                        "-"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <small>
+                    واتساب
+                </small>
+
+                <strong>
+                    ${escapeHTML(
+                        doctor.whatsapp ||
+                        "-"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <small>
+                    مدة الكشف
+                </small>
+
+                <strong>
+                    ${escapeHTML(
+                        String(
+                            doctor.consultationDuration ||
+                            "-"
+                        )
+                    )}
+                    دقيقة
+                </strong>
+
+            </div>
+
+
+            <div class="detail">
+
+                <small>
+                    الحالة
+                </small>
+
+                <strong>
+
+                    ${
+                        doctor.status === "active"
+                        ? "نشط"
+                        : "غير نشط"
+                    }
+
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="btn btn-light"
+            style="
+                width:100%;
+                margin-top:10px;
+            "
+            onclick="closeDoctorModal()"
+        >
+
+            إغلاق
+
+        </button>
+
+    `;
+
+
+    document
+        .getElementById("doctorModal")
+        .classList.add("show");
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeDoctorModal() {
+
+    document
+        .getElementById("doctorModal")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+async function loadNotifications() {
+
+    const list =
+        document.getElementById(
+            "notificationsList"
+        );
+
+
+    try {
+
+        const data =
+            await apiFetch(
+                "/api/notifications"
+            );
+
+
+        notifications =
+            Array.isArray(data)
+                ? data
+                : (
+                    data.notifications ||
+                    []
+                );
+
+
+        renderNotifications();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-bell-slash"></i>
+
+                <p>
+                    تعذر تحميل الإشعارات
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER NOTIFICATIONS
+===================================================== */
+
+function renderNotifications() {
+
+    const list =
+        document.getElementById(
+            "notificationsList"
+        );
+
+
+    if (!notifications.length) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <p>
+                    لا توجد إشعارات
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        notifications
+        .slice()
+        .reverse()
+        .map(
+            n =>
+                notificationHTML(n)
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   NOTIFICATION HTML
+===================================================== */
+
+function notificationHTML(n) {
+
+    const title =
+        n.title ||
+        notificationTitle(
+            n.type
+        );
+
+
+    const message =
+        n.message ||
+        "إشعار من نظام TABIBK";
+
+
+    return `
+
+        <div class="notification">
+
+            <div class="notification-icon">
+
+                <i class="fa-solid fa-bell"></i>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+
+                    ${escapeHTML(
+                        title
+                    )}
+
+                </strong>
+
+
+                <p>
+
+                    ${escapeHTML(
+                        message
+                    )}
+
+                </p>
+
+
+                <small>
+
+                    ${
+                        n.createdAt
+                        ? formatDate(
+                            n.createdAt
+                        )
+                        : ""
+                    }
+
+                </small>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   FILTER APPOINTMENTS
+===================================================== */
+
+function filterAppointments() {
+
+    const input =
+        document.getElementById(
+            "appointmentSearch"
+        );
+
+
+    const query =
+        input.value
+        .trim()
+        .toLowerCase();
+
+
+    const filtered =
+        appointments.filter(
+            a => {
+
+                const text = [
+
+                    a.patientName,
+
+                    a.patientPhone,
+
+                    a.bookingNumber,
+
+                    a.doctorName,
+
+                    a.reason
+
+                ]
+                .filter(Boolean)
+                .join(" ")
+                .toLowerCase();
+
+
+                return text.includes(
+                    query
+                );
+
+            }
+        );
+
+
+    renderAppointments(
+        filtered
+    );
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function updateStats() {
+
+    const total =
+        appointments.length;
+
+
+    const pending =
+        appointments.filter(
+            a =>
+                a.status === "pending"
+        ).length;
+
+
+    const confirmed =
+        appointments.filter(
+            a =>
+                a.status === "confirmed"
+        ).length;
+
+
+    document
+        .getElementById(
+            "totalAppointments"
+        )
+        .textContent = total;
+
+
+    document
+        .getElementById(
+            "pendingAppointments"
+        )
+        .textContent = pending;
+
+
+    document
+        .getElementById(
+            "confirmedAppointments"
+        )
+        .textContent = confirmed;
+
+
+    document
+        .getElementById(
+            "totalDoctors"
+        )
+        .textContent =
+            doctors.length;
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function getStatusText(status) {
+
+    const statuses = {
+
+        pending:
+            "قيد الانتظار",
+
+        confirmed:
+            "مؤكد",
+
+        in_progress:
+            "جاري الكشف",
+
+        completed:
+            "مكتمل",
+
+        rejected:
+            "مرفوض"
+
+    };
+
+
+    return (
+        statuses[status] ||
+        status
+    );
+
+}
+
+
+function statusIcon(status) {
+
+    const icons = {
+
+        pending:
+            '<i class="fa-solid fa-clock"></i>',
+
+        confirmed:
+            '<i class="fa-solid fa-check"></i>',
+
+        in_progress:
+            '<i class="fa-solid fa-stethoscope"></i>',
+
+        completed:
+            '<i class="fa-solid fa-flag-checkered"></i>',
+
+        rejected:
+            '<i class="fa-solid fa-xmark"></i>'
+
+    };
+
+
+    return (
+        icons[status] ||
+        '<i class="fa-solid fa-circle"></i>'
+    );
+
+}
+
+
+function notificationTitle(type) {
+
+    const titles = {
+
+        new_appointment:
+            "موعد جديد",
+
+        appointment_confirmed:
+            "تم تأكيد الموعد",
+
+        appointment_rejected:
+            "تم رفض الموعد",
+
+        appointment_started:
+            "بدأ الكشف",
+
+        appointment_completed:
+            "اكتمل الكشف"
+
+    };
+
+
+    return (
+        titles[type] ||
+        "إشعار جديد"
+    );
+
+}
+
+
+function findDoctorName(id) {
+
+    const doctor =
+        doctors.find(
+            d =>
+                Number(d.id) ===
+                Number(id)
+        );
+
+
+    return doctor
+        ? doctor.name
+        : "طبيب غير معروف";
+
+}
+
+
+function formatDate(date) {
+
+    try {
+
+        return new Date(date)
+            .toLocaleString(
+                "ar-DZ"
+            );
+
+    }
+
+    catch {
+
+        return "";
+
+    }
+
+}
+
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+function escapeJS(value) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /'/g,
+        "\\'"
+    )
+    .replace(
+        /"/g,
+        '\\"'
+    );
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL WHEN CLICK OUTSIDE
+===================================================== */
+
+document
+    .getElementById("doctorModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === this
+            ) {
+
+                closeDoctorModal();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadAppointments();
+
+        loadDoctors();
+
+        loadNotifications();
+
+    }
+);
+
+
+/* =====================================================
+   AUTO REFRESH
+===================================================== */
+
+setInterval(
+    () => {
+
+        loadAppointments();
+
+        loadDoctors();
+
+        loadNotifications();
+
+    },
+    10000
+);
+
+</script>
+
+</body>
+
+                  </html>

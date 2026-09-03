@@ -1595,141 +1595,94 @@ let notifications = [];
 
 /* =====================================================
    LOGIN
-===================================================== */
-
+===================================================== */t
 async function adminLogin() {
 
-    const input =
-        document.getElementById(
-            "adminKey"
-        );
+    const input = document.getElementById("adminKey");
+    const button = document.getElementById("loginButton");
+    const errorBox = document.getElementById("loginError");
 
-    const button =
-        document.getElementById(
-            "loginButton"
-        );
+    const key = input.value.trim();
 
-    const error =
-        document.getElementById(
-            "loginError"
-        );
-
-
-    const key =
-        input.value.trim();
-
-
-    error.classList.remove("show");
-
+    errorBox.classList.remove("show");
+    errorBox.textContent = "";
 
     if (!key) {
 
-        error.textContent =
-            "أدخل كلمة مرور الإدارة";
+        errorBox.textContent =
+            "⚠️ أدخل كلمة مرور الإدارة";
 
-        error.classList.add("show");
+        errorBox.classList.add("show");
 
         return;
-
     }
-
 
     button.disabled = true;
 
     button.innerHTML =
         '<i class="fa-solid fa-spinner fa-spin"></i> جاري التحقق...';
 
-
     try {
 
-        const response =
-            await fetch(
-                API + "/api/admin/login",
-                {
-                    method: "POST",
+        const response = await fetch(
+            "/api/admin/login",
+            {
+                method: "POST",
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-                    body:
-                        JSON.stringify({
-                            key: key
-                        })
-                }
-            );
+                body: JSON.stringify({
+                    key: key
+                })
+            }
+        );
 
-
-        const data =
-            await response.json();
-
+        const data = await response.json();
 
         if (!response.ok || !data.success) {
 
             throw new Error(
                 data.message ||
-                "كلمة السر غير صحيحة"
+                "كلمة المرور غير صحيحة"
             );
-
         }
-
-
-        /*
-         * نخزن المفتاح في الذاكرة فقط.
-         * لا نحفظه في localStorage.
-         */
 
         ADMIN_KEY = key;
 
+        document.getElementById(
+            "loginScreen"
+        ).style.display = "none";
 
-        document
-            .getElementById(
-                "loginScreen"
-            )
-            .style.display = "none";
-
-
-        document
-            .getElementById(
-                "adminApp"
-            )
-            .style.display = "block";
-
+        document.getElementById(
+            "adminApp"
+        ).style.display = "block";
 
         showToast(
             "تم تسجيل الدخول بنجاح"
         );
 
-
         await refreshAll();
 
-    }
+    } catch (err) {
 
-    catch (error) {
-
-        console.error(error);
-
-        error =
-            error.message ||
-            "تعذر تسجيل الدخول";
-
-        const errorBox =
-            document.getElementById(
-                "loginError"
-            );
+        console.error(err);
 
         errorBox.textContent =
-            error;
+            err.message ||
+            "❌ تعذر تسجيل الدخول";
 
-        errorBox.classList.add(
-            "show"
-        );
+        errorBox.classList.add("show");
 
+    } finally {
+
+        button.disabled = false;
+
+        button.innerHTML =
+            '<i class="fa-solid fa-right-to-bracket"></i> دخول لوحة الإدارة';
     }
-
-    finally {
-
+}
         button.disabled = false;
 
         button.innerHTML =

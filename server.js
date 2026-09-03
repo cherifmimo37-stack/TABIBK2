@@ -959,9 +959,7 @@ app.post(
 // NOTIFICATIONS
 // ==================================================
 
-app.get(
-    "/api/notifications",
-    (req, res) => {
+app.get("/api/notifications", checkAdminKey, (req, res) => {
 
         const database = readDatabase();
 

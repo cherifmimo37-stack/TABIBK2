@@ -1203,6 +1203,48 @@ app.post("/api/admin/login", (req, res) => {
 
 });
 
+
+// =====================================================
+// TABIBK ADMIN - DOCTORS
+// =====================================================
+
+app.get(
+    "/api/admin/doctors",
+    checkAdminKey,
+    (req, res) => {
+
+        try {
+
+            const database = readDatabase();
+
+            const doctors =
+                database.doctors || [];
+
+            res.json({
+                success: true,
+                count: doctors.length,
+                doctors
+            });
+
+        } catch (error) {
+
+            console.error(
+                "ADMIN DOCTORS ERROR:",
+                error
+            );
+
+            res.status(500).json({
+                success: false,
+                message:
+                    "حدث خطأ أثناء تحميل الأطباء"
+            });
+
+        }
+
+    }
+);
+
+
 // =====================================================
 // إحصائيات الإدارة
 // =====================================================

@@ -1063,9 +1063,7 @@ function checkAdminKey(req, res, next) {
 }
 
 // عرض جميع المواعيد للإدارة
-app.get("/api/appointments", (req, res) => {
-
-    try {
+app.get("/api/appointments", checkAdminKey, (req, res) => {
 
         const database = readDatabase();
 

@@ -1010,6 +1010,178 @@ app.get(
 // ==================================================
 // 404
 // ==================================================
+// =====================================================
+// TABIBK ADMIN API
+// =====================================================
+
+// عرض جميع المواعيد للإدارة
+app.get("/api/appointments", (req, res) => {
+
+    try {
+
+        const database = readDatabase();
+
+        const appointments =
+            database.appointments || [];
+
+        const doctors =
+            database.doctors || [];
+
+        const result =
+            appointments.map(appointment => {
+
+                const doctor =
+                    doctors.find(
+                        d =>
+                            Number(d.id) ===
+                            Number(appointment.doctorId)
+                    );
+
+                return {
+
+                    ...appointment,
+
+                    doctorName:
+                        doctor
+                            ? doctor.name
+                            : "طبيب غير معروف",
+
+                    doctorSpecialty:
+                        doctor
+                            ? doctor.specialty
+                            : ""
+
+                };
+
+            });
+
+
+        res.json({
+
+            success: true,
+
+            count: result.length,
+
+            appointments: result
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "ADMIN APPOINTMENTS ERROR:",
+            error
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "حدث خطأ أثناء تحميل المواعيد"
+
+        });
+
+    }
+
+});
+
+
+// =====================================================
+// إحصائيات الإدارة
+// =====================================================
+
+app.get("/api/admin/stats", (req, res) => {
+
+    try {
+
+        const database = readDatabase();
+
+        const appointments =
+            database.appointments || [];
+
+        const doctors =
+            database.doctors || [];
+
+
+        const stats = {
+
+            totalAppointments:
+                appointments.length,
+
+            pending:
+                appointments.filter(
+                    a =>
+                        a.status === "pending"
+                ).length,
+
+            confirmed:
+                appointments.filter(
+                    a =>
+                        a.status === "confirmed"
+                ).length,
+
+            inProgress:
+                appointments.filter(
+                    a =>
+                        a.status === "in_progress"
+                ).length,
+
+            completed:
+                appointments.filter(
+                    a =>
+                        a.status === "completed"
+                ).length,
+
+            rejected:
+                appointments.filter(
+                    a =>
+                        a.status === "rejected"
+                ).length,
+
+            totalDoctors:
+                doctors.length,
+
+            activeDoctors:
+                doctors.filter(
+                    d =>
+                        d.status === "active"
+                ).length
+
+        };
+
+
+        res.json({
+
+            success: true,
+
+            stats
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "ADMIN STATS ERROR:",
+            error
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "حدث خطأ أثناء تحميل الإحصائيات"
+
+        });
+
+    }
+
+});
 
 app.use(
     (req, res) => {

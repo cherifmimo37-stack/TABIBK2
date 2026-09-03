@@ -1211,7 +1211,7 @@ app.post("/api/admin/login", (req, res) => {
 // إحصائيات الإدارة
 // =====================================================
 
-app.get("/api/admin/stats", (req, res) => {
+app.get("/api/admin/stats", checkAdminKey, (req, res) => {
 
     try {
 

@@ -1138,6 +1138,76 @@ app.get("/api/appointments", (req, res) => {
 
 
 // =====================================================
+// ADMIN LOGIN
+// =====================================================
+
+app.post("/api/admin/login", (req, res) => {
+
+    try {
+
+        const { key } = req.body;
+
+        const serverKey =
+            process.env.ADMIN_KEY;
+
+        if (!serverKey) {
+
+            return res.status(500).json({
+
+                success: false,
+
+                message:
+                    "ADMIN_KEY غير مضبوط في السيرفر"
+
+            });
+
+        }
+
+        if (!key || key !== serverKey) {
+
+            return res.status(401).json({
+
+                success: false,
+
+                message:
+                    "كلمة السر غير صحيحة"
+
+            });
+
+        }
+
+        res.json({
+
+            success: true,
+
+            message:
+                "تم تسجيل الدخول بنجاح"
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "ADMIN LOGIN ERROR:",
+            error
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "حدث خطأ أثناء تسجيل الدخول"
+
+        });
+
+    }
+
+});
+
+// =====================================================
 // إحصائيات الإدارة
 // =====================================================
 

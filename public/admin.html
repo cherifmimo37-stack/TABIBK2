@@ -12,10 +12,10 @@
 
 <meta
     name="theme-color"
-    content="#101827"
+    content="#101820"
 >
 
-<title>TABIBK | الإدارة</title>
+<title>TABIBK | لوحة الإدارة</title>
 
 <link
     rel="preconnect"
@@ -38,34 +38,60 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 >
 
+
 <style>
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+/* =====================================================
+   VARIABLES
+===================================================== */
 
 :root {
 
-    --gold: #d4af37;
-    --gold-light: #f5d76e;
+    --navy: #101820;
 
-    --navy: #101827;
-    --navy-2: #172235;
+    --navy-2: #182532;
+
+    --gold: #d4af37;
+
+    --gold-light: #f4d76a;
 
     --white: #ffffff;
 
-    --bg: #f3f5f8;
+    --bg: #f4f6f8;
 
-    --text: #1d2635;
-    --muted: #788396;
+    --card: #ffffff;
 
-    --green: #16a34a;
-    --red: #dc2626;
-    --blue: #2563eb;
-    --orange: #d48806;
+    --text: #17202a;
+
+    --muted: #7c8794;
+
+    --green: #20a464;
+
+    --red: #dc3545;
+
+    --orange: #f39c12;
+
+    --blue: #2878d7;
+
+    --border: #e3e7eb;
+
 }
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
 
 body {
 
@@ -76,6 +102,23 @@ body {
     color: var(--text);
 
     min-height: 100vh;
+
+}
+
+
+button,
+input,
+select {
+
+    font-family: inherit;
+
+}
+
+
+button {
+
+    cursor: pointer;
+
 }
 
 
@@ -83,7 +126,7 @@ body {
    LOGIN
 ===================================================== */
 
-#loginScreen {
+.login-page {
 
     min-height: 100vh;
 
@@ -98,9 +141,10 @@ body {
     background:
         radial-gradient(
             circle at top,
-            #263653,
-            #101827 65%
+            #263746,
+            var(--navy)
         );
+
 }
 
 
@@ -110,35 +154,36 @@ body {
 
     max-width: 420px;
 
-    background: rgba(255,255,255,.97);
+    background: white;
 
-    border-radius: 25px;
+    border-radius: 24px;
 
-    padding: 30px 24px;
+    padding: 30px;
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,.35);
+        0 25px 80px rgba(0,0,0,.35);
 
-    text-align: center;
 }
 
 
-.login-logo {
+.logo {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+
+}
+
+
+.logo-icon {
 
     width: 75px;
 
     height: 75px;
 
-    margin: 0 auto 15px;
-
     border-radius: 22px;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--gold-light),
-            var(--gold)
-        );
+    margin: auto;
 
     display: flex;
 
@@ -146,44 +191,108 @@ body {
 
     justify-content: center;
 
-    color: var(--navy);
+    background: var(--navy);
+
+    color: var(--gold-light);
 
     font-size: 32px;
 
     box-shadow:
-        0 10px 25px rgba(212,175,55,.25);
+        0 12px 30px rgba(16,24,32,.25);
+
 }
 
 
-.login-box h1 {
+.logo h1 {
+
+    margin-top: 12px;
+
+    color: var(--navy);
 
     font-size: 25px;
 
     font-weight: 900;
 
-    color: var(--navy);
 }
 
 
-.subtitle {
+.logo p {
 
     color: var(--muted);
 
-    font-size: 12px;
+    font-size: 11px;
 
-    margin: 4px 0 25px;
 }
 
 
-.input-group {
+.login-title {
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+.login-title h2 {
+
+    font-size: 17px;
+
+    color: var(--navy);
+
+}
+
+
+.login-title p {
+
+    font-size: 10px;
+
+    color: var(--muted);
+
+    margin-top: 4px;
+
+}
+
+
+.password-wrapper {
 
     position: relative;
 
-    margin-bottom: 14px;
 }
 
 
-.input-group > i {
+.password-wrapper input {
+
+    width: 100%;
+
+    border: 1px solid var(--border);
+
+    background: #f8fafc;
+
+    border-radius: 13px;
+
+    padding: 14px 45px 14px 45px;
+
+    outline: none;
+
+    font-size: 12px;
+
+}
+
+
+.password-wrapper input:focus {
+
+    border-color: var(--gold);
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px rgba(212,175,55,.12);
+
+}
+
+
+.password-wrapper > i {
 
     position: absolute;
 
@@ -195,45 +304,14 @@ body {
 
     color: var(--muted);
 
-    z-index: 2;
 }
 
 
-.input-group input {
-
-    width: 100%;
-
-    padding: 14px 45px 14px 45px;
-
-    border: 1px solid #dfe4ea;
-
-    border-radius: 13px;
-
-    outline: none;
-
-    font-family: inherit;
-
-    font-size: 13px;
-
-    background: #f8fafc;
-
-    text-align: right;
-}
-
-
-.input-group input:focus {
-
-    border-color: var(--gold);
-
-    background: white;
-}
-
-
-.show-password {
+.password-toggle {
 
     position: absolute;
 
-    left: 13px;
+    left: 10px;
 
     top: 50%;
 
@@ -245,139 +323,68 @@ body {
 
     color: var(--muted);
 
-    cursor: pointer;
-
-    font-size: 15px;
-
-    z-index: 3;
 }
 
 
-.login-btn {
+.login-button {
 
     width: 100%;
 
     border: none;
 
-    padding: 14px;
-
     border-radius: 13px;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--gold-light),
-            var(--gold)
-        );
+    padding: 14px;
 
-    color: var(--navy);
+    margin-top: 14px;
 
-    font-family: inherit;
+    background: var(--navy);
 
-    font-size: 14px;
+    color: var(--gold-light);
 
     font-weight: 900;
 
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 20px rgba(212,175,55,.2);
-
-    transition: .2s;
-}
-
-
-.login-btn:hover {
-
-    transform: translateY(-1px);
+    font-size: 12px;
 
 }
 
 
-.login-btn:active {
+.login-button:active {
 
     transform: scale(.98);
 
 }
 
 
-.login-btn:disabled {
+/* =====================================================
+   APP
+===================================================== */
 
-    opacity: .7;
-
-    cursor: wait;
-
-}
-
-
-.login-error {
+.admin-app {
 
     display: none;
 
-    background: #ffe8e8;
-
-    color: #c32929;
-
-    border-radius: 10px;
-
-    padding: 10px;
-
-    margin-bottom: 12px;
-
-    font-size: 11px;
-
-    font-weight: 700;
 }
 
 
-.login-error.show {
+.admin-app.show {
 
     display: block;
-}
 
-
-.security-note {
-
-    margin-top: 18px;
-
-    color: #9aa3af;
-
-    font-size: 10px;
-}
-
-
-.security-note i {
-
-    color: var(--green);
-
-    margin-left: 4px;
 }
 
 
 /* =====================================================
-   ADMIN APP
+   HEADER
 ===================================================== */
-
-#adminApp {
-
-    display: none;
-
-    min-height: 100vh;
-}
-
 
 .header {
 
-    background:
-        linear-gradient(
-            135deg,
-            #0d1421,
-            #172235
-        );
+    background: var(--navy);
 
     color: white;
 
-    padding: 15px;
+    padding: 18px 20px;
 
     position: sticky;
 
@@ -386,11 +393,12 @@ body {
     z-index: 1000;
 
     box-shadow:
-        0 5px 20px rgba(0,0,0,.18);
+        0 5px 25px rgba(0,0,0,.15);
+
 }
 
 
-.header-content {
+.header-inner {
 
     max-width: 1200px;
 
@@ -401,6 +409,9 @@ body {
     align-items: center;
 
     justify-content: space-between;
+
+    gap: 15px;
+
 }
 
 
@@ -410,11 +421,12 @@ body {
 
     align-items: center;
 
-    gap: 11px;
+    gap: 12px;
+
 }
 
 
-.logo {
+.brand-icon {
 
     width: 45px;
 
@@ -422,30 +434,27 @@ body {
 
     border-radius: 13px;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--gold-light),
-            var(--gold)
-        );
-
     display: flex;
 
     align-items: center;
 
     justify-content: center;
 
-    color: var(--navy);
+    background: rgba(212,175,55,.15);
+
+    color: var(--gold-light);
 
     font-size: 20px;
+
 }
 
 
 .brand h1 {
 
-    font-size: 18px;
+    font-size: 17px;
 
     font-weight: 900;
+
 }
 
 
@@ -453,9 +462,10 @@ body {
 
     display: block;
 
-    color: #c8d0dc;
+    color: #b9c3cc;
 
-    font-size: 10px;
+    font-size: 9px;
+
 }
 
 
@@ -464,10 +474,11 @@ body {
     display: flex;
 
     gap: 7px;
+
 }
 
 
-.header-btn {
+.header-button {
 
     width: 40px;
 
@@ -477,51 +488,32 @@ body {
 
     border-radius: 11px;
 
-    background: rgba(255,255,255,.1);
+    background: rgba(255,255,255,.08);
 
     color: white;
 
-    cursor: pointer;
 }
 
 
-.header-btn:hover {
+.header-button:hover {
 
-    background: var(--gold);
+    background: rgba(255,255,255,.15);
 
-    color: var(--navy);
 }
 
+
+/* =====================================================
+   CONTAINER
+===================================================== */
 
 .container {
 
-    width: min(1200px, 94%);
+    width: min(1200px, 100%);
 
-    margin: 24px auto 50px;
-}
+    margin: auto;
 
+    padding: 20px;
 
-.page-title {
-
-    margin-bottom: 18px;
-}
-
-
-.page-title h2 {
-
-    font-size: 24px;
-
-    font-weight: 900;
-
-    color: var(--navy);
-}
-
-
-.page-title p {
-
-    font-size: 12px;
-
-    color: var(--muted);
 }
 
 
@@ -529,45 +521,44 @@ body {
    STATS
 ===================================================== */
 
-.stats {
+.stats-grid {
 
     display: grid;
 
     grid-template-columns:
-        repeat(4,1fr);
+        repeat(4, 1fr);
 
-    gap: 12px;
+    gap: 13px;
 
     margin-bottom: 20px;
+
 }
 
 
-.stat {
+.stat-card {
 
     background: white;
 
     border-radius: 17px;
 
-    padding: 16px;
+    padding: 17px;
 
-    box-shadow:
-        0 7px 25px rgba(16,24,39,.06);
+    border: 1px solid var(--border);
 
     display: flex;
 
     align-items: center;
 
-    gap: 10px;
+    gap: 13px;
 
-    border: 1px solid #e9edf2;
 }
 
 
 .stat-icon {
 
-    width: 45px;
+    width: 46px;
 
-    height: 45px;
+    height: 46px;
 
     border-radius: 13px;
 
@@ -576,58 +567,29 @@ body {
     align-items: center;
 
     justify-content: center;
+
+    background: #f2f4f6;
+
+    color: var(--navy);
+
 }
 
 
-.blue {
+.stat-card h3 {
 
-    background: #e8f0ff;
-
-    color: var(--blue);
-}
-
-
-.green {
-
-    background: #e7f8ee;
-
-    color: var(--green);
-}
-
-
-.orange {
-
-    background: #fff4dd;
-
-    color: var(--orange);
-}
-
-
-.red {
-
-    background: #ffe9e9;
-
-    color: var(--red);
-}
-
-
-.stat-info strong {
-
-    display: block;
-
-    font-size: 21px;
+    font-size: 20px;
 
     font-weight: 900;
 
-    color: var(--navy);
 }
 
 
-.stat-info span {
+.stat-card p {
 
     font-size: 9px;
 
     color: var(--muted);
+
 }
 
 
@@ -639,19 +601,12 @@ body {
 
     display: flex;
 
-    gap: 8px;
+    gap: 7px;
 
     overflow-x: auto;
 
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 
-    scrollbar-width: none;
-}
-
-
-.tabs::-webkit-scrollbar {
-
-    display: none;
 }
 
 
@@ -661,19 +616,20 @@ body {
 
     background: white;
 
-    color: #667085;
-
-    padding: 11px 16px;
+    border: 1px solid var(--border);
 
     border-radius: 12px;
 
-    font-family: inherit;
-
-    font-weight: 800;
+    padding: 10px 15px;
 
     white-space: nowrap;
 
-    cursor: pointer;
+    font-size: 10px;
+
+    font-weight: 800;
+
+    color: var(--muted);
+
 }
 
 
@@ -681,60 +637,63 @@ body {
 
     background: var(--navy);
 
-    color: white;
+    color: var(--gold-light);
+
+    border-color: var(--navy);
+
 }
 
+
+/* =====================================================
+   PANELS
+===================================================== */
 
 .panel {
 
     display: none;
+
 }
 
 
 .panel.active {
 
     display: block;
+
 }
 
 
-/* =====================================================
-   CARDS
-===================================================== */
+.panel-header {
 
-.card {
+    display: flex;
 
-    background: white;
+    align-items: center;
 
-    border-radius: 18px;
+    justify-content: space-between;
 
-    padding: 18px;
+    gap: 10px;
 
-    box-shadow:
-        0 7px 25px rgba(16,24,39,.06);
+    margin-bottom: 13px;
 
-    border: 1px solid #e9edf2;
 }
 
 
-.card-header {
+.panel-header h2 {
 
-    margin-bottom: 15px;
-}
-
-
-.card-header h3 {
-
-    font-size: 16px;
+    font-size: 17px;
 
     font-weight: 900;
+
+    color: var(--navy);
+
 }
 
 
-.card-header p {
+.panel-header p {
+
+    font-size: 9px;
 
     color: var(--muted);
 
-    font-size: 10px;
 }
 
 
@@ -747,6 +706,7 @@ body {
     position: relative;
 
     margin-bottom: 14px;
+
 }
 
 
@@ -754,13 +714,14 @@ body {
 
     position: absolute;
 
-    right: 13px;
+    right: 14px;
 
     top: 50%;
 
     transform: translateY(-50%);
 
     color: var(--muted);
+
 }
 
 
@@ -768,154 +729,197 @@ body {
 
     width: 100%;
 
-    border: 1px solid #e0e5eb;
+    border: 1px solid var(--border);
 
-    background: #f8fafc;
+    border-radius: 13px;
 
     padding: 12px 40px 12px 12px;
 
-    border-radius: 12px;
-
-    font-family: inherit;
-
     outline: none;
 
-    font-size: 12px;
+    background: white;
+
+    font-size: 11px;
+
+}
+
+
+.search-box input:focus {
+
+    border-color: var(--gold);
+
 }
 
 
 /* =====================================================
-   APPOINTMENTS
+   CARDS
 ===================================================== */
 
-.appointment {
+.list {
 
-    border: 1px solid #e6eaf0;
+    display: grid;
 
-    border-radius: 15px;
+    gap: 10px;
 
-    padding: 14px;
-
-    margin-bottom: 10px;
 }
 
 
-.appointment-top {
+.card {
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+    padding: 15px;
+
+}
+
+
+.card-top {
 
     display: flex;
+
+    align-items: center;
 
     justify-content: space-between;
 
-    gap: 8px;
+    gap: 10px;
+
 }
 
 
-.patient {
-
-    display: flex;
-
-    gap: 9px;
-
-    align-items: center;
-}
-
-
-.patient-icon {
-
-    width: 40px;
-
-    height: 40px;
-
-    border-radius: 12px;
-
-    background: #edf2f7;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-}
-
-
-.patient strong {
-
-    display: block;
+.card-title {
 
     font-size: 13px;
+
+    font-weight: 900;
+
+    color: var(--navy);
+
 }
 
 
-.patient span {
-
-    display: block;
+.card-subtitle {
 
     color: var(--muted);
 
-    font-size: 10px;
-}
-
-
-.booking {
-
-    background: #fff8df;
-
-    color: #8a6910;
-
-    padding: 5px 8px;
-
-    border-radius: 8px;
-
     font-size: 9px;
 
-    height: fit-content;
+    margin-top: 3px;
+
 }
 
 
-.details {
+.card-info {
 
     display: grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        repeat(2, 1fr);
 
-    gap: 7px;
+    gap: 8px;
 
-    margin-top: 12px;
+    margin-top: 13px;
+
 }
 
 
-.detail {
+.info-item {
 
-    background: #f7f9fb;
+    background: #f7f9fa;
 
-    border-radius: 9px;
+    border-radius: 10px;
 
-    padding: 8px;
+    padding: 9px;
+
 }
 
 
-.detail small {
+.info-item small {
 
     display: block;
 
+    font-size: 8px;
+
     color: var(--muted);
 
-    font-size: 9px;
 }
 
 
-.detail strong {
+.info-item strong {
 
-    font-size: 11px;
+    display: block;
+
+    font-size: 10px;
+
+    margin-top: 2px;
+
 }
 
 
 .status {
 
-    font-size: 9px;
+    display: inline-flex;
 
-    font-weight: 800;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 30px;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+}
+
+
+.status.pending {
+
+    background: #fff4d7;
+
+    color: #9b6d00;
+
+}
+
+
+.status.confirmed {
+
+    background: #e1f7eb;
+
+    color: #14834d;
+
+}
+
+
+.status.in_progress {
+
+    background: #e1efff;
+
+    color: #1764ad;
+
+}
+
+
+.status.completed {
+
+    background: #e9ecef;
+
+    color: #53606b;
+
+}
+
+
+.status.rejected {
+
+    background: #ffe5e8;
+
+    color: #b42332;
+
 }
 
 
@@ -923,11 +927,12 @@ body {
 
     display: flex;
 
+    gap: 7px;
+
     flex-wrap: wrap;
 
-    gap: 6px;
+    margin-top: 13px;
 
-    margin-top: 10px;
 }
 
 
@@ -935,49 +940,14 @@ body {
 
     border: none;
 
-    border-radius: 9px;
+    border-radius: 10px;
 
-    padding: 8px 11px;
+    padding: 9px 12px;
 
-    font-family: inherit;
+    font-size: 9px;
 
-    font-size: 10px;
+    font-weight: 900;
 
-    font-weight: 800;
-
-    cursor: pointer;
-}
-
-
-.btn-green {
-
-    background: var(--green);
-
-    color: white;
-}
-
-
-.btn-red {
-
-    background: var(--red);
-
-    color: white;
-}
-
-
-.btn-blue {
-
-    background: var(--blue);
-
-    color: white;
-}
-
-
-.btn-dark {
-
-    background: var(--navy);
-
-    color: white;
 }
 
 
@@ -986,46 +956,73 @@ body {
     background: var(--gold);
 
     color: var(--navy);
+
+}
+
+
+.btn-dark {
+
+    background: var(--navy);
+
+    color: white;
+
+}
+
+
+.btn-green {
+
+    background: var(--green);
+
+    color: white;
+
+}
+
+
+.btn-red {
+
+    background: var(--red);
+
+    color: white;
+
 }
 
 
 .btn-light {
 
-    background: #edf1f5;
+    background: #edf1f4;
 
     color: var(--navy);
+
+}
+
+
+.btn:disabled {
+
+    opacity: .6;
+
+    cursor: not-allowed;
+
 }
 
 
 /* =====================================================
-   DOCTORS
+   DOCTOR
 ===================================================== */
 
-.doctor {
+.doctor-card {
 
-    border: 1px solid #e7ebef;
+    position: relative;
 
-    border-radius: 15px;
-
-    padding: 14px;
-
-    margin-bottom: 10px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
 }
 
 
 .doctor-avatar {
 
-    width: 50px;
+    width: 48px;
 
-    height: 50px;
+    height: 48px;
 
-    border-radius: 15px;
+    border-radius: 14px;
 
     background: var(--navy);
 
@@ -1039,246 +1036,21 @@ body {
 
     font-size: 20px;
 
-    flex-shrink: 0;
 }
 
 
-.doctor-info {
-
-    flex: 1;
-}
-
-
-.doctor-info h4 {
-
-    font-size: 13px;
-
-    font-weight: 900;
-}
-
-
-.doctor-info p {
-
-    color: var(--muted);
-
-    font-size: 10px;
-}
-
-
-.doctor-meta {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 5px;
-
-    margin-top: 5px;
-}
-
-
-.meta {
-
-    background: #f1f4f7;
-
-    padding: 3px 6px;
-
-    border-radius: 6px;
-
-    font-size: 8px;
-}
-
-
-/* =====================================================
-   NOTIFICATIONS
-===================================================== */
-
-.notification {
-
-    display: flex;
-
-    gap: 10px;
-
-    padding: 12px;
-
-    border: 1px solid #e7ebef;
-
-    border-radius: 13px;
-
-    margin-bottom: 9px;
-}
-
-
-.notification-icon {
-
-    width: 38px;
-
-    height: 38px;
-
-    border-radius: 11px;
-
-    background: #fff4d9;
-
-    color: #9b7719;
+.doctor-main {
 
     display: flex;
 
     align-items: center;
 
-    justify-content: center;
-
-    flex-shrink: 0;
-}
-
-
-.notification strong {
-
-    display: block;
-
-    font-size: 12px;
-}
-
-
-.notification p {
-
-    color: var(--muted);
-
-    font-size: 10px;
-
-    line-height: 1.7;
-}
-
-
-/* =====================================================
-   GENERAL
-===================================================== */
-
-.empty {
-
-    text-align: center;
-
-    padding: 35px 15px;
-
-    color: var(--muted);
-}
-
-
-.empty i {
-
-    font-size: 35px;
-
-    opacity: .4;
-
-    margin-bottom: 8px;
-}
-
-
-.empty p {
-
-    font-size: 12px;
-}
-
-
-.loading {
-
-    text-align: center;
-
-    padding: 25px;
-
-    color: var(--muted);
-}
-
-
-.loading i {
-
-    animation:
-        spin 1s linear infinite;
-}
-
-
-@keyframes spin {
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-
-.toast {
-
-    position: fixed;
-
-    bottom: 20px;
-
-    right: 50%;
-
-    transform:
-        translateX(50%)
-        translateY(100px);
-
-    opacity: 0;
-
-    background: var(--navy);
-
-    color: white;
-
-    padding: 12px 17px;
-
-    border-radius: 11px;
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-    z-index: 9999;
-
-    transition: .3s;
-}
-
-
-.toast.show {
-
-    opacity: 1;
-
-    transform:
-        translateX(50%)
-        translateY(0);
-}
-
-
-.toast.error {
-
-    background: var(--red);
-}
-
-
-@media(max-width:800px) {
-
-    .stats {
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
+    gap: 12px;
 
 }
 
 
-@media(max-width:520px) {
-
-    .doctor {
-
-        align-items: flex-start;
-    }
-
-    .doctor-actions {
-
-        display: flex;
-    }
-
-}
-
-
-    .add-doctor-btn {
+.add-doctor-btn {
 
     width: 100%;
 
@@ -1294,9 +1066,7 @@ body {
 
     color: var(--gold-light);
 
-    font-family: inherit;
-
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: 900;
 
@@ -1310,16 +1080,81 @@ body {
 
     gap: 8px;
 
-    transition: 0.2s;
 }
+
 
 .add-doctor-btn:active {
 
-    transform: scale(0.98);
+    transform: scale(.98);
+
 }
 
-    /* =====================================================
-   ADD DOCTOR MODAL
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+.notification {
+
+    display: flex;
+
+    gap: 12px;
+
+    align-items: flex-start;
+
+}
+
+
+.notification-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    border-radius: 12px;
+
+    background: #f3f5f7;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: var(--navy);
+
+}
+
+
+.notification-text {
+
+    flex: 1;
+
+}
+
+
+.notification-text strong {
+
+    font-size: 11px;
+
+}
+
+
+.notification-text p {
+
+    font-size: 9px;
+
+    color: var(--muted);
+
+    margin-top: 3px;
+
+}
+
+
+/* =====================================================
+   MODAL
 ===================================================== */
 
 .doctor-modal {
@@ -1341,6 +1176,7 @@ body {
     z-index: 9998;
 
     backdrop-filter: blur(5px);
+
 }
 
 
@@ -1370,8 +1206,8 @@ body {
     box-shadow:
         0 25px 80px rgba(0,0,0,.35);
 
-    animation:
-        doctorModalIn .2s ease;
+    animation: doctorModalIn .2s ease;
+
 }
 
 
@@ -1411,6 +1247,7 @@ body {
     gap: 10px;
 
     margin-bottom: 20px;
+
 }
 
 
@@ -1421,6 +1258,7 @@ body {
     font-size: 18px;
 
     font-weight: 900;
+
 }
 
 
@@ -1431,6 +1269,7 @@ body {
     font-size: 10px;
 
     margin-top: 3px;
+
 }
 
 
@@ -1451,6 +1290,7 @@ body {
     cursor: pointer;
 
     font-size: 15px;
+
 }
 
 
@@ -1471,6 +1311,7 @@ body {
         repeat(2, 1fr);
 
     gap: 13px;
+
 }
 
 
@@ -1485,12 +1326,14 @@ body {
     font-size: 10px;
 
     font-weight: 900;
+
 }
 
 
 .form-input {
 
     position: relative;
+
 }
 
 
@@ -1502,14 +1345,14 @@ body {
 
     top: 50%;
 
-    transform:
-        translateY(-50%);
+    transform: translateY(-50%);
 
     color: var(--muted);
 
     font-size: 13px;
 
     z-index: 2;
+
 }
 
 
@@ -1530,6 +1373,7 @@ body {
     font-size: 11px;
 
     outline: none;
+
 }
 
 
@@ -1542,6 +1386,7 @@ body {
     box-shadow:
         0 0 0 3px
         rgba(212,175,55,.10);
+
 }
 
 
@@ -1552,6 +1397,7 @@ body {
     gap: 8px;
 
     margin-top: 20px;
+
 }
 
 
@@ -1560,19 +1406,205 @@ body {
     flex: 1;
 
     padding: 12px;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+
+    position: fixed;
+
+    left: 20px;
+
+    bottom: 20px;
+
+    background: var(--navy);
+
+    color: white;
+
+    padding: 13px 17px;
+
+    border-radius: 12px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.25);
+
+    transform:
+        translateY(120px);
+
+    opacity: 0;
+
+    transition: .3s;
+
+    z-index: 10000;
+
+    max-width: 320px;
+
+}
+
+
+.toast.show {
+
+    transform:
+        translateY(0);
+
+    opacity: 1;
+
+}
+
+
+.toast.error {
+
+    background: var(--red);
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading {
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+}
+
+
+.loading i {
+
+    font-size: 22px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.loading p {
+
+    font-size: 10px;
+
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty {
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+}
+
+
+.empty i {
+
+    font-size: 30px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.empty p {
+
+    font-size: 10px;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:800px) {
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
 }
 
 
 @media(max-width:520px) {
 
-    .doctor-modal-box {
+    .container {
 
-        padding: 18px;
-
-        border-radius: 19px;
+        padding: 14px;
 
     }
 
+    .header {
+
+        padding: 13px 14px;
+
+    }
+
+    .brand h1 {
+
+        font-size: 15px;
+
+    }
+
+    .stats-grid {
+
+        gap: 8px;
+
+    }
+
+    .stat-card {
+
+        padding: 12px;
+
+    }
+
+    .stat-icon {
+
+        width: 40px;
+
+        height: 40px;
+
+    }
+
+    .stat-card h3 {
+
+        font-size: 17px;
+
+    }
+
+    .card-info {
+
+        grid-template-columns: 1fr;
+
+    }
 
     .form-grid {
 
@@ -1582,16 +1614,16 @@ body {
 
     }
 
+    .doctor-modal-box {
 
-    .doctor-modal-header h3 {
+        padding: 18px;
 
-        font-size: 16px;
+        border-radius: 19px;
 
     }
 
 }
-    
-    
+
 </style>
 
 </head>
@@ -1601,59 +1633,60 @@ body {
 
 
 <!-- =====================================================
-     LOGIN
+     LOGIN PAGE
 ===================================================== -->
 
-<section id="loginScreen">
+<section
+    id="loginPage"
+    class="login-page"
+>
 
     <div class="login-box">
 
-        <div class="login-logo">
+        <div class="logo">
 
-            <i class="fa-solid fa-user-shield"></i>
+            <div class="logo-icon">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+            </div>
+
+            <h1>TABIBK</h1>
+
+            <p>نظام الإدارة الطبية</p>
 
         </div>
 
 
-        <h1>
-            TABIBK
-        </h1>
+        <div class="login-title">
+
+            <h2>دخول الإدارة</h2>
+
+            <p>
+                أدخل مفتاح الإدارة للمتابعة
+            </p>
+
+        </div>
 
 
-        <p class="subtitle">
-            لوحة الإدارة
-        </p>
+        <div class="password-wrapper">
 
-
-        <div
-            id="loginError"
-            class="login-error"
-        ></div>
-
-
-        <div class="input-group">
-
-            <i class="fa-solid fa-lock"></i>
-
+            <i class="fa-solid fa-key"></i>
 
             <input
-                id="adminKey"
                 type="password"
-                placeholder="أدخل كلمة مرور الإدارة"
+                id="adminKey"
+                placeholder="مفتاح الإدارة"
                 autocomplete="off"
             >
 
-
             <button
-                class="show-password"
-                id="togglePasswordButton"
                 type="button"
+                id="togglePasswordButton"
+                class="password-toggle"
             >
 
-                <i
-                    id="eyeIcon"
-                    class="fa-solid fa-eye"
-                ></i>
+                <i class="fa-solid fa-eye"></i>
 
             </button>
 
@@ -1661,9 +1694,9 @@ body {
 
 
         <button
-            id="loginButton"
-            class="login-btn"
             type="button"
+            id="loginButton"
+            class="login-button"
         >
 
             <i class="fa-solid fa-right-to-bracket"></i>
@@ -1672,48 +1705,40 @@ body {
 
         </button>
 
-
-        <p class="security-note">
-
-            <i class="fa-solid fa-shield-halved"></i>
-
-            نظام إدارة محمي
-
-        </p>
-
     </div>
 
 </section>
+
 
 
 <!-- =====================================================
      ADMIN APP
 ===================================================== -->
 
-<div id="adminApp">
+<div
+    id="adminApp"
+    class="admin-app"
+>
 
 
 <header class="header">
 
-    <div class="header-content">
+    <div class="header-inner">
 
         <div class="brand">
 
-            <div class="logo">
+            <div class="brand-icon">
 
-                <i class="fa-solid fa-user-shield"></i>
+                <i class="fa-solid fa-heart-pulse"></i>
 
             </div>
 
-
             <div>
 
-                <h1>
-                    TABIBK
-                </h1>
+                <h1>TABIBK</h1>
 
                 <span>
-                    لوحة الإدارة
+                    لوحة التحكم والإدارة
                 </span>
 
             </div>
@@ -1724,9 +1749,9 @@ body {
         <div class="header-actions">
 
             <button
-                class="header-btn"
-                id="refreshButton"
                 type="button"
+                id="refreshButton"
+                class="header-button"
                 title="تحديث"
             >
 
@@ -1736,9 +1761,9 @@ body {
 
 
             <button
-                class="header-btn"
-                id="logoutButton"
                 type="button"
+                id="logoutButton"
+                class="header-button"
                 title="خروج"
             >
 
@@ -1753,314 +1778,319 @@ body {
 </header>
 
 
+
 <main class="container">
 
 
-    <div class="page-title">
+<!-- =====================================================
+     STATS
+===================================================== -->
 
-        <h2>
-            لوحة التحكم
-        </h2>
+<section class="stats-grid">
 
-        <p>
-            إدارة نظام حجز المواعيد الطبية
-        </p>
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+
+            <i class="fa-solid fa-calendar-check"></i>
+
+        </div>
+
+        <div>
+
+            <h3 id="totalAppointments">
+                0
+            </h3>
+
+            <p>
+                إجمالي المواعيد
+            </p>
+
+        </div>
 
     </div>
 
 
-    <!-- STATS -->
+    <div class="stat-card">
 
-    <section class="stats">
+        <div class="stat-icon">
 
-        <div class="stat">
-
-            <div class="stat-icon blue">
-
-                <i class="fa-solid fa-calendar-check"></i>
-
-            </div>
-
-
-            <div class="stat-info">
-
-                <strong id="totalAppointments">
-                    0
-                </strong>
-
-                <span>
-                    إجمالي المواعيد
-                </span>
-
-            </div>
+            <i class="fa-solid fa-hourglass-half"></i>
 
         </div>
 
+        <div>
 
-        <div class="stat">
+            <h3 id="pendingAppointments">
+                0
+            </h3>
 
-            <div class="stat-icon orange">
-
-                <i class="fa-solid fa-clock"></i>
-
-            </div>
-
-
-            <div class="stat-info">
-
-                <strong id="pendingAppointments">
-                    0
-                </strong>
-
-                <span>
-                    قيد الانتظار
-                </span>
-
-            </div>
+            <p>
+                قيد الانتظار
+            </p>
 
         </div>
 
-
-        <div class="stat">
-
-            <div class="stat-icon green">
-
-                <i class="fa-solid fa-circle-check"></i>
-
-            </div>
+    </div>
 
 
-            <div class="stat-info">
+    <div class="stat-card">
 
-                <strong id="confirmedAppointments">
-                    0
-                </strong>
-
-                <span>
-                    مؤكدة
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="stat-icon red">
-
-                <i class="fa-solid fa-user-doctor"></i>
-
-            </div>
-
-
-            <div class="stat-info">
-
-                <strong id="totalDoctors">
-                    0
-                </strong>
-
-                <span>
-                    الأطباء
-                </span>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- TABS -->
-
-    <div class="tabs">
-
-
-        <button
-            class="tab active"
-            type="button"
-            data-panel="appointments"
-        >
-
-            <i class="fa-solid fa-calendar-days"></i>
-
-            المواعيد
-
-        </button>
-
-
-        <button
-            class="tab"
-            type="button"
-            data-panel="doctors"
-        >
+        <div class="stat-icon">
 
             <i class="fa-solid fa-user-doctor"></i>
 
-            الأطباء
+        </div>
 
-        </button>
+        <div>
 
+            <h3 id="totalDoctors">
+                0
+            </h3>
 
-        <button
-            class="tab"
-            type="button"
-            data-panel="notifications"
-        >
+            <p>
+                الأطباء
+            </p>
 
-            <i class="fa-solid fa-bell"></i>
-
-            الإشعارات
-
-        </button>
-
+        </div>
 
     </div>
 
 
-    <!-- APPOINTMENTS -->
+    <div class="stat-card">
 
-    <section
-        id="appointmentsPanel"
-        class="panel active"
-    >
+        <div class="stat-icon">
 
-        <div class="card">
-
-            <div class="card-header">
-
-                <h3>
-                    جميع المواعيد
-                </h3>
-
-                <p>
-                    متابعة وإدارة الحجوزات
-                </p>
-
-            </div>
-
-
-            <div class="search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-
-                <input
-                    id="appointmentSearch"
-                    type="search"
-                    placeholder="ابحث باسم المريض أو رقم الحجز..."
-                >
-
-            </div>
-
-
-            <div id="appointmentsList">
-
-                <div class="loading">
-
-                    <i class="fa-solid fa-spinner"></i>
-
-                    <p>
-                        جاري تحميل المواعيد...
-                    </p>
-
-                </div>
-
-            </div>
+            <i class="fa-solid fa-circle-check"></i>
 
         </div>
 
-    </section>
+        <div>
+
+            <h3 id="completedAppointments">
+                0
+            </h3>
+
+            <p>
+                مكتملة
+            </p>
+
+        </div>
+
+    </div>
 
 
-    <!-- DOCTORS -->
+</section>
 
-    <section
-        id="doctorsPanel"
-        class="panel"
+
+
+<!-- =====================================================
+     TABS
+===================================================== -->
+
+<div class="tabs">
+
+    <button
+        class="tab active"
+        data-panel="appointmentsPanel"
     >
 
-        <div class="card">
+        <i class="fa-solid fa-calendar-days"></i>
 
-            <div class="card-header">
+        المواعيد
 
-                <h3>
-                    إدارة الأطباء
-                </h3>
+    </button>
 
-                <p>
-                    الأطباء المسجلون في TABIBK
-                </p>
 
-            </div>
+    <button
+        class="tab"
+        data-panel="doctorsPanel"
+    >
 
-<button
-    type="button"
-    id="addDoctorButton"
-    class="add-doctor-btn"
+        <i class="fa-solid fa-user-doctor"></i>
+
+        الأطباء
+
+    </button>
+
+
+    <button
+        class="tab"
+        data-panel="notificationsPanel"
+    >
+
+        <i class="fa-solid fa-bell"></i>
+
+        الإشعارات
+
+    </button>
+
+</div>
+
+
+
+<!-- =====================================================
+     APPOINTMENTS
+===================================================== -->
+
+<section
+    id="appointmentsPanel"
+    class="panel active"
 >
-    <i class="fa-solid fa-user-doctor"></i>
-    إضافة طبيب جديد
-</button>
-            
-            <div id="doctorsList">
 
-                <div class="loading">
+    <div class="panel-header">
 
-                    <i class="fa-solid fa-spinner"></i>
+        <div>
 
-                    <p>
-                        جاري تحميل الأطباء...
-                    </p>
+            <h2>
+                إدارة المواعيد
+            </h2>
 
-                </div>
-
-            </div>
+            <p>
+                جميع طلبات حجز المرضى
+            </p>
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- NOTIFICATIONS -->
+    <div class="search-box">
 
-    <section
-        id="notificationsPanel"
-        class="panel"
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            id="appointmentSearch"
+            placeholder="ابحث باسم المريض أو رقم الحجز..."
+        >
+
+    </div>
+
+
+    <div
+        id="appointmentsList"
+        class="list"
     >
 
-        <div class="card">
+        <div class="loading">
 
-            <div class="card-header">
+            <i class="fa-solid fa-spinner fa-spin"></i>
 
-                <h3>
-                    الإشعارات
-                </h3>
-
-                <p>
-                    آخر إشعارات النظام
-                </p>
-
-            </div>
-
-
-            <div id="notificationsList">
-
-                <div class="loading">
-
-                    <i class="fa-solid fa-spinner"></i>
-
-                    <p>
-                        جاري تحميل الإشعارات...
-                    </p>
-
-                </div>
-
-            </div>
+            <p>
+                جاري تحميل المواعيد...
+            </p>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     DOCTORS
+===================================================== -->
+
+<section
+    id="doctorsPanel"
+    class="panel"
+>
+
+    <div class="panel-header">
+
+        <div>
+
+            <h2>
+                إدارة الأطباء
+            </h2>
+
+            <p>
+                إضافة ومتابعة الأطباء
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+        type="button"
+        id="addDoctorButton"
+        class="add-doctor-btn"
+    >
+
+        <i class="fa-solid fa-user-doctor"></i>
+
+        إضافة طبيب جديد
+
+    </button>
+
+
+    <div id="doctorsList">
+
+        <div class="loading">
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            <p>
+                جاري تحميل الأطباء...
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     NOTIFICATIONS
+===================================================== -->
+
+<section
+    id="notificationsPanel"
+    class="panel"
+>
+
+    <div class="panel-header">
+
+        <div>
+
+            <h2>
+                الإشعارات
+            </h2>
+
+            <p>
+                آخر نشاطات النظام
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="notificationsList"
+        class="list"
+    >
+
+        <div class="loading">
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            <p>
+                جاري تحميل الإشعارات...
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
 
 </main>
@@ -2068,27 +2098,1889 @@ body {
 </div>
 
 
+
+<!-- =====================================================
+     ADD DOCTOR MODAL
+===================================================== -->
+
+<div
+    id="addDoctorModal"
+    class="doctor-modal"
+>
+
+    <div class="doctor-modal-box">
+
+
+        <div class="doctor-modal-header">
+
+            <div>
+
+                <h3>
+                    إضافة طبيب جديد
+                </h3>
+
+                <p>
+                    أدخل معلومات الطبيب
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="closeDoctorModal"
+                class="doctor-modal-close"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <form id="addDoctorForm">
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        اسم الطبيب *
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-user-doctor"></i>
+
+                        <input
+                            type="text"
+                            id="doctorName"
+                            placeholder="مثال: د. أحمد بن سالم"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        التخصص *
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-stethoscope"></i>
+
+                        <input
+                            type="text"
+                            id="doctorSpecialty"
+                            placeholder="مثال: طب عام"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        الولاية *
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <input
+                            type="text"
+                            id="doctorWilaya"
+                            value="ورڤلة"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        البلدية *
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-map-location-dot"></i>
+
+                        <input
+                            type="text"
+                            id="doctorMunicipality"
+                            placeholder="مثال: ورڤلة"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        رقم الهاتف *
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        <input
+                            type="tel"
+                            id="doctorPhone"
+                            placeholder="0550000000"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        رقم واتساب
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-brands fa-whatsapp"></i>
+
+                        <input
+                            type="tel"
+                            id="doctorWhatsapp"
+                            placeholder="0550000000"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        مدة الكشف بالدقائق
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        <input
+                            type="number"
+                            id="doctorDuration"
+                            value="15"
+                            min="5"
+                            max="180"
+                        >
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="doctor-form-actions">
+
+
+                <button
+                    type="button"
+                    id="cancelDoctorButton"
+                    class="btn btn-light"
+                >
+
+                    إلغاء
+
+                </button>
+
+
+
+                <button
+                    type="submit"
+                    id="saveDoctorButton"
+                    class="btn btn-gold"
+                >
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    حفظ الطبيب
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
 <div
     id="toast"
     class="toast"
 ></div>
 
 
+
 <script>
 
 /* =====================================================
-   CONFIG
+   VARIABLES
 ===================================================== */
 
 const API = "";
 
-let ADMIN_KEY = "";
+let adminKey = "";
 
-let appointments = [];
+let allAppointments = [];
 
-let doctors = [];
 
-let notifications = [];
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(
+    message,
+    type = "success"
+) {
+
+    const toast =
+        document.getElementById("toast");
+
+    if (!toast) {
+        return;
+    }
+
+    toast.textContent = message;
+
+    toast.className = "toast";
+
+    if (type === "error") {
+
+        toast.classList.add("error");
+
+    }
+
+    toast.classList.add("show");
+
+
+    setTimeout(
+        function () {
+
+            toast.classList.remove("show");
+
+        },
+        3000
+    );
+
+}
+
+
+
+/* =====================================================
+   ADMIN FETCH
+===================================================== */
+
+async function adminFetch(
+    url,
+    options = {}
+) {
+
+    const headers = {
+
+        ...(options.headers || {}),
+
+        "x-admin-key": adminKey
+
+    };
+
+
+    const response =
+        await fetch(
+            API + url,
+            {
+                ...options,
+                headers
+            }
+        );
+
+
+    let data;
+
+    try {
+
+        data =
+            await response.json();
+
+    } catch {
+
+        throw new Error(
+            "استجابة غير صحيحة من السيرفر"
+        );
+
+    }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.message ||
+            "حدث خطأ في الطلب"
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function adminLogin() {
+
+    const input =
+        document.getElementById(
+            "adminKey"
+        );
+
+    const button =
+        document.getElementById(
+            "loginButton"
+        );
+
+
+    const key =
+        input
+            ? input.value.trim()
+            : "";
+
+
+    if (!key) {
+
+        showToast(
+            "أدخل مفتاح الإدارة",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (button) {
+
+        button.disabled = true;
+
+        button.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> جاري التحقق...';
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/admin/login",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            key
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "كلمة السر غير صحيحة"
+            );
+
+        }
+
+
+        adminKey = key;
+
+
+        sessionStorage.setItem(
+            "tabibk_admin_key",
+            key
+        );
+
+
+        document
+            .getElementById("loginPage")
+            .style.display = "none";
+
+
+        document
+            .getElementById("adminApp")
+            .classList.add("show");
+
+
+        await refreshAll();
+
+
+        showToast(
+            "تم تسجيل الدخول بنجاح ✅"
+        );
+
+
+    } catch (error) {
+
+        showToast(
+            error.message ||
+            "تعذر تسجيل الدخول",
+            "error"
+        );
+
+    } finally {
+
+        if (button) {
+
+            button.disabled = false;
+
+            button.innerHTML =
+                '<i class="fa-solid fa-right-to-bracket"></i> دخول لوحة الإدارة';
+
+        }
+
+    }
+
+}
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    adminKey = "";
+
+    sessionStorage.removeItem(
+        "tabibk_admin_key"
+    );
+
+
+    document
+        .getElementById("adminApp")
+        .classList.remove("show");
+
+
+    document
+        .getElementById("loginPage")
+        .style.display = "flex";
+
+
+    document
+        .getElementById("adminKey")
+        .value = "";
+
+}
+
+
+
+/* =====================================================
+   TOGGLE PASSWORD
+===================================================== */
+
+function togglePassword() {
+
+    const input =
+        document.getElementById(
+            "adminKey"
+        );
+
+    const button =
+        document.getElementById(
+            "togglePasswordButton"
+        );
+
+
+    if (!input || !button) {
+        return;
+    }
+
+
+    if (
+        input.type === "password"
+    ) {
+
+        input.type = "text";
+
+        button.innerHTML =
+            '<i class="fa-solid fa-eye-slash"></i>';
+
+    } else {
+
+        input.type = "password";
+
+        button.innerHTML =
+            '<i class="fa-solid fa-eye"></i>';
+
+    }
+
+}
+
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+async function updateStats() {
+
+    try {
+
+        const data =
+            await adminFetch(
+                "/api/admin/stats"
+            );
+
+
+        const stats =
+            data.stats || {};
+
+
+        document
+            .getElementById(
+                "totalAppointments"
+            )
+            .textContent =
+            stats.totalAppointments || 0;
+
+
+        document
+            .getElementById(
+                "pendingAppointments"
+            )
+            .textContent =
+            stats.pending || 0;
+
+
+        document
+            .getElementById(
+                "totalDoctors"
+            )
+            .textContent =
+            stats.totalDoctors || 0;
+
+
+        document
+            .getElementById(
+                "completedAppointments"
+            )
+            .textContent =
+            stats.completed || 0;
+
+
+    } catch (error) {
+
+        console.error(
+            "STATS ERROR:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   LOAD APPOINTMENTS
+===================================================== */
+
+async function loadAppointments() {
+
+    const container =
+        document.getElementById(
+            "appointmentsList"
+        );
+
+
+    try {
+
+        const data =
+            await adminFetch(
+                "/api/appointments"
+            );
+
+
+        allAppointments =
+            data.appointments || [];
+
+
+        renderAppointments(
+            allAppointments
+        );
+
+
+    } catch (error) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <p>
+                    ${escapeHtml(error.message)}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RENDER APPOINTMENTS
+===================================================== */
+
+function renderAppointments(
+    appointments
+) {
+
+    const container =
+        document.getElementById(
+            "appointmentsList"
+        );
+
+
+    if (
+        !appointments ||
+        appointments.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-calendar-xmark"></i>
+
+                <p>
+                    لا توجد مواعيد حاليًا
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        appointments
+            .map(
+                function (appointment) {
+
+                    return `
+                    
+                    <div
+                        class="card appointment-card"
+                        data-search="
+                            ${escapeHtml(
+                                appointment.patientName || ""
+                            )}
+                            ${escapeHtml(
+                                appointment.bookingNumber || ""
+                            )}
+                        "
+                    >
+
+                        <div class="card-top">
+
+                            <div>
+
+                                <div class="card-title">
+
+                                    ${escapeHtml(
+                                        appointment.patientName ||
+                                        "مريض"
+                                    )}
+
+                                </div>
+
+                                <div class="card-subtitle">
+
+                                    رقم الحجز:
+                                    <strong>
+                                        ${escapeHtml(
+                                            appointment.bookingNumber ||
+                                            "-"
+                                        )}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            ${statusBadge(
+                                appointment.status
+                            )}
+
+                        </div>
+
+
+                        <div class="card-info">
+
+                            <div class="info-item">
+
+                                <small>
+                                    الطبيب
+                                </small>
+
+                                <strong>
+                                    ${escapeHtml(
+                                        appointment.doctorName ||
+                                        "-"
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <small>
+                                    التخصص
+                                </small>
+
+                                <strong>
+                                    ${escapeHtml(
+                                        appointment.doctorSpecialty ||
+                                        "-"
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <small>
+                                    الهاتف
+                                </small>
+
+                                <strong>
+                                    ${escapeHtml(
+                                        appointment.patientPhone ||
+                                        "-"
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <small>
+                                    رقم الطابور
+                                </small>
+
+                                <strong>
+                                    ${appointment.queueNumber || "-"}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="actions">
+
+                            ${appointment.status === "pending"
+                                ? `
+                                    <button
+                                        class="btn btn-green"
+                                        onclick="
+                                            appointmentAction(
+                                                '${escapeJs(
+                                                    appointment.bookingNumber
+                                            )}',
+                                                'accept'
+                                            )
+                                        "
+                                    >
+                                        <i class="fa-solid fa-check"></i>
+                                        قبول
+                                    </button>
+
+                                    <button
+                                        class="btn btn-red"
+                                        onclick="
+                                            appointmentAction(
+                                                '${escapeJs(
+                                                    appointment.bookingNumber
+                                            )}',
+                                                'reject'
+                                            )
+                                        "
+                                    >
+                                        <i class="fa-solid fa-xmark"></i>
+                                        رفض
+                                    </button>
+                                `
+                                : ""
+                            }
+
+
+                            ${appointment.status === "confirmed"
+                                ? `
+                                    <button
+                                        class="btn btn-dark"
+                                        onclick="
+                                            appointmentAction(
+                                                '${escapeJs(
+                                                    appointment.bookingNumber
+                                            )}',
+                                                'start'
+                                            )
+                                        "
+                                    >
+                                        <i class="fa-solid fa-play"></i>
+                                        بدء الكشف
+                                    </button>
+                                `
+                                : ""
+                            }
+
+
+                            ${appointment.status === "in_progress"
+                                ? `
+                                    <button
+                                        class="btn btn-gold"
+                                        onclick="
+                                            appointmentAction(
+                                                '${escapeJs(
+                                                    appointment.bookingNumber
+                                            )}',
+                                                'complete'
+                                            )
+                                        "
+                                    >
+                                        <i class="fa-solid fa-check-double"></i>
+                                        إتمام الكشف
+                                    </button>
+                                `
+                                : ""
+                            }
+
+                        </div>
+
+                    </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+
+/* =====================================================
+   APPOINTMENT ACTION
+===================================================== */
+
+async function appointmentAction(
+    bookingNumber,
+    action
+) {
+
+    const messages = {
+
+        accept:
+            "هل تريد قبول هذا الموعد؟",
+
+        reject:
+            "هل تريد رفض هذا الموعد؟",
+
+        start:
+            "هل تريد بدء الكشف؟",
+
+        complete:
+            "هل تريد إنهاء الكشف؟"
+
+    };
+
+
+    if (
+        !confirm(
+            messages[action] ||
+            "هل تريد المتابعة؟"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        await adminFetch(
+            `/api/appointments/${encodeURIComponent(
+                bookingNumber
+            )}/${action}`,
+            {
+                method: "POST"
+            }
+        );
+
+
+        showToast(
+            "تم تنفيذ العملية بنجاح ✅"
+        );
+
+
+        await refreshAll();
+
+
+    } catch (error) {
+
+        showToast(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   FILTER APPOINTMENTS
+===================================================== */
+
+function filterAppointments() {
+
+    const input =
+        document.getElementById(
+            "appointmentSearch"
+        );
+
+
+    const value =
+        input
+            ? input.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+
+    const filtered =
+        allAppointments.filter(
+            function (appointment) {
+
+                const text = (
+
+                    (appointment.patientName || "") +
+                    " " +
+                    (appointment.patientPhone || "") +
+                    " " +
+                    (appointment.bookingNumber || "") +
+                    " " +
+                    (appointment.doctorName || "")
+
+                ).toLowerCase();
+
+
+                return text.includes(
+                    value
+                );
+
+            }
+        );
+
+
+    renderAppointments(
+        filtered
+    );
+
+}
+
+
+
+/* =====================================================
+   LOAD DOCTORS
+===================================================== */
+
+async function loadDoctors() {
+
+    const container =
+        document.getElementById(
+            "doctorsList"
+        );
+
+
+    try {
+
+        const data =
+            await adminFetch(
+                "/api/admin/doctors"
+            );
+
+
+        renderDoctors(
+            data.doctors || []
+        );
+
+
+    } catch (error) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <p>
+                    ${escapeHtml(error.message)}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RENDER DOCTORS
+===================================================== */
+
+function renderDoctors(
+    doctors
+) {
+
+    const container =
+        document.getElementById(
+            "doctorsList"
+        );
+
+
+    if (
+        !doctors ||
+        doctors.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+                <p>
+                    لا يوجد أطباء
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        doctors
+            .map(
+                function (doctor) {
+
+                    return `
+
+                    <div class="card doctor-card">
+
+                        <div class="doctor-main">
+
+                            <div class="doctor-avatar">
+
+                                <i class="fa-solid fa-user-doctor"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <div class="card-title">
+
+                                    ${escapeHtml(
+                                        doctor.name
+                                    )}
+
+                                </div>
+
+                                <div class="card-subtitle">
+
+                                    ${escapeHtml(
+                                        doctor.specialty
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="card-info">
+
+                            <div class="info-item">
+
+                                <small>
+                                    الولاية
+                                </small>
+
+                                <strong>
+                                    ${escapeHtml(
+                                        doctor.wilaya || "-"
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <small>
+                                    البلدية
+                                </small>
+
+                                <strong>
+                                    ${escapeHtml(
+                                        doctor.municipality || "-"
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <small>
+                                    الهاتف
+                                </small>
+
+                                <strong>
+                                    ${escapeHtml(
+                                        doctor.phone || "-"
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <small>
+                                    مدة الكشف
+                                </small>
+
+                                <strong>
+                                    ${doctor.consultationDuration || 15}
+                                    دقيقة
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="actions">
+
+                            <span class="status confirmed">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                ${doctor.status === "active"
+                                    ? "نشط"
+                                    : "غير نشط"
+                                }
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+
+/* =====================================================
+   LOAD NOTIFICATIONS
+===================================================== */
+
+async function loadNotifications() {
+
+    const container =
+        document.getElementById(
+            "notificationsList"
+        );
+
+
+    try {
+
+        const data =
+            await adminFetch(
+                "/api/notifications"
+            );
+
+
+        const notifications =
+            data.notifications || [];
+
+
+        if (
+            notifications.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    <i class="fa-solid fa-bell-slash"></i>
+
+                    <p>
+                        لا توجد إشعارات
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            notifications
+                .slice()
+                .reverse()
+                .map(
+                    function (notification) {
+
+                        return `
+
+                            <div class="card">
+
+                                <div class="notification">
+
+                                    <div class="notification-icon">
+
+                                        <i class="fa-solid fa-bell"></i>
+
+                                    </div>
+
+
+                                    <div class="notification-text">
+
+                                        <strong>
+
+                                            ${escapeHtml(
+                                                notification.title ||
+                                                notification.message ||
+                                                "إشعار"
+                                            )}
+
+                                        </strong>
+
+
+                                        <p>
+
+                                            ${escapeHtml(
+                                                notification.message ||
+                                                ""
+                                            )}
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+
+    } catch (error) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <p>
+                    ${escapeHtml(error.message)}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   ADD DOCTOR MODAL
+===================================================== */
+
+function openAddDoctorModal() {
+
+    const modal =
+        document.getElementById(
+            "addDoctorModal"
+        );
+
+
+    if (!modal) {
+
+        return;
+
+    }
+
+
+    modal.classList.add(
+        "show"
+    );
+
+}
+
+
+
+function closeAddDoctorModal() {
+
+    const modal =
+        document.getElementById(
+            "addDoctorModal"
+        );
+
+
+    const form =
+        document.getElementById(
+            "addDoctorForm"
+        );
+
+
+    if (modal) {
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    if (form) {
+
+        form.reset();
+
+    }
+
+
+    const wilaya =
+        document.getElementById(
+            "doctorWilaya"
+        );
+
+
+    const duration =
+        document.getElementById(
+            "doctorDuration"
+        );
+
+
+    if (wilaya) {
+
+        wilaya.value =
+            "ورڤلة";
+
+    }
+
+
+    if (duration) {
+
+        duration.value =
+            "15";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   ADD DOCTOR
+===================================================== */
+
+async function addDoctor(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const button =
+        document.getElementById(
+            "saveDoctorButton"
+        );
+
+
+    const name =
+        document
+            .getElementById(
+                "doctorName"
+            )
+            .value
+            .trim();
+
+
+    const specialty =
+        document
+            .getElementById(
+                "doctorSpecialty"
+            )
+            .value
+            .trim();
+
+
+    const wilaya =
+        document
+            .getElementById(
+                "doctorWilaya"
+            )
+            .value
+            .trim();
+
+
+    const municipality =
+        document
+            .getElementById(
+                "doctorMunicipality"
+            )
+            .value
+            .trim();
+
+
+    const phone =
+        document
+            .getElementById(
+                "doctorPhone"
+            )
+            .value
+            .trim();
+
+
+    const whatsapp =
+        document
+            .getElementById(
+                "doctorWhatsapp"
+            )
+            .value
+            .trim();
+
+
+    const consultationDuration =
+        document
+            .getElementById(
+                "doctorDuration"
+            )
+            .value;
+
+
+    if (
+        !name ||
+        !specialty ||
+        !wilaya ||
+        !municipality ||
+        !phone
+    ) {
+
+        showToast(
+            "يرجى ملء جميع البيانات المطلوبة",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (button) {
+
+        button.disabled = true;
+
+        button.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ...';
+
+    }
+
+
+    try {
+
+        await adminFetch(
+            "/api/admin/doctors",
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify({
+
+                        name,
+
+                        specialty,
+
+                        wilaya,
+
+                        municipality,
+
+                        phone,
+
+                        whatsapp:
+                            whatsapp || phone,
+
+                        consultationDuration:
+                            Number(
+                                consultationDuration
+                            ) || 15
+
+                    })
+
+            }
+        );
+
+
+        showToast(
+            "تمت إضافة الطبيب بنجاح ✅"
+        );
+
+
+        closeAddDoctorModal();
+
+
+        await loadDoctors();
+
+
+        await updateStats();
+
+
+    } catch (error) {
+
+        console.error(
+            "ADD DOCTOR ERROR:",
+            error
+        );
+
+
+        showToast(
+            error.message ||
+            "تعذر إضافة الطبيب",
+            "error"
+        );
+
+
+    } finally {
+
+        if (button) {
+
+            button.disabled = false;
+
+            button.innerHTML =
+                '<i class="fa-solid fa-floppy-disk"></i> حفظ الطبيب';
+
+        }
+
+    }
+
+}
+
+
+
+/* =====================================================
+   STATUS BADGE
+===================================================== */
+
+function statusBadge(
+    status
+) {
+
+    const names = {
+
+        pending:
+            "قيد الانتظار",
+
+        confirmed:
+            "مؤكد",
+
+        in_progress:
+            "قيد الكشف",
+
+        completed:
+            "مكتمل",
+
+        rejected:
+            "مرفوض"
+
+    };
+
+
+    return `
+
+        <span class="status ${status || "pending"}">
+
+            <i class="fa-solid fa-circle"></i>
+
+            ${names[status] || status || "غير معروف"}
+
+        </span>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   SHOW PANEL
+===================================================== */
+
+function showPanel(
+    panelId,
+    tab
+) {
+
+    document
+        .querySelectorAll(".panel")
+        .forEach(
+            function (panel) {
+
+                panel.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(
+            function (item) {
+
+                item.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    const panel =
+        document.getElementById(
+            panelId
+        );
+
+
+    if (panel) {
+
+        panel.classList.add(
+            "active"
+        );
+
+    }
+
+
+    if (tab) {
+
+        tab.classList.add(
+            "active"
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   REFRESH ALL
+===================================================== */
+
+async function refreshAll() {
+
+    await Promise.all([
+
+        updateStats(),
+
+        loadAppointments(),
+
+        loadDoctors(),
+
+        loadNotifications()
+
+    ]);
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+function escapeJs(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+        .replace(
+            /'/g,
+            "\\'"
+        )
+        .replace(
+            /"/g,
+            '\\"'
+        );
+
+}
+
 
 
 /* =====================================================
@@ -2099,30 +3991,36 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
+
         const loginButton =
             document.getElementById(
                 "loginButton"
             );
+
 
         const adminKeyInput =
             document.getElementById(
                 "adminKey"
             );
 
+
         const toggleButton =
             document.getElementById(
                 "togglePasswordButton"
             );
+
 
         const refreshButton =
             document.getElementById(
                 "refreshButton"
             );
 
+
         const logoutButton =
             document.getElementById(
                 "logoutButton"
             );
+
 
         const searchInput =
             document.getElementById(
@@ -2130,7 +4028,7 @@ document.addEventListener(
             );
 
 
-        /* LOGIN BUTTON */
+        /* LOGIN */
 
         if (loginButton) {
 
@@ -2184,7 +4082,15 @@ document.addEventListener(
 
             refreshButton.addEventListener(
                 "click",
-                refreshAll
+                async function () {
+
+                    await refreshAll();
+
+                    showToast(
+                        "تم تحديث البيانات 🔄"
+                    );
+
+                }
             );
 
         }
@@ -2244,15 +4150,18 @@ document.addEventListener(
                 "addDoctorButton"
             );
 
+
         const closeDoctorModal =
             document.getElementById(
                 "closeDoctorModal"
             );
 
+
         const cancelDoctorButton =
             document.getElementById(
                 "cancelDoctorButton"
             );
+
 
         const addDoctorForm =
             document.getElementById(
@@ -2300,1754 +4209,108 @@ document.addEventListener(
         }
 
 
-    }
-);
-/* =====================================================
-   LOGIN
-===================================================== */
+        /* CLOSE MODAL OUTSIDE */
 
-async function adminLogin() {
-
-    const input =
-        document.getElementById(
-            "adminKey"
-        );
-
-    const button =
-        document.getElementById(
-            "loginButton"
-        );
-
-    const errorBox =
-        document.getElementById(
-            "loginError"
-        );
-
-
-    if (!input || !button || !errorBox) {
-
-        console.error(
-            "عناصر تسجيل الدخول غير موجودة"
-        );
-
-        return;
-
-    }
-
-
-    const key =
-        input.value.trim();
-
-
-    errorBox.classList.remove(
-        "show"
-    );
-
-    errorBox.textContent = "";
-
-
-    if (!key) {
-
-        errorBox.textContent =
-            "⚠️ أدخل كلمة مرور الإدارة";
-
-        errorBox.classList.add(
-            "show"
-        );
-
-        return;
-
-    }
-
-
-    button.disabled = true;
-
-    button.innerHTML =
-        '<i class="fa-solid fa-spinner fa-spin"></i> جاري التحقق...';
-
-
-    try {
-
-        const response =
-            await fetch(
-                API + "/api/admin/login",
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify({
-                            key: key
-                        })
-
-                }
+        const modal =
+            document.getElementById(
+                "addDoctorModal"
             );
 
 
-        const data =
-            await response.json();
+        if (modal) {
 
+            modal.addEventListener(
+                "click",
+                function (event) {
 
-        if (
-            !response.ok ||
-            !data.success
-        ) {
+                    if (
+                        event.target === modal
+                    ) {
 
-            throw new Error(
-                data.message ||
-                "كلمة المرور غير صحيحة"
+                        closeAddDoctorModal();
+
+                    }
+
+                }
             );
 
         }
 
 
-        ADMIN_KEY = key;
+        /* ESC CLOSE */
 
+        document.addEventListener(
+            "keydown",
+            function (event) {
 
-        document.getElementById(
-            "loginScreen"
-        ).style.display = "none";
+                if (
+                    event.key === "Escape"
+                ) {
 
-
-        document.getElementById(
-            "adminApp"
-        ).style.display = "block";
-
-
-        showToast(
-            "تم تسجيل الدخول بنجاح"
-        );
-
-
-        await refreshAll();
-
-    }
-
-    catch (err) {
-
-        console.error(err);
-
-        errorBox.textContent =
-            err.message ||
-            "❌ تعذر تسجيل الدخول";
-
-        errorBox.classList.add(
-            "show"
-        );
-
-    }
-
-    finally {
-
-        button.disabled = false;
-
-        button.innerHTML =
-            '<i class="fa-solid fa-right-to-bracket"></i> دخول لوحة الإدارة';
-
-    }
-
-}
-
-
-/* =====================================================
-   PASSWORD VISIBILITY
-===================================================== */
-
-function togglePassword() {
-
-    const input =
-        document.getElementById(
-            "adminKey"
-        );
-
-    const icon =
-        document.getElementById(
-            "eyeIcon"
-        );
-
-
-    if (!input || !icon) {
-
-        return;
-
-    }
-
-
-    if (
-        input.type === "password"
-    ) {
-
-        input.type = "text";
-
-        icon.className =
-            "fa-solid fa-eye-slash";
-
-    }
-
-    else {
-
-        input.type = "password";
-
-        icon.className =
-            "fa-solid fa-eye";
-
-    }
-
-}
-
-
-/* =====================================================
-   AUTH FETCH
-===================================================== */
-
-async function adminFetch(
-    url,
-    options = {}
-) {
-
-    options.headers = {
-
-        ...(options.headers || {}),
-
-        "x-admin-key":
-            ADMIN_KEY
-
-    };
-
-
-    const response =
-        await fetch(
-            API + url,
-            options
-        );
-
-
-    let data = {};
-
-    try {
-
-        data =
-            await response.json();
-
-    }
-
-    catch {
-
-        data = {};
-
-    }
-
-
-    if (
-        response.status === 401
-    ) {
-
-        logout();
-
-        throw new Error(
-            "انتهت جلسة الإدارة"
-        );
-
-    }
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            data.message ||
-            "حدث خطأ في السيرفر"
-        );
-
-    }
-
-
-    return data;
-
-}
-
-
-/* =====================================================
-   REFRESH
-===================================================== */
-
-async function refreshAll() {
-
-    try {
-
-        await Promise.all([
-
-            loadAppointments(),
-
-            loadDoctors(),
-
-            loadNotifications()
-
-        ]);
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        showToast(
-            error.message ||
-            "تعذر تحديث البيانات",
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   APPOINTMENTS
-===================================================== */
-
-async function loadAppointments() {
-
-    const data =
-        await adminFetch(
-            "/api/appointments"
-        );
-
-
-    appointments =
-        Array.isArray(data)
-            ? data
-            : (
-                data.appointments ||
-                []
-            );
-
-
-    renderAppointments();
-
-    updateStats();
-
-}
-
-
-/* =====================================================
-   RENDER APPOINTMENTS
-===================================================== */
-
-function renderAppointments(
-    data = appointments
-) {
-
-    const list =
-        document.getElementById(
-            "appointmentsList"
-        );
-
-
-    if (!list) {
-
-        return;
-
-    }
-
-
-    if (!data.length) {
-
-        list.innerHTML = `
-
-            <div class="empty">
-
-                <i class="fa-solid fa-calendar-xmark"></i>
-
-                <p>
-                    لا توجد مواعيد
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    list.innerHTML =
-        data
-            .slice()
-            .reverse()
-            .map(
-                function (a) {
-
-                    return appointmentHTML(a);
+                    closeAddDoctorModal();
 
                 }
-            )
-            .join("");
 
-}
-
-
-/* =====================================================
-   APPOINTMENT HTML
-===================================================== */
-
-function appointmentHTML(a) {
-
-    const status =
-        a.status || "pending";
-
-
-    const booking =
-        a.bookingNumber || "-";
-
-
-    const patient =
-        a.patientName || "مريض";
-
-
-    const phone =
-        a.patientPhone || "-";
-
-
-    const doctor =
-        a.doctorName ||
-        findDoctorName(
-            a.doctorId
-        );
-
-
-    const queue =
-        a.queueNumber || "-";
-
-
-    const reason =
-        a.reason ||
-        a.visitReason ||
-        "-";
-
-
-    return `
-
-        <div class="appointment">
-
-            <div class="appointment-top">
-
-                <div class="patient">
-
-                    <div class="patient-icon">
-
-                        <i class="fa-solid fa-user"></i>
-
-                    </div>
-
-
-                    <div>
-
-                        <strong>
-                            ${escapeHTML(patient)}
-                        </strong>
-
-                        <span>
-                            ${escapeHTML(phone)}
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <span class="booking">
-
-                    ${escapeHTML(booking)}
-
-                </span>
-
-            </div>
-
-
-            <div class="details">
-
-
-                <div class="detail">
-
-                    <small>
-                        الطبيب
-                    </small>
-
-                    <strong>
-                        ${escapeHTML(doctor)}
-                    </strong>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <small>
-                        رقم الدور
-                    </small>
-
-                    <strong>
-                        ${escapeHTML(queue)}
-                    </strong>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <small>
-                        سبب الزيارة
-                    </small>
-
-                    <strong>
-                        ${escapeHTML(reason)}
-                    </strong>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <small>
-                        الحالة
-                    </small>
-
-                    <strong class="status">
-
-                        ${statusText(status)}
-
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="actions">
-
-                ${appointmentActions(a)}
-
-            </div>
-
-
-        </div>
-
-    `;
-
-}
-
-
-/* =====================================================
-   APPOINTMENT ACTIONS
-===================================================== */
-
-function appointmentActions(a) {
-
-    const status =
-        a.status;
-
-
-    const booking =
-        a.bookingNumber;
-
-
-    if (!booking) {
-
-        return "";
-
-    }
-
-
-    let html = "";
-
-
-    if (
-        status === "pending"
-    ) {
-
-        html += `
-
-            <button
-                class="btn btn-green"
-                type="button"
-                onclick="changeStatus('${escapeJS(booking)}','accept')"
-            >
-
-                <i class="fa-solid fa-check"></i>
-
-                قبول
-
-            </button>
-
-
-            <button
-                class="btn btn-red"
-                type="button"
-                onclick="changeStatus('${escapeJS(booking)}','reject')"
-            >
-
-                <i class="fa-solid fa-xmark"></i>
-
-                رفض
-
-            </button>
-
-        `;
-
-    }
-
-
-    if (
-        status === "confirmed"
-    ) {
-
-        html += `
-
-            <button
-                class="btn btn-blue"
-                type="button"
-                onclick="changeStatus('${escapeJS(booking)}','start')"
-            >
-
-                <i class="fa-solid fa-play"></i>
-
-                بدء الكشف
-
-            </button>
-
-        `;
-
-    }
-
-
-    if (
-        status === "in_progress"
-    ) {
-
-        html += `
-
-            <button
-                class="btn btn-dark"
-                type="button"
-                onclick="changeStatus('${escapeJS(booking)}','complete')"
-            >
-
-                <i class="fa-solid fa-check-double"></i>
-
-                إنهاء
-
-            </button>
-
-        `;
-
-    }
-
-
-    if (a.patientPhone) {
-
-        html += `
-
-            <button
-                class="btn btn-light"
-                type="button"
-                onclick="callPatient('${escapeJS(a.patientPhone)}')"
-            >
-
-                <i class="fa-solid fa-phone"></i>
-
-                اتصال
-
-            </button>
-
-        `;
-
-    }
-
-
-    return html;
-
-}
-
-
-/* =====================================================
-   CHANGE STATUS
-===================================================== */
-
-async function changeStatus(
-    booking,
-    action
-) {
-
-    const messages = {
-
-        accept:
-            "هل تريد قبول الموعد؟",
-
-        reject:
-            "هل تريد رفض الموعد؟",
-
-        start:
-            "هل تريد بدء الكشف؟",
-
-        complete:
-            "هل تريد إنهاء الكشف؟"
-
-    };
-
-
-    if (
-        !confirm(
-            messages[action] ||
-            "هل تريد تنفيذ العملية؟"
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    const endpoint =
-        `/api/appointments/${encodeURIComponent(booking)}/${action}`;
-
-
-    try {
-
-        await adminFetch(
-            endpoint,
-            {
-                method: "POST"
             }
         );
 
 
-        showToast(
-            "تم تحديث الموعد بنجاح"
-        );
+        /* AUTO LOGIN */
 
-
-        await loadAppointments();
-
-    }
-
-    catch (error) {
-
-        showToast(
-            error.message ||
-            "تعذر تحديث الموعد",
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   DOCTORS
-===================================================== */
-
-async function loadDoctors() {
-
-    const data =
-        await adminFetch(
-            "/api/admin/doctors"
-        );
-
-
-    doctors =
-        Array.isArray(data)
-            ? data
-            : (
-                data.doctors ||
-                []
+        const savedKey =
+            sessionStorage.getItem(
+                "tabibk_admin_key"
             );
 
 
-    renderDoctors();
+        if (savedKey) {
 
-    updateStats();
-
-}
-/* =====================================================
-   RENDER DOCTORS
-===================================================== */
-
-function renderDoctors() {
-
-    const list =
-        document.getElementById(
-            "doctorsList"
-        );
+            adminKey =
+                savedKey;
 
 
-    if (!list) {
+            document
+                .getElementById(
+                    "loginPage"
+                )
+                .style.display = "none";
 
-        return;
 
-    }
+            document
+                .getElementById(
+                    "adminApp"
+                )
+                .classList.add("show");
 
 
-    if (!doctors.length) {
+            refreshAll();
 
-        list.innerHTML = `
-
-            <div class="empty">
-
-                <i class="fa-solid fa-user-doctor"></i>
-
-                <p>
-                    لا يوجد أطباء
-                </p>
-
-            </div>
-
-        `;
-
-        return;
+        }
 
     }
-
-
-    list.innerHTML =
-        doctors
-            .map(
-                function (d) {
-
-                    return `
-
-                        <div class="doctor">
-
-                            <div class="doctor-avatar">
-
-                                <i class="fa-solid fa-user-doctor"></i>
-
-                            </div>
-
-
-                            <div class="doctor-info">
-
-                                <h4>
-                                    ${escapeHTML(
-                                        d.name ||
-                                        "طبيب"
-                                    )}
-                                </h4>
-
-
-                                <p>
-                                    ${escapeHTML(
-                                        d.specialty ||
-                                        "تخصص غير محدد"
-                                    )}
-                                </p>
-
-
-                                <div class="doctor-meta">
-
-                                    <span class="meta">
-
-                                        <i class="fa-solid fa-location-dot"></i>
-
-                                        ${escapeHTML(
-                                            d.municipality ||
-                                            "-"
-                                        )}
-
-                                    </span>
-
-
-                                    <span class="meta">
-
-                                        <i class="fa-solid fa-phone"></i>
-
-                                        ${escapeHTML(
-                                            d.phone ||
-                                            "-"
-                                        )}
-
-                                    </span>
-
-
-                                    <span class="meta">
-
-                                        ${d.status === "active"
-                                            ? "🟢 نشط"
-                                            : "🔴 غير نشط"}
-
-                                    </span>
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }
-            )
-            .join("");
-
-}
+);
 
 
 /* =====================================================
-   NOTIFICATIONS
+   AUTO REFRESH
 ===================================================== */
 
-async function loadNotifications() {
+setInterval(
+    function () {
 
-    const data =
-        await adminFetch(
-            "/api/notifications"
-        );
+        if (adminKey) {
 
+            refreshAll();
 
-    notifications =
-        Array.isArray(data)
-            ? data
-            : (
-                data.notifications ||
-                []
-            );
+        }
 
-
-    renderNotifications();
-
-}
-
-
-/* =====================================================
-   RENDER NOTIFICATIONS
-===================================================== */
-
-function renderNotifications() {
-
-    const list =
-        document.getElementById(
-            "notificationsList"
-        );
-
-
-    if (!list) {
-
-        return;
-
-    }
-
-
-    if (!notifications.length) {
-
-        list.innerHTML = `
-
-            <div class="empty">
-
-                <i class="fa-solid fa-bell-slash"></i>
-
-                <p>
-                    لا توجد إشعارات
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    list.innerHTML =
-        notifications
-            .slice()
-            .reverse()
-            .map(
-                function (n) {
-
-                    return `
-
-                        <div class="notification">
-
-                            <div class="notification-icon">
-
-                                <i class="fa-solid fa-bell"></i>
-
-                            </div>
-
-
-                            <div>
-
-                                <strong>
-                                    ${escapeHTML(
-                                        n.title ||
-                                        "إشعار"
-                                    )}
-                                </strong>
-
-
-                                <p>
-                                    ${escapeHTML(
-                                        n.message ||
-                                        ""
-                                    )}
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }
-            )
-            .join("");
-
-}
-
-
-/* =====================================================
-   STATS
-===================================================== */
-
-function updateStats() {
-
-    const total =
-        appointments.length;
-
-
-    const pending =
-        appointments.filter(
-            function (a) {
-
-                return a.status === "pending";
-
-            }
-        ).length;
-
-
-    const confirmed =
-        appointments.filter(
-            function (a) {
-
-                return a.status === "confirmed";
-
-            }
-        ).length;
-
-
-    const totalDoctors =
-        doctors.length;
-
-
-    const totalElement =
-        document.getElementById(
-            "totalAppointments"
-        );
-
-
-    const pendingElement =
-        document.getElementById(
-            "pendingAppointments"
-        );
-
-
-    const confirmedElement =
-        document.getElementById(
-            "confirmedAppointments"
-        );
-
-
-    const doctorsElement =
-        document.getElementById(
-            "totalDoctors"
-        );
-
-
-    if (totalElement) {
-
-        totalElement.textContent =
-            total;
-
-    }
-
-
-    if (pendingElement) {
-
-        pendingElement.textContent =
-            pending;
-
-    }
-
-
-    if (confirmedElement) {
-
-        confirmedElement.textContent =
-            confirmed;
-
-    }
-
-
-    if (doctorsElement) {
-
-        doctorsElement.textContent =
-            totalDoctors;
-
-    }
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-function filterAppointments() {
-
-    const input =
-        document.getElementById(
-            "appointmentSearch"
-        );
-
-
-    if (!input) {
-
-        return;
-
-    }
-
-
-    const query =
-        input.value
-            .trim()
-            .toLowerCase();
-
-
-    if (!query) {
-
-        renderAppointments();
-
-        return;
-
-    }
-
-
-    const filtered =
-        appointments.filter(
-            function (a) {
-
-                const patient =
-                    String(
-                        a.patientName ||
-                        ""
-                    ).toLowerCase();
-
-
-                const booking =
-                    String(
-                        a.bookingNumber ||
-                        ""
-                    ).toLowerCase();
-
-
-                const phone =
-                    String(
-                        a.patientPhone ||
-                        ""
-                    ).toLowerCase();
-
-
-                return (
-                    patient.includes(query) ||
-                    booking.includes(query) ||
-                    phone.includes(query)
-                );
-
-            }
-        );
-
-
-    renderAppointments(
-        filtered
-    );
-
-}
-
-
-/* =====================================================
-   TABS
-===================================================== */
-
-function showPanel(
-    panelName,
-    button
-) {
-
-    document
-        .querySelectorAll(".panel")
-        .forEach(
-            function (panel) {
-
-                panel.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-    document
-        .querySelectorAll(".tab")
-        .forEach(
-            function (tab) {
-
-                tab.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-    const panel =
-        document.getElementById(
-            panelName + "Panel"
-        );
-
-
-    if (panel) {
-
-        panel.classList.add(
-            "active"
-        );
-
-    }
-
-
-    if (button) {
-
-        button.classList.add(
-            "active"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-function logout() {
-
-    ADMIN_KEY = "";
-
-    appointments = [];
-
-    doctors = [];
-
-    notifications = [];
-
-
-    document.getElementById(
-        "adminApp"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "loginScreen"
-    ).style.display = "flex";
-
-
-    const input =
-        document.getElementById(
-            "adminKey"
-        );
-
-
-    if (input) {
-
-        input.value = "";
-
-        input.type = "password";
-
-    }
-
-
-    const errorBox =
-        document.getElementById(
-            "loginError"
-        );
-
-
-    if (errorBox) {
-
-        errorBox.textContent = "";
-
-        errorBox.classList.remove(
-            "show"
-        );
-
-    }
-
-
-    const icon =
-        document.getElementById(
-            "eyeIcon"
-        );
-
-
-    if (icon) {
-
-        icon.className =
-            "fa-solid fa-eye";
-
-    }
-
-}
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-function showToast(
-    message,
-    type = "success"
-) {
-
-    const toast =
-        document.getElementById(
-            "toast"
-        );
-
-
-    if (!toast) {
-
-        return;
-
-    }
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.remove(
-        "error"
-    );
-
-
-    if (type === "error") {
-
-        toast.classList.add(
-            "error"
-        );
-
-    }
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    setTimeout(
-        function () {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        },
-        3000
-    );
-
-}
-
-
-/* =====================================================
-   CALL PATIENT
-===================================================== */
-
-function callPatient(
-    phone
-) {
-
-    if (!phone) {
-
-        return;
-
-    }
-
-
-    window.location.href =
-        "tel:" + phone;
-
-}
-
-
-/* =====================================================
-   STATUS TEXT
-===================================================== */
-
-function statusText(
-    status
-) {
-
-    const statuses = {
-
-        pending:
-            "🟠 قيد الانتظار",
-
-        confirmed:
-            "🟢 مؤكد",
-
-        in_progress:
-            "🔵 جاري الكشف",
-
-        completed:
-            "✅ مكتمل",
-
-        rejected:
-            "🔴 مرفوض"
-
-    };
-
-
-    return (
-        statuses[status] ||
-        status ||
-        "-"
-    );
-
-}
-
-
-/* =====================================================
-   FIND DOCTOR
-===================================================== */
-
-function findDoctorName(
-    doctorId
-) {
-
-    const doctor =
-        doctors.find(
-            function (d) {
-
-                return Number(d.id) ===
-                    Number(doctorId);
-
-            }
-        );
-
-
-    return doctor
-        ? doctor.name
-        : "طبيب غير معروف";
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(
-    value
-) {
-
-    return String(
-        value ?? ""
-    )
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* =====================================================
-   ESCAPE JAVASCRIPT
-===================================================== */
-
-function escapeJS(
-    value
-) {
-
-    return String(
-        value ?? ""
-    )
-        .replace(
-            /\\/g,
-            "\\\\"
-        )
-        .replace(
-            /'/g,
-            "\\'"
-        )
-        .replace(
-            /"/g,
-            '\\"'
-        )
-        .replace(
-            /\r/g,
-            "\\r"
-        )
-        .replace(
-            /\n/g,
-            "\\n"
-        );
-
-}
+    },
+    15000
+);
 
 </script>
 
 
-    <!-- =====================================================
-     ADD DOCTOR MODAL
-===================================================== -->
-
-<div id="addDoctorModal" class="doctor-modal">
-
-    <div class="doctor-modal-box">
-
-        <div class="doctor-modal-header">
-
-            <div>
-                <h3>إضافة طبيب جديد</h3>
-                <p>أدخل معلومات الطبيب</p>
-            </div>
-
-            <button
-                type="button"
-                id="closeDoctorModal"
-                class="doctor-modal-close"
-            >
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-        </div>
-
-
-        <form id="addDoctorForm">
-
-            <div class="form-grid">
-
-                <div class="form-group">
-
-                    <label>
-                        اسم الطبيب *
-                    </label>
-
-                    <div class="form-input">
-
-                        <i class="fa-solid fa-user-doctor"></i>
-
-                        <input
-                            type="text"
-                            id="doctorName"
-                            placeholder="مثال: د. أحمد بن سالم"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        التخصص *
-                    </label>
-
-                    <div class="form-input">
-
-                        <i class="fa-solid fa-stethoscope"></i>
-
-                        <input
-                            type="text"
-                            id="doctorSpecialty"
-                            placeholder="مثال: طب عام"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        الولاية *
-                    </label>
-
-                    <div class="form-input">
-
-                        <i class="fa-solid fa-location-dot"></i>
-
-                        <input
-                            type="text"
-                            id="doctorWilaya"
-                            value="ورڤلة"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        البلدية *
-                    </label>
-
-                    <div class="form-input">
-
-                        <i class="fa-solid fa-map-location-dot"></i>
-
-                        <input
-                            type="text"
-                            id="doctorMunicipality"
-                            placeholder="مثال: ورڤلة"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        رقم الهاتف *
-                    </label>
-
-                    <div class="form-input">
-
-                        <i class="fa-solid fa-phone"></i>
-
-                        <input
-                            type="tel"
-                            id="doctorPhone"
-                            placeholder="0550000000"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        رقم واتساب
-                    </label>
-
-                    <div class="form-input">
-
-                        <i class="fa-brands fa-whatsapp"></i>
-
-                        <input
-                            type="tel"
-                            id="doctorWhatsapp"
-                            placeholder="0550000000"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        مدة الكشف بالدقائق
-                    </label>
-
-                    <div class="form-input">
-
-                        <i class="fa-solid fa-clock"></i>
-
-                        <input
-                            type="number"
-                            id="doctorDuration"
-                            value="15"
-                            min="5"
-                            max="180"
-                        >
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="doctor-form-actions">
-
-                <button
-                    type="button"
-                    id="cancelDoctorButton"
-                    class="btn btn-light"
-                >
-                    إلغاء
-                </button>
-
-
-                <button
-                    type="submit"
-                    id="saveDoctorButton"
-                    class="btn btn-gold"
-                >
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    حفظ الطبيب
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-    
 </body>
 
 </html>

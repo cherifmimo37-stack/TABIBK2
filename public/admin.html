@@ -502,6 +502,7 @@ button {
 }
 
 
+/* HEADER ADD DOCTOR */
 .header-add-doctor {
     min-height: 40px;
     border: 1px solid rgba(212,175,55,.45);
@@ -519,27 +520,12 @@ button {
     box-shadow: 0 5px 16px rgba(212,175,55,.18);
     transition: .2s ease;
 }
-
-.header-add-doctor:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(212,175,55,.25);
-}
-
-.header-add-doctor:active {
-    transform: scale(.97);
-}
-
+.header-add-doctor:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(212,175,55,.25); }
+.header-add-doctor:active { transform: scale(.97); }
 @media (max-width: 520px) {
-    .header-add-doctor {
-        width: 40px;
-        padding: 0;
-    }
-
-    .header-add-doctor span {
-        display: none;
-    }
+    .header-add-doctor { width: 40px; padding: 0; }
+    .header-add-doctor span { display: none; }
 }
-
 
 /* =====================================================
    CONTAINER
@@ -1077,6 +1063,29 @@ button {
 
 }
 
+
+.doctor-actions {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-top: 13px;
+}
+.doctor-action-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 8px 11px;
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 900;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.doctor-action-edit { background: var(--gold); color: var(--navy); }
+.doctor-action-delete { background: #ffe5e8; color: var(--red); }
+.doctor-action-btn:active { transform: scale(.97); }
 
 .doctor-main {
 
@@ -1793,9 +1802,12 @@ button {
                 class="header-add-doctor"
                 title="إضافة طبيب جديد"
             >
+
                 <i class="fa-solid fa-user-doctor"></i>
                 <span>إضافة طبيب</span>
+
             </button>
+
 
             <button
                 type="button"
@@ -2164,7 +2176,7 @@ button {
 
             <div>
 
-                <h3>
+                <h3 id="doctorModalTitle">
                     إضافة طبيب جديد
                 </h3>
 
@@ -2190,6 +2202,8 @@ button {
 
 
         <form id="addDoctorForm">
+
+            <input type="hidden" id="editingDoctorId" value="">
 
 
             <div class="form-grid">
@@ -2382,7 +2396,7 @@ button {
 
                     <i class="fa-solid fa-floppy-disk"></i>
 
-                    حفظ الطبيب
+                    <span id="saveDoctorText">حفظ الطبيب</span>
 
                 </button>
 
@@ -3425,6 +3439,28 @@ function renderDoctors(
 
                         </div>
 
+                        <div class="doctor-actions">
+
+                            <button
+                                type="button"
+                                class="doctor-action-btn doctor-action-edit"
+                                onclick="openEditDoctorModal(${Number(doctor.id)})"
+                            >
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                تعديل
+                            </button>
+
+                            <button
+                                type="button"
+                                class="doctor-action-btn doctor-action-delete"
+                                onclick="deleteDoctor(${Number(doctor.id)})"
+                            >
+                                <i class="fa-solid fa-trash"></i>
+                                حذف
+                            </button>
+
+                        </div>
+
                     </div>
 
                     `;
@@ -3567,6 +3603,14 @@ async function loadNotifications() {
 
 function openAddDoctorModal() {
 
+    const editingId = document.getElementById("editingDoctorId");
+    const title = document.getElementById("doctorModalTitle");
+    const saveText = document.getElementById("saveDoctorText");
+
+    if (editingId) editingId.value = "";
+    if (title) title.textContent = "إضافة طبيب جديد";
+    if (saveText) saveText.textContent = "حفظ الطبيب";
+
     const modal =
         document.getElementById(
             "addDoctorModal"
@@ -3618,6 +3662,14 @@ function closeAddDoctorModal() {
     }
 
 
+    const editingId = document.getElementById("editingDoctorId");
+    const title = document.getElementById("doctorModalTitle");
+    const saveText = document.getElementById("saveDoctorText");
+
+    if (editingId) editingId.value = "";
+    if (title) title.textContent = "إضافة طبيب جديد";
+    if (saveText) saveText.textContent = "حفظ الطبيب";
+
     const wilaya =
         document.getElementById(
             "doctorWilaya"
@@ -3647,6 +3699,73 @@ function closeAddDoctorModal() {
 
 }
 
+
+
+/* =====================================================
+   EDIT DOCTOR
+===================================================== */
+
+async function openEditDoctorModal(doctorId) {
+
+    try {
+
+        const data = await adminFetch(
+            `/api/admin/doctors/${doctorId}`
+        );
+
+        const doctor = data.doctor;
+
+        if (!doctor) {
+            throw new Error("الطبيب غير موجود");
+        }
+
+        document.getElementById("editingDoctorId").value = doctor.id;
+        document.getElementById("doctorName").value = doctor.name || "";
+        document.getElementById("doctorSpecialty").value = doctor.specialty || "";
+        document.getElementById("doctorWilaya").value = doctor.wilaya || "ورڤلة";
+        document.getElementById("doctorMunicipality").value = doctor.municipality || "";
+        document.getElementById("doctorPhone").value = doctor.phone || "";
+        document.getElementById("doctorWhatsapp").value = doctor.whatsapp || "";
+        document.getElementById("doctorDuration").value = doctor.consultationDuration || 15;
+
+        document.getElementById("doctorModalTitle").textContent = "تعديل بيانات الطبيب";
+        document.getElementById("saveDoctorText").textContent = "حفظ التعديلات";
+
+        document.getElementById("addDoctorModal").classList.add("show");
+
+    } catch (error) {
+        showToast(error.message || "تعذر تحميل بيانات الطبيب", "error");
+    }
+}
+
+
+/* =====================================================
+   DELETE DOCTOR
+===================================================== */
+
+async function deleteDoctor(doctorId) {
+
+    const confirmed = confirm(
+        "هل أنت متأكد من حذف هذا الطبيب؟\n\nسيختفي الطبيب من قائمة الحجز."
+    );
+
+    if (!confirmed) return;
+
+    try {
+
+        await adminFetch(
+            `/api/admin/doctors/${doctorId}`,
+            { method: "DELETE" }
+        );
+
+        showToast("تم حذف الطبيب بنجاح 🗑️");
+        await loadDoctors();
+        await updateStats();
+
+    } catch (error) {
+        showToast(error.message || "تعذر حذف الطبيب", "error");
+    }
+}
 
 
 /* =====================================================
@@ -3758,11 +3877,16 @@ async function addDoctor(
 
     try {
 
+        const editingId =
+            document.getElementById("editingDoctorId").value.trim();
+
         await adminFetch(
-            "/api/admin/doctors",
+            editingId
+                ? `/api/admin/doctors/${editingId}`
+                : "/api/admin/doctors",
             {
 
-                method: "POST",
+                method: editingId ? "PUT" : "POST",
 
                 headers: {
 
@@ -3799,7 +3923,9 @@ async function addDoctor(
 
 
         showToast(
-            "تمت إضافة الطبيب بنجاح ✅"
+            editingId
+                ? "تم تعديل بيانات الطبيب بنجاح ✅"
+                : "تمت إضافة الطبيب بنجاح ✅"
         );
 
 
@@ -3834,7 +3960,7 @@ async function addDoctor(
             button.disabled = false;
 
             button.innerHTML =
-                '<i class="fa-solid fa-floppy-disk"></i> حفظ الطبيب';
+                '<i class="fa-solid fa-floppy-disk"></i> <span id="saveDoctorText">حفظ الطبيب</span>';
 
         }
 
@@ -4199,7 +4325,6 @@ document.addEventListener(
                 "addDoctorButton"
             );
 
-
         const headerAddDoctorButton =
             document.getElementById(
                 "headerAddDoctorButton"
@@ -4232,7 +4357,6 @@ document.addEventListener(
             );
 
         }
-
 
         if (headerAddDoctorButton) {
 

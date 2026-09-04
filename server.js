@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 // ==================================================
-// DATABASE FUNCTIONS
+// DATABASE
 // ==================================================
 
 function readDatabase() {
@@ -48,7 +48,14 @@ function readDatabase() {
             "utf8"
         );
 
-        return JSON.parse(data);
+        const database = JSON.parse(data);
+
+        database.wilayas ||= [];
+        database.doctors ||= [];
+        database.appointments ||= [];
+        database.notifications ||= [];
+
+        return database;
 
     } catch (error) {
 
@@ -92,6 +99,49 @@ function saveDatabase(database) {
 
 
 // ==================================================
+// ADMIN AUTHENTICATION
+// ==================================================
+
+function checkAdminKey(req, res, next) {
+
+    const adminKey =
+        req.headers["x-admin-key"];
+
+    const serverKey =
+        process.env.ADMIN_KEY;
+
+    if (!serverKey) {
+
+        return res.status(500).json({
+
+            success: false,
+
+            message:
+                "ADMIN_KEY غير مضبوط في السيرفر"
+
+        });
+    }
+
+    if (
+        !adminKey ||
+        adminKey !== serverKey
+    ) {
+
+        return res.status(401).json({
+
+            success: false,
+
+            message:
+                "غير مصرح بالدخول"
+
+        });
+    }
+
+    next();
+}
+
+
+// ==================================================
 // HOME
 // ==================================================
 
@@ -106,7 +156,7 @@ app.get("/", (req, res) => {
         message:
             "سيرفر طبيبك يعمل بنجاح 🩺",
 
-        version: "1.0.0",
+        version: "2.0.0",
 
         status: "online"
 
@@ -121,15 +171,18 @@ app.get("/", (req, res) => {
 
 app.get("/api/wilayas", (req, res) => {
 
-    const database = readDatabase();
+    const database =
+        readDatabase();
 
     res.json({
 
         success: true,
 
-        count: database.wilayas.length,
+        count:
+            database.wilayas.length,
 
-        wilayas: database.wilayas
+        wilayas:
+            database.wilayas
 
     });
 
@@ -144,12 +197,15 @@ app.get(
     "/api/wilayas/:wilayaId/municipalities",
     (req, res) => {
 
-        const database = readDatabase();
+        const database =
+            readDatabase();
 
-        const wilaya = database.wilayas.find(
-            w =>
-                w.id === Number(req.params.wilayaId)
-        );
+        const wilaya =
+            database.wilayas.find(
+                w =>
+                    Number(w.id) ===
+                    Number(req.params.wilayaId)
+            );
 
         if (!wilaya) {
 
@@ -157,17 +213,18 @@ app.get(
 
                 success: false,
 
-                message: "الولاية غير موجودة"
+                message:
+                    "الولاية غير موجودة"
 
             });
-
         }
 
         res.json({
 
             success: true,
 
-            wilaya: wilaya.name,
+            wilaya:
+                wilaya.name,
 
             municipalities:
                 wilaya.municipalities || []
@@ -179,14 +236,20 @@ app.get(
 
 
 // ==================================================
-// DOCTORS
+// PUBLIC DOCTORS
 // ==================================================
 
-app.get("/api/doctors", checkAdminKey, (req, res) => {
+app.get("/api/doctors", (req, res) => {
 
-    const database = readDatabase();
+    const database =
+        readDatabase();
 
-    let doctors = database.doctors || [];
+    let doctors =
+        (database.doctors || [])
+        .filter(
+            doctor =>
+                doctor.status !== "deleted"
+        );
 
     const {
         wilaya,
@@ -197,30 +260,33 @@ app.get("/api/doctors", checkAdminKey, (req, res) => {
 
     if (wilaya) {
 
-        doctors = doctors.filter(
-            doctor =>
-                doctor.wilaya === wilaya
-        );
+        doctors =
+            doctors.filter(
+                doctor =>
+                    doctor.wilaya === wilaya
+            );
 
     }
 
 
     if (municipality) {
 
-        doctors = doctors.filter(
-            doctor =>
-                doctor.municipality === municipality
-        );
+        doctors =
+            doctors.filter(
+                doctor =>
+                    doctor.municipality === municipality
+            );
 
     }
 
 
     if (specialty) {
 
-        doctors = doctors.filter(
-            doctor =>
-                doctor.specialty === specialty
-        );
+        doctors =
+            doctors.filter(
+                doctor =>
+                    doctor.specialty === specialty
+            );
 
     }
 
@@ -229,7 +295,8 @@ app.get("/api/doctors", checkAdminKey, (req, res) => {
 
         success: true,
 
-        count: doctors.length,
+        count:
+            doctors.length,
 
         doctors
 
@@ -246,24 +313,30 @@ app.get(
     "/api/doctors/:id",
     (req, res) => {
 
-        const database = readDatabase();
+        const database =
+            readDatabase();
 
-        const doctor = database.doctors.find(
-            d =>
-                d.id === Number(req.params.id)
-        );
+        const doctor =
+            database.doctors.find(
+                d =>
+                    Number(d.id) ===
+                    Number(req.params.id)
+            );
 
 
-        if (!doctor) {
+        if (
+            !doctor ||
+            doctor.status === "deleted"
+        ) {
 
             return res.status(404).json({
 
                 success: false,
 
-                message: "الطبيب غير موجود"
+                message:
+                    "الطبيب غير موجود"
 
             });
-
         }
 
 
@@ -287,7 +360,8 @@ app.post(
     "/api/appointments",
     (req, res) => {
 
-        const database = readDatabase();
+        const database =
+            readDatabase();
 
 
         const {
@@ -297,8 +371,6 @@ app.post(
             reason
         } = req.body;
 
-
-        // التحقق من البيانات
 
         if (
             !patientName ||
@@ -314,16 +386,16 @@ app.post(
                     "يرجى إدخال اسم المريض ورقم الهاتف والطبيب"
 
             });
-
         }
 
 
-        // البحث عن الطبيب
-
-        const doctor = database.doctors.find(
-            d =>
-                d.id === Number(doctorId)
-        );
+        const doctor =
+            database.doctors.find(
+                d =>
+                    Number(d.id) ===
+                    Number(doctorId) &&
+                    d.status !== "deleted"
+            );
 
 
         if (!doctor) {
@@ -332,14 +404,12 @@ app.post(
 
                 success: false,
 
-                message: "الطبيب غير موجود"
+                message:
+                    "الطبيب غير موجود"
 
             });
-
         }
 
-
-        // حساب رقم الحجز
 
         const appointmentNumber =
             database.appointments.length + 1;
@@ -355,12 +425,11 @@ app.post(
             ).padStart(4, "0")}`;
 
 
-        // حساب رقم الدور عند الطبيب
-
         const doctorQueue =
             database.appointments.filter(
                 appointment =>
-                    appointment.doctorId === doctor.id &&
+                    Number(appointment.doctorId) ===
+                    Number(doctor.id) &&
                     appointment.status !== "rejected"
             );
 
@@ -369,31 +438,38 @@ app.post(
             doctorQueue.length + 1;
 
 
-        // إنشاء الحجز
-
         const appointment = {
 
             id: Date.now(),
 
             bookingNumber,
 
-            patientName,
+            patientName:
+                String(patientName).trim(),
 
-            patientPhone,
+            patientPhone:
+                String(patientPhone).trim(),
 
-            doctorId: doctor.id,
+            doctorId:
+                doctor.id,
 
-            doctorName: doctor.name,
+            doctorName:
+                doctor.name,
 
-            specialty: doctor.specialty,
+            specialty:
+                doctor.specialty,
 
-            wilaya: doctor.wilaya,
+            wilaya:
+                doctor.wilaya,
 
-            municipality: doctor.municipality,
+            municipality:
+                doctor.municipality,
 
-            reason: reason || "",
+            reason:
+                reason || "",
 
-            status: "pending",
+            status:
+                "pending",
 
             queueNumber,
 
@@ -408,22 +484,24 @@ app.post(
         );
 
 
-        // إشعار للطبيب
-
         database.notifications.push({
 
-            id: Date.now() + 1,
+            id:
+                Date.now() + 1,
 
-            type: "new_appointment",
+            type:
+                "new_appointment",
 
             bookingNumber,
 
-            doctorId: doctor.id,
+            doctorId:
+                doctor.id,
 
             message:
                 `طلب حجز جديد عند ${doctor.name}`,
 
-            read: false,
+            read:
+                false,
 
             createdAt:
                 new Date().toISOString()
@@ -457,7 +535,8 @@ app.get(
     "/api/appointments/:bookingNumber",
     (req, res) => {
 
-        const database = readDatabase();
+        const database =
+            readDatabase();
 
 
         const bookingNumber =
@@ -486,22 +565,17 @@ app.get(
                     "رقم الحجز غير موجود"
 
             });
-
         }
 
-
-        // حجوزات نفس الطبيب
 
         const doctorAppointments =
             database.appointments.filter(
                 a =>
-                    a.doctorId ===
-                    appointment.doctorId &&
+                    Number(a.doctorId) ===
+                    Number(appointment.doctorId) &&
                     a.status !== "rejected"
             );
 
-
-        // الحجوزات المكتملة
 
         const completedAppointments =
             doctorAppointments.filter(
@@ -510,18 +584,14 @@ app.get(
             );
 
 
-        // الدور الحالي
-
         const currentTurn =
             completedAppointments.length + 1;
 
 
-        // عدد المرضى قبل المريض
-
         const patientsBefore =
             Math.max(
                 0,
-                appointment.queueNumber -
+                Number(appointment.queueNumber) -
                 currentTurn
             );
 
@@ -578,7 +648,8 @@ app.get(
     "/api/doctors/:id/appointments",
     (req, res) => {
 
-        const database = readDatabase();
+        const database =
+            readDatabase();
 
 
         const doctorId =
@@ -588,11 +659,15 @@ app.get(
         const doctor =
             database.doctors.find(
                 d =>
-                    d.id === doctorId
+                    Number(d.id) ===
+                    doctorId
             );
 
 
-        if (!doctor) {
+        if (
+            !doctor ||
+            doctor.status === "deleted"
+        ) {
 
             return res.status(404).json({
 
@@ -602,14 +677,13 @@ app.get(
                     "الطبيب غير موجود"
 
             });
-
         }
 
 
         const appointments =
             database.appointments.filter(
                 appointment =>
-                    appointment.doctorId ===
+                    Number(appointment.doctorId) ===
                     doctorId
             );
 
@@ -618,7 +692,8 @@ app.get(
 
             success: true,
 
-            doctor: doctor.name,
+            doctor:
+                doctor.name,
 
             count:
                 appointments.length,
@@ -639,7 +714,8 @@ app.post(
     "/api/appointments/:bookingNumber/accept",
     (req, res) => {
 
-        const database = readDatabase();
+        const database =
+            readDatabase();
 
 
         const bookingNumber =
@@ -668,7 +744,6 @@ app.post(
                     "الحجز غير موجود"
 
             });
-
         }
 
 
@@ -678,7 +753,8 @@ app.post(
 
         database.notifications.push({
 
-            id: Date.now(),
+            id:
+                Date.now(),
 
             type:
                 "appointment_accepted",
@@ -692,7 +768,8 @@ app.post(
             message:
                 "تم تأكيد موعدك من طرف الطبيب ✅",
 
-            read: false,
+            read:
+                false,
 
             createdAt:
                 new Date().toISOString()
@@ -726,7 +803,8 @@ app.post(
     "/api/appointments/:bookingNumber/reject",
     (req, res) => {
 
-        const database = readDatabase();
+        const database =
+            readDatabase();
 
 
         const bookingNumber =
@@ -755,7 +833,6 @@ app.post(
                     "الحجز غير موجود"
 
             });
-
         }
 
 
@@ -765,7 +842,8 @@ app.post(
 
         database.notifications.push({
 
-            id: Date.now(),
+            id:
+                Date.now(),
 
             type:
                 "appointment_rejected",
@@ -779,7 +857,8 @@ app.post(
             message:
                 "تم رفض طلب الحجز ❌",
 
-            read: false,
+            read:
+                false,
 
             createdAt:
                 new Date().toISOString()
@@ -813,7 +892,8 @@ app.post(
     "/api/appointments/:bookingNumber/start",
     (req, res) => {
 
-        const database = readDatabase();
+        const database =
+            readDatabase();
 
 
         const bookingNumber =
@@ -842,7 +922,6 @@ app.post(
                     "الحجز غير موجود"
 
             });
-
         }
 
 
@@ -876,7 +955,8 @@ app.post(
     "/api/appointments/:bookingNumber/complete",
     (req, res) => {
 
-        const database = readDatabase();
+        const database =
+            readDatabase();
 
 
         const bookingNumber =
@@ -905,7 +985,6 @@ app.post(
                     "الحجز غير موجود"
 
             });
-
         }
 
 
@@ -915,7 +994,8 @@ app.post(
 
         database.notifications.push({
 
-            id: Date.now(),
+            id:
+                Date.now(),
 
             type:
                 "appointment_completed",
@@ -929,7 +1009,8 @@ app.post(
             message:
                 "تم إنهاء الموعد بنجاح ✅",
 
-            read: false,
+            read:
+                false,
 
             createdAt:
                 new Date().toISOString()
@@ -956,259 +1037,180 @@ app.post(
 
 
 // ==================================================
-// NOTIFICATIONS
+// ADMIN LOGIN
 // ==================================================
 
-app.get("/api/notifications", checkAdminKey, (req, res) => {
+app.post(
+    "/api/admin/login",
+    (req, res) => {
 
-        const database = readDatabase();
+        try {
+
+            const {
+                key
+            } = req.body;
 
 
-        res.json({
+            const serverKey =
+                process.env.ADMIN_KEY;
 
-            success: true,
 
-            count:
-                database.notifications.length,
+            if (!serverKey) {
 
-            notifications:
-                database.notifications
+                return res.status(500).json({
 
-        });
+                    success: false,
+
+                    message:
+                        "ADMIN_KEY غير مضبوط في السيرفر"
+
+                });
+            }
+
+
+            if (
+                !key ||
+                key !== serverKey
+            ) {
+
+                return res.status(401).json({
+
+                    success: false,
+
+                    message:
+                        "كلمة السر غير صحيحة"
+
+                });
+            }
+
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "تم تسجيل الدخول بنجاح"
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "ADMIN LOGIN ERROR:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "حدث خطأ أثناء تسجيل الدخول"
+
+            });
+
+        }
 
     }
 );
 
 
 // ==================================================
-// HEALTH CHECK
+// ADMIN - ALL APPOINTMENTS
 // ==================================================
 
 app.get(
-    "/api/health",
+    "/api/appointments",
+    checkAdminKey,
     (req, res) => {
 
-        res.json({
+        try {
 
-            success: true,
+            const database =
+                readDatabase();
 
-            server: "TABIBK",
 
-            status: "online",
+            const appointments =
+                database.appointments || [];
 
-            time:
-                new Date().toISOString()
 
-        });
+            const doctors =
+                database.doctors || [];
+
+
+            const result =
+                appointments.map(
+                    appointment => {
+
+                        const doctor =
+                            doctors.find(
+                                d =>
+                                    Number(d.id) ===
+                                    Number(
+                                        appointment.doctorId
+                                    )
+                            );
+
+
+                        return {
+
+                            ...appointment,
+
+                            doctorName:
+                                doctor
+                                    ? doctor.name
+                                    : appointment.doctorName ||
+                                      "طبيب غير معروف",
+
+                            doctorSpecialty:
+                                doctor
+                                    ? doctor.specialty
+                                    : appointment.specialty ||
+                                      ""
+
+                        };
+
+                    }
+                );
+
+
+            res.json({
+
+                success: true,
+
+                count:
+                    result.length,
+
+                appointments:
+                    result
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "ADMIN APPOINTMENTS ERROR:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "حدث خطأ أثناء تحميل المواعيد"
+
+            });
+
+        }
 
     }
 );
 
 
 // ==================================================
-// 404
+// ADMIN - GET DOCTORS
 // ==================================================
-// =====================================================
-// TABIBK ADMIN API
-// =====================================================
-
-// =====================================================
-// TABIBK ADMIN AUTHENTICATION
-// =====================================================
-
-function checkAdminKey(req, res, next) {
-
-    const adminKey =
-        req.headers["x-admin-key"];
-
-    const serverKey =
-        process.env.ADMIN_KEY;
-
-
-    if (!serverKey) {
-
-        return res.status(500).json({
-
-            success: false,
-
-            message:
-                "ADMIN_KEY غير مضبوط في السيرفر"
-
-        });
-
-    }
-
-
-    if (
-        !adminKey ||
-        adminKey !== serverKey
-    ) {
-
-        return res.status(401).json({
-
-            success: false,
-
-            message:
-                "غير مصرح بالدخول"
-
-        });
-
-    }
-
-
-    next();
-
-}
-
-// عرض جميع المواعيد للإدارة
-app.get("/api/appointments", checkAdminKey, (req, res) => {
-
-    try {
-
-        const database = readDatabase();
-
-        const appointments =
-            database.appointments || [];
-
-        const doctors =
-            database.doctors || [];
-
-        const result =
-            appointments.map(appointment => {
-
-                const doctor =
-                    doctors.find(
-                        d =>
-                            Number(d.id) ===
-                            Number(appointment.doctorId)
-                    );
-
-                return {
-
-                    ...appointment,
-
-                    doctorName:
-                        doctor
-                            ? doctor.name
-                            : "طبيب غير معروف",
-
-                    doctorSpecialty:
-                        doctor
-                            ? doctor.specialty
-                            : ""
-
-                };
-
-            });
-
-
-        res.json({
-
-            success: true,
-
-            count: result.length,
-
-            appointments: result
-
-        });
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "ADMIN APPOINTMENTS ERROR:",
-            error
-        );
-
-        res.status(500).json({
-
-            success: false,
-
-            message:
-                "حدث خطأ أثناء تحميل المواعيد"
-
-        });
-
-    }
-
-});
-
-
-// =====================================================
-// ADMIN LOGIN
-// =====================================================
-
-app.post("/api/admin/login", (req, res) => {
-
-    try {
-
-        const { key } = req.body;
-
-        const serverKey =
-            process.env.ADMIN_KEY;
-
-        if (!serverKey) {
-
-            return res.status(500).json({
-
-                success: false,
-
-                message:
-                    "ADMIN_KEY غير مضبوط في السيرفر"
-
-            });
-
-        }
-
-        if (!key || key !== serverKey) {
-
-            return res.status(401).json({
-
-                success: false,
-
-                message:
-                    "كلمة السر غير صحيحة"
-
-            });
-
-        }
-
-        res.json({
-
-            success: true,
-
-            message:
-                "تم تسجيل الدخول بنجاح"
-
-        });
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "ADMIN LOGIN ERROR:",
-            error
-        );
-
-        res.status(500).json({
-
-            success: false,
-
-            message:
-                "حدث خطأ أثناء تسجيل الدخول"
-
-        });
-
-    }
-
-});
-
-
-// =====================================================
-// TABIBK ADMIN - DOCTORS
-// =====================================================
 
 app.get(
     "/api/admin/doctors",
@@ -1217,15 +1219,27 @@ app.get(
 
         try {
 
-            const database = readDatabase();
+            const database =
+                readDatabase();
+
 
             const doctors =
-                database.doctors || [];
+                (database.doctors || [])
+                .filter(
+                    doctor =>
+                        doctor.status !== "deleted"
+                );
+
 
             res.json({
+
                 success: true,
-                count: doctors.length,
+
+                count:
+                    doctors.length,
+
                 doctors
+
             });
 
         } catch (error) {
@@ -1236,9 +1250,12 @@ app.get(
             );
 
             res.status(500).json({
+
                 success: false,
+
                 message:
                     "حدث خطأ أثناء تحميل الأطباء"
+
             });
 
         }
@@ -1246,9 +1263,76 @@ app.get(
     }
 );
 
-// =====================================================
-// TABIBK ADMIN - ADD DOCTOR
-// =====================================================
+
+// ==================================================
+// ADMIN - GET SINGLE DOCTOR
+// ==================================================
+
+app.get(
+    "/api/admin/doctors/:id",
+    checkAdminKey,
+    (req, res) => {
+
+        try {
+
+            const database =
+                readDatabase();
+
+
+            const doctor =
+                database.doctors.find(
+                    d =>
+                        Number(d.id) ===
+                        Number(req.params.id)
+                );
+
+
+            if (!doctor) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "الطبيب غير موجود"
+
+                });
+            }
+
+
+            res.json({
+
+                success: true,
+
+                doctor
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "GET DOCTOR ERROR:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "حدث خطأ أثناء تحميل بيانات الطبيب"
+
+            });
+
+        }
+
+    }
+);
+
+
+// ==================================================
+// ADMIN - ADD DOCTOR
+// ==================================================
 
 app.post(
     "/api/admin/doctors",
@@ -1257,7 +1341,9 @@ app.post(
 
         try {
 
-            const database = readDatabase();
+            const database =
+                readDatabase();
+
 
             const {
                 name,
@@ -1269,6 +1355,7 @@ app.post(
                 consultationDuration
             } = req.body;
 
+
             if (
                 !name ||
                 !specialty ||
@@ -1278,28 +1365,35 @@ app.post(
             ) {
 
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "يرجى ملء جميع البيانات المطلوبة"
-                });
 
+                });
             }
+
 
             const doctors =
                 database.doctors || [];
+
 
             const newId =
                 doctors.length > 0
                     ? Math.max(
                         ...doctors.map(
-                            d => Number(d.id) || 0
+                            d =>
+                                Number(d.id) || 0
                         )
                     ) + 1
                     : 1;
 
+
             const doctor = {
 
-                id: newId,
+                id:
+                    newId,
 
                 name:
                     String(name).trim(),
@@ -1331,12 +1425,20 @@ app.post(
 
             };
 
-            doctors.push(doctor);
+
+            doctors.push(
+                doctor
+            );
+
 
             database.doctors =
                 doctors;
 
-            saveDatabase(database);
+
+            saveDatabase(
+                database
+            );
+
 
             res.status(201).json({
 
@@ -1370,99 +1472,410 @@ app.post(
     }
 );
 
-// =====================================================
-// إحصائيات الإدارة
-// =====================================================
 
-app.get("/api/admin/stats", checkAdminKey, (req, res) => {
+// ==================================================
+// ADMIN - EDIT DOCTOR
+// ==================================================
 
-    try {
+app.put(
+    "/api/admin/doctors/:id",
+    checkAdminKey,
+    (req, res) => {
 
-        const database = readDatabase();
+        try {
 
-        const appointments =
-            database.appointments || [];
-
-        const doctors =
-            database.doctors || [];
+            const database =
+                readDatabase();
 
 
-        const stats = {
-
-            totalAppointments:
-                appointments.length,
-
-            pending:
-                appointments.filter(
-                    a =>
-                        a.status === "pending"
-                ).length,
-
-            confirmed:
-                appointments.filter(
-                    a =>
-                        a.status === "confirmed"
-                ).length,
-
-            inProgress:
-                appointments.filter(
-                    a =>
-                        a.status === "in_progress"
-                ).length,
-
-            completed:
-                appointments.filter(
-                    a =>
-                        a.status === "completed"
-                ).length,
-
-            rejected:
-                appointments.filter(
-                    a =>
-                        a.status === "rejected"
-                ).length,
-
-            totalDoctors:
-                doctors.length,
-
-            activeDoctors:
-                doctors.filter(
+            const doctor =
+                database.doctors.find(
                     d =>
-                        d.status === "active"
-                ).length
+                        Number(d.id) ===
+                        Number(req.params.id)
+                );
 
-        };
+
+            if (!doctor) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "الطبيب غير موجود"
+
+                });
+            }
+
+
+            const {
+                name,
+                specialty,
+                wilaya,
+                municipality,
+                phone,
+                whatsapp,
+                consultationDuration,
+                status
+            } = req.body;
+
+
+            if (
+                !name ||
+                !specialty ||
+                !wilaya ||
+                !municipality ||
+                !phone
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "يرجى ملء جميع البيانات المطلوبة"
+
+                });
+            }
+
+
+            doctor.name =
+                String(name).trim();
+
+
+            doctor.specialty =
+                String(specialty).trim();
+
+
+            doctor.wilaya =
+                String(wilaya).trim();
+
+
+            doctor.municipality =
+                String(municipality).trim();
+
+
+            doctor.phone =
+                String(phone).trim();
+
+
+            doctor.whatsapp =
+                String(
+                    whatsapp || phone
+                ).trim();
+
+
+            doctor.consultationDuration =
+                Number(
+                    consultationDuration
+                ) || 15;
+
+
+            if (status) {
+
+                doctor.status =
+                    String(status);
+
+            } else {
+
+                doctor.status =
+                    "active";
+
+            }
+
+
+            saveDatabase(
+                database
+            );
+
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "تم تعديل بيانات الطبيب بنجاح ✅",
+
+                doctor
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "ADMIN EDIT DOCTOR ERROR:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "حدث خطأ أثناء تعديل الطبيب"
+
+            });
+
+        }
+
+    }
+);
+
+
+// ==================================================
+// ADMIN - DELETE DOCTOR
+// ==================================================
+//
+// لا نحذف الطبيب نهائيًا من JSON
+// حتى تبقى المواعيد القديمة محفوظة
+//
+
+app.delete(
+    "/api/admin/doctors/:id",
+    checkAdminKey,
+    (req, res) => {
+
+        try {
+
+            const database =
+                readDatabase();
+
+
+            const doctor =
+                database.doctors.find(
+                    d =>
+                        Number(d.id) ===
+                        Number(req.params.id)
+                );
+
+
+            if (!doctor) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "الطبيب غير موجود"
+
+                });
+            }
+
+
+            doctor.status =
+                "deleted";
+
+
+            doctor.deletedAt =
+                new Date().toISOString();
+
+
+            saveDatabase(
+                database
+            );
+
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "تم حذف الطبيب بنجاح 🗑️"
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "ADMIN DELETE DOCTOR ERROR:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "حدث خطأ أثناء حذف الطبيب"
+
+            });
+
+        }
+
+    }
+);
+
+
+// ==================================================
+// ADMIN - STATS
+// ==================================================
+
+app.get(
+    "/api/admin/stats",
+    checkAdminKey,
+    (req, res) => {
+
+        try {
+
+            const database =
+                readDatabase();
+
+
+            const appointments =
+                database.appointments || [];
+
+
+            const doctors =
+                database.doctors || [];
+
+
+            const stats = {
+
+                totalAppointments:
+                    appointments.length,
+
+                pending:
+                    appointments.filter(
+                        a =>
+                            a.status ===
+                            "pending"
+                    ).length,
+
+                confirmed:
+                    appointments.filter(
+                        a =>
+                            a.status ===
+                            "confirmed"
+                    ).length,
+
+                inProgress:
+                    appointments.filter(
+                        a =>
+                            a.status ===
+                            "in_progress"
+                    ).length,
+
+                completed:
+                    appointments.filter(
+                        a =>
+                            a.status ===
+                            "completed"
+                    ).length,
+
+                rejected:
+                    appointments.filter(
+                        a =>
+                            a.status ===
+                            "rejected"
+                    ).length,
+
+                totalDoctors:
+                    doctors.filter(
+                        d =>
+                            d.status !==
+                            "deleted"
+                    ).length,
+
+                activeDoctors:
+                    doctors.filter(
+                        d =>
+                            d.status ===
+                            "active"
+                    ).length
+
+            };
+
+
+            res.json({
+
+                success: true,
+
+                stats
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "ADMIN STATS ERROR:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "حدث خطأ أثناء تحميل الإحصائيات"
+
+            });
+
+        }
+
+    }
+);
+
+
+// ==================================================
+// NOTIFICATIONS
+// ==================================================
+
+app.get(
+    "/api/notifications",
+    checkAdminKey,
+    (req, res) => {
+
+        const database =
+            readDatabase();
 
 
         res.json({
 
             success: true,
 
-            stats
+            count:
+                database.notifications.length,
+
+            notifications:
+                database.notifications
 
         });
 
     }
+);
 
-    catch (error) {
 
-        console.error(
-            "ADMIN STATS ERROR:",
-            error
-        );
+// ==================================================
+// HEALTH CHECK
+// ==================================================
 
-        res.status(500).json({
+app.get(
+    "/api/health",
+    (req, res) => {
 
-            success: false,
+        res.json({
 
-            message:
-                "حدث خطأ أثناء تحميل الإحصائيات"
+            success: true,
+
+            server:
+                "TABIBK",
+
+            status:
+                "online",
+
+            time:
+                new Date().toISOString()
 
         });
 
     }
+);
 
-});
+
+// ==================================================
+// 404
+// ==================================================
 
 app.use(
     (req, res) => {

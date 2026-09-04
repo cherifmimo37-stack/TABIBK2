@@ -2236,10 +2236,72 @@ document.addEventListener(
                 }
             );
 
+
+        /* ADD DOCTOR */
+
+        const addDoctorButton =
+            document.getElementById(
+                "addDoctorButton"
+            );
+
+        const closeDoctorModal =
+            document.getElementById(
+                "closeDoctorModal"
+            );
+
+        const cancelDoctorButton =
+            document.getElementById(
+                "cancelDoctorButton"
+            );
+
+        const addDoctorForm =
+            document.getElementById(
+                "addDoctorForm"
+            );
+
+
+        if (addDoctorButton) {
+
+            addDoctorButton.addEventListener(
+                "click",
+                openAddDoctorModal
+            );
+
+        }
+
+
+        if (closeDoctorModal) {
+
+            closeDoctorModal.addEventListener(
+                "click",
+                closeAddDoctorModal
+            );
+
+        }
+
+
+        if (cancelDoctorButton) {
+
+            cancelDoctorButton.addEventListener(
+                "click",
+                closeAddDoctorModal
+            );
+
+        }
+
+
+        if (addDoctorForm) {
+
+            addDoctorForm.addEventListener(
+                "submit",
+                addDoctor
+            );
+
+        }
+
+
     }
 );
-
-
 /* =====================================================
    LOGIN
 ===================================================== */

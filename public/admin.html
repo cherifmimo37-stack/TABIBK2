@@ -502,6 +502,45 @@ button {
 }
 
 
+.header-add-doctor {
+    min-height: 40px;
+    border: 1px solid rgba(212,175,55,.45);
+    border-radius: 11px;
+    padding: 0 12px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 900;
+    box-shadow: 0 5px 16px rgba(212,175,55,.18);
+    transition: .2s ease;
+}
+
+.header-add-doctor:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(212,175,55,.25);
+}
+
+.header-add-doctor:active {
+    transform: scale(.97);
+}
+
+@media (max-width: 520px) {
+    .header-add-doctor {
+        width: 40px;
+        padding: 0;
+    }
+
+    .header-add-doctor span {
+        display: none;
+    }
+}
+
+
 /* =====================================================
    CONTAINER
 ===================================================== */
@@ -1747,6 +1786,16 @@ button {
 
 
         <div class="header-actions">
+
+            <button
+                type="button"
+                id="headerAddDoctorButton"
+                class="header-add-doctor"
+                title="إضافة طبيب جديد"
+            >
+                <i class="fa-solid fa-user-doctor"></i>
+                <span>إضافة طبيب</span>
+            </button>
 
             <button
                 type="button"
@@ -4151,6 +4200,12 @@ document.addEventListener(
             );
 
 
+        const headerAddDoctorButton =
+            document.getElementById(
+                "headerAddDoctorButton"
+            );
+
+
         const closeDoctorModal =
             document.getElementById(
                 "closeDoctorModal"
@@ -4172,6 +4227,16 @@ document.addEventListener(
         if (addDoctorButton) {
 
             addDoctorButton.addEventListener(
+                "click",
+                openAddDoctorModal
+            );
+
+        }
+
+
+        if (headerAddDoctorButton) {
+
+            headerAddDoctorButton.addEventListener(
                 "click",
                 openAddDoctorModal
             );

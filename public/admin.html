@@ -1318,6 +1318,279 @@ body {
     transform: scale(0.98);
 }
 
+    /* =====================================================
+   ADD DOCTOR MODAL
+===================================================== */
+
+.doctor-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(10,18,30,.72);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 18px;
+
+    z-index: 9998;
+
+    backdrop-filter: blur(5px);
+}
+
+
+.doctor-modal.show {
+
+    display: flex;
+
+}
+
+
+.doctor-modal-box {
+
+    width: 100%;
+
+    max-width: 650px;
+
+    max-height: 92vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.35);
+
+    animation:
+        doctorModalIn .2s ease;
+}
+
+
+@keyframes doctorModalIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.97);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+.doctor-modal-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+
+.doctor-modal-header h3 {
+
+    color: var(--navy);
+
+    font-size: 18px;
+
+    font-weight: 900;
+}
+
+
+.doctor-modal-header p {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+
+.doctor-modal-close {
+
+    width: 38px;
+
+    height: 38px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: #f1f4f7;
+
+    color: var(--navy);
+
+    cursor: pointer;
+
+    font-size: 15px;
+}
+
+
+.doctor-modal-close:hover {
+
+    background: #ffe9e9;
+
+    color: var(--red);
+
+}
+
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 13px;
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--navy);
+
+    font-size: 10px;
+
+    font-weight: 900;
+}
+
+
+.form-input {
+
+    position: relative;
+}
+
+
+.form-input i {
+
+    position: absolute;
+
+    right: 13px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    z-index: 2;
+}
+
+
+.form-input input {
+
+    width: 100%;
+
+    border: 1px solid #dfe4ea;
+
+    background: #f8fafc;
+
+    border-radius: 11px;
+
+    padding: 12px 38px 12px 12px;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    outline: none;
+}
+
+
+.form-input input:focus {
+
+    border-color: var(--gold);
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(212,175,55,.10);
+}
+
+
+.doctor-form-actions {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 20px;
+}
+
+
+.doctor-form-actions .btn {
+
+    flex: 1;
+
+    padding: 12px;
+}
+
+
+@media(max-width:520px) {
+
+    .doctor-modal-box {
+
+        padding: 18px;
+
+        border-radius: 19px;
+
+    }
+
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 11px;
+
+    }
+
+
+    .doctor-modal-header h3 {
+
+        font-size: 16px;
+
+    }
+
+}
+    
     
 </style>
 
@@ -3497,6 +3770,222 @@ function escapeJS(
 
 </script>
 
+
+    <!-- =====================================================
+     ADD DOCTOR MODAL
+===================================================== -->
+
+<div id="addDoctorModal" class="doctor-modal">
+
+    <div class="doctor-modal-box">
+
+        <div class="doctor-modal-header">
+
+            <div>
+                <h3>إضافة طبيب جديد</h3>
+                <p>أدخل معلومات الطبيب</p>
+            </div>
+
+            <button
+                type="button"
+                id="closeDoctorModal"
+                class="doctor-modal-close"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <form id="addDoctorForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        اسم الطبيب *
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-user-doctor"></i>
+
+                        <input
+                            type="text"
+                            id="doctorName"
+                            placeholder="مثال: د. أحمد بن سالم"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        التخصص *
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-stethoscope"></i>
+
+                        <input
+                            type="text"
+                            id="doctorSpecialty"
+                            placeholder="مثال: طب عام"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        الولاية *
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <input
+                            type="text"
+                            id="doctorWilaya"
+                            value="ورڤلة"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        البلدية *
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-map-location-dot"></i>
+
+                        <input
+                            type="text"
+                            id="doctorMunicipality"
+                            placeholder="مثال: ورڤلة"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        رقم الهاتف *
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        <input
+                            type="tel"
+                            id="doctorPhone"
+                            placeholder="0550000000"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        رقم واتساب
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-brands fa-whatsapp"></i>
+
+                        <input
+                            type="tel"
+                            id="doctorWhatsapp"
+                            placeholder="0550000000"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        مدة الكشف بالدقائق
+                    </label>
+
+                    <div class="form-input">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        <input
+                            type="number"
+                            id="doctorDuration"
+                            value="15"
+                            min="5"
+                            max="180"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="doctor-form-actions">
+
+                <button
+                    type="button"
+                    id="cancelDoctorButton"
+                    class="btn btn-light"
+                >
+                    إلغاء
+                </button>
+
+
+                <button
+                    type="submit"
+                    id="saveDoctorButton"
+                    class="btn btn-gold"
+                >
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    حفظ الطبيب
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+    
 </body>
 
 </html>

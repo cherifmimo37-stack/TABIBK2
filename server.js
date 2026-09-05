@@ -46,17 +46,79 @@ app.use(express.static(
 ));
 
 // ============================================================
-// DATABASE
+// DATABASE - POSTGRESQL
+// ============================================================
+
+let databaseCache = null;
+let databaseReady = false;
+let databaseInitPromise = null;
+let pgPool = null;
+
+
+// ============================================================
+// POSTGRESQL CONNECTION
+// ============================================================
+
+if (process.env.DATABASE_URL) {
+
+    const { Pool } = require("pg");
+
+    pgPool = new Pool({
+
+        connectionString:
+            process.env.DATABASE_URL,
+
+        ssl: {
+            rejectUnauthorized: false
+        },
+
+        max: 5,
+
+        idleTimeoutMillis: 30000,
+
+        connectionTimeoutMillis: 10000
+
+    });
+
+
+    pgPool.on(
+        "error",
+        error => {
+
+            console.error(
+                "PostgreSQL pool error:",
+                error
+            );
+
+        }
+    );
+
+} else {
+
+    console.error(
+        "DATABASE_URL is not configured."
+    );
+
+}
+
+
+// ============================================================
+// EMPTY DATABASE
 // ============================================================
 
 function createEmptyDatabase() {
 
     return {
+
         wilayas: [
+
             {
                 id: 1,
+
                 name: "ورڤلة",
+
                 municipalities: [
+
                     "ورڤلة",
                     "الرويسات",
                     "عين البيضاء",
@@ -68,8 +130,11 @@ function createEmptyDatabase() {
                     "الحجيرة",
                     "الطيبات",
                     "تقرت"
+
                 ]
+
             }
+
         ],
 
         doctors: [],
@@ -77,105 +142,373 @@ function createEmptyDatabase() {
         appointments: [],
 
         notifications: []
+
     };
+
 }
 
 
-function readDatabase() {
+// ============================================================
+// NORMALIZE DATABASE
+// ============================================================
+
+function normalizeDatabase(database) {
+
+    database =
+        database &&
+        typeof database === "object"
+
+            ? database
+
+            : createEmptyDatabase();
+
+
+    database.wilayas =
+        Array.isArray(database.wilayas)
+
+            ? database.wilayas
+
+            : [];
+
+
+    database.doctors =
+        Array.isArray(database.doctors)
+
+            ? database.doctors
+
+            : [];
+
+
+    database.appointments =
+        Array.isArray(database.appointments)
+
+            ? database.appointments
+
+            : [];
+
+
+    database.notifications =
+        Array.isArray(database.notifications)
+
+            ? database.notifications
+
+            : [];
+
+
+    return database;
+
+}
+
+
+// ============================================================
+// READ OLD DATABASE.JSON
+// ============================================================
+
+function readLegacyDatabase() {
 
     try {
 
-        if (!fs.existsSync(DATABASE_FILE)) {
+        if (
+            typeof DATABASE_FILE === "string" &&
+            fs.existsSync(DATABASE_FILE)
+        ) {
 
-            const database =
-                createEmptyDatabase();
+            const content =
+                fs.readFileSync(
+                    DATABASE_FILE,
+                    "utf8"
+                );
 
-            saveDatabase(database);
 
-            return database;
+            if (content.trim()) {
+
+                return normalizeDatabase(
+                    JSON.parse(content)
+                );
+
+            }
+
         }
-
-        const content =
-            fs.readFileSync(
-                DATABASE_FILE,
-                "utf8"
-            );
-
-        if (!content.trim()) {
-
-            const database =
-                createEmptyDatabase();
-
-            saveDatabase(database);
-
-            return database;
-        }
-
-        const database =
-            JSON.parse(content);
-
-        database.wilayas =
-            Array.isArray(database.wilayas)
-                ? database.wilayas
-                : [];
-
-        database.doctors =
-            Array.isArray(database.doctors)
-                ? database.doctors
-                : [];
-
-        database.appointments =
-            Array.isArray(database.appointments)
-                ? database.appointments
-                : [];
-
-        database.notifications =
-            Array.isArray(database.notifications)
-                ? database.notifications
-                : [];
-
-        return database;
 
     } catch (error) {
 
         console.error(
-            "Database read error:",
+            "Legacy database read error:",
             error
         );
 
-        return createEmptyDatabase();
     }
+
+
+    return createEmptyDatabase();
+
 }
 
 
+// ============================================================
+// READ DATABASE
+// ============================================================
+
+function readDatabase() {
+
+    if (!databaseCache) {
+
+        databaseCache =
+            createEmptyDatabase();
+
+    }
+
+    return databaseCache;
+
+}
+
+
+// ============================================================
+// SAVE DATABASE
+// ============================================================
+
 function saveDatabase(database) {
 
-    try {
+    database =
+        normalizeDatabase(database);
 
-        fs.writeFileSync(
-            DATABASE_FILE,
-            JSON.stringify(
-                database,
-                null,
-                2
-            ),
-            "utf8"
+
+    databaseCache =
+        database;
+
+
+    if (
+        !pgPool ||
+        !databaseReady
+    ) {
+
+        console.error(
+            "Database is not ready for saving."
         );
 
-        return true;
+        return false;
 
-    } catch (error) {
+    }
+
+
+    pgPool.query(
+
+        `
+        INSERT INTO tabibk_data
+        (
+            id,
+            data,
+            updated_at
+        )
+
+        VALUES
+        (
+            1,
+            $1::jsonb,
+            NOW()
+        )
+
+        ON CONFLICT (id)
+
+        DO UPDATE SET
+
+            data = EXCLUDED.data,
+
+            updated_at = NOW()
+        `,
+
+        [
+            JSON.stringify(database)
+        ]
+
+    )
+
+    .then(() => {
+
+        console.log(
+            "Database saved successfully."
+        );
+
+    })
+
+    .catch(error => {
 
         console.error(
             "Database save error:",
             error
         );
 
-        return false;
-    }
+    });
+
+
+    return true;
+
 }
 
 
+// ============================================================
+// INITIALIZE POSTGRESQL
+// ============================================================
+
+async function initializeDatabase() {
+
+    if (databaseInitPromise) {
+
+        return databaseInitPromise;
+
+    }
+
+
+    databaseInitPromise =
+        (async () => {
+
+            if (!pgPool) {
+
+                throw new Error(
+                    "DATABASE_URL is not configured."
+                );
+
+            }
+
+
+            console.log(
+                "Connecting to PostgreSQL..."
+            );
+
+
+            await pgPool.query(
+                "SELECT 1"
+            );
+
+
+            console.log(
+                "PostgreSQL connection successful."
+            );
+
+
+            // ------------------------------------------------
+            // CREATE TABLE
+            // ------------------------------------------------
+
+            await pgPool.query(
+
+                `
+                CREATE TABLE IF NOT EXISTS tabibk_data (
+
+                    id INTEGER PRIMARY KEY,
+
+                    data JSONB NOT NULL,
+
+                    updated_at
+                    TIMESTAMPTZ
+                    NOT NULL
+                    DEFAULT NOW()
+
+                )
+                `
+
+            );
+
+
+            console.log(
+                "TABIBK PostgreSQL table ready."
+            );
+
+
+            // ------------------------------------------------
+            // CHECK EXISTING DATA
+            // ------------------------------------------------
+
+            const result =
+                await pgPool.query(
+
+                    `
+                    SELECT data
+
+                    FROM tabibk_data
+
+                    WHERE id = 1
+
+                    LIMIT 1
+                    `
+
+                );
+
+
+            if (
+                result.rows.length > 0
+            ) {
+
+                databaseCache =
+                    normalizeDatabase(
+                        result.rows[0].data
+                    );
+
+
+                console.log(
+                    "TABIBK data loaded from PostgreSQL."
+                );
+
+            } else {
+
+                // --------------------------------------------
+                // FIRST MIGRATION FROM database.json
+                // --------------------------------------------
+
+                databaseCache =
+                    readLegacyDatabase();
+
+
+                await pgPool.query(
+
+                    `
+                    INSERT INTO tabibk_data
+                    (
+                        id,
+                        data,
+                        updated_at
+                    )
+
+                    VALUES
+                    (
+                        1,
+                        $1::jsonb,
+                        NOW()
+                    )
+                    `,
+
+                    [
+                        JSON.stringify(
+                            databaseCache
+                        )
+                    ]
+
+                );
+
+
+                console.log(
+                    "Legacy database.json migrated to PostgreSQL."
+                );
+
+            }
+
+
+            databaseReady = true;
+
+
+            console.log(
+                "TABIBK DATABASE READY."
+            );
+
+
+            return databaseCache;
+
+        })();
+
+
+    return databaseInitPromise;
+
+}
 // ============================================================
 // HELPERS
 // ============================================================
@@ -2583,32 +2916,81 @@ setInterval(
 // START SERVER
 // ============================================================
 
-app.listen(
-    PORT,
-    () => {
+async function startServer() {
 
-        console.log(
+    try {
+
+        // انتظار اتصال PostgreSQL وتجهيز قاعدة البيانات
+        await initializeDatabase();
+
+
+        // تشغيل السيرفر بعد نجاح قاعدة البيانات
+        app.listen(
+            PORT,
+            () => {
+
+                console.log(
+                    "=========================================="
+                );
+
+                console.log(
+                    "TABIBK SERVER STARTED"
+                );
+
+                console.log(
+                    `PORT: ${PORT}`
+                );
+
+                console.log(
+                    "DATABASE: PostgreSQL"
+                );
+
+                console.log(
+                    "Doctor authentication: ENABLED"
+                );
+
+                console.log(
+                    "Persistent storage: ENABLED"
+                );
+
+                console.log(
+                    "=========================================="
+                );
+
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
             "=========================================="
         );
 
-        console.log(
-            "TABIBK SERVER STARTED"
+        console.error(
+            "TABIBK DATABASE STARTUP ERROR"
         );
 
-        console.log(
-            `PORT: ${PORT}`
+        console.error(
+            error
         );
 
-        console.log(
-            `DATABASE: ${DATABASE_FILE}`
+        console.error(
+            "Check DATABASE_URL in Render Environment Variables."
         );
 
-        console.log(
-            "Doctor authentication: ENABLED"
-        );
-
-        console.log(
+        console.error(
             "=========================================="
         );
+
+        process.exit(1);
+
     }
-);
+
+}
+
+
+// ============================================================
+// RUN SERVER
+// ============================================================
+
+startServer();

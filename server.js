@@ -5,7 +5,7 @@
 
 const express = require("express");
 const fs = require("fs");
-const path = require("path");
+const path = require("path");ACCEPT APPOINTMENT
 const crypto = require("crypto");
 
 const app = express();
@@ -1974,6 +1974,32 @@ app.post(
                 new Date().toISOString()
         });
 
+        // ------------------------------------------------------------
+// PATIENT NOTIFICATION - APPOINTMENT CONFIRMED
+// ------------------------------------------------------------
+
+createNotification(database, {
+
+    patientPhone:
+        appointment.patientPhone,
+
+    appointmentId:
+        appointment.id,
+
+    bookingNumber:
+        appointment.bookingNumber,
+
+    type:
+        "appointment_confirmed",
+
+    title:
+        "تم تأكيد موعدك ✅",
+
+    message:
+        `تم تأكيد موعدك مع ${appointment.doctorName} بنجاح.`
+
+});
+
         saveDatabase(database);
 
         res.json({
@@ -2902,6 +2928,32 @@ app.post(
         appointment.updatedAt =
             new Date().toISOString();
 
+        // ------------------------------------------------------------
+// PATIENT NOTIFICATION - ADMIN CONFIRMED
+// ------------------------------------------------------------
+
+createNotification(database, {
+
+    patientPhone:
+        appointment.patientPhone,
+
+    appointmentId:
+        appointment.id,
+
+    bookingNumber:
+        appointment.bookingNumber,
+
+    type:
+        "admin_appointment_confirmed",
+
+    title:
+        "تم تأكيد موعدك من الإدارة ✅",
+
+    message:
+        `تم تأكيد موعدك مع ${appointment.doctorName} من طرف الإدارة.`
+
+});
+        
         saveDatabase(database);
 
         res.json({

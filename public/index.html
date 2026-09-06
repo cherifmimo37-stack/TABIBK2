@@ -832,7 +832,166 @@
     }
 
 }
-    
+
+        /* ============================================================
+   NEW PATIENT NOTIFICATION TOAST
+============================================================ */
+
+.patient-notification-toast {
+
+    position: fixed;
+
+    top: 90px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        translateY(-20px);
+
+    width: 360px;
+
+    max-width: calc(100vw - 30px);
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 15px 18px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.22);
+
+    border: 1px solid #eef0f4;
+
+    z-index: 100000;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: 0.35s ease;
+}
+
+
+/* ============================================================
+   SHOW TOAST
+============================================================ */
+
+.patient-notification-toast.show {
+
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+
+    pointer-events: auto;
+}
+
+
+/* ============================================================
+   TOAST TITLE
+============================================================ */
+
+.patient-toast-title {
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    margin-bottom: 5px;
+
+    padding-right: 10px;
+
+    color: #101828;
+}
+
+
+/* ============================================================
+   TOAST MESSAGE
+============================================================ */
+
+.patient-toast-message {
+
+    font-size: 12px;
+
+    color: #667085;
+
+    line-height: 1.7;
+
+    padding-right: 10px;
+}
+
+
+/* ============================================================
+   CLOSE BUTTON
+============================================================ */
+
+.patient-toast-close {
+
+    position: absolute;
+
+    top: 8px;
+
+    left: 10px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    color: #98a2b3;
+
+    width: 28px;
+
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    transition: 0.2s ease;
+}
+
+
+.patient-toast-close:hover {
+
+    background: #f2f4f7;
+
+    color: #101828;
+}
+
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media (max-width: 450px) {
+
+    .patient-notification-toast {
+
+        top: 78px;
+
+        width: calc(100vw - 24px);
+
+        max-width: none;
+
+        padding: 14px 16px;
+
+        border-radius: 16px;
+
+    }
+
+}
+        
     </style>
 
 </head>

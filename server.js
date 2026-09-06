@@ -1526,6 +1526,33 @@ app.post(
                     new Date().toISOString()
             });
 
+            // ------------------------------------------------------------
+// PATIENT NOTIFICATION - APPOINTMENT SENT
+// ------------------------------------------------------------
+
+createNotification(database, {
+
+    patientPhone:
+        appointment.patientPhone,
+
+    appointmentId:
+        appointment.id,
+
+    bookingNumber:
+        appointment.bookingNumber,
+
+    type:
+        "appointment_sent",
+
+    title:
+        "تم إرسال طلب الموعد",
+
+    message:
+        `تم إرسال طلب موعدك إلى ${appointment.doctorName} بنجاح.`
+
+});
+
+            
             saveDatabase(database);
 
             res.status(201).json({

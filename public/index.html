@@ -1271,6 +1271,612 @@
 
 </footer>
 
+    // ============================================================
+// PATIENT NOTIFICATIONS - JAVASCRIPT
+// ============================================================
+
+let patientNotificationsOpen = false;
+
+
+/* ============================================================
+   GET PATIENT PHONE
+============================================================ */
+
+function getPatientPhone() {
+
+    const phoneInput =
+        document.getElementById("patientPhone");
+
+    if (!phoneInput) {
+        return "";
+    }
+
+    return phoneInput.value.trim();
+}
+
+
+/* ============================================================
+   FORMAT NOTIFICATION TIME
+============================================================ */
+
+function formatNotificationTime(dateString) {
+
+    if (!dateString) {
+        return "";
+    }
+
+    const date =
+        new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+        return "";
+    }
+
+    const now =
+        new Date();
+
+    const diff =
+        Math.floor(
+            (now - date) / 1000
+        );
+
+
+    if (diff < 60) {
+
+        return "منذ لحظات";
+
+    }
+
+
+    if (diff < 3600) {
+
+        const minutes =
+            Math.floor(diff / 60);
+
+        return `منذ ${minutes} دقيقة`;
+
+    }
+
+
+    if (diff < 86400) {
+
+        const hours =
+            Math.floor(diff / 3600);
+
+        return `منذ ${hours} ساعة`;
+
+    }
+
+
+    if (diff < 172800) {
+
+        return "أمس";
+
+    }
+
+
+    return date.toLocaleDateString(
+        "ar-DZ",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }
+    );
+}
+
+
+/* ============================================================
+   GET NOTIFICATION ICON
+============================================================ */
+
+function getNotificationIcon(type) {
+
+    switch (type) {
+
+        case "appointment_confirmed":
+        case "admin_appointment_confirmed":
+
+            return "✅";
+
+
+        case "appointment_rejected":
+        case "admin_appointment_rejected":
+
+            return "❌";
+
+
+        case "appointment_sent":
+
+            return "📨";
+
+
+        case "consultation_started":
+
+            return "🩺";
+
+
+        case "consultation_completed":
+
+            return "🏁";
+
+
+        default:
+
+            return "🔔";
+    }
+}
+
+
+/* ============================================================
+   LOAD PATIENT NOTIFICATIONS
+============================================================ */
+
+async function loadPatientNotifications() {
+
+    const phone =
+        getPatientPhone();
+
+    if (!phone) {
+
+        const list =
+            document.getElementById(
+                "patientNotificationsList"
+            );
+
+        if (list) {
+
+            list.innerHTML = `
+
+                <div class="notifications-empty">
+
+                    أدخل رقم هاتفك أولًا
+                    لعرض الإشعارات 🔔
+
+                </div>
+
+            `;
+        }
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/api/patient/notifications?phone=${encodeURIComponent(phone)}`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "تعذر تحميل الإشعارات"
+            );
+
+        }
+
+
+        renderPatientNotifications(
+            data.notifications || []
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Patient notifications error:",
+            error
+        );
+
+        const list =
+            document.getElementById(
+                "patientNotificationsList"
+            );
+
+        if (list) {
+
+            list.innerHTML = `
+
+                <div class="notifications-empty">
+
+                    تعذر تحميل الإشعارات ⚠️
+
+                </div>
+
+            `;
+        }
+    }
+}
+
+
+/* ============================================================
+   RENDER NOTIFICATIONS
+============================================================ */
+
+function renderPatientNotifications(
+    notifications
+) {
+
+    const list =
+        document.getElementById(
+            "patientNotificationsList"
+        );
+
+
+    if (!list) {
+        return;
+    }
+
+
+    if (
+        !notifications ||
+        notifications.length === 0
+    ) {
+
+        list.innerHTML = `
+
+            <div class="notifications-empty">
+
+                لا توجد إشعارات حاليًا 🔔
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        notifications.map(
+            notification => {
+
+                const unreadClass =
+                    notification.read
+                        ? ""
+                        : "unread";
+
+
+                const icon =
+                    getNotificationIcon(
+                        notification.type
+                    );
+
+
+                return `
+
+                    <div
+                        class="notification-item ${unreadClass}"
+                        onclick="markPatientNotificationAsRead('${notification.id}')"
+                    >
+
+                        <div
+                            class="notification-item-title"
+                        >
+
+                            ${icon}
+                            ${escapeNotificationHTML(
+                                notification.title ||
+                                "إشعار جديد"
+                            )}
+
+                        </div>
+
+
+                        <div
+                            class="notification-item-message"
+                        >
+
+                            ${escapeNotificationHTML(
+                                notification.message ||
+                                ""
+                            )}
+
+                        </div>
+
+
+                        <div
+                            class="notification-item-time"
+                        >
+
+                            ${formatNotificationTime(
+                                notification.createdAt
+                            )}
+
+                        </div>
+
+                    </div>
+
+                `;
+            }
+        ).join("");
+}
+
+
+/* ============================================================
+   ESCAPE HTML
+============================================================ */
+
+function escapeNotificationHTML(
+    text
+) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        String(text);
+
+    return div.innerHTML;
+}
+
+
+/* ============================================================
+   UPDATE UNREAD COUNT
+============================================================ */
+
+async function updatePatientNotificationCount() {
+
+    const phone =
+        getPatientPhone();
+
+
+    const badge =
+        document.getElementById(
+            "patientNotificationCount"
+        );
+
+
+    if (!badge) {
+        return;
+    }
+
+
+    if (!phone) {
+
+        badge.style.display =
+            "none";
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/api/patient/notifications/unread-count?phone=${encodeURIComponent(phone)}`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "تعذر تحميل عدد الإشعارات"
+            );
+
+        }
+
+
+        const count =
+            Number(
+                data.unreadCount
+            ) || 0;
+
+
+        if (count > 0) {
+
+            badge.textContent =
+                count > 99
+                    ? "99+"
+                    : count;
+
+            badge.style.display =
+                "flex";
+
+        } else {
+
+            badge.style.display =
+                "none";
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Notification count error:",
+            error
+        );
+
+    }
+}
+
+
+/* ============================================================
+   OPEN / CLOSE NOTIFICATIONS
+============================================================ */
+
+function togglePatientNotifications() {
+
+    const panel =
+        document.getElementById(
+            "patientNotificationsPanel"
+        );
+
+
+    if (!panel) {
+        return;
+    }
+
+
+    patientNotificationsOpen =
+        !patientNotificationsOpen;
+
+
+    if (patientNotificationsOpen) {
+
+        panel.style.display =
+            "block";
+
+        loadPatientNotifications();
+
+        updatePatientNotificationCount();
+
+    } else {
+
+        panel.style.display =
+            "none";
+
+    }
+}
+
+
+/* ============================================================
+   CLOSE NOTIFICATIONS
+============================================================ */
+
+function closePatientNotifications() {
+
+    const panel =
+        document.getElementById(
+            "patientNotificationsPanel"
+        );
+
+
+    if (panel) {
+
+        panel.style.display =
+            "none";
+
+    }
+
+
+    patientNotificationsOpen =
+        false;
+}
+
+
+/* ============================================================
+   MARK NOTIFICATION AS READ
+============================================================ */
+
+async function markPatientNotificationAsRead(
+    notificationId
+) {
+
+    const phone =
+        getPatientPhone();
+
+
+    if (!phone) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/api/patient/notifications/${notificationId}/read`,
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            phone:
+                                phone
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "تعذر تحديث الإشعار"
+            );
+
+        }
+
+
+        await loadPatientNotifications();
+
+        await updatePatientNotificationCount();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Mark notification read error:",
+            error
+        );
+
+    }
+}
+
+
+/* ============================================================
+   PATIENT NOTIFICATION POLLING
+============================================================ */
+
+function startPatientNotificationPolling() {
+
+    updatePatientNotificationCount();
+
+
+    setInterval(
+        async function () {
+
+            await updatePatientNotificationCount();
+
+
+            if (
+                patientNotificationsOpen
+            ) {
+
+                await loadPatientNotifications();
+
+            }
+
+        },
+        10000
+    );
+}
 
 <script>
 
@@ -2082,6 +2688,7 @@
 
             loadWilayas();
 
+            startPatientNotificationPolling();
         }
     );
 

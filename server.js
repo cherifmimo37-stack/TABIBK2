@@ -1452,16 +1452,25 @@ app.get(
         const database =
             readDatabase();
 
+        const bookingNumber =
+            String(
+                req.params.bookingNumber
+            ).trim().toUpperCase();
+
+
+        // ----------------------------------------------------
+        // FIND APPOINTMENT
+        // ----------------------------------------------------
+
         const appointment =
             database.appointments.find(
                 a =>
                     String(
                         a.bookingNumber
-                    ).toUpperCase() ===
-                    String(
-                        req.params.bookingNumber
-                    ).toUpperCase()
+                    ).trim().toUpperCase() ===
+                    bookingNumber
             );
+
 
         if (!appointment) {
 
@@ -1471,19 +1480,203 @@ app.get(
 
                 message:
                     "رقم الحجز غير موجود"
+
             });
+
         }
+
+
+        // ----------------------------------------------------
+        // DOCTOR ID
+        // ----------------------------------------------------
+
+        const doctorId =
+            Number(
+                appointment.doctorId
+            );
+
+
+        // ----------------------------------------------------
+        // ALL APPOINTMENTS FOR SAME DOCTOR
+        // ----------------------------------------------------
+
+        const doctorAppointments =
+            database.appointments
+
+                .filter(
+                    a =>
+                        Number(
+                            a.doctorId
+                        ) === doctorId
+                )
+
+                .sort(
+                    (a, b) => {
+
+                        const queueA =
+                            Number(
+                                a.queueNumber
+                            ) || 0;
+
+                        const queueB =
+                            Number(
+                                b.queueNumber
+                            ) || 0;
+
+                        return queueA - queueB;
+
+                    }
+                );
+
+
+        // ----------------------------------------------------
+        // CURRENT ACTIVE APPOINTMENT
+        // ----------------------------------------------------
+
+        const activeAppointments =
+            doctorAppointments.filter(
+                a => {
+
+                    const status =
+                        String(
+                            a.status || ""
+                        ).toLowerCase();
+
+                    return (
+                        status === "confirmed" ||
+                        status === "accepted" ||
+                        status === "in_progress" ||
+                        status === "waiting"
+                    );
+
+                }
+            );
+
+
+        // ----------------------------------------------------
+        // CURRENT TURN
+        // ----------------------------------------------------
+
+        let currentTurn = 0;
+
+
+        if (
+            activeAppointments.length > 0
+        ) {
+
+            currentTurn =
+                Number(
+                    activeAppointments[0].queueNumber
+                ) || 0;
+
+        }
+
+
+        // ----------------------------------------------------
+        // PATIENT QUEUE NUMBER
+        // ----------------------------------------------------
+
+        const queueNumber =
+            Number(
+                appointment.queueNumber
+            ) || 0;
+
+
+        // ----------------------------------------------------
+        // PATIENTS BEFORE
+        // ----------------------------------------------------
+
+        let patientsBefore = 0;
+
+
+        if (queueNumber > 0) {
+
+            patientsBefore =
+                doctorAppointments.filter(
+                    a => {
+
+                        const otherQueue =
+                            Number(
+                                a.queueNumber
+                            ) || 0;
+
+
+                        const status =
+                            String(
+                                a.status || ""
+                            ).toLowerCase();
+
+
+                        const waitingStatus =
+                            (
+                                status === "pending" ||
+                                status === "confirmed" ||
+                                status === "accepted" ||
+                                status === "waiting" ||
+                                status === "in_progress"
+                            );
+
+
+                        return (
+                            otherQueue > 0 &&
+                            otherQueue < queueNumber &&
+                            waitingStatus
+                        );
+
+                    }
+                ).length;
+
+        }
+
+
+        // ----------------------------------------------------
+        // DOCTOR NAME
+        // ----------------------------------------------------
+
+        const doctor =
+            database.doctors.find(
+                d =>
+                    Number(d.id) === doctorId
+            );
+
+
+        const doctorName =
+            doctor
+                ? doctor.name
+                : (
+                    appointment.doctorName ||
+                    "الطبيب"
+                );
+
+
+        // ----------------------------------------------------
+        // RESPONSE
+        // ----------------------------------------------------
 
         res.json({
 
             success: true,
 
+            bookingNumber:
+                appointment.bookingNumber,
+
+            queueNumber,
+
+            currentTurn,
+
+            patientsBefore,
+
+            doctorName,
+
+            status:
+                appointment.status,
+
             appointment
+
         });
+
     }
 );
-
-
 // ============================================================
 // GET DOCTOR APPOINTMENTS
 // ============================================================

@@ -1316,6 +1316,118 @@ app.get(
 
 
 // ============================================================
+// PATIENT UNREAD NOTIFICATIONS COUNT
+// ============================================================
+
+app.get(
+    "/api/patient/notifications/unread-count",
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const patientPhone =
+            normalizePhone(
+                req.query.phone
+            );
+
+        if (!patientPhone) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "رقم هاتف المريض مطلوب"
+            });
+        }
+
+        const unreadCount =
+            database.notifications.filter(
+                notification =>
+                    notification.patientPhone &&
+                    normalizePhone(
+                        notification.patientPhone
+                    ) === patientPhone &&
+                    notification.read === false
+            ).length;
+
+        res.json({
+
+            success: true,
+
+            unreadCount:
+                unreadCount
+        });
+    }
+);
+
+// ============================================================
+// MARK PATIENT NOTIFICATION AS READ
+// ============================================================
+
+app.post(
+    "/api/patient/notifications/:id/read",
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const patientPhone =
+            normalizePhone(
+                req.body.phone
+            );
+
+        if (!patientPhone) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "رقم هاتف المريض مطلوب"
+            });
+        }
+
+        const notification =
+            database.notifications.find(
+                item =>
+                    String(item.id) ===
+                    String(req.params.id) &&
+                    item.patientPhone &&
+                    normalizePhone(
+                        item.patientPhone
+                    ) === patientPhone
+            );
+
+        if (!notification) {
+
+            return res.status(404).json({
+
+                success: false,
+
+                message:
+                    "الإشعار غير موجود"
+            });
+        }
+
+        notification.read = true;
+
+        notification.readAt =
+            new Date().toISOString();
+
+        saveDatabase(database);
+
+        res.json({
+
+            success: true,
+
+            message:
+                "تم تعليم الإشعار كمقروء"
+        });
+    }
+);
+// ============================================================
 // CREATE APPOINTMENT
 // ============================================================
 

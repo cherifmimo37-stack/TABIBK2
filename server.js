@@ -2330,6 +2330,32 @@ app.post(
         appointment.updatedAt =
             new Date().toISOString();
 
+        // ------------------------------------------------------------
+// PATIENT NOTIFICATION - CONSULTATION COMPLETED
+// ------------------------------------------------------------
+
+createNotification(database, {
+
+    patientPhone:
+        appointment.patientPhone,
+
+    appointmentId:
+        appointment.id,
+
+    bookingNumber:
+        appointment.bookingNumber,
+
+    type:
+        "consultation_completed",
+
+    title:
+        "انتهت الاستشارة 🏁",
+
+    message:
+        `انتهت استشارتك مع ${appointment.doctorName} بنجاح.`
+
+});
+        
         saveDatabase(database);
 
         res.json({

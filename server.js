@@ -2230,6 +2230,32 @@ app.post(
         appointment.updatedAt =
             new Date().toISOString();
 
+        // ------------------------------------------------------------
+// PATIENT NOTIFICATION - CONSULTATION STARTED
+// ------------------------------------------------------------
+
+createNotification(database, {
+
+    patientPhone:
+        appointment.patientPhone,
+
+    appointmentId:
+        appointment.id,
+
+    bookingNumber:
+        appointment.bookingNumber,
+
+    type:
+        "consultation_started",
+
+    title:
+        "بدأت الاستشارة 🩺",
+
+    message:
+        `بدأت الآن استشارتك مع ${appointment.doctorName}.`
+
+});
+        
         saveDatabase(database);
 
         res.json({

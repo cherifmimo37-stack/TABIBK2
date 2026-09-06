@@ -603,6 +603,70 @@ function normalizePhone(phone) {
 }
 
 
+// ============================================================
+// CREATE NOTIFICATION
+// ============================================================
+
+function createNotification(database, data = {}) {
+
+    if (!database.notifications) {
+        database.notifications = [];
+    }
+
+    const notification = {
+
+        id:
+            generateId(
+                database.notifications
+            ),
+
+        patientPhone:
+            data.patientPhone
+                ? normalizePhone(data.patientPhone)
+                : null,
+
+        doctorId:
+            data.doctorId !== undefined &&
+            data.doctorId !== null
+                ? Number(data.doctorId)
+                : null,
+
+        appointmentId:
+            data.appointmentId !== undefined &&
+            data.appointmentId !== null
+                ? Number(data.appointmentId)
+                : null,
+
+        bookingNumber:
+            data.bookingNumber
+                ? String(data.bookingNumber)
+                : null,
+
+        type:
+            data.type || "system",
+
+        title:
+            data.title || "إشعار جديد",
+
+        message:
+            data.message || "",
+
+        read:
+            false,
+
+        createdAt:
+            new Date().toISOString()
+    };
+
+    database.notifications.push(
+        notification
+    );
+
+    return notification;
+}
+
+
+
 function createDoctorToken() {
 
     return crypto.randomBytes(48)

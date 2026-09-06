@@ -610,6 +610,229 @@
 
         }
 
+  /* ============================================================
+   PATIENT NOTIFICATIONS
+============================================================ */
+
+.notification-btn {
+    position: relative;
+}
+
+
+/* UNREAD COUNT */
+
+.notification-count {
+
+    position: absolute;
+
+    top: -5px;
+    right: -5px;
+
+    min-width: 20px;
+    height: 20px;
+
+    padding: 0 5px;
+
+    border-radius: 50px;
+
+    background: #ef4444;
+
+    color: white;
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 2px solid #172554;
+
+}
+
+
+/* NOTIFICATIONS PANEL */
+
+.notifications-panel {
+
+    position: fixed;
+
+    top: 78px;
+
+    right: 16px;
+
+    width: 350px;
+
+    max-width: calc(100vw - 32px);
+
+    background: white;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.20);
+
+    border: 1px solid #eef0f4;
+
+    z-index: 99999;
+
+}
+
+
+/* HEADER */
+
+.notifications-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 16px 18px;
+
+    background: #0b132b;
+
+    color: white;
+
+}
+
+
+.notifications-header strong {
+
+    font-size: 15px;
+
+}
+
+
+.notifications-header button {
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+}
+
+
+/* LIST */
+
+.notifications-list {
+
+    max-height: 420px;
+
+    overflow-y: auto;
+
+}
+
+
+/* EMPTY */
+
+.notifications-empty {
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    color: #98a2b3;
+
+    font-size: 13px;
+
+}
+
+
+/* ITEM */
+
+.notification-item {
+
+    padding: 15px;
+
+    border-bottom: 1px solid #f0f2f5;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+
+.notification-item:hover {
+
+    background: #f8fafc;
+
+}
+
+
+.notification-item.unread {
+
+    background: #fffdf5;
+
+    border-right: 4px solid #d4af37;
+
+}
+
+
+.notification-item-title {
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    margin-bottom: 5px;
+
+}
+
+
+.notification-item-message {
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    color: #667085;
+
+}
+
+
+.notification-item-time {
+
+    margin-top: 7px;
+
+    font-size: 10px;
+
+    color: #98a2b3;
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 450px) {
+
+    .notifications-panel {
+
+        top: 72px;
+
+        right: 10px;
+
+        width: calc(100vw - 20px);
+
+    }
+
+}
+    
     </style>
 
 </head>
@@ -641,18 +864,63 @@
         </div>
 
         <button
-            class="notification-btn"
-            onclick="showNotifications()">
+    class="notification-btn"
+    id="patientNotificationBell"
+    onclick="togglePatientNotifications()"
+    type="button">
 
-            <i class="fa-regular fa-bell"></i>
+    <i class="fa-regular fa-bell"></i>
 
-        </button>
+    <span
+        id="patientNotificationCount"
+        class="notification-count"
+        style="display:none;">
+        0
+    </span>
+
+</button>
 
     </div>
 
 </header>
 
+<!-- ============================================================
+     PATIENT NOTIFICATIONS PANEL
+============================================================ -->
 
+<div
+    id="patientNotificationsPanel"
+    class="notifications-panel"
+    style="display:none;">
+
+    <div class="notifications-header">
+
+        <strong>
+            🔔 الإشعارات
+        </strong>
+
+        <button
+            type="button"
+            onclick="closePatientNotifications()">
+
+            ✕
+
+        </button>
+
+    </div>
+
+    <div
+        id="patientNotificationsList"
+        class="notifications-list">
+
+        <div class="notifications-empty">
+            لا توجد إشعارات حاليًا
+        </div>
+
+    </div>
+
+</div>
+    
 <!-- ================= HERO ================= -->
 
 <section class="hero">

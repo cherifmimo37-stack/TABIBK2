@@ -2110,6 +2110,34 @@ app.post(
                 new Date().toISOString()
         });
 
+
+        // ------------------------------------------------------------
+// PATIENT NOTIFICATION - APPOINTMENT REJECTED
+// ------------------------------------------------------------
+
+createNotification(database, {
+
+    patientPhone:
+        appointment.patientPhone,
+
+    appointmentId:
+        appointment.id,
+
+    bookingNumber:
+        appointment.bookingNumber,
+
+    type:
+        "appointment_rejected",
+
+    title:
+        "تم رفض موعدك ❌",
+
+    message:
+        `تم رفض موعدك مع ${appointment.doctorName}. السبب: ${appointment.rejectionReason || "لم يتم تحديد سبب"}`
+
+});
+
+        
         saveDatabase(database);
 
         res.json({
@@ -3012,6 +3040,32 @@ app.post(
         appointment.updatedAt =
             new Date().toISOString();
 
+        // ------------------------------------------------------------
+// PATIENT NOTIFICATION - ADMIN REJECTED
+// ------------------------------------------------------------
+
+createNotification(database, {
+
+    patientPhone:
+        appointment.patientPhone,
+
+    appointmentId:
+        appointment.id,
+
+    bookingNumber:
+        appointment.bookingNumber,
+
+    type:
+        "admin_appointment_rejected",
+
+    title:
+        "تم رفض موعدك من الإدارة ❌",
+
+    message:
+        `تم رفض موعدك من الإدارة. السبب: ${appointment.rejectionReason || "لم يتم تحديد سبب"}`
+
+});
+        
         saveDatabase(database);
 
         res.json({

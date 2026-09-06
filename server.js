@@ -1262,6 +1262,58 @@ app.get(
     }
 );
 
+// ============================================================
+// PATIENT NOTIFICATIONS
+// ============================================================
+
+app.get(
+    "/api/patient/notifications",
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const patientPhone =
+            normalizePhone(
+                req.query.phone
+            );
+
+        if (!patientPhone) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "رقم هاتف المريض مطلوب"
+            });
+        }
+
+        const notifications =
+            database.notifications.filter(
+                notification =>
+                    notification.patientPhone &&
+                    normalizePhone(
+                        notification.patientPhone
+                    ) === patientPhone
+            );
+
+        res.json({
+
+            success: true,
+
+            notifications:
+                notifications
+                    .sort(
+                        (a, b) =>
+                            new Date(b.createdAt) -
+                            new Date(a.createdAt)
+                    )
+                    .slice(0, 100)
+        });
+    }
+);
+
 
 // ============================================================
 // CREATE APPOINTMENT

@@ -1696,6 +1696,43 @@ if (duplicateAppointment) {
 
     });
 }
+            // ============================================================
+// PREVENT SAME DOCTOR SAME TIME
+// ============================================================
+
+const occupiedAppointment =
+    database.appointments.find(
+        appointment =>
+
+            Number(
+                appointment.doctorId
+            ) === Number(doctor.id) &&
+
+            appointment.date === date &&
+
+            appointment.time === time &&
+
+            [
+                "pending",
+                "confirmed",
+                "accepted",
+                "started"
+            ].includes(
+                appointment.status
+            )
+    );
+
+if (occupiedAppointment) {
+
+    return res.status(400).json({
+
+        success: false,
+
+        message:
+            "هذا الموعد محجوز مسبقاً، يرجى اختيار وقت آخر"
+
+    });
+}
             
             let queueNumber = 1;
 

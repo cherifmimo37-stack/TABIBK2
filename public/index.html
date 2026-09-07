@@ -2814,6 +2814,16 @@ function playPatientNotificationSound() {
                 "reason"
             ).value.trim();
 
+        const appointmentDate =
+    document.getElementById(
+        "appointmentDate"
+    ).value;
+
+const appointmentTime =
+    document.getElementById(
+        "appointmentTime"
+    ).value;
+
 
         if (!patientName) {
 
@@ -2847,6 +2857,19 @@ function playPatientNotificationSound() {
 
         }
 
+        if (!appointmentDate) {
+
+    alert("يرجى اختيار تاريخ الموعد");
+
+    return;
+}
+
+if (!appointmentTime) {
+
+    alert("يرجى اختيار وقت الموعد");
+
+    return;
+}
 
         try {
 
@@ -2863,18 +2886,24 @@ function playPatientNotificationSound() {
                         },
 
                         body:
-                            JSON.stringify({
+    JSON.stringify({
 
-                                patientName,
+        patientName,
 
-                                patientPhone,
+        patientPhone,
 
-                                doctorId:
-                                    selectedDoctorId,
+        doctorId:
+            selectedDoctorId,
 
-                                reason
+        reason,
 
-                            })
+        date:
+            appointmentDate,
+
+        time:
+            appointmentTime
+
+    })
 
                     }
                 );

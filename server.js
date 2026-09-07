@@ -1566,6 +1566,93 @@ app.post(
             }
 
             // ============================================================
+// CHECK DOCTOR WORKING HOURS
+// ============================================================
+
+const workingHours =
+    doctor.workingHours || {
+
+        enabled: true,
+
+        days: [
+            0,
+            1,
+            2,
+            3,
+            4
+        ],
+
+        open: "08:00",
+
+        close: "17:00"
+    };
+
+
+// ------------------------------------------------------------
+// العيادة مغلقة بالكامل
+// ------------------------------------------------------------
+
+if (
+    workingHours.enabled === false
+) {
+
+    return res.status(400).json({
+
+        success: false,
+
+        message:
+            "الطبيب لا يستقبل الحجوزات حالياً"
+    });
+}
+
+
+// ------------------------------------------------------------
+// التحقق من يوم العمل
+// ------------------------------------------------------------
+
+const appointmentDateObject =
+    new Date(
+        `${date}T12:00:00+01:00`
+    );
+
+const appointmentDay =
+    appointmentDateObject.getDay();
+
+if (
+    !workingHours.days.includes(
+        appointmentDay
+    )
+) {
+
+    return res.status(400).json({
+
+        success: false,
+
+        message:
+            "الطبيب لا يعمل في هذا اليوم"
+    });
+}
+
+
+// ------------------------------------------------------------
+// التحقق من ساعة العمل
+// ------------------------------------------------------------
+
+if (
+    time < workingHours.open ||
+    time > workingHours.close
+) {
+
+    return res.status(400).json({
+
+        success: false,
+
+        message:
+            `وقت عمل الطبيب من ${workingHours.open} إلى ${workingHours.close}`
+    });
+}
+            
+            // ============================================================
 // PREVENT DUPLICATE APPOINTMENT
 // ============================================================
 

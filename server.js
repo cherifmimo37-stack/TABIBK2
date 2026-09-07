@@ -1510,6 +1510,51 @@ app.post(
                 });
             }
 
+            // ============================================================
+// PREVENT DUPLICATE APPOINTMENT
+// ============================================================
+
+const normalizedPatientPhone =
+    normalizePhone(patientPhone);
+
+const duplicateAppointment =
+    database.appointments.find(
+        appointment =>
+
+            normalizePhone(
+                appointment.patientPhone
+            ) === normalizedPatientPhone &&
+
+            Number(
+                appointment.doctorId
+            ) === Number(doctor.id) &&
+
+            appointment.date === date &&
+
+            appointment.time === time &&
+
+            [
+                "pending",
+                "confirmed",
+                "accepted",
+                "started"
+            ].includes(
+                appointment.status
+            )
+    );
+
+if (duplicateAppointment) {
+
+    return res.status(400).json({
+
+        success: false,
+
+        message:
+            "لديك بالفعل حجز مع هذا الطبيب في نفس التاريخ والوقت"
+
+    });
+}
+            
             let queueNumber = 1;
 
             const today =

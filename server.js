@@ -2904,11 +2904,35 @@ app.post(
                         "123456"
                     ),
 
-                online:
-                    false,
+               online:
+    false,
 
-                createdAt:
-                    new Date().toISOString(),
+// ============================================================
+// DOCTOR WORKING HOURS
+// ============================================================
+
+workingHours: {
+
+    enabled:
+        true,
+
+    days: [
+        0,
+        1,
+        2,
+        3,
+        4
+    ],
+
+    open:
+        "08:00",
+
+    close:
+        "17:00"
+},
+
+createdAt:
+    new Date().toISOString(),
 
                 updatedAt:
                     new Date().toISOString()

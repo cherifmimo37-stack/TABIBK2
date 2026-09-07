@@ -3203,14 +3203,33 @@ if (!appointmentTime) {
     ========================================= */
 
     document.addEventListener(
-        "DOMContentLoaded",
-        () => {
+    "DOMContentLoaded",
+    () => {
 
-            loadWilayas();
+        loadWilayas();
 
-            startPatientNotificationPolling();
+        startPatientNotificationPolling();
+
+
+        // منع اختيار تاريخ سابق لليوم
+        const appointmentDate =
+            document.getElementById(
+                "appointmentDate"
+            );
+
+        if (appointmentDate) {
+
+            const today =
+                new Date()
+                    .toISOString()
+                    .split("T")[0];
+
+            appointmentDate.min =
+                today;
         }
-    );
+
+    }
+);
 
 </script>
 

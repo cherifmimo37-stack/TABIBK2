@@ -2870,7 +2870,37 @@ if (!appointmentTime) {
 
     return;
 }
+if (
+    appointmentDate ===
+    new Date()
+        .toISOString()
+        .split("T")[0]
+) {
 
+    const now =
+        new Date();
+
+    const currentTime =
+        now
+            .toTimeString()
+            .slice(0, 5);
+
+    if (
+        appointmentTime <=
+        currentTime
+    ) {
+
+        alert(
+            "لا يمكن اختيار وقت مضى، يرجى اختيار وقت لاحق"
+        );
+
+        return;
+
+    }
+
+}
+        
+        
         try {
 
             const response =

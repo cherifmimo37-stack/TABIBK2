@@ -3568,9 +3568,9 @@ function checkPatientAppointmentReminders() {
              * إنشاء تاريخ ووقت الموعد
              */
             const appointmentDateTime =
-                new Date(
-                    `${appointment.date}T${appointment.time}:00`
-                );
+    new Date(
+        `${appointment.date}T${appointment.time}:00+01:00`
+    );
 
             if (
                 Number.isNaN(

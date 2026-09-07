@@ -3528,7 +3528,174 @@ setInterval(
     60 * 60 * 1000
 );
 
+// ============================================================
+// PATIENT APPOINTMENT REMINDERS
+// ============================================================
 
+function checkPatientAppointmentReminders() {
+
+    const database =
+        readDatabase();
+
+    const now =
+        new Date();
+
+    let databaseChanged = false;
+
+    database.appointments.forEach(
+        appointment => {
+
+            if (
+                !appointment.date ||
+                !appointment.time ||
+                !appointment.patientPhone
+            ) {
+                return;
+            }
+
+            if (
+                ![
+                    "confirmed",
+                    "accepted"
+                ].includes(
+                    appointment.status
+                )
+            ) {
+                return;
+            }
+
+            /*
+             * إنشاء تاريخ ووقت الموعد
+             */
+            const appointmentDateTime =
+                new Date(
+                    `${appointment.date}T${appointment.time}:00`
+                );
+
+            if (
+                Number.isNaN(
+                    appointmentDateTime.getTime()
+                )
+            ) {
+                return;
+            }
+
+            /*
+             * الوقت المتبقي حتى الموعد بالدقائق
+             */
+            const minutesUntilAppointment =
+                (
+                    appointmentDateTime.getTime() -
+                    now.getTime()
+                ) /
+                (1000 * 60);
+
+
+            // ------------------------------------------------
+            // تذكير قبل 24 ساعة
+            // ------------------------------------------------
+
+            if (
+                minutesUntilAppointment <= 1440 &&
+                minutesUntilAppointment > 60 &&
+                !appointment.reminder24Sent
+            ) {
+
+                createNotification(
+                    database,
+                    {
+
+                        patientPhone:
+                            appointment.patientPhone,
+
+                        appointmentId:
+                            appointment.id,
+
+                        bookingNumber:
+                            appointment.bookingNumber,
+
+                        type:
+                            "appointment_reminder_24h",
+
+                        title:
+                            "تذكير بموعدك ⏰",
+
+                        message:
+                            `لديك موعد غدًا مع ${appointment.doctorName} على الساعة ${appointment.time}.`
+
+                    }
+                );
+
+                appointment.reminder24Sent =
+                    true;
+
+                appointment.updatedAt =
+                    new Date().toISOString();
+
+                databaseChanged =
+                    true;
+            }
+
+
+            // ------------------------------------------------
+            // تذكير قبل ساعة
+            // ------------------------------------------------
+
+            if (
+                minutesUntilAppointment <= 60 &&
+                minutesUntilAppointment > 0 &&
+                !appointment.reminder1hSent
+            ) {
+
+                createNotification(
+                    database,
+                    {
+
+                        patientPhone:
+                            appointment.patientPhone,
+
+                        appointmentId:
+                            appointment.id,
+
+                        bookingNumber:
+                            appointment.bookingNumber,
+
+                        type:
+                            "appointment_reminder_1h",
+
+                        title:
+                            "موعدك بعد قليل ⏰",
+
+                        message:
+                            `موعدك مع ${appointment.doctorName} بعد حوالي ساعة، الساعة ${appointment.time}.`
+
+                    }
+                );
+
+                appointment.reminder1hSent =
+                    true;
+
+                appointment.updatedAt =
+                    new Date().toISOString();
+
+                databaseChanged =
+                    true;
+            }
+
+        }
+    );
+
+
+    if (databaseChanged) {
+
+        saveDatabase(database);
+
+        console.log(
+            "Patient appointment reminders checked."
+        );
+    }
+
+}
 // ============================================================
 // START SERVER
 // ============================================================
@@ -3540,6 +3707,12 @@ async function startServer() {
         // انتظار اتصال PostgreSQL وتجهيز قاعدة البيانات
         await initializeDatabase();
 
+        checkPatientAppointmentReminders();
+
+setInterval(
+    checkPatientAppointmentReminders,
+    60 * 1000
+);
 
         // تشغيل السيرفر بعد نجاح قاعدة البيانات
         app.listen(

@@ -178,7 +178,62 @@ function normalizeDatabase(database) {
 
             : [];
 
+// ============================================================
+// NORMALIZE DOCTOR WORKING HOURS
+// ============================================================
 
+database.doctors.forEach(
+    doctor => {
+
+        if (
+            !doctor.workingHours ||
+            typeof doctor.workingHours !== "object"
+        ) {
+
+            doctor.workingHours = {
+
+                enabled:
+                    true,
+
+                days: [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+
+                open:
+                    "08:00",
+
+                close:
+                    "17:00"
+            };
+
+        } else {
+
+            doctor.workingHours.enabled =
+                doctor.workingHours.enabled !== false;
+
+            doctor.workingHours.days =
+                Array.isArray(
+                    doctor.workingHours.days
+                )
+                    ? doctor.workingHours.days
+                    : [0, 1, 2, 3, 4];
+
+            doctor.workingHours.open =
+                doctor.workingHours.open ||
+                "08:00";
+
+            doctor.workingHours.close =
+                doctor.workingHours.close ||
+                "17:00";
+        }
+
+    }
+);
+    
     database.appointments =
         Array.isArray(database.appointments)
 

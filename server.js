@@ -1467,6 +1467,17 @@ app.post(
                 });
             }
 
+            if (!date || !time) {
+
+    return res.status(400).json({
+
+        success: false,
+
+        message:
+            "تاريخ ووقت الموعد مطلوبان"
+    });
+}
+            
             const doctor =
                 database.doctors.find(
                     d =>

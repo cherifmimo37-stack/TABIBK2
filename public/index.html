@@ -1430,6 +1430,36 @@
 
 </footer>
 
+    <!-- ============================================================
+     PATIENT NOTIFICATION TOAST
+============================================================ -->
+
+<div
+    id="patientNotificationToast"
+    class="patient-notification-toast">
+
+    <button
+        type="button"
+        class="patient-toast-close"
+        onclick="hidePatientNotificationToast()">
+        ✕
+    </button>
+
+    <div
+        id="patientToastTitle"
+        class="patient-toast-title">
+        🔔 إشعار جديد
+    </div>
+
+    <div
+        id="patientToastMessage"
+        class="patient-toast-message">
+    </div>
+
+</div>
+
+    <script>
+
     // ============================================================
 // PATIENT NOTIFICATIONS - JAVASCRIPT
 // ============================================================
@@ -2009,6 +2039,101 @@ async function markPatientNotificationAsRead(
 }
 
 
+    /* ============================================================
+   PATIENT NEW NOTIFICATION CHECK
+============================================================ */
+
+let lastPatientUnreadCount = 0;
+
+async function checkForNewPatientNotifications() {
+
+    const phone =
+        getPatientPhone();
+
+    if (!phone) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/api/patient/notifications?phone=${encodeURIComponent(phone)}`
+            );
+
+        const data =
+            await response.json();
+
+        if (
+            !data.success ||
+            !Array.isArray(
+                data.notifications
+            )
+        ) {
+            return;
+        }
+
+        const notifications =
+            data.notifications;
+
+        const unreadNotifications =
+            notifications.filter(
+                notification =>
+                    notification.read === false
+            );
+
+        const unreadCount =
+            unreadNotifications.length;
+
+        /*
+         * أول مرة:
+         * نحفظ العدد فقط بدون تشغيل تنبيه
+         */
+        if (
+            lastPatientUnreadCount === 0 &&
+            unreadCount > 0
+        ) {
+
+            lastPatientUnreadCount =
+                unreadCount;
+
+            return;
+        }
+
+        /*
+         * إذا زاد عدد الإشعارات
+         * يعني وصل إشعار جديد
+         */
+        if (
+            unreadCount >
+            lastPatientUnreadCount
+        ) {
+
+            const newestNotification =
+                unreadNotifications[0];
+
+            if (newestNotification) {
+
+                showPatientNotificationToast(
+                    newestNotification
+                );
+
+            }
+        }
+
+        lastPatientUnreadCount =
+            unreadCount;
+
+    } catch (error) {
+
+        console.error(
+            "New notification check error:",
+            error
+        );
+
+    }
+}
+    
 /* ============================================================
    PATIENT NOTIFICATION POLLING
 ============================================================ */
@@ -2017,12 +2142,14 @@ function startPatientNotificationPolling() {
 
     updatePatientNotificationCount();
 
+    checkForNewPatientNotifications();
 
     setInterval(
         async function () {
 
             await updatePatientNotificationCount();
 
+            await checkForNewPatientNotifications();
 
             if (
                 patientNotificationsOpen
@@ -2037,7 +2164,155 @@ function startPatientNotificationPolling() {
     );
 }
 
-<script>
+        /* ============================================================
+   PATIENT NOTIFICATION TOAST
+============================================================ */
+
+function showPatientNotificationToast(notification) {
+
+    const toast =
+        document.getElementById(
+            "patientNotificationToast"
+        );
+
+    const title =
+        document.getElementById(
+            "patientToastTitle"
+        );
+
+    const message =
+        document.getElementById(
+            "patientToastMessage"
+        );
+
+    if (
+        !toast ||
+        !title ||
+        !message
+    ) {
+        return;
+    }
+
+    const icon =
+        getNotificationIcon(
+            notification.type
+        );
+
+    title.textContent =
+        `${icon} ${
+            notification.title ||
+            "إشعار جديد"
+        }`;
+
+    message.textContent =
+        notification.message ||
+        "";
+
+    toast.classList.add("show");
+
+    playPatientNotificationSound();
+
+    clearTimeout(
+        window.patientToastTimer
+    );
+
+    window.patientToastTimer =
+        setTimeout(
+            function () {
+
+                hidePatientNotificationToast();
+
+            },
+            6000
+        );
+}
+
+function hidePatientNotificationToast() {
+
+    const toast =
+        document.getElementById(
+            "patientNotificationToast"
+        );
+
+    if (toast) {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    }
+}
+
+function playPatientNotificationSound() {
+
+    try {
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if (!AudioContext) {
+            return;
+        }
+
+        const audioContext =
+            new AudioContext();
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+        oscillator.type =
+            "sine";
+
+        oscillator.frequency.setValueAtTime(
+            880,
+            audioContext.currentTime
+        );
+
+        oscillator.frequency.setValueAtTime(
+            1174,
+            audioContext.currentTime + 0.12
+        );
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.18,
+            audioContext.currentTime + 0.02
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            audioContext.currentTime + 0.35
+        );
+
+        oscillator.connect(gain);
+
+        gain.connect(
+            audioContext.destination
+        );
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime + 0.35
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Notification sound unavailable"
+        );
+
+    }
+}
+        
 
     /* =========================================
        API

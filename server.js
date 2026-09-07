@@ -3118,6 +3118,46 @@ app.put(
                 );
         }
 
+        // ============================================================
+// UPDATE DOCTOR WORKING HOURS
+// ============================================================
+
+if (
+    req.body.workingHours !==
+    undefined
+) {
+
+    const workingHours =
+        req.body.workingHours;
+
+    if (
+        workingHours &&
+        typeof workingHours === "object"
+    ) {
+
+        doctor.workingHours = {
+
+            enabled:
+                workingHours.enabled !== false,
+
+            days:
+                Array.isArray(
+                    workingHours.days
+                )
+                    ? workingHours.days
+                    : [0, 1, 2, 3, 4],
+
+            open:
+                workingHours.open ||
+                "08:00",
+
+            close:
+                workingHours.close ||
+                "17:00"
+        };
+    }
+}
+
         doctor.updatedAt =
             new Date().toISOString();
 

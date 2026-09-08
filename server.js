@@ -1493,6 +1493,200 @@ app.put(
 );
 
 // ============================================================
+// DOCTOR VACATION
+// ============================================================
+
+// GET - جلب عطلة الطبيب
+app.get(
+    "/api/doctor/vacation",
+    checkDoctorAuth,
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const doctor =
+            database.doctors.find(
+                d =>
+                    Number(d.id) ===
+                    Number(req.doctor.id)
+            );
+
+        if (!doctor) {
+
+            return res.status(404).json({
+
+                success: false,
+
+                message:
+                    "الطبيب غير موجود"
+            });
+        }
+
+        const vacation =
+            doctor.vacation || {
+
+                enabled: false,
+
+                startDate: "",
+
+                endDate: ""
+            };
+
+        res.json({
+
+            success: true,
+
+            vacation
+        });
+    }
+);
+
+
+// PUT - تحديث عطلة الطبيب
+app.put(
+    "/api/doctor/vacation",
+    checkDoctorAuth,
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const doctor =
+            database.doctors.find(
+                d =>
+                    Number(d.id) ===
+                    Number(req.doctor.id)
+            );
+
+        if (!doctor) {
+
+            return res.status(404).json({
+
+                success: false,
+
+                message:
+                    "الطبيب غير موجود"
+            });
+        }
+
+
+        const {
+            enabled,
+            startDate,
+            endDate
+        } = req.body;
+
+
+        if (
+            typeof enabled !==
+            "boolean"
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "حالة العطلة غير صحيحة"
+            });
+        }
+
+
+        // إذا كانت العطلة مفعلة يجب تحديد التاريخين
+        if (enabled) {
+
+            if (
+                !startDate ||
+                !endDate
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "يرجى تحديد تاريخ بداية ونهاية العطلة"
+                });
+            }
+
+
+            const start =
+                new Date(
+                    `${startDate}T12:00:00+01:00`
+                );
+
+            const end =
+                new Date(
+                    `${endDate}T12:00:00+01:00`
+                );
+
+
+            if (
+                isNaN(start.getTime()) ||
+                isNaN(end.getTime())
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "تاريخ العطلة غير صحيح"
+                });
+            }
+
+
+            if (end < start) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "تاريخ نهاية العطلة يجب أن يكون بعد تاريخ البداية"
+                });
+            }
+        }
+
+
+        doctor.vacation = {
+
+            enabled,
+
+            startDate:
+                enabled
+                    ? startDate
+                    : "",
+
+            endDate:
+                enabled
+                    ? endDate
+                    : ""
+        };
+
+
+        doctor.updatedAt =
+            new Date().toISOString();
+
+
+        saveDatabase(database);
+
+
+        res.json({
+
+            success: true,
+
+            message:
+                "تم تحديث عطلة الطبيب بنجاح",
+
+            vacation:
+                doctor.vacation
+        });
+    }
+);
+
+// ============================================================
 // DOCTOR NOTIFICATIONS
 // ============================================================
 

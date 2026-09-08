@@ -1219,6 +1219,527 @@
                 var(--green-light);
         }
 
+        /* =====================================================
+   WORKING HOURS
+====================================================== */
+
+.working-hours-card {
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        var(--radius);
+
+    padding:
+        23px;
+
+    margin-bottom:
+        20px;
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.working-hours-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        15px;
+}
+
+
+.working-hours-status {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    padding:
+        15px;
+
+    background:
+        #f8f9fb;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        15px;
+
+    margin-bottom:
+        15px;
+}
+
+
+.working-hours-status-text strong {
+
+    display:
+        block;
+
+    color:
+        var(--navy);
+
+    font-size:
+        13px;
+
+    font-weight:
+        900;
+}
+
+
+.working-hours-status-text span {
+
+    display:
+        block;
+
+    color:
+        var(--muted);
+
+    font-size:
+        10px;
+
+    margin-top:
+        3px;
+}
+
+
+/* SWITCH */
+
+.work-switch {
+
+    position:
+        relative;
+
+    width:
+        52px;
+
+    height:
+        29px;
+
+    flex:
+        0 0 auto;
+}
+
+
+.work-switch input {
+
+    opacity:
+        0;
+
+    width:
+        0;
+
+    height:
+        0;
+}
+
+
+.work-slider {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    cursor:
+        pointer;
+
+    background:
+        #cfd5df;
+
+    border-radius:
+        30px;
+
+    transition:
+        .25s;
+}
+
+
+.work-slider::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        21px;
+
+    height:
+        21px;
+
+    right:
+        4px;
+
+    top:
+        4px;
+
+    background:
+        white;
+
+    border-radius:
+        50%;
+
+    transition:
+        .25s;
+
+    box-shadow:
+        0 2px 5px
+        rgba(0,0,0,.15);
+}
+
+
+.work-switch input:checked
++ .work-slider {
+
+    background:
+        var(--green);
+}
+
+
+.work-switch input:checked
++ .work-slider::before {
+
+    transform:
+        translateX(-23px);
+}
+
+
+/* DAYS */
+
+.working-label {
+
+    display:
+        block;
+
+    color:
+        var(--navy);
+
+    font-size:
+        12px;
+
+    font-weight:
+        900;
+
+    margin-bottom:
+        9px;
+}
+
+
+.days-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap:
+        8px;
+}
+
+
+.day-button {
+
+    position:
+        relative;
+}
+
+
+.day-button input {
+
+    position:
+        absolute;
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+}
+
+
+.day-button label {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-height:
+        42px;
+
+    padding:
+        7px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        12px;
+
+    background:
+        #f8f9fb;
+
+    color:
+        var(--muted);
+
+    font-size:
+        11px;
+
+    font-weight:
+        800;
+
+    cursor:
+        pointer;
+
+    transition:
+        .2s;
+}
+
+
+.day-button input:checked
++ label {
+
+    background:
+        #fff5db;
+
+    border-color:
+        var(--gold);
+
+    color:
+        var(--gold-dark);
+
+    box-shadow:
+        0 4px 12px
+        rgba(217,173,75,.12);
+}
+
+
+/* TIME */
+
+.time-fields {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        10px;
+
+    margin-top:
+        15px;
+}
+
+
+.time-field label {
+
+    display:
+        block;
+
+    color:
+        var(--navy);
+
+    font-size:
+        11px;
+
+    font-weight:
+        800;
+
+    margin-bottom:
+        6px;
+}
+
+
+.time-field input {
+
+    width:
+        100%;
+
+    height:
+        45px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        12px;
+
+    background:
+        #f8f9fb;
+
+    color:
+        var(--navy);
+
+    padding:
+        0 10px;
+
+    outline:
+        none;
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+}
+
+
+.time-field input:focus {
+
+    border-color:
+        var(--gold);
+
+    background:
+        white;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(217,173,75,.10);
+}
+
+
+.save-working-hours {
+
+    width:
+        100%;
+
+    height:
+        47px;
+
+    border:
+        none;
+
+    border-radius:
+        13px;
+
+    margin-top:
+        17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold-light),
+            var(--gold-dark)
+        );
+
+    color:
+        var(--navy);
+
+    font-size:
+        12px;
+
+    font-weight:
+        900;
+
+    box-shadow:
+        0 8px 20px
+        rgba(167,123,37,.15);
+
+    transition:
+        .2s;
+}
+
+
+.save-working-hours:hover {
+
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(167,123,37,.22);
+}
+
+
+.working-hours-message {
+
+    min-height:
+        20px;
+
+    margin-top:
+        8px;
+
+    text-align:
+        center;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+}
+
+
+.working-hours-message.success {
+
+    color:
+        var(--green);
+}
+
+
+.working-hours-message.error {
+
+    color:
+        var(--red);
+}
+
+
+@media (max-width: 650px) {
+
+    .working-hours-card {
+
+        padding:
+            16px;
+
+        border-radius:
+            18px;
+    }
+
+    .working-hours-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .days-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+        
 
         /* =====================================================
            STATS
@@ -3475,6 +3996,249 @@
             </div>
 
 
+                </section>
+
+
+        <!-- WORKING HOURS -->
+
+        <section class="working-hours-card">
+
+            <div class="section-head">
+
+                <div class="section-title">
+
+                    <div class="section-title-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+
+                    <div>
+                        <h2>أوقات العمل</h2>
+
+                        <p>
+                            حدد أيام وساعات استقبال المرضى
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="working-hours-status">
+
+                <div class="working-hours-status-text">
+
+                    <strong>
+                        استقبال المواعيد
+                    </strong>
+
+                    <span>
+                        تفعيل أو تعطيل استقبال الحجوزات
+                    </span>
+
+                </div>
+
+
+                <label class="work-switch">
+
+                    <input
+                        type="checkbox"
+                        id="workingHoursEnabled"
+                        checked
+                    >
+
+                    <span class="work-slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <!-- DAYS -->
+
+            <div>
+
+                <label class="working-label">
+                    أيام العمل
+                </label>
+
+
+                <div class="days-grid">
+
+
+                    <div class="day-button">
+
+                        <input
+                            type="checkbox"
+                            id="day0"
+                            value="0"
+                        >
+
+                        <label for="day0">
+                            الأحد
+                        </label>
+
+                    </div>
+
+
+                    <div class="day-button">
+
+                        <input
+                            type="checkbox"
+                            id="day1"
+                            value="1"
+                        >
+
+                        <label for="day1">
+                            الإثنين
+                        </label>
+
+                    </div>
+
+
+                    <div class="day-button">
+
+                        <input
+                            type="checkbox"
+                            id="day2"
+                            value="2"
+                        >
+
+                        <label for="day2">
+                            الثلاثاء
+                        </label>
+
+                    </div>
+
+
+                    <div class="day-button">
+
+                        <input
+                            type="checkbox"
+                            id="day3"
+                            value="3"
+                        >
+
+                        <label for="day3">
+                            الأربعاء
+                        </label>
+
+                    </div>
+
+
+                    <div class="day-button">
+
+                        <input
+                            type="checkbox"
+                            id="day4"
+                            value="4"
+                        >
+
+                        <label for="day4">
+                            الخميس
+                        </label>
+
+                    </div>
+
+
+                    <div class="day-button">
+
+                        <input
+                            type="checkbox"
+                            id="day5"
+                            value="5"
+                        >
+
+                        <label for="day5">
+                            الجمعة
+                        </label>
+
+                    </div>
+
+
+                    <div class="day-button">
+
+                        <input
+                            type="checkbox"
+                            id="day6"
+                            value="6"
+                        >
+
+                        <label for="day6">
+                            السبت
+                        </label>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- TIME -->
+
+            <div class="time-fields">
+
+
+                <div class="time-field">
+
+                    <label>
+                        بداية العمل
+                    </label>
+
+                    <input
+                        type="time"
+                        id="workingHoursOpen"
+                        value="08:00"
+                    >
+
+                </div>
+
+
+                <div class="time-field">
+
+                    <label>
+                        نهاية العمل
+                    </label>
+
+                    <input
+                        type="time"
+                        id="workingHoursClose"
+                        value="17:00"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <!-- SAVE -->
+
+            <button
+                type="button"
+                class="save-working-hours"
+                onclick="saveWorkingHours()"
+            >
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                حفظ أوقات العمل
+
+            </button>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="workingHoursMessage"
+                class="working-hours-message"
+            ></div>
+
+
         </section>
 
 
@@ -4319,24 +5083,43 @@ async function loadWorkingHours() {
 
     try {
 
+        const token =
+            localStorage.getItem(
+                "tabibkDoctorToken"
+            );
+
+        if (!token) {
+
+            console.error(
+                "لم يتم العثور على رمز دخول الطبيب"
+            );
+
+            return;
+        }
+
+
         const response =
             await fetch(
                 "/api/doctor/working-hours",
                 {
+                    method: "GET",
+
                     headers: {
                         "Authorization":
-                            "Bearer " +
-                            localStorage.getItem(
-                                "tabibkDoctorToken"
-                            )
+                            "Bearer " + token
                     }
                 }
             );
 
+
         const data =
             await response.json();
 
-        if (!response.ok || !data.success) {
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
             console.error(
                 "فشل تحميل أوقات العمل:",
@@ -4346,13 +5129,21 @@ async function loadWorkingHours() {
             return;
         }
 
+
+        // حفظ أوقات العمل داخل بيانات الطبيب
         currentDoctor.workingHours =
             data.workingHours;
 
+
+        // عرض أوقات العمل في الواجهة
+        renderWorkingHours();
+
+
         console.log(
-            "أوقات العمل:",
+            "تم تحميل أوقات العمل:",
             data.workingHours
         );
+
 
     } catch (error) {
 
@@ -4362,7 +5153,407 @@ async function loadWorkingHours() {
         );
     }
 }
-    
+
+    /* ============================================================
+   RENDER WORKING HOURS
+============================================================ */
+
+function renderWorkingHours() {
+
+    if (
+        !currentDoctor ||
+        !currentDoctor.workingHours
+    ) {
+        return;
+    }
+
+
+    const workingHours =
+        currentDoctor.workingHours;
+
+
+    const enabledInput =
+        document.getElementById(
+            "workingHoursEnabled"
+        );
+
+    const openInput =
+        document.getElementById(
+            "workingHoursOpen"
+        );
+
+    const closeInput =
+        document.getElementById(
+            "workingHoursClose"
+        );
+
+
+    // حالة استقبال المواعيد
+    if (enabledInput) {
+
+        enabledInput.checked =
+            workingHours.enabled !== false;
+    }
+
+
+    // وقت البداية
+    if (openInput) {
+
+        openInput.value =
+            workingHours.open ||
+            "08:00";
+    }
+
+
+    // وقت النهاية
+    if (closeInput) {
+
+        closeInput.value =
+            workingHours.close ||
+            "17:00";
+    }
+
+
+    // أيام العمل
+    const days =
+        Array.isArray(
+            workingHours.days
+        )
+            ? workingHours.days.map(
+                day => Number(day)
+            )
+            : [0, 1, 2, 3, 4];
+
+
+    for (
+        let day = 0;
+        day <= 6;
+        day++
+    ) {
+
+        const checkbox =
+            document.getElementById(
+                "day" + day
+            );
+
+
+        if (checkbox) {
+
+            checkbox.checked =
+                days.includes(day);
+        }
+    }
+}
+
+    /* ============================================================
+   SAVE WORKING HOURS
+============================================================ */
+
+async function saveWorkingHours() {
+
+    const button =
+        document.querySelector(
+            ".save-working-hours"
+        );
+
+
+    const message =
+        document.getElementById(
+            "workingHoursMessage"
+        );
+
+
+    try {
+
+        const token =
+            localStorage.getItem(
+                "tabibkDoctorToken"
+            );
+
+
+        if (!token) {
+
+            showWorkingHoursMessage(
+                "انتهت جلسة الدخول، يرجى تسجيل الدخول من جديد",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // ======================================================
+        // READ VALUES
+        // ======================================================
+
+        const enabled =
+            document.getElementById(
+                "workingHoursEnabled"
+            ).checked;
+
+
+        const open =
+            document.getElementById(
+                "workingHoursOpen"
+            ).value;
+
+
+        const close =
+            document.getElementById(
+                "workingHoursClose"
+            ).value;
+
+
+        // ======================================================
+        // GET SELECTED DAYS
+        // ======================================================
+
+        const days = [];
+
+
+        for (
+            let day = 0;
+            day <= 6;
+            day++
+        ) {
+
+            const checkbox =
+                document.getElementById(
+                    "day" + day
+                );
+
+
+            if (
+                checkbox &&
+                checkbox.checked
+            ) {
+
+                days.push(day);
+            }
+        }
+
+
+        // ======================================================
+        // VALIDATION
+        // ======================================================
+
+        if (days.length === 0) {
+
+            showWorkingHoursMessage(
+                "اختر يوم عمل واحد على الأقل",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (!open || !close) {
+
+            showWorkingHoursMessage(
+                "يرجى تحديد وقت بداية ونهاية العمل",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (close <= open) {
+
+            showWorkingHoursMessage(
+                "وقت نهاية العمل يجب أن يكون بعد وقت البداية",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // ======================================================
+        // DISABLE BUTTON
+        // ======================================================
+
+        if (button) {
+
+            button.disabled = true;
+
+            button.style.opacity = "0.6";
+
+            button.style.cursor =
+                "not-allowed";
+
+            button.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ...';
+        }
+
+
+        // ======================================================
+        // SEND TO SERVER
+        // ======================================================
+
+        const response =
+            await fetch(
+                "/api/doctor/working-hours",
+                {
+                    method: "PUT",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            "Bearer " + token
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            enabled,
+
+                            days,
+
+                            open,
+
+                            close
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        // ======================================================
+        // CHECK SERVER RESPONSE
+        // ======================================================
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "حدث خطأ أثناء حفظ أوقات العمل"
+            );
+        }
+
+
+        // ======================================================
+        // UPDATE CURRENT DOCTOR
+        // ======================================================
+
+        currentDoctor.workingHours =
+            data.workingHours;
+
+
+        renderWorkingHours();
+
+
+        // ======================================================
+        // SUCCESS
+        // ======================================================
+
+        showWorkingHoursMessage(
+            "تم حفظ أوقات العمل بنجاح ✓",
+            "success"
+        );
+
+
+        // Toast إذا كانت موجودة
+        if (
+            typeof showToast ===
+            "function"
+        ) {
+
+            showToast(
+                "تم تحديث أوقات العمل بنجاح",
+                "success"
+            );
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "خطأ في حفظ أوقات العمل:",
+            error
+        );
+
+
+        showWorkingHoursMessage(
+            error.message ||
+            "حدث خطأ أثناء حفظ أوقات العمل",
+            "error"
+        );
+
+
+    } finally {
+
+        // ======================================================
+        // RESTORE BUTTON
+        // ======================================================
+
+        if (button) {
+
+            button.disabled = false;
+
+            button.style.opacity = "1";
+
+            button.style.cursor =
+                "pointer";
+
+            button.innerHTML =
+                '<i class="fa-solid fa-floppy-disk"></i> حفظ أوقات العمل';
+        }
+    }
+}
+
+    /* ============================================================
+   WORKING HOURS MESSAGE
+============================================================ */
+
+function showWorkingHoursMessage(
+    text,
+    type
+) {
+
+    const message =
+        document.getElementById(
+            "workingHoursMessage"
+        );
+
+
+    if (!message) {
+        return;
+    }
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "working-hours-message " +
+        type;
+
+
+    setTimeout(
+        () => {
+
+            message.textContent =
+                "";
+
+            message.className =
+                "working-hours-message";
+
+        },
+        5000
+    );
+}
 /* ============================================================
    LOAD APPOINTMENTS
 ============================================================ */

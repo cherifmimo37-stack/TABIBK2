@@ -4250,6 +4250,8 @@ async function initializeDoctor() {
 
     renderDoctorProfile();
 
+    await loadWorkingHours();
+
     await loadAppointments();
 
     await loadNotifications();
@@ -4258,8 +4260,6 @@ async function initializeDoctor() {
 
     requestNotificationPermission();
 }
-
-
 /* ============================================================
    PROFILE
 ============================================================ */
@@ -4311,7 +4311,58 @@ function renderDoctorProfile() {
         `;
 }
 
+/* ============================================================
+   LOAD WORKING HOURS
+============================================================ */
 
+async function loadWorkingHours() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/doctor/working-hours",
+                {
+                    headers: {
+                        "Authorization":
+                            "Bearer " +
+                            localStorage.getItem(
+                                "tabibkDoctorToken"
+                            )
+                    }
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if (!response.ok || !data.success) {
+
+            console.error(
+                "فشل تحميل أوقات العمل:",
+                data.message
+            );
+
+            return;
+        }
+
+        currentDoctor.workingHours =
+            data.workingHours;
+
+        console.log(
+            "أوقات العمل:",
+            data.workingHours
+        );
+
+    } catch (error) {
+
+        console.error(
+            "خطأ في تحميل أوقات العمل:",
+            error
+        );
+    }
+}
+    
 /* ============================================================
    LOAD APPOINTMENTS
 ============================================================ */

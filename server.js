@@ -2057,6 +2057,46 @@ if (
             `وقت عمل الطبيب من ${workingHours.open} إلى ${workingHours.close}`
     });
 }
+       // ============================================================
+// CHECK DOCTOR VACATION
+// ============================================================
+
+const vacation =
+    doctor.vacation || {
+
+        enabled: false,
+
+        startDate: "",
+
+        endDate: ""
+    };
+
+
+// ------------------------------------------------------------
+// الطبيب في عطلة
+// ------------------------------------------------------------
+
+if (
+    vacation.enabled === true &&
+    vacation.startDate &&
+    vacation.endDate
+) {
+
+    if (
+        date >= vacation.startDate &&
+        date <= vacation.endDate
+    ) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                `الطبيب في عطلة من ${vacation.startDate} إلى ${vacation.endDate}`
+        });
+    }
+}
+
             
             // ============================================================
 // PREVENT DUPLICATE APPOINTMENT

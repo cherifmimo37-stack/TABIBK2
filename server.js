@@ -1279,6 +1279,218 @@ app.get(
     }
 );
 
+// ============================================================
+// DOCTOR WORKING HOURS
+// ============================================================
+
+// GET - جلب أوقات عمل الطبيب
+app.get(
+    "/api/doctor/working-hours",
+    checkDoctorAuth,
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const doctor =
+            database.doctors.find(
+                d =>
+                    Number(d.id) ===
+                    Number(req.doctor.id)
+            );
+
+        if (!doctor) {
+
+            return res.status(404).json({
+
+                success: false,
+
+                message:
+                    "الطبيب غير موجود"
+            });
+        }
+
+        const workingHours =
+            doctor.workingHours || {
+
+                enabled: true,
+
+                days: [0, 1, 2, 3, 4],
+
+                open: "08:00",
+
+                close: "17:00"
+            };
+
+        res.json({
+
+            success: true,
+
+            workingHours
+        });
+    }
+);
+
+
+// PUT - تحديث أوقات عمل الطبيب
+app.put(
+    "/api/doctor/working-hours",
+    checkDoctorAuth,
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const doctor =
+            database.doctors.find(
+                d =>
+                    Number(d.id) ===
+                    Number(req.doctor.id)
+            );
+
+        if (!doctor) {
+
+            return res.status(404).json({
+
+                success: false,
+
+                message:
+                    "الطبيب غير موجود"
+            });
+        }
+
+
+        const {
+            enabled,
+            days,
+            open,
+            close
+        } = req.body;
+
+
+        // التحقق من enabled
+        if (
+            typeof enabled !==
+            "boolean"
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "قيمة تفعيل أوقات العمل غير صحيحة"
+            });
+        }
+
+
+        // التحقق من الأيام
+        if (
+            !Array.isArray(days)
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "يجب اختيار أيام العمل"
+            });
+        }
+
+
+        const validDays =
+            days.every(
+                day =>
+                    Number.isInteger(
+                        Number(day)
+                    ) &&
+                    Number(day) >= 0 &&
+                    Number(day) <= 6
+            );
+
+        if (!validDays) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "أيام العمل غير صحيحة"
+            });
+        }
+
+
+        // التحقق من الوقت
+        const timeRegex =
+            /^([01]\d|2[0-3]):([0-5]\d)$/;
+
+
+        if (
+            !timeRegex.test(open) ||
+            !timeRegex.test(close)
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "صيغة الوقت غير صحيحة"
+            });
+        }
+
+
+        // وقت النهاية يجب أن يكون بعد البداية
+        if (close <= open) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "وقت نهاية العمل يجب أن يكون بعد وقت البداية"
+            });
+        }
+
+
+        doctor.workingHours = {
+
+            enabled,
+
+            days:
+                [...new Set(
+                    days.map(
+                        day =>
+                            Number(day)
+                    )
+                )],
+
+            open,
+
+            close
+        };
+
+
+        doctor.updatedAt =
+            new Date().toISOString();
+
+
+        saveDatabase(database);
+
+
+        res.json({
+
+            success: true,
+
+            message:
+                "تم تحديث أوقات العمل بنجاح",
+
+            workingHours:
+                doctor.workingHours
+        });
+    }
+);
 
 // ============================================================
 // DOCTOR NOTIFICATIONS

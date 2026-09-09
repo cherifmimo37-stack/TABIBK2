@@ -7244,7 +7244,58 @@ async function completeAppointment(
     }
 }
 
+/* ============================================================
+   DELETE OLD APPOINTMENTS
+============================================================ */
 
+async function deleteOldAppointments() {
+
+    if (
+        !confirm(
+            "هل أنت متأكد من حذف جميع المواعيد القديمة؟\n\nالمواعيد المستقبلية لن يتم حذفها."
+        )
+    ) {
+        return;
+    }
+
+
+    try {
+
+        const data =
+            await apiFetch(
+                "/api/doctor/appointments/old",
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        showToast(
+            data.message ||
+            "تم حذف المواعيد القديمة",
+            "success"
+        );
+
+
+        await loadAppointments();
+
+
+    } catch (error) {
+
+        console.error(
+            "خطأ في حذف المواعيد القديمة:",
+            error
+        );
+
+
+        showToast(
+            error.message ||
+            "حدث خطأ أثناء حذف المواعيد القديمة",
+            "error"
+        );
+    }
+}
+    
 /* ============================================================
    WHATSAPP
 ============================================================ */

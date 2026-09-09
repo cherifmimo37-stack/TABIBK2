@@ -2909,6 +2909,78 @@
                 var(--navy);
         }
 
+        .notification-header-actions {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+}
+
+
+.delete-all-notifications {
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    border:
+        none;
+
+    background:
+        #fff1f1;
+
+    color:
+        #dc3545;
+
+    border-radius:
+        9px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    cursor:
+        pointer;
+
+    transition:
+        .2s;
+}
+
+
+.delete-all-notifications:hover {
+
+    background:
+        #ffe0e0;
+
+    transform:
+        scale(1.05);
+}
+
+
+.delete-all-notifications:disabled {
+
+    opacity:
+        .45;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+}
+
 
         .close-notification {
 
@@ -3986,23 +4058,35 @@
         class="notification-panel"
     >
 
-        <div class="notification-header">
+  <div class="notification-header">
 
-            <strong>
-                <i class="fa-solid fa-bell"></i>
-                الإشعارات
-            </strong>
+    <strong>
+        <i class="fa-solid fa-bell"></i>
+        الإشعارات
+    </strong>
 
-            <button
-                class="close-notification"
-                onclick="toggleNotifications(false)"
-            >
+    <div class="notification-header-actions">
 
-                <i class="fa-solid fa-xmark"></i>
+        <button
+            id="deleteAllNotificationsButton"
+            class="delete-all-notifications"
+            onclick="deleteAllNotifications(event)"
+            title="حذف جميع الإشعارات"
+        >
+            <i class="fa-solid fa-trash"></i>
+        </button>
 
-            </button>
+        <button
+            class="close-notification"
+            onclick="toggleNotifications(false)"
+            title="إغلاق"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
 
-        </div>
+    </div>
+
+</div>
 
 
         <div

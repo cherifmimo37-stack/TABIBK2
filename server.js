@@ -3989,6 +3989,113 @@ createNotification(database, {
     }
 );
 
+// ============================================================
+// DELETE OLD APPOINTMENTS - DOCTOR
+// ============================================================
+
+app.delete(
+    "/api/doctor/appointments/old",
+    checkDoctorAuth,
+    (req, res) => {
+
+        try {
+
+            const database =
+                readDatabase();
+
+            // تاريخ اليوم بتوقيت الجزائر
+            const today =
+                new Intl.DateTimeFormat(
+                    "en-CA",
+                    {
+                        timeZone:
+                            "Africa/Algiers"
+                    }
+                ).format(
+                    new Date()
+                );
+
+            const doctorId =
+                Number(
+                    req.doctor.id
+                );
+
+            const oldAppointments =
+                database.appointments.filter(
+                    appointment => {
+
+                        return (
+                            Number(
+                                appointment.doctorId
+                            ) === doctorId &&
+
+                            appointment.date &&
+
+                            appointment.date < today
+                        );
+                    }
+                );
+
+            const deletedCount =
+                oldAppointments.length;
+
+
+            // حذف المواعيد القديمة للطبيب فقط
+            database.appointments =
+                database.appointments.filter(
+                    appointment => {
+
+                        return !(
+                            Number(
+                                appointment.doctorId
+                            ) === doctorId &&
+
+                            appointment.date &&
+
+                            appointment.date < today
+                        );
+                    }
+                );
+
+
+            if (deletedCount > 0) {
+
+                saveDatabase(
+                    database
+                );
+            }
+
+
+            res.json({
+
+                success: true,
+
+                message:
+                    deletedCount > 0
+                        ? `تم حذف ${deletedCount} موعد قديم بنجاح`
+                        : "لا توجد مواعيد قديمة للحذف",
+
+                deletedCount
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "خطأ في حذف المواعيد القديمة للطبيب:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "حدث خطأ أثناء حذف المواعيد القديمة"
+            });
+        }
+    }
+);
 
 // ============================================================
 // ADMIN NOTIFICATIONS

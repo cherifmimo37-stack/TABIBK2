@@ -7450,7 +7450,67 @@ async function loadNotifications() {
     }
 }
 
+async function deleteAllNotifications(event) {
 
+    if (event) {
+        event.stopPropagation();
+    }
+
+
+    const confirmed =
+        confirm(
+            "هل أنت متأكد من حذف جميع الإشعارات؟"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const data =
+            await apiFetch(
+                "/api/doctor/notifications",
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        lastNotificationCount = 0;
+
+        updateNotificationCount(0);
+
+
+        showToast(
+            data.message ||
+            "تم حذف جميع الإشعارات",
+            "success"
+        );
+
+
+        await loadNotifications();
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete all notifications:",
+            error
+        );
+
+
+        showToast(
+            error.message ||
+            "تعذر حذف جميع الإشعارات",
+            "error"
+        );
+    }
+}
+
+    
 /* ============================================================
    RENDER NOTIFICATIONS
 ============================================================ */

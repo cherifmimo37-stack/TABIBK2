@@ -4197,6 +4197,122 @@ app.post(
     }
 );
 
+```javascript
+// ============================================================
+// DELETE ONE DOCTOR NOTIFICATION
+// ============================================================
+
+app.delete(
+    "/api/doctor/notifications/:id",
+    checkDoctorAuth,
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const notificationIndex =
+            database.notifications.findIndex(
+                notification =>
+                    String(
+                        notification.id
+                    ) ===
+                    String(
+                        req.params.id
+                    ) &&
+                    Number(
+                        notification.doctorId
+                    ) ===
+                    Number(
+                        req.doctor.id
+                    )
+            );
+
+        if (
+            notificationIndex === -1
+        ) {
+
+            return res.status(404).json({
+
+                success: false,
+
+                message:
+                    "الإشعار غير موجود"
+            });
+        }
+
+        database.notifications.splice(
+            notificationIndex,
+            1
+        );
+
+        saveDatabase(database);
+
+        res.json({
+
+            success: true,
+
+            message:
+                "تم حذف الإشعار بنجاح"
+        });
+    }
+);
+```
+
+```javascript
+// ============================================================
+// DELETE ALL DOCTOR NOTIFICATIONS
+// ============================================================
+
+app.delete(
+    "/api/doctor/notifications",
+    checkDoctorAuth,
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const doctorId =
+            Number(
+                req.doctor.id
+            );
+
+        const beforeCount =
+            database.notifications.length;
+
+        database.notifications =
+            database.notifications.filter(
+                notification =>
+                    Number(
+                        notification.doctorId
+                    ) !== doctorId
+            );
+
+        const deletedCount =
+            beforeCount -
+            database.notifications.length;
+
+        if (deletedCount > 0) {
+
+            saveDatabase(
+                database
+            );
+        }
+
+        res.json({
+
+            success: true,
+
+            message:
+                deletedCount > 0
+                    ? "تم حذف جميع الإشعارات بنجاح"
+                    : "لا توجد إشعارات للحذف",
+
+            deletedCount
+        });
+    }
+);
+```
+
 
 // ============================================================
 // MARK DOCTOR NOTIFICATION AS READ

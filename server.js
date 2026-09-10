@@ -3401,7 +3401,7 @@ app.post(
 app.delete(
     "/api/doctor/appointments/old",
     checkDoctorAuth,
-    (req, res) => {
+    async (req, res) => {
 
         const database =
             readDatabase();
@@ -3449,15 +3449,14 @@ app.delete(
                     )
             );
 
-        if (
-            deletedCount > 0
-        ) {
+       if (
+    deletedCount > 0
+) {
 
-            saveDatabase(
-                database
-            );
-        }
-
+    await saveDatabase(
+        database
+    );
+}
         res.json({
 
             success: true,

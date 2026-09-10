@@ -3403,72 +3403,127 @@ app.delete(
     checkDoctorAuth,
     async (req, res) => {
 
-        const database =
-            readDatabase();
+        try {
 
-        const today =
-            new Intl.DateTimeFormat(
-                "en-CA",
-                {
-                    timeZone:
-                        "Africa/Algiers"
-                }
-            ).format(
-                new Date()
-            );
+            const database =
+                readDatabase();
 
-        const doctorId =
-            Number(
-                req.doctor.id
-            );
+            const now =
+                Date.now();
 
-        const oldAppointments =
-            database.appointments.filter(
-                appointment =>
-                    Number(
-                        appointment.doctorId
-                    ) === doctorId &&
-                    appointment.date &&
-                    appointment.date <
-                        today
-            );
+            const doctorId =
+                Number(
+                    req.doctor.id
+                );
 
-        const deletedCount =
-            oldAppointments.length;
+            const oldAppointments =
+                database.appointments.filter(
+                    appointment => {
 
-        database.appointments =
-            database.appointments.filter(
-                appointment =>
-                    !(
-                        Number(
-                            appointment.doctorId
-                        ) === doctorId &&
-                        appointment.date &&
-                        appointment.date <
-                            today
-                    )
-            );
+                        if (
+                            Number(
+                                appointment.doctorId
+                            ) !== doctorId
+                        ) {
+                            return false;
+                        }
 
-       if (
-    deletedCount > 0
-) {
+                        if (
+                            !appointment.date ||
+                            !appointment.time
+                        ) {
+                            return false;
+                        }
 
-    await saveDatabase(
-        database
-    );
-}
-        res.json({
+                        const appointmentDateTime =
+                            new Date(
+                                `${appointment.date}T${appointment.time}:00+01:00`
+                            );
 
-            success: true,
+                        return (
+                            !isNaN(
+                                appointmentDateTime.getTime()
+                            ) &&
+                            appointmentDateTime.getTime() < now
+                        );
+                    }
+                );
 
-            message:
+            const deletedCount =
+                oldAppointments.length;
+
+            database.appointments =
+                database.appointments.filter(
+                    appointment => {
+
+                        if (
+                            Number(
+                                appointment.doctorId
+                            ) !== doctorId
+                        ) {
+                            return true;
+                        }
+
+                        if (
+                            !appointment.date ||
+                            !appointment.time
+                        ) {
+                            return true;
+                        }
+
+                        const appointmentDateTime =
+                            new Date(
+                                `${appointment.date}T${appointment.time}:00+01:00`
+                            );
+
+                        const isOld =
+                            !isNaN(
+                                appointmentDateTime.getTime()
+                            ) &&
+                            appointmentDateTime.getTime() < now;
+
+                        return !isOld;
+                    }
+                );
+
+            if (
                 deletedCount > 0
-                    ? `تم حذف ${deletedCount} موعد قديم`
-                    : "لا توجد مواعيد قديمة للحذف",
+            ) {
 
-            deletedCount
+                await saveDatabase(
+                    database
+                );
+            }
 
-        });
+            res.json({
+
+                success: true,
+
+                message:
+                    deletedCount > 0
+                        ? `تم حذف ${deletedCount} موعد قديم`
+                        : "لا توجد مواعيد قديمة للحذف",
+
+                deletedCount
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "خطأ في حذف المواعيد القديمة:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "حدث خطأ أثناء حذف المواعيد القديمة"
+
+            });
+        }
     }
 );
 

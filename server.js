@@ -10,6 +10,17 @@ const crypto = require("crypto");
 
 const app = express();
 
+const WILAYAS_FILE = path.join(
+    __dirname,
+    "wilayas.json"
+);
+
+const WILAYAS_DATA = JSON.parse(
+    fs.readFileSync(
+        WILAYAS_FILE,
+        "utf8"
+    )
+);
 // ============================================================
 // CONFIGURATION
 // ============================================================

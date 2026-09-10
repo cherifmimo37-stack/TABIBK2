@@ -2500,15 +2500,34 @@ function playPatientNotificationSound() {
 
         try {
 
-            const response =
-                await fetch(
-                    API +
-                    `/api/wilayas/${wilayaId}/municipalities`
-                );
+           const response =
+    await fetch(
+        API +
+        "/api/wilayas"
+    );
 
-            const data =
-                await response.json();
+const data =
+    await response.json();
 
+const wilaya =
+    data.wilayas.find(
+        item =>
+            String(item.id) ===
+            String(wilayaId)
+    );
+
+if (!wilaya) {
+    throw new Error(
+        "Wilaya not found"
+    );
+}
+
+const municipalities =
+    Array.isArray(
+        wilaya.municipalities
+    )
+        ? wilaya.municipalities
+        : [];
 
             municipalitySelect.innerHTML =
                 `<option value="">
@@ -2516,8 +2535,8 @@ function playPatientNotificationSound() {
                 </option>`;
 
 
-            data.municipalities.forEach(
-                municipality => {
+            municipalities.forEach(
+    municipality => {
 
                     const option =
                         document.createElement(

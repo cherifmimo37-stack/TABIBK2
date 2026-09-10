@@ -2898,6 +2898,101 @@ app.get(
 );
 
 // ============================================================
+// DELETE SINGLE DOCTOR APPOINTMENT
+// ============================================================
+
+app.delete(
+    "/api/doctor/appointments/:bookingNumber",
+    checkDoctorAuth,
+    async (req, res) => {
+
+        try {
+
+            const database =
+                readDatabase();
+
+            const bookingNumber =
+                String(
+                    req.params.bookingNumber
+                );
+
+            const doctorId =
+                Number(
+                    req.doctor.id
+                );
+
+            const appointmentIndex =
+                database.appointments.findIndex(
+                    appointment =>
+                        String(
+                            appointment.bookingNumber
+                        ) === bookingNumber &&
+                        Number(
+                            appointment.doctorId
+                        ) === doctorId
+                );
+
+            if (
+                appointmentIndex === -1
+            ) {
+
+                return res
+                    .status(404)
+                    .json({
+                        success: false,
+                        message:
+                            "الموعد غير موجود"
+                    });
+            }
+
+            const deletedAppointment =
+                database.appointments[
+                    appointmentIndex
+                ];
+
+            database.appointments.splice(
+                appointmentIndex,
+                1
+            );
+
+            await saveDatabase(
+                database
+            );
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "تم حذف الموعد بنجاح",
+
+                bookingNumber:
+                    deletedAppointment.bookingNumber
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "خطأ في حذف الموعد:",
+                error
+            );
+
+            res
+                .status(500)
+                .json({
+
+                    success: false,
+
+                    message:
+                        "حدث خطأ أثناء حذف الموعد"
+
+                });
+        }
+    }
+);
+
+// ============================================================
 // ACCEPT APPOINTMENT
 // ============================================================
 

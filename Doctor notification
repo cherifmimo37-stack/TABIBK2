@@ -1956,11 +1956,12 @@ app.get(
         const notifications =
             database.notifications
                 .filter(
-                    notification =>
-                        normalizePhone(
-                            notification.patientPhone
-                        ) === phone
-                )
+    notification =>
+        notification.doctorId === null &&
+        normalizePhone(
+            notification.patientPhone
+        ) === phone
+)
                 .sort(
                     (a, b) =>
                         new Date(
@@ -2526,9 +2527,6 @@ app.post(
 
                     appointmentId:
                         appointment.id,
-
-                    patientPhone:
-                        appointment.patientPhone,
 
                     bookingNumber,
 

@@ -1101,15 +1101,23 @@ app.get(
     "/api/wilayas",
     (req, res) => {
 
-        const database =
-            readDatabase();
+        const wilayas =
+            WILAYAS_DATA.map(
+                wilaya => ({
+                    id: wilaya.code,
+                    name: wilaya.name,
+                    municipalities:
+                        wilaya.communes.map(
+                            commune =>
+                                commune.name
+                        )
+                })
+            );
 
         res.json({
             success: true,
-            count:
-                database.wilayas.length,
-            wilayas:
-                database.wilayas
+            count: wilayas.length,
+            wilayas: wilayas
         });
     }
 );

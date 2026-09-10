@@ -6804,20 +6804,91 @@ function renderAppointment(
             </div>
 
 
-            <div class="appointment-actions">
+           <div class="appointment-actions">
 
-                ${renderActions(
-                    appointment
-                )}
+    ${renderActions(
+        appointment
+    )}
 
-            </div>
+    <button
+        type="button"
+        class="btn-delete-appointment"
+        onclick="deleteAppointment('${escapeHtml(
+            appointment.bookingNumber || ""
+        )}')"
+    >
+        <i class="fa-solid fa-trash"></i>
+        حذف الموعد
+    </button>
 
+</div>
 
         </article>
     `;
 }
 
+/* ============================================================
+   DELETE SINGLE APPOINTMENT
+============================================================ */
 
+async function deleteAppointment(
+    bookingNumber
+) {
+
+    if (!bookingNumber) {
+
+        showToast(
+            "رقم الحجز غير موجود",
+            "error"
+        );
+
+        return;
+    }
+
+    const confirmed =
+        confirm(
+            "هل أنت متأكد من حذف هذا الموعد؟\n\nلا يمكن التراجع عن عملية الحذف."
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+
+        const data =
+            await apiFetch(
+                `/api/doctor/appointments/${encodeURIComponent(
+                    bookingNumber
+                )}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+        showToast(
+            data.message ||
+            "تم حذف الموعد بنجاح",
+            "success"
+        );
+
+        await loadAppointments();
+
+    } catch (error) {
+
+        console.error(
+            "خطأ في حذف الموعد:",
+            error
+        );
+
+        showToast(
+            error.message ||
+            "حدث خطأ أثناء حذف الموعد",
+            "error"
+        );
+    }
+}
+    
 /* ============================================================
    ACTIONS
 ============================================================ */

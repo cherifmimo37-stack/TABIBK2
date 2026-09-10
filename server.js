@@ -3407,18 +3407,41 @@ app.delete(
             const database =
                 readDatabase();
 
-            const now =
-                Date.now();
-
             const doctorId =
                 Number(
                     req.doctor.id
                 );
 
+            // الوقت الحالي بتوقيت الجزائر
+            const now =
+                new Date();
+
+            const today =
+                new Intl.DateTimeFormat(
+                    "en-CA",
+                    {
+                        timeZone:
+                            "Africa/Algiers"
+                    }
+                ).format(now);
+
+            const currentTime =
+                new Intl.DateTimeFormat(
+                    "en-GB",
+                    {
+                        timeZone:
+                            "Africa/Algiers",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false
+                    }
+                ).format(now);
+
             const oldAppointments =
                 database.appointments.filter(
                     appointment => {
 
+                        // نتعامل فقط مع مواعيد هذا الطبيب
                         if (
                             Number(
                                 appointment.doctorId
@@ -3434,23 +3457,42 @@ app.delete(
                             return false;
                         }
 
-                        const appointmentDateTime =
-                            new Date(
-                                `${appointment.date}T${appointment.time}:00+01:00`
-                            );
+                        const appointmentDate =
+                            String(
+                                appointment.date
+                            ).trim();
 
-                        return (
-                            !isNaN(
-                                appointmentDateTime.getTime()
-                            ) &&
-                            appointmentDateTime.getTime() < now
-                        );
+                        const appointmentTime =
+                            String(
+                                appointment.time
+                            ).trim();
+
+                        // تاريخ أقدم من اليوم
+                        if (
+                            appointmentDate <
+                            today
+                        ) {
+                            return true;
+                        }
+
+                        // تاريخ اليوم والساعة فاتت
+                        if (
+                            appointmentDate ===
+                            today &&
+                            appointmentTime <=
+                            currentTime
+                        ) {
+                            return true;
+                        }
+
+                        return false;
                     }
                 );
 
             const deletedCount =
                 oldAppointments.length;
 
+            // حذف المواعيد القديمة فقط
             database.appointments =
                 database.appointments.filter(
                     appointment => {
@@ -3470,16 +3512,25 @@ app.delete(
                             return true;
                         }
 
-                        const appointmentDateTime =
-                            new Date(
-                                `${appointment.date}T${appointment.time}:00+01:00`
-                            );
+                        const appointmentDate =
+                            String(
+                                appointment.date
+                            ).trim();
+
+                        const appointmentTime =
+                            String(
+                                appointment.time
+                            ).trim();
 
                         const isOld =
-                            !isNaN(
-                                appointmentDateTime.getTime()
-                            ) &&
-                            appointmentDateTime.getTime() < now;
+                            appointmentDate <
+                            today ||
+                            (
+                                appointmentDate ===
+                                today &&
+                                appointmentTime <=
+                                currentTime
+                            );
 
                         return !isOld;
                     }
@@ -3503,7 +3554,11 @@ app.delete(
                         ? `تم حذف ${deletedCount} موعد قديم`
                         : "لا توجد مواعيد قديمة للحذف",
 
-                deletedCount
+                deletedCount,
+
+                today,
+
+                currentTime
 
             });
 

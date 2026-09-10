@@ -3071,7 +3071,7 @@ app.post(
             {
 
                 doctorId:
-                    req.doctor.id,
+    null,
 
                 appointmentId:
                     appointment.id,
@@ -3228,8 +3228,7 @@ app.post(
             {
 
                 doctorId:
-                    req.doctor.id,
-
+    null,
                 appointmentId:
                     appointment.id,
 

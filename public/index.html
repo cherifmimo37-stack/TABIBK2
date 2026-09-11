@@ -2497,8 +2497,8 @@ async function loadMunicipalities() {
                 API + "/api/wilayas"
             );
 
-        const wilayas =
-            await response.json();
+        const data = await response.json();
+const wilayas = data.wilayas || [];
 
 
         const selected =

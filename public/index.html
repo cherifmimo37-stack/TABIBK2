@@ -2459,101 +2459,159 @@ async function loadWilayas() {
 async function loadMunicipalities() {
 
     const wilayaSelect =
-        document.getElementById(
-            "wilayaSelect"
-        );
+        document.getElementById("wilayaSelect");
 
     const municipalitySelect =
-        document.getElementById(
-            "municipalitySelect"
-        );
+        document.getElementById("municipalitySelect");
 
-
-    if (
-        !wilayaSelect ||
-        !municipalitySelect
-    ) return;
-
-
-    municipalitySelect.innerHTML =
-        `<option value="">
-            اختر البلدية
-        </option>`;
-
-
-    if (!wilayaSelect.value) {
-
-        loadDoctors();
-
+    if (!wilayaSelect || !municipalitySelect) {
         return;
-
     }
 
+    // إعادة ضبط قائمة البلديات
+    municipalitySelect.innerHTML =
+        `<option value="">اختر البلدية</option>`;
+
+    const selectedValue =
+        String(wilayaSelect.value || "").trim();
+
+    // إذا لم يتم اختيار ولاية
+    if (!selectedValue) {
+        municipalitySelect.disabled = true;
+        loadDoctors();
+        return;
+    }
 
     try {
 
+        municipalitySelect.disabled = true;
+
         const response =
-            await fetch(
-                API + "/api/wilayas"
+            await fetch(API + "/api/wilayas", {
+                cache: "no-store"
+            });
+
+        if (!response.ok) {
+            throw new Error(
+                "HTTP " + response.status
             );
+        }
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
-const wilayas = Array.isArray(data)
-    ? data
-    : (data.wilayas || []);
+        // السيرفر يرجع Array مباشرة
+        const wilayas =
+            Array.isArray(data)
+                ? data
+                : (
+                    Array.isArray(data.wilayas)
+                        ? data.wilayas
+                        : []
+                );
 
+        console.log(
+            "TABIBK - Wilayas:",
+            wilayas
+        );
 
+        // البحث عن الولاية المختارة
         const selected =
-            wilayas.find(
-                item =>
+            wilayas.find(wilaya => {
+
+                const id =
                     String(
-                        item.id ??
-                        item.name
-                    ) ===
+                        wilaya.id ??
+                        wilaya.code ??
+                        ""
+                    ).trim();
+
+                const name =
                     String(
-                        wilayaSelect.value
-                    )
+                        wilaya.name ??
+                        ""
+                    ).trim();
+
+                return (
+                    id === selectedValue ||
+                    name === selectedValue
+                );
+
+            });
+
+        if (!selected) {
+
+            console.error(
+                "TABIBK: Wilaya not found:",
+                selectedValue,
+                wilayas
             );
 
+            municipalitySelect.disabled = false;
 
+            loadDoctors();
+
+            return;
+        }
+
+        // دعم municipalities أو communes
         const municipalities =
-            selected?.municipalities ||
-            selected?.communes ||
-            [];
+            Array.isArray(selected.municipalities)
+                ? selected.municipalities
+                : (
+                    Array.isArray(selected.communes)
+                        ? selected.communes
+                        : []
+                );
 
+        console.log(
+            "TABIBK - Selected Wilaya:",
+            selected
+        );
 
+        console.log(
+            "TABIBK - Municipalities:",
+            municipalities
+        );
+
+        // إضافة البلديات
         municipalities.forEach(
             municipality => {
 
                 const option =
-                    document.createElement(
-                        "option"
-                    );
-
+                    document.createElement("option");
 
                 if (
-                    typeof municipality ===
-                    "object"
+                    typeof municipality === "object" &&
+                    municipality !== null
                 ) {
 
-                    option.value =
+                    const value =
                         municipality.id ??
-                        municipality.name;
+                        municipality.code ??
+                        municipality.name ??
+                        "";
+
+                    const text =
+                        municipality.name ??
+                        municipality.label ??
+                        String(value);
+
+                    option.value =
+                        String(value);
 
                     option.textContent =
-                        municipality.name;
+                        String(text);
 
                 } else {
 
                     option.value =
-                        municipality;
+                        String(municipality);
 
                     option.textContent =
-                        municipality;
+                        String(municipality);
 
                 }
-
 
                 municipalitySelect.appendChild(
                     option
@@ -2562,22 +2620,42 @@ const wilayas = Array.isArray(data)
             }
         );
 
+        municipalitySelect.disabled = false;
+
+        // إذا توجد بلديات
+        if (municipalities.length > 0) {
+
+            municipalitySelect.value = "";
+
+        } else {
+
+            console.warn(
+                "TABIBK: لا توجد بلديات لهذه الولاية",
+                selected
+            );
+
+        }
 
         loadDoctors();
 
     } catch (error) {
 
         console.error(
-            "Municipalities error:",
+            "TABIBK Municipalities Error:",
             error
         );
 
+        municipalitySelect.innerHTML =
+            `<option value="">
+                تعذر تحميل البلديات
+            </option>`;
+
+        municipalitySelect.disabled = false;
+
+        loadDoctors();
     }
 
 }
-
-
-
 /* =========================================
    LOAD DOCTORS
 ========================================= */

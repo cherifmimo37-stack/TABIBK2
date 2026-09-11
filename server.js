@@ -2729,84 +2729,93 @@ app.get(
             );
 
         // ----------------------------------------------------
-        // Only appointments of SAME doctor + SAME date
+        // Same doctor + same date
         // ----------------------------------------------------
 
         const sameDay =
-            database.appointments.filter(
-                item =>
-                    Number(
-                        item.doctorId
-                    ) === doctorId &&
+            database.appointments
+                .filter(
+                    item =>
+                        Number(
+                            item.doctorId
+                        ) === doctorId &&
 
-                    String(
-                        item.date
-                    ) === appointmentDate
+                        String(
+                            item.date
+                        ) === appointmentDate
+                )
+                .sort(
+                    (a, b) =>
+                        Number(
+                            a.queueNumber || 0
+                        ) -
+                        Number(
+                            b.queueNumber || 0
+                        )
+                );
+
+        // ----------------------------------------------------
+        // Current turn
+        //
+        // 1. Started patient = current turn
+        // 2. If nobody started yet = first waiting patient
+        // 3. Otherwise = 0
+        // ----------------------------------------------------
+
+        const startedAppointment =
+            sameDay.find(
+                item =>
+                    item.status ===
+                    "started"
             );
 
-        // ----------------------------------------------------
-        // Current turn = currently started patient
-        // ----------------------------------------------------
+        const waitingAppointments =
+            sameDay.filter(
+                item =>
+                    item.status === "pending" ||
+                    item.status === "confirmed" ||
+                    item.status === "accepted"
+            );
 
-        const startedAppointments =
-            sameDay
-                .filter(
-                    item =>
-                        item.status ===
-                        "started"
-                )
-                .sort(
-                    (a, b) =>
-                        Number(
-                            a.queueNumber
-                        ) -
-                        Number(
-                            b.queueNumber
-                        )
+        let currentTurn = 0;
+
+        if (startedAppointment) {
+
+            currentTurn =
+                Number(
+                    startedAppointment.queueNumber
                 );
 
-        const currentStarted =
-            startedAppointments[0] ||
-            null;
+        } else if (
+            waitingAppointments.length > 0
+        ) {
 
-        // ----------------------------------------------------
-        // Waiting / active appointments
-        // ----------------------------------------------------
-
-        const activeStatuses = [
-
-            "pending",
-            "confirmed",
-            "accepted",
-            "started"
-
-        ];
-
-        const activeAppointments =
-            sameDay
-                .filter(
-                    item =>
-                        activeStatuses.includes(
-                            item.status
-                        )
-                )
-                .sort(
-                    (a, b) =>
-                        Number(
-                            a.queueNumber
-                        ) -
-                        Number(
-                            b.queueNumber
-                        )
+            currentTurn =
+                Number(
+                    waitingAppointments[0]
+                        .queueNumber
                 );
+
+        }
 
         // ----------------------------------------------------
         // Patients before this patient
         // ----------------------------------------------------
 
         const patientsBefore =
-            activeAppointments.filter(
+            sameDay.filter(
                 item =>
+                    (
+                        item.status ===
+                            "pending" ||
+                        item.status ===
+                            "confirmed" ||
+                        item.status ===
+                            "accepted" ||
+                        item.status ===
+                            "started"
+                    ) &&
+
                     Number(
                         item.queueNumber
                     ) <
@@ -2829,6 +2838,7 @@ app.get(
                             item.status ===
                                 "accepted"
                         ) &&
+
                         Number(
                             item.queueNumber
                         ) >
@@ -2846,12 +2856,20 @@ app.get(
                         )
                 )[0] || null;
 
+        // ----------------------------------------------------
+        // Doctor
+        // ----------------------------------------------------
+
         const doctor =
             database.doctors.find(
                 item =>
                     Number(item.id) ===
                     doctorId
             );
+
+        // ----------------------------------------------------
+        // Response
+        // ----------------------------------------------------
 
         res.json({
 
@@ -2863,10 +2881,7 @@ app.get(
             queueNumber:
                 appointment.queueNumber,
 
-            currentTurn:
-                currentStarted
-                    ? currentStarted.queueNumber
-                    : null,
+            currentTurn,
 
             patientsBefore,
 
@@ -2883,12 +2898,17 @@ app.get(
             status:
                 appointment.status,
 
+            date:
+                appointment.date || null,
+
+            time:
+                appointment.time || null,
+
             appointment
 
         });
     }
 );
-
 // ============================================================
 // DOCTOR APPOINTMENTS
 // ============================================================

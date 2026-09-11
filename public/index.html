@@ -2498,7 +2498,10 @@ async function loadMunicipalities() {
             );
 
         const data = await response.json();
-const wilayas = data.wilayas || [];
+
+const wilayas = Array.isArray(data)
+    ? data
+    : (data.wilayas || []);
 
 
         const selected =

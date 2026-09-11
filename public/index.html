@@ -2,16 +2,18 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
     <meta name="theme-color"
-          content="#0b132b">
+          content="#1769d2">
 
     <title>TABIBK | طبيبك</title>
 
+    <!-- GOOGLE FONT -->
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
 
@@ -22,12 +24,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
           rel="stylesheet">
 
+    <!-- FONT AWESOME -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <style>
 
-        <style>
+<style>
+
+/* =====================================================
+   TABIBK — OFFICIAL MEDICAL DESIGN
+   Blue + Turquoise + Purple + White
+===================================================== */
+
+:root {
+
+    --primary: #1769d2;
+    --primary-dark: #124b9b;
+
+    --turquoise: #18b89c;
+    --turquoise-dark: #0f9b84;
+
+    --purple: #7650d8;
+
+    --bg: #f4f9fd;
+    --white: #ffffff;
+
+    --text: #12345b;
+    --muted: #71839a;
+
+    --border: #e3edf6;
+
+    --shadow:
+        0 10px 30px rgba(23, 105, 210, 0.08);
+
+    --radius: 18px;
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -35,1799 +71,213 @@
     padding: 0;
 }
 
-:root {
-    --primary: #1769d2;
-    --primary-dark: #124b9b;
-    --turquoise: #18b89c;
-    --turquoise-dark: #0f9b84;
-    --purple: #7650d8;
-
-    --bg: #f4f9fd;
-    --white: #ffffff;
-    --text: #12345b;
-    --muted: #71839a;
-
-    --border: #e3edf6;
-
-    --shadow:
-        0 8px 28px rgba(24, 76, 130, 0.08);
-}
 
 html {
     scroll-behavior: smooth;
 }
 
+
 body {
+
     font-family: "Cairo", sans-serif;
+
     background:
         linear-gradient(
             180deg,
-            #f8fcff 0%,
-            #eef7fc 100%
+            #ffffff 0%,
+            #f4f9fd 55%,
+            #eef8fb 100%
         );
+
     color: var(--text);
+
     min-height: 100vh;
 }
 
 
-/* ============================================================
+/* =====================================================
    HEADER
-============================================================ */
+===================================================== */
 
 header {
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #eef8ff
-        );
 
-    color: var(--text);
-
-    padding: 16px 16px 22px;
-
-    border-radius:
-        0 0 30px 30px;
-
-    box-shadow:
-        0 8px 30px
-        rgba(25, 94, 160, 0.10);
-
-    border-bottom:
-        1px solid #e4f0f8;
-}
-
-.header-content {
-    max-width: 600px;
-    margin: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-
-/* ============================================================
-   BRAND
-============================================================ */
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.brand-icon {
-    width: 54px;
-    height: 54px;
-
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #19b8d1,
-            #1769d2
-        );
-
-    color: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 26px;
-
-    box-shadow:
-        0 8px 20px
-        rgba(23, 105, 210, .22);
-}
-
-.brand-text strong {
-    display: block;
-
-    font-size: 25px;
-
-    font-weight: 800;
-
-    line-height: 1.2;
-
-    color: #123b69;
-
-    letter-spacing: 0;
-}
-
-.brand-text span {
-    display: block;
-
-    margin-top: 2px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    color: #18a8a0;
-}
-
-
-/* ============================================================
-   NOTIFICATION BUTTON
-============================================================ */
-
-.notification-btn {
-    position: relative;
-
-    width: 45px;
-    height: 45px;
-
-    border: 1px solid #dceaf5;
-
-    background: white;
-
-    color: var(--primary);
-
-    border-radius: 15px;
-
-    font-size: 18px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 5px 16px
-        rgba(23, 105, 210, .08);
-
-    transition: .2s;
-}
-
-.notification-btn:hover {
-    transform: translateY(-2px);
-
-    background: #f3f9ff;
-}
-
-
-/* ============================================================
-   NOTIFICATION COUNT
-============================================================ */
-
-.notification-count {
-    position: absolute;
-
-    top: -6px;
-    right: -6px;
-
-    min-width: 20px;
-    height: 20px;
-
-    padding: 0 5px;
-
-    border-radius: 50px;
-
-    background: #ef4d63;
-
-    color: white;
-
-    font-size: 10px;
-
-    font-weight: 800;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border: 2px solid white;
-}
-
-
-/* ============================================================
-   HERO
-============================================================ */
-
-.hero {
-    max-width: 600px;
-
-    margin: auto;
-
-    padding:
-        25px
-        18px
-        10px;
-}
-
-.hero h1 {
-    font-size: 25px;
-
-    font-weight: 800;
-
-    color: #123b69;
-
-    margin-bottom: 5px;
-}
-
-.hero p {
-    color: var(--muted);
-
-    font-size: 13px;
-
-    font-weight: 500;
-}
-
-
-/* ============================================================
-   CONTAINER
-============================================================ */
-
-.container {
-    max-width: 600px;
-
-    margin: auto;
-
-    padding:
-        12px 16px 45px;
-}
-
-
-/* ============================================================
-   CARDS
-============================================================ */
-
-.card {
-    background: white;
-
-    border-radius: 24px;
-
-    padding: 20px;
-
-    margin-bottom: 17px;
-
-    box-shadow: var(--shadow);
-
-    border:
-        1px solid
-        var(--border);
-}
-
-.card-title {
-    display: flex;
-
-    align-items: center;
-
-    gap: 11px;
-
-    margin-bottom: 18px;
-}
-
-.card-title-icon {
-    width: 42px;
-    height: 42px;
-
-    flex-shrink: 0;
-
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #e5f5ff,
-            #d9f8f3
-        );
-
-    color: var(--primary);
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 17px;
-}
-
-.card-title h2 {
-    font-size: 17px;
-
-    font-weight: 800;
-
-    color: #123b69;
-}
-
-
-/* ============================================================
-   FORM
-============================================================ */
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    color: #34516f;
-}
-
-.input-wrapper {
-    position: relative;
-}
-
-.input-wrapper i {
-    position: absolute;
-
-    right: 14px;
-    top: 50%;
-
-    transform:
-        translateY(-50%);
-
-    color: #7f9ab4;
-
-    pointer-events: none;
-
-    z-index: 2;
-}
-
-input,
-select,
-textarea {
     width: 100%;
 
-    border:
-        1px solid
-        #dce8f2;
-
-    background:
-        #fafdff;
-
-    border-radius: 15px;
-
-    padding:
-        14px 42px 14px 14px;
-
-    font-family:
-        "Cairo",
-        sans-serif;
-
-    font-size: 14px;
-
-    color: #173b61;
-
-    outline: none;
-
-    transition: .2s;
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: #9aabba;
-}
-
-select {
-    cursor: pointer;
-
-    padding-right: 14px;
-}
-
-textarea {
-    resize: vertical;
-
-    min-height: 90px;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    border-color:
-        var(--primary);
-
-    background: white;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(23, 105, 210, .10);
-}
-
-.row {
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 12px;
-}
-
-
-/* ============================================================
-   DOCTORS
-============================================================ */
-
-.doctors-list {
-    display: grid;
-
-    gap: 12px;
-}
-
-.doctor-card {
-    border:
-        1px solid
-        #e1ebf3;
-
-    border-radius: 19px;
-
-    padding: 15px;
-
     background:
         linear-gradient(
             135deg,
             #ffffff,
-            #f8fcff
+            #f5fbff
         );
 
-    cursor: pointer;
+    border-bottom: 1px solid var(--border);
 
-    transition: .2s;
-}
+    position: sticky;
 
-.doctor-card:hover {
-    border-color:
-        #75b8ef;
+    top: 0;
 
-    transform:
-        translateY(-2px);
+    z-index: 1000;
 
     box-shadow:
-        0 8px 20px
-        rgba(23, 105, 210, .08);
+        0 5px 20px rgba(23, 105, 210, 0.06);
 }
 
-.doctor-card.selected {
-    border:
-        2px solid
-        var(--turquoise);
 
-    background:
-        linear-gradient(
-            135deg,
-            #f5fffd,
-            #ffffff
-        );
+.header-content {
 
-    box-shadow:
-        0 7px 20px
-        rgba(24, 184, 156, .12);
+    width: min(1100px, 94%);
+
+    margin: auto;
+
+    min-height: 82px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
 }
 
-.doctor-top {
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand {
+
     display: flex;
 
     align-items: center;
 
     gap: 12px;
+
+    min-width: 0;
 }
 
-.doctor-avatar {
-    width: 50px;
-    height: 50px;
 
-    flex-shrink: 0;
+.brand-icon {
+
+    width: 52px;
+
+    height: 52px;
 
     border-radius: 16px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #e5f5ff,
-            #d7f7f1
-        );
-
-    color:
-        var(--primary);
-
     display: flex;
 
     align-items: center;
+
     justify-content: center;
-
-    font-size: 21px;
-}
-
-.doctor-info {
-    flex: 1;
-}
-
-.doctor-info strong {
-    display: block;
-
-    font-size: 14px;
-
-    margin-bottom: 3px;
-
-    color: #173b61;
-}
-
-.doctor-info span {
-    color:
-        #6d849a;
-
-    font-size: 12px;
-}
-
-.doctor-location {
-    margin-top: 10px;
-
-    display: flex;
-
-    gap: 5px;
-
-    color: #70869b;
-
-    font-size: 11px;
-}
-
-.doctor-location i {
-    color:
-        var(--turquoise);
-}
-
-.doctor-radio {
-    width: 21px;
-    height: 21px;
-
-    border-radius: 50%;
-
-    border:
-        2px solid
-        #c8d8e6;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-}
-
-.doctor-card.selected
-.doctor-radio {
-    border-color:
-        var(--turquoise);
-}
-
-.doctor-card.selected
-.doctor-radio::after {
-    content: "";
-
-    width: 9px;
-    height: 9px;
-
-    border-radius: 50%;
-
-    background:
-        var(--turquoise);
-}
-
-
-/* ============================================================
-   MAIN BUTTON
-============================================================ */
-
-.main-btn {
-    width: 100%;
-
-    border: none;
-
-    border-radius: 17px;
-
-    padding: 16px;
 
     background:
         linear-gradient(
             135deg,
-            #1eb89d,
-            #159f89
+            var(--primary),
+            var(--turquoise)
         );
 
     color: white;
 
-    font-family:
-        "Cairo",
-        sans-serif;
-
-    font-size: 15px;
-
-    font-weight: 800;
-
-    cursor: pointer;
+    font-size: 25px;
 
     box-shadow:
-        0 9px 22px
-        rgba(24, 184, 156, .22);
+        0 8px 20px rgba(23, 105, 210, 0.20);
 
-    transition: .2s;
-}
-
-.main-btn:hover {
-    transform:
-        translateY(-2px);
-}
-
-.main-btn:active {
-    transform:
-        scale(.98);
-}
-
-.main-btn i {
-    margin-left: 7px;
+    flex-shrink: 0;
 }
 
 
-/* ============================================================
-   STATUS
-============================================================ */
-
-.status-box {
-    display: none;
-
-    padding: 20px;
-
-    border-radius: 21px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #f4fbff,
-            #f5fffc
-        );
-
-    border:
-        1px solid
-        #dcecf4;
-
-    margin-top: 16px;
-}
-
-.status-box.show {
-    display: block;
-}
-
-.success-icon {
-    width: 65px;
-    height: 65px;
-
-    margin:
-        0 auto 12px;
-
-    border-radius: 50%;
-
-    background:
-        #e5f9f3;
-
-    color:
-        var(--turquoise);
+.brand-text {
 
     display: flex;
 
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 
-    font-size: 28px;
+    line-height: 1.2;
 }
 
-.status-box h3 {
-    text-align: center;
 
-    font-size: 18px;
+.brand-text strong {
 
-    color: #173b61;
+    color: var(--primary);
 
-    margin-bottom: 5px;
+    font-size: 25px;
+
+    font-weight: 800;
+
+    letter-spacing: .2px;
 }
 
-.status-box p {
-    text-align: center;
 
-    color: #71869b;
+.brand-text span {
+
+    color: var(--turquoise-dark);
 
     font-size: 12px;
+
+    font-weight: 600;
+
+    margin-top: 4px;
 }
 
 
-/* ============================================================
-   BOOKING NUMBER
-============================================================ */
-
-.booking-number {
-    margin-top: 15px;
-
-    padding: 13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #1769d2,
-            #1557ac
-        );
-
-    color: white;
-
-    border-radius: 15px;
-
-    text-align: center;
-
-    font-size: 20px;
-
-    font-weight: 800;
-
-    letter-spacing: 1px;
-
-    box-shadow:
-        0 7px 18px
-        rgba(23, 105, 210, .18);
-}
-
-
-/* ============================================================
-   TRACK BUTTON
-============================================================ */
-
-.track-btn {
-    width: 100%;
-
-    margin-top: 10px;
-
-    padding: 13px;
-
-    border:
-        1px solid
-        var(--primary);
-
-    background:
-        #f7fbff;
-
-    color:
-        var(--primary);
-
-    border-radius: 15px;
-
-    font-family:
-        "Cairo",
-        sans-serif;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition: .2s;
-}
-
-.track-btn:hover {
-    background:
-        #eaf5ff;
-}
-
-
-/* ============================================================
-   EMPTY / LOADING
-============================================================ */
-
-.empty {
-    text-align: center;
-
-    padding: 28px 10px;
-
-    color: #8ca0b2;
-
-    font-size: 13px;
-}
-
-.empty i {
-    display: block;
-
-    font-size: 31px;
-
-    margin-bottom: 9px;
-
-    color:
-        #75a9d2;
-}
-
-.loading {
-    text-align: center;
-
-    padding: 22px;
-
-    color: #71879d;
-
-    font-size: 13px;
-}
-
-.loading i {
-    margin-left: 6px;
-
-    color:
-        var(--primary);
-}
-
-
-/* ============================================================
-   NOTIFICATIONS PANEL
-============================================================ */
-
-.notifications-panel {
-    position: fixed;
-
-    top: 78px;
-
-    right: 16px;
-
-    width: 350px;
-
-    max-width:
-        calc(100vw - 32px);
-
-    background: white;
-
-    border-radius: 21px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 18px 50px
-        rgba(20, 67, 110, .20);
-
-    border:
-        1px solid
-        #dfebf4;
-
-    z-index: 99999;
-}
-
-.notifications-header {
-    display: flex;
-
-    align-items: center;
-
-    justify-content:
-        space-between;
-
-    padding: 16px 18px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #1769d2,
-            #159f9d
-        );
-
-    color: white;
-}
-
-.notifications-header strong {
-    font-size: 15px;
-}
-
-.notifications-header button {
-    border: none;
-
-    background:
-        rgba(255,255,255,.12);
-
-    color: white;
-
-    width: 32px;
-    height: 32px;
-
-    border-radius: 10px;
-
-    font-size: 16px;
-
-    cursor: pointer;
-}
-
-.notifications-list {
-    max-height: 420px;
-
-    overflow-y: auto;
-}
-
-.notifications-empty {
-    padding: 35px 20px;
-
-    text-align: center;
-
-    color: #92a4b4;
-
-    font-size: 13px;
-}
-
-.notification-item {
-    padding: 15px;
-
-    border-bottom:
-        1px solid
-        #edf2f6;
-
-    cursor: pointer;
-
-    transition: .2s;
-}
-
-.notification-item:hover {
-    background:
-        #f5faff;
-}
-
-.notification-item.unread {
-    background:
-        #edfbf8;
-
-    border-right:
-        4px solid
-        var(--turquoise);
-}
-
-.notification-item-title {
-    font-size: 14px;
-
-    font-weight: 800;
-
-    margin-bottom: 5px;
-
-    color:
-        #173b61;
-}
-
-.notification-item-message {
-    font-size: 12px;
-
-    line-height: 1.7;
-
-    color: #70859a;
-}
-
-.notification-item-time {
-    margin-top: 7px;
-
-    font-size: 10px;
-
-    color: #9aabba;
-}
-
-
-/* ============================================================
-   PATIENT TOAST
-============================================================ */
-
-.patient-notification-toast {
-    position: fixed;
-
-    top: 90px;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%)
-        translateY(-20px);
-
-    width: 360px;
-
-    max-width:
-        calc(100vw - 30px);
-
-    background: white;
-
-    border-radius: 19px;
-
-    padding: 15px 18px;
-
-    box-shadow:
-        0 18px 50px
-        rgba(20, 67, 110, .20);
-
-    border:
-        1px solid
-        #dfebf4;
-
-    z-index: 100000;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition: .35s ease;
-}
-
-.patient-notification-toast.show {
-    opacity: 1;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
-
-    pointer-events: auto;
-}
-
-.patient-toast-title {
-    font-size: 14px;
-
-    font-weight: 800;
-
-    margin-bottom: 5px;
-
-    padding-right: 10px;
-
-    color:
-        #173b61;
-}
-
-.patient-toast-message {
-    font-size: 12px;
-
-    color: #70859a;
-
-    line-height: 1.7;
-
-    padding-right: 10px;
-}
-
-.patient-toast-close {
-    position: absolute;
-
-    top: 8px;
-
-    left: 10px;
-
-    border: none;
-
-    background: transparent;
-
-    font-size: 16px;
-
-    cursor: pointer;
-
-    color: #8fa1b1;
-
-    width: 28px;
-    height: 28px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-}
-
-.patient-toast-close:hover {
-    background:
-        #eef6fb;
-
-    color:
-        #173b61;
-}
-
-
-/* ============================================================
-   FOOTER
-============================================================ */
-
-footer {
-    text-align: center;
-
-    padding:
-        12px 20px 28px;
-
-    color: #8ca0b2;
-
-    font-size: 11px;
-}
-
-footer strong {
-    color:
-        var(--primary);
-
-    font-size: 14px;
-}
-
-
-/* ============================================================
-   MOBILE
-============================================================ */
-
-@media (max-width: 450px) {
-
-    header {
-        padding:
-            14px 14px 20px;
-    }
-
-    .brand-icon {
-        width: 50px;
-        height: 50px;
-
-        border-radius: 16px;
-
-        font-size: 23px;
-    }
-
-    .brand-text strong {
-        font-size: 23px;
-    }
-
-    .hero {
-        padding:
-            22px 16px 8px;
-    }
-
-    .hero h1 {
-        font-size: 22px;
-    }
-
-    .container {
-        padding:
-            10px 12px 35px;
-    }
-
-    .card {
-        padding: 17px;
-
-        border-radius: 21px;
-    }
-
-    .row {
-        grid-template-columns: 1fr;
-    }
-
-    .notifications-panel {
-        top: 72px;
-
-        right: 10px;
-
-        width:
-            calc(100vw - 20px);
-    }
-
-    .patient-notification-toast {
-        top: 78px;
-
-        width:
-            calc(100vw - 24px);
-
-        max-width: none;
-
-        padding: 14px 16px;
-
-        border-radius: 17px;
-    }
-}
-
-</style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: "Cairo", sans-serif;
-            background: #f5f7fb;
-            color: #101828;
-            min-height: 100vh;
-        }
-
-        /* ================= HEADER ================= */
-
-        header {
-            background:
-                linear-gradient(135deg, #0b132b, #172554);
-
-            color: white;
-            padding: 18px 16px 28px;
-
-            border-radius: 0 0 30px 30px;
-
-            box-shadow:
-                0 8px 25px rgba(11, 19, 43, 0.18);
-        }
-
-        .header-content {
-            max-width: 600px;
-            margin: auto;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand-icon {
-            width: 48px;
-            height: 48px;
-
-            background: #d4af37;
-
-            color: #0b132b;
-
-            border-radius: 15px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 23px;
-
-            box-shadow:
-                0 5px 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .brand-text strong {
-            display: block;
-            font-size: 23px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .brand-text span {
-            font-size: 11px;
-            color: #e5e7eb;
-        }
-
-        .notification-btn {
-            width: 44px;
-            height: 44px;
-
-            border: 1px solid rgba(255,255,255,.15);
-
-            background: rgba(255,255,255,.08);
-
-            color: white;
-
-            border-radius: 14px;
-
-            font-size: 18px;
-
-            cursor: pointer;
-        }
-
-        /* ================= HERO ================= */
-
-        .hero {
-            max-width: 600px;
-            margin: -5px auto 0;
-
-            padding: 20px 16px 5px;
-        }
-
-        .hero h1 {
-            font-size: 25px;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        .hero p {
-            color: #667085;
-            font-size: 13px;
-        }
-
-        /* ================= CONTAINER ================= */
-
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 15px 16px 40px;
-        }
-
-        /* ================= CARD ================= */
-
-        .card {
-            background: white;
-
-            border-radius: 22px;
-
-            padding: 20px;
-
-            margin-bottom: 16px;
-
-            box-shadow:
-                0 6px 25px rgba(16, 24, 40, 0.06);
-
-            border: 1px solid #eef0f4;
-        }
-
-        .card-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            margin-bottom: 18px;
-        }
-
-        .card-title-icon {
-            width: 38px;
-            height: 38px;
-
-            border-radius: 12px;
-
-            background: #fff8df;
-
-            color: #b18a16;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card-title h2 {
-            font-size: 17px;
-            font-weight: 800;
-        }
-
-        /* ================= FORM ================= */
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-
-            margin-bottom: 7px;
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-            color: #344054;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-
-            right: 14px;
-            top: 50%;
-
-            transform: translateY(-50%);
-
-            color: #98a2b3;
-
-            pointer-events: none;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-
-            border: 1px solid #dfe3ea;
-
-            background: #fafbfc;
-
-            border-radius: 14px;
-
-            padding: 14px 42px 14px 14px;
-
-            font-family: "Cairo", sans-serif;
-
-            font-size: 14px;
-
-            color: #101828;
-
-            outline: none;
-
-            transition: .2s;
-        }
-
-        select {
-            cursor: pointer;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 90px;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #d4af37;
-
-            background: white;
-
-            box-shadow:
-                0 0 0 3px rgba(212,175,55,.12);
-        }
-
-        .row {
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            gap: 12px;
-        }
-
-        /* ================= DOCTORS ================= */
-
-        .doctors-list {
-            display: grid;
-            gap: 12px;
-        }
-
-        .doctor-card {
-            border: 1px solid #edf0f4;
-
-            border-radius: 17px;
-
-            padding: 15px;
-
-            background: #fcfcfd;
-
-            cursor: pointer;
-
-            transition: .2s;
-        }
-
-        .doctor-card:hover {
-            border-color: #d4af37;
-            transform: translateY(-1px);
-        }
-
-        .doctor-card.selected {
-            border-color: #d4af37;
-
-            background: #fffdf5;
-
-            box-shadow:
-                0 5px 18px rgba(212,175,55,.12);
-        }
-
-        .doctor-top {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .doctor-avatar {
-            width: 48px;
-            height: 48px;
-
-            border-radius: 15px;
-
-            background:
-                linear-gradient(135deg,#0b132b,#263b73);
-
-            color: #d4af37;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 21px;
-        }
-
-        .doctor-info {
-            flex: 1;
-        }
-
-        .doctor-info strong {
-            display: block;
-
-            font-size: 14px;
-
-            margin-bottom: 3px;
-        }
-
-        .doctor-info span {
-            color: #667085;
-
-            font-size: 12px;
-        }
-
-        .doctor-location {
-            margin-top: 10px;
-
-            display: flex;
-            gap: 5px;
-
-            color: #667085;
-
-            font-size: 11px;
-        }
-
-        .doctor-location i {
-            color: #d4af37;
-        }
-
-        .doctor-radio {
-            width: 20px;
-            height: 20px;
-
-            border-radius: 50%;
-
-            border: 2px solid #d0d5dd;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .doctor-card.selected .doctor-radio {
-            border-color: #d4af37;
-        }
-
-        .doctor-card.selected .doctor-radio::after {
-            content: "";
-
-            width: 9px;
-            height: 9px;
-
-            border-radius: 50%;
-
-            background: #d4af37;
-        }
-
-        /* ================= BUTTON ================= */
-
-        .main-btn {
-            width: 100%;
-
-            border: none;
-
-            border-radius: 16px;
-
-            padding: 16px;
-
-            background:
-                linear-gradient(135deg,#d4af37,#b89220);
-
-            color: #101828;
-
-            font-family: "Cairo", sans-serif;
-
-            font-size: 15px;
-
-            font-weight: 800;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 8px 20px rgba(212,175,55,.22);
-
-            transition: .2s;
-        }
-
-        .main-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .main-btn:active {
-            transform: scale(.98);
-        }
-
-        .main-btn i {
-            margin-left: 7px;
-        }
-
-        /* ================= STATUS ================= */
-
-        .status-box {
-            display: none;
-
-            padding: 20px;
-
-            border-radius: 20px;
-
-            background: #f8fafc;
-
-            border: 1px solid #e4e7ec;
-
-            margin-top: 16px;
-        }
-
-        .status-box.show {
-            display: block;
-        }
-
-        .success-icon {
-            width: 65px;
-            height: 65px;
-
-            margin: 0 auto 12px;
-
-            border-radius: 50%;
-
-            background: #ecfdf3;
-
-            color: #12b76a;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 28px;
-        }
-
-        .status-box h3 {
-            text-align: center;
-
-            font-size: 18px;
-
-            margin-bottom: 5px;
-        }
-
-        .status-box p {
-            text-align: center;
-
-            color: #667085;
-
-            font-size: 12px;
-        }
-
-        .booking-number {
-            margin-top: 15px;
-
-            padding: 13px;
-
-            background: #0b132b;
-
-            color: #d4af37;
-
-            border-radius: 14px;
-
-            text-align: center;
-
-            font-size: 20px;
-
-            font-weight: 800;
-
-            letter-spacing: 1px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .empty {
-            text-align: center;
-
-            padding: 25px 10px;
-
-            color: #98a2b3;
-
-            font-size: 13px;
-        }
-
-        .empty i {
-            display: block;
-
-            font-size: 30px;
-
-            margin-bottom: 8px;
-        }
-
-        .loading {
-            text-align: center;
-
-            padding: 20px;
-
-            color: #667085;
-
-            font-size: 13px;
-        }
-
-        .loading i {
-            margin-left: 6px;
-        }
-
-        /* ================= TRACK ================= */
-
-        .track-btn {
-            width: 100%;
-
-            margin-top: 10px;
-
-            padding: 12px;
-
-            border: 1px solid #d4af37;
-
-            background: white;
-
-            color: #8a6a0d;
-
-            border-radius: 14px;
-
-            font-family: "Cairo", sans-serif;
-
-            font-weight: 700;
-
-            cursor: pointer;
-        }
-
-        /* ================= FOOTER ================= */
-
-        footer {
-            text-align: center;
-
-            padding: 10px 20px 25px;
-
-            color: #98a2b3;
-
-            font-size: 11px;
-        }
-
-        footer strong {
-            color: #8a6a0d;
-        }
-
-        /* ================= MOBILE ================= */
-
-        @media (max-width: 450px) {
-
-            .row {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                font-size: 22px;
-            }
-
-            .card {
-                padding: 17px;
-            }
-
-        }
-
-  /* ============================================================
-   PATIENT NOTIFICATIONS
-============================================================ */
+/* =====================================================
+   NOTIFICATION BUTTON
+===================================================== */
 
 .notification-btn {
+
+    width: 46px;
+
+    height: 46px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: white;
+
+    color: var(--primary);
+
+    font-size: 19px;
+
+    cursor: pointer;
+
     position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: .2s ease;
 }
 
 
-/* UNREAD COUNT */
+.notification-btn:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #cbdff2;
+
+    box-shadow:
+        0 8px 20px rgba(23, 105, 210, .10);
+}
+
 
 .notification-count {
 
     position: absolute;
 
     top: -5px;
-    right: -5px;
+
+    left: -5px;
 
     min-width: 20px;
+
     height: 20px;
 
     padding: 0 5px;
@@ -1838,8 +288,6 @@ footer strong {
 
     color: white;
 
-    font-family: "Cairo", sans-serif;
-
     font-size: 10px;
 
     font-weight: 800;
@@ -1850,44 +298,719 @@ footer strong {
 
     justify-content: center;
 
-    border: 2px solid #172554;
-
+    border: 2px solid white;
 }
 
 
-/* NOTIFICATIONS PANEL */
+/* =====================================================
+   MAIN
+===================================================== */
 
-.notifications-panel {
+main {
 
-    position: fixed;
+    width: min(1100px, 94%);
 
-    top: 78px;
+    margin: 30px auto 50px;
+}
 
-    right: 16px;
 
-    width: 350px;
+/* =====================================================
+   HERO
+===================================================== */
 
-    max-width: calc(100vw - 32px);
+.hero {
+
+    background:
+        linear-gradient(
+            135deg,
+            #1769d2 0%,
+            #2188df 52%,
+            #18b89c 100%
+        );
+
+    border-radius: 26px;
+
+    padding: 38px 30px;
+
+    color: white;
+
+    box-shadow:
+        0 18px 45px rgba(23, 105, 210, .18);
+
+    margin-bottom: 25px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+
+    height: 230px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+
+    top: -100px;
+
+    left: -70px;
+}
+
+
+.hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+
+    height: 180px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.07);
+
+    bottom: -90px;
+
+    right: -50px;
+}
+
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.hero h1 {
+
+    font-size: 31px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+
+.hero p {
+
+    font-size: 15px;
+
+    line-height: 1.9;
+
+    opacity: .94;
+
+    max-width: 700px;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.card {
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    box-shadow: var(--shadow);
+}
+
+
+.card-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    color: var(--text);
+
+    font-size: 19px;
+
+    font-weight: 800;
+}
+
+
+.card-title i {
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--turquoise)
+        );
+
+    font-size: 17px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group {
+
+    margin-bottom: 17px;
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+.input-wrapper {
+
+    position: relative;
+}
+
+
+.input-wrapper > i {
+
+    position: absolute;
+
+    right: 14px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: var(--primary);
+
+    z-index: 2;
+}
+
+
+.input-wrapper textarea + * {
+    position: relative;
+}
+
+
+input,
+select,
+textarea {
+
+    width: 100%;
+
+    border: 1px solid var(--border);
+
+    background: #fbfdff;
+
+    color: var(--text);
+
+    border-radius: 13px;
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: .2s ease;
+}
+
+
+input,
+select {
+
+    height: 48px;
+
+    padding: 0 43px 0 13px;
+}
+
+
+textarea {
+
+    min-height: 105px;
+
+    resize: vertical;
+
+    padding: 13px 43px 13px 13px;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+
+    border-color: var(--primary);
 
     background: white;
 
-    border-radius: 20px;
-
-    overflow: hidden;
-
     box-shadow:
-        0 15px 45px rgba(0,0,0,.20);
-
-    border: 1px solid #eef0f4;
-
-    z-index: 99999;
-
+        0 0 0 3px rgba(23, 105, 210, .08);
 }
 
 
-/* HEADER */
+/* =====================================================
+   ROW
+===================================================== */
+
+.row {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+
+/* =====================================================
+   DOCTORS
+===================================================== */
+
+.doctors-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 15px;
+}
+
+
+.doctor-card {
+
+    border: 1px solid var(--border);
+
+    background: #fbfdff;
+
+    border-radius: 16px;
+
+    padding: 18px;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+
+    position: relative;
+}
+
+
+.doctor-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color: #bcd8f0;
+
+    box-shadow:
+        0 10px 25px rgba(23, 105, 210, .08);
+}
+
+
+.doctor-card.selected {
+
+    border: 2px solid var(--primary);
+
+    background:
+        linear-gradient(
+            135deg,
+            #f4f9ff,
+            #f0fffb
+        );
+}
+
+
+.doctor-radio {
+
+    position: absolute;
+
+    top: 16px;
+
+    left: 16px;
+
+    width: 20px;
+
+    height: 20px;
+
+    border: 2px solid #cbd8e5;
+
+    border-radius: 50%;
+
+    background: white;
+}
+
+
+.doctor-card.selected .doctor-radio {
+
+    border-color: var(--primary);
+}
+
+
+.doctor-card.selected .doctor-radio::after {
+
+    content: "";
+
+    width: 10px;
+
+    height: 10px;
+
+    background: var(--primary);
+
+    border-radius: 50%;
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+
+.doctor-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 12px;
+}
+
+
+.doctor-avatar {
+
+    width: 52px;
+
+    height: 52px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e8f2ff,
+            #e6faf6
+        );
+
+    color: var(--primary);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 23px;
+
+    flex-shrink: 0;
+}
+
+
+.doctor-name {
+
+    color: var(--text);
+
+    font-weight: 800;
+
+    font-size: 15px;
+}
+
+
+.doctor-specialty {
+
+    color: var(--turquoise-dark);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    margin-top: 2px;
+}
+
+
+.doctor-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+.doctor-info span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.doctor-info i {
+
+    color: var(--primary);
+}
+
+
+/* =====================================================
+   MAIN BUTTON
+===================================================== */
+
+.main-btn {
+
+    width: 100%;
+
+    min-height: 51px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--turquoise)
+        );
+
+    color: white;
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 9px 22px rgba(23, 105, 210, .18);
+
+    transition: .2s ease;
+}
+
+
+.main-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(23, 105, 210, .25);
+}
+
+
+.main-btn:active {
+
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status-box {
+
+    display: none;
+
+    margin-top: 17px;
+
+    padding: 15px;
+
+    border-radius: 13px;
+
+    background: #f2f8ff;
+
+    border: 1px solid #d8e9f8;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   BOOKING NUMBER
+===================================================== */
+
+.booking-number {
+
+    margin-top: 15px;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef6ff,
+            #effcf9
+        );
+
+    border: 1px solid #d5eaf1;
+
+    text-align: center;
+}
+
+
+.booking-number strong {
+
+    display: block;
+
+    color: var(--primary);
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+.booking-number span {
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   TRACKING BUTTON
+===================================================== */
+
+.track-btn {
+
+    margin-top: 12px;
+
+    width: 100%;
+
+    height: 48px;
+
+    border: 1px solid var(--primary);
+
+    border-radius: 13px;
+
+    background: white;
+
+    color: var(--primary);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.track-btn:hover {
+
+    background: #f2f8ff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   NOTIFICATIONS PANEL
+===================================================== */
+
+.patient-notifications-panel {
+
+    display: none;
+
+    position: fixed;
+
+    top: 92px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: min(430px, 92%);
+
+    max-height: 70vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 50px rgba(18, 52, 91, .18);
+
+    z-index: 2000;
+}
+
+
+.patient-notifications-panel.show {
+
+    display: block;
+}
+
 
 .notifications-header {
+
+    padding: 17px;
+
+    border-bottom: 1px solid var(--border);
 
     display: flex;
 
@@ -1895,259 +1018,53 @@ footer strong {
 
     justify-content: space-between;
 
-    padding: 16px 18px;
-
-    background: #0b132b;
-
-    color: white;
-
+    font-weight: 800;
 }
 
-
-.notifications-header strong {
-
-    font-size: 15px;
-
-}
-
-
-.notifications-header button {
-
-    border: none;
-
-    background: transparent;
-
-    color: white;
-
-    font-size: 18px;
-
-    cursor: pointer;
-
-}
-
-
-/* LIST */
 
 .notifications-list {
 
-    max-height: 420px;
-
-    overflow-y: auto;
-
+    padding: 8px;
 }
 
-
-/* EMPTY */
-
-.notifications-empty {
-
-    padding: 35px 20px;
-
-    text-align: center;
-
-    color: #98a2b3;
-
-    font-size: 13px;
-
-}
-
-
-/* ITEM */
 
 .notification-item {
 
-    padding: 15px;
+    display: flex;
 
-    border-bottom: 1px solid #f0f2f5;
+    gap: 12px;
+
+    padding: 13px;
+
+    border-radius: 12px;
+
+    margin-bottom: 5px;
 
     cursor: pointer;
 
-    transition: .2s;
-
+    transition: .2s ease;
 }
 
 
 .notification-item:hover {
 
-    background: #f8fafc;
-
+    background: #f4f9fd;
 }
 
 
 .notification-item.unread {
 
-    background: #fffdf5;
-
-    border-right: 4px solid #d4af37;
-
+    background: #f0f7ff;
 }
 
 
-.notification-item-title {
+.notification-icon {
 
-    font-size: 14px;
+    width: 38px;
 
-    font-weight: 800;
+    height: 38px;
 
-    margin-bottom: 5px;
-
-}
-
-
-.notification-item-message {
-
-    font-size: 12px;
-
-    line-height: 1.7;
-
-    color: #667085;
-
-}
-
-
-.notification-item-time {
-
-    margin-top: 7px;
-
-    font-size: 10px;
-
-    color: #98a2b3;
-
-}
-
-
-/* MOBILE */
-
-@media (max-width: 450px) {
-
-    .notifications-panel {
-
-        top: 72px;
-
-        right: 10px;
-
-        width: calc(100vw - 20px);
-
-    }
-
-}
-
-        /* ============================================================
-   NEW PATIENT NOTIFICATION TOAST
-============================================================ */
-
-.patient-notification-toast {
-
-    position: fixed;
-
-    top: 90px;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%)
-        translateY(-20px);
-
-    width: 360px;
-
-    max-width: calc(100vw - 30px);
-
-    background: #ffffff;
-
-    border-radius: 18px;
-
-    padding: 15px 18px;
-
-    box-shadow:
-        0 15px 45px rgba(0, 0, 0, 0.22);
-
-    border: 1px solid #eef0f4;
-
-    z-index: 100000;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition: 0.35s ease;
-}
-
-
-/* ============================================================
-   SHOW TOAST
-============================================================ */
-
-.patient-notification-toast.show {
-
-    opacity: 1;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
-
-    pointer-events: auto;
-}
-
-
-/* ============================================================
-   TOAST TITLE
-============================================================ */
-
-.patient-toast-title {
-
-    font-size: 14px;
-
-    font-weight: 800;
-
-    margin-bottom: 5px;
-
-    padding-right: 10px;
-
-    color: #101828;
-}
-
-
-/* ============================================================
-   TOAST MESSAGE
-============================================================ */
-
-.patient-toast-message {
-
-    font-size: 12px;
-
-    color: #667085;
-
-    line-height: 1.7;
-
-    padding-right: 10px;
-}
-
-
-/* ============================================================
-   CLOSE BUTTON
-============================================================ */
-
-.patient-toast-close {
-
-    position: absolute;
-
-    top: 8px;
-
-    left: 10px;
-
-    border: none;
-
-    background: transparent;
-
-    font-size: 16px;
-
-    cursor: pointer;
-
-    color: #98a2b3;
-
-    width: 28px;
-
-    height: 28px;
+    border-radius: 11px;
 
     display: flex;
 
@@ -2155,49 +1072,273 @@ footer strong {
 
     justify-content: center;
 
-    border-radius: 50%;
+    color: white;
 
-    transition: 0.2s ease;
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--turquoise)
+        );
+
+    flex-shrink: 0;
 }
 
 
-.patient-toast-close:hover {
+.notification-content {
 
-    background: #f2f4f7;
-
-    color: #101828;
+    flex: 1;
 }
 
 
-/* ============================================================
+.notification-content strong {
+
+    display: block;
+
+    font-size: 13px;
+
+    color: var(--text);
+
+    margin-bottom: 3px;
+}
+
+
+.notification-content p {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+.notification-time {
+
+    color: #9aaabd;
+
+    font-size: 10px;
+
+    margin-top: 4px;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.patient-toast {
+
+    position: fixed;
+
+    bottom: 25px;
+
+    right: 25px;
+
+    width: min(380px, calc(100% - 30px));
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 15px;
+
+    box-shadow:
+        0 15px 40px rgba(18, 52, 91, .18);
+
+    display: none;
+
+    z-index: 3000;
+}
+
+
+.patient-toast.show {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.patient-toast-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--turquoise)
+        );
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    width: min(1100px, 94%);
+
+    margin: 0 auto 30px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+footer strong {
+
+    color: var(--primary);
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
    MOBILE
-============================================================ */
+===================================================== */
 
-@media (max-width: 450px) {
+@media (max-width: 700px) {
 
-    .patient-notification-toast {
+    .header-content {
 
-        top: 78px;
+        min-height: 72px;
+    }
 
-        width: calc(100vw - 24px);
 
-        max-width: none;
+    .brand-icon {
 
-        padding: 14px 16px;
+        width: 46px;
+
+        height: 46px;
+
+        border-radius: 14px;
+
+        font-size: 21px;
+    }
+
+
+    .brand-text strong {
+
+        font-size: 21px;
+    }
+
+
+    .brand-text span {
+
+        font-size: 10px;
+    }
+
+
+    main {
+
+        width: 92%;
+
+        margin-top: 20px;
+    }
+
+
+    .hero {
+
+        padding: 28px 20px;
+
+        border-radius: 21px;
+    }
+
+
+    .hero h1 {
+
+        font-size: 24px;
+    }
+
+
+    .hero p {
+
+        font-size: 13px;
+    }
+
+
+    .card {
+
+        padding: 19px;
 
         border-radius: 16px;
+    }
 
+
+    .card-title {
+
+        font-size: 17px;
+    }
+
+
+    .row {
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+
+    .doctors-list {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .patient-notifications-panel {
+
+        top: 80px;
+    }
+
+
+    .patient-toast {
+
+        right: 15px;
+
+        bottom: 15px;
+
+        width: calc(100% - 30px);
     }
 
 }
-        
-    </style>
+
+</style>
 
 </head>
 
+
 <body>
 
-<!-- ================= HEADER ================= -->
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
@@ -2206,168 +1347,132 @@ footer strong {
         <div class="brand">
 
             <div class="brand-icon">
-                <i class="fa-solid fa-user-doctor"></i>
+
+                <i class="fa-solid fa-heart-pulse"></i>
+
             </div>
+
 
             <div class="brand-text">
 
-                <strong>TABIBK</strong>
+                <strong>طبيبك</strong>
 
-                <span>
-                    طبيبك... موعدك أسهل
-                </span>
+                <span>TABIBK • موعدك أسهل</span>
 
             </div>
 
         </div>
 
-        <button
-    class="notification-btn"
-    id="patientNotificationBell"
-    onclick="togglePatientNotifications()"
-    type="button">
-
-    <i class="fa-regular fa-bell"></i>
-
-    <span
-        id="patientNotificationCount"
-        class="notification-count"
-        style="display:none;">
-        0
-    </span>
-
-</button>
-
-    </div>
-
-</header>
-
-<!-- ============================================================
-     PATIENT NOTIFICATIONS PANEL
-============================================================ -->
-
-<div
-    id="patientNotificationsPanel"
-    class="notifications-panel"
-    style="display:none;">
-
-    <div class="notifications-header">
-
-        <strong>
-            🔔 الإشعارات
-        </strong>
 
         <button
+            class="notification-btn"
+            id="patientNotificationBell"
+            onclick="togglePatientNotifications()"
             type="button"
-            onclick="closePatientNotifications()">
+        >
 
-            ✕
+            <i class="fa-regular fa-bell"></i>
+
+            <span
+                id="patientNotificationCount"
+                class="notification-count"
+                style="display:none;"
+            >
+                0
+            </span>
 
         </button>
 
     </div>
 
-    <div
-        id="patientNotificationsList"
-        class="notifications-list">
+</header>
 
-        <div class="notifications-empty">
-            لا توجد إشعارات حاليًا
-        </div>
+
+<!-- =====================================================
+     PATIENT NOTIFICATIONS PANEL
+===================================================== -->
+
+<div
+    id="patientNotificationsPanel"
+    class="patient-notifications-panel"
+>
+
+    <div class="notifications-header">
+
+        <span>
+            <i class="fa-regular fa-bell"></i>
+            الإشعارات
+        </span>
+
+        <button
+            type="button"
+            onclick="closePatientNotifications()"
+            style="
+                border:none;
+                background:none;
+                cursor:pointer;
+                color:#71839a;
+                font-size:18px;
+            "
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
 
     </div>
 
+
+    <div
+        id="patientNotificationsList"
+        class="notifications-list"
+    ></div>
+
 </div>
-    
-<!-- ================= HERO ================= -->
-
-<section class="hero">
-
-    <h1>
-        احجز موعدك الطبي 🩺
-    </h1>
-
-    <p>
-        اختر الطبيب المناسب واحجز موعدك بكل سهولة
-    </p>
-
-</section>
 
 
-<main class="container">
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-    <!-- ================= PATIENT ================= -->
-
-    <section class="card">
-
-        <div class="card-title">
-
-            <div class="card-title-icon">
-                <i class="fa-solid fa-user"></i>
-            </div>
-
-            <h2>
-                معلومات المريض
-            </h2>
-
-        </div>
+<main>
 
 
-        <div class="form-group">
+    <!-- HERO -->
 
-            <label>
-                الاسم الكامل
-            </label>
+    <section class="hero">
 
-            <div class="input-wrapper">
+        <div class="hero-content">
 
-                <i class="fa-solid fa-user"></i>
+            <h1>
+                مرحباً بك في طبيبك 🩺
+            </h1>
 
-                <input
-                    type="text"
-                    id="patientName"
-                    placeholder="أدخل اسمك الكامل">
-
-            </div>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label>
-                رقم الهاتف
-            </label>
-
-            <div class="input-wrapper">
-
-                <i class="fa-solid fa-phone"></i>
-
-                <input
-                    type="tel"
-                    id="patientPhone"
-                    placeholder="مثال: 0550000000">
-
-            </div>
+            <p>
+                احجز موعدك الطبي بسهولة،
+                تابع طلبك واستقبل إشعاراتك
+                في مكان واحد.
+            </p>
 
         </div>
 
     </section>
 
 
-    <!-- ================= SEARCH ================= -->
+
+    <!-- =================================================
+         PATIENT INFORMATION
+    ================================================= -->
 
     <section class="card">
 
         <div class="card-title">
 
-            <div class="card-title-icon">
-                <i class="fa-solid fa-location-dot"></i>
-            </div>
+            <div class="card-title">
 
-            <h2>
-                البحث عن طبيب
-            </h2>
+                <i class="fa-solid fa-user"></i>
+
+                معلومات المريض
+
+            </div>
 
         </div>
 
@@ -2376,34 +1481,130 @@ footer strong {
 
             <div class="form-group">
 
-                <label>
-                    الولاية
+                <label for="patientName">
+                    الاسم الكامل
                 </label>
 
-                <select id="wilayaSelect"
-                        onchange="loadMunicipalities()">
+                <div class="input-wrapper">
 
-                    <option value="">
-                        اختر الولاية
-                    </option>
+                    <i class="fa-solid fa-user"></i>
 
-                </select>
+                    <input
+                        id="patientName"
+                        type="text"
+                        placeholder="أدخل اسمك الكامل"
+                    >
+
+                </div>
 
             </div>
 
 
             <div class="form-group">
 
-                <label>
+                <label for="patientPhone">
+                    رقم الهاتف
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <input
+                        id="patientPhone"
+                        type="tel"
+                        placeholder="أدخل رقم الهاتف"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SEARCH DOCTORS
+    ================================================= -->
+
+    <section class="card">
+
+        <div class="card-title">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            البحث عن طبيب
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="form-group">
+
+                <label for="wilayaSelect">
+                    الولاية
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <select id="wilayaSelect">
+
+                        <option value="">
+                            اختر الولاية
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="municipalitySelect">
                     البلدية
                 </label>
 
-                <select id="municipalitySelect"
-                        onchange="loadDoctors()"
-                        disabled>
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-city"></i>
+
+                    <select id="municipalitySelect">
+
+                        <option value="">
+                            اختر البلدية
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="specialtySelect">
+                التخصص
+            </label>
+
+            <div class="input-wrapper">
+
+                <i class="fa-solid fa-stethoscope"></i>
+
+                <select id="specialtySelect">
 
                     <option value="">
-                        اختر البلدية
+                        جميع التخصصات
                     </option>
 
                 </select>
@@ -2412,99 +1613,56 @@ footer strong {
 
         </div>
 
+    </section>
 
-        <div class="form-group">
 
-            <label>
-                التخصص
-            </label>
 
-            <select id="specialtySelect"
-                    onchange="loadDoctors()">
+    <!-- =================================================
+         DOCTORS
+    ================================================= -->
 
-                <option value="">
-                    جميع التخصصات
-                </option>
+    <section class="card">
 
-                <option value="طب عام">
-                    طب عام
-                </option>
+        <div class="card-title">
 
-                <option value="طب الأطفال">
-                    طب الأطفال
-                </option>
+            <i class="fa-solid fa-user-doctor"></i>
 
-                <option value="أمراض القلب">
-                    أمراض القلب
-                </option>
+            الأطباء المتاحون
 
-                <option value="طب النساء">
-                    طب النساء
-                </option>
+        </div>
 
-                <option value="طب الأسنان">
-                    طب الأسنان
-                </option>
 
-            </select>
+        <div
+            id="doctorsList"
+            class="doctors-list"
+        >
+
+            <!-- JavaScript loads doctors here -->
 
         </div>
 
     </section>
 
 
-    <!-- ================= DOCTORS ================= -->
+
+    <!-- =================================================
+         APPOINTMENT
+    ================================================= -->
 
     <section class="card">
 
         <div class="card-title">
 
-            <div class="card-title-icon">
-                <i class="fa-solid fa-user-doctor"></i>
-            </div>
+            <i class="fa-solid fa-calendar-check"></i>
 
-            <h2>
-                الأطباء
-            </h2>
-
-        </div>
-
-
-        <div id="doctorsList">
-
-            <div class="empty">
-
-                <i class="fa-solid fa-stethoscope"></i>
-
-                اختر الولاية والبلدية لعرض الأطباء
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= APPOINTMENT ================= -->
-
-    <section class="card">
-
-        <div class="card-title">
-
-            <div class="card-title-icon">
-                <i class="fa-solid fa-calendar-check"></i>
-            </div>
-
-            <h2>
-                تفاصيل الموعد
-            </h2>
+            حجز موعد
 
         </div>
 
 
         <div class="form-group">
 
-            <label>
+            <label for="reason">
                 سبب الزيارة
             </label>
 
@@ -2514,48 +1672,52 @@ footer strong {
 
                 <textarea
                     id="reason"
-                    placeholder="اكتب سبب الزيارة باختصار..."></textarea>
+                    placeholder="اكتب سبب الزيارة"
+                ></textarea>
 
-                <div class="row">
-
-    <div class="form-group">
-
-        <label>
-            تاريخ الموعد
-        </label>
-
-        <div class="input-wrapper">
-
-            <i class="fa-solid fa-calendar-days"></i>
-
-            <input
-                type="date"
-                id="appointmentDate">
+            </div>
 
         </div>
 
-    </div>
+
+        <div class="row">
+
+            <div class="form-group">
+
+                <label for="appointmentDate">
+                    تاريخ الموعد
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-calendar"></i>
+
+                    <input
+                        id="appointmentDate"
+                        type="date"
+                    >
+
+                </div>
+
+            </div>
 
 
-    <div class="form-group">
+            <div class="form-group">
 
-        <label>
-            وقت الموعد
-        </label>
+                <label for="appointmentTime">
+                    وقت الموعد
+                </label>
 
-        <div class="input-wrapper">
+                <div class="input-wrapper">
 
-            <i class="fa-solid fa-clock"></i>
+                    <i class="fa-solid fa-clock"></i>
 
-            <input
-                type="time"
-                id="appointmentTime">
+                    <input
+                        id="appointmentTime"
+                        type="time"
+                    >
 
-        </div>
-
-    </div>
-
-</div>
+                </div>
 
             </div>
 
@@ -2563,64 +1725,62 @@ footer strong {
 
 
         <button
+            id="createAppointment"
             class="main-btn"
-            onclick="createAppointment()">
+            type="button"
+        >
 
             <i class="fa-solid fa-calendar-plus"></i>
 
-            إرسال طلب الحجز
+            تأكيد حجز الموعد
 
         </button>
 
 
         <div
             id="statusBox"
-            class="status-box">
+            class="status-box"
+        ></div>
 
-            <div class="success-icon">
 
-                <i class="fa-solid fa-check"></i>
+        <div
+            id="bookingNumber"
+            class="booking-number"
+            style="display:none;"
+        >
 
-            </div>
+            <span>
+                رقم الحجز الخاص بك
+            </span>
 
-            <h3>
-                تم إرسال طلب الحجز
-            </h3>
-
-            <p>
-                احتفظ برقم الحجز لمتابعة حالة موعدك
-            </p>
-
-            <div
-                id="bookingNumber"
-                class="booking-number">
-            </div>
+            <strong id="bookingNumberValue">
+                —
+            </strong>
 
         </div>
 
     </section>
 
 
-    <!-- ================= TRACK ================= -->
+
+    <!-- =================================================
+         TRACK APPOINTMENT
+    ================================================= -->
 
     <section class="card">
 
         <div class="card-title">
 
-            <div class="card-title-icon">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
 
-            <h2>
-                متابعة الحجز
-            </h2>
+            متابعة الحجز
 
         </div>
 
 
         <div class="form-group">
 
-            <label>
+            <label for="trackingNumber">
                 رقم الحجز
             </label>
 
@@ -2629,9 +1789,10 @@ footer strong {
                 <i class="fa-solid fa-ticket"></i>
 
                 <input
-                    type="text"
                     id="trackingNumber"
-                    placeholder="مثال: TBK-2026-0001">
+                    type="text"
+                    placeholder="أدخل رقم الحجز"
+                >
 
             </div>
 
@@ -2639,301 +1800,211 @@ footer strong {
 
 
         <button
+            id="trackAppointment"
             class="track-btn"
-            onclick="trackAppointment()">
+            type="button"
+        >
 
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-solid fa-location-arrow"></i>
 
-            متابعة حالة الحجز
+            متابعة حالة الموعد
 
         </button>
 
 
         <div
             id="trackingResult"
-            class="status-box">
-
-        </div>
+            class="status-box"
+        ></div>
 
     </section>
 
 </main>
 
 
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer>
 
-    <strong>TABIBK</strong>
+    <div>
 
-    <br>
+        <strong>طبيبك TABIBK</strong>
 
-    طبيبك... موعدك أسهل 🩺
+        <br>
+
+        منصتك الطبية لحجز ومتابعة المواعيد بسهولة 🩺
+
+    </div>
 
 </footer>
 
-    <!-- ============================================================
-     PATIENT NOTIFICATION TOAST
-============================================================ -->
+
+
+<!-- =====================================================
+     PATIENT TOAST
+===================================================== -->
 
 <div
     id="patientNotificationToast"
-    class="patient-notification-toast">
+    class="patient-toast"
+>
 
-    <button
-        type="button"
-        class="patient-toast-close"
-        onclick="hidePatientNotificationToast()">
-        ✕
-    </button>
+    <div class="patient-toast-icon">
 
-    <div
-        id="patientToastTitle"
-        class="patient-toast-title">
-        🔔 إشعار جديد
+        <i class="fa-solid fa-bell"></i>
+
     </div>
 
-    <div
-        id="patientToastMessage"
-        class="patient-toast-message">
+
+    <div>
+
+        <strong>
+            إشعار جديد
+        </strong>
+
+        <div
+            id="patientNotificationToastText"
+            style="
+                color:#71839a;
+                font-size:12px;
+                margin-top:3px;
+            "
+        ></div>
+
     </div>
 
 </div>
 
-    <script>
-
-    // ============================================================
-// PATIENT NOTIFICATIONS - JAVASCRIPT
-// ============================================================
-
-let patientNotificationsOpen = false;
 
 
-/* ============================================================
-   GET PATIENT PHONE
-============================================================ */
+<!-- =====================================================
+     JAVASCRIPT
+     DO NOT CHANGE
+===================================================== -->
+
+<script>
+
+/* =========================================
+   PATIENT NOTIFICATIONS
+========================================= */
 
 function getPatientPhone() {
 
-    const phoneInput =
-        document.getElementById("patientPhone");
-
-    if (!phoneInput) {
-        return "";
-    }
-
-    return phoneInput.value.trim();
-}
-
-
-/* ============================================================
-   FORMAT NOTIFICATION TIME
-============================================================ */
-
-function formatNotificationTime(dateString) {
-
-    if (!dateString) {
-        return "";
-    }
-
-    const date =
-        new Date(dateString);
-
-    if (isNaN(date.getTime())) {
-        return "";
-    }
-
-    const now =
-        new Date();
-
-    const diff =
-        Math.floor(
-            (now - date) / 1000
+    const phone =
+        document.getElementById(
+            "patientPhone"
         );
 
-
-    if (diff < 60) {
-
-        return "منذ لحظات";
-
-    }
-
-
-    if (diff < 3600) {
-
-        const minutes =
-            Math.floor(diff / 60);
-
-        return `منذ ${minutes} دقيقة`;
-
-    }
-
-
-    if (diff < 86400) {
-
-        const hours =
-            Math.floor(diff / 3600);
-
-        return `منذ ${hours} ساعة`;
-
-    }
-
-
-    if (diff < 172800) {
-
-        return "أمس";
-
-    }
-
-
-    return date.toLocaleDateString(
-        "ar-DZ",
-        {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric"
-        }
-    );
+    return phone
+        ? phone.value.trim()
+        : "";
 }
 
 
-/* ============================================================
-   GET NOTIFICATION ICON
-============================================================ */
+function formatNotificationTime(date) {
+
+    try {
+
+        return new Date(date)
+            .toLocaleString(
+                "ar-DZ",
+                {
+                    dateStyle: "short",
+                    timeStyle: "short"
+                }
+            );
+
+    } catch {
+
+        return "";
+
+    }
+
+}
+
 
 function getNotificationIcon(type) {
 
-    switch (type) {
+    if (type === "success") {
 
-        case "appointment_confirmed":
-        case "admin_appointment_confirmed":
+        return "fa-circle-check";
 
-            return "✅";
-
-
-        case "appointment_rejected":
-        case "admin_appointment_rejected":
-
-            return "❌";
-
-
-        case "appointment_sent":
-
-            return "📨";
-
-
-        case "consultation_started":
-
-            return "🩺";
-
-
-        case "consultation_completed":
-
-            return "🏁";
-
-        case "appointment_reminder_24h":
-        case "appointment_reminder_1h":
-
-            return "⏰";
-            
-        default:
-
-            return "🔔";
     }
+
+    if (type === "warning") {
+
+        return "fa-triangle-exclamation";
+
+    }
+
+    if (type === "appointment") {
+
+        return "fa-calendar-check";
+
+    }
+
+    if (type === "doctor") {
+
+        return "fa-user-doctor";
+
+    }
+
+    return "fa-bell";
+
 }
 
-
-/* ============================================================
-   LOAD PATIENT NOTIFICATIONS
-============================================================ */
 
 async function loadPatientNotifications() {
 
     const phone =
         getPatientPhone();
 
-    if (!phone) {
-
-        const list =
-            document.getElementById(
-                "patientNotificationsList"
-            );
-
-        if (list) {
-
-            list.innerHTML = `
-
-                <div class="notifications-empty">
-
-                    أدخل رقم هاتفك أولًا
-                    لعرض الإشعارات 🔔
-
-                </div>
-
-            `;
-        }
-
-        return;
-    }
-
+    if (!phone) return;
 
     try {
 
         const response =
             await fetch(
-                `${API}/api/patient/notifications?phone=${encodeURIComponent(phone)}`
+                "/api/notifications?phone=" +
+                encodeURIComponent(phone)
             );
 
+        if (!response.ok) return;
 
         const data =
             await response.json();
 
-
-        if (!data.success) {
-
-            throw new Error(
-                data.message ||
-                "تعذر تحميل الإشعارات"
-            );
-
-        }
-
+        const notifications =
+            Array.isArray(data)
+                ? data
+                : (
+                    Array.isArray(data.notifications)
+                        ? data.notifications
+                        : []
+                );
 
         renderPatientNotifications(
-            data.notifications || []
+            notifications
         );
 
-    }
+        updatePatientNotificationCount(
+            notifications
+        );
 
-    catch (error) {
+    } catch (error) {
 
         console.error(
-            "Patient notifications error:",
+            "Notifications error:",
             error
         );
 
-        const list =
-            document.getElementById(
-                "patientNotificationsList"
-            );
-
-        if (list) {
-
-            list.innerHTML = `
-
-                <div class="notifications-empty">
-
-                    تعذر تحميل الإشعارات ⚠️
-
-                </div>
-
-            `;
-        }
     }
+
 }
 
-
-/* ============================================================
-   RENDER NOTIFICATIONS
-============================================================ */
 
 function renderPatientNotifications(
     notifications
@@ -2944,208 +2015,173 @@ function renderPatientNotifications(
             "patientNotificationsList"
         );
 
-
-    if (!list) {
-        return;
-    }
+    if (!list) return;
 
 
-    if (
-        !notifications ||
-        notifications.length === 0
-    ) {
+    if (!notifications.length) {
 
         list.innerHTML = `
 
-            <div class="notifications-empty">
+            <div style="
+                padding:30px 15px;
+                text-align:center;
+                color:#71839a;
+                font-size:13px;
+            ">
 
-                لا توجد إشعارات حاليًا 🔔
+                <i
+                    class="fa-regular fa-bell-slash"
+                    style="
+                        font-size:28px;
+                        margin-bottom:10px;
+                    "
+                ></i>
+
+                <div>
+                    لا توجد إشعارات حالياً
+                </div>
 
             </div>
 
         `;
 
         return;
+
     }
 
 
     list.innerHTML =
-        notifications.map(
-            notification => {
+        notifications
+            .map(
+                notification => {
 
-                const unreadClass =
-                    notification.read
-                        ? ""
-                        : "unread";
-
-
-                const icon =
-                    getNotificationIcon(
-                        notification.type
-                    );
+                    const unread =
+                        notification.read === false ||
+                        notification.isRead === false;
 
 
-                return `
-
-                    <div
-                        class="notification-item ${unreadClass}"
-                        onclick="markPatientNotificationAsRead('${notification.id}')"
-                    >
+                    return `
 
                         <div
-                            class="notification-item-title"
+                            class="
+                                notification-item
+                                ${unread ? "unread" : ""}
+                            "
+                            onclick="
+                                markPatientNotificationAsRead(
+                                    '${notification.id}'
+                                )
+                            "
                         >
 
-                            ${icon}
-                            ${escapeNotificationHTML(
-                                notification.title ||
-                                "إشعار جديد"
-                            )}
+                            <div class="notification-icon">
+
+                                <i
+                                    class="
+                                        fa-solid
+                                        ${getNotificationIcon(
+                                            notification.type
+                                        )}
+                                    "
+                                ></i>
+
+                            </div>
+
+
+                            <div class="notification-content">
+
+                                <strong>
+                                    ${escapeNotificationHTML(
+                                        notification.title ||
+                                        "إشعار"
+                                    )}
+                                </strong>
+
+
+                                <p>
+                                    ${escapeNotificationHTML(
+                                        notification.message ||
+                                        ""
+                                    )}
+                                </p>
+
+
+                                <div class="notification-time">
+
+                                    ${formatNotificationTime(
+                                        notification.createdAt ||
+                                        notification.created_at ||
+                                        new Date()
+                                    )}
+
+                                </div>
+
+                            </div>
 
                         </div>
 
+                    `;
 
-                        <div
-                            class="notification-item-message"
-                        >
+                }
+            )
+            .join("");
 
-                            ${escapeNotificationHTML(
-                                notification.message ||
-                                ""
-                            )}
-
-                        </div>
-
-
-                        <div
-                            class="notification-item-time"
-                        >
-
-                            ${formatNotificationTime(
-                                notification.createdAt
-                            )}
-
-                        </div>
-
-                    </div>
-
-                `;
-            }
-        ).join("");
 }
 
-
-/* ============================================================
-   ESCAPE HTML
-============================================================ */
 
 function escapeNotificationHTML(
     text
 ) {
 
-    const div =
-        document.createElement("div");
+    return String(text || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-    div.textContent =
-        String(text);
-
-    return div.innerHTML;
 }
 
 
-/* ============================================================
-   UPDATE UNREAD COUNT
-============================================================ */
+function updatePatientNotificationCount(
+    notifications
+) {
 
-async function updatePatientNotificationCount() {
-
-    const phone =
-        getPatientPhone();
-
-
-    const badge =
+    const count =
         document.getElementById(
             "patientNotificationCount"
         );
 
-
-    if (!badge) {
-        return;
-    }
+    if (!count) return;
 
 
-    if (!phone) {
+    const unread =
+        notifications.filter(
+            item =>
+                item.read === false ||
+                item.isRead === false
+        ).length;
 
-        badge.style.display =
+
+    if (unread > 0) {
+
+        count.textContent =
+            unread > 99
+                ? "99+"
+                : unread;
+
+        count.style.display =
+            "flex";
+
+    } else {
+
+        count.style.display =
             "none";
 
-        return;
     }
 
-
-    try {
-
-        const response =
-            await fetch(
-                `${API}/api/patient/notifications/unread-count?phone=${encodeURIComponent(phone)}`
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (
-            !data.success
-        ) {
-
-            throw new Error(
-                data.message ||
-                "تعذر تحميل عدد الإشعارات"
-            );
-
-        }
-
-
-        const count =
-            Number(
-                data.unreadCount
-            ) || 0;
-
-
-        if (count > 0) {
-
-            badge.textContent =
-                count > 99
-                    ? "99+"
-                    : count;
-
-            badge.style.display =
-                "flex";
-
-        } else {
-
-            badge.style.display =
-                "none";
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Notification count error:",
-            error
-        );
-
-    }
 }
 
-
-/* ============================================================
-   OPEN / CLOSE NOTIFICATIONS
-============================================================ */
 
 function togglePatientNotifications() {
 
@@ -3154,37 +2190,18 @@ function togglePatientNotifications() {
             "patientNotificationsPanel"
         );
 
+    if (!panel) return;
 
-    if (!panel) {
-        return;
-    }
+    panel.classList.toggle("show");
 
-
-    patientNotificationsOpen =
-        !patientNotificationsOpen;
-
-
-    if (patientNotificationsOpen) {
-
-        panel.style.display =
-            "block";
+    if (panel.classList.contains("show")) {
 
         loadPatientNotifications();
 
-        updatePatientNotificationCount();
-
-    } else {
-
-        panel.style.display =
-            "none";
-
     }
+
 }
 
-
-/* ============================================================
-   CLOSE NOTIFICATIONS
-============================================================ */
 
 function closePatientNotifications() {
 
@@ -3193,283 +2210,91 @@ function closePatientNotifications() {
             "patientNotificationsPanel"
         );
 
+    if (!panel) return;
 
-    if (panel) {
+    panel.classList.remove("show");
 
-        panel.style.display =
-            "none";
-
-    }
-
-
-    patientNotificationsOpen =
-        false;
 }
 
-
-/* ============================================================
-   MARK NOTIFICATION AS READ
-============================================================ */
 
 async function markPatientNotificationAsRead(
-    notificationId
+    id
 ) {
 
-    const phone =
-        getPatientPhone();
-
-
-    if (!phone) {
-        return;
-    }
-
-
     try {
 
-        const response =
-            await fetch(
-                `${API}/api/patient/notifications/${notificationId}/read`,
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            phone:
-                                phone
-
-                        })
-
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (!data.success) {
-
-            throw new Error(
-                data.message ||
-                "تعذر تحديث الإشعار"
-            );
-
-        }
-
-
-        await loadPatientNotifications();
-
-        await updatePatientNotificationCount();
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Mark notification read error:",
-            error
+        await fetch(
+            "/api/notifications/" +
+            encodeURIComponent(id) +
+            "/read",
+            {
+                method: "PATCH"
+            }
         );
 
-    }
-}
-
-
-    /* ============================================================
-   PATIENT NEW NOTIFICATION CHECK
-============================================================ */
-
-let lastPatientUnreadCount = 0;
-
-async function checkForNewPatientNotifications() {
-
-    const phone =
-        getPatientPhone();
-
-    if (!phone) {
-        return;
-    }
-
-    try {
-
-        const response =
-            await fetch(
-                `${API}/api/patient/notifications?phone=${encodeURIComponent(phone)}`
-            );
-
-        const data =
-            await response.json();
-
-        if (
-            !data.success ||
-            !Array.isArray(
-                data.notifications
-            )
-        ) {
-            return;
-        }
-
-        const notifications =
-            data.notifications;
-
-        const unreadNotifications =
-            notifications.filter(
-                notification =>
-                    notification.read === false
-            );
-
-        const unreadCount =
-            unreadNotifications.length;
-
-        /*
-         * أول مرة:
-         * نحفظ العدد فقط بدون تشغيل تنبيه
-         */
-        if (
-            lastPatientUnreadCount === 0 &&
-            unreadCount > 0
-        ) {
-
-            lastPatientUnreadCount =
-                unreadCount;
-
-            return;
-        }
-
-        /*
-         * إذا زاد عدد الإشعارات
-         * يعني وصل إشعار جديد
-         */
-        if (
-            unreadCount >
-            lastPatientUnreadCount
-        ) {
-
-            const newestNotification =
-                unreadNotifications[0];
-
-            if (newestNotification) {
-
-                showPatientNotificationToast(
-                    newestNotification
-                );
-
-            }
-        }
-
-        lastPatientUnreadCount =
-            unreadCount;
+        loadPatientNotifications();
 
     } catch (error) {
 
-        console.error(
-            "New notification check error:",
-            error
-        );
+        console.error(error);
 
     }
+
 }
-    
-/* ============================================================
-   PATIENT NOTIFICATION POLLING
-============================================================ */
+
+
+async function checkForNewPatientNotifications() {
+
+    await loadPatientNotifications();
+
+}
+
 
 function startPatientNotificationPolling() {
 
-    updatePatientNotificationCount();
-
-    checkForNewPatientNotifications();
+    loadPatientNotifications();
 
     setInterval(
-        async function () {
-
-            await updatePatientNotificationCount();
-
-            await checkForNewPatientNotifications();
-
-            if (
-                patientNotificationsOpen
-            ) {
-
-                await loadPatientNotifications();
-
-            }
-
-        },
+        checkForNewPatientNotifications,
         10000
     );
+
 }
 
-        /* ============================================================
-   PATIENT NOTIFICATION TOAST
-============================================================ */
 
-function showPatientNotificationToast(notification) {
+function showPatientNotificationToast(
+    message
+) {
 
     const toast =
         document.getElementById(
             "patientNotificationToast"
         );
 
-    const title =
+    const text =
         document.getElementById(
-            "patientToastTitle"
+            "patientNotificationToastText"
         );
 
-    const message =
-        document.getElementById(
-            "patientToastMessage"
-        );
+    if (!toast || !text) return;
 
-    if (
-        !toast ||
-        !title ||
-        !message
-    ) {
-        return;
-    }
 
-    const icon =
-        getNotificationIcon(
-            notification.type
-        );
-
-    title.textContent =
-        `${icon} ${
-            notification.title ||
-            "إشعار جديد"
-        }`;
-
-    message.textContent =
-        notification.message ||
-        "";
+    text.textContent =
+        message || "لديك إشعار جديد";
 
     toast.classList.add("show");
 
-    playPatientNotificationSound();
 
-    clearTimeout(
-        window.patientToastTimer
+    setTimeout(
+        hidePatientNotificationToast,
+        5000
     );
 
-    window.patientToastTimer =
-        setTimeout(
-            function () {
 
-                hidePatientNotificationToast();
+    playPatientNotificationSound();
 
-            },
-            6000
-        );
 }
+
 
 function hidePatientNotificationToast() {
 
@@ -3478,14 +2303,14 @@ function hidePatientNotificationToast() {
             "patientNotificationToast"
         );
 
-    if (toast) {
+    if (!toast) return;
 
-        toast.classList.remove(
-            "show"
-        );
+    toast.classList.remove(
+        "show"
+    );
 
-    }
 }
+
 
 function playPatientNotificationSound() {
 
@@ -3495,252 +2320,228 @@ function playPatientNotificationSound() {
             window.AudioContext ||
             window.webkitAudioContext;
 
-        if (!AudioContext) {
-            return;
-        }
+        if (!AudioContext) return;
 
-        const audioContext =
+
+        const context =
             new AudioContext();
 
         const oscillator =
-            audioContext.createOscillator();
+            context.createOscillator();
 
         const gain =
-            audioContext.createGain();
+            context.createGain();
 
-        oscillator.type =
-            "sine";
-
-        oscillator.frequency.setValueAtTime(
-            880,
-            audioContext.currentTime
-        );
-
-        oscillator.frequency.setValueAtTime(
-            1174,
-            audioContext.currentTime + 0.12
-        );
-
-        gain.gain.setValueAtTime(
-            0.0001,
-            audioContext.currentTime
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            0.18,
-            audioContext.currentTime + 0.02
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            0.0001,
-            audioContext.currentTime + 0.35
-        );
 
         oscillator.connect(gain);
 
         gain.connect(
-            audioContext.destination
+            context.destination
         );
+
+
+        oscillator.frequency.value =
+            880;
+
+        gain.gain.setValueAtTime(
+            0.05,
+            context.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            context.currentTime + 0.5
+        );
+
 
         oscillator.start();
 
         oscillator.stop(
-            audioContext.currentTime + 0.35
+            context.currentTime + 0.5
         );
 
     } catch (error) {
 
         console.log(
-            "Notification sound unavailable"
+            "Sound unavailable"
         );
 
     }
+
 }
-        
-
-    /* =========================================
-       API
-    ========================================= */
-
-    const API = "";
 
 
-    let selectedDoctorId = null;
+
+/* =========================================
+   API
+========================================= */
+
+const API = "";
+
+let selectedDoctorId = null;
 
 
-    /* =========================================
-       LOAD WILAYAS
-    ========================================= */
 
-    async function loadWilayas() {
+/* =========================================
+   LOAD WILAYAS
+========================================= */
 
-        const select =
-            document.getElementById(
-                "wilayaSelect"
+async function loadWilayas() {
+
+    const select =
+        document.getElementById(
+            "wilayaSelect"
+        );
+
+    if (!select) return;
+
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/wilayas"
             );
 
-        try {
-
-            const response =
-                await fetch(
-                    API + "/api/wilayas"
-                );
-
-            const data =
-                await response.json();
-
-            if (!data.success) {
-
-                throw new Error(
-                    "فشل تحميل الولايات"
-                );
-
-            }
-
-            select.innerHTML =
-                `<option value="">
-                    اختر الولاية
-                </option>`;
-
-            data.wilayas.forEach(
-                wilaya => {
-
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
-
-                    option.value =
-                        wilaya.name;
-
-                    option.dataset.id =
-                        wilaya.id;
-
-                    option.textContent =
-                        wilaya.name;
-
-                    select.appendChild(
-                        option
-                    );
-
-                }
-            );
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert(
-                "حدث خطأ أثناء تحميل الولايات"
-            );
-
-        }
-
-    }
+        const wilayas =
+            await response.json();
 
 
-    /* =========================================
-       LOAD MUNICIPALITIES
-    ========================================= */
-
-    async function loadMunicipalities() {
-
-        const wilayaSelect =
-            document.getElementById(
-                "wilayaSelect"
-            );
-
-        const municipalitySelect =
-            document.getElementById(
-                "municipalitySelect"
-            );
-
-        const selectedOption =
-            wilayaSelect.options[
-                wilayaSelect.selectedIndex
-            ];
-
-        if (!selectedOption.value) {
-
-            municipalitySelect.disabled =
-                true;
-
-            municipalitySelect.innerHTML =
-                `<option value="">
-                    اختر البلدية
-                </option>`;
-
-            document.getElementById(
-                "doctorsList"
-            ).innerHTML =
-                `<div class="empty">
-                    <i class="fa-solid fa-stethoscope"></i>
-                    اختر الولاية والبلدية لعرض الأطباء
-                </div>`;
-
-            return;
-
-        }
-
-
-        const wilayaId =
-            selectedOption.dataset.id;
-
-
-        municipalitySelect.disabled =
-            false;
-
-
-        municipalitySelect.innerHTML =
+        select.innerHTML =
             `<option value="">
-                جاري تحميل البلديات...
+                اختر الولاية
             </option>`;
 
 
-        try {
+        wilayas.forEach(
+            wilaya => {
 
-           const response =
-    await fetch(
-        API +
-        "/api/wilayas"
-    );
+                const option =
+                    document.createElement(
+                        "option"
+                    );
 
-const data =
-    await response.json();
+                option.value =
+                    wilaya.id ??
+                    wilaya.name;
 
-const wilaya =
-    data.wilayas.find(
-        item =>
-            String(item.id) ===
-            String(wilayaId)
-    );
+                option.textContent =
+                    wilaya.name;
 
-if (!wilaya) {
-    throw new Error(
-        "Wilaya not found"
-    );
+                option.dataset.id =
+                    wilaya.id ??
+                    "";
+
+                select.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Wilayas error:",
+            error
+        );
+
+    }
+
 }
 
-const municipalities =
-    Array.isArray(
-        wilaya.municipalities
-    )
-        ? wilaya.municipalities
-        : [];
-
-            municipalitySelect.innerHTML =
-                `<option value="">
-                    اختر البلدية
-                </option>`;
 
 
-            municipalities.forEach(
-    municipality => {
+/* =========================================
+   LOAD MUNICIPALITIES
+========================================= */
 
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
+async function loadMunicipalities() {
+
+    const wilayaSelect =
+        document.getElementById(
+            "wilayaSelect"
+        );
+
+    const municipalitySelect =
+        document.getElementById(
+            "municipalitySelect"
+        );
+
+
+    if (
+        !wilayaSelect ||
+        !municipalitySelect
+    ) return;
+
+
+    municipalitySelect.innerHTML =
+        `<option value="">
+            اختر البلدية
+        </option>`;
+
+
+    if (!wilayaSelect.value) {
+
+        loadDoctors();
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/wilayas"
+            );
+
+        const wilayas =
+            await response.json();
+
+
+        const selected =
+            wilayas.find(
+                item =>
+                    String(
+                        item.id ??
+                        item.name
+                    ) ===
+                    String(
+                        wilayaSelect.value
+                    )
+            );
+
+
+        const municipalities =
+            selected?.municipalities ||
+            selected?.communes ||
+            [];
+
+
+        municipalities.forEach(
+            municipality => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                if (
+                    typeof municipality ===
+                    "object"
+                ) {
+
+                    option.value =
+                        municipality.id ??
+                        municipality.name;
+
+                    option.textContent =
+                        municipality.name;
+
+                } else {
 
                     option.value =
                         municipality;
@@ -3748,259 +2549,317 @@ const municipalities =
                     option.textContent =
                         municipality;
 
-                    municipalitySelect.appendChild(
-                        option
-                    );
-
                 }
-            );
 
 
-            loadDoctors();
+                municipalitySelect.appendChild(
+                    option
+                );
+
+            }
+        );
 
 
-        } catch (error) {
+        loadDoctors();
 
-            console.error(error);
+    } catch (error) {
 
-            municipalitySelect.innerHTML =
-                `<option value="">
-                    خطأ في تحميل البلديات
-                </option>`;
-
-        }
+        console.error(
+            "Municipalities error:",
+            error
+        );
 
     }
 
-
-    /* =========================================
-       LOAD DOCTORS
-    ========================================= */
-
-    async function loadDoctors() {
-
-        const wilaya =
-            document.getElementById(
-                "wilayaSelect"
-            ).value;
-
-        const municipality =
-            document.getElementById(
-                "municipalitySelect"
-            ).value;
-
-        const specialty =
-            document.getElementById(
-                "specialtySelect"
-            ).value;
+}
 
 
-        const doctorsList =
-            document.getElementById(
-                "doctorsList"
+
+/* =========================================
+   LOAD DOCTORS
+========================================= */
+
+async function loadDoctors() {
+
+    const list =
+        document.getElementById(
+            "doctorsList"
+        );
+
+    if (!list) return;
+
+
+    const wilaya =
+        document.getElementById(
+            "wilayaSelect"
+        )?.value || "";
+
+
+    const municipality =
+        document.getElementById(
+            "municipalitySelect"
+        )?.value || "";
+
+
+    const specialty =
+        document.getElementById(
+            "specialtySelect"
+        )?.value || "";
+
+
+    list.innerHTML = `
+
+        <div style="
+            grid-column:1/-1;
+            text-align:center;
+            padding:25px;
+            color:#71839a;
+        ">
+
+            <i
+                class="fa-solid fa-spinner fa-spin"
+                style="font-size:22px;"
+            ></i>
+
+            <div style="margin-top:8px;">
+                جاري تحميل الأطباء...
+            </div>
+
+        </div>
+
+    `;
+
+
+    try {
+
+        const params =
+            new URLSearchParams();
+
+
+        if (wilaya)
+            params.set(
+                "wilaya",
+                wilaya
             );
 
 
-        if (!wilaya) {
+        if (municipality)
+            params.set(
+                "municipality",
+                municipality
+            );
 
-            doctorsList.innerHTML =
-                `<div class="empty">
-                    <i class="fa-solid fa-user-doctor"></i>
-                    اختر الولاية أولاً
-                </div>`;
+
+        if (specialty)
+            params.set(
+                "specialty",
+                specialty
+            );
+
+
+        const response =
+            await fetch(
+                API +
+                "/api/doctors?" +
+                params.toString()
+            );
+
+
+        const doctors =
+            await response.json();
+
+
+        list.innerHTML = "";
+
+
+        if (!doctors.length) {
+
+            list.innerHTML = `
+
+                <div style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:30px;
+                    color:#71839a;
+                ">
+
+                    <i
+                        class="fa-solid fa-user-doctor"
+                        style="
+                            font-size:30px;
+                            color:#18b89c;
+                            margin-bottom:10px;
+                        "
+                    ></i>
+
+                    <div>
+                        لا يوجد أطباء متاحون حالياً
+                    </div>
+
+                </div>
+
+            `;
 
             return;
 
         }
 
 
-        doctorsList.innerHTML =
-            `<div class="loading">
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                جاري تحميل الأطباء...
-            </div>`;
+        doctors.forEach(
+            doctor => {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
 
 
-        try {
-
-            let url =
-                API + "/api/doctors?";
+                card.className =
+                    "doctor-card";
 
 
-            const params =
-                new URLSearchParams();
+                card.dataset.id =
+                    doctor.id;
 
 
-            if (wilaya) {
+                card.innerHTML = `
 
-                params.append(
-                    "wilaya",
-                    wilaya
-                );
-
-            }
+                    <div class="doctor-radio"></div>
 
 
-            if (municipality) {
+                    <div class="doctor-top">
 
-                params.append(
-                    "municipality",
-                    municipality
-                );
+                        <div class="doctor-avatar">
 
-            }
-
-
-            if (specialty) {
-
-                params.append(
-                    "specialty",
-                    specialty
-                );
-
-            }
-
-
-            url +=
-                params.toString();
-
-
-            const response =
-                await fetch(url);
-
-
-            const data =
-                await response.json();
-
-
-            if (
-                !data.success ||
-                data.doctors.length === 0
-            ) {
-
-                doctorsList.innerHTML =
-                    `<div class="empty">
-                        <i class="fa-solid fa-user-doctor"></i>
-                        لا يوجد أطباء مطابقون للبحث
-                    </div>`;
-
-                return;
-
-            }
-
-
-            doctorsList.innerHTML = "";
-
-
-            data.doctors.forEach(
-                doctor => {
-
-                    const card =
-                        document.createElement(
-                            "div"
-                        );
-
-                    card.className =
-                        "doctor-card";
-
-
-                    card.onclick =
-                        () => selectDoctor(
-                            doctor.id,
-                            card
-                        );
-
-
-                    card.innerHTML = `
-
-                        <div class="doctor-top">
-
-                            <div class="doctor-avatar">
-                                <i class="fa-solid fa-user-doctor"></i>
-                            </div>
-
-                            <div class="doctor-info">
-
-                                <strong>
-                                    ${doctor.name}
-                                </strong>
-
-                                <span>
-                                    ${doctor.specialty}
-                                </span>
-
-                            </div>
-
-                            <div class="doctor-radio"></div>
+                            <i
+                                class="fa-solid fa-user-doctor"
+                            ></i>
 
                         </div>
 
-                        <div class="doctor-location">
+
+                        <div>
+
+                            <div class="doctor-name">
+
+                                ${doctor.name || ""}
+
+                            </div>
+
+
+                            <div class="doctor-specialty">
+
+                                ${doctor.specialty || "طبيب"}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="doctor-info">
+
+                        <span>
 
                             <i class="fa-solid fa-location-dot"></i>
 
-                            ${doctor.municipality}
+                            ${doctor.wilaya || ""}
 
-                            <span>
-                                •
-                            </span>
+                            ${
+                                doctor.municipality
+                                    ? " - " + doctor.municipality
+                                    : ""
+                            }
 
-                            مدة المعاينة:
-                            ${doctor.consultationDuration}
+                        </span>
+
+
+                        <span>
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            مدة الكشف:
+                            ${doctor.duration || 15}
                             دقيقة
 
-                        </div>
+                        </span>
 
-                    `;
+                    </div>
+
+                `;
 
 
-                    doctorsList.appendChild(
+                card.onclick =
+                    () => selectDoctor(
+                        doctor.id,
                         card
                     );
 
-                }
-            );
+
+                list.appendChild(
+                    card
+                );
+
+            }
+        );
 
 
-        } catch (error) {
+    } catch (error) {
 
-            console.error(error);
+        console.error(
+            "Doctors error:",
+            error
+        );
 
-            doctorsList.innerHTML =
-                `<div class="empty">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    تعذر الاتصال بالسيرفر
-                </div>`;
 
-        }
+        list.innerHTML = `
+
+            <div style="
+                grid-column:1/-1;
+                text-align:center;
+                padding:25px;
+                color:#ef4444;
+            ">
+
+                تعذر تحميل قائمة الأطباء
+
+            </div>
+
+        `;
 
     }
 
-
-    /* =========================================
-       SELECT DOCTOR
-    ========================================= */
-
-    function selectDoctor(
-        doctorId,
-        card
-    ) {
-
-        selectedDoctorId =
-            doctorId;
+}
 
 
-        document
-            .querySelectorAll(
-                ".doctor-card"
-            )
-            .forEach(
-                item =>
-                    item.classList.remove(
-                        "selected"
-                    )
-            );
 
+/* =========================================
+   SELECT DOCTOR
+========================================= */
+
+function selectDoctor(
+    doctorId,
+    card
+) {
+
+    selectedDoctorId =
+        doctorId;
+
+
+    document
+        .querySelectorAll(
+            ".doctor-card"
+        )
+        .forEach(
+            item =>
+                item.classList.remove(
+                    "selected"
+                )
+        );
+
+
+    if (card) {
 
         card.classList.add(
             "selected"
@@ -4008,476 +2867,476 @@ const municipalities =
 
     }
 
-
-    /* =========================================
-       CREATE APPOINTMENT
-    ========================================= */
-
-    async function createAppointment() {
-
-        const patientName =
-            document.getElementById(
-                "patientName"
-            ).value.trim();
-
-
-        const patientPhone =
-            document.getElementById(
-                "patientPhone"
-            ).value.trim();
-
-
-        const reason =
-            document.getElementById(
-                "reason"
-            ).value.trim();
-
-        const appointmentDate =
-    document.getElementById(
-        "appointmentDate"
-    ).value;
-
-const appointmentTime =
-    document.getElementById(
-        "appointmentTime"
-    ).value;
-
-
-        if (!patientName) {
-
-            alert(
-                "يرجى إدخال اسم المريض"
-            );
-
-            return;
-
-        }
-
-
-        if (!patientPhone) {
-
-            alert(
-                "يرجى إدخال رقم الهاتف"
-            );
-
-            return;
-
-        }
-
-
-        if (!selectedDoctorId) {
-
-            alert(
-                "يرجى اختيار الطبيب"
-            );
-
-            return;
-
-        }
-
-        if (!appointmentDate) {
-
-    alert("يرجى اختيار تاريخ الموعد");
-
-    return;
 }
 
-if (!appointmentTime) {
 
-    alert("يرجى اختيار وقت الموعد");
 
-    return;
-}
-if (
-    appointmentDate ===
-    new Date()
-        .toISOString()
-        .split("T")[0]
-) {
+/* =========================================
+   CREATE APPOINTMENT
+========================================= */
 
-    const now =
-        new Date();
+async function createAppointment() {
 
-    const currentTime =
-        now
-            .toTimeString()
-            .slice(0, 5);
+    const patientName =
+        document.getElementById(
+            "patientName"
+        )?.value.trim();
 
-    if (
-        appointmentTime <=
-        currentTime
-    ) {
+
+    const patientPhone =
+        document.getElementById(
+            "patientPhone"
+        )?.value.trim();
+
+
+    const reason =
+        document.getElementById(
+            "reason"
+        )?.value.trim();
+
+
+    const date =
+        document.getElementById(
+            "appointmentDate"
+        )?.value;
+
+
+    const time =
+        document.getElementById(
+            "appointmentTime"
+        )?.value;
+
+
+    const statusBox =
+        document.getElementById(
+            "statusBox"
+        );
+
+
+    if (!patientName) {
 
         alert(
-            "لا يمكن اختيار وقت مضى، يرجى اختيار وقت لاحق"
+            "أدخل اسم المريض"
         );
 
         return;
 
     }
 
-}
-        
-        
-        try {
 
-            const response =
-                await fetch(
-                    API +
-                    "/api/appointments",
-                    {
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:
-    JSON.stringify({
-
-        patientName,
-
-        patientPhone,
-
-        doctorId:
-            selectedDoctorId,
-
-        reason,
-
-        date:
-            appointmentDate,
-
-        time:
-            appointmentTime
-
-    })
-
-                    }
-                );
-
-
-            const data =
-                await response.json();
-
-
-            if (!data.success) {
-
-                alert(
-                    data.message ||
-                    "فشل إرسال طلب الحجز"
-                );
-
-                return;
-
-            }
-
-
-            document.getElementById(
-                "bookingNumber"
-            ).textContent =
-                data.appointment.bookingNumber;
-
-
-            document.getElementById(
-                "statusBox"
-            ).classList.add(
-                "show"
-            );
-
-
-            document.getElementById(
-                "trackingNumber"
-            ).value =
-                data.appointment.bookingNumber;
-
-
-            document
-                .getElementById(
-                    "statusBox"
-                )
-                .scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
-
-
-            alert(
-                "تم إرسال طلب الحجز بنجاح 🎉"
-            );
-
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert(
-                "حدث خطأ في الاتصال بالسيرفر"
-            );
-
-        }
-
-    }
-
-
-    /* =========================================
-       TRACK APPOINTMENT
-    ========================================= */
-
-    async function trackAppointment() {
-
-        const bookingNumber =
-            document.getElementById(
-                "trackingNumber"
-            ).value.trim();
-
-
-        if (!bookingNumber) {
-
-            alert(
-                "أدخل رقم الحجز أولاً"
-            );
-
-            return;
-
-        }
-
-
-        const result =
-            document.getElementById(
-                "trackingResult"
-            );
-
-
-        result.classList.add(
-            "show"
-        );
-
-
-        result.innerHTML =
-            `<div class="loading">
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                جاري البحث...
-            </div>`;
-
-
-        try {
-
-            const response =
-                await fetch(
-                    API +
-                    `/api/appointments/${encodeURIComponent(
-                        bookingNumber
-                    )}`
-                );
-
-
-            const data =
-                await response.json();
-
-
-            if (!data.success) {
-
-                result.innerHTML =
-                    `<div class="empty">
-                        <i class="fa-solid fa-circle-xmark"></i>
-                        ${data.message}
-                    </div>`;
-
-                return;
-
-            }
-
-
-            let statusText =
-                "قيد الانتظار ⏳";
-
-
-            let statusIcon =
-                "fa-clock";
-
-
-            if (
-                data.status ===
-                "confirmed"
-            ) {
-
-                statusText =
-                    "تم تأكيد الحجز ✅";
-
-                statusIcon =
-                    "fa-circle-check";
-
-            }
-
-
-            if (
-                data.status ===
-                "rejected"
-            ) {
-
-                statusText =
-                    "تم رفض الحجز ❌";
-
-                statusIcon =
-                    "fa-circle-xmark";
-
-            }
-
-
-            if (
-                data.status ===
-                "in_progress"
-            ) {
-
-                statusText =
-                    "قيد المعاينة 🩺";
-
-                statusIcon =
-                    "fa-user-doctor";
-
-            }
-
-
-            if (
-                data.status ===
-                "completed"
-            ) {
-
-                statusText =
-                    "تم إنهاء الموعد ✔️";
-
-                statusIcon =
-                    "fa-check-double";
-
-            }
-
-
-            result.innerHTML = `
-
-                <div class="success-icon">
-
-                    <i class="fa-solid ${statusIcon}"></i>
-
-                </div>
-
-                <h3>
-                    ${statusText}
-                </h3>
-
-                <p>
-                    ${data.doctorName}
-                </p>
-
-                <div class="booking-number">
-                    ${data.bookingNumber}
-                </div>
-
-                <div style="
-                    margin-top:15px;
-                    text-align:center;
-                    font-size:13px;
-                    line-height:2;
-                ">
-
-                    <div>
-                        🎫 رقمك في الطابور:
-                        <strong>
-                            ${data.queueNumber}
-                        </strong>
-                    </div>
-
-                    <div>
-                        🩺 الرقم الحالي:
-                        <strong>
-                            ${data.currentTurn}
-                        </strong>
-                    </div>
-
-                    <div>
-                        👥 المرضى قبلك:
-                        <strong>
-                            ${data.patientsBefore}
-                        </strong>
-                    </div>
-
-                </div>
-<div>
-    📅 تاريخ الموعد:
-    <strong>
-        ${data.date || "غير محدد"}
-    </strong>
-</div>
-
-<div>
-    ⏰ وقت الموعد:
-    <strong>
-        ${data.time || "غير محدد"}
-    </strong>
-</div>
-            `;
-
-
-        } catch (error) {
-
-            console.error(error);
-
-            result.innerHTML =
-                `<div class="empty">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    تعذر الاتصال بالسيرفر
-                </div>`;
-
-        }
-
-    }
-
-
-    /* =========================================
-       NOTIFICATIONS
-    ========================================= */
-
-    function showNotifications() {
+    if (!patientPhone) {
 
         alert(
-            "قسم الإشعارات سيتم تطويره في المرحلة القادمة 🔔"
+            "أدخل رقم الهاتف"
         );
+
+        return;
 
     }
 
 
-    /* =========================================
-       START
-    ========================================= */
+    if (!selectedDoctorId) {
 
-    document.addEventListener(
+        alert(
+            "اختر الطبيب أولاً"
+        );
+
+        return;
+
+    }
+
+
+    if (!date || !time) {
+
+        alert(
+            "اختر تاريخ ووقت الموعد"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        statusBox.style.display =
+            "block";
+
+        statusBox.innerHTML =
+            "جاري إرسال طلب الحجز...";
+
+
+        const response =
+            await fetch(
+                API + "/api/appointments",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        patientName,
+
+                        patientPhone,
+
+                        doctorId:
+                            selectedDoctorId,
+
+                        reason,
+
+                        date,
+
+                        time
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "فشل إنشاء الموعد"
+            );
+
+        }
+
+
+        statusBox.innerHTML = `
+
+            <i
+                class="fa-solid fa-circle-check"
+                style="
+                    color:#18b89c;
+                    margin-left:5px;
+                "
+            ></i>
+
+            تم إرسال طلب الحجز بنجاح.
+            في انتظار تأكيد الطبيب.
+
+        `;
+
+
+        const bookingBox =
+            document.getElementById(
+                "bookingNumber"
+            );
+
+
+        const bookingValue =
+            document.getElementById(
+                "bookingNumberValue"
+            );
+
+
+        if (
+            bookingBox &&
+            bookingValue &&
+            data.bookingNumber
+        ) {
+
+            bookingValue.textContent =
+                data.bookingNumber;
+
+            bookingBox.style.display =
+                "block";
+
+        }
+
+
+        loadPatientNotifications();
+
+
+    } catch (error) {
+
+        console.error(
+            "Create appointment error:",
+            error
+        );
+
+
+        statusBox.style.display =
+            "block";
+
+
+        statusBox.innerHTML = `
+
+            <span style="color:#ef4444;">
+
+                <i
+                    class="fa-solid fa-circle-exclamation"
+                ></i>
+
+                ${error.message}
+
+            </span>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =========================================
+   TRACK APPOINTMENT
+========================================= */
+
+async function trackAppointment() {
+
+    const bookingNumber =
+        document.getElementById(
+            "trackingNumber"
+        ).value.trim();
+
+
+    const result =
+        document.getElementById(
+            "trackingResult"
+        );
+
+
+    if (!bookingNumber) {
+
+        alert(
+            "أدخل رقم الحجز أولاً"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        result.style.display =
+            "block";
+
+        result.innerHTML =
+            "جاري البحث عن الحجز...";
+
+
+        const response =
+            await fetch(
+                API +
+                "/api/appointments/" +
+                encodeURIComponent(
+                    bookingNumber
+                )
+            );
+
+
+        const appointment =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                appointment.message ||
+                "لم يتم العثور على الحجز"
+            );
+
+        }
+
+
+        result.innerHTML = `
+
+            <div>
+
+                <strong>
+                    حالة الحجز:
+                </strong>
+
+                ${appointment.status || "غير محددة"}
+
+            </div>
+
+
+            ${
+                appointment.doctorName
+                    ? `
+                        <div>
+                            <strong>
+                                الطبيب:
+                            </strong>
+                            ${appointment.doctorName}
+                        </div>
+                    `
+                    : ""
+            }
+
+
+            ${
+                appointment.date
+                    ? `
+                        <div>
+                            <strong>
+                                التاريخ:
+                            </strong>
+                            ${appointment.date}
+                        </div>
+                    `
+                    : ""
+            }
+
+
+            ${
+                appointment.time
+                    ? `
+                        <div>
+                            <strong>
+                                الوقت:
+                            </strong>
+                            ${appointment.time}
+                        </div>
+                    `
+                    : ""
+            }
+
+        `;
+
+
+    } catch (error) {
+
+        console.error(
+            "Track appointment error:",
+            error
+        );
+
+
+        result.style.display =
+            "block";
+
+
+        result.innerHTML = `
+
+            <span style="color:#ef4444;">
+
+                <i
+                    class="fa-solid fa-circle-exclamation"
+                ></i>
+
+                ${error.message}
+
+            </span>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =========================================
+   EVENT LISTENERS
+========================================= */
+
+document.addEventListener(
     "DOMContentLoaded",
     () => {
 
         loadWilayas();
 
-        startPatientNotificationPolling();
 
-
-        // منع اختيار تاريخ سابق لليوم
-        const appointmentDate =
+        const wilayaSelect =
             document.getElementById(
-                "appointmentDate"
+                "wilayaSelect"
             );
 
-        if (appointmentDate) {
 
-            const today =
-                new Date()
-                    .toISOString()
-                    .split("T")[0];
+        const municipalitySelect =
+            document.getElementById(
+                "municipalitySelect"
+            );
 
-            appointmentDate.min =
-                today;
+
+        const specialtySelect =
+            document.getElementById(
+                "specialtySelect"
+            );
+
+
+        const createButton =
+            document.getElementById(
+                "createAppointment"
+            );
+
+
+        const trackButton =
+            document.getElementById(
+                "trackAppointment"
+            );
+
+
+        if (wilayaSelect) {
+
+            wilayaSelect.addEventListener(
+                "change",
+                loadMunicipalities
+            );
+
         }
+
+
+        if (municipalitySelect) {
+
+            municipalitySelect.addEventListener(
+                "change",
+                loadDoctors
+            );
+
+        }
+
+
+        if (specialtySelect) {
+
+            specialtySelect.addEventListener(
+                "change",
+                loadDoctors
+            );
+
+        }
+
+
+        if (createButton) {
+
+            createButton.addEventListener(
+                "click",
+                createAppointment
+            );
+
+        }
+
+
+        if (trackButton) {
+
+            trackButton.addEventListener(
+                "click",
+                trackAppointment
+            );
+
+        }
+
+
+        startPatientNotificationPolling();
 
     }
 );
+
 
 </script>
 

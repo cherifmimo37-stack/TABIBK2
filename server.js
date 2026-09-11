@@ -1132,11 +1132,67 @@ app.get(
         const database =
             readDatabase();
 
+        // ----------------------------------------------------
+        // Filters
+        // ----------------------------------------------------
+
+        const wilaya =
+            String(
+                req.query.wilaya || ""
+            ).trim();
+
+        const municipality =
+            String(
+                req.query.municipality || ""
+            ).trim();
+
+        const specialty =
+            String(
+                req.query.specialty || ""
+            ).trim();
+
+        // ----------------------------------------------------
+        // Get active doctors
+        // ----------------------------------------------------
+
         const doctors =
             database.doctors
                 .filter(
                     doctor =>
                         doctor.active !== false
+                )
+                .filter(
+                    doctor => {
+
+                        if(
+                            wilaya &&
+                            String(
+                                doctor.wilaya || ""
+                            ).trim() !== wilaya
+                        ){
+                            return false;
+                        }
+
+                        if(
+                            municipality &&
+                            String(
+                                doctor.municipality || ""
+                            ).trim() !== municipality
+                        ){
+                            return false;
+                        }
+
+                        if(
+                            specialty &&
+                            String(
+                                doctor.specialty || ""
+                            ).trim() !== specialty
+                        ){
+                            return false;
+                        }
+
+                        return true;
+                    }
                 )
                 .map(
                     cleanDoctor
@@ -1144,8 +1200,10 @@ app.get(
 
         res.json({
             success: true,
+
             count:
                 doctors.length,
+
             doctors
         });
     }

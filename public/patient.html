@@ -1257,6 +1257,7 @@ municipalitySelect.addEventListener(
 );
 
 
+```javascript
 /* =====================================================
    LOAD DOCTORS
    ===================================================== */
@@ -1265,28 +1266,47 @@ async function loadDoctors(){
 
     try{
 
-        const params =
-            new URLSearchParams();
+        const selectedWilaya =
+            getSelectedWilayaName().trim();
 
-        params.set(
-            "wilaya",
-            getSelectedWilayaName()
-        );
+        const selectedMunicipality =
+            municipalitySelect.value.trim();
 
-        params.set(
-            "municipality",
-            municipalitySelect.value
-        );
+
+        /* ---------------------------------------------
+           التأكد من اختيار الولاية والبلدية
+        --------------------------------------------- */
+
+        if(
+            !selectedWilaya ||
+            !selectedMunicipality
+        ){
+
+            doctorSelect.innerHTML =
+                `<option value="">
+                    اختر الطبيب
+                 </option>`;
+
+            doctorSelect.disabled =
+                true;
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           تحميل الأطباء
+        --------------------------------------------- */
 
         const response =
             await fetch(
-                `${API}/api/doctors?${params.toString()}`
+                `${API}/api/doctors`
             );
 
         const data =
             await response.json();
 
-        if(!data.success){
+        if(!response.ok || !data.success){
 
             throw new Error(
                 data.message ||
@@ -1295,45 +1315,117 @@ async function loadDoctors(){
 
         }
 
-        doctors =
+
+        const allDoctors =
             data.doctors ||
             data.data ||
             [];
 
+
+        /* ---------------------------------------------
+           فلترة الأطباء حسب الولاية والبلدية
+        --------------------------------------------- */
+
+        doctors =
+            allDoctors.filter(
+                doctor => {
+
+                    const doctorWilaya =
+                        String(
+                            doctor.wilaya ||
+                            doctor.wilayaName ||
+                            ""
+                        ).trim();
+
+                    const doctorMunicipality =
+                        String(
+                            doctor.municipality ||
+                            doctor.municipalityName ||
+                            doctor.commune ||
+                            ""
+                        ).trim();
+
+
+                    return (
+                        doctorWilaya ===
+                            selectedWilaya
+                        &&
+                        doctorMunicipality ===
+                            selectedMunicipality
+                    );
+
+                }
+            );
+
+
+        /* ---------------------------------------------
+           إعادة بناء قائمة الأطباء
+        --------------------------------------------- */
+
         doctorSelect.innerHTML =
-            `<option value="">اختر الطبيب</option>`;
+            `<option value="">
+                اختر الطبيب
+             </option>`;
+
 
         if(!doctors.length){
 
             doctorSelect.innerHTML +=
                 `<option value="">
-                    لا يوجد أطباء متاحون حاليًا
+                    لا يوجد أطباء متاحون في هذه البلدية
                  </option>`;
+
+            doctorSelect.disabled =
+                true;
 
             return;
         }
 
-        doctors.forEach(doctor => {
 
-            const option =
-                document.createElement("option");
+        /* ---------------------------------------------
+           عرض الأطباء المطابقين فقط
+        --------------------------------------------- */
 
-            option.value =
-                doctor.id;
+        doctors.forEach(
+            doctor => {
 
-            option.textContent =
-                `${doctor.name} — ${doctor.specialty}`;
+                const option =
+                    document.createElement(
+                        "option"
+                    );
 
-            doctorSelect.appendChild(option);
+                option.value =
+                    doctor.id;
 
-        });
+                option.textContent =
+                    `${doctor.name} — ${doctor.specialty}`;
+
+                doctorSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
 
         doctorSelect.disabled =
             false;
 
+
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "LOAD DOCTORS ERROR:",
+            error
+        );
+
+        doctorSelect.innerHTML =
+            `<option value="">
+                تعذر تحميل الأطباء
+             </option>`;
+
+        doctorSelect.disabled =
+            true;
 
         showAlert(
             "bookingAlert",
@@ -1344,6 +1436,8 @@ async function loadDoctors(){
     }
 
 }
+```
+
 
 
 /* =====================================================

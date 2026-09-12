@@ -3346,7 +3346,10 @@ app.post(
                     "تم رفض الموعد",
 
                 message:
-                    `تم رفض موعدك مع ${req.doctor.name}. السبب: ${reason}`
+    "تم رفض موعدك مع " +
+    req.doctor.name +
+    ". السبب: " +
+    reason
 
             }
         );

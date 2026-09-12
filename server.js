@@ -1171,6 +1171,40 @@ app.get(
 
     }
 );
+
+// ============================================================
+// PUBLIC - ALL DOCTORS
+// ============================================================
+
+app.get(
+    "/api/doctors",
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const doctors =
+            database.doctors
+                .filter(
+                    doctor =>
+                        doctor.active !== false
+                )
+                .map(
+                    doctor =>
+                        cleanDoctor(
+                            doctor
+                        )
+                );
+
+        res.json({
+            success: true,
+            count: doctors.length,
+            doctors
+        });
+
+    }
+);
+
 // ============================================================
 // PUBLIC - SINGLE DOCTOR
 // ============================================================

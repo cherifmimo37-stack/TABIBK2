@@ -2322,10 +2322,13 @@ app.post(
 
                 };
 
-            const appointmentDate =
-                new Date(
-                    `${date}T${time}:00+01:00`
-                );
+const appointmentDate =
+    new Date(
+        String(date) +
+        "T" +
+        String(time) +
+        ":00+01:00"
+    );
 
             if (
                 Number.isNaN(

@@ -1258,7 +1258,109 @@ municipalitySelect.addEventListener(
 
 
 
-/* ===================================================== LOAD DOCTORS ===================================================== */ async function loadDoctors(){ try{ const params = new URLSearchParams(); params.set( "wilaya", getSelectedWilayaName() ); params.set( "municipality", municipalitySelect.value ); const response = await fetch( ${API}/api/doctors?${params.toString()} ); const data = await response.json(); if(!data.success){ throw new Error( data.message || "تعذر تحميل الأطباء" ); } doctors = data.doctors || data.data || []; doctorSelect.innerHTML = <option value="">اختر الطبيب</option>; if(!doctors.length){ doctorSelect.innerHTML += <option value=""> لا يوجد أطباء متاحون حاليًا </option>; return; } doctors.forEach(doctor => { const option = document.createElement("option"); option.value = doctor.id; option.textContent = ${doctor.name} — ${doctor.specialty}; doctorSelect.appendChild(option); }); doctorSelect.disabled = false; }catch(error){ console.error(error); showAlert( "bookingAlert", "تعذر تحميل قائمة الأطباء.", "error" ); } }
+```javascript
+/* =====================================================
+   LOAD DOCTORS
+   ===================================================== */
+
+async function loadDoctors(){
+
+    try{
+
+        const params =
+            new URLSearchParams();
+
+        params.set(
+            "wilaya",
+            getSelectedWilayaName()
+        );
+
+        params.set(
+            "municipality",
+            municipalitySelect.value
+        );
+
+        const response =
+            await fetch(
+                `${API}/api/doctors?${params.toString()}`
+            );
+
+        const data =
+            await response.json();
+
+        if(!data.success){
+
+            throw new Error(
+                data.message ||
+                "تعذر تحميل الأطباء"
+            );
+
+        }
+
+        doctors =
+            data.doctors ||
+            data.data ||
+            [];
+
+        doctorSelect.innerHTML =
+            `<option value="">
+                اختر الطبيب
+            </option>`;
+
+        if(!doctors.length){
+
+            doctorSelect.innerHTML +=
+                `<option value="">
+                    لا يوجد أطباء متاحون حاليًا
+                </option>`;
+
+            doctorSelect.disabled =
+                true;
+
+            return;
+        }
+
+        doctors.forEach(
+            doctor => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    doctor.id;
+
+                option.textContent =
+                    `${doctor.name} — ${doctor.specialty}`;
+
+                doctorSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+        doctorSelect.disabled =
+            false;
+
+    }catch(error){
+
+        console.error(
+            "LOAD DOCTORS ERROR:",
+            error
+        );
+
+        showAlert(
+            "bookingAlert",
+            "تعذر تحميل قائمة الأطباء.",
+            "error"
+        );
+
+    }
+
+}
+```
 
 /* =====================================================
    DOCTOR CHANGE

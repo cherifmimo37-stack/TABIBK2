@@ -1172,6 +1172,7 @@ app.get(
     }
 );
 
+```javascript
 // ============================================================
 // PUBLIC - ALL DOCTORS
 // ============================================================
@@ -1183,27 +1184,107 @@ app.get(
         const database =
             readDatabase();
 
-        const doctors =
+
+        // ----------------------------------------------------
+        // Selected filters from patient page
+        // ----------------------------------------------------
+
+        const selectedWilaya =
+            String(
+                req.query.wilaya || ""
+            ).trim();
+
+        const selectedMunicipality =
+            String(
+                req.query.municipality || ""
+            ).trim();
+
+
+        // ----------------------------------------------------
+        // Get active doctors
+        // ----------------------------------------------------
+
+        let doctors =
             database.doctors
                 .filter(
                     doctor =>
                         doctor.active !== false
-                )
-                .map(
-                    doctor =>
-                        cleanDoctor(
-                            doctor
-                        )
                 );
 
+
+        // ----------------------------------------------------
+        // Filter by Wilaya
+        // ----------------------------------------------------
+
+        if(selectedWilaya){
+
+            doctors =
+                doctors.filter(
+                    doctor =>
+                        String(
+                            doctor.wilaya ||
+                            doctor.wilayaName ||
+                            ""
+                        ).trim() ===
+                        selectedWilaya
+                );
+
+        }
+
+
+        // ----------------------------------------------------
+        // Filter by Municipality
+        // ----------------------------------------------------
+
+        if(selectedMunicipality){
+
+            doctors =
+                doctors.filter(
+                    doctor =>
+                        String(
+                            doctor.municipality ||
+                            doctor.municipalityName ||
+                            doctor.commune ||
+                            ""
+                        ).trim() ===
+                        selectedMunicipality
+                );
+
+        }
+
+
+        // ----------------------------------------------------
+        // Clean doctors before sending
+        // ----------------------------------------------------
+
+        doctors =
+            doctors.map(
+                doctor =>
+                    cleanDoctor(
+                        doctor
+                    )
+            );
+
+
+        // ----------------------------------------------------
+        // Response
+        // ----------------------------------------------------
+
         res.json({
+
             success: true,
-            count: doctors.length,
+
+            count:
+                doctors.length,
+
             doctors
+
         });
 
     }
 );
+```
+
 
 // ============================================================
 // PUBLIC - SINGLE DOCTOR

@@ -3215,8 +3215,14 @@ app.post(
                 title:
                     "تم تأكيد موعدك ✅",
 
-                message:
-                    `تم تأكيد موعدك مع ${req.doctor.name} بتاريخ ${appointment.date} على الساعة ${appointment.time}.`
+               message:
+    "تم تأكيد موعدك مع " +
+    req.doctor.name +
+    " بتاريخ " +
+    appointment.date +
+    " على الساعة " +
+    appointment.time +
+    "."
 
             }
         );

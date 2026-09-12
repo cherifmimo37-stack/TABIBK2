@@ -3073,7 +3073,7 @@ app.delete(
 app.post(
     "/api/appointments/:bookingNumber/accept",
     checkDoctorAuth,
-    (req, res) => {
+    async (req, res) => {
 
         const database =
             readDatabase();
@@ -3157,11 +3157,11 @@ app.post(
             }
         );
 
-        saveDatabase(
-            database
-        );
+        await saveDatabase(
+    database
+);
 
-        res.json({
+res.json({
 
             success: true,
 

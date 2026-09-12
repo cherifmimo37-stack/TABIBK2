@@ -1313,49 +1313,53 @@ select:disabled{
 ```
 
 ```css
+```css
 /* =========================================================
-   PREMIUM BUTTONS
-   TABIBK PATIENT UI
+   TABIBK PREMIUM BUTTONS
+   PATIENT UI
+   Purple • Gold • White
    ========================================================= */
 
 .btn{
     position:relative;
 
     width:100%;
-    min-height:56px;
+    min-height:64px;
 
-    border:0;
-    border-radius:18px;
+    padding:16px 24px;
 
-    padding:14px 22px;
+    border:none;
+    border-radius:22px;
 
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:10px;
+
+    gap:11px;
 
     font-family:"Cairo",sans-serif;
-    font-size:13px;
+    font-size:14px;
     font-weight:900;
 
-    letter-spacing:.1px;
+    line-height:1;
 
     cursor:pointer;
 
     overflow:hidden;
 
-    isolation:isolate;
-
     transition:
-        transform .22s ease,
-        box-shadow .22s ease,
-        border-color .22s ease,
-        filter .22s ease;
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease,
+        filter .25s ease;
+
+    box-shadow:
+        0 10px 24px rgba(43,11,61,.12);
 }
 
 
 /* =========================================================
-   INNER GOLD FRAME
+   PREMIUM INNER BORDER
    ========================================================= */
 
 .btn::after{
@@ -1365,19 +1369,17 @@ select:disabled{
 
     inset:3px;
 
-    border-radius:15px;
+    border-radius:19px;
 
     border:
-        1px solid rgba(255,255,255,.18);
+        1px solid rgba(255,255,255,.25);
 
     pointer-events:none;
-
-    z-index:-1;
 }
 
 
 /* =========================================================
-   SHINE EFFECT
+   GOLD / WHITE LIGHT
    ========================================================= */
 
 .btn::before{
@@ -1385,24 +1387,24 @@ select:disabled{
 
     position:absolute;
 
-    top:-60%;
-    left:-80%;
+    top:-80%;
+    left:-65%;
 
-    width:45%;
-    height:220%;
+    width:38%;
+    height:260%;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.42),
+            rgba(255,255,255,.48),
             transparent
         );
 
-    transform:skewX(-20deg);
+    transform:rotate(18deg);
 
     transition:
-        left .65s ease;
+        left .7s ease;
 
     pointer-events:none;
 
@@ -1410,40 +1412,7 @@ select:disabled{
 }
 
 .btn:hover::before{
-    left:135%;
-}
-
-
-/* =========================================================
-   HOVER / ACTIVE
-   ========================================================= */
-
-.btn:hover{
-    transform:translateY(-3px);
-}
-
-.btn:active{
-    transform:
-        translateY(0)
-        scale(.985);
-}
-
-.btn:focus-visible{
-    outline:none;
-
-    box-shadow:
-        0 0 0 4px rgba(199,154,50,.16),
-        0 14px 30px rgba(74,21,95,.20);
-}
-
-.btn:disabled{
-    opacity:.55;
-
-    cursor:not-allowed;
-
-    transform:none!important;
-
-    filter:grayscale(.15);
+    left:125%;
 }
 
 
@@ -1456,21 +1425,44 @@ select:disabled{
 
     z-index:3;
 
-    font-size:16px;
+    width:31px;
+    height:31px;
+
+    flex:0 0 31px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    font-size:15px;
 
     transition:
-        transform .22s ease;
+        transform .25s ease;
 }
 
 .btn:hover i{
     transform:
-        translateY(-1px)
-        scale(1.08);
+        scale(1.12)
+        rotate(-4deg);
 }
 
 
 /* =========================================================
-   PRIMARY — BOOK / CONFIRM
+   TEXT
+   ========================================================= */
+
+.btn span{
+    position:relative;
+
+    z-index:3;
+}
+
+
+/* =========================================================
+   PRIMARY
+   الحجز / التأكيد
    ========================================================= */
 
 .btn-primary{
@@ -1479,40 +1471,48 @@ select:disabled{
     background:
         linear-gradient(
             135deg,
-            #f9df82 0%,
-            #d4a936 48%,
-            #b98220 100%
+            #f8df87 0%,
+            #d5a93c 50%,
+            #bd8a24 100%
         );
 
     border:
-        1px solid rgba(255,240,173,.75);
+        1px solid rgba(199,154,50,.55);
 
     box-shadow:
-        0 12px 28px rgba(199,154,50,.25),
-        inset 0 1px 0 rgba(255,255,255,.75),
-        inset 0 -2px 0 rgba(112,72,10,.12);
-}
-
-.btn-primary::after{
-    border-color:
-        rgba(255,255,255,.30);
-}
-
-.btn-primary:hover{
-    filter:brightness(1.05);
-
-    box-shadow:
-        0 17px 36px rgba(199,154,50,.34),
-        inset 0 1px 0 rgba(255,255,255,.85);
+        0 14px 30px rgba(199,154,50,.25),
+        inset 0 2px 0 rgba(255,255,255,.72),
+        inset 0 -2px 0 rgba(120,77,10,.12);
 }
 
 .btn-primary i{
     color:#4a155f;
+
+    background:
+        rgba(255,255,255,.48);
+
+    border:
+        1px solid rgba(255,255,255,.55);
+}
+
+.btn-primary:hover{
+    transform:translateY(-4px);
+
+    filter:brightness(1.04);
+
+    box-shadow:
+        0 20px 38px rgba(199,154,50,.32),
+        inset 0 2px 0 rgba(255,255,255,.85);
+}
+
+.btn-primary:active{
+    transform:scale(.985);
 }
 
 
 /* =========================================================
-   DARK — TRACK / MAIN ACTION
+   DARK PURPLE
+   متابعة الحجز / العودة
    ========================================================= */
 
 .btn-dark{
@@ -1523,35 +1523,42 @@ select:disabled{
             135deg,
             #2b0b3d 0%,
             #4a155f 48%,
-            #72258e 100%
+            #74278f 100%
         );
 
     border:
-        1px solid rgba(233,196,93,.42);
+        1px solid rgba(233,196,93,.38);
 
     box-shadow:
-        0 13px 30px rgba(74,21,95,.27),
-        inset 0 1px 0 rgba(255,255,255,.12);
-}
-
-.btn-dark::after{
-    border-color:
-        rgba(233,196,93,.18);
-}
-
-.btn-dark:hover{
-    box-shadow:
-        0 18px 38px rgba(74,21,95,.34),
-        0 0 0 1px rgba(233,196,93,.12);
+        0 14px 30px rgba(74,21,95,.25),
+        inset 0 1px 0 rgba(255,255,255,.14);
 }
 
 .btn-dark i{
-    color:#e9c45d;
+    color:#f1ce63;
+
+    background:
+        rgba(233,196,93,.13);
+
+    border:
+        1px solid rgba(233,196,93,.30);
+}
+
+.btn-dark:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 20px 40px rgba(74,21,95,.33),
+        0 0 0 1px rgba(233,196,93,.10);
+}
+
+.btn-dark:active{
+    transform:scale(.985);
 }
 
 
 /* =========================================================
-   GREEN — SUCCESS / WHATSAPP
+   WHATSAPP / GREEN
    ========================================================= */
 
 .btn-green{
@@ -1560,31 +1567,43 @@ select:disabled{
     background:
         linear-gradient(
             135deg,
-            #087b50,
-            #159765,
-            #20b47d
+            #08764d 0%,
+            #159765 50%,
+            #20b47d 100%
         );
 
     border:
-        1px solid rgba(184,244,218,.45);
+        1px solid rgba(173,241,211,.42);
 
     box-shadow:
-        0 12px 28px rgba(13,128,85,.22),
-        inset 0 1px 0 rgba(255,255,255,.20);
-}
-
-.btn-green:hover{
-    box-shadow:
-        0 17px 35px rgba(13,128,85,.30);
+        0 14px 30px rgba(13,128,85,.22),
+        inset 0 1px 0 rgba(255,255,255,.18);
 }
 
 .btn-green i{
-    color:#d9ffed;
+    color:#ffffff;
+
+    background:
+        rgba(255,255,255,.15);
+
+    border:
+        1px solid rgba(255,255,255,.25);
+}
+
+.btn-green:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 20px 40px rgba(13,128,85,.30);
+}
+
+.btn-green:active{
+    transform:scale(.985);
 }
 
 
 /* =========================================================
-   LIGHT — SECONDARY
+   LIGHT BUTTON
    ========================================================= */
 
 .btn-light{
@@ -1594,146 +1613,206 @@ select:disabled{
         linear-gradient(
             145deg,
             #ffffff,
-            #faf3fd
+            #faf3fc
         );
 
     border:
-        1px solid rgba(74,21,95,.14);
+        1px solid rgba(199,154,50,.25);
 
     box-shadow:
-        0 9px 22px rgba(50,15,70,.07),
+        0 10px 24px rgba(50,15,70,.07),
         inset 0 1px 0 #ffffff;
-}
-
-.btn-light::after{
-    border-color:
-        rgba(199,154,50,.10);
-}
-
-.btn-light:hover{
-    color:var(--purple-dark);
-
-    border-color:
-        rgba(199,154,50,.45);
-
-    box-shadow:
-        0 14px 30px rgba(50,15,70,.11),
-        0 0 0 1px rgba(199,154,50,.08);
 }
 
 .btn-light i{
     color:var(--gold);
+
+    background:
+        #fff8df;
+
+    border:
+        1px solid rgba(199,154,50,.25);
+}
+
+.btn-light:hover{
+    transform:translateY(-3px);
+
+    border-color:
+        rgba(199,154,50,.55);
+
+    box-shadow:
+        0 16px 32px rgba(50,15,70,.11);
 }
 
 
 /* =========================================================
-   SMALL BUTTON GROUPS
+   SUCCESS BOX BUTTONS
+   نفس الحجم والتناسق
    ========================================================= */
 
-.success-box .btn,
-.status-card .btn{
-    margin-top:10px;
+.success-box .btn{
+    width:100%;
+
+    min-height:64px;
+
+    margin-top:12px;
 }
 
-.success-box .btn:first-child,
-.status-card .btn:first-child{
+
+/* =========================================================
+   BUTTON ROW
+   إذا كان هناك زران بجانب بعضهما
+   ========================================================= */
+
+.success-box > div[style*="grid"]{
+    display:grid!important;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr))!important;
+
+    gap:14px!important;
+
+    width:100%;
+}
+
+.success-box > div[style*="grid"] .btn{
+    width:100%!important;
+
+    min-width:0;
+
     margin-top:0;
 }
 
 
 /* =========================================================
-   BUTTON LOADING STATE
+   STATUS BUTTONS
    ========================================================= */
 
-.btn.loading{
-    pointer-events:none;
+.status-card .btn{
+    width:100%;
 
-    color:transparent;
-}
+    min-height:64px;
 
-.btn.loading::after{
-    content:"";
-
-    position:absolute;
-
-    width:20px;
-    height:20px;
-
-    inset:50% auto auto 50%;
-
-    transform:
-        translate(-50%,-50%);
-
-    border:
-        2px solid rgba(255,255,255,.35);
-
-    border-top-color:
-        currentColor;
-
-    border-radius:50%;
-
-    animation:
-        buttonSpin .7s linear infinite;
-}
-
-@keyframes buttonSpin{
-    to{
-        transform:
-            translate(-50%,-50%)
-            rotate(360deg);
-    }
+    margin-top:12px;
 }
 
 
 /* =========================================================
-   MOBILE BUTTONS
+   BUTTON GROUP
+   ========================================================= */
+
+.btn-group{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:14px;
+
+    width:100%;
+}
+
+.btn-group .btn{
+    width:100%;
+}
+
+
+/* =========================================================
+   DISABLED
+   ========================================================= */
+
+.btn:disabled{
+    opacity:.52;
+
+    cursor:not-allowed;
+
+    transform:none!important;
+
+    box-shadow:none!important;
+
+    filter:grayscale(.15);
+}
+
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+.btn:focus-visible{
+    outline:none;
+
+    box-shadow:
+        0 0 0 4px rgba(199,154,50,.16),
+        0 14px 32px rgba(74,21,95,.20);
+}
+
+
+/* =========================================================
+   MOBILE
    ========================================================= */
 
 @media(max-width:700px){
 
     .btn{
-        min-height:53px;
+        min-height:60px;
 
-        padding:13px 16px;
+        padding:15px 18px;
 
-        border-radius:16px;
+        border-radius:20px;
 
-        font-size:12px;
-
-        gap:8px;
+        font-size:13px;
     }
 
     .btn i{
-        font-size:15px;
+        width:29px;
+        height:29px;
+
+        flex-basis:29px;
+
+        font-size:14px;
     }
 
-    .btn:hover{
-        transform:translateY(-2px);
+    .success-box > div[style*="grid"]{
+        grid-template-columns:1fr!important;
+
+        gap:10px!important;
+    }
+
+    .success-box > div[style*="grid"] .btn{
+        min-height:58px;
+    }
+
+    .btn-group{
+        grid-template-columns:1fr;
     }
 }
 
 
 /* =========================================================
-   VERY SMALL SCREENS
+   VERY SMALL
    ========================================================= */
 
 @media(max-width:380px){
 
     .btn{
-        min-height:50px;
+        min-height:57px;
 
-        padding:12px 13px;
+        padding:14px 15px;
 
-        border-radius:15px;
+        border-radius:18px;
 
-        font-size:11px;
+        font-size:12px;
     }
 
     .btn i{
-        font-size:14px;
+        width:27px;
+        height:27px;
+
+        flex-basis:27px;
     }
 }
 ```
+
 
 /* =========================================================
    SUCCESS RESULT

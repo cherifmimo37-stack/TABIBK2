@@ -2662,8 +2662,13 @@ const appointmentDate =
                         "حجز موعد جديد 🩺",
 
                     message:
-                        `لديك طلب حجز جديد من ${appointment.patientName} بتاريخ ${appointment.date} على الساعة ${appointment.time}.`
-
+    "لديك طلب حجز جديد من " +
+    appointment.patientName +
+    " بتاريخ " +
+    appointment.date +
+    " على الساعة " +
+    appointment.time +
+    "."
                 }
             );
 
@@ -2690,7 +2695,10 @@ const appointmentDate =
                         "تم إرسال طلب الحجز",
 
                     message:
-                        `تم تسجيل طلب موعدك مع ${doctor.name}. رقم الحجز: ${bookingNumber}`
+    "تم تسجيل طلب موعدك مع " +
+    doctor.name +
+    ". رقم الحجز: " +
+    bookingNumber
 
                 }
             );

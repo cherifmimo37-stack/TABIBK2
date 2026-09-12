@@ -1093,122 +1093,52 @@ app.get(
 );
 
 // ============================================================
-// PUBLIC - WILAYAS
+// PUBLIC - MUNICIPALITIES BY WILAYA
 // ============================================================
 
 app.get(
-    "/api/wilayas",
+    "/api/wilayas/:id/municipalities",
     (req, res) => {
 
-        const wilayas =
-            WILAYAS_DATA.map(
-                wilaya => ({
-                    id: wilaya.code,
-                    name: wilaya.name,
-                    municipalities:
-                        wilaya.communes.map(
-                            commune =>
-                                commune.name
-                        )
-                })
+        const wilayaId =
+            String(req.params.id).trim();
+
+        const wilaya =
+            WILAYAS_DATA.find(
+                item =>
+                    String(item.code).trim() ===
+                    wilayaId
+            );
+
+        if(!wilaya){
+
+            return res.status(404).json({
+                success: false,
+                message: "الولاية غير موجودة"
+            });
+
+        }
+
+        const municipalities =
+            (wilaya.communes || []).map(
+                commune =>
+                    typeof commune === "string"
+                        ? commune
+                        : commune.name
             );
 
         res.json({
             success: true,
-            count: wilayas.length,
-            wilayas: wilayas
+            wilaya: {
+                id: wilaya.code,
+                name: wilaya.name
+            },
+            count: municipalities.length,
+            municipalities
         });
+
     }
 );
-
-// ============================================================
-// PUBLIC - DOCTORS
-// ============================================================
-
-app.get(
-    "/api/doctors",
-    (req, res) => {
-
-        const database =
-            readDatabase();
-
-        // ----------------------------------------------------
-        // Filters
-        // ----------------------------------------------------
-
-        const wilaya =
-            String(
-                req.query.wilaya || ""
-            ).trim();
-
-        const municipality =
-            String(
-                req.query.municipality || ""
-            ).trim();
-
-        const specialty =
-            String(
-                req.query.specialty || ""
-            ).trim();
-
-        // ----------------------------------------------------
-        // Get active doctors
-        // ----------------------------------------------------
-
-        const doctors =
-            database.doctors
-                .filter(
-                    doctor =>
-                        doctor.active !== false
-                )
-                .filter(
-                    doctor => {
-
-                        if(
-                            wilaya &&
-                            String(
-                                doctor.wilaya || ""
-                            ).trim() !== wilaya
-                        ){
-                            return false;
-                        }
-
-                        if(
-                            municipality &&
-                            String(
-                                doctor.municipality || ""
-                            ).trim() !== municipality
-                        ){
-                            return false;
-                        }
-
-                        if(
-                            specialty &&
-                            String(
-                                doctor.specialty || ""
-                            ).trim() !== specialty
-                        ){
-                            return false;
-                        }
-
-                        return true;
-                    }
-                )
-                .map(
-                    cleanDoctor
-                );
-
-        res.json({
-            success: true,
-
-            count:
-                doctors.length,
-
-            doctors
-        });
-    }
-);
-
 // ============================================================
 // PUBLIC - SINGLE DOCTOR
 // ============================================================

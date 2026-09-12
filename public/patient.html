@@ -1312,55 +1312,84 @@ select:disabled{
 }
 ```
 
+```css
 /* =========================================================
    PREMIUM BUTTONS
+   TABIBK PATIENT UI
    ========================================================= */
 
 .btn{
-    width:100%;
+    position:relative;
 
-    min-height:52px;
+    width:100%;
+    min-height:56px;
 
     border:0;
+    border-radius:18px;
 
-    border-radius:17px;
+    padding:14px 22px;
 
-    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
 
-    font-family:inherit;
-
+    font-family:"Cairo",sans-serif;
     font-size:13px;
     font-weight:900;
 
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:9px;
+    letter-spacing:.1px;
 
     cursor:pointer;
 
-    position:relative;
-
     overflow:hidden;
 
+    isolation:isolate;
+
     transition:
-        transform .22s,
-        box-shadow .22s;
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease,
+        filter .22s ease;
 }
+
+
+/* =========================================================
+   INNER GOLD FRAME
+   ========================================================= */
+
+.btn::after{
+    content:"";
+
+    position:absolute;
+
+    inset:3px;
+
+    border-radius:15px;
+
+    border:
+        1px solid rgba(255,255,255,.18);
+
+    pointer-events:none;
+
+    z-index:-1;
+}
+
+
+/* =========================================================
+   SHINE EFFECT
+   ========================================================= */
 
 .btn::before{
     content:"";
 
     position:absolute;
 
-    top:-30%;
-    bottom:-30%;
+    top:-60%;
+    left:-80%;
 
-    width:40%;
-
-    left:-60%;
+    width:45%;
+    height:220%;
 
     background:
         linear-gradient(
@@ -1372,78 +1401,39 @@ select:disabled{
 
     transform:skewX(-20deg);
 
-    transition:.6s;
+    transition:
+        left .65s ease;
+
+    pointer-events:none;
+
+    z-index:2;
 }
 
 .btn:hover::before{
-    left:120%;
+    left:135%;
 }
+
+
+/* =========================================================
+   HOVER / ACTIVE
+   ========================================================= */
 
 .btn:hover{
     transform:translateY(-3px);
 }
 
 .btn:active{
-    transform:translateY(0);
+    transform:
+        translateY(0)
+        scale(.985);
 }
 
-.btn-primary{
-    color:var(--purple-dark);
-
-    background:
-        linear-gradient(
-            135deg,
-            #f7db79,
-            var(--gold),
-            #b98721
-        );
+.btn:focus-visible{
+    outline:none;
 
     box-shadow:
-        0 15px 32px rgba(199,154,50,.28),
-        inset 0 2px 0 rgba(255,255,255,.65);
-}
-
-.btn-primary:hover{
-    box-shadow:
-        0 20px 42px rgba(199,154,50,.35);
-}
-
-.btn-dark{
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--purple-dark),
-            var(--purple),
-            var(--purple2)
-        );
-
-    box-shadow:
-        0 14px 30px rgba(74,21,95,.24);
-}
-
-.btn-green{
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #19ae75,
-            #0d8055
-        );
-
-    box-shadow:
-        0 12px 27px rgba(13,128,85,.18);
-}
-
-.btn-light{
-    color:var(--purple);
-
-    background:#faf4fc;
-
-    border:
-        1px solid rgba(74,21,95,.12);
+        0 0 0 4px rgba(199,154,50,.16),
+        0 14px 30px rgba(74,21,95,.20);
 }
 
 .btn:disabled{
@@ -1451,9 +1441,299 @@ select:disabled{
 
     cursor:not-allowed;
 
-    transform:none;
+    transform:none!important;
+
+    filter:grayscale(.15);
 }
 
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.btn i{
+    position:relative;
+
+    z-index:3;
+
+    font-size:16px;
+
+    transition:
+        transform .22s ease;
+}
+
+.btn:hover i{
+    transform:
+        translateY(-1px)
+        scale(1.08);
+}
+
+
+/* =========================================================
+   PRIMARY — BOOK / CONFIRM
+   ========================================================= */
+
+.btn-primary{
+    color:#35104a;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f9df82 0%,
+            #d4a936 48%,
+            #b98220 100%
+        );
+
+    border:
+        1px solid rgba(255,240,173,.75);
+
+    box-shadow:
+        0 12px 28px rgba(199,154,50,.25),
+        inset 0 1px 0 rgba(255,255,255,.75),
+        inset 0 -2px 0 rgba(112,72,10,.12);
+}
+
+.btn-primary::after{
+    border-color:
+        rgba(255,255,255,.30);
+}
+
+.btn-primary:hover{
+    filter:brightness(1.05);
+
+    box-shadow:
+        0 17px 36px rgba(199,154,50,.34),
+        inset 0 1px 0 rgba(255,255,255,.85);
+}
+
+.btn-primary i{
+    color:#4a155f;
+}
+
+
+/* =========================================================
+   DARK — TRACK / MAIN ACTION
+   ========================================================= */
+
+.btn-dark{
+    color:#ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2b0b3d 0%,
+            #4a155f 48%,
+            #72258e 100%
+        );
+
+    border:
+        1px solid rgba(233,196,93,.42);
+
+    box-shadow:
+        0 13px 30px rgba(74,21,95,.27),
+        inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+.btn-dark::after{
+    border-color:
+        rgba(233,196,93,.18);
+}
+
+.btn-dark:hover{
+    box-shadow:
+        0 18px 38px rgba(74,21,95,.34),
+        0 0 0 1px rgba(233,196,93,.12);
+}
+
+.btn-dark i{
+    color:#e9c45d;
+}
+
+
+/* =========================================================
+   GREEN — SUCCESS / WHATSAPP
+   ========================================================= */
+
+.btn-green{
+    color:#ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087b50,
+            #159765,
+            #20b47d
+        );
+
+    border:
+        1px solid rgba(184,244,218,.45);
+
+    box-shadow:
+        0 12px 28px rgba(13,128,85,.22),
+        inset 0 1px 0 rgba(255,255,255,.20);
+}
+
+.btn-green:hover{
+    box-shadow:
+        0 17px 35px rgba(13,128,85,.30);
+}
+
+.btn-green i{
+    color:#d9ffed;
+}
+
+
+/* =========================================================
+   LIGHT — SECONDARY
+   ========================================================= */
+
+.btn-light{
+    color:var(--purple);
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #faf3fd
+        );
+
+    border:
+        1px solid rgba(74,21,95,.14);
+
+    box-shadow:
+        0 9px 22px rgba(50,15,70,.07),
+        inset 0 1px 0 #ffffff;
+}
+
+.btn-light::after{
+    border-color:
+        rgba(199,154,50,.10);
+}
+
+.btn-light:hover{
+    color:var(--purple-dark);
+
+    border-color:
+        rgba(199,154,50,.45);
+
+    box-shadow:
+        0 14px 30px rgba(50,15,70,.11),
+        0 0 0 1px rgba(199,154,50,.08);
+}
+
+.btn-light i{
+    color:var(--gold);
+}
+
+
+/* =========================================================
+   SMALL BUTTON GROUPS
+   ========================================================= */
+
+.success-box .btn,
+.status-card .btn{
+    margin-top:10px;
+}
+
+.success-box .btn:first-child,
+.status-card .btn:first-child{
+    margin-top:0;
+}
+
+
+/* =========================================================
+   BUTTON LOADING STATE
+   ========================================================= */
+
+.btn.loading{
+    pointer-events:none;
+
+    color:transparent;
+}
+
+.btn.loading::after{
+    content:"";
+
+    position:absolute;
+
+    width:20px;
+    height:20px;
+
+    inset:50% auto auto 50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    border:
+        2px solid rgba(255,255,255,.35);
+
+    border-top-color:
+        currentColor;
+
+    border-radius:50%;
+
+    animation:
+        buttonSpin .7s linear infinite;
+}
+
+@keyframes buttonSpin{
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   MOBILE BUTTONS
+   ========================================================= */
+
+@media(max-width:700px){
+
+    .btn{
+        min-height:53px;
+
+        padding:13px 16px;
+
+        border-radius:16px;
+
+        font-size:12px;
+
+        gap:8px;
+    }
+
+    .btn i{
+        font-size:15px;
+    }
+
+    .btn:hover{
+        transform:translateY(-2px);
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media(max-width:380px){
+
+    .btn{
+        min-height:50px;
+
+        padding:12px 13px;
+
+        border-radius:15px;
+
+        font-size:11px;
+    }
+
+    .btn i{
+        font-size:14px;
+    }
+}
+```
 
 /* =========================================================
    SUCCESS RESULT

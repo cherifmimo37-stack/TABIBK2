@@ -3011,11 +3011,14 @@ app.get(
                     (a, b) => {
 
                         const dateA =
-                            `${a.date} ${a.time}`;
+    String(a.date) +
+    " " +
+    String(a.time);
 
-                        const dateB =
-                            `${b.date} ${b.time}`;
-
+const dateB =
+    String(b.date) +
+    " " +
+    String(b.time);
                         return dateA.localeCompare(
                             dateB
                         );

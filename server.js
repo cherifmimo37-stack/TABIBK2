@@ -1093,6 +1093,38 @@ app.get(
 );
 
 // ============================================================
+// PUBLIC - WILAYAS
+// ============================================================
+
+app.get(
+    "/api/wilayas",
+    (req, res) => {
+
+        const wilayas =
+            WILAYAS_DATA.map(
+                wilaya => ({
+                    id: wilaya.code,
+                    name: wilaya.name,
+                    municipalities:
+                        (wilaya.communes || []).map(
+                            commune =>
+                                typeof commune === "string"
+                                    ? commune
+                                    : commune.name
+                        )
+                })
+            );
+
+        res.json({
+            success: true,
+            count: wilayas.length,
+            wilayas
+        });
+
+    }
+);
+
+// ============================================================
 // PUBLIC - MUNICIPALITIES BY WILAYA
 // ============================================================
 

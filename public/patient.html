@@ -1339,11 +1339,7 @@ async function loadDoctors(){
                     doctor.id;
 
                 option.textContent =
-                    `<i class="fa-solid fa-user-doctor"></i>
-${doctor.name}
-<span>—</span>
-<i class="fa-solid fa-stethoscope"></i>
-${doctor.specialty}`;
+                    `${doctor.name} - ${doctor.specialty}`;
 
                 doctorSelect.appendChild(
                     option

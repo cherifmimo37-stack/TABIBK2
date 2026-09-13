@@ -1041,12 +1041,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     setMinimumDate();
 
+    // تجهيز إشعارات المريض ومراقبة الموعد المحفوظ تلقائياً
+    requestNotificationPermission();
+
     await loadWilayas();
 
     if(currentBookingNumber){
 
         document.getElementById("trackingNumber").value =
             currentBookingNumber;
+
+        // استرجاع حالة الموعد فور فتح الصفحة
+        await trackAppointment(true);
+
+        // مواصلة المراقبة حتى لو أغلق المريض قسم التتبع
+        startTracking();
 
     }
 
@@ -1861,7 +1870,10 @@ async function trackAppointment(
 
         const response =
             await fetch(
-                `${API}/api/appointments/${encodeURIComponent(number)}`
+                `${API}/api/appointments/${encodeURIComponent(number)}?_=${Date.now()}`,
+                {
+                    cache: "no-store"
+                }
             );
 
 
@@ -2509,7 +2521,7 @@ function startTracking(){
                 );
 
             },
-            5000
+            2000
         );
 
 }

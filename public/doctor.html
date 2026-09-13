@@ -6404,15 +6404,11 @@ function renderAppointment(
     )}
 
     <button
-        type="button"
-        class="btn-delete-appointment"
-        onclick="deleteAppointment('${escapeHtml(
-            appointment.bookingNumber || ""
-        )}')"
-    >
-        <i class="fa-solid fa-trash"></i>
-        حذف الموعد
-    </button>
+    onclick="deleteAppointment('${appointment.bookingNumber}')"
+    title="حذف الموعد"
+>
+    <i class="fa-solid fa-trash-can"></i>
+</button>
 
 </div>
 

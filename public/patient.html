@@ -507,7 +507,23 @@
             id="bookingResult"
             class="card result">
 
-
+<div
+    id="bookingAlert"
+    class="alert"
+    style="
+        display:none;
+        margin:15px auto;
+        max-width:600px;
+        padding:14px 18px;
+        border-radius:12px;
+        font-weight:700;
+        text-align:center;
+        background:#e8f7ee;
+        color:#176b3a;
+        border:1px solid #a9dfbd;
+    ">
+</div>
+              
             <div class="success-box">
 
                 <div class="success-icon">
@@ -1729,8 +1745,7 @@ async function createAppointment(){
             bookingNumber;
 
 startTracking();
-startPatientConfirmation();
-
+          
     }catch(error){
 
         console.error(error);
@@ -1753,123 +1768,7 @@ startPatientConfirmation();
 
 }
 
-/* =====================================================
-   PATIENT CONFIRMATION NOTIFICATION
-   ===================================================== */
 
-let patientNotificationTimer = null;
-let lastPatientNotificationId = 0;
-
-async function checkPatientConfirmation(){
-
-    const patientPhone =
-        localStorage.getItem("tabibkPatientPhone");
-
-    if(!patientPhone){
-        return;
-    }
-
-    try{
-
-        const response =
-            await fetch(
-                `${API}/api/patient/notifications?phone=${encodeURIComponent(patientPhone)}&_=${Date.now()}`,
-                {
-                    cache:"no-store"
-                }
-            );
-
-        if(!response.ok){
-            return;
-        }
-
-        const data =
-            await response.json();
-
-        if(
-            !data.success ||
-            !Array.isArray(data.notifications)
-        ){
-            return;
-        }
-
-        const notifications =
-            data.notifications;
-
-        if(notifications.length === 0){
-            return;
-        }
-
-        const latest =
-            notifications
-                .filter(
-                    n =>
-                        n.title &&
-                        n.title.includes("تأكيد") &&
-                        Number(n.id) >
-                        Number(lastPatientNotificationId)
-                )
-                .sort(
-                    (a,b) =>
-                        Number(a.id) -
-                        Number(b.id)
-                );
-
-        if(latest.length === 0){
-            return;
-        }
-
-        lastPatientNotificationId =
-            Math.max(
-                ...notifications.map(
-                    n => Number(n.id) || 0
-                )
-            );
-
-        latest.forEach(notification => {
-
-            playNotificationSound();
-
-            showAlert(
-                "bookingAlert",
-                notification.message,
-                "success"
-            );
-
-            sendBrowserNotification(
-                notification.title,
-                notification.message
-            );
-
-        });
-
-    }catch(error){
-
-        console.log(
-            "TABIBK notification error:",
-            error
-        );
-
-    }
-}
-
-
-function startPatientConfirmation(){
-
-    if(patientNotificationTimer){
-        clearInterval(
-            patientNotificationTimer
-        );
-    }
-
-    patientNotificationTimer =
-        setInterval(
-            checkPatientConfirmation,
-            2000
-        );
-
-}
-      
 /* =====================================================
    WHATSAPP
    ===================================================== */

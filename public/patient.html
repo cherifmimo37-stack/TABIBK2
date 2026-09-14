@@ -1015,7 +1015,9 @@ let previousStatus = null;
 
 let trackingTimer = null;
 
-
+let notificationTimer = null;
+let lastPatientNotificationId = 0;
+let notificationsInitialized = false;
 /* =====================================================
    ELEMENTS
    ===================================================== */
@@ -1036,7 +1038,6 @@ const doctorInfo =
 /* =====================================================
    INITIALIZATION
    ===================================================== */
-
 document.addEventListener("DOMContentLoaded", async () => {
 
     setMinimumDate();
@@ -1056,6 +1057,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // مواصلة المراقبة حتى لو أغلق المريض قسم التتبع
         startTracking();
+
+        // مراقبة إشعارات المريض
+        startPatientNotificationMonitor();
 
     }
 
@@ -1678,9 +1682,14 @@ async function createAppointment(){
 
 
         localStorage.setItem(
-            "tabibkBookingNumber",
-            bookingNumber
-        );
+    "tabibkBookingNumber",
+    bookingNumber
+);
+
+localStorage.setItem(
+    "tabibkPatientPhone",
+    patientPhone
+);
 
 
         document.getElementById(
@@ -1725,7 +1734,12 @@ async function createAppointment(){
         ).value =
             bookingNumber;
 
+        previousStatus =
+    appointment.status || "pending";
+          
 startTracking();
+
+          startPatientNotificationMonitor();
           
     }catch(error){
 
@@ -2592,6 +2606,173 @@ function playNotificationSound(){
         }
     }catch(error){
         console.log("Notification audio error:", error);
+    }
+}
+
+      // ============================================================
+// PATIENT NOTIFICATION MONITOR
+// ============================================================
+
+let patientNotificationTimer = null;
+let lastPatientNotificationId = 0;
+let patientNotificationsReady = false;
+
+async function checkPatientNotifications(){
+
+    const patientPhone =
+        localStorage.getItem(
+            "tabibkPatientPhone"
+        );
+
+    if(!patientPhone){
+        return;
+    }
+
+    try{
+
+        const response =
+            await fetch(
+                `${API}/api/patient/notifications?phone=${encodeURIComponent(patientPhone)}&_=${Date.now()}`,
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if(!response.ok){
+            return;
+        }
+
+        const data =
+            await response.json();
+
+        if(
+            !data ||
+            !Array.isArray(data.notifications)
+        ){
+            return;
+        }
+
+        const notifications =
+            data.notifications;
+
+        if(notifications.length === 0){
+            return;
+        }
+
+        // أول مرة: نحفظ آخر إشعار فقط بدون إطلاق إشعار قديم
+        if(!patientNotificationsReady){
+
+            lastPatientNotificationId =
+                Math.max(
+                    ...notifications.map(
+                        notification =>
+                            Number(notification.id) || 0
+                    )
+                );
+
+            patientNotificationsReady = true;
+
+            return;
+        }
+
+        // البحث عن الإشعارات الجديدة
+        const newNotifications =
+            notifications
+                .filter(
+                    notification =>
+                        Number(notification.id) >
+                        Number(lastPatientNotificationId)
+                )
+                .sort(
+                    (a,b) =>
+                        Number(a.id) -
+                        Number(b.id)
+                );
+
+        if(newNotifications.length === 0){
+            return;
+        }
+
+        // تحديث آخر ID
+        lastPatientNotificationId =
+            Math.max(
+                ...notifications.map(
+                    notification =>
+                        Number(notification.id) || 0
+                )
+            );
+
+        // معالجة الإشعارات الجديدة
+        for(
+            const notification
+            of newNotifications
+        ){
+
+            // 🔊 نفس نغمة TABIBK الحالية
+            playNotificationSound();
+
+            // 🔔 إشعار المتصفح
+            sendBrowserNotification(
+                notification.title ||
+                    "إشعار TABIBK",
+                notification.message ||
+                    "لديك إشعار جديد"
+            );
+
+            // 📝 إشعار داخل التطبيق
+            if(
+                typeof showAlert === "function"
+            ){
+
+               showAlert(
+    "bookingAlert",
+    notification.message ||
+        "لديك إشعار جديد",
+    "success"
+);
+
+            }
+
+            console.log(
+                "TABIBK patient notification:",
+                notification
+            );
+        }
+
+    }catch(error){
+
+        console.log(
+            "Patient notification check error:",
+            error
+        );
+
+    }
+}
+
+
+function startPatientNotificationMonitor(){
+
+    stopPatientNotificationMonitor();
+
+    checkPatientNotifications();
+
+    patientNotificationTimer =
+        setInterval(
+            checkPatientNotifications,
+            2000
+        );
+}
+
+
+function stopPatientNotificationMonitor(){
+
+    if(patientNotificationTimer){
+
+        clearInterval(
+            patientNotificationTimer
+        );
+
+        patientNotificationTimer = null;
     }
 }
 /* =====================================================

@@ -1729,7 +1729,8 @@ async function createAppointment(){
             bookingNumber;
 
 startTracking();
-          
+startPatientConfirmation();
+
     }catch(error){
 
         console.error(error);
@@ -1752,7 +1753,123 @@ startTracking();
 
 }
 
+/* =====================================================
+   PATIENT CONFIRMATION NOTIFICATION
+   ===================================================== */
 
+let patientNotificationTimer = null;
+let lastPatientNotificationId = 0;
+
+async function checkPatientConfirmation(){
+
+    const patientPhone =
+        localStorage.getItem("tabibkPatientPhone");
+
+    if(!patientPhone){
+        return;
+    }
+
+    try{
+
+        const response =
+            await fetch(
+                `${API}/api/patient/notifications?phone=${encodeURIComponent(patientPhone)}&_=${Date.now()}`,
+                {
+                    cache:"no-store"
+                }
+            );
+
+        if(!response.ok){
+            return;
+        }
+
+        const data =
+            await response.json();
+
+        if(
+            !data.success ||
+            !Array.isArray(data.notifications)
+        ){
+            return;
+        }
+
+        const notifications =
+            data.notifications;
+
+        if(notifications.length === 0){
+            return;
+        }
+
+        const latest =
+            notifications
+                .filter(
+                    n =>
+                        n.title &&
+                        n.title.includes("تأكيد") &&
+                        Number(n.id) >
+                        Number(lastPatientNotificationId)
+                )
+                .sort(
+                    (a,b) =>
+                        Number(a.id) -
+                        Number(b.id)
+                );
+
+        if(latest.length === 0){
+            return;
+        }
+
+        lastPatientNotificationId =
+            Math.max(
+                ...notifications.map(
+                    n => Number(n.id) || 0
+                )
+            );
+
+        latest.forEach(notification => {
+
+            playNotificationSound();
+
+            showAlert(
+                "bookingAlert",
+                notification.message,
+                "success"
+            );
+
+            sendBrowserNotification(
+                notification.title,
+                notification.message
+            );
+
+        });
+
+    }catch(error){
+
+        console.log(
+            "TABIBK notification error:",
+            error
+        );
+
+    }
+}
+
+
+function startPatientConfirmation(){
+
+    if(patientNotificationTimer){
+        clearInterval(
+            patientNotificationTimer
+        );
+    }
+
+    patientNotificationTimer =
+        setInterval(
+            checkPatientConfirmation,
+            2000
+        );
+
+}
+      
 /* =====================================================
    WHATSAPP
    ===================================================== */

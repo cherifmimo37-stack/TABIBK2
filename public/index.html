@@ -1,20 +1,53 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#4b176d">
-<meta name="description" content="طبيبك TABIBK - حجز ومتابعة المواعيد الطبية">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta
+    name="theme-color"
+    content="#351044"
+>
+
+<meta
+    name="description"
+    content="طبيبك TABIBK - حجز ومتابعة المواعيد الطبية"
+>
+
 <title>طبيبك | TABIBK</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     box-sizing:border-box;
@@ -22,925 +55,1528 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     padding:0;
 }
 
-:root{
-    --purple-950:#241035;
-    --purple-900:#32104f;
-    --purple-800:#431766;
-    --purple-700:#56217c;
-    --purple:#7027a0;
-    --purple-500:#8240b3;
-    --purple-light:#9b62c6;
-    --purple-soft:#f3e9fa;
-    --purple-pale:#fbf7fd;
-
-    --gold-dark:#936516;
-    --gold:#c99732;
-    --gold-light:#e8c76b;
-    --gold-pale:#fff8e8;
-
-    --white:#ffffff;
-    --bg:#faf8fc;
-    --text:#241c2e;
-    --muted:#7d7487;
-
-    --green:#159447;
-    --blue:#2878d7;
-
-    --shadow:0 18px 50px rgba(69,32,91,.12);
-    --shadow-hover:0 25px 65px rgba(69,32,91,.20);
-
-    --radius:24px;
-}
-
-/* =========================================================
-   BODY
-========================================================= */
-
 html{
     scroll-behavior:smooth;
 }
 
 body{
     font-family:Cairo,sans-serif;
-    background:var(--bg);
-    color:var(--text);
     min-height:100vh;
+    color:#24182d;
+    overflow-x:hidden;
 }
 
+
 /* =========================================================
-   MAIN BACKGROUND
+   COLORS
+========================================================= */
+
+:root{
+
+    --purple-dark:#260a35;
+    --purple-deep:#351044;
+    --purple:#52166f;
+    --purple-main:#6c278d;
+    --purple-light:#8b4aa7;
+
+    --gold-dark:#9b6b16;
+    --gold:#c79a32;
+    --gold-light:#f0d477;
+    --gold-soft:#fff8e5;
+
+    --white:#ffffff;
+    --white-soft:#faf9fc;
+
+    --silver:#f1eef4;
+
+    --text:#281c30;
+    --muted:#817586;
+
+    --shadow:
+        0 25px 70px rgba(38,10,53,.14);
+
+    --shadow-strong:
+        0 30px 90px rgba(38,10,53,.22);
+}
+
+
+/* =========================================================
+   PAGE
 ========================================================= */
 
 .page{
+
     min-height:100vh;
+
     position:relative;
+
     overflow:hidden;
 
     background:
+
         radial-gradient(
-            circle at 8% 12%,
-            rgba(201,151,50,.18),
+            circle at 10% 8%,
+            rgba(199,154,50,.20),
             transparent 25%
         ),
+
         radial-gradient(
-            circle at 92% 18%,
-            rgba(112,39,160,.16),
+            circle at 92% 15%,
+            rgba(108,39,141,.18),
             transparent 28%
         ),
+
         radial-gradient(
             circle at 50% 100%,
-            rgba(130,64,179,.10),
+            rgba(82,22,111,.12),
             transparent 35%
         ),
+
         linear-gradient(
             135deg,
-            #fbf8fd 0%,
-            #ffffff 48%,
-            #f5edf9 100%
+            #ffffff 0%,
+            #faf8fc 45%,
+            #eee8f2 100%
         );
 }
 
-.page:before{
-    content:"";
-    position:absolute;
-
-    width:520px;
-    height:520px;
-
-    border:1px solid rgba(112,39,160,.10);
-    border-radius:50%;
-
-    top:-280px;
-    left:-180px;
-
-    box-shadow:
-        0 0 0 55px rgba(112,39,160,.025),
-        0 0 0 110px rgba(201,151,50,.018),
-        0 0 0 165px rgba(112,39,160,.012);
-
-    pointer-events:none;
-}
-
-.page:after{
-    content:"";
-    position:absolute;
-
-    width:430px;
-    height:430px;
-
-    border:1px solid rgba(201,151,50,.13);
-    border-radius:50%;
-
-    right:-220px;
-    bottom:-250px;
-
-    box-shadow:
-        0 0 0 50px rgba(201,151,50,.025),
-        0 0 0 100px rgba(112,39,160,.018);
-
-    pointer-events:none;
-}
 
 /* =========================================================
-   SHELL
+   DECORATION
+========================================================= */
+
+.page::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+    height:600px;
+
+    border-radius:50%;
+
+    top:-390px;
+    left:-220px;
+
+    border:
+        1px solid
+        rgba(199,154,50,.18);
+
+    box-shadow:
+
+        0 0 0 45px
+        rgba(199,154,50,.025),
+
+        0 0 0 90px
+        rgba(82,22,111,.025),
+
+        0 0 0 135px
+        rgba(199,154,50,.018);
+
+    pointer-events:none;
+}
+
+
+.page::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    right:-300px;
+    bottom:-300px;
+
+    border:
+        1px solid
+        rgba(82,22,111,.12);
+
+    box-shadow:
+
+        0 0 0 55px
+        rgba(82,22,111,.025),
+
+        0 0 0 110px
+        rgba(199,154,50,.018);
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   CONTAINER
 ========================================================= */
 
 .shell{
+
     position:relative;
+
     z-index:2;
 
-    width:min(100%,1180px);
+    width:min(100%,1150px);
 
     margin:auto;
 
-    padding:25px 22px 32px;
+    padding:
+        22px
+        22px
+        35px;
 }
 
+
 /* =========================================================
-   TOPBAR
+   TOP BAR
 ========================================================= */
 
 .topbar{
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
-    gap:18px;
 
-    padding:13px 16px;
+    gap:20px;
 
-    background:rgba(255,255,255,.78);
-    border:1px solid rgba(112,39,160,.10);
+    padding:12px 15px;
 
-    border-radius:20px;
+    border-radius:22px;
+
+    background:
+        rgba(255,255,255,.88);
+
+    border:
+        1px solid
+        rgba(82,22,111,.10);
 
     box-shadow:
-        0 10px 35px rgba(69,32,91,.07);
+        0 12px 35px
+        rgba(38,10,53,.07);
 
     backdrop-filter:blur(18px);
 }
+
 
 /* =========================================================
    BRAND
 ========================================================= */
 
 .brand{
+
     display:flex;
+
     align-items:center;
+
     gap:12px;
 
-    color:var(--purple-900);
     text-decoration:none;
+
+    color:var(--purple-dark);
 }
 
+
+/* =========================================================
+   GOLD LOGO
+========================================================= */
+
 .logo{
+
     width:52px;
     height:52px;
 
-    border-radius:17px;
+    position:relative;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    color:white;
-
-    font-size:24px;
+    border-radius:17px;
 
     background:
         linear-gradient(
             145deg,
-            var(--purple-500),
-            var(--purple-900)
+            #fffdf6,
+            #f6e7b5
         );
 
-    border:2px solid rgba(232,199,107,.75);
+    border:
+        2px solid
+        var(--gold);
+
+    color:
+        var(--gold-dark);
 
     box-shadow:
-        0 10px 28px rgba(112,39,160,.24);
+
+        0 10px 25px
+        rgba(199,154,50,.20),
+
+        inset 0 1px 0
+        #ffffff;
 }
 
-.brand strong{
-    display:block;
 
-    font-size:22px;
-    font-weight:900;
+.logo i{
 
-    line-height:1.1;
+    font-size:25px;
 
-    color:var(--purple-900);
+    filter:
+        drop-shadow(
+            0 3px 4px
+            rgba(155,107,22,.18)
+        );
 }
 
-.brand span{
-    display:block;
 
-    color:var(--gold-dark);
+.logo .pulse-mini{
+
+    position:absolute;
 
     font-size:9px;
 
-    letter-spacing:3px;
+    color:
+        var(--purple);
 
-    font-weight:800;
+    bottom:9px;
+
+    right:7px;
+}
+
+
+.brand-text strong{
+
+    display:block;
+
+    font-size:21px;
+
+    line-height:1.1;
+
+    font-weight:900;
+
+    color:
+        var(--purple-dark);
+}
+
+
+.brand-text span{
+
+    display:block;
 
     margin-top:3px;
+
+    color:
+        var(--gold-dark);
+
+    font-size:9px;
+
+    letter-spacing:4px;
+
+    font-weight:900;
 }
+
 
 /* =========================================================
    LANGUAGE
 ========================================================= */
 
 .lang{
-    border:1px solid rgba(112,39,160,.13);
 
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #fbf7fd
-        );
+    border:1px solid
+        rgba(82,22,111,.12);
 
-    color:var(--purple-800);
+    background:#ffffff;
+
+    color:
+        var(--purple);
 
     border-radius:14px;
 
-    padding:9px 14px;
+    padding:8px 14px;
 
     font:
-        700 12px Cairo;
+        800 11px Cairo;
 
     box-shadow:
-        0 6px 18px rgba(69,32,91,.06);
+        0 7px 20px
+        rgba(38,10,53,.06);
 }
+
 
 /* =========================================================
    HERO
 ========================================================= */
 
 .hero{
+
     text-align:center;
 
-    color:var(--text);
-
-    padding:48px 0 28px;
+    padding:
+        48px
+        0
+        30px;
 }
+
 
 /* =========================================================
    HERO LOGO
 ========================================================= */
 
 .hero-logo{
-    width:118px;
-    height:118px;
 
-    margin:0 auto 21px;
+    width:126px;
+    height:126px;
 
-    border-radius:34px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:white;
-
-    font-size:52px;
+    margin:
+        0 auto
+        22px;
 
     position:relative;
 
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:38px;
+
     background:
+
         linear-gradient(
             145deg,
-            var(--purple-light),
-            var(--purple-900)
+            #fffdf7,
+            #f2e1a7
         );
 
-    border:3px solid var(--gold-light);
+    border:
+        3px solid
+        var(--gold);
+
+    color:
+        var(--gold-dark);
 
     box-shadow:
-        0 22px 55px rgba(112,39,160,.22),
-        0 0 0 9px rgba(201,151,50,.07),
-        0 0 0 18px rgba(112,39,160,.035);
+
+        0 25px 65px
+        rgba(82,22,111,.20),
+
+        0 12px 30px
+        rgba(199,154,50,.20),
+
+        inset
+        0 2px 0
+        #ffffff;
 
     animation:
-        logoFloat 4s ease-in-out infinite;
+        floatLogo 4s ease-in-out infinite;
 }
 
-.hero-logo:before{
+
+.hero-logo i{
+
+    font-size:55px;
+
+    filter:
+        drop-shadow(
+            0 5px 5px
+            rgba(155,107,22,.22)
+        );
+}
+
+
+.hero-logo::before{
+
     content:"";
 
     position:absolute;
+
     inset:8px;
 
-    border:1px solid rgba(255,255,255,.28);
+    border-radius:31px;
 
-    border-radius:27px;
+    border:
+        1px solid
+        rgba(155,107,22,.28);
 }
 
-.hero-logo:after{
+
+.hero-logo::after{
+
     content:"";
 
     position:absolute;
 
-    width:13px;
-    height:13px;
+    width:11px;
+    height:11px;
 
     border-radius:50%;
 
-    background:var(--gold-light);
-
     top:13px;
-    right:15px;
+    right:16px;
+
+    background:
+        var(--purple);
 
     box-shadow:
-        0 0 0 6px rgba(232,199,107,.10);
+        0 0 0 6px
+        rgba(82,22,111,.08);
 }
 
-@keyframes logoFloat{
+
+@keyframes floatLogo{
 
     0%,100%{
         transform:translateY(0);
     }
 
     50%{
-        transform:translateY(-5px);
+        transform:translateY(-6px);
     }
 }
 
+
 /* =========================================================
-   HERO TEXT
+   HERO TITLE
 ========================================================= */
 
 .hero h1{
-    font-size:45px;
+
+    font-size:
+        clamp(38px,6vw,54px);
 
     font-weight:900;
 
-    color:var(--purple-900);
+    color:
+        var(--purple-dark);
 
-    letter-spacing:.5px;
+    line-height:1.1;
 }
+
+
+.hero h1 span{
+
+    color:
+        var(--gold-dark);
+}
+
 
 .hero .latin{
-    font-size:14px;
 
-    letter-spacing:7px;
+    margin-top:5px;
 
-    color:var(--gold-dark);
+    font-size:13px;
+
+    letter-spacing:8px;
 
     font-weight:900;
 
-    margin-top:1px;
+    color:
+        var(--purple-main);
 }
 
-.hero p{
-    font-size:16px;
 
-    color:var(--muted);
+.hero p{
 
     margin-top:13px;
+
+    color:
+        var(--muted);
+
+    font-size:15px;
 
     font-weight:600;
 }
 
+
 /* =========================================================
-   TAG
+   STATUS
 ========================================================= */
 
-.tag{
+.status{
+
     display:inline-flex;
 
     align-items:center;
-    justify-content:center;
 
     gap:8px;
 
-    margin-top:15px;
+    margin-top:16px;
 
-    padding:8px 15px;
+    padding:8px 16px;
 
     border-radius:99px;
 
     background:
-        linear-gradient(
-            135deg,
-            #fffdf8,
-            var(--gold-pale)
-        );
+        rgba(255,255,255,.85);
 
-    border:1px solid rgba(201,151,50,.25);
+    border:
+        1px solid
+        rgba(199,154,50,.28);
 
-    color:var(--gold-dark);
+    color:
+        var(--gold-dark);
 
-    font-size:11px;
+    font-size:10px;
 
-    font-weight:700;
+    font-weight:800;
 
     box-shadow:
-        0 8px 22px rgba(201,151,50,.08);
+        0 8px 25px
+        rgba(199,154,50,.07);
 }
 
-.pulse{
-    display:inline-block;
+
+.status-dot{
 
     width:7px;
     height:7px;
 
     border-radius:50%;
 
-    background:#21ae5a;
+    background:#20a457;
 
     box-shadow:
-        0 0 0 5px rgba(33,174,90,.09);
+        0 0 0 5px
+        rgba(32,164,87,.09);
 }
 
-/* =========================================================
-   ROLES
-========================================================= */
-
-.roles{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:18px;
-
-    max-width:1000px;
-
-    margin:12px auto 0;
-}
 
 /* =========================================================
-   ROLE CARD
+   PATIENT MAIN CARD
 ========================================================= */
 
-.role{
+.patient-card{
+
     display:block;
-
-    text-decoration:none;
-
-    color:var(--text);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.98),
-            rgba(251,247,253,.95)
-        );
-
-    border:1px solid var(--border);
-
-    border-radius:26px;
-
-    padding:24px 22px;
-
-    min-height:205px;
 
     position:relative;
 
     overflow:hidden;
 
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        border-color .25s ease;
+    max-width:780px;
 
-    box-shadow:var(--shadow);
+    min-height:285px;
+
+    margin:
+        8px auto
+        25px;
+
+    padding:
+        30px;
+
+    text-decoration:none;
+
+    color:var(--text);
+
+    border-radius:34px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #ffffff 55%,
+            #f5edf9 100%
+        );
+
+    border:
+        1px solid
+        rgba(82,22,111,.13);
+
+    box-shadow:
+        var(--shadow);
+
+    transition:
+        .28s ease;
 }
 
-.role:before{
+
+.patient-card:hover{
+
+    transform:
+        translateY(-8px);
+
+    box-shadow:
+        var(--shadow-strong);
+
+    border-color:
+        rgba(199,154,50,.45);
+}
+
+
+.patient-card::before{
+
     content:"";
 
     position:absolute;
 
-    width:190px;
-    height:190px;
+    width:330px;
+    height:330px;
 
     border-radius:50%;
 
-    top:-125px;
-    left:-75px;
+    left:-180px;
+    top:-190px;
 
     background:
         radial-gradient(
             circle,
-            rgba(112,39,160,.09),
-            transparent 68%
+            rgba(199,154,50,.20),
+            transparent 67%
         );
 }
 
-.role:after{
+
+.patient-card::after{
+
     content:"";
 
     position:absolute;
 
-    width:90px;
-    height:90px;
+    width:250px;
+    height:250px;
 
     border-radius:50%;
 
-    right:-45px;
-    bottom:-45px;
+    right:-120px;
+    bottom:-150px;
 
-    border:1px solid rgba(201,151,50,.13);
+    background:
+        radial-gradient(
+            circle,
+            rgba(82,22,111,.14),
+            transparent 68%
+        );
 }
 
-.role:hover{
-    transform:translateY(-7px);
-
-    border-color:
-        rgba(201,151,50,.48);
-
-    box-shadow:
-        var(--shadow-hover);
-}
 
 /* =========================================================
-   ROLE ICON
+   PATIENT CARD CONTENT
 ========================================================= */
 
-.role-icon{
-    width:62px;
-    height:62px;
+.patient-content{
 
-    border-radius:19px;
+    position:relative;
+
+    z-index:2;
 
     display:flex;
+
     align-items:center;
+
+    gap:28px;
+}
+
+
+.patient-icon{
+
+    flex:0 0 105px;
+
+    width:105px;
+    height:105px;
+
+    border-radius:30px;
+
+    display:flex;
+
+    align-items:center;
+
     justify-content:center;
 
-    font-size:25px;
+    background:
 
-    margin-bottom:18px;
+        linear-gradient(
+            145deg,
+            var(--purple),
+            var(--purple-dark)
+        );
 
-    border:1px solid rgba(255,255,255,.5);
+    color:
+        var(--gold-light);
+
+    font-size:43px;
+
+    border:
+        2px solid
+        rgba(240,212,119,.8);
 
     box-shadow:
-        0 10px 24px rgba(69,32,91,.10);
+
+        0 18px 40px
+        rgba(82,22,111,.25),
+
+        inset
+        0 1px 0
+        rgba(255,255,255,.25);
 }
 
-.patient .role-icon{
-    background:
-        linear-gradient(
-            145deg,
-            #f1d17a,
-            #bc8822
-        );
 
-    color:white;
+.patient-info{
+
+    text-align:right;
+
+    flex:1;
 }
 
-.doctor .role-icon{
-    background:
-        linear-gradient(
-            145deg,
-            var(--purple-light),
-            var(--purple-800)
-        );
 
-    color:white;
-}
+.patient-label{
 
-.admin .role-icon{
-    background:
-        linear-gradient(
-            145deg,
-            #caa34b,
-            #7b4aa3
-        );
+    display:inline-block;
 
-    color:white;
-}
+    color:
+        var(--gold-dark);
 
-/* =========================================================
-   ROLE TEXT
-========================================================= */
-
-.role h2{
-    font-size:20px;
+    font-size:11px;
 
     font-weight:900;
 
-    color:var(--purple-900);
+    margin-bottom:5px;
 }
 
-.role p{
-    font-size:11px;
 
-    color:var(--muted);
+.patient-info h2{
 
-    margin-top:6px;
+    font-size:27px;
+
+    color:
+        var(--purple-dark);
+
+    font-weight:900;
+}
+
+
+.patient-info p{
+
+    margin-top:7px;
+
+    color:
+        var(--muted);
+
+    font-size:12px;
 
     line-height:1.9;
-
-    max-width:245px;
 }
 
-/* =========================================================
-   ROLE ARROW
-========================================================= */
 
-.role .arrow{
-    position:absolute;
-
-    left:20px;
-    bottom:20px;
-
-    width:37px;
-    height:37px;
-
-    border-radius:12px;
+.patient-actions{
 
     display:flex;
+
     align-items:center;
-    justify-content:center;
 
-    background:
-        linear-gradient(
-            145deg,
-            var(--purple-soft),
-            #ffffff
-        );
+    gap:10px;
 
-    border:1px solid rgba(112,39,160,.12);
-
-    color:var(--purple);
-
-    transition:.25s;
+    margin-top:17px;
 }
 
-.role:hover .arrow{
+
+.patient-button{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    padding:
+        11px
+        20px;
+
+    border-radius:14px;
+
     background:
+
         linear-gradient(
-            145deg,
+            135deg,
             var(--gold-light),
             var(--gold)
         );
 
-    color:white;
+    color:#ffffff;
 
-    transform:translateX(-4px);
+    font-size:11px;
+
+    font-weight:900;
+
+    box-shadow:
+        0 9px 22px
+        rgba(199,154,50,.22);
 }
 
+
+.patient-sub{
+
+    color:
+        var(--purple);
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+
+.patient-arrow{
+
+    position:absolute;
+
+    left:24px;
+    bottom:25px;
+
+    width:43px;
+    height:43px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:
+        var(--gold-soft);
+
+    border:
+        1px solid
+        rgba(199,154,50,.25);
+
+    color:
+        var(--gold-dark);
+
+    transition:.25s;
+}
+
+
+.patient-card:hover .patient-arrow{
+
+    background:
+        var(--purple);
+
+    color:
+        var(--gold-light);
+
+    transform:
+        translateX(-5px);
+}
+
+
 /* =========================================================
-   FEATURE BAR
+   PROFESSIONAL PORTALS
+========================================================= */
+
+.portal-title{
+
+    text-align:center;
+
+    margin:
+        8px
+        0
+        15px;
+}
+
+
+.portal-title span{
+
+    color:
+        var(--muted);
+
+    font-size:10px;
+
+    font-weight:700;
+}
+
+
+.portals{
+
+    max-width:780px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:16px;
+}
+
+
+.portal{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    min-height:115px;
+
+    padding:
+        18px;
+
+    text-decoration:none;
+
+    border-radius:23px;
+
+    background:
+        rgba(255,255,255,.90);
+
+    border:
+        1px solid
+        rgba(82,22,111,.10);
+
+    box-shadow:
+        0 14px 40px
+        rgba(38,10,53,.08);
+
+    transition:
+        .25s ease;
+
+    overflow:hidden;
+}
+
+
+.portal:hover{
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 22px 50px
+        rgba(38,10,53,.15);
+
+    border-color:
+        rgba(199,154,50,.35);
+}
+
+
+.portal::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
+    left:-75px;
+    bottom:-80px;
+
+    background:
+        rgba(82,22,111,.05);
+}
+
+
+.portal-icon{
+
+    flex:0 0 61px;
+
+    width:61px;
+    height:61px;
+
+    border-radius:19px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:24px;
+
+    color:#ffffff;
+
+    box-shadow:
+        0 10px 25px
+        rgba(38,10,53,.14);
+}
+
+
+.doctor .portal-icon{
+
+    background:
+        linear-gradient(
+            145deg,
+            #8950a8,
+            #42104f
+        );
+
+    border:
+        1px solid
+        rgba(199,154,50,.45);
+}
+
+
+.admin .portal-icon{
+
+    background:
+        linear-gradient(
+            145deg,
+            #cda94d,
+            #80601d
+        );
+
+    border:
+        1px solid
+        rgba(82,22,111,.22);
+}
+
+
+.portal-info{
+
+    flex:1;
+
+    text-align:right;
+}
+
+
+.portal-info h3{
+
+    color:
+        var(--purple-dark);
+
+    font-size:16px;
+
+    font-weight:900;
+}
+
+
+.portal-info p{
+
+    color:
+        var(--muted);
+
+    font-size:9px;
+
+    margin-top:4px;
+
+    line-height:1.7;
+}
+
+
+.portal-arrow{
+
+    color:
+        var(--gold-dark);
+
+    font-size:14px;
+
+    transition:.25s;
+}
+
+
+.portal:hover .portal-arrow{
+
+    transform:
+        translateX(-4px);
+
+    color:
+        var(--purple);
+}
+
+
+/* =========================================================
+   FEATURES
 ========================================================= */
 
 .features{
+
+    max-width:780px;
+
+    margin:
+        23px auto
+        0;
+
     display:grid;
 
     grid-template-columns:
         repeat(4,1fr);
 
-    gap:12px;
-
-    max-width:1000px;
-
-    margin:25px auto 0;
+    gap:10px;
 }
 
-.feature{
-    position:relative;
 
-    padding:15px 10px;
+.feature{
+
+    padding:
+        13px 7px;
 
     text-align:center;
 
-    background:rgba(255,255,255,.62);
+    border-radius:16px;
+
+    background:
+        rgba(255,255,255,.68);
 
     border:
-        1px solid rgba(112,39,160,.08);
-
-    border-radius:17px;
+        1px solid
+        rgba(82,22,111,.07);
 
     box-shadow:
-        0 8px 25px rgba(69,32,91,.045);
-
-    transition:.25s;
+        0 8px 25px
+        rgba(38,10,53,.04);
 }
 
-.feature:hover{
-    transform:translateY(-3px);
-
-    border-color:
-        rgba(201,151,50,.28);
-}
 
 .feature i{
+
     display:block;
 
-    color:var(--gold-dark);
+    color:
+        var(--gold-dark);
 
-    font-size:17px;
+    font-size:15px;
 
-    margin-bottom:7px;
+    margin-bottom:5px;
 }
 
+
 .feature span{
-    display:block;
 
-    font-size:10px;
+    color:
+        var(--purple);
 
-    color:var(--purple-800);
+    font-size:8px;
 
     font-weight:800;
 }
+
 
 /* =========================================================
    FOOTER
 ========================================================= */
 
 .footer{
-    margin-top:28px;
 
     text-align:center;
 
-    color:#8d8395;
+    margin-top:30px;
 
-    font-size:10px;
+    padding-top:18px;
+
+    border-top:
+        1px solid
+        rgba(82,22,111,.08);
+
+    color:
+        var(--muted);
+
+    font-size:9px;
 }
 
-.footer b{
-    color:var(--gold-dark);
+
+.footer strong{
+
+    color:
+        var(--gold-dark);
+
+    font-weight:900;
 }
+
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media(max-width:760px){
+@media(max-width:700px){
 
     .shell{
+
         padding:
-            15px
-            15px
+            12px
+            12px
             25px;
     }
 
     .topbar{
-        padding:11px 12px;
+
+        padding:
+            9px
+            11px;
+
+        border-radius:17px;
     }
 
     .logo{
-        width:47px;
-        height:47px;
 
-        border-radius:15px;
+        width:44px;
+        height:44px;
+
+        border-radius:14px;
+    }
+
+    .logo i{
 
         font-size:21px;
     }
 
-    .brand strong{
-        font-size:19px;
+    .brand-text strong{
+
+        font-size:17px;
     }
 
-    .brand span{
-        font-size:8px;
+    .brand-text span{
 
-        letter-spacing:2.5px;
+        font-size:7px;
+
+        letter-spacing:3px;
     }
 
     .lang{
-        padding:8px 11px;
 
-        font-size:11px;
+        padding:
+            7px
+            10px;
+
+        font-size:9px;
     }
 
     .hero{
-        padding:38px 0 22px;
+
+        padding:
+            32px
+            0
+            20px;
     }
 
     .hero-logo{
-        width:94px;
-        height:94px;
 
-        border-radius:28px;
+        width:100px;
+        height:100px;
 
-        font-size:41px;
+        border-radius:30px;
+    }
+
+    .hero-logo i{
+
+        font-size:43px;
     }
 
     .hero h1{
-        font-size:36px;
+
+        font-size:38px;
     }
 
     .hero .latin{
-        font-size:12px;
+
+        font-size:10px;
 
         letter-spacing:6px;
     }
 
     .hero p{
-        font-size:13px;
+
+        font-size:12px;
     }
 
-    .tag{
-        font-size:10px;
+    .patient-card{
 
-        padding:7px 11px;
-    }
-
-    .roles{
-        grid-template-columns:1fr;
-
-        gap:13px;
-
-        max-width:520px;
-    }
-
-    .role{
-        min-height:0;
+        min-height:auto;
 
         padding:
-            18px
-            18px
-            18px
-            62px;
+            22px 18px;
+
+        border-radius:27px;
     }
 
-    .role-icon{
-        width:53px;
-        height:53px;
+    .patient-content{
 
-        border-radius:17px;
+        flex-direction:column;
+
+        text-align:center;
+
+        gap:15px;
+    }
+
+    .patient-icon{
+
+        flex:0 0 78px;
+
+        width:78px;
+        height:78px;
+
+        border-radius:23px;
+
+        font-size:32px;
+    }
+
+    .patient-info{
+
+        text-align:center;
+    }
+
+    .patient-info h2{
 
         font-size:22px;
-
-        margin-bottom:12px;
     }
 
-    .role h2{
-        font-size:18px;
-    }
+    .patient-info p{
 
-    .role p{
         font-size:10px;
-
-        line-height:1.8;
     }
 
-    .role .arrow{
-        left:17px;
-        bottom:18px;
+    .patient-actions{
+
+        justify-content:center;
+
+        flex-wrap:wrap;
     }
 
-    .features{
-        grid-template-columns:
-            repeat(2,1fr);
+    .patient-button{
+
+        padding:
+            10px
+            17px;
+    }
+
+    .patient-arrow{
+
+        width:36px;
+        height:36px;
+
+        left:16px;
+        bottom:16px;
+    }
+
+    .portals{
+
+        gap:10px;
+    }
+
+    .portal{
+
+        min-height:102px;
+
+        padding:
+            13px 11px;
 
         gap:9px;
 
-        margin-top:18px;
+        border-radius:19px;
+    }
+
+    .portal-icon{
+
+        flex:0 0 48px;
+
+        width:48px;
+        height:48px;
+
+        border-radius:15px;
+
+        font-size:19px;
+    }
+
+    .portal-info h3{
+
+        font-size:13px;
+    }
+
+    .portal-info p{
+
+        font-size:7px;
+    }
+
+    .portal-arrow{
+
+        font-size:11px;
+    }
+
+    .features{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:8px;
     }
 
     .feature{
-        padding:12px 5px;
+
+        padding:10px 5px;
     }
 
-    .feature span{
-        font-size:9px;
-    }
-
-    .footer{
-        margin-top:22px;
-    }
 }
 
+
 /* =========================================================
-   SMALL PHONES
+   VERY SMALL PHONES
 ========================================================= */
 
 @media(max-width:380px){
 
-    .hero h1{
-        font-size:32px;
+    .hero{
+
+        padding-top:25px;
     }
 
     .hero-logo{
-        width:86px;
-        height:86px;
 
-        font-size:37px;
+        width:88px;
+        height:88px;
     }
 
-    .role{
-        padding-left:58px;
+    .hero-logo i{
+
+        font-size:38px;
     }
 
-    .role h2{
+    .hero h1{
+
+        font-size:33px;
+    }
+
+    .patient-info h2{
+
+        font-size:20px;
+    }
+
+    .portal{
+
+        min-height:96px;
+    }
+
+    .portal-icon{
+
+        flex-basis:43px;
+
+        width:43px;
+        height:43px;
+
         font-size:17px;
     }
 
-    .role p{
-        font-size:9px;
+    .portal-info h3{
+
+        font-size:12px;
     }
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="page">
 
+
 <div class="shell">
+
 
 <!-- =====================================================
      TOP BAR
@@ -948,28 +1584,44 @@ body{
 
 <header class="topbar">
 
-<a class="brand" href="/">
 
-<div class="logo">
-<i class="fa-solid fa-heart-pulse"></i>
-</div>
+<a
+    href="/"
+    class="brand"
+>
 
-<div>
-<strong>طبيبك</strong>
-<span>TABIBK</span>
-</div>
+    <div class="logo">
+
+        <i class="fa-solid fa-heart-pulse"></i>
+
+        <span class="pulse-mini">〰</span>
+
+    </div>
+
+
+    <div class="brand-text">
+
+        <strong>طبيبك</strong>
+
+        <span>TABIBK</span>
+
+    </div>
 
 </a>
 
+
 <div class="lang">
-<i class="fa-solid fa-globe"></i>
-العربية
+
+    <i class="fa-solid fa-globe"></i>
+
+    العربية
+
 </div>
+
 
 </header>
 
 
-<main>
 
 <!-- =====================================================
      HERO
@@ -977,150 +1629,303 @@ body{
 
 <section class="hero">
 
+
 <div class="hero-logo">
-<i class="fa-solid fa-heart-pulse"></i>
+
+    <i class="fa-solid fa-heart-pulse"></i>
+
 </div>
 
-<h1>طبيبك</h1>
+
+<h1>
+
+    <span>طبيبك</span>
+
+</h1>
+
 
 <div class="latin">
-TABIBK
+
+    TABIBK
+
 </div>
+
 
 <p>
-صحتك... في أمان
+
+    منصتك الذكية لحجز ومتابعة مواعيدك الطبية
+
 </p>
 
-<div class="tag">
 
-<span class="pulse"></span>
+<div class="status">
 
-منصة ذكية لحجز ومتابعة المواعيد الطبية
+    <span class="status-dot"></span>
+
+    خدمة طبية رقمية متاحة
 
 </div>
+
 
 </section>
 
 
+
 <!-- =====================================================
-     ROLES
+     PATIENT MAIN CARD
 ===================================================== -->
 
-<section
-class="roles"
-aria-label="اختيار نوع الدخول"
->
-
-
-<!-- PATIENT -->
-
 <a
-class="role patient"
-href="/patient.html"
+    href="/patient.html"
+    class="patient-card"
 >
 
-<div class="role-icon">
-<i class="fa-solid fa-user"></i>
+
+<div class="patient-content">
+
+
+<div class="patient-icon">
+
+    <i class="fa-solid fa-user"></i>
+
 </div>
+
+
+<div class="patient-info">
+
+
+<div class="patient-label">
+
+    البوابة الرئيسية
+
+</div>
+
 
 <h2>
-دخول المريض
+
+    دخول المريض
+
 </h2>
 
+
 <p>
-ابحث عن طبيب واحجز موعدك وتابع دورك بسهولة
+
+    احجز موعدك مع الطبيب المناسب،
+    تابع حالة موعدك واستقبل إشعاراتك بسهولة.
+
 </p>
 
-<div class="arrow">
-<i class="fa-solid fa-arrow-left"></i>
+
+<div class="patient-actions">
+
+    <span class="patient-button">
+
+        <i class="fa-solid fa-calendar-check"></i>
+
+        دخول المريض
+
+    </span>
+
+
+    <span class="patient-sub">
+
+        حجز • متابعة • إشعارات
+
+    </span>
+
 </div>
 
+
+</div>
+
+
+</div>
+
+
+<div class="patient-arrow">
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+</div>
+
+
 </a>
+
+
+
+<!-- =====================================================
+     PROFESSIONAL PORTALS
+===================================================== -->
+
+<div class="portal-title">
+
+    <span>
+
+        البوابات المهنية
+
+    </span>
+
+</div>
+
+
+
+<div class="portals">
 
 
 <!-- DOCTOR -->
 
 <a
-class="role doctor"
-href="/doctor.html"
+    href="/doctor.html"
+    class="portal doctor"
 >
 
-<div class="role-icon">
-<i class="fa-solid fa-user-doctor"></i>
+
+<div class="portal-icon">
+
+    <i class="fa-solid fa-user-doctor"></i>
+
 </div>
 
-<h2>
-دخول الطبيب
-</h2>
 
-<p>
-إدارة المواعيد وقائمة الانتظار والمرضى
-</p>
+<div class="portal-info">
 
-<div class="arrow">
-<i class="fa-solid fa-arrow-left"></i>
+    <h3>
+
+        دخول الطبيب
+
+    </h3>
+
+
+    <p>
+
+        إدارة المواعيد والمرضى
+        والجدول الطبي
+
+    </p>
+
 </div>
+
+
+<div class="portal-arrow">
+
+    <i class="fa-solid fa-chevron-left"></i>
+
+</div>
+
 
 </a>
+
 
 
 <!-- ADMIN -->
 
 <a
-class="role admin"
-href="/admin.html"
+    href="/admin.html"
+    class="portal admin"
 >
 
-<div class="role-icon">
-<i class="fa-solid fa-crown"></i>
+
+<div class="portal-icon">
+
+    <i class="fa-solid fa-shield-halved"></i>
+
 </div>
 
-<h2>
-دخول الإدارة
-</h2>
 
-<p>
-إدارة الأطباء والمستخدمين والمواعيد والتقارير
-</p>
+<div class="portal-info">
 
-<div class="arrow">
-<i class="fa-solid fa-arrow-left"></i>
+    <h3>
+
+        دخول الإدارة
+
+    </h3>
+
+
+    <p>
+
+        إدارة الأطباء والمواعيد
+        ومتابعة النظام
+
+    </p>
+
 </div>
+
+
+<div class="portal-arrow">
+
+    <i class="fa-solid fa-chevron-left"></i>
+
+</div>
+
 
 </a>
 
-</section>
+
+</div>
+
 
 
 <!-- =====================================================
      FEATURES
 ===================================================== -->
 
-<section class="features">
+<div class="features">
+
 
 <div class="feature">
-<i class="fa-solid fa-calendar-check"></i>
-<span>حجز المواعيد</span>
+
+    <i class="fa-solid fa-calendar-check"></i>
+
+    <span>
+
+        حجز سريع
+
+    </span>
+
 </div>
+
 
 <div class="feature">
-<i class="fa-solid fa-ticket"></i>
-<span>متابعة الدور</span>
+
+    <i class="fa-solid fa-bell"></i>
+
+    <span>
+
+        إشعارات
+
+    </span>
+
 </div>
+
 
 <div class="feature">
-<i class="fa-solid fa-bell"></i>
-<span>إشعارات فورية</span>
+
+    <i class="fa-solid fa-user-doctor"></i>
+
+    <span>
+
+        أطباء
+
+    </span>
+
 </div>
+
 
 <div class="feature">
-<i class="fa-solid fa-chart-line"></i>
-<span>إحصائيات وتقارير</span>
+
+    <i class="fa-solid fa-lock"></i>
+
+    <span>
+
+        حماية
+
+    </span>
+
 </div>
 
-</section>
 
-</main>
+</div>
+
 
 
 <!-- =====================================================
@@ -1129,17 +1934,19 @@ href="/admin.html"
 
 <footer class="footer">
 
-© 2026
-<b>TABIBK</b>
-—
-طبيبك، صحتك في أمان
+    <strong>طبيبك TABIBK</strong>
+
+    — منصة رقمية لحجز ومتابعة المواعيد الطبية
 
 </footer>
 
-</div>
 
 </div>
+
+
+</div>
+
 
 </body>
+
 </html>
-```

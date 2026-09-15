@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Tabibk" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">#2B0B3D</item>
+        <item name="android:navigationBarColor">#2B0B3D</item>
+        <item name="android:colorAccent">#C79A32</item>
+    </style>
+
+</resources>

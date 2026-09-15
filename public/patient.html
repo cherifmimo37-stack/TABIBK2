@@ -1054,6 +1054,17 @@ let bookingInFlight = false;
 let lastTrackedStatus = null;
 let lastTrackedQueue = null;
 
+/* PROFESSIONAL PATIENT NOTIFICATION STATE */
+let patientNotificationTimer = null;
+let lastPatientNotificationId = Number(localStorage.getItem("tabibkLastPatientNotificationId") || 0);
+let notificationRequestInFlight = false;
+let notificationAudio = null;
+
+function getStoredPatientPhone(){
+    return (localStorage.getItem("tabibkPatientPhone") || document.getElementById("patientPhone")?.value || "").replace(/\s+/g, "");
+}
+
+
 
 /* =====================================================
    ELEMENTS
@@ -1088,6 +1099,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             currentBookingNumber;
 
     }
+
+    setTimeout(() => {
+        prepareNotificationAudio();
+        startPatientNotificationMonitor();
+    }, 700);
 
 });
 
@@ -1419,20 +1435,28 @@ doctorSelect.addEventListener(
             return;
         }
 
-        doctorInfo.innerHTML = `
+        const duration = selectedDoctor.consultationDuration || selectedDoctor.duration || "";
+        const workingHours = selectedDoctor.workingHours || {};
+        const vacation = selectedDoctor.vacation || {};
+        let extraInfo = "";
 
+        if(duration){
+            extraInfo += `<span><i class="fa-regular fa-clock"></i> مدة الكشف: ${escapeHtml(duration)} دقيقة</span>`;
+        }
+        if(workingHours.enabled !== false && workingHours.open && workingHours.close){
+            extraInfo += `<span><i class="fa-solid fa-business-time"></i> أوقات العمل: ${escapeHtml(workingHours.open)} — ${escapeHtml(workingHours.close)}</span>`;
+        }
+        if(vacation.enabled && vacation.startDate && vacation.endDate){
+            extraInfo += `<span class="doctor-vacation"><i class="fa-solid fa-umbrella-beach"></i> عطلة الطبيب: ${escapeHtml(vacation.startDate)} إلى ${escapeHtml(vacation.endDate)}</span>`;
+        }
+
+        doctorInfo.innerHTML = `
             <strong>
                 <i class="fa-solid fa-user-doctor"></i>
                 ${escapeHtml(selectedDoctor.name)}
             </strong>
-
-            <span>
-                ${escapeHtml(selectedDoctor.specialty || "طبيب")}
-                ${selectedDoctor.consultationDuration
-                    ? ` • مدة الكشف ${selectedDoctor.consultationDuration} دقيقة`
-                    : ""}
-            </span>
-
+            <span><i class="fa-solid fa-stethoscope"></i> ${escapeHtml(selectedDoctor.specialty || "طبيب")}</span>
+            ${extraInfo}
         `;
 
         doctorInfo.classList.add("show");
@@ -1629,6 +1653,8 @@ async function createAppointment(){
 
         currentBookingNumber = String(bookingNumber);
 
+        localStorage.setItem("tabibkPatientPhone", patientPhone);
+
         localStorage.setItem(
             "tabibkBookingNumber",
             currentBookingNumber
@@ -1667,8 +1693,9 @@ async function createAppointment(){
             block:"center"
         });
 
-        // Start polling only after a confirmed booking number exists.
+        // Start appointment tracking + dedicated patient notification channel.
         startTracking();
+        startPatientNotificationMonitor();
 
     }catch(error){
         console.error("CREATE APPOINTMENT ERROR:", error);
@@ -2530,7 +2557,185 @@ function hideAlert(id){
 }
 
 
-/* ===================================================== BROWSER NOTIFICATIONS ===================================================== */ async function requestNotificationPermission(){ if(!("Notification" in window)){ return false; } try{ if(Notification.permission === "granted"){ return true; } if(Notification.permission === "default"){ const permission = await Notification.requestPermission(); return permission === "granted"; } return false; }catch(error){ console.log( "Notification permission error:", error ); return false; } } async function sendBrowserNotification( title, body ){ if(!("Notification" in window)){ return; } try{ let permission = Notification.permission; if(permission === "default"){ permission = await Notification.requestPermission(); } if(permission !== "granted"){ console.log( "Browser notification permission:", permission ); return; } new Notification( title, { body: body, icon: "/favicon.ico", badge: "/favicon.ico", tag: "tabibk-appointment", renotify: true, requireInteraction: true } ); }catch(error){ console.log( "Browser notification error:", error ); } } /* ===================================================== SOUND ===================================================== */ function playNotificationSound(){ try{ const AudioContext = window.AudioContext || window.webkitAudioContext; if(!AudioContext){ return; } const context = new AudioContext(); const oscillator = context.createOscillator(); const gain = context.createGain(); oscillator.type = "sine"; oscillator.frequency.value = 880; gain.gain.setValueAtTime( .0001, context.currentTime ); gain.gain.exponentialRampToValueAtTime( .15, context.currentTime + .03 ); gain.gain.exponentialRampToValueAtTime( .0001, context.currentTime + .45 ); oscillator.connect( gain ); gain.connect( context.destination ); oscillator.start(); oscillator.stop( context.currentTime + .5 ); }catch(error){ console.log( "Audio blocked:", error ); } }
+/* =====================================================
+   PROFESSIONAL PATIENT NOTIFICATIONS
+   ===================================================== */
+
+function ensurePatientNotificationUI(){
+    if(document.getElementById("tabibkPatientToast")){ return; }
+
+    const style = document.createElement("style");
+    style.id = "tabibkPatientNotificationStyle";
+    style.textContent = `
+        #tabibkPatientToast{position:fixed;top:18px;left:50%;transform:translate(-50%,-150%);width:min(92vw,430px);z-index:99999;background:linear-gradient(135deg,#2b0b3d,#4a155f);color:#fff;border:1px solid rgba(233,196,93,.75);border-radius:18px;padding:14px 16px;box-shadow:0 14px 40px rgba(43,11,61,.30);transition:transform .35s ease,opacity .35s ease;opacity:0;direction:rtl;font-family:Cairo,Arial,sans-serif}
+        #tabibkPatientToast.show{transform:translate(-50%,0);opacity:1}
+        #tabibkPatientToast .t-row{display:flex;gap:12px;align-items:flex-start}
+        #tabibkPatientToast .t-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:rgba(233,196,93,.16);color:#e9c45d;font-size:20px;flex:0 0 42px}
+        #tabibkPatientToast .t-title{font-weight:800;font-size:15px;margin-bottom:3px}
+        #tabibkPatientToast .t-body{font-size:13px;line-height:1.65;opacity:.95}
+        #tabibkPatientToast .t-close{margin-right:auto;background:none;border:0;color:#fff;opacity:.7;font-size:18px;cursor:pointer;padding:0 4px}
+    `;
+    document.head.appendChild(style);
+
+    const toast = document.createElement("div");
+    toast.id = "tabibkPatientToast";
+    toast.innerHTML = `<div class="t-row"><div class="t-icon"><i class="fa-solid fa-bell"></i></div><div style="flex:1;min-width:0"><div class="t-title" id="tabibkPatientToastTitle">إشعار طبيبك</div><div class="t-body" id="tabibkPatientToastBody"></div></div><button class="t-close" type="button" aria-label="إغلاق">×</button></div>`;
+    document.body.appendChild(toast);
+    toast.querySelector(".t-close").onclick = () => toast.classList.remove("show");
+}
+
+function showPatientNotification(title, body, type="success"){
+    ensurePatientNotificationUI();
+    const toast = document.getElementById("tabibkPatientToast");
+    document.getElementById("tabibkPatientToastTitle").textContent = title || "إشعار طبيبك";
+    document.getElementById("tabibkPatientToastBody").textContent = body || "تم تحديث موعدك.";
+    toast.querySelector(".t-icon i").className = type === "error" ? "fa-solid fa-circle-xmark" : "fa-solid fa-bell";
+    toast.classList.add("show");
+    clearTimeout(window.tabibkToastTimer);
+    window.tabibkToastTimer = setTimeout(() => toast.classList.remove("show"), 9000);
+}
+
+async function requestNotificationPermission(){
+    if(!("Notification" in window)){ return false; }
+    try{
+        if(Notification.permission === "granted"){ return true; }
+        if(Notification.permission === "default"){
+            return (await Notification.requestPermission()) === "granted";
+        }
+    }catch(error){ console.log("Notification permission error:", error); }
+    return false;
+}
+
+async function sendBrowserNotification(title, body){
+    if(!("Notification" in window)){ return; }
+    try{
+        let permission = Notification.permission;
+        if(permission === "default"){ permission = await Notification.requestPermission(); }
+        if(permission !== "granted"){ return; }
+        new Notification(title || "TABIBK", {body:body || "تم تحديث موعدك.",icon:"/favicon.ico",badge:"/favicon.ico",tag:"tabibk-patient-notification",renotify:true,requireInteraction:true});
+    }catch(error){ console.log("Browser notification error:", error); }
+}
+
+function prepareNotificationAudio(){
+    try{
+        if(!notificationAudio){
+            notificationAudio = new Audio("/TABIBK_notification.wav");
+            notificationAudio.preload = "auto";
+            notificationAudio.volume = 0.9;
+        }
+        notificationAudio.load();
+    }catch(error){ console.log("Notification audio prepare error:", error); }
+}
+
+function playNotificationSound(){
+    try{
+        if(!notificationAudio){ prepareNotificationAudio(); }
+        if(notificationAudio){
+            notificationAudio.currentTime = 0;
+            const promise = notificationAudio.play();
+            if(promise && typeof promise.catch === "function"){
+                promise.catch(() => playNotificationFallback());
+            }
+            return;
+        }
+    }catch(error){ console.log("Notification audio error:", error); }
+    playNotificationFallback();
+}
+
+function playNotificationFallback(){
+    try{
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if(!AudioContext){ return; }
+        const context = new AudioContext();
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(880, context.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(660, context.currentTime + .18);
+        gain.gain.setValueAtTime(.0001, context.currentTime);
+        gain.gain.exponentialRampToValueAtTime(.18, context.currentTime + .03);
+        gain.gain.exponentialRampToValueAtTime(.0001, context.currentTime + .55);
+        oscillator.connect(gain); gain.connect(context.destination);
+        oscillator.start(); oscillator.stop(context.currentTime + .6);
+    }catch(error){ console.log("Audio fallback blocked:", error); }
+}
+
+function normalizeClientPhone(phone){
+    return String(phone || "").trim().replace(/[\s\-().]/g, "");
+}
+
+function notificationMatchesActivePatient(notification){
+    const patientPhone = normalizeClientPhone(getStoredPatientPhone());
+    const notificationPhone = normalizeClientPhone(notification?.patientPhone);
+    return !!patientPhone && !!notificationPhone && patientPhone === notificationPhone;
+}
+
+async function checkPatientNotifications(){
+    const patientPhone = getStoredPatientPhone();
+    if(!patientPhone || notificationRequestInFlight){ return; }
+    notificationRequestInFlight = true;
+    try{
+        const response = await fetch(`${API}/api/patient/notifications?phone=${encodeURIComponent(patientPhone)}&_=${Date.now()}`,{headers:{"Accept":"application/json"},cache:"no-store"});
+        if(!response.ok){ return; }
+        const data = await response.json();
+        if(!data.success || !Array.isArray(data.notifications)){ return; }
+
+        const notifications = data.notifications.filter(notificationMatchesActivePatient).sort((a,b)=>Number(a.id||0)-Number(b.id||0));
+        if(!notifications.length){ return; }
+
+        const newestId = Math.max(...notifications.map(n=>Number(n.id)||0));
+        const cursor = Number(lastPatientNotificationId || 0);
+
+        // Initial sync: do not replay old notifications from previous sessions.
+        if(cursor === 0){
+            lastPatientNotificationId = newestId;
+            localStorage.setItem("tabibkLastPatientNotificationId",String(newestId));
+            return;
+        }
+
+        const newNotifications = notifications.filter(n=>Number(n.id||0)>cursor);
+        for(const notification of newNotifications){
+            const type = String(notification.type || "");
+            const title = notification.title || "تحديث موعد TABIBK";
+            const message = notification.message || "تم تحديث موعدك.";
+            const relevant = ["appointment_confirmed","appointment_accepted","appointment_rejected","appointment_completed","appointment_started","appointment_cancelled"].includes(type) || /موعد|حجز|تأكيد|رفض|إنهاء|دورك/.test(`${title} ${message}`);
+            if(!relevant){ continue; }
+
+            const errorType = /رفض|إلغاء/.test(`${title} ${message}`) ? "error" : "success";
+            showPatientNotification(title,message,errorType);
+            playNotificationSound();
+            sendBrowserNotification(title,message);
+
+            fetch(`${API}/api/patient/notifications/${encodeURIComponent(notification.id)}/read`,{
+                method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({phone:patientPhone})
+            }).catch(()=>{});
+        }
+
+        lastPatientNotificationId = newestId;
+        localStorage.setItem("tabibkLastPatientNotificationId",String(newestId));
+    }catch(error){
+        console.log("TABIBK patient notification error:",error);
+    }finally{
+        notificationRequestInFlight = false;
+    }
+}
+
+function startPatientNotificationMonitor(){
+    if(patientNotificationTimer){ clearInterval(patientNotificationTimer); }
+    checkPatientNotifications();
+    patientNotificationTimer = setInterval(()=>{
+        if(document.visibilityState === "visible"){ checkPatientNotifications(); }
+    },2500);
+}
+
+function stopPatientNotificationMonitor(){
+    if(patientNotificationTimer){ clearInterval(patientNotificationTimer); patientNotificationTimer=null; }
+}
+
+document.addEventListener("visibilitychange",()=>{
+    if(document.visibilityState === "visible"){ checkPatientNotifications(); }
+});
+
 /* =====================================================
    ESCAPE HTML
    ===================================================== */
@@ -2586,6 +2791,9 @@ window.addEventListener(
     }
 );
 
+
+// Prime the notification audio after the first user gesture.
+document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true,passive:true});
 </script>
 
 </body>

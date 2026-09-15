@@ -5,45 +5,24 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
->
+<meta name="theme-color" content="#241035">
 
-<meta
-name="theme-color"
-content="#2b0b3d"
-
->
-
-<meta
-name="description"
-content="طبيبك TABIBK - حجز ومتابعة المواعيد الطبية"
-
->
+<meta name="description" content="طبيبك TABIBK - حجز ومتابعة المواعيد الطبية">
 
 <title>طبيبك | TABIBK</title>
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
+href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
 
 <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
->
-
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 >
 
 <style>
@@ -64,15 +43,14 @@ html{
 }
 
 body{
-    width:100%;
     min-height:100%;
     min-height:100dvh;
 
     font-family:Cairo,sans-serif;
 
-    color:#ffffff;
+    background:#241035;
 
-    background:#2b0b3d;
+    color:#ffffff;
 
     overflow-x:hidden;
 }
@@ -84,34 +62,32 @@ body{
 
 :root{
 
-    --purple-deep:#1b0827;
-    --purple-dark:#2b0b3d;
-    --purple-950:#351047;
-    --purple-900:#43145c;
-    --purple-800:#54186f;
-    --purple-700:#672083;
-    --purple:#762c92;
+    --purple-deep:#180620;
+    --purple-dark:#241035;
+    --purple-950:#2b0b3d;
+    --purple-900:#351047;
+    --purple-800:#43145c;
+    --purple-700:#54186f;
+    --purple:#6d238b;
     --purple-light:#8d4baa;
 
-    --gold-dark:#8d6519;
-    --gold:#bd902d;
-    --gold-light:#e1bc5a;
-    --gold-bright:#f0d57c;
+    --gold-dark:#866016;
+    --gold:#b88928;
+    --gold-light:#dfbb59;
+    --gold-bright:#f0d77f;
 
-    --white:#ffffff;
-    --white-soft:#f8f4fb;
+    --silver:#bfc2c7;
+    --silver-light:#e7e8eb;
+    --silver-dark:#777b84;
 
-    --text-dark:#28152f;
-    --muted:#c8b9cf;
-
-    --green:#28b878;
+    --text:#ffffff;
+    --muted:#c7bdcd;
 
     --shadow:
-        0 22px 60px rgba(12,3,20,.35);
+        0 20px 55px rgba(5,2,10,.42);
 
     --shadow-hover:
-        0 30px 75px rgba(12,3,20,.55);
-
+        0 28px 70px rgba(5,2,10,.58);
 }
 
 
@@ -124,6 +100,7 @@ body{
     position:relative;
 
     width:100%;
+
     min-height:100dvh;
 
     overflow:hidden;
@@ -131,36 +108,41 @@ body{
     background:
 
         radial-gradient(
-            circle at 8% 8%,
-            rgba(225,188,90,.16),
+            circle at 12% 5%,
+            rgba(223,187,89,.13),
             transparent 24%
         ),
 
         radial-gradient(
-            circle at 92% 15%,
-            rgba(141,75,170,.22),
+            circle at 88% 8%,
+            rgba(141,75,170,.25),
             transparent 28%
         ),
 
         radial-gradient(
-            circle at 50% 100%,
-            rgba(118,44,146,.24),
-            transparent 38%
+            circle at 48% 50%,
+            rgba(191,194,199,.045),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 92%,
+            rgba(223,187,89,.09),
+            transparent 26%
         ),
 
         linear-gradient(
             135deg,
-            #1b0827 0%,
-            #2b0b3d 38%,
-            #351047 68%,
-            #210a2f 100%
+            #180620 0%,
+            #241035 30%,
+            #321047 58%,
+            #21102c 100%
         );
-
 }
 
 
 /* =========================================================
-   DECORATIVE MEDICAL BACKGROUND
+   SILVER DECORATIVE CIRCLES
 ========================================================= */
 
 .page::before{
@@ -169,29 +151,28 @@ body{
 
     position:absolute;
 
-    width:620px;
-    height:620px;
+    width:650px;
+    height:650px;
 
-    top:-340px;
-    left:-220px;
+    top:-390px;
+    left:-250px;
 
     border-radius:50%;
 
     border:
-        1px solid rgba(225,188,90,.14);
+        1px solid rgba(231,232,235,.13);
 
     box-shadow:
 
-        0 0 0 45px rgba(225,188,90,.025),
+        0 0 0 45px rgba(191,194,199,.025),
 
-        0 0 0 90px rgba(141,75,170,.035),
+        0 0 0 90px rgba(223,187,89,.025),
 
-        0 0 0 145px rgba(225,188,90,.018),
+        0 0 0 145px rgba(141,75,170,.025),
 
-        0 0 0 200px rgba(141,75,170,.012);
+        0 0 0 205px rgba(191,194,199,.015);
 
     pointer-events:none;
-
 }
 
 
@@ -201,32 +182,31 @@ body{
 
     position:absolute;
 
-    width:520px;
-    height:520px;
+    width:570px;
+    height:570px;
 
-    right:-250px;
-    bottom:-300px;
+    right:-280px;
+    bottom:-330px;
 
     border-radius:50%;
 
     border:
-        1px solid rgba(225,188,90,.13);
+        1px solid rgba(223,187,89,.14);
 
     box-shadow:
 
-        0 0 0 55px rgba(225,188,90,.025),
+        0 0 0 50px rgba(223,187,89,.025),
 
-        0 0 0 110px rgba(141,75,170,.03),
+        0 0 0 105px rgba(191,194,199,.025),
 
-        0 0 0 170px rgba(225,188,90,.012);
+        0 0 0 165px rgba(141,75,170,.018);
 
     pointer-events:none;
-
 }
 
 
 /* =========================================================
-   MEDICAL ECG DECORATION
+   MEDICAL BACKGROUND
 ========================================================= */
 
 .medical-pattern{
@@ -237,12 +217,12 @@ body{
 
     pointer-events:none;
 
-    opacity:.13;
-
-    overflow:hidden;
+    opacity:.11;
 
 }
 
+
+/* ECG LINE */
 
 .medical-pattern::before{
 
@@ -251,62 +231,67 @@ body{
     position:absolute;
 
     left:-5%;
-
     right:-5%;
 
-    top:48%;
+    top:50%;
 
-    height:120px;
+    height:100px;
 
     background:
 
         linear-gradient(
             90deg,
             transparent 0%,
-            transparent 12%,
-            rgba(225,188,90,.55) 12.2%,
-            transparent 12.4%,
-            transparent 30%,
-            rgba(225,188,90,.65) 30.2%,
-            rgba(225,188,90,.65) 30.35%,
-            transparent 30.5%,
+            transparent 13%,
+            rgba(223,187,89,.8) 13.2%,
+            transparent 13.4%,
+            transparent 29%,
+            rgba(191,194,199,.8) 29.2%,
+            transparent 29.4%,
             transparent 42%,
-            rgba(225,188,90,.75) 42.2%,
+            rgba(223,187,89,.8) 42.2%,
             transparent 42.4%,
+            transparent 61%,
+            rgba(191,194,199,.7) 61.2%,
+            transparent 61.4%,
             transparent 100%
         );
 
     clip-path:
-        polygon(
-            0 55%,
-            15% 55%,
-            17% 55%,
-            18% 45%,
-            19% 55%,
-            35% 55%,
-            37% 55%,
-            38% 25%,
-            39% 80%,
-            40% 55%,
-            55% 55%,
-            57% 55%,
-            58% 40%,
-            59% 55%,
-            75% 55%,
-            77% 55%,
-            78% 30%,
-            79% 75%,
-            80% 55%,
-            100% 55%,
-            100% 58%,
-            0 58%
-        );
 
+        polygon(
+            0 53%,
+            14% 53%,
+            16% 53%,
+            17% 40%,
+            18% 53%,
+            29% 53%,
+            32% 53%,
+            34% 18%,
+            35% 82%,
+            36% 53%,
+            42% 53%,
+            45% 53%,
+            47% 35%,
+            48% 53%,
+            61% 53%,
+            64% 53%,
+            66% 22%,
+            67% 80%,
+            68% 53%,
+            82% 53%,
+            84% 53%,
+            86% 39%,
+            87% 53%,
+            100% 53%,
+            100% 57%,
+            0 57%
+        );
 }
 
 
 /* =========================================================
-   MAIN SHELL
+   SHELL
 ========================================================= */
 
 .shell{
@@ -322,10 +307,9 @@ body{
     margin:auto;
 
     padding:
-        20px
+        18px
         24px
-        18px;
-
+        15px;
 }
 
 
@@ -341,29 +325,27 @@ body{
 
     justify-content:space-between;
 
-    gap:20px;
-
     padding:
-        11px
+        10px
         14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(68,20,91,.90),
-            rgba(35,8,50,.90)
-        );
-
-    border:
-        1px solid rgba(225,188,90,.24);
 
     border-radius:20px;
 
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(62,18,82,.94),
+            rgba(22,6,31,.94)
+        );
+
+    border:
+        1px solid rgba(223,187,89,.24);
+
     box-shadow:
-        0 14px 40px rgba(10,2,16,.28);
+        0 14px 40px rgba(5,2,10,.35);
 
     backdrop-filter:blur(20px);
-
 }
 
 
@@ -379,10 +361,9 @@ body{
 
     gap:12px;
 
-    color:#ffffff;
-
     text-decoration:none;
 
+    color:#ffffff;
 }
 
 
@@ -396,8 +377,6 @@ body{
     align-items:center;
     justify-content:center;
 
-    flex-shrink:0;
-
     border-radius:15px;
 
     color:#ffffff;
@@ -408,19 +387,18 @@ body{
 
         linear-gradient(
             145deg,
-            #8d4baa,
-            #32104f
+            #9250ad,
+            #2b0b3d
         );
 
     border:
-        2px solid rgba(225,188,90,.72);
+        2px solid var(--gold-light);
 
     box-shadow:
 
-        0 8px 25px rgba(118,44,146,.38),
+        0 8px 24px rgba(109,35,139,.35),
 
-        inset 0 1px 0 rgba(255,255,255,.20);
-
+        inset 0 1px 0 rgba(255,255,255,.25);
 }
 
 
@@ -433,9 +411,6 @@ body{
     line-height:1.1;
 
     font-weight:900;
-
-    color:#ffffff;
-
 }
 
 
@@ -445,14 +420,13 @@ body{
 
     margin-top:3px;
 
+    color:var(--gold-light);
+
     font-size:8px;
 
     letter-spacing:3px;
 
     font-weight:900;
-
-    color:var(--gold-light);
-
 }
 
 
@@ -474,17 +448,20 @@ body{
 
     border-radius:12px;
 
-    border:
-        1px solid rgba(225,188,90,.22);
-
     background:
-        rgba(255,255,255,.055);
+        linear-gradient(
+            145deg,
+            rgba(231,232,235,.08),
+            rgba(255,255,255,.025)
+        );
 
-    color:#eadbf0;
+    border:
+        1px solid rgba(191,194,199,.18);
+
+    color:var(--silver-light);
 
     font:
         700 11px Cairo;
-
 }
 
 
@@ -497,10 +474,9 @@ body{
     text-align:center;
 
     padding:
-        25px
+        21px
         0
-        17px;
-
+        14px;
 }
 
 
@@ -512,32 +488,32 @@ body{
 
     position:relative;
 
-    width:88px;
-    height:88px;
+    width:82px;
+    height:82px;
 
     margin:
         0
         auto
-        10px;
+        8px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    border-radius:27px;
+    border-radius:26px;
 
     color:#ffffff;
 
-    font-size:38px;
+    font-size:35px;
 
     background:
 
         linear-gradient(
             145deg,
-            #8d4baa 0%,
-            #5a1b72 42%,
-            #2b0b3d 100%
+            #9a5ab5 0%,
+            #54186f 48%,
+            #241035 100%
         );
 
     border:
@@ -545,12 +521,11 @@ body{
 
     box-shadow:
 
-        0 18px 45px rgba(8,2,14,.42),
+        0 18px 45px rgba(5,2,10,.45),
 
-        0 0 0 7px rgba(225,188,90,.06),
+        0 0 0 7px rgba(223,187,89,.055),
 
-        inset 0 1px 0 rgba(255,255,255,.22);
-
+        inset 0 1px 0 rgba(255,255,255,.24);
 }
 
 
@@ -562,11 +537,10 @@ body{
 
     inset:7px;
 
-    border-radius:20px;
+    border-radius:19px;
 
     border:
-        1px solid rgba(255,255,255,.18);
-
+        1px solid rgba(231,232,235,.25);
 }
 
 
@@ -587,12 +561,17 @@ body{
     background:var(--gold-bright);
 
     box-shadow:
-        0 0 0 5px rgba(225,188,90,.09);
-
+        0 0 0 5px rgba(223,187,89,.08);
 }
 
 
+/* =========================================================
+   HERO TEXT
+========================================================= */
+
 .hero h1{
+
+    color:#ffffff;
 
     font-size:38px;
 
@@ -600,11 +579,8 @@ body{
 
     font-weight:900;
 
-    color:#ffffff;
-
     text-shadow:
-        0 4px 20px rgba(0,0,0,.25);
-
+        0 4px 20px rgba(0,0,0,.3);
 }
 
 
@@ -612,29 +588,31 @@ body{
 
     margin-top:1px;
 
+    color:var(--gold-light);
+
     font-size:11px;
 
     letter-spacing:6px;
 
     font-weight:900;
-
-    color:var(--gold-light);
-
 }
 
 
 .hero p{
 
-    margin-top:6px;
+    margin-top:5px;
 
-    color:#d7c8df;
+    color:var(--silver-light);
 
     font-size:13px;
 
     font-weight:600;
-
 }
 
+
+/* =========================================================
+   TAG
+========================================================= */
 
 .tag{
 
@@ -644,26 +622,30 @@ body{
 
     gap:8px;
 
-    margin-top:9px;
+    margin-top:8px;
 
     padding:
         6px
-        12px;
+        13px;
 
     border-radius:999px;
 
-    border:
-        1px solid rgba(225,188,90,.18);
-
     background:
-        rgba(225,188,90,.055);
 
-    color:#dbcce2;
+        linear-gradient(
+            135deg,
+            rgba(231,232,235,.07),
+            rgba(223,187,89,.05)
+        );
+
+    border:
+        1px solid rgba(191,194,199,.18);
+
+    color:#d9d1df;
 
     font-size:9px;
 
     font-weight:700;
-
 }
 
 
@@ -672,15 +654,12 @@ body{
     width:6px;
     height:6px;
 
-    flex-shrink:0;
-
     border-radius:50%;
 
-    background:#37c987;
+    background:#31c984;
 
     box-shadow:
-        0 0 0 5px rgba(55,201,135,.08);
-
+        0 0 0 5px rgba(49,201,132,.08);
 }
 
 
@@ -695,41 +674,38 @@ body{
     grid-template-columns:
         repeat(3,1fr);
 
-    gap:15px;
+    gap:16px;
 
     width:100%;
 
     max-width:1020px;
 
     margin:
-        3px
+        5px
         auto
         0;
-
 }
 
 
 /* =========================================================
-   ROLE CARD BASE
+   ROLE CARD
 ========================================================= */
 
 .role{
 
     position:relative;
 
-    min-height:190px;
+    min-height:185px;
 
     display:flex;
 
-    flex-direction:column;
+    align-items:center;
 
-    align-items:flex-start;
-
-    justify-content:center;
+    gap:22px;
 
     padding:
-        22px
-        20px;
+        20px
+        22px;
 
     overflow:hidden;
 
@@ -740,26 +716,27 @@ body{
     border-radius:23px;
 
     border:
-        1px solid rgba(225,188,90,.20);
+        1px solid rgba(191,194,199,.16);
 
     background:
 
         linear-gradient(
             145deg,
-            rgba(82,24,111,.96),
-            rgba(35,8,50,.98)
+            rgba(77,24,101,.98),
+            rgba(28,8,40,.99)
         );
 
     box-shadow:
-        0 18px 45px rgba(8,2,14,.32);
+        var(--shadow);
 
     transition:
         transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
-
+        box-shadow .25s ease,
+        border-color .25s ease;
 }
 
+
+/* metallic highlight */
 
 .role::before{
 
@@ -767,23 +744,23 @@ body{
 
     position:absolute;
 
-    width:220px;
-    height:220px;
-
-    left:-120px;
-    top:-145px;
-
-    border-radius:50%;
+    inset:0;
 
     background:
-        radial-gradient(
-            circle,
-            rgba(225,188,90,.14),
-            transparent 68%
+
+        linear-gradient(
+            120deg,
+            rgba(231,232,235,.06),
+            transparent 30%,
+            transparent 70%,
+            rgba(223,187,89,.055)
         );
 
+    pointer-events:none;
 }
 
+
+/* decorative circle */
 
 .role::after{
 
@@ -791,38 +768,40 @@ body{
 
     position:absolute;
 
-    width:120px;
-    height:120px;
+    width:130px;
+    height:130px;
 
-    right:-60px;
-    bottom:-65px;
+    right:-70px;
+    bottom:-70px;
 
     border-radius:50%;
 
     border:
-        1px solid rgba(225,188,90,.13);
+        1px solid rgba(223,187,89,.16);
 
     box-shadow:
-        0 0 0 22px rgba(225,188,90,.018);
-
+        0 0 0 22px rgba(191,194,199,.018);
 }
 
+
+/* =========================================================
+   CARD HOVER
+========================================================= */
 
 .role:hover{
 
     transform:translateY(-6px);
 
     border-color:
-        rgba(225,188,90,.65);
+        rgba(223,187,89,.58);
 
     box-shadow:
-        0 28px 60px rgba(8,2,14,.50);
-
+        var(--shadow-hover);
 }
 
 
 /* =========================================================
-   ROLE ICON
+   ICON
 ========================================================= */
 
 .role-icon{
@@ -831,196 +810,207 @@ body{
 
     z-index:2;
 
-    width:58px;
-    height:58px;
+    flex:
+        0 0 62px;
+
+    width:62px;
+    height:62px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    margin-bottom:12px;
-
     border-radius:18px;
 
-    font-size:23px;
+    font-size:25px;
 
     color:#ffffff;
 
     border:
-        1px solid rgba(255,255,255,.20);
+        1px solid rgba(231,232,235,.25);
 
     box-shadow:
-        0 10px 25px rgba(0,0,0,.22);
-
+        0 12px 28px rgba(0,0,0,.28);
 }
 
 
-/* PATIENT */
+/* =========================================================
+   PATIENT CARD
+========================================================= */
 
 .patient{
 
     background:
+
         linear-gradient(
             145deg,
-            #54186f,
-            #240b33
+            #55186f,
+            #260b36
         );
-
 }
 
 
 .patient .role-icon{
 
     background:
+
         linear-gradient(
             145deg,
-            #d8ad45,
-            #815b14
+            #e0bc5d,
+            #886117
         );
-
 }
 
 
-/* DOCTOR */
+/* =========================================================
+   DOCTOR CARD
+========================================================= */
 
 .doctor{
 
     background:
+
         linear-gradient(
             145deg,
-            #64207f,
+            #68217f,
             #291037
         );
 
+    border-color:
+        rgba(141,75,170,.32);
 }
 
 
 .doctor .role-icon{
 
     background:
+
         linear-gradient(
             145deg,
-            #9a5ab6,
-            #54186f
+            #a36bc0,
+            #57196f
         );
-
 }
 
 
-/* ADMIN */
+/* =========================================================
+   ADMIN CARD
+========================================================= */
 
 .admin{
 
     background:
+
         linear-gradient(
             145deg,
-            #49300c,
-            #26102f 68%
+            #4b3210,
+            #28102f
         );
 
     border-color:
-        rgba(225,188,90,.38);
-
+        rgba(223,187,89,.38);
 }
 
 
 .admin .role-icon{
 
     background:
+
         linear-gradient(
             145deg,
-            #f0d57c,
-            #9b701d
+            #f0d77f,
+            #99701d
         );
 
-    color:#2b0b3d;
-
+    color:#28102f;
 }
 
 
 /* =========================================================
-   ROLE TEXT
+   CARD CONTENT
 ========================================================= */
 
-.role h2{
+.role > div:not(.role-icon):not(.arrow){
 
     position:relative;
 
     z-index:2;
 
-    font-size:19px;
+    min-width:0;
 
-    line-height:1.3;
+    padding-right:2px;
+}
 
-    font-weight:900;
+
+.role h2{
+
+    margin:0;
 
     color:#ffffff;
 
+    font-size:19px;
+
+    line-height:1.35;
+
+    font-weight:900;
+
+    white-space:nowrap;
 }
 
 
 .role p{
 
-    position:relative;
+    max-width:220px;
 
-    z-index:2;
+    margin-top:7px;
 
-    max-width:245px;
-
-    margin-top:5px;
-
-    color:#cdbed4;
+    color:var(--silver-light);
 
     font-size:10px;
 
-    line-height:1.75;
+    line-height:1.8;
 
     font-weight:500;
-
 }
 
 
 /* =========================================================
-   ROLE ARROW
+   ARROW
 ========================================================= */
 
 .role .arrow{
 
     position:absolute;
 
-    z-index:3;
+    z-index:4;
 
-    left:17px;
-    bottom:17px;
+    left:16px;
+    bottom:15px;
 
-    width:32px;
-    height:32px;
+    width:31px;
+    height:31px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    border-radius:11px;
+    border-radius:10px;
 
     color:var(--gold-light);
 
     background:
-        rgba(225,188,90,.075);
+        rgba(223,187,89,.065);
 
     border:
-        1px solid rgba(225,188,90,.18);
+        1px solid rgba(223,187,89,.20);
 
-    transition:
-        .25s ease;
-
+    transition:.25s ease;
 }
 
 
 .role:hover .arrow{
-
-    color:#2b0b3d;
 
     background:
         linear-gradient(
@@ -1029,9 +1019,9 @@ body{
             var(--gold)
         );
 
-    transform:
-        translateX(-4px);
+    color:#28102f;
 
+    transform:translateX(-4px);
 }
 
 
@@ -1053,16 +1043,15 @@ body{
     max-width:1020px;
 
     margin:
-        14px
+        13px
         auto
         0;
-
 }
 
 
 .feature{
 
-    min-height:58px;
+    min-height:53px;
 
     display:flex;
 
@@ -1072,25 +1061,27 @@ body{
 
     gap:8px;
 
-    padding:
-        9px
-        10px;
+    padding:8px;
 
     border-radius:15px;
 
     background:
-        rgba(255,255,255,.045);
+
+        linear-gradient(
+            145deg,
+            rgba(231,232,235,.055),
+            rgba(255,255,255,.018)
+        );
 
     border:
-        1px solid rgba(225,188,90,.11);
+        1px solid rgba(191,194,199,.13);
 
-    color:#d9cce0;
+    color:var(--silver-light);
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,.12);
+        0 8px 25px rgba(0,0,0,.14);
 
     transition:.25s;
-
 }
 
 
@@ -1099,11 +1090,7 @@ body{
     transform:translateY(-3px);
 
     border-color:
-        rgba(225,188,90,.30);
-
-    background:
-        rgba(225,188,90,.055);
-
+        rgba(223,187,89,.30);
 }
 
 
@@ -1112,18 +1099,16 @@ body{
     color:var(--gold-light);
 
     font-size:15px;
-
 }
 
 
 .feature span{
 
-    color:#d9cce0;
+    color:#d5cbd9;
 
     font-size:9px;
 
     font-weight:800;
-
 }
 
 
@@ -1133,21 +1118,19 @@ body{
 
 .footer{
 
-    margin-top:12px;
+    margin-top:10px;
 
     text-align:center;
 
-    color:#96849e;
+    color:#887a90;
 
-    font-size:9px;
-
+    font-size:8px;
 }
 
 
 .footer b{
 
     color:var(--gold-light);
-
 }
 
 
@@ -1160,119 +1143,84 @@ body{
     .shell{
 
         padding:
-            14px
+            13px
             15px
-            14px;
-
+            13px;
     }
 
 
     .hero{
 
-        padding-top:18px;
-
+        padding-top:17px;
     }
 
 
     .hero-logo{
 
-        width:76px;
-        height:76px;
+        width:75px;
+        height:75px;
 
-        border-radius:23px;
-
-        font-size:32px;
-
-        margin-bottom:7px;
-
+        font-size:31px;
     }
 
 
     .hero h1{
 
         font-size:32px;
-
     }
 
 
     .hero p{
 
         font-size:11px;
-
-    }
-
-
-    .tag{
-
-        font-size:8px;
-
     }
 
 
     .roles{
 
-        gap:10px;
-
+        gap:11px;
     }
 
 
     .role{
 
-        min-height:175px;
+        min-height:170px;
+
+        gap:15px;
 
         padding:
-            18px
-            15px;
-
+            17px
+            14px;
     }
 
 
     .role-icon{
 
-        width:51px;
-        height:51px;
+        flex-basis:52px;
 
-        border-radius:16px;
+        width:52px;
+        height:52px;
 
-        font-size:20px;
-
-        margin-bottom:9px;
-
+        font-size:21px;
     }
 
 
     .role h2{
 
         font-size:16px;
-
     }
 
 
     .role p{
 
         font-size:9px;
-
-    }
-
-
-    .features{
-
-        margin-top:10px;
-
-    }
-
-
-    .feature{
-
-        min-height:50px;
-
     }
 
 }
 
 
 /* =========================================================
-   PHONE
+   MOBILE
 ========================================================= */
 
 @media(max-width:600px){
@@ -1280,14 +1228,6 @@ body{
     body{
 
         overflow:auto;
-
-    }
-
-
-    .page{
-
-        min-height:100dvh;
-
     }
 
 
@@ -1296,56 +1236,50 @@ body{
         min-height:100dvh;
 
         padding:
+            9px
             10px
-            11px
-            15px;
-
+            13px;
     }
 
 
     .topbar{
 
+        border-radius:16px;
+
         padding:
             8px
             10px;
-
-        border-radius:16px;
-
     }
 
 
     .logo{
 
-        width:41px;
-        height:41px;
+        width:40px;
+        height:40px;
 
-        border-radius:13px;
+        border-radius:12px;
 
-        font-size:18px;
-
+        font-size:17px;
     }
 
 
     .brand{
 
-        gap:9px;
-
+        gap:8px;
     }
 
 
     .brand strong{
 
-        font-size:17px;
-
+        font-size:16px;
     }
 
 
     .brand span{
 
-        font-size:7px;
+        font-size:6px;
 
         letter-spacing:2px;
-
     }
 
 
@@ -1355,163 +1289,150 @@ body{
             6px
             9px;
 
-        font-size:9px;
-
+        font-size:8px;
     }
 
 
     .hero{
 
         padding:
-            15px
+            13px
             0
-            11px;
-
+            9px;
     }
 
 
     .hero-logo{
 
-        width:68px;
-        height:68px;
+        width:65px;
+        height:65px;
 
-        border-radius:20px;
+        border-radius:19px;
 
-        font-size:28px;
+        font-size:27px;
 
+        margin-bottom:6px;
     }
 
 
     .hero h1{
 
-        font-size:29px;
-
+        font-size:28px;
     }
 
 
     .hero .latin{
 
-        font-size:9px;
+        font-size:8px;
 
-        letter-spacing:5px;
-
+        letter-spacing:4px;
     }
 
 
     .hero p{
 
-        margin-top:4px;
-
-        font-size:10px;
-
+        font-size:9px;
     }
 
 
     .tag{
 
-        margin-top:6px;
+        margin-top:5px;
 
         padding:
-            5px
-            9px;
+            4px
+            8px;
 
         font-size:7px;
-
     }
 
+
+    /* cards become compact rows */
 
     .roles{
 
         grid-template-columns:1fr;
 
-        gap:9px;
+        gap:8px;
 
         margin-top:2px;
-
     }
 
 
     .role{
 
-        min-height:118px;
+        min-height:100px;
 
-        flex-direction:row;
-
-        align-items:center;
-
-        justify-content:flex-start;
+        gap:15px;
 
         padding:
-            14px
-            48px
-            14px
-            14px;
+            13px
+            43px
+            13px
+            13px;
 
-        border-radius:18px;
-
+        border-radius:17px;
     }
 
 
     .role-icon{
 
-        width:49px;
-        height:49px;
+        flex:
+            0 0 45px;
 
-        flex-shrink:0;
+        width:45px;
+        height:45px;
 
-        margin:
-            0
-            13px
-            0
-            0;
+        border-radius:14px;
 
-        border-radius:15px;
-
-        font-size:20px;
-
+        font-size:18px;
     }
 
 
     .role h2{
 
-        font-size:15px;
+        font-size:14px;
 
+        white-space:normal;
     }
 
 
     .role p{
 
-        margin-top:3px;
+        max-width:none;
+
+        margin-top:2px;
 
         font-size:8px;
 
-        line-height:1.65;
-
+        line-height:1.6;
     }
 
 
     .role .arrow{
 
-        left:11px;
-        bottom:50%;
+        left:10px;
 
-        transform:translateY(50%);
+        top:50%;
 
-        width:28px;
-        height:28px;
+        bottom:auto;
+
+        width:27px;
+        height:27px;
+
+        transform:
+            translateY(-50%);
 
         border-radius:9px;
 
-        font-size:11px;
-
+        font-size:10px;
     }
 
 
     .role:hover .arrow{
 
         transform:
-            translate(-3px,50%);
-
+            translate(-3px,-50%);
     }
 
 
@@ -1522,42 +1443,37 @@ body{
 
         gap:7px;
 
-        margin-top:9px;
-
+        margin-top:8px;
     }
 
 
     .feature{
 
-        min-height:42px;
+        min-height:40px;
 
-        padding:7px 5px;
+        padding:6px;
 
-        border-radius:12px;
-
+        border-radius:11px;
     }
 
 
     .feature i{
 
-        font-size:12px;
-
+        font-size:11px;
     }
 
 
     .feature span{
 
-        font-size:8px;
-
+        font-size:7.5px;
     }
 
 
     .footer{
 
-        margin-top:9px;
+        margin-top:7px;
 
-        font-size:8px;
-
+        font-size:7px;
     }
 
 }
@@ -1571,49 +1487,47 @@ body{
 
     .hero-logo{
 
-        width:61px;
-        height:61px;
+        width:59px;
+        height:59px;
 
-        font-size:25px;
-
+        font-size:24px;
     }
 
 
     .hero h1{
 
-        font-size:26px;
-
+        font-size:25px;
     }
 
 
     .role{
 
-        min-height:105px;
+        min-height:92px;
 
+        gap:11px;
     }
 
 
     .role-icon{
 
-        width:44px;
-        height:44px;
+        flex-basis:41px;
 
-        font-size:18px;
+        width:41px;
+        height:41px;
 
+        font-size:17px;
     }
 
 
     .role h2{
 
-        font-size:14px;
-
+        font-size:13px;
     }
 
 
     .role p{
 
-        font-size:7.5px;
-
+        font-size:7px;
     }
 
 }
@@ -1643,7 +1557,9 @@ href="/"
 >
 
 <div class="logo">
+
 <i class="fa-solid fa-heart-pulse"></i>
+
 </div>
 
 <div>
@@ -1715,9 +1631,7 @@ TABIBK
     aria-label="اختيار نوع الدخول"
 >
 
-<!-- =====================================================
-     PATIENT
-===================================================== -->
+<!-- PATIENT -->
 
 <a
 class="role patient"
@@ -1751,9 +1665,7 @@ href="/patient.html"
 
 </a>
 
-<!-- =====================================================
-     DOCTOR
-===================================================== -->
+<!-- DOCTOR -->
 
 <a
 class="role doctor"
@@ -1787,9 +1699,7 @@ href="/doctor.html"
 
 </a>
 
-<!-- =====================================================
-     ADMIN
-===================================================== -->
+<!-- ADMIN -->
 
 <a
 class="role admin"
@@ -1875,10 +1785,6 @@ href="/admin.html"
 
 </main>
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
 <footer class="footer">
 
 © 2026
@@ -1898,5 +1804,4 @@ TABIBK
 </div>
 
 </body>
-
 </html>

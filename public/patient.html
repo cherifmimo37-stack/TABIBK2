@@ -1626,12 +1626,35 @@ async function createAppointment(){
         const data = await readJsonResponse(response);
 
         if(!response.ok || !data.success){
-            throw new Error(
-                data.message ||
-                data.error ||
-                "تعذر إنشاء الحجز"
-            );
-        }
+
+    if(data.notification){
+
+        playNotificationSound();
+
+        showAlert(
+            "bookingAlert",
+            data.message ||
+            "الطبيب غير متاح في هذا الوقت.",
+            "error"
+        );
+
+        requestNotificationPermission();
+
+        sendBrowserNotification(
+            "TABIBK",
+            data.message ||
+            "الطبيب غير متاح في هذا الوقت."
+        );
+
+        return;
+    }
+
+    throw new Error(
+        data.message ||
+        data.error ||
+        "تعذر إنشاء الحجز"
+    );
+}
 
         const appointment =
             data.appointment ||
@@ -2219,7 +2242,7 @@ function getStatusData(status){
                 title:"الكشف جارٍ 🟢",
 
                 message:
-                    "الطبيب بدأ الكشف. يرجى التوجه إلى العيادة.",
+                    "الطبيب ينتظرك. يرجى التوجه إلى العيادة.",
 
                 icon:"fa-stethoscope",
 

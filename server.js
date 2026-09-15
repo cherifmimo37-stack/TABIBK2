@@ -2371,12 +2371,14 @@ const appointmentDate =
                 ) {
 
                     return res
-                        .status(400)
-                        .json({
-                            success: false,
-                            message:
-                                "الطبيب لا يعمل في هذا اليوم"
-                        });
+    .status(400)
+    .json({
+        success: false,
+        notification: true,
+        notificationType: "doctor_off_day",
+        message:
+            "الطبيب خارج أوقات العمل في هذا اليوم."
+    });
                 }
 
                 if (
@@ -2391,12 +2393,15 @@ const appointmentDate =
                 ) {
 
                     return res
-                        .status(400)
-                        .json({
-                            success: false,
-                            message:
-                                "الوقت خارج أوقات عمل الطبيب"
-                        });
+    .status(400)
+    .json({
+        success: false,
+        notification: true,
+        notificationType: "doctor_outside_hours",
+        message:
+            "الطبيب خارج أوقات العمل حاليًا، يرجى اختيار وقت آخر."
+    });
+                    
                 }
             }
 
@@ -2430,12 +2435,14 @@ const appointmentDate =
             ) {
 
                 return res
-                    .status(400)
-                    .json({
-                        success: false,
-                        message:
-                            "الطبيب في عطلة خلال هذا التاريخ"
-                    });
+    .status(400)
+    .json({
+        success: false,
+        notification: true,
+        notificationType: "doctor_vacation",
+        message:
+            "الطبيب في عطلة خلال هذا التاريخ، يرجى اختيار تاريخ آخر."
+    });
             }
 
             // ------------------------------------------------

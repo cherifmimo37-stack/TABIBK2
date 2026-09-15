@@ -1966,20 +1966,27 @@ async function trackAppointment(
 
 
         if(
-            previousStatus &&
-            previousStatus !== newStatus
-        ){
+    previousStatus &&
+    previousStatus !== newStatus
+){
+    playNotificationSound();
 
-            playNotificationSound();
+    const notificationMessage =
+        getStatusNotification(newStatus);
 
-            sendBrowserNotification(
-                "تحديث موعد TABIBK",
-                getStatusNotification(
-                    newStatus
-                )
-            );
+    sendBrowserNotification(
+        "تحديث موعد TABIBK",
+        notificationMessage
+    );
 
-        }
+    showAlert(
+        "trackingAlert",
+        notificationMessage,
+        newStatus === "rejected"
+            ? "error"
+            : "success"
+    );
+}
 
 
         previousStatus =

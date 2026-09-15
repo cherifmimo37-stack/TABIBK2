@@ -2,20 +2,20 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<meta name="theme-color" content="#2b0b3d">
-
-<meta name="description"
-      content="طبيبك TABIBK - حجز ومتابعة المواعيد الطبية">
+<meta name="theme-color" content="#17051f">
 
 <title>طبيبك | TABIBK</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet">
@@ -25,780 +25,905 @@
 
 <style>
 
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
 
-html{
-    scroll-behavior:smooth;
+html,
+body{
+    width:100%;
+    min-height:100%;
 }
 
 body{
     font-family:Cairo,sans-serif;
-    min-height:100vh;
-    overflow-x:hidden;
-    background:#2b0b3d;
+    overflow:hidden;
+    background:#17051f;
 }
+
 
 /* =========================================================
    COLORS
 ========================================================= */
 
 :root{
-    --purple-dark:#1d0629;
-    --purple-deep:#2b0b3d;
-    --purple:#42105d;
-    --purple-main:#5b1b78;
-    --purple-light:#78379a;
 
-    --gold-dark:#8e6418;
+    --purple-black:#110317;
+
+    --purple-dark:#17051f;
+
+    --purple-deep:#21072e;
+
+    --purple:#310942;
+
+    --purple-main:#46105c;
+
+    --purple-light:#662078;
+
+    --gold-dark:#8f6317;
+
     --gold:#c79a32;
-    --gold-light:#f0d477;
-    --gold-pale:#fff7dc;
+
+    --gold-light:#f3d875;
+
+    --gold-white:#fff7d8;
 
     --white:#ffffff;
-    --white-soft:#faf8fc;
 
-    --text:#28172f;
-    --muted:#776b7d;
+    --silver:#f5f2f7;
 
-    --green:#27a866;
+    --text:#24142b;
 
-    --shadow:0 25px 70px rgba(29,6,41,.18);
+    --muted:#766a7b;
+
+    --green:#31b978;
+
 }
 
+
 /* =========================================================
-   MAIN PAGE
+   MAIN SCREEN
 ========================================================= */
 
 .page{
-    min-height:100vh;
+
+    width:100vw;
+    height:100vh;
+
+    min-height:560px;
+
     position:relative;
+
     overflow:hidden;
 
+    border:
+        2px solid
+        var(--gold);
+
     background:
+
         radial-gradient(
-            circle at 8% 10%,
-            rgba(199,154,50,.20),
-            transparent 24%
+            circle at 8% 5%,
+            rgba(199,154,50,.16),
+            transparent 22%
         ),
+
         radial-gradient(
-            circle at 92% 12%,
-            rgba(120,55,154,.35),
-            transparent 28%
+            circle at 90% 8%,
+            rgba(102,32,120,.35),
+            transparent 30%
         ),
+
         linear-gradient(
             135deg,
             #ffffff 0%,
-            #faf8fc 48%,
+            #f8f5fa 48%,
             #eee7f2 100%
         );
 
-    border:2px solid var(--gold);
 }
 
-/* subtle purple side glow */
+
+/* =========================================================
+   DARK PURPLE DECOR
+========================================================= */
 
 .page::before{
+
     content:"";
+
     position:absolute;
-    width:520px;
-    height:520px;
+
+    width:500px;
+    height:500px;
+
     border-radius:50%;
 
     top:-330px;
     left:-250px;
 
-    border:1px solid rgba(199,154,50,.25);
+    border:
+        1px solid
+        rgba(199,154,50,.20);
 
     box-shadow:
-        0 0 0 45px rgba(199,154,50,.035),
-        0 0 0 90px rgba(66,16,93,.035),
-        0 0 0 135px rgba(199,154,50,.025);
+
+        0 0 0 45px
+        rgba(199,154,50,.025),
+
+        0 0 0 90px
+        rgba(49,9,66,.035),
+
+        0 0 0 135px
+        rgba(199,154,50,.02);
 
     pointer-events:none;
+
 }
+
 
 .page::after{
+
     content:"";
+
     position:absolute;
-    width:500px;
-    height:500px;
+
+    width:600px;
+    height:600px;
+
     border-radius:50%;
 
-    right:-300px;
-    bottom:-320px;
+    right:-380px;
+    bottom:-400px;
 
-    border:1px solid rgba(66,16,93,.12);
+    border:
+        1px solid
+        rgba(49,9,66,.10);
 
     box-shadow:
-        0 0 0 55px rgba(66,16,93,.025),
-        0 0 0 110px rgba(199,154,50,.025);
+
+        0 0 0 60px
+        rgba(49,9,66,.025),
+
+        0 0 0 120px
+        rgba(199,154,50,.02);
 
     pointer-events:none;
+
 }
 
+
 /* =========================================================
-   SHELL
+   MAIN CONTAINER
 ========================================================= */
 
-.shell{
+.container{
+
     position:relative;
-    z-index:2;
+
+    z-index:5;
 
     width:min(1180px,100%);
+
+    height:100%;
+
     margin:auto;
 
-    padding:18px 20px 35px;
+    padding:
+        15px
+        22px
+        12px;
+
+    display:flex;
+
+    flex-direction:column;
+
 }
+
 
 /* =========================================================
-   TOP BAR
+   HEADER
 ========================================================= */
 
-.topbar{
+.header{
+
+    height:62px;
+
+    flex-shrink:0;
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
-    gap:20px;
+    padding:
+        7px
+        10px;
 
-    padding:12px 15px;
+    border-radius:20px;
 
-    border-radius:22px;
+    background:
+        rgba(255,255,255,.90);
 
-    background:rgba(255,255,255,.90);
-
-    border:1px solid rgba(66,16,93,.12);
+    border:
+        1px solid
+        rgba(49,9,66,.12);
 
     box-shadow:
-        0 12px 35px rgba(29,6,41,.08);
+
+        0 12px 35px
+        rgba(17,3,23,.08),
+
+        inset
+        0 1px 0
+        #ffffff;
 
     backdrop-filter:blur(18px);
+
 }
+
 
 /* =========================================================
    BRAND
 ========================================================= */
 
 .brand{
+
     display:flex;
+
     align-items:center;
-    gap:12px;
+
+    gap:10px;
 
     text-decoration:none;
+
 }
 
-.logo{
-    width:53px;
-    height:53px;
+
+.brand-logo{
+
+    width:46px;
+    height:46px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     position:relative;
 
-    border-radius:17px;
+    border-radius:14px;
 
     background:
+
         linear-gradient(
             145deg,
-            #fffdf7,
-            #f3df9d
+            #fffef8,
+            #ead28b
         );
 
-    border:2px solid var(--gold);
+    border:
+        2px solid
+        var(--gold);
 
-    color:var(--gold-dark);
-
-    box-shadow:
-        0 10px 25px rgba(199,154,50,.20),
-        inset 0 1px 0 white;
-}
-
-.logo i{
-    font-size:25px;
-}
-
-.logo-pulse{
-    position:absolute;
-    right:7px;
-    bottom:7px;
-
-    color:var(--purple);
-    font-size:9px;
-}
-
-.brand-text strong{
-    display:block;
-
-    color:var(--purple-dark);
-
-    font-size:21px;
-    font-weight:900;
-    line-height:1.1;
-}
-
-.brand-text span{
-    display:block;
-
-    margin-top:3px;
-
-    color:var(--gold-dark);
-
-    font-size:9px;
-    font-weight:900;
-    letter-spacing:4px;
-}
-
-.lang{
-    padding:8px 14px;
-
-    border-radius:13px;
-
-    background:white;
-
-    border:1px solid rgba(66,16,93,.13);
-
-    color:var(--purple);
-
-    font:800 11px Cairo;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-    text-align:center;
-
-    padding:38px 0 25px;
-}
-
-.hero h1{
-    color:var(--purple-dark);
-
-    font-size:
-        clamp(34px,6vw,51px);
-
-    line-height:1.1;
-
-    font-weight:900;
-}
-
-.hero h1 span{
-    color:var(--gold-dark);
-}
-
-.hero .latin{
-    margin-top:5px;
-
-    color:var(--purple-main);
-
-    font-size:12px;
-    font-weight:900;
-
-    letter-spacing:7px;
-}
-
-.hero p{
-    margin-top:10px;
-
-    color:var(--muted);
-
-    font-size:14px;
-    font-weight:600;
-}
-
-.status{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-
-    margin-top:13px;
-
-    padding:7px 15px;
-
-    border-radius:99px;
-
-    background:white;
-
-    border:1px solid rgba(199,154,50,.30);
-
-    color:var(--gold-dark);
-
-    font-size:10px;
-    font-weight:800;
-}
-
-.status-dot{
-    width:7px;
-    height:7px;
-
-    border-radius:50%;
-
-    background:var(--green);
+    color:
+        var(--gold-dark);
 
     box-shadow:
-        0 0 0 5px rgba(39,168,102,.10);
+
+        0 8px 20px
+        rgba(199,154,50,.22),
+
+        inset
+        0 1px 0
+        white;
+
 }
 
-/* =========================================================
-   PATIENT MAIN CARD
-========================================================= */
 
-.patient-card{
-    position:relative;
+.brand-logo i{
 
-    display:grid;
+    font-size:22px;
 
-    grid-template-columns:
-        minmax(280px,1.05fr)
-        minmax(320px,1fr);
-
-    min-height:330px;
-
-    max-width:950px;
-
-    margin:8px auto 28px;
-
-    overflow:hidden;
-
-    text-decoration:none;
-
-    border-radius:31px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #faf7fc
-        );
-
-    border:1px solid rgba(66,16,93,.15);
-
-    box-shadow:var(--shadow);
-
-    transition:.3s ease;
 }
 
-.patient-card:hover{
-    transform:translateY(-6px);
 
-    border-color:
-        rgba(199,154,50,.60);
+.brand-logo::after{
 
-    box-shadow:
-        0 30px 90px rgba(29,6,41,.25);
-}
-
-/* =========================================================
-   PATIENT IMAGE
-========================================================= */
-
-.patient-visual{
-    position:relative;
-
-    min-height:330px;
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            145deg,
-            #2b0b3d,
-            #42105d 55%,
-            #5b1b78
-        );
-}
-
-/* golden glow */
-
-.patient-visual::before{
     content:"";
 
     position:absolute;
 
-    width:300px;
-    height:300px;
+    width:6px;
+    height:6px;
 
     border-radius:50%;
 
-    top:-130px;
-    left:-100px;
+    background:
+        var(--purple);
+
+    top:7px;
+    right:7px;
+
+}
+
+
+.brand-name strong{
+
+    display:block;
+
+    color:
+        var(--purple-dark);
+
+    font-size:19px;
+
+    font-weight:900;
+
+    line-height:1;
+
+}
+
+
+.brand-name span{
+
+    display:block;
+
+    margin-top:4px;
+
+    color:
+        var(--gold-dark);
+
+    font-size:7px;
+
+    letter-spacing:4px;
+
+    font-weight:900;
+
+}
+
+
+.header-badge{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:
+        7px
+        12px;
+
+    border-radius:99px;
+
+    color:
+        var(--purple);
 
     background:
-        radial-gradient(
-            circle,
-            rgba(240,212,119,.30),
-            transparent 68%
-        );
+        #faf7fc;
+
+    border:
+        1px solid
+        rgba(49,9,66,.10);
+
+    font-size:9px;
+
+    font-weight:800;
+
 }
 
-/* SVG */
 
-.medical-art{
-    position:absolute;
+.header-badge i{
 
-    width:100%;
-    height:100%;
+    color:
+        var(--gold-dark);
 
-    inset:0;
 }
+
 
 /* =========================================================
-   PATIENT CONTENT
+   MAIN AREA
 ========================================================= */
 
-.patient-info{
+.main{
+
+    flex:1;
+
+    min-height:0;
+
     display:flex;
 
     flex-direction:column;
 
     justify-content:center;
 
-    padding:38px;
-
-    position:relative;
-
-    z-index:2;
-
-    text-align:right;
 }
 
-.patient-badge{
-    display:inline-flex;
 
-    align-items:center;
+/* =========================================================
+   APPOINTMENT HERO
+========================================================= */
 
-    gap:8px;
+.appointment-head{
 
-    width:max-content;
+    text-align:center;
 
-    padding:7px 13px;
+    margin:
+        13px
+        0
+        13px;
 
-    margin-bottom:12px;
-
-    border-radius:99px;
-
-    background:var(--gold-pale);
-
-    color:var(--gold-dark);
-
-    border:1px solid rgba(199,154,50,.30);
-
-    font-size:10px;
-    font-weight:900;
 }
 
-.patient-info h2{
-    color:var(--purple-dark);
 
-    font-size:31px;
+.appointment-symbol{
 
-    font-weight:900;
+    width:64px;
+    height:64px;
 
-    line-height:1.3;
-}
+    margin:auto;
 
-.patient-info h2 span{
-    color:var(--gold-dark);
-}
-
-.patient-info p{
-    margin-top:10px;
-
-    color:var(--muted);
-
-    font-size:13px;
-
-    line-height:2;
-
-    max-width:470px;
-}
-
-.patient-button{
-    display:inline-flex;
+    display:flex;
 
     align-items:center;
     justify-content:center;
 
-    gap:10px;
+    position:relative;
 
-    width:max-content;
-
-    margin-top:20px;
-
-    padding:12px 24px;
-
-    border-radius:15px;
+    border-radius:21px;
 
     background:
+
         linear-gradient(
-            135deg,
-            var(--gold-light),
-            var(--gold)
+            145deg,
+            var(--purple-deep),
+            var(--purple-black)
         );
 
-    color:white;
+    color:
+        var(--gold-light);
 
-    font-size:12px;
+    border:
+        1px solid
+        rgba(243,216,117,.65);
+
+    box-shadow:
+
+        0 15px 35px
+        rgba(23,5,31,.25),
+
+        inset
+        0 1px 0
+        rgba(255,255,255,.14);
+
+}
+
+
+.appointment-symbol i{
+
+    font-size:29px;
+
+}
+
+
+.appointment-symbol::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:5px;
+
+    border-radius:17px;
+
+    border:
+        1px solid
+        rgba(243,216,117,.18);
+
+}
+
+
+.appointment-head h1{
+
+    margin-top:9px;
+
+    color:
+        var(--purple-dark);
+
+    font-size:
+        clamp(24px,4vw,34px);
 
     font-weight:900;
 
-    box-shadow:
-        0 12px 25px
-        rgba(199,154,50,.24);
+    line-height:1.15;
+
 }
 
-.patient-small{
-    margin-top:9px;
 
-    color:#968b9b;
+.appointment-head h1 span{
 
-    font-size:9px;
+    color:
+        var(--gold-dark);
+
+}
+
+
+.appointment-head p{
+
+    margin-top:5px;
+
+    color:
+        var(--muted);
+
+    font-size:10px;
 
     font-weight:600;
+
 }
 
-/* =========================================================
-   PORTALS TITLE
-========================================================= */
 
-.portals-title{
-    display:flex;
+.online{
+
+    display:inline-flex;
 
     align-items:center;
 
-    gap:14px;
+    gap:6px;
 
-    margin:12px 0 15px;
+    margin-top:7px;
+
+    color:
+        #368361;
+
+    font-size:8px;
+
+    font-weight:800;
+
 }
 
-.portals-title::before,
-.portals-title::after{
+
+.online-dot{
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(49,185,120,.10);
+
+}
+
+
+/* =========================================================
+   PORTAL LAYOUT
+========================================================= */
+
+.portal-layout{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1.75fr)
+        minmax(230px,.72fr);
+
+    gap:16px;
+
+    align-items:stretch;
+
+}
+
+
+/* =========================================================
+   PATIENT 3D CARD
+========================================================= */
+
+.patient-card{
+
+    min-height:255px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:stretch;
+
+    text-decoration:none;
+
+    border-radius:27px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f7f1fa
+        );
+
+    border:
+        1px solid
+        rgba(49,9,66,.14);
+
+    box-shadow:
+
+        0 25px 55px
+        rgba(17,3,23,.16),
+
+        0 5px 0
+        rgba(49,9,66,.08);
+
+    transform:
+        perspective(1200px)
+        rotateX(0deg);
+
+    transition:
+        .30s ease;
+
+}
+
+
+.patient-card:hover{
+
+    transform:
+        perspective(1200px)
+        rotateX(1deg)
+        translateY(-6px);
+
+    box-shadow:
+
+        0 35px 75px
+        rgba(17,3,23,.24),
+
+        0 6px 0
+        rgba(49,9,66,.10);
+
+}
+
+
+/* golden edge */
+
+.patient-card::before{
+
     content:"";
 
-    height:1px;
+    position:absolute;
 
-    flex:1;
+    inset:0;
+
+    border-radius:27px;
+
+    border:
+        1px solid
+        rgba(199,154,50,.32);
+
+    pointer-events:none;
+
+    z-index:5;
+
+}
+
+
+/* purple shine */
+
+.patient-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:320px;
+    height:320px;
+
+    border-radius:50%;
+
+    left:-190px;
+    top:-190px;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(199,154,50,.18),
+            transparent 68%
+        );
+
+}
+
+
+/* =========================================================
+   PATIENT VISUAL
+========================================================= */
+
+.patient-visual{
+
+    width:46%;
+
+    min-width:280px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 70% 25%,
+            rgba(243,216,117,.18),
+            transparent 22%
+        ),
+
+        linear-gradient(
+            145deg,
+            #13031a,
+            #27072f 48%,
+            #4a105e
+        );
+
+}
+
+
+/* diagonal shine */
+
+.patient-visual::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:150%;
+
+    height:45px;
+
+    left:-20%;
+
+    bottom:32px;
+
+    transform:
+        rotate(-12deg);
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(199,154,50,.35)
+            rgba(243,216,117,.10),
+            transparent
         );
+
 }
 
-.portals-title::after{
-    background:
-        linear-gradient(
-            270deg,
-            transparent,
-            rgba(199,154,50,.35)
-        );
-}
-
-.portals-title span{
-    color:var(--purple);
-
-    font-size:11px;
-
-    font-weight:900;
-
-    white-space:nowrap;
-}
 
 /* =========================================================
-   DOCTOR + ADMIN
+   SVG MEDICAL SCENE
 ========================================================= */
 
-.portals{
-    display:grid;
+.medical-svg{
 
-    grid-template-columns:1fr 1fr;
-
-    gap:17px;
-
-    max-width:950px;
-
-    margin:auto;
-}
-
-.portal-card{
-    position:relative;
-
-    min-height:150px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
-
-    padding:23px;
-
-    border-radius:23px;
-
-    text-decoration:none;
-
-    background:white;
-
-    border:1px solid rgba(66,16,93,.11);
-
-    box-shadow:
-        0 14px 35px
-        rgba(29,6,41,.08);
-
-    transition:.28s ease;
-
-    overflow:hidden;
-}
-
-.portal-card:hover{
-    transform:translateY(-5px);
-
-    box-shadow:
-        0 22px 50px
-        rgba(29,6,41,.15);
-}
-
-/* purple side */
-
-.portal-card::before{
-    content:"";
+    width:100%;
+    height:100%;
 
     position:absolute;
 
-    right:0;
-    top:0;
-    bottom:0;
+    inset:0;
 
-    width:4px;
-
-    background:
-        linear-gradient(
-            180deg,
-            var(--gold-light),
-            var(--gold),
-            var(--purple)
-        );
 }
 
-/* icons */
 
-.portal-icon{
-    width:72px;
-    height:72px;
+/* =========================================================
+   PATIENT INFO
+========================================================= */
 
-    flex:0 0 72px;
+.patient-content{
+
+    flex:1;
+
+    padding:
+        25px
+        28px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    position:relative;
+
+    z-index:3;
+
+}
+
+
+.patient-tag{
+
+    width:max-content;
 
     display:flex;
 
     align-items:center;
-    justify-content:center;
 
-    border-radius:20px;
+    gap:6px;
 
-    font-size:27px;
+    padding:
+        5px
+        10px;
+
+    border-radius:99px;
 
     background:
-        linear-gradient(
-            145deg,
-            var(--purple-deep),
-            var(--purple)
-        );
+        #fff8e4;
 
-    color:var(--gold-light);
+    border:
+        1px solid
+        rgba(199,154,50,.32);
 
-    border:1px solid rgba(199,154,50,.55);
+    color:
+        var(--gold-dark);
 
-    box-shadow:
-        0 12px 25px
-        rgba(66,16,93,.18);
-}
-
-.portal-card.admin .portal-icon{
-    background:
-        linear-gradient(
-            145deg,
-            #24102f,
-            #3d174e
-        );
-}
-
-.portal-text{
-    flex:1;
-}
-
-.portal-text small{
-    display:block;
-
-    color:var(--gold-dark);
-
-    font-size:9px;
+    font-size:8px;
 
     font-weight:900;
+
 }
 
-.portal-text h3{
-    margin-top:3px;
 
-    color:var(--purple-dark);
+.patient-content h2{
 
-    font-size:19px;
+    margin-top:9px;
+
+    color:
+        var(--purple-dark);
+
+    font-size:
+        clamp(25px,3vw,34px);
 
     font-weight:900;
+
 }
 
-.portal-text p{
-    margin-top:4px;
 
-    color:var(--muted);
+.patient-content h2 span{
+
+    color:
+        var(--gold-dark);
+
+}
+
+
+.patient-content p{
+
+    margin-top:6px;
+
+    max-width:430px;
+
+    color:
+        var(--muted);
 
     font-size:10px;
 
-    line-height:1.8;
+    line-height:1.9;
+
 }
 
-.portal-arrow{
-    color:var(--gold-dark);
 
-    font-size:14px;
-}
+.patient-button{
 
-/* =========================================================
-   FEATURES
-========================================================= */
+    width:max-content;
 
-.features{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    max-width:950px;
-
-    margin:26px auto 0;
-
-    border-radius:21px;
-
-    overflow:hidden;
-
-    background:
-        rgba(255,255,255,.80);
-
-    border:1px solid rgba(66,16,93,.08);
-
-    box-shadow:
-        0 10px 30px rgba(29,6,41,.05);
-}
-
-.feature{
     display:flex;
 
     align-items:center;
@@ -807,47 +932,371 @@ body{
 
     gap:9px;
 
-    padding:16px 10px;
+    margin-top:14px;
 
-    color:var(--purple);
+    padding:
+        10px
+        19px;
+
+    border-radius:13px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    color:white;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    box-shadow:
+
+        0 10px 20px
+        rgba(199,154,50,.25),
+
+        inset
+        0 1px 0
+        rgba(255,255,255,.45);
+
+}
+
+
+.patient-button i{
 
     font-size:10px;
 
-    font-weight:800;
-
-    border-left:1px solid
-        rgba(66,16,93,.08);
 }
 
-.feature:last-child{
-    border-left:none;
+
+.patient-note{
+
+    margin-top:7px;
+
+    color:
+        #9b909f;
+
+    font-size:7px;
+
+    font-weight:600;
+
 }
 
-.feature i{
-    color:var(--gold-dark);
+
+/* =========================================================
+   PROFESSIONAL PORTALS
+========================================================= */
+
+.professional{
+
+    display:grid;
+
+    grid-template-rows:1fr 1fr;
+
+    gap:16px;
+
+}
+
+
+.portal{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:
+        18px;
+
+    text-decoration:none;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f7f3f9
+        );
+
+    border:
+        1px solid
+        rgba(49,9,66,.12);
+
+    box-shadow:
+
+        0 18px 35px
+        rgba(17,3,23,.10),
+
+        0 4px 0
+        rgba(49,9,66,.06);
+
+    transition:
+        .28s ease;
+
+}
+
+
+.portal:hover{
+
+    transform:
+        translateY(-5px)
+        rotateX(1deg);
+
+    box-shadow:
+
+        0 25px 50px
+        rgba(17,3,23,.17),
+
+        0 5px 0
+        rgba(49,9,66,.07);
+
+}
+
+
+.portal::before{
+
+    content:"";
+
+    position:absolute;
+
+    right:0;
+    top:0;
+    bottom:0;
+
+    width:3px;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            var(--gold-light),
+            var(--gold),
+            var(--purple)
+        );
+
+}
+
+
+.portal-icon{
+
+    width:57px;
+    height:57px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:17px;
+
+    color:
+        var(--gold-light);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #2a0738,
+            #120318
+        );
+
+    border:
+        1px solid
+        rgba(199,154,50,.55);
+
+    box-shadow:
+
+        0 10px 22px
+        rgba(23,5,31,.20),
+
+        inset
+        0 1px 0
+        rgba(255,255,255,.12);
+
+}
+
+
+.portal-icon i{
+
+    font-size:21px;
+
+}
+
+
+.portal-info{
+
+    min-width:0;
+
+}
+
+
+.portal-info small{
+
+    display:block;
+
+    color:
+        var(--gold-dark);
+
+    font-size:7px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+}
+
+
+.portal-info h3{
+
+    margin-top:2px;
+
+    color:
+        var(--purple-dark);
 
     font-size:15px;
+
+    font-weight:900;
+
 }
+
+
+.portal-info p{
+
+    margin-top:2px;
+
+    color:
+        var(--muted);
+
+    font-size:8px;
+
+    line-height:1.6;
+
+}
+
+
+.portal-arrow{
+
+    margin-right:auto;
+
+    color:
+        var(--gold-dark);
+
+    font-size:10px;
+
+}
+
+
+/* =========================================================
+   BOTTOM FEATURES
+========================================================= */
+
+.features{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin-top:15px;
+
+}
+
+
+.feature{
+
+    height:43px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,.78);
+
+    border:
+        1px solid
+        rgba(49,9,66,.08);
+
+    box-shadow:
+        0 8px 20px
+        rgba(17,3,23,.04);
+
+    color:
+        var(--purple);
+
+    font-size:8px;
+
+    font-weight:800;
+
+}
+
+
+.feature i{
+
+    color:
+        var(--gold-dark);
+
+    font-size:12px;
+
+}
+
 
 /* =========================================================
    FOOTER
 ========================================================= */
 
 .footer{
-    text-align:center;
 
-    margin-top:24px;
+    height:24px;
 
-    color:#94899a;
+    flex-shrink:0;
 
-    font-size:9px;
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    color:
+        #958b9a;
+
+    font-size:7px;
 
     font-weight:600;
+
 }
 
+
 .footer strong{
-    color:var(--gold-dark);
+
+    color:
+        var(--gold-dark);
+
+    margin-left:3px;
+
 }
+
 
 /* =========================================================
    MOBILE
@@ -855,202 +1304,372 @@ body{
 
 @media(max-width:760px){
 
+    body{
+        overflow:hidden;
+    }
+
     .page{
-        border-width:1px;
+        min-height:100vh;
+        height:100dvh;
     }
 
-    .shell{
+    .container{
+
         padding:
-            12px
-            11px
-            25px;
+            10px
+            10px
+            7px;
+
     }
 
-    .topbar{
-        padding:9px 10px;
-        border-radius:17px;
+    .header{
+
+        height:52px;
+
+        border-radius:16px;
+
     }
 
-    .logo{
-        width:45px;
-        height:45px;
-        border-radius:14px;
+    .brand-logo{
+
+        width:38px;
+        height:38px;
+
+        border-radius:11px;
+
     }
 
-    .logo i{
-        font-size:21px;
+    .brand-logo i{
+        font-size:18px;
     }
 
-    .brand-text strong{
-        font-size:17px;
+    .brand-name strong{
+        font-size:16px;
     }
 
-    .brand-text span{
-        font-size:7px;
+    .brand-name span{
+        font-size:6px;
         letter-spacing:3px;
     }
 
-    .hero{
+    .header-badge{
+
         padding:
-            28px
-            5px
-            20px;
+            6px
+            9px;
+
+        font-size:7px;
+
     }
 
-    .hero h1{
-        font-size:35px;
+
+    .appointment-head{
+
+        margin:
+            8px
+            0
+            8px;
+
     }
 
-    .hero .latin{
-        font-size:9px;
-        letter-spacing:5px;
+    .appointment-symbol{
+
+        width:48px;
+        height:48px;
+
+        border-radius:16px;
+
     }
 
-    .hero p{
-        font-size:12px;
+    .appointment-symbol i{
+        font-size:22px;
     }
+
+    .appointment-head h1{
+        font-size:24px;
+    }
+
+    .appointment-head p{
+        font-size:8px;
+    }
+
+    .online{
+        font-size:7px;
+        margin-top:4px;
+    }
+
+
+    .portal-layout{
+
+        grid-template-columns:1fr;
+
+        gap:9px;
+
+    }
+
 
     .patient-card{
+
+        min-height:0;
+
+        height:245px;
+
         display:flex;
 
         flex-direction:column;
 
-        min-height:0;
+        border-radius:22px;
 
-        border-radius:25px;
     }
+
 
     .patient-visual{
-        min-height:220px;
-        height:220px;
+
+        width:100%;
+
+        min-width:0;
+
+        height:112px;
+
+        flex-shrink:0;
+
     }
 
-    .patient-info{
-        padding:25px 22px 27px;
+
+    .patient-content{
+
+        padding:
+            12px
+            17px;
+
+        align-items:center;
 
         text-align:center;
 
-        align-items:center;
     }
 
-    .patient-info h2{
-        font-size:25px;
+
+    .patient-tag{
+        font-size:7px;
+        padding:4px 8px;
     }
 
-    .patient-info p{
-        font-size:11px;
+
+    .patient-content h2{
+
+        margin-top:5px;
+
+        font-size:22px;
+
     }
+
+
+    .patient-content p{
+
+        margin-top:3px;
+
+        font-size:8px;
+
+        line-height:1.55;
+
+        max-width:330px;
+
+    }
+
 
     .patient-button{
+
+        margin-top:7px;
+
         width:100%;
+
+        padding:
+            8px
+            12px;
+
+        font-size:8px;
+
     }
 
-    .portals{
-        grid-template-columns:1fr;
 
-        gap:12px;
+    .patient-note{
+
+        display:none;
+
     }
 
-    .portal-card{
-        min-height:120px;
 
-        padding:18px;
+    .professional{
+
+        grid-template-columns:1fr 1fr;
+
+        grid-template-rows:1fr;
+
+        gap:9px;
+
     }
+
+
+    .portal{
+
+        min-height:87px;
+
+        padding:
+            10px;
+
+        gap:8px;
+
+        border-radius:17px;
+
+    }
+
 
     .portal-icon{
-        width:60px;
-        height:60px;
 
-        flex-basis:60px;
+        width:42px;
+        height:42px;
 
-        font-size:23px;
+        flex-basis:42px;
+
+        border-radius:12px;
+
     }
 
-    .portal-text h3{
-        font-size:17px;
+
+    .portal-icon i{
+        font-size:16px;
     }
 
-    .portal-text p{
+
+    .portal-info small{
+        font-size:5px;
+    }
+
+    .portal-info h3{
+        font-size:12px;
+    }
+
+    .portal-info p{
+        display:none;
+    }
+
+    .portal-arrow{
+        display:none;
+    }
+
+
+    .features{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+        gap:6px;
+
+        margin-top:9px;
+
+    }
+
+
+    .feature{
+
+        height:32px;
+
+        border-radius:10px;
+
+        font-size:6px;
+
+        gap:4px;
+
+    }
+
+
+    .feature i{
         font-size:9px;
     }
 
-    .features{
-        grid-template-columns:1fr;
 
-        margin-top:20px;
-    }
+    .footer{
 
-    .feature{
-        border-left:none;
+        height:15px;
 
-        border-bottom:1px solid
-            rgba(66,16,93,.08);
+        font-size:6px;
 
-        padding:12px;
-    }
-
-    .feature:last-child{
-        border-bottom:none;
     }
 
 }
 
-@media(max-width:380px){
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:370px){
+
+    .appointment-head h1{
+        font-size:21px;
+    }
+
+    .patient-card{
+        height:225px;
+    }
 
     .patient-visual{
-        min-height:195px;
-        height:195px;
+        height:95px;
     }
 
-    .patient-info h2{
-        font-size:22px;
+    .patient-content h2{
+        font-size:20px;
     }
 
-    .patient-info{
-        padding:21px 17px;
+    .professional{
+        gap:6px;
     }
 
-    .portal-card{
-        padding:15px;
+    .portal{
+        padding:8px;
     }
 
     .portal-icon{
-        width:54px;
-        height:54px;
-        flex-basis:54px;
+        width:37px;
+        height:37px;
+        flex-basis:37px;
     }
+
+    .portal-info h3{
+        font-size:10px;
+    }
+
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
 <div class="page">
 
-<div class="shell">
+
+<div class="container">
 
 
-<!-- ======================================================
-     TOP BAR
-====================================================== -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-<header class="topbar">
+<header class="header">
 
 <a href="/" class="brand">
 
-    <div class="logo">
+    <div class="brand-logo">
 
-        <i class="fa-solid fa-heart-pulse"></i>
-
-        <span class="logo-pulse">
-            ━╱╲━
-        </span>
+        <i class="fa-solid fa-calendar-check"></i>
 
     </div>
 
-    <div class="brand-text">
+    <div class="brand-name">
 
         <strong>طبيبك</strong>
 
@@ -1060,522 +1679,570 @@ body{
 
 </a>
 
-<div class="lang">
-    AR
+
+<div class="header-badge">
+
+    <i class="fa-solid fa-shield-heart"></i>
+
+    منصة طبية ذكية
+
 </div>
 
 </header>
 
 
-<!-- ======================================================
-     HERO
-====================================================== -->
 
-<section class="hero">
+<main class="main">
 
-    <h1>
-        طبيبك <span>بين يديك</span>
-    </h1>
 
-    <div class="latin">
-        TABIBK
-    </div>
+<!-- =====================================================
+     APPOINTMENT INTRO
+===================================================== -->
 
-    <p>
-        منصة ذكية لحجز ومتابعة مواعيدك الطبية بسهولة
-    </p>
+<section class="appointment-head">
 
-    <div class="status">
 
-        <span class="status-dot"></span>
+<div class="appointment-symbol">
 
-        خدمة الحجز والمتابعة متاحة
+    <i class="fa-solid fa-calendar-days"></i>
 
-    </div>
+</div>
+
+
+<h1>
+
+    موعدك الطبي
+    <span>أسهل</span>
+
+</h1>
+
+
+<p>
+
+    احجز، تابع، واعرف دورك بكل سهولة
+
+</p>
+
+
+<div class="online">
+
+    <span class="online-dot"></span>
+
+    النظام متاح الآن
+
+</div>
 
 </section>
 
 
-<!-- ======================================================
-     PATIENT MAIN CARD
-====================================================== -->
+
+<!-- =====================================================
+     PORTALS
+===================================================== -->
+
+<section class="portal-layout">
+
+
+<!-- =====================================================
+     PATIENT
+===================================================== -->
 
 <a href="/patient.html"
    class="patient-card">
 
 
-    <!-- MEDICAL VISUAL -->
+<div class="patient-visual">
 
-    <div class="patient-visual">
 
-        <svg
-            class="medical-art"
-            viewBox="0 0 600 400"
-            preserveAspectRatio="xMidYMid slice"
-            xmlns="http://www.w3.org/2000/svg">
+<svg
+class="medical-svg"
+viewBox="0 0 600 280"
+preserveAspectRatio="xMidYMid slice"
+xmlns="http://www.w3.org/2000/svg">
 
-            <defs>
 
-                <linearGradient
-                    id="bg"
-                    x1="0"
-                    y1="0"
-                    x2="1"
-                    y2="1">
+<defs>
 
-                    <stop
-                        offset="0"
-                        stop-color="#260a35"/>
 
-                    <stop
-                        offset=".55"
-                        stop-color="#4b1267"/>
+<linearGradient
+id="medicalBg"
+x1="0"
+y1="0"
+x2="1"
+y2="1">
 
-                    <stop
-                        offset="1"
-                        stop-color="#78379a"/>
+<stop
+offset="0"
+stop-color="#110317"/>
 
-                </linearGradient>
+<stop
+offset=".55"
+stop-color="#310942"/>
 
-                <linearGradient
-                    id="gold"
-                    x1="0"
-                    y1="0"
-                    x2="1"
-                    y2="1">
+<stop
+offset="1"
+stop-color="#662078"/>
 
-                    <stop
-                        offset="0"
-                        stop-color="#f4dc83"/>
+</linearGradient>
 
-                    <stop
-                        offset="1"
-                        stop-color="#b98522"/>
 
-                </linearGradient>
-
-                <filter id="blur">
-                    <feGaussianBlur stdDeviation="18"/>
-                </filter>
+<linearGradient
+id="goldLine"
+x1="0"
+y1="0"
+x2="1"
+y2="1">
 
-            </defs>
+<stop
+offset="0"
+stop-color="#f3d875"/>
 
+<stop
+offset="1"
+stop-color="#a87620"/>
 
-            <!-- background -->
+</linearGradient>
 
-            <rect
-                width="600"
-                height="400"
-                fill="url(#bg)"/>
 
+<radialGradient
+id="lightGlow">
 
-            <!-- glowing circles -->
+<stop
+offset="0"
+stop-color="#f3d875"
+stop-opacity=".25"/>
 
-            <circle
-                cx="110"
-                cy="100"
-                r="95"
-                fill="#f0d477"
-                opacity=".08"
-                filter="url(#blur)"/>
-
-            <circle
-                cx="520"
-                cy="330"
-                r="120"
-                fill="#ffffff"
-                opacity=".07"
-                filter="url(#blur)"/>
+<stop
+offset="1"
+stop-color="#f3d875"
+stop-opacity="0"/>
 
+</radialGradient>
 
-            <!-- medical cross decorative -->
-
-            <g
-                transform="translate(75 65)"
-                opacity=".25"
-                fill="url(#gold)">
-
-                <rect
-                    x="28"
-                    y="0"
-                    width="12"
-                    height="68"
-                    rx="6"/>
-
-                <rect
-                    x="0"
-                    y="28"
-                    width="68"
-                    height="12"
-                    rx="6"/>
-
-            </g>
-
-
-            <!-- doctor silhouette -->
-
-            <circle
-                cx="390"
-                cy="130"
-                r="47"
-                fill="#f5eee5"/>
-
-            <path
-                d="
-                M337 202
-                C345 168 365 155 390 155
-                C415 155 435 168 443 202
-                L465 330
-                L315 330
-                Z"
-                fill="#ffffff"/>
-
-
-            <!-- neck -->
-
-            <rect
-                x="370"
-                y="160"
-                width="40"
-                height="38"
-                rx="15"
-                fill="#e9c7a7"/>
-
-
-            <!-- hair -->
-
-            <path
-                d="
-                M344 126
-                C345 91 368 73 394 76
-                C427 78 442 103 436 135
-                C424 116 412 105 390 105
-                C373 105 358 112 344 126
-                Z"
-                fill="#2a1a27"/>
-
-
-            <!-- doctor coat -->
-
-            <path
-                d="
-                M345 202
-                L390 238
-                L435 202
-                L468 330
-                L312 330
-                Z"
-                fill="#ffffff"/>
-
-
-            <!-- shirt -->
-
-            <path
-                d="
-                M370 192
-                L390 238
-                L410 192
-                L405 180
-                L375 180
-                Z"
-                fill="#5b1b78"/>
-
-
-            <!-- stethoscope -->
-
-            <path
-                d="
-                M363 212
-                C363 262 390 278 414 249
-                C428 232 423 215 423 215"
-                fill="none"
-                stroke="url(#gold)"
-                stroke-width="7"
-                stroke-linecap="round"/>
-
-            <circle
-                cx="414"
-                cy="249"
-                r="11"
-                fill="url(#gold)"/>
-
-
-            <!-- patient silhouette -->
-
-            <circle
-                cx="230"
-                cy="185"
-                r="39"
-                fill="#e5bd9e"/>
-
-            <path
-                d="
-                M188 252
-                C192 225 207 211 230 211
-                C253 211 268 225 272 252
-                L288 330
-                L172 330
-                Z"
-                fill="#f5f1ec"/>
-
-
-            <!-- patient hair -->
-
-            <path
-                d="
-                M190 182
-                C190 151 210 135 233 137
-                C259 140 270 158 266 190
-                C253 170 243 163 226 163
-                C210 163 199 171 190 182
-                Z"
-                fill="#352032"/>
-
-
-            <!-- tablet -->
-
-            <rect
-                x="260"
-                y="245"
-                width="77"
-                height="55"
-                rx="8"
-                fill="#ffffff"
-                opacity=".95"
-                transform="rotate(-10 260 245)"/>
-
-            <rect
-                x="271"
-                y="256"
-                width="55"
-                height="4"
-                rx="2"
-                fill="#d7c5df"
-                transform="rotate(-10 271 256)"/>
-
-            <rect
-                x="268"
-                y="268"
-                width="40"
-                height="4"
-                rx="2"
-                fill="#d7c5df"
-                transform="rotate(-10 268 268)"/>
-
-
-            <!-- ECG line -->
-
-            <path
-                d="
-                M45 330
-                L125 330
-                L143 315
-                L158 345
-                L176 301
-                L193 330
-                L270 330"
-                fill="none"
-                stroke="url(#gold)"
-                stroke-width="5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                opacity=".9"/>
-
-
-            <!-- floating heart -->
-
-            <path
-                d="
-                M510 90
-                C493 70 460 84 460 109
-                C460 135 510 160 510 160
-                C510 160 560 135 560 109
-                C560 84 527 70 510 90
-                Z"
-                fill="none"
-                stroke="url(#gold)"
-                stroke-width="5"
-                opacity=".8"/>
-
-        </svg>
-
-    </div>
-
-
-    <!-- PATIENT INFORMATION -->
-
-    <div class="patient-info">
-
-        <div class="patient-badge">
-
-            <i class="fa-solid fa-user"></i>
-
-            مساحة المريض
-
-        </div>
-
-        <h2>
-            دخول <span>المريض</span>
-        </h2>
-
-        <p>
-            احجز موعدك مع الطبيب المناسب،
-            تابع حالة حجزك، واعرف دورك
-            بكل سهولة من مكان واحد.
-        </p>
-
-        <span class="patient-button">
-
-            الدخول إلى مساحة المريض
-
-            <i class="fa-solid fa-arrow-left"></i>
-
-        </span>
-
-        <div class="patient-small">
-            حجز • متابعة • رقم الدور • الإشعارات
-        </div>
-
-    </div>
+
+</defs>
+
+
+<!-- BACKGROUND -->
+
+<rect
+width="600"
+height="280"
+fill="url(#medicalBg)"/>
+
+
+<!-- GOLD GLOW -->
+
+<circle
+cx="80"
+cy="40"
+r="110"
+fill="url(#lightGlow)"/>
+
+
+<!-- MEDICAL GRID -->
+
+<g
+opacity=".07"
+stroke="#ffffff">
+
+<path d="M0 45H600"/>
+<path d="M0 90H600"/>
+<path d="M0 135H600"/>
+<path d="M0 180H600"/>
+<path d="M0 225H600"/>
+
+<path d="M80 0V280"/>
+<path d="M160 0V280"/>
+<path d="M240 0V280"/>
+<path d="M320 0V280"/>
+<path d="M400 0V280"/>
+<path d="M480 0V280"/>
+</g>
+
+
+<!-- DOCTOR HEAD -->
+
+<circle
+cx="405"
+cy="88"
+r="35"
+fill="#e5b995"/>
+
+
+<!-- HAIR -->
+
+<path
+d="
+M371 85
+C370 55 389 43 410 46
+C434 49 446 67 439 94
+C428 74 416 68 401 68
+C388 68 378 75 371 85
+Z"
+fill="#241622"/>
+
+
+<!-- DOCTOR BODY -->
+
+<path
+d="
+M365 136
+C371 118 388 112 405 112
+C422 112 439 118 445 136
+L468 270
+L342 270
+Z"
+fill="#ffffff"/>
+
+
+<!-- PURPLE SHIRT -->
+
+<path
+d="
+M389 119
+L405 153
+L421 119
+L416 110
+L394 110
+Z"
+fill="#42105d"/>
+
+
+<!-- STETHOSCOPE -->
+
+<path
+d="
+M382 141
+C382 186 403 203 422 177
+C432 163 428 146 428 146"
+fill="none"
+stroke="url(#goldLine)"
+stroke-width="6"
+stroke-linecap="round"/>
+
+
+<circle
+cx="422"
+cy="178"
+r="9"
+fill="url(#goldLine)"/>
+
+
+<!-- PATIENT -->
+
+<circle
+cx="220"
+cy="112"
+r="30"
+fill="#dba983"/>
+
+
+<path
+d="
+M191 108
+C192 84 209 71 228 73
+C249 75 259 90 255 113
+C244 99 234 94 220 94
+C208 94 199 99 191 108
+Z"
+fill="#321d2d"/>
+
+
+<path
+d="
+M181 160
+C186 138 201 128 220 128
+C239 128 254 138 259 160
+L274 270
+L166 270
+Z"
+fill="#f4f0ea"/>
+
+
+<!-- TABLET -->
+
+<rect
+x="265"
+y="169"
+width="65"
+height="45"
+rx="7"
+fill="#ffffff"
+transform="rotate(-7 265 169)"/>
+
+
+<rect
+x="275"
+y="181"
+width="38"
+height="4"
+rx="2"
+fill="#d8cbdc"
+transform="rotate(-7 275 181)"/>
+
+
+<rect
+x="273"
+y="192"
+width="28"
+height="4"
+rx="2"
+fill="#d8cbdc"
+transform="rotate(-7 273 192)"/>
+
+
+<!-- ECG -->
+
+<path
+d="
+M20 242
+L95 242
+L112 225
+L127 255
+L145 207
+L164 242
+L285 242"
+fill="none"
+stroke="url(#goldLine)"
+stroke-width="4"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+
+
+<!-- HEART -->
+
+<path
+d="
+M520 68
+C505 49 476 62 476 84
+C476 107 520 132 520 132
+C520 132 564 107 564 84
+C564 62 535 49 520 68Z"
+fill="none"
+stroke="url(#goldLine)"
+stroke-width="4"/>
+
+
+<!-- PLUS -->
+
+<g
+transform="translate(72 54)"
+fill="url(#goldLine)"
+opacity=".65">
+
+<rect
+x="20"
+y="0"
+width="8"
+height="48"
+rx="4"/>
+
+<rect
+x="0"
+y="20"
+width="48"
+height="8"
+rx="4"/>
+
+</g>
+
+
+</svg>
+
+
+</div>
+
+
+
+<div class="patient-content">
+
+
+<div class="patient-tag">
+
+    <i class="fa-solid fa-user"></i>
+
+    دخول المريض
+
+</div>
+
+
+<h2>
+
+    احجز <span>موعدك</span>
+
+</h2>
+
+
+<p>
+
+    اختر الطبيب المناسب،
+    احجز موعدك، تابع حالة الحجز
+    واعرف دورك دون انتظار.
+
+</p>
+
+
+<span class="patient-button">
+
+    الدخول إلى الحجز
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+</span>
+
+
+<div class="patient-note">
+
+    حجز موعد • متابعة الحجز • الإشعارات • رقم الدور
+
+</div>
+
+
+</div>
+
 
 </a>
 
 
-<!-- ======================================================
-     OTHER PORTALS
-====================================================== -->
 
-<div class="portals-title">
+<!-- =====================================================
+     DOCTOR / ADMIN
+===================================================== -->
 
-    <span>
-        الدخول المهني والإداري
-    </span>
+<div class="professional">
+
+
+<a href="/doctor.html"
+   class="portal">
+
+
+<div class="portal-icon">
+
+    <i class="fa-solid fa-user-doctor"></i>
 
 </div>
 
 
-<div class="portals">
+<div class="portal-info">
+
+    <small>
+        PROFESSIONAL
+    </small>
+
+    <h3>
+        دخول الطبيب
+    </h3>
+
+    <p>
+        إدارة المواعيد والمرضى
+    </p>
+
+</div>
 
 
-    <!-- DOCTOR -->
+<div class="portal-arrow">
 
-    <a href="/doctor.html"
-       class="portal-card">
+    <i class="fa-solid fa-arrow-left"></i>
 
-        <div class="portal-icon">
-
-            <i class="fa-solid fa-user-doctor"></i>
-
-        </div>
-
-        <div class="portal-text">
-
-            <small>
-                PROFESSIONAL
-            </small>
-
-            <h3>
-                دخول الطبيب
-            </h3>
-
-            <p>
-                إدارة المواعيد والمرضى
-                وتنظيم قائمة الانتظار.
-            </p>
-
-        </div>
-
-        <div class="portal-arrow">
-
-            <i class="fa-solid fa-arrow-left"></i>
-
-        </div>
-
-    </a>
+</div>
 
 
-    <!-- ADMIN -->
+</a>
 
-    <a href="/admin.html"
-       class="portal-card admin">
 
-        <div class="portal-icon">
 
-            <i class="fa-solid fa-shield-halved"></i>
+<a href="/admin.html"
+   class="portal">
 
-        </div>
 
-        <div class="portal-text">
+<div class="portal-icon">
 
-            <small>
-                ADMINISTRATION
-            </small>
+    <i class="fa-solid fa-shield-halved"></i>
 
-            <h3>
-                دخول الإدارة
-            </h3>
+</div>
 
-            <p>
-                إدارة الأطباء والمواعيد
-                ومتابعة النظام بالكامل.
-            </p>
 
-        </div>
+<div class="portal-info">
 
-        <div class="portal-arrow">
+    <small>
+        ADMINISTRATION
+    </small>
 
-            <i class="fa-solid fa-arrow-left"></i>
+    <h3>
+        دخول الإدارة
+    </h3>
 
-        </div>
+    <p>
+        إدارة ومتابعة النظام
+    </p>
 
-    </a>
+</div>
+
+
+<div class="portal-arrow">
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+</div>
+
+
+</a>
 
 
 </div>
 
 
-<!-- ======================================================
+</section>
+
+
+
+<!-- =====================================================
      FEATURES
-====================================================== -->
+===================================================== -->
 
 <div class="features">
 
-    <div class="feature">
 
-        <i class="fa-solid fa-calendar-check"></i>
+<div class="feature">
 
-        حجز مواعيد بسهولة
+    <i class="fa-solid fa-calendar-check"></i>
 
-    </div>
-
-    <div class="feature">
-
-        <i class="fa-solid fa-bell"></i>
-
-        إشعارات فورية
-
-    </div>
-
-    <div class="feature">
-
-        <i class="fa-solid fa-shield-heart"></i>
-
-        تجربة آمنة ومنظمة
-
-    </div>
+    حجز سريع
 
 </div>
 
 
-<!-- ======================================================
-     FOOTER
-====================================================== -->
+<div class="feature">
+
+    <i class="fa-solid fa-bell"></i>
+
+    إشعارات
+
+</div>
+
+
+<div class="feature">
+
+    <i class="fa-solid fa-heart-pulse"></i>
+
+    متابعة طبية
+
+</div>
+
+
+</div>
+
+
+</main>
+
+
 
 <footer class="footer">
 
     <strong>طبيبك TABIBK</strong>
 
-    © جميع الحقوق محفوظة
+    منصة الحجز والمتابعة الطبية
 
 </footer>
 
@@ -1586,4 +2253,5 @@ body{
 
 
 </body>
+
 </html>

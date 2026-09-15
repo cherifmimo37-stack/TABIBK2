@@ -27,7 +27,2039 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 
-<style> /* ========================================================= TABIBK PREMIUM MEDICAL LUXURY PURPLE • GOLD • WHITE PATIENT UI ========================================================= */ *{ box-sizing:border-box; margin:0; padding:0; } :root{ --purple:#4a155f; --purple-dark:#2b0b3d; --purple2:#6d238b; --purple3:#8d4baa; --gold:#c79a32; --gold2:#e9c45d; --gold3:#fff0ad; --white:#fff; --cream:#fffaf1; --bg:#f7f4fa; --text:#24162c; --muted:#817487; --green:#159765; --red:#c72e45; --border:rgba(199,154,50,.25); --shadow: 0 20px 55px rgba(50,15,70,.12); --gold-shadow: 0 15px 35px rgba(199,154,50,.22); } html{ scroll-behavior:smooth; } body{ font-family:"Cairo",sans-serif; direction:rtl; min-height:100vh; color:var(--text); background: radial-gradient( circle at 8% 12%, rgba(199,154,50,.10), transparent 25% ), radial-gradient( circle at 92% 20%, rgba(109,35,139,.10), transparent 27% ), linear-gradient( 180deg, #fffdf9 0%, #f7f3fa 55%, #fffdf9 100% ); overflow-x:hidden; } /* ========================================================= GLOBAL DECORATION ========================================================= */ body::before{ content:""; position:fixed; width:520px; height:520px; border-radius:50%; border: 1px solid rgba(199,154,50,.08); top:-270px; right:-240px; pointer-events:none; z-index:0; } body::after{ content:""; position:fixed; width:430px; height:430px; border-radius:50%; border: 1px solid rgba(74,21,95,.07); bottom:-250px; left:-220px; pointer-events:none; z-index:0; } /* ========================================================= HEADER ========================================================= */ .header{ position:relative; overflow:hidden; color:white; padding: 20px 20px 85px; background: radial-gradient( circle at 82% 15%, rgba(233,196,93,.20), transparent 23% ), radial-gradient( circle at 15% 85%, rgba(141,75,170,.18), transparent 27% ), linear-gradient( 135deg, #250832, #431153 45%, #682180 ); border-bottom: 3px solid var(--gold); box-shadow: 0 20px 50px rgba(43,11,61,.22); } /* ornamental circles */ .header::before{ content:""; position:absolute; width:380px; height:380px; border-radius:50%; border: 1px solid rgba(233,196,93,.22); right:-180px; top:-230px; } .header::after{ content:""; position:absolute; width:240px; height:240px; border-radius:50%; border: 1px solid rgba(255,255,255,.09); left:-120px; bottom:-170px; } /* ========================================================= HEADER CONTENT ========================================================= */ .header-content{ max-width:1180px; margin:auto; position:relative; z-index:3; } /* ========================================================= TOPBAR ========================================================= */ .topbar{ display:flex; align-items:center; justify-content:space-between; gap:20px; } /* ========================================================= BRAND ========================================================= */ .brand{ display:flex; align-items:center; gap:14px; } .brand-icon{ width:62px; height:62px; border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:29px; color:var(--purple-dark); background: linear-gradient( 145deg, #fff3b8, var(--gold2), var(--gold) ); border: 2px solid rgba(255,255,255,.55); box-shadow: 0 12px 35px rgba(0,0,0,.24), inset 0 2px 0 rgba(255,255,255,.85); position:relative; } .brand-icon::after{ content:""; position:absolute; inset:5px; border-radius:15px; border: 1px solid rgba(74,21,95,.18); } .brand-text strong{ display:block; font-size:27px; font-weight:900; letter-spacing:.5px; } .brand-text span{ display:block; margin-top:1px; color:#eadcf0; font-size:11px; } /* ========================================================= HEADER BADGE ========================================================= */ .header-badge{ display:flex; align-items:center; gap:8px; padding:9px 15px; border-radius:30px; color:var(--gold2); background: rgba(255,255,255,.07); border: 1px solid rgba(233,196,93,.32); backdrop-filter:blur(12px); font-size:10px; font-weight:800; } /* ========================================================= HERO ========================================================= */ .header-title{ max-width:760px; margin: 48px auto 0; text-align:center; } .header-title h1{ font-size:38px; line-height:1.4; font-weight:900; text-shadow: 0 7px 25px rgba(0,0,0,.20); } .header-title h1 span{ color:var(--gold2); position:relative; } .header-title h1 span::after{ content:""; position:absolute; right:0; left:0; bottom:-7px; height:2px; background: linear-gradient( 90deg, transparent, var(--gold2), transparent ); } .header-title p{ margin-top:15px; color:#e8dcea; font-size:14px; } /* ========================================================= MAIN CONTAINER ========================================================= */ .container{ width:min(1180px, calc(100% - 30px)); margin: -42px auto 50px; position:relative; z-index:5; } /* ========================================================= TABS ========================================================= */ .tabs{ display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:22px; } .tab{ min-height:68px; border: 1px solid rgba(199,154,50,.25); border-radius:20px; background: rgba(255,255,255,.97); color:var(--muted); font-family:inherit; font-size:14px; font-weight:900; cursor:pointer; box-shadow: 0 14px 35px rgba(50,15,70,.09); transition: transform .25s, box-shadow .25s, background .25s; position:relative; overflow:hidden; } .tab::before{ content:""; position:absolute; width:90px; height:90px; border-radius:50%; border: 1px solid rgba(199,154,50,.13); left:-35px; bottom:-55px; } .tab i{ margin-left:9px; color:var(--gold); font-size:17px; } .tab:hover{ transform:translateY(-3px); box-shadow: 0 18px 40px rgba(50,15,70,.14); } .tab.active{ color:white; border-color:var(--gold); background: linear-gradient( 135deg, var(--purple-dark), var(--purple), var(--purple2) ); box-shadow: 0 18px 40px rgba(74,21,95,.28); } .tab.active i{ color:var(--gold2); } /* ========================================================= CARDS ========================================================= */ .card{ position:relative; overflow:hidden; background: linear-gradient( 145deg, rgba(255,255,255,.99), rgba(255,251,244,.99) ); border: 1px solid rgba(199,154,50,.26); border-radius:28px; padding:27px; margin-bottom:20px; box-shadow: 0 22px 55px rgba(50,15,70,.10), inset 0 1px 0 white; transition: transform .25s, box-shadow .25s; } .card:hover{ box-shadow: 0 26px 65px rgba(50,15,70,.13); } /* gold frame */ .card::before{ content:""; position:absolute; inset:8px; border: 1px solid rgba(199,154,50,.08); border-radius:21px; pointer-events:none; } /* top ornament */ .card::after{ content:"✦"; position:absolute; top:15px; left:19px; color:rgba(199,154,50,.20); font-size:20px; } /* ========================================================= CARD TITLE ========================================================= */ .card-title{ display:flex; align-items:center; gap:14px; margin-bottom:23px; position:relative; z-index:2; } .card-title .icon{ flex:0 0 52px; width:52px; height:52px; display:flex; align-items:center; justify-content:center; border-radius:17px; color:var(--purple); background: linear-gradient( 145deg, #fff0b0, #fffaf0 ); border: 1px solid rgba(199,154,50,.35); box-shadow: var(--gold-shadow); font-size:20px; position:relative; } .card-title .icon::after{ content:""; position:absolute; inset:5px; border-radius:12px; border: 1px solid rgba(74,21,95,.10); } .card-title h2{ color:var(--purple); font-size:19px; font-weight:900; } .card-title p{ color:var(--muted); margin-top:3px; font-size:11px; } /* ========================================================= FORM GRID ========================================================= */ .form-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:17px; position:relative; z-index:2; } .field{ display:flex; flex-direction:column; gap:8px; } .field.full{ grid-column:1/-1; } .field label{ color:#4c3b52; font-size:12px; font-weight:800; } .field label i{ color:var(--gold); margin-left:5px; } /* ========================================================= INPUTS ========================================================= */ .field input, .field select, .field textarea{ width:100%; min-height:49px; border: 1px solid #e8dfe9; border-radius:15px; background:#fffdfb; color:var(--text); font-family:inherit; font-size:13px; padding:12px 15px; outline:none; transition: border .2s, box-shadow .2s, transform .2s; } .field input:hover, .field select:hover, .field textarea:hover{ border-color: rgba(199,154,50,.55); } .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--gold); background:white; box-shadow: 0 0 0 4px rgba(199,154,50,.09), 0 10px 25px rgba(74,21,95,.06); transform:translateY(-1px); } .field textarea{ min-height:105px; resize:vertical; } select:disabled{ opacity:.55; cursor:not-allowed; } /* ========================================================= DOCTOR PREMIUM PROFILE ========================================================= */ .doctor-select{ position:relative; } /* The selected doctor information becomes a premium profile card. */ .doctor-info{ margin-top:13px; min-height:92px; display:none; align-items:center; gap:15px; padding:15px 17px; border-radius:20px; background: linear-gradient( 135deg, #fffaf0, #f8effd ); border: 1px solid rgba(199,154,50,.32); box-shadow: 0 12px 28px rgba(50,15,70,.07); position:relative; overflow:hidden; } .doctor-info::before{ content:""; width:64px; height:64px; flex:0 0 64px; border-radius:50%; background: linear-gradient( 145deg, var(--purple2), var(--purple-dark) ); border: 3px solid var(--gold2); box-shadow: 0 7px 18px rgba(74,21,95,.20); } .doctor-info::after{ content:"👨‍⚕️"; position:absolute; right:20px; font-size:35px; transform:translateY(-1px); } .doctor-info strong{ display:block; color:var(--purple); font-size:14px; font-weight:900; padding-right:75px; } .doctor-info strong i{ color:var(--gold); margin-left:5px; } .doctor-info span{ display:block; margin-top:4px; color:var(--muted); font-size:11px; padding-right:75px; } .doctor-info.show{ display:flex; animation: doctorAppear .35s ease; } @keyframes doctorAppear{ from{ opacity:0; transform:translateY(-8px); } to{ opacity:1; transform:translateY(0); } } /* ========================================================= PREMIUM BUTTONS ========================================================= */ .btn{ width:100%; min-height:52px; border:0; border-radius:17px; padding:14px 18px; font-family:inherit; font-size:13px; font-weight:900; display:flex; align-items:center; justify-content:center; gap:9px; cursor:pointer; position:relative; overflow:hidden; transition: transform .22s, box-shadow .22s; } .btn::before{ content:""; position:absolute; top:-30%; bottom:-30%; width:40%; left:-60%; background: linear-gradient( 90deg, transparent, rgba(255,255,255,.42), transparent ); transform:skewX(-20deg); transition:.6s; } .btn:hover::before{ left:120%; } .btn:hover{ transform:translateY(-3px); } .btn:active{ transform:translateY(0); } .btn-primary{ color:var(--purple-dark); background: linear-gradient( 135deg, #f7db79, var(--gold), #b98721 ); box-shadow: 0 15px 32px rgba(199,154,50,.28), inset 0 2px 0 rgba(255,255,255,.65); } .btn-primary:hover{ box-shadow: 0 20px 42px rgba(199,154,50,.35); } .btn-dark{ color:white; background: linear-gradient( 135deg, var(--purple-dark), var(--purple), var(--purple2) ); box-shadow: 0 14px 30px rgba(74,21,95,.24); } .btn-green{ color:white; background: linear-gradient( 135deg, #19ae75, #0d8055 ); box-shadow: 0 12px 27px rgba(13,128,85,.18); } .btn-light{ color:var(--purple); background:#faf4fc; border: 1px solid rgba(74,21,95,.12); } .btn:disabled{ opacity:.55; cursor:not-allowed; transform:none; } /* ========================================================= SUCCESS RESULT ========================================================= */ .result{ display:none; } .result.show{ display:block; animation: resultAppear .45s ease; } @keyframes resultAppear{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:translateY(0); } } .success-box{ text-align:center; padding:25px 10px; } .success-icon{ width:92px; height:92px; margin:0 auto 18px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--purple); background: linear-gradient( 145deg, #fff0ae, #fffdf5 ); border: 2px solid rgba(199,154,50,.38); box-shadow: 0 15px 35px rgba(199,154,50,.20); font-size:38px; position:relative; } .success-icon::after{ content:""; position:absolute; inset:-8px; border-radius:50%; border: 1px dashed rgba(199,154,50,.30); } .success-box h2{ color:var(--purple); font-size:22px; font-weight:900; } .success-box p{ color:var(--muted); margin-top:6px; font-size:12px; } /* ========================================================= BOOKING TICKET ========================================================= */ .booking-number{ max-width:390px; margin:23px auto; padding:22px; border-radius:22px; color:white; background: linear-gradient( 135deg, #290a3b, var(--purple), #70288e ); border: 1px solid rgba(233,196,93,.40); box-shadow: 0 18px 40px rgba(50,15,70,.22); position:relative; overflow:hidden; } .booking-number::before, .booking-number::after{ content:""; position:absolute; width:80px; height:80px; border-radius:50%; border: 1px solid rgba(233,196,93,.18); } .booking-number::before{ top:-50px; right:-35px; } .booking-number::after{ bottom:-55px; left:-35px; } .booking-number small{ display:block; color:#d9c9df; font-size:10px; } .booking-number strong{ display:block; margin-top:5px; color:var(--gold2); font-size:29px; font-weight:900; letter-spacing:1.5px; } /* ========================================================= STATUS ========================================================= */ .status-card{ text-align:center; } .status-badge{ display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:30px; font-size:12px; font-weight:900; margin-bottom:15px; } .status-pending{ background:#fff6df; color:#a76500; border:1px solid #f2dca8; } .status-confirmed{ background:#e9f8f1; color:#087c4e; border:1px solid #bfe8d5; } .status-rejected{ background:#ffedf0; color:#bd2333; border:1px solid #f3c3ca; } .status-started{ background:#f2e9ff; color:#68249a; border:1px solid #d9c5ee; } .status-completed{ background:#f1edf4; color:#5d5264; border:1px solid #ddd4e3; } .status-cancelled{ background:#ffecef; color:#bd2333; border:1px solid #f3c3ca; } .status-title{ color:var(--purple); font-size:22px; font-weight:900; } .status-message{ color:var(--muted); margin-top:5px; font-size:12px; } /* ========================================================= QUEUE DASHBOARD ========================================================= */ .queue-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:13px; margin-top:23px; } .queue-item{ padding:19px 8px; text-align:center; border-radius:19px; background: linear-gradient( 145deg, #fffdf9, #f8f0fc ); border: 1px solid rgba(199,154,50,.22); box-shadow: 0 10px 25px rgba(50,15,70,.06); } .queue-item i{ display:block; color:var(--gold); font-size:20px; margin-bottom:7px; } .queue-item strong{ display:block; color:var(--purple); font-size:25px; font-weight:900; } .queue-item span{ display:block; margin-top:2px; color:var(--muted); font-size:10px; } /* ========================================================= DETAILS ========================================================= */ .info-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:13px; } .info-item{ padding:16px; border-radius:17px; background: linear-gradient( 145deg, #fffdfb, #faf4fc ); border: 1px solid rgba(199,154,50,.17); position:relative; overflow:hidden; } .info-item::before{ content:""; position:absolute; right:0; top:0; bottom:0; width:4px; background: linear-gradient( 180deg, var(--gold2), var(--gold) ); } .info-item span{ display:block; color:var(--muted); font-size:10px; } .info-item strong{ display:block; margin-top:4px; color:var(--purple); font-size:13px; } /* ========================================================= ALERT ========================================================= */ .alert{ display:none; padding:15px 17px; border-radius:17px; margin-bottom:16px; font-size:12px; font-weight:800; } .alert.show{ display:block; animation: alertAppear .25s ease; } .alert.error{ background:#fff0f2; color:#b42333; border:1px solid #f1c4ca; } .alert.success{ background:#eaf9f2; color:#087c4e; border:1px solid #bce7d4; } .alert.info{ background:#f4edff; color:#642692; border:1px solid #ddcaed; } @keyframes alertAppear{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:translateY(0); } } /* ========================================================= LOADING ========================================================= */ .loading{ display:none; text-align:center; padding:22px; color:var(--muted); font-size:11px; } .loading.show{ display:block; } .spinner{ width:31px; height:31px; margin: 0 auto 9px; border: 3px solid #eee5f0; border-top-color:var(--gold); border-right-color:var(--purple); border-radius:50%; animation: spin .7s linear infinite; } @keyframes spin{ to{ transform:rotate(360deg); } } /* ========================================================= EMPTY ========================================================= */ .empty{ text-align:center; padding:30px 10px; color:var(--muted); } .empty i{ display:block; color:#cdbfd3; font-size:37px; margin-bottom:10px; } .empty p{ font-size:12px; } /* ========================================================= REJECTION ========================================================= */ #rejectedCard{ background: linear-gradient( 145deg, #fff6f8, #fff ); border: 1px solid rgba(201,46,66,.20); } #rejectionReason{ margin-top:8px; color:#a51f31; font-weight:800; } /* ========================================================= FOOTER ========================================================= */ .footer{ position:relative; text-align:center; padding: 30px 20px 35px; color:#9c91a3; font-size:10px; } .footer::before{ content:""; display:block; width:160px; height:1px; margin: 0 auto 17px; background: linear-gradient( 90deg, transparent, var(--gold), transparent ); } .footer strong{ color:var(--purple); font-weight:900; font-size:12px; } .footer .gold{ color:var(--gold); } /* ========================================================= HIDDEN ========================================================= */ .hidden{ display:none!important; } /* ========================================================= MOBILE ========================================================= */ @media(max-width:700px){ .header{ padding: 15px 15px 65px; } .brand-icon{ width:53px; height:53px; border-radius:17px; font-size:24px; } .brand-text strong{ font-size:21px; } .brand-text span{ font-size:9px; } .header-badge{ display:none; } .header-title{ margin-top:30px; } .header-title h1{ font-size:25px; } .header-title p{ font-size:11px; } .container{ width: calc(100% - 18px); margin-top:-30px; } .tabs{ gap:9px; } .tab{ min-height:59px; padding:11px 7px; font-size:11px; border-radius:17px; } .card{ padding:19px; border-radius:23px; } .card-title{ gap:11px; } .card-title .icon{ width:45px; height:45px; flex-basis:45px; border-radius:14px; font-size:17px; } .card-title h2{ font-size:16px; } .card-title p{ font-size:9px; } .form-grid{ grid-template-columns:1fr; } .field.full{ grid-column:auto; } .doctor-info{ min-height:84px; padding:12px; } .doctor-info::before{ width:55px; height:55px; flex-basis:55px; } .doctor-info::after{ right:16px; font-size:30px; } .doctor-info strong, .doctor-info span{ padding-right:60px; } .queue-grid{ gap:7px; } .queue-item{ padding:15px 5px; } .queue-item strong{ font-size:21px; } .queue-item span{ font-size:8px; } .info-grid{ grid-template-columns:1fr; } .success-box > div[style]{ grid-template-columns:1fr!important; } .booking-number strong{ font-size:25px; } } /* ========================================================= VERY SMALL ========================================================= */ @media(max-width:380px){ .brand-text strong{ font-size:19px; } .header-title h1{ font-size:22px; } .card{ padding:15px; } .queue-item strong{ font-size:18px; } .btn{ min-height:49px; font-size:12px; } } </style>
+<style>
+
+/* =========================================================
+   TABIBK PREMIUM MEDICAL
+   LUXURY PURPLE • GOLD • WHITE PATIENT UI
+   ========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --purple:#4a155f;
+    --purple-dark:#2b0b3d;
+    --purple2:#6d238b;
+    --purple3:#8d4baa;
+
+    --gold:#c79a32;
+    --gold2:#e9c45d;
+    --gold3:#fff0ad;
+
+    --white:#fff;
+    --cream:#fffaf1;
+    --bg:#f7f4fa;
+
+    --text:#24162c;
+    --muted:#817487;
+
+    --green:#159765;
+    --red:#c72e45;
+
+    --border:rgba(199,154,50,.25);
+
+    --shadow:
+        0 20px 55px rgba(50,15,70,.12);
+
+    --gold-shadow:
+        0 15px 35px rgba(199,154,50,.22);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Cairo",sans-serif;
+    direction:rtl;
+    min-height:100vh;
+
+    color:var(--text);
+
+    background:
+        radial-gradient(
+            circle at 8% 12%,
+            rgba(199,154,50,.10),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 92% 20%,
+            rgba(109,35,139,.10),
+            transparent 27%
+        ),
+
+        linear-gradient(
+            180deg,
+            #fffdf9 0%,
+            #f7f3fa 55%,
+            #fffdf9 100%
+        );
+
+    overflow-x:hidden;
+}
+
+
+/* =========================================================
+   GLOBAL DECORATION
+   ========================================================= */
+
+body::before{
+    content:"";
+
+    position:fixed;
+
+    width:520px;
+    height:520px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(199,154,50,.08);
+
+    top:-270px;
+    right:-240px;
+
+    pointer-events:none;
+    z-index:0;
+}
+
+body::after{
+    content:"";
+
+    position:fixed;
+
+    width:430px;
+    height:430px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(74,21,95,.07);
+
+    bottom:-250px;
+    left:-220px;
+
+    pointer-events:none;
+    z-index:0;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header{
+    position:relative;
+    overflow:hidden;
+
+    color:white;
+
+    padding:
+        20px
+        20px
+        85px;
+
+    background:
+
+        radial-gradient(
+            circle at 82% 15%,
+            rgba(233,196,93,.20),
+            transparent 23%
+        ),
+
+        radial-gradient(
+            circle at 15% 85%,
+            rgba(141,75,170,.18),
+            transparent 27%
+        ),
+
+        linear-gradient(
+            135deg,
+            #250832,
+            #431153 45%,
+            #682180
+        );
+
+    border-bottom:
+        3px solid
+        var(--gold);
+
+    box-shadow:
+        0 20px 50px
+        rgba(43,11,61,.22);
+}
+
+.header::before{
+    content:"";
+
+    position:absolute;
+
+    width:380px;
+    height:380px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(233,196,93,.22);
+
+    right:-180px;
+    top:-230px;
+}
+
+.header::after{
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+    height:240px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    left:-120px;
+    bottom:-170px;
+}
+
+
+/* =========================================================
+   HEADER CONTENT
+   ========================================================= */
+
+.header-content{
+    max-width:1180px;
+    margin:auto;
+
+    position:relative;
+    z-index:3;
+}
+
+
+/* =========================================================
+   TOPBAR
+   ========================================================= */
+
+.topbar{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand{
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+}
+
+.brand-icon{
+    width:62px;
+    height:62px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:29px;
+
+    color:var(--purple-dark);
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff3b8,
+            var(--gold2),
+            var(--gold)
+        );
+
+    border:
+        2px solid
+        rgba(255,255,255,.55);
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.24),
+
+        inset 0 2px 0
+        rgba(255,255,255,.85);
+
+    position:relative;
+}
+
+.brand-icon::after{
+    content:"";
+
+    position:absolute;
+
+    inset:5px;
+
+    border-radius:15px;
+
+    border:
+        1px solid
+        rgba(74,21,95,.18);
+}
+
+.brand-text strong{
+    display:block;
+
+    font-size:27px;
+    font-weight:900;
+
+    letter-spacing:.5px;
+}
+
+.brand-text span{
+    display:block;
+
+    margin-top:1px;
+
+    color:#eadcf0;
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   HEADER BADGE
+   ========================================================= */
+
+.header-badge{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+        9px
+        15px;
+
+    border-radius:30px;
+
+    color:var(--gold2);
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(233,196,93,.32);
+
+    backdrop-filter:blur(12px);
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.header-title{
+    max-width:760px;
+
+    margin:
+        48px
+        auto
+        0;
+
+    text-align:center;
+}
+
+.header-title h1{
+    font-size:38px;
+
+    line-height:1.4;
+
+    font-weight:900;
+
+    text-shadow:
+        0 7px 25px
+        rgba(0,0,0,.20);
+}
+
+.header-title h1 span{
+    color:var(--gold2);
+
+    position:relative;
+}
+
+.header-title h1 span::after{
+    content:"";
+
+    position:absolute;
+
+    right:0;
+    left:0;
+
+    bottom:-7px;
+
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold2),
+            transparent
+        );
+}
+
+.header-title p{
+    margin-top:15px;
+
+    color:#e8dcea;
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.container{
+    width:
+        min(
+            1180px,
+            calc(100% - 30px)
+        );
+
+    margin:
+        -42px
+        auto
+        50px;
+
+    position:relative;
+
+    z-index:5;
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+.tabs{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:15px;
+
+    margin-bottom:22px;
+}
+
+.tab{
+    min-height:68px;
+
+    border:
+        1px solid
+        rgba(199,154,50,.25);
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    color:var(--muted);
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 14px 35px
+        rgba(50,15,70,.09);
+
+    transition:
+        transform .25s,
+        box-shadow .25s,
+        background .25s;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.tab::before{
+    content:"";
+
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(199,154,50,.13);
+
+    left:-35px;
+    bottom:-55px;
+}
+
+.tab i{
+    margin-left:9px;
+
+    color:var(--gold);
+
+    font-size:17px;
+}
+
+.tab:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 18px 40px
+        rgba(50,15,70,.14);
+}
+
+.tab.active{
+    color:white;
+
+    border-color:
+        var(--gold);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple-dark),
+            var(--purple),
+            var(--purple2)
+        );
+
+    box-shadow:
+        0 18px 40px
+        rgba(74,21,95,.28);
+}
+
+.tab.active i{
+    color:var(--gold2);
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card{
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.99),
+            rgba(255,251,244,.99)
+        );
+
+    border:
+        1px solid
+        rgba(199,154,50,.26);
+
+    border-radius:28px;
+
+    padding:27px;
+
+    margin-bottom:20px;
+
+    box-shadow:
+        0 22px 55px
+        rgba(50,15,70,.10),
+
+        inset 0 1px 0
+        white;
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+}
+
+.card:hover{
+    box-shadow:
+        0 26px 65px
+        rgba(50,15,70,.13);
+}
+
+.card::before{
+    content:"";
+
+    position:absolute;
+
+    inset:8px;
+
+    border:
+        1px solid
+        rgba(199,154,50,.08);
+
+    border-radius:21px;
+
+    pointer-events:none;
+}
+
+.card::after{
+    content:"✦";
+
+    position:absolute;
+
+    top:15px;
+    left:19px;
+
+    color:
+        rgba(199,154,50,.20);
+
+    font-size:20px;
+}
+
+
+/* =========================================================
+   CARD TITLE
+   ========================================================= */
+
+.card-title{
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    margin-bottom:23px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.card-title .icon{
+    flex:0 0 52px;
+
+    width:52px;
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:17px;
+
+    color:var(--purple);
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff0b0,
+            #fffaf0
+        );
+
+    border:
+        1px solid
+        rgba(199,154,50,.35);
+
+    box-shadow:
+        var(--gold-shadow);
+
+    font-size:20px;
+
+    position:relative;
+}
+
+.card-title .icon::after{
+    content:"";
+
+    position:absolute;
+
+    inset:5px;
+
+    border-radius:12px;
+
+    border:
+        1px solid
+        rgba(74,21,95,.10);
+}
+
+.card-title h2{
+    color:var(--purple);
+
+    font-size:19px;
+
+    font-weight:900;
+}
+
+.card-title p{
+    color:var(--muted);
+
+    margin-top:3px;
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.form-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:17px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.field{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+.field label{
+    color:#4c3b52;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+.field label i{
+    color:var(--gold);
+
+    margin-left:5px;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+
+    min-height:49px;
+
+    border:
+        1px solid
+        #e8dfe9;
+
+    border-radius:15px;
+
+    background:#fffdfb;
+
+    color:var(--text);
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    padding:
+        12px
+        15px;
+
+    outline:none;
+
+    transition:
+        border .2s,
+        box-shadow .2s,
+        transform .2s;
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover{
+    border-color:
+        rgba(199,154,50,.55);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+    border-color:
+        var(--gold);
+
+    background:white;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(199,154,50,.09),
+
+        0 10px 25px
+        rgba(74,21,95,.06);
+
+    transform:
+        translateY(-1px);
+}
+
+.field textarea{
+    min-height:105px;
+
+    resize:vertical;
+}
+
+select:disabled{
+    opacity:.55;
+
+    cursor:not-allowed;
+}
+
+
+/* =========================================================
+   DOCTOR PREMIUM PROFILE
+   ========================================================= */
+
+.doctor-select{
+    position:relative;
+}
+
+.doctor-info{
+    margin-top:13px;
+
+    min-height:92px;
+
+    display:none;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:
+        15px
+        17px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffaf0,
+            #f8effd
+        );
+
+    border:
+        1px solid
+        rgba(199,154,50,.32);
+
+    box-shadow:
+        0 12px 28px
+        rgba(50,15,70,.07);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.doctor-info::before{
+    content:"";
+
+    width:64px;
+    height:64px;
+
+    flex:0 0 64px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple2),
+            var(--purple-dark)
+        );
+
+    border:
+        3px solid
+        var(--gold2);
+
+    box-shadow:
+        0 7px 18px
+        rgba(74,21,95,.20);
+}
+
+.doctor-info::after{
+    content:"👨‍⚕️";
+
+    position:absolute;
+
+    right:20px;
+
+    font-size:35px;
+
+    transform:
+        translateY(-1px);
+}
+
+.doctor-info strong{
+    display:block;
+
+    color:var(--purple);
+
+    font-size:14px;
+
+    font-weight:900;
+
+    padding-right:75px;
+}
+
+.doctor-info strong i{
+    color:var(--gold);
+
+    margin-left:5px;
+}
+
+.doctor-info span{
+    display:block;
+
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    padding-right:75px;
+}
+
+.doctor-info.show{
+    display:flex;
+
+    animation:
+        doctorAppear .35s ease;
+}
+
+@keyframes doctorAppear{
+
+    from{
+        opacity:0;
+        transform:translateY(-8px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   PREMIUM BUTTONS
+   ========================================================= */
+
+.btn{
+    width:100%;
+
+    min-height:52px;
+
+    border:0;
+
+    border-radius:17px;
+
+    padding:
+        14px
+        18px;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:9px;
+
+    cursor:pointer;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:
+        transform .22s,
+        box-shadow .22s;
+}
+
+.btn::before{
+    content:"";
+
+    position:absolute;
+
+    top:-30%;
+    bottom:-30%;
+
+    width:40%;
+
+    left:-60%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.42),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    transition:.6s;
+}
+
+.btn:hover::before{
+    left:120%;
+}
+
+.btn:hover{
+    transform:
+        translateY(-3px);
+}
+
+.btn:active{
+    transform:
+        translateY(0);
+}
+
+.btn-primary{
+    color:var(--purple-dark);
+
+    background:
+        linear-gradient(
+            135deg,
+            #f7db79,
+            var(--gold),
+            #b98721
+        );
+
+    box-shadow:
+        0 15px 32px
+        rgba(199,154,50,.28),
+
+        inset 0 2px 0
+        rgba(255,255,255,.65);
+}
+
+.btn-primary:hover{
+    box-shadow:
+        0 20px 42px
+        rgba(199,154,50,.35);
+}
+
+.btn-dark{
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple-dark),
+            var(--purple),
+            var(--purple2)
+        );
+
+    box-shadow:
+        0 14px 30px
+        rgba(74,21,95,.24);
+}
+
+.btn-green{
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #19ae75,
+            #0d8055
+        );
+
+    box-shadow:
+        0 12px 27px
+        rgba(13,128,85,.18);
+}
+
+.btn-light{
+    color:var(--purple);
+
+    background:#faf4fc;
+
+    border:
+        1px solid
+        rgba(74,21,95,.12);
+}
+
+.btn:disabled{
+    opacity:.55;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
+
+/* =========================================================
+   SUCCESS RESULT
+   ========================================================= */
+
+.result{
+    display:none;
+}
+
+.result.show{
+    display:block;
+
+    animation:
+        resultAppear .45s ease;
+}
+
+@keyframes resultAppear{
+
+    from{
+        opacity:0;
+        transform:translateY(18px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.success-box{
+    text-align:center;
+
+    padding:
+        25px
+        10px;
+}
+
+.success-icon{
+    width:92px;
+    height:92px;
+
+    margin:
+        0 auto 18px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:var(--purple);
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff0ae,
+            #fffdf5
+        );
+
+    border:
+        2px solid
+        rgba(199,154,50,.38);
+
+    box-shadow:
+        0 15px 35px
+        rgba(199,154,50,.20);
+
+    font-size:38px;
+
+    position:relative;
+}
+
+.success-icon::after{
+    content:"";
+
+    position:absolute;
+
+    inset:-8px;
+
+    border-radius:50%;
+
+    border:
+        1px dashed
+        rgba(199,154,50,.30);
+}
+
+.success-box h2{
+    color:var(--purple);
+
+    font-size:22px;
+
+    font-weight:900;
+}
+
+.success-box p{
+    color:var(--muted);
+
+    margin-top:6px;
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   BOOKING TICKET
+   ========================================================= */
+
+.booking-number{
+    max-width:390px;
+
+    margin:
+        23px auto;
+
+    padding:22px;
+
+    border-radius:22px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #290a3b,
+            var(--purple),
+            #70288e
+        );
+
+    border:
+        1px solid
+        rgba(233,196,93,.40);
+
+    box-shadow:
+        0 18px 40px
+        rgba(50,15,70,.22);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.booking-number::before,
+.booking-number::after{
+    content:"";
+
+    position:absolute;
+
+    width:80px;
+    height:80px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(233,196,93,.18);
+}
+
+.booking-number::before{
+    top:-50px;
+    right:-35px;
+}
+
+.booking-number::after{
+    bottom:-55px;
+    left:-35px;
+}
+
+.booking-number small{
+    display:block;
+
+    color:#d9c9df;
+
+    font-size:10px;
+}
+
+.booking-number strong{
+    display:block;
+
+    margin-top:5px;
+
+    color:var(--gold2);
+
+    font-size:29px;
+
+    font-weight:900;
+
+    letter-spacing:1.5px;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status-card{
+    text-align:center;
+}
+
+.status-badge{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+        10px
+        20px;
+
+    border-radius:30px;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    margin-bottom:15px;
+}
+
+.status-pending{
+    background:#fff6df;
+
+    color:#a76500;
+
+    border:
+        1px solid
+        #f2dca8;
+}
+
+.status-confirmed{
+    background:#e9f8f1;
+
+    color:#087c4e;
+
+    border:
+        1px solid
+        #bfe8d5;
+}
+
+.status-rejected{
+    background:#ffedf0;
+
+    color:#bd2333;
+
+    border:
+        1px solid
+        #f3c3ca;
+}
+
+.status-started{
+    background:#f2e9ff;
+
+    color:#68249a;
+
+    border:
+        1px solid
+        #d9c5ee;
+}
+
+.status-completed{
+    background:#f1edf4;
+
+    color:#5d5264;
+
+    border:
+        1px solid
+        #ddd4e3;
+}
+
+.status-cancelled{
+    background:#ffecef;
+
+    color:#bd2333;
+
+    border:
+        1px solid
+        #f3c3ca;
+}
+
+.status-title{
+    color:var(--purple);
+
+    font-size:22px;
+
+    font-weight:900;
+}
+
+.status-message{
+    color:var(--muted);
+
+    margin-top:5px;
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   QUEUE DASHBOARD
+   ========================================================= */
+
+.queue-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:13px;
+
+    margin-top:23px;
+}
+
+.queue-item{
+    padding:
+        19px
+        8px;
+
+    text-align:center;
+
+    border-radius:19px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffdf9,
+            #f8f0fc
+        );
+
+    border:
+        1px solid
+        rgba(199,154,50,.22);
+
+    box-shadow:
+        0 10px 25px
+        rgba(50,15,70,.06);
+}
+
+.queue-item i{
+    display:block;
+
+    color:var(--gold);
+
+    font-size:20px;
+
+    margin-bottom:7px;
+}
+
+.queue-item strong{
+    display:block;
+
+    color:var(--purple);
+
+    font-size:25px;
+
+    font-weight:900;
+}
+
+.queue-item span{
+    display:block;
+
+    margin-top:2px;
+
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+
+/* =========================================================
+   DETAILS
+   ========================================================= */
+
+.info-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:13px;
+}
+
+.info-item{
+    padding:16px;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffdfb,
+            #faf4fc
+        );
+
+    border:
+        1px solid
+        rgba(199,154,50,.17);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.info-item::before{
+    content:"";
+
+    position:absolute;
+
+    right:0;
+    top:0;
+    bottom:0;
+
+    width:4px;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--gold2),
+            var(--gold)
+        );
+}
+
+.info-item span{
+    display:block;
+
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+.info-item strong{
+    display:block;
+
+    margin-top:4px;
+
+    color:var(--purple);
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   ALERT
+   ========================================================= */
+
+.alert{
+    display:none;
+
+    padding:
+        15px
+        17px;
+
+    border-radius:17px;
+
+    margin-bottom:16px;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+.alert.show{
+    display:block;
+
+    animation:
+        alertAppear .25s ease;
+}
+
+.alert.error{
+    background:#fff0f2;
+
+    color:#b42333;
+
+    border:
+        1px solid
+        #f1c4ca;
+}
+
+.alert.success{
+    background:#eaf9f2;
+
+    color:#087c4e;
+
+    border:
+        1px solid
+        #bce7d4;
+}
+
+.alert.info{
+    background:#f4edff;
+
+    color:#642692;
+
+    border:
+        1px solid
+        #ddcaed;
+}
+
+@keyframes alertAppear{
+
+    from{
+        opacity:0;
+        transform:translateY(-6px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.loading{
+    display:none;
+
+    text-align:center;
+
+    padding:22px;
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+.loading.show{
+    display:block;
+}
+
+.spinner{
+    width:31px;
+    height:31px;
+
+    margin:
+        0 auto 9px;
+
+    border:
+        3px solid
+        #eee5f0;
+
+    border-top-color:
+        var(--gold);
+
+    border-right-color:
+        var(--purple);
+
+    border-radius:50%;
+
+    animation:
+        spin .7s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.empty{
+    text-align:center;
+
+    padding:
+        30px
+        10px;
+
+    color:var(--muted);
+}
+
+.empty i{
+    display:block;
+
+    color:#cdbfd3;
+
+    font-size:37px;
+
+    margin-bottom:10px;
+}
+
+.empty p{
+    font-size:12px;
+}
+
+
+/* =========================================================
+   REJECTION
+   ========================================================= */
+
+#rejectedCard{
+    background:
+        linear-gradient(
+            145deg,
+            #fff6f8,
+            #fff
+        );
+
+    border:
+        1px solid
+        rgba(201,46,66,.20);
+}
+
+#rejectionReason{
+    margin-top:8px;
+
+    color:#a51f31;
+
+    font-weight:800;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer{
+    position:relative;
+
+    text-align:center;
+
+    padding:
+        30px
+        20px
+        35px;
+
+    color:#9c91a3;
+
+    font-size:10px;
+}
+
+.footer::before{
+    content:"";
+
+    display:block;
+
+    width:160px;
+    height:1px;
+
+    margin:
+        0 auto 17px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold),
+            transparent
+        );
+}
+
+.footer strong{
+    color:var(--purple);
+
+    font-weight:900;
+
+    font-size:12px;
+}
+
+.footer .gold{
+    color:var(--gold);
+}
+
+
+/* =========================================================
+   HIDDEN
+   ========================================================= */
+
+.hidden{
+    display:none!important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:700px){
+
+    .header{
+        padding:
+            15px
+            15px
+            65px;
+    }
+
+    .brand-icon{
+        width:53px;
+        height:53px;
+
+        border-radius:17px;
+
+        font-size:24px;
+    }
+
+    .brand-text strong{
+        font-size:21px;
+    }
+
+    .brand-text span{
+        font-size:9px;
+    }
+
+    .header-badge{
+        display:none;
+    }
+
+    .header-title{
+        margin-top:30px;
+    }
+
+    .header-title h1{
+        font-size:25px;
+    }
+
+    .header-title p{
+        font-size:11px;
+    }
+
+    .container{
+        width:
+            calc(100% - 18px);
+
+        margin-top:-30px;
+    }
+
+    .tabs{
+        gap:9px;
+    }
+
+    .tab{
+        min-height:59px;
+
+        padding:
+            11px
+            7px;
+
+        font-size:11px;
+
+        border-radius:17px;
+    }
+
+    .card{
+        padding:19px;
+
+        border-radius:23px;
+    }
+
+    .card-title{
+        gap:11px;
+    }
+
+    .card-title .icon{
+        width:45px;
+        height:45px;
+
+        flex-basis:45px;
+
+        border-radius:14px;
+
+        font-size:17px;
+    }
+
+    .card-title h2{
+        font-size:16px;
+    }
+
+    .card-title p{
+        font-size:9px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .doctor-info{
+        min-height:84px;
+
+        padding:12px;
+    }
+
+    .doctor-info::before{
+        width:55px;
+        height:55px;
+
+        flex-basis:55px;
+    }
+
+    .doctor-info::after{
+        right:16px;
+
+        font-size:30px;
+    }
+
+    .doctor-info strong,
+    .doctor-info span{
+        padding-right:60px;
+    }
+
+    .queue-grid{
+        gap:7px;
+    }
+
+    .queue-item{
+        padding:
+            15px
+            5px;
+    }
+
+    .queue-item strong{
+        font-size:21px;
+    }
+
+    .queue-item span{
+        font-size:8px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .success-box > div[style]{
+        grid-template-columns:1fr!important;
+    }
+
+    .booking-number strong{
+        font-size:25px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL
+   ========================================================= */
+
+@media(max-width:380px){
+
+    .brand-text strong{
+        font-size:19px;
+    }
+
+    .header-title h1{
+        font-size:22px;
+    }
+
+    .card{
+        padding:15px;
+    }
+
+    .queue-item strong{
+        font-size:18px;
+    }
+
+    .btn{
+        min-height:49px;
+
+        font-size:12px;
+    }
+
+}
+
+
+/* =========================================================
+   PROFESSIONAL STABILITY / ACCESSIBILITY POLISH
+   ========================================================= */
+
+button,
+select,
+input,
+textarea{
+    -webkit-tap-highlight-color:transparent;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible{
+    outline:
+        3px solid
+        rgba(199,154,50,.28);
+
+    outline-offset:2px;
+}
+
+@media (prefers-reduced-motion: reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+        transition-duration:.01ms!important;
+    }
+
+}
+
+@media(max-width:700px){
+
+    input,
+    select,
+    textarea{
+        font-size:16px!important;
+    }
+
+    .btn{
+        touch-action:manipulation;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -57,7 +2089,9 @@
 
                     <strong>طبيبك</strong>
 
-                    <span>TABIBK • رعايتك تبدأ هنا</span>
+                    <span>
+                        TABIBK • رعايتك تبدأ هنا
+                    </span>
 
                 </div>
 
@@ -90,7 +2124,6 @@
     </div>
 
 </header>
-
 
 
 <!-- =====================================================
@@ -132,7 +2165,6 @@
     </div>
 
 
-
     <!-- =================================================
          BOOKING SECTION
          ================================================= -->
@@ -147,7 +2179,6 @@
             id="bookingAlert"
             class="alert">
         </div>
-
 
 
         <!-- =================================================
@@ -268,7 +2299,6 @@
             </div>
 
         </div>
-
 
 
         <!-- =================================================
@@ -445,8 +2475,12 @@
                         <i class="fa-solid fa-notes-medical"></i>
 
                         سبب الزيارة
-                        <span style="font-weight:400;color:#aaa">
+
+                        <span
+                            style="font-weight:400;color:#aaa">
+
                             (اختياري)
+
                         </span>
 
                     </label>
@@ -461,7 +2495,6 @@
             </div>
 
         </div>
-
 
 
         <!-- =================================================
@@ -493,7 +2526,6 @@
             </button>
 
         </div>
-
 
 
         <!-- =================================================
@@ -568,7 +2600,6 @@
 
                     </button>
 
-
                 </div>
 
             </div>
@@ -576,7 +2607,6 @@
         </div>
 
     </section>
-
 
 
     <!-- =================================================
@@ -594,7 +2624,6 @@
             id="trackingAlert"
             class="alert">
         </div>
-
 
 
         <!-- =================================================
@@ -627,7 +2656,6 @@
 
 
             <div class="form-grid">
-
 
                 <div class="field full">
 
@@ -678,7 +2706,6 @@
         </div>
 
 
-
         <!-- =================================================
              TRACKING RESULT
              ================================================= -->
@@ -717,7 +2744,6 @@
                 ننتظر تأكيد الطبيب.
 
             </div>
-
 
 
             <!-- QUEUE -->
@@ -772,7 +2798,6 @@
             </div>
 
         </div>
-
 
 
         <!-- =================================================
@@ -921,13 +2946,22 @@
             <div
                 id="rejectedCard"
                 class="card hidden"
-                style="margin-top:15px;margin-bottom:0;padding:17px;">
+                style="
+                    margin-top:15px;
+                    margin-bottom:0;
+                    padding:17px;
+                ">
 
-                <div class="card-title"
-                     style="margin-bottom:8px;">
+                <div
+                    class="card-title"
+                    style="margin-bottom:8px;">
 
-                    <div class="icon"
-                         style="background:#fff0f2;color:#c92e42;">
+                    <div
+                        class="icon"
+                        style="
+                            background:#fff0f2;
+                            color:#c92e42;
+                        ">
 
                         <i class="fa-solid fa-circle-xmark"></i>
 
@@ -953,13 +2987,11 @@
 
             </div>
 
-
         </div>
 
     </section>
 
 </main>
-
 
 
 <!-- =====================================================
@@ -971,11 +3003,15 @@
     <div>
 
         <strong>
+
             <i class="fa-solid fa-heart-pulse"></i>
+
             طبيبك TABIBK
+
         </strong>
 
     </div>
+
 
     <div style="margin-top:5px;">
 
@@ -985,6 +3021,7 @@
 
     </div>
 
+
     <div style="margin-top:5px;">
 
         © 2026 جميع الحقوق محفوظة
@@ -993,9 +3030,7 @@
 
 </footer>
 
-
-
-<script>
+      <script>
 
 /* =====================================================
    TABIBK PATIENT
@@ -1010,10 +3045,14 @@ let currentBookingNumber =
     localStorage.getItem("tabibkBookingNumber") || "";
 
 let currentAppointment = null;
-
 let previousStatus = null;
 
 let trackingTimer = null;
+let trackingRequestInFlight = false;
+let bookingInFlight = false;
+
+let lastTrackedStatus = null;
+let lastTrackedQueue = null;
 
 
 /* =====================================================
@@ -1045,7 +3084,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if(currentBookingNumber){
 
-        document.getElementById("trackingNumber").value =
+        document.getElementById(
+            "trackingNumber"
+        ).value =
             currentBookingNumber;
 
     }
@@ -1068,10 +3109,14 @@ function setMinimumDate(){
         now.getFullYear();
 
     const month =
-        String(now.getMonth()+1).padStart(2,"0");
+        String(
+            now.getMonth()+1
+        ).padStart(2,"0");
 
     const day =
-        String(now.getDate()).padStart(2,"0");
+        String(
+            now.getDate()
+        ).padStart(2,"0");
 
     dateInput.min =
         `${year}-${month}-${day}`;
@@ -1088,7 +3133,9 @@ async function loadWilayas(){
     try{
 
         const response =
-            await fetch(`${API}/api/wilayas`);
+            await fetch(
+                `${API}/api/wilayas`
+            );
 
         const data =
             await response.json();
@@ -1103,25 +3150,35 @@ async function loadWilayas(){
         }
 
         const wilayas =
-            data.wilayas || data.data || [];
+            data.wilayas ||
+            data.data ||
+            [];
 
         wilayaSelect.innerHTML =
-            `<option value="">اختر الولاية</option>`;
+            `<option value="">
+                اختر الولاية
+            </option>`;
 
-        wilayas.forEach(wilaya => {
+        wilayas.forEach(
+            wilaya => {
 
-            const option =
-                document.createElement("option");
+                const option =
+                    document.createElement(
+                        "option"
+                    );
 
-            option.value =
-                wilaya.id;
+                option.value =
+                    wilaya.id;
 
-            option.textContent =
-                wilaya.name;
+                option.textContent =
+                    wilaya.name;
 
-            wilayaSelect.appendChild(option);
+                wilayaSelect.appendChild(
+                    option
+                );
 
-        });
+            }
+        );
 
     }catch(error){
 
@@ -1147,10 +3204,14 @@ wilayaSelect.addEventListener(
     async function(){
 
         municipalitySelect.innerHTML =
-            `<option value="">اختر البلدية</option>`;
+            `<option value="">
+                اختر البلدية
+            </option>`;
 
         doctorSelect.innerHTML =
-            `<option value="">اختر الطبيب</option>`;
+            `<option value="">
+                اختر الطبيب
+            </option>`;
 
         municipalitySelect.disabled =
             true;
@@ -1158,7 +3219,9 @@ wilayaSelect.addEventListener(
         doctorSelect.disabled =
             true;
 
-        doctorInfo.classList.remove("show");
+        doctorInfo.classList.remove(
+            "show"
+        );
 
         if(!this.value){
             return;
@@ -1188,29 +3251,38 @@ wilayaSelect.addEventListener(
                 data.data ||
                 [];
 
-            municipalities.forEach(item => {
+            municipalities.forEach(
+                item => {
 
-                const option =
-                    document.createElement("option");
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
 
-                if(typeof item === "string"){
+                    if(typeof item === "string"){
 
-                    option.value = item;
-                    option.textContent = item;
+                        option.value =
+                            item;
 
-                }else{
+                        option.textContent =
+                            item;
 
-                    option.value =
-                        item.name;
+                    }else{
 
-                    option.textContent =
-                        item.name;
+                        option.value =
+                            item.name;
+
+                        option.textContent =
+                            item.name;
+
+                    }
+
+                    municipalitySelect.appendChild(
+                        option
+                    );
 
                 }
-
-                municipalitySelect.appendChild(option);
-
-            });
+            );
 
             municipalitySelect.disabled =
                 false;
@@ -1240,12 +3312,16 @@ municipalitySelect.addEventListener(
     async function(){
 
         doctorSelect.innerHTML =
-            `<option value="">اختر الطبيب</option>`;
+            `<option value="">
+                اختر الطبيب
+            </option>`;
 
         doctorSelect.disabled =
             true;
 
-        doctorInfo.classList.remove("show");
+        doctorInfo.classList.remove(
+            "show"
+        );
 
         if(!this.value){
             return;
@@ -1316,6 +3392,7 @@ async function loadDoctors(){
                 true;
 
             return;
+
         }
 
         doctors.forEach(
@@ -1370,33 +3447,53 @@ doctorSelect.addEventListener(
 
         selectedDoctor =
             doctors.find(
-                d => String(d.id) === String(this.value)
+                d =>
+                    String(d.id) ===
+                    String(this.value)
             );
 
         if(!selectedDoctor){
 
-            doctorInfo.classList.remove("show");
+            doctorInfo.classList.remove(
+                "show"
+            );
 
             return;
+
         }
 
         doctorInfo.innerHTML = `
 
             <strong>
+
                 <i class="fa-solid fa-user-doctor"></i>
-                ${escapeHtml(selectedDoctor.name)}
+
+                ${escapeHtml(
+                    selectedDoctor.name
+                )}
+
             </strong>
 
             <span>
-                ${escapeHtml(selectedDoctor.specialty || "طبيب")}
-                ${selectedDoctor.consultationDuration
+
+                ${escapeHtml(
+                    selectedDoctor.specialty ||
+                    "طبيب"
+                )}
+
+                ${
+                    selectedDoctor.consultationDuration
                     ? ` • مدة الكشف ${selectedDoctor.consultationDuration} دقيقة`
-                    : ""}
+                    : ""
+                }
+
             </span>
 
         `;
 
-        doctorInfo.classList.add("show");
+        doctorInfo.classList.add(
+            "show"
+        );
 
     }
 );
@@ -1426,28 +3523,49 @@ function getSelectedWilayaName(){
 
 async function createAppointment(){
 
-    hideAlert("bookingAlert");
+    if(bookingInFlight){
+        return;
+    }
+
+    hideAlert(
+        "bookingAlert"
+    );
 
     const patientName =
-        document.getElementById("patientName").value.trim();
+        document.getElementById(
+            "patientName"
+        ).value.trim();
 
     const patientPhone =
-        document.getElementById("patientPhone").value.trim();
+        document.getElementById(
+            "patientPhone"
+        ).value.trim()
+            .replace(/\s+/g,"");
 
     const patientAge =
-        document.getElementById("patientAge").value;
+        document.getElementById(
+            "patientAge"
+        ).value;
 
     const patientGender =
-        document.getElementById("patientGender").value;
+        document.getElementById(
+            "patientGender"
+        ).value;
 
     const date =
-        document.getElementById("date").value;
+        document.getElementById(
+            "date"
+        ).value;
 
     const time =
-        document.getElementById("time").value;
+        document.getElementById(
+            "time"
+        ).value;
 
     const reason =
-        document.getElementById("reason").value.trim();
+        document.getElementById(
+            "reason"
+        ).value.trim();
 
     const doctorId =
         doctorSelect.value;
@@ -1469,6 +3587,7 @@ async function createAppointment(){
 
     }
 
+
     if(!municipality){
 
         return showAlert(
@@ -1478,6 +3597,7 @@ async function createAppointment(){
         );
 
     }
+
 
     if(!doctorId){
 
@@ -1489,15 +3609,20 @@ async function createAppointment(){
 
     }
 
-    if(!patientName){
+
+    if(
+        !patientName ||
+        patientName.length < 3
+    ){
 
         return showAlert(
             "bookingAlert",
-            "أدخل الاسم واللقب.",
+            "أدخل الاسم واللقب بشكل صحيح.",
             "error"
         );
 
     }
+
 
     if(!patientPhone){
 
@@ -1509,7 +3634,12 @@ async function createAppointment(){
 
     }
 
-    if(!/^0[567][0-9]{8}$/.test(patientPhone)){
+
+    if(
+        !/^0[567][0-9]{8}$/.test(
+            patientPhone
+        )
+    ){
 
         return showAlert(
             "bookingAlert",
@@ -1519,15 +3649,25 @@ async function createAppointment(){
 
     }
 
-    if(!patientAge){
+
+    const ageNumber =
+        Number(patientAge);
+
+    if(
+        !patientAge ||
+        !Number.isInteger(ageNumber) ||
+        ageNumber < 1 ||
+        ageNumber > 120
+    ){
 
         return showAlert(
             "bookingAlert",
-            "أدخل عمر المريض.",
+            "أدخل عمرًا صحيحًا بين 1 و120 سنة.",
             "error"
         );
 
     }
+
 
     if(!patientGender){
 
@@ -1539,6 +3679,7 @@ async function createAppointment(){
 
     }
 
+
     if(!date){
 
         return showAlert(
@@ -1548,6 +3689,20 @@ async function createAppointment(){
         );
 
     }
+
+
+    if(
+        date < getTodayISO()
+    ){
+
+        return showAlert(
+            "bookingAlert",
+            "لا يمكن اختيار تاريخ مضى.",
+            "error"
+        );
+
+    }
+
 
     if(!time){
 
@@ -1561,15 +3716,23 @@ async function createAppointment(){
 
 
     const button =
-        document.getElementById("submitBooking");
+        document.getElementById(
+            "submitBooking"
+        );
 
     const loading =
-        document.getElementById("bookingLoading");
+        document.getElementById(
+            "bookingLoading"
+        );
 
-    button.disabled =
-        true;
 
-    loading.classList.add("show");
+    bookingInFlight = true;
+
+    button.disabled = true;
+
+    loading.classList.add(
+        "show"
+    );
 
 
     try{
@@ -1579,32 +3742,24 @@ async function createAppointment(){
             doctorId:
                 Number(doctorId),
 
-            patientName:
-                patientName,
+            patientName,
 
-            patientPhone:
-                patientPhone,
+            patientPhone,
 
             patientAge:
-                Number(patientAge),
+                ageNumber,
 
-            patientGender:
-                patientGender,
+            patientGender,
 
-            wilaya:
-                wilaya,
+            wilaya,
 
-            municipality:
-                municipality,
+            municipality,
 
-            date:
-                date,
+            date,
 
-            time:
-                time,
+            time,
 
-            reason:
-                reason
+            reason
 
         };
 
@@ -1617,23 +3772,34 @@ async function createAppointment(){
 
                     headers:{
                         "Content-Type":
+                            "application/json",
+
+                        "Accept":
                             "application/json"
                     },
 
                     body:
-                        JSON.stringify(payload)
+                        JSON.stringify(
+                            payload
+                        )
                 }
             );
 
 
         const data =
-            await response.json();
+            await readJsonResponse(
+                response
+            );
 
 
-        if(!response.ok || !data.success){
+        if(
+            !response.ok ||
+            !data.success
+        ){
 
             throw new Error(
                 data.message ||
+                data.error ||
                 "تعذر إنشاء الحجز"
             );
 
@@ -1652,7 +3818,8 @@ async function createAppointment(){
 
         const bookingNumber =
             appointment.bookingNumber ||
-            data.bookingNumber;
+            data.bookingNumber ||
+            appointment.number;
 
 
         if(!bookingNumber){
@@ -1665,24 +3832,53 @@ async function createAppointment(){
 
 
         currentBookingNumber =
-            bookingNumber;
+            String(
+                bookingNumber
+            );
 
 
         localStorage.setItem(
             "tabibkBookingNumber",
-            bookingNumber
+            currentBookingNumber
         );
 
 
         document.getElementById(
             "newBookingNumber"
         ).textContent =
-            bookingNumber;
+            currentBookingNumber;
 
 
         document.getElementById(
             "bookingResult"
-        ).classList.add("show");
+        ).classList.add(
+            "show"
+        );
+
+
+        window.lastWhatsAppMessage =
+            buildWhatsAppMessage(
+                appointment,
+                currentBookingNumber
+            );
+
+
+        document.getElementById(
+            "trackingNumber"
+        ).value =
+            currentBookingNumber;
+
+
+        playNotificationSound();
+
+
+        requestNotificationPermission();
+
+
+        sendBrowserNotification(
+            "TABIBK",
+            `تم إرسال طلب الحجز. رقمك: ${currentBookingNumber}`
+        );
 
 
         document.getElementById(
@@ -1693,50 +3889,107 @@ async function createAppointment(){
         });
 
 
-        playNotificationSound();
+        // Start polling only after a confirmed booking number exists.
+
+        startTracking();
 
 
-        requestNotificationPermission();
-
-        sendBrowserNotification(
-            "TABIBK",
-            `تم إرسال طلب الحجز. رقمك: ${bookingNumber}`
-        );
-
-
-        window.lastWhatsAppMessage =
-            buildWhatsAppMessage(
-                appointment,
-                bookingNumber
-            );
-
-
-        document.getElementById(
-            "trackingNumber"
-        ).value =
-            bookingNumber;
-
-startTracking();
-          
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "CREATE APPOINTMENT ERROR:",
+            error
+        );
+
 
         showAlert(
             "bookingAlert",
             error.message ||
-            "حدث خطأ أثناء إرسال الطلب.",
+            "حدث خطأ أثناء إرسال الطلب. حاول مرة أخرى.",
             "error"
         );
 
+
     }finally{
 
-        button.disabled =
-            false;
+        bookingInFlight = false;
 
-        loading.classList.remove("show");
+        button.disabled = false;
+
+        loading.classList.remove(
+            "show"
+        );
 
     }
+
+}
+
+
+/* =====================================================
+   SAFE RESPONSE + DATE HELPERS
+   ===================================================== */
+
+async function readJsonResponse(
+    response
+){
+
+    const contentType =
+        response.headers.get(
+            "content-type"
+        ) || "";
+
+
+    if(
+        !contentType.includes(
+            "application/json"
+        )
+    ){
+
+        const text =
+            await response.text();
+
+        throw new Error(
+            text
+                ? "السيرفر أعاد استجابة غير صالحة."
+                : "لم تصل استجابة صحيحة من السيرفر."
+        );
+
+    }
+
+
+    try{
+
+        return await response.json();
+
+    }catch(error){
+
+        throw new Error(
+            "تعذر قراءة استجابة السيرفر."
+        );
+
+    }
+
+}
+
+
+function getTodayISO(){
+
+    const now =
+        new Date();
+
+    return [
+
+        now.getFullYear(),
+
+        String(
+            now.getMonth()+1
+        ).padStart(2,"0"),
+
+        String(
+            now.getDate()
+        ).padStart(2,"0")
+
+    ].join("-");
 
 }
 
@@ -1755,7 +4008,9 @@ function buildWhatsAppMessage(
         selectedDoctor?.name ||
         "الطبيب";
 
+
     return `
+
 السلام عليكم
 
 تم إرسال طلب موعد طبي عبر TABIBK.
@@ -1779,6 +4034,7 @@ ${appointment.time || document.getElementById("time").value}
 في انتظار تأكيد الطبيب.
 
 شكراً لاستخدام TABIBK
+
 `.trim();
 
 }
@@ -1786,12 +4042,13 @@ ${appointment.time || document.getElementById("time").value}
 
 function openWhatsApp(){
 
-    if(!currentAppointment &&
-       !currentBookingNumber){
-
+    if(
+        !currentAppointment &&
+        !currentBookingNumber
+    ){
         return;
-
     }
+
 
     const message =
         window.lastWhatsAppMessage ||
@@ -1800,8 +4057,12 @@ function openWhatsApp(){
             currentBookingNumber
         );
 
+
     const url =
-        `https://wa.me/?text=${encodeURIComponent(message)}`;
+        `https://wa.me/?text=${encodeURIComponent(
+            message
+        )}`;
+
 
     window.open(
         url,
@@ -1819,10 +4080,14 @@ async function trackAppointment(
     silent = false
 ){
 
-    const number =
+    const input =
         document.getElementById(
             "trackingNumber"
-        ).value.trim();
+        );
+
+
+    const number =
+        input.value.trim();
 
 
     if(!number){
@@ -1842,37 +4107,71 @@ async function trackAppointment(
     }
 
 
+    // Never allow overlapping 5-second polling requests.
+
+    if(
+        trackingRequestInFlight
+    ){
+        return;
+    }
+
+
     if(!silent){
 
-        hideAlert("trackingAlert");
+        hideAlert(
+            "trackingAlert"
+        );
+
 
         document.getElementById(
             "trackButton"
         ).disabled = true;
 
+
         document.getElementById(
             "trackingLoading"
-        ).classList.add("show");
+        ).classList.add(
+            "show"
+        );
 
     }
+
+
+    trackingRequestInFlight =
+        true;
 
 
     try{
 
         const response =
             await fetch(
-                `${API}/api/appointments/${encodeURIComponent(number)}`
+                `${API}/api/appointments/${encodeURIComponent(number)}`,
+                {
+                    headers:{
+                        "Accept":
+                            "application/json"
+                    },
+
+                    cache:
+                        "no-store"
+                }
             );
 
 
         const data =
-            await response.json();
+            await readJsonResponse(
+                response
+            );
 
 
-        if(!response.ok || !data.success){
+        if(
+            !response.ok ||
+            !data.success
+        ){
 
             throw new Error(
                 data.message ||
+                data.error ||
                 "الحجز غير موجود"
             );
 
@@ -1890,8 +4189,10 @@ async function trackAppointment(
 
 
         currentBookingNumber =
-            appointment.bookingNumber ||
-            number;
+            String(
+                appointment.bookingNumber ||
+                number
+            );
 
 
         localStorage.setItem(
@@ -1900,40 +4201,68 @@ async function trackAppointment(
         );
 
 
+        input.value =
+            currentBookingNumber;
+
+
         renderAppointment(
             appointment
         );
 
 
-        if(!silent){
+        document.getElementById(
+            "trackingResult"
+        ).classList.add(
+            "show"
+        );
 
-            document.getElementById(
-                "trackingResult"
-            ).classList.add("show");
 
-            document.getElementById(
-                "appointmentDetails"
-            ).classList.add("show");
-
-        }
+        document.getElementById(
+            "appointmentDetails"
+        ).classList.add(
+            "show"
+        );
 
 
         const newStatus =
-            appointment.status;
+            appointment.status ||
+            "pending";
+
+
+        const newQueue =
+            appointment.queueNumber ??
+            appointment.turnNumber ??
+            appointment.queue ??
+            null;
+
+
+        const statusChanged =
+            previousStatus !== null &&
+            previousStatus !== newStatus;
+
+
+        const queueChanged =
+            lastTrackedQueue !== null &&
+            String(lastTrackedQueue) !==
+                String(newQueue);
 
 
         if(
-            previousStatus &&
-            previousStatus !== newStatus
+            statusChanged ||
+            queueChanged
         ){
 
             playNotificationSound();
 
+
             sendBrowserNotification(
                 "تحديث موعد TABIBK",
-                getStatusNotification(
-                    newStatus
-                )
+
+                statusChanged
+                    ? getStatusNotification(
+                        newStatus
+                    )
+                    : "تم تحديث رقم الطابور الخاص بك."
             );
 
         }
@@ -1942,23 +4271,38 @@ async function trackAppointment(
         previousStatus =
             newStatus;
 
+        lastTrackedStatus =
+            newStatus;
+
+        lastTrackedQueue =
+            newQueue;
+
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "TRACK APPOINTMENT ERROR:",
+            error
+        );
+
 
         if(!silent){
 
             showAlert(
                 "trackingAlert",
                 error.message ||
-                "تعذر العثور على الحجز.",
+                "تعذر العثور على الحجز. تحقق من رقم الحجز.",
                 "error"
             );
 
         }
 
+
     }finally{
+
+        trackingRequestInFlight =
+            false;
+
 
         if(!silent){
 
@@ -1966,9 +4310,12 @@ async function trackAppointment(
                 "trackButton"
             ).disabled = false;
 
+
             document.getElementById(
                 "trackingLoading"
-            ).classList.remove("show");
+            ).classList.remove(
+                "show"
+            );
 
         }
 
@@ -1991,13 +4338,16 @@ function renderAppointment(
 
 
     const statusData =
-        getStatusData(status);
+        getStatusData(
+            status
+        );
 
 
     const badge =
         document.getElementById(
             "statusBadge"
         );
+
 
     badge.className =
         `status-badge ${statusData.className}`;
@@ -2149,6 +4499,7 @@ function renderAppointment(
             "hidden"
         );
 
+
         document.getElementById(
             "rejectionReason"
         ).textContent =
@@ -2169,12 +4520,955 @@ function renderAppointment(
    STATUS DATA
    ===================================================== */
 
-function getStatusData(status){
+function getStatusData(
+    status
+){
 
     switch(status){
 
         case "confirmed":
 
+        case "accepted":
+
+            return {
+
+                text:
+                    "تم تأكيد الموعد",
+
+                title:
+                    "موعدك مؤكد ✅",
+
+                message:
+                    "تم قبول طلبك من طرف الطبيب. يرجى الحضور في الوقت المحدد.",
+
+                icon:
+                    "fa-circle-check",
+
+                className:
+                    "status-confirmed"
+
+            };
+
+
+        case "rejected":
+
+            return {
+
+                text:
+                    "تم رفض الموعد",
+
+                title:
+                    "تم رفض طلب الموعد",
+
+                message:
+                    "يمكنك البحث عن طبيب أو موعد آخر.",
+
+                icon:
+                    "fa-circle-xmark",
+
+                className:
+                    "status-rejected"
+
+            };
+
+
+        case "started":
+
+            return {
+
+                text:
+                    "حان دورك الآن",
+
+                title:
+                    "الكشف جارٍ 🟢",
+
+                message:
+                    "الطبيب بدأ الكشف. يرجى التوجه إلى العيادة.",
+
+                icon:
+                    "fa-stethoscope",
+
+                className:
+                    "status-started"
+
+            };
+
+
+        case "completed":
+
+            return {
+
+                text:
+                    "اكتمل الموعد",
+
+                title:
+                    "تم إكمال الكشف",
+
+                message:
+                    "نتمنى لك دوام الصحة والعافية ❤️",
+
+                icon:
+                    "fa-check-double",
+
+                className:
+                    "status-completed"
+
+            };
+
+
+        case "cancelled":
+
+            return {
+
+                text:
+                    "تم إلغاء الموعد",
+
+                title:
+                    "تم إلغاء الموعد",
+
+                message:
+                    "يمكنك إنشاء طلب حجز جديد.",
+
+                icon:
+                    "fa-ban",
+
+                className:
+                    "status-cancelled"
+
+            };
+
+
+        case "pending":
+
+        default:
+
+            return {
+
+                text:
+                    "في انتظار التأكيد",
+
+                title:
+                    "طلبك قيد المراجعة",
+
+                message:
+                    "ننتظر تأكيد الطبيب. سنقوم بتحديث الحالة تلقائيًا.",
+
+                icon:
+                    "fa-clock",
+
+                className:
+                    "status-pending"
+
+            };
+
+    }
+
+}
+
+
+/* =====================================================
+   STATUS NOTIFICATION
+   ===================================================== */
+
+function getStatusNotification(
+    status
+){
+
+    switch(status){
+
+        case "confirmed":
+
+        case "accepted":
+
+            return "تم تأكيد موعدك من طرف الطبيب.";
+
+
+        case "rejected":
+
+            return "تم رفض طلب الموعد.";
+
+
+        case "started":
+
+            return "حان دورك الآن. توجه إلى الطبيب.";
+
+
+        case "completed":
+
+            return "تم إكمال موعدك.";
+
+
+        default:
+
+            return "تم تحديث حالة موعدك.";
+
+    }
+
+}
+
+
+/* =====================================================
+   PATIENTS AHEAD
+   ===================================================== */
+
+function calculatePatientsAhead(
+    appointment
+){
+
+    const queue =
+        appointment.queueNumber ??
+        appointment.turnNumber;
+
+
+    const current =
+        appointment.currentTurn ??
+        appointment.currentNumber;
+
+
+    if(
+        queue !== undefined &&
+        current !== undefined &&
+        Number.isFinite(
+            Number(queue)
+        ) &&
+        Number.isFinite(
+            Number(current)
+        )
+    ){
+
+        return Math.max(
+            0,
+            Number(queue) -
+            Number(current) -
+            1
+        );
+
+    }
+
+
+    return "-";
+
+}
+
+
+/* =====================================================
+   DOCTOR NAME
+   ===================================================== */
+
+function getDoctorName(
+    doctorId
+){
+
+    const doctor =
+        doctors.find(
+            d =>
+                String(d.id) ===
+                String(doctorId)
+        );
+
+
+    return doctor
+        ? doctor.name
+        : "-";
+
+}
+
+
+/* =====================================================
+   SECTIONS
+   ===================================================== */
+
+function showSection(
+    section
+){
+
+    const booking =
+        document.getElementById(
+            "bookingSection"
+        );
+
+    const tracking =
+        document.getElementById(
+            "trackingSection"
+        );
+
+
+    const bookTab =
+        document.getElementById(
+            "bookTab"
+        );
+
+    const trackTab =
+        document.getElementById(
+            "trackTab"
+        );
+
+
+    if(
+        section === "booking"
+    ){
+
+        booking.classList.remove(
+            "hidden"
+        );
+
+        tracking.classList.add(
+            "hidden"
+        );
+
+
+        bookTab.classList.add(
+            "active"
+        );
+
+        trackTab.classList.remove(
+            "active"
+        );
+
+
+        stopTracking();
+
+
+    }else{
+
+        booking.classList.add(
+            "hidden"
+        );
+
+        tracking.classList.remove(
+            "hidden"
+        );
+
+
+        bookTab.classList.remove(
+            "active"
+        );
+
+        trackTab.classList.add(
+            "active"
+        );
+
+
+        if(currentBookingNumber){
+
+            document.getElementById(
+                "trackingNumber"
+            ).value =
+                currentBookingNumber;
+
+
+            trackAppointment();
+
+
+            startTracking();
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   GO TRACKING
+   ===================================================== */
+
+function goToTracking(){
+
+    showSection(
+        "tracking"
+    );
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   AUTO REFRESH
+   ===================================================== */
+
+function startTracking(){
+
+    stopTracking();
+
+
+    if(!currentBookingNumber){
+        return;
+    }
+
+
+    const trackingSection =
+        document.getElementById(
+            "trackingSection"
+        );
+
+
+    if(
+        trackingSection.classList.contains(
+            "hidden"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    trackingTimer =
+        setInterval(
+            () => {
+
+                if(
+                    document.visibilityState ===
+                        "visible" &&
+
+                    !document
+                        .getElementById(
+                            "trackingSection"
+                        )
+                        .classList.contains(
+                            "hidden"
+                        )
+                ){
+
+                    trackAppointment(
+                        true
+                    );
+
+                }
+
+            },
+            5000
+        );
+
+}
+
+
+function stopTracking(){
+
+    if(trackingTimer){
+
+        clearInterval(
+            trackingTimer
+        );
+
+        trackingTimer =
+            null;
+
+    }
+
+}
+
+
+/* =====================================================
+   ALERT
+   ===================================================== */
+
+function showAlert(
+    id,
+    message,
+    type = "info"
+){
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    element.className =
+        `alert ${type} show`;
+
+
+    element.textContent =
+        message;
+
+}
+
+
+function hideAlert(
+    id
+){
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    element.className =
+        "alert";
+
+
+    element.textContent =
+        "";
+
+}
+
+
+/* =====================================================
+   BROWSER NOTIFICATIONS
+   ===================================================== */
+
+async function requestNotificationPermission(){
+
+    if(
+        !("Notification" in window)
+    ){
+
+        return false;
+
+    }
+
+
+    try{
+
+        if(
+            Notification.permission ===
+            "granted"
+        ){
+
+            return true;
+
+        }
+
+
+        if(
+            Notification.permission ===
+            "default"
+        ){
+
+            const permission =
+                await Notification.requestPermission();
+
+            return (
+                permission ===
+                "granted"
+            );
+
+        }
+
+
+        return false;
+
+    }catch(error){
+
+        console.log(
+            "Notification permission error:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+async function sendBrowserNotification(
+    title,
+    body
+){
+
+    if(
+        !("Notification" in window)
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        let permission =
+            Notification.permission;
+
+
+        if(
+            permission ===
+            "default"
+        ){
+
+            permission =
+                await Notification.requestPermission();
+
+        }
+
+
+        if(
+            permission !==
+            "granted"
+        ){
+
+            console.log(
+                "Browser notification permission:",
+                permission
+            );
+
+            return;
+
+        }
+
+
+        new Notification(
+            title,
+            {
+                body:body,
+
+                icon:"/favicon.ico",
+
+                badge:"/favicon.ico",
+
+                tag:
+                    "tabibk-appointment",
+
+                renotify:true,
+
+                requireInteraction:true
+            }
+        );
+
+
+    }catch(error){
+
+        console.log(
+            "Browser notification error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SOUND
+   ===================================================== */
+
+function playNotificationSound(){
+
+    try{
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+
+        if(!AudioContext){
+
+            return;
+
+        }
+
+
+        const context =
+            new AudioContext();
+
+
+        const oscillator =
+            context.createOscillator();
+
+
+        const gain =
+            context.createGain();
+
+
+        oscillator.type =
+            "sine";
+
+
+        oscillator.frequency.value =
+            880;
+
+
+        gain.gain.setValueAtTime(
+            .0001,
+            context.currentTime
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            .15,
+            context.currentTime + .03
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            .0001,
+            context.currentTime + .45
+        );
+
+
+        oscillator.connect(
+            gain
+        );
+
+
+        gain.connect(
+            context.destination
+        );
+
+
+        oscillator.start();
+
+
+        oscillator.stop(
+            context.currentTime + .5
+        );
+
+
+    }catch(error){
+
+        console.log(
+            "Audio blocked:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
+
+function escapeHtml(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   AUTO TRACK SAVED BOOKING
+   ===================================================== */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        if(currentBookingNumber){
+
+            console.log(
+                "آخر رقم حجز:",
+                currentBookingNumber
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+
+/* =====================================================
+   RENDER APPOINTMENT
+   ===================================================== */
+
+function renderAppointment(
+    appointment
+){
+
+    const status =
+        appointment.status ||
+        "pending";
+
+    const statusData =
+        getStatusData(status);
+
+    const badge =
+        document.getElementById(
+            "statusBadge"
+        );
+
+    badge.className =
+        `status-badge ${statusData.className}`;
+
+    badge.innerHTML = `
+
+        <i class="fa-solid ${statusData.icon}"></i>
+
+        <span>
+            ${statusData.text}
+        </span>
+
+    `;
+
+    document.getElementById(
+        "statusTitle"
+    ).textContent =
+        statusData.title;
+
+    document.getElementById(
+        "statusMessage"
+    ).textContent =
+        statusData.message;
+
+    const queueNumber =
+        appointment.queueNumber ??
+        appointment.turnNumber ??
+        appointment.queue ??
+        "-";
+
+    const patientsAhead =
+        appointment.patientsAhead ??
+        appointment.ahead ??
+        calculatePatientsAhead(
+            appointment
+        );
+
+    const currentTurn =
+        appointment.currentTurn ??
+        appointment.currentQueue ??
+        appointment.currentNumber ??
+        "-";
+
+    document.getElementById(
+        "queueNumber"
+    ).textContent =
+        queueNumber;
+
+    document.getElementById(
+        "patientsAhead"
+    ).textContent =
+        patientsAhead;
+
+    document.getElementById(
+        "currentTurn"
+    ).textContent =
+        currentTurn;
+
+    document.getElementById(
+        "detailBooking"
+    ).textContent =
+        appointment.bookingNumber ||
+        currentBookingNumber ||
+        "-";
+
+    document.getElementById(
+        "detailDoctor"
+    ).textContent =
+        appointment.doctorName ||
+        appointment.doctor?.name ||
+        getDoctorName(
+            appointment.doctorId
+        );
+
+    document.getElementById(
+        "detailSpecialty"
+    ).textContent =
+        appointment.specialty ||
+        appointment.doctor?.specialty ||
+        "-";
+
+    document.getElementById(
+        "detailWilaya"
+    ).textContent =
+        appointment.wilaya ||
+        "-";
+
+    document.getElementById(
+        "detailMunicipality"
+    ).textContent =
+        appointment.municipality ||
+        "-";
+
+    document.getElementById(
+        "detailDate"
+    ).textContent =
+        appointment.date ||
+        "-";
+
+    document.getElementById(
+        "detailTime"
+    ).textContent =
+        appointment.time ||
+        "-";
+
+    document.getElementById(
+        "detailPatient"
+    ).textContent =
+        appointment.patientName ||
+        appointment.name ||
+        "-";
+
+    const rejectedCard =
+        document.getElementById(
+            "rejectedCard"
+        );
+
+    const rejectionReason =
+        appointment.rejectionReason ||
+        appointment.rejectReason ||
+        appointment.reasonForRejection;
+
+    if(
+        status === "rejected" &&
+        rejectionReason
+    ){
+
+        rejectedCard.classList.remove(
+            "hidden"
+        );
+
+        document.getElementById(
+            "rejectionReason"
+        ).textContent =
+            rejectionReason;
+
+    }else{
+
+        rejectedCard.classList.add(
+            "hidden"
+        );
+
+    }
+
+}
+
+/* =====================================================
+   STATUS DATA
+   ===================================================== */
+
+function getStatusData(status){
+
+    switch(status){
+
+        case "confirmed":
         case "accepted":
 
             return {
@@ -2271,7 +5565,6 @@ function getStatusData(status){
 
 
         case "pending":
-
         default:
 
             return {
@@ -2294,7 +5587,6 @@ function getStatusData(status){
 
 }
 
-
 /* =====================================================
    STATUS NOTIFICATION
    ===================================================== */
@@ -2305,24 +5597,28 @@ function getStatusNotification(status){
 
         case "confirmed":
         case "accepted":
+
             return "تم تأكيد موعدك من طرف الطبيب.";
 
         case "rejected":
+
             return "تم رفض طلب الموعد.";
 
         case "started":
+
             return "حان دورك الآن. توجه إلى الطبيب.";
 
         case "completed":
+
             return "تم إكمال موعدك.";
 
         default:
+
             return "تم تحديث حالة موعدك.";
 
     }
 
 }
-
 
 /* =====================================================
    PATIENTS AHEAD
@@ -2360,7 +5656,6 @@ function calculatePatientsAhead(
 
 }
 
-
 /* =====================================================
    DOCTOR NAME
    ===================================================== */
@@ -2382,7 +5677,6 @@ function getDoctorName(
 
 }
 
-
 /* =====================================================
    SECTIONS
    ===================================================== */
@@ -2401,7 +5695,6 @@ function showSection(
             "trackingSection"
         );
 
-
     const bookTab =
         document.getElementById(
             "bookTab"
@@ -2411,7 +5704,6 @@ function showSection(
         document.getElementById(
             "trackTab"
         );
-
 
     if(section === "booking"){
 
@@ -2469,7 +5761,6 @@ function showSection(
 
 }
 
-
 /* =====================================================
    GO TRACKING
    ===================================================== */
@@ -2487,7 +5778,6 @@ function goToTracking(){
 
 }
 
-
 /* =====================================================
    AUTO REFRESH
    ===================================================== */
@@ -2500,20 +5790,41 @@ function startTracking(){
         return;
     }
 
+    const trackingSection =
+        document.getElementById(
+            "trackingSection"
+        );
+
+    if(
+        trackingSection.classList.contains(
+            "hidden"
+        )
+    ){
+        return;
+    }
+
     trackingTimer =
         setInterval(
             () => {
 
-                trackAppointment(
-                    true
-                );
+                if(
+                    document.visibilityState === "visible" &&
+                    !document.getElementById(
+                        "trackingSection"
+                    ).classList.contains(
+                        "hidden"
+                    )
+                ){
+
+                    trackAppointment(true);
+
+                }
 
             },
             5000
         );
 
 }
-
 
 function stopTracking(){
 
@@ -2523,13 +5834,11 @@ function stopTracking(){
             trackingTimer
         );
 
-        trackingTimer =
-            null;
+        trackingTimer = null;
 
     }
 
 }
-
 
 /* =====================================================
    ALERT
@@ -2552,7 +5861,6 @@ function showAlert(
 
 }
 
-
 function hideAlert(id){
 
     const element =
@@ -2566,8 +5874,172 @@ function hideAlert(id){
 
 }
 
+/* =====================================================
+   BROWSER NOTIFICATIONS
+   ===================================================== */
 
-/* ===================================================== BROWSER NOTIFICATIONS ===================================================== */ async function requestNotificationPermission(){ if(!("Notification" in window)){ return false; } try{ if(Notification.permission === "granted"){ return true; } if(Notification.permission === "default"){ const permission = await Notification.requestPermission(); return permission === "granted"; } return false; }catch(error){ console.log( "Notification permission error:", error ); return false; } } async function sendBrowserNotification( title, body ){ if(!("Notification" in window)){ return; } try{ let permission = Notification.permission; if(permission === "default"){ permission = await Notification.requestPermission(); } if(permission !== "granted"){ console.log( "Browser notification permission:", permission ); return; } new Notification( title, { body: body, icon: "/favicon.ico", badge: "/favicon.ico", tag: "tabibk-appointment", renotify: true, requireInteraction: true } ); }catch(error){ console.log( "Browser notification error:", error ); } } /* ===================================================== SOUND ===================================================== */ function playNotificationSound(){ try{ const AudioContext = window.AudioContext || window.webkitAudioContext; if(!AudioContext){ return; } const context = new AudioContext(); const oscillator = context.createOscillator(); const gain = context.createGain(); oscillator.type = "sine"; oscillator.frequency.value = 880; gain.gain.setValueAtTime( .0001, context.currentTime ); gain.gain.exponentialRampToValueAtTime( .15, context.currentTime + .03 ); gain.gain.exponentialRampToValueAtTime( .0001, context.currentTime + .45 ); oscillator.connect( gain ); gain.connect( context.destination ); oscillator.start(); oscillator.stop( context.currentTime + .5 ); }catch(error){ console.log( "Audio blocked:", error ); } }
+async function requestNotificationPermission(){
+
+    if(!("Notification" in window)){
+        return false;
+    }
+
+    try{
+
+        if(Notification.permission === "granted"){
+            return true;
+        }
+
+        if(Notification.permission === "default"){
+
+            const permission =
+                await Notification.requestPermission();
+
+            return permission === "granted";
+
+        }
+
+        return false;
+
+    }catch(error){
+
+        console.log(
+            "Notification permission error:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+async function sendBrowserNotification(
+    title,
+    body
+){
+
+    if(!("Notification" in window)){
+        return;
+    }
+
+    try{
+
+        let permission =
+            Notification.permission;
+
+        if(permission === "default"){
+
+            permission =
+                await Notification.requestPermission();
+
+        }
+
+        if(permission !== "granted"){
+
+            console.log(
+                "Browser notification permission:",
+                permission
+            );
+
+            return;
+
+        }
+
+        new Notification(
+            title,
+            {
+                body: body,
+                icon: "/favicon.ico",
+                badge: "/favicon.ico",
+                tag: "tabibk-appointment",
+                renotify: true,
+                requireInteraction: true
+            }
+        );
+
+    }catch(error){
+
+        console.log(
+            "Browser notification error:",
+            error
+        );
+
+    }
+
+}
+
+/* =====================================================
+   SOUND
+   ===================================================== */
+
+function playNotificationSound(){
+
+    try{
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if(!AudioContext){
+            return;
+        }
+
+        const context =
+            new AudioContext();
+
+        const oscillator =
+            context.createOscillator();
+
+        const gain =
+            context.createGain();
+
+        oscillator.type =
+            "sine";
+
+        oscillator.frequency.value =
+            880;
+
+        gain.gain.setValueAtTime(
+            .0001,
+            context.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .15,
+            context.currentTime + .03
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .0001,
+            context.currentTime + .45
+        );
+
+        oscillator.connect(
+            gain
+        );
+
+        gain.connect(
+            context.destination
+        );
+
+        oscillator.start();
+
+        oscillator.stop(
+            context.currentTime + .5
+        );
+
+    }catch(error){
+
+        console.log(
+            "Audio blocked:",
+            error
+        );
+
+    }
+
+}
+
 /* =====================================================
    ESCAPE HTML
    ===================================================== */
@@ -2601,7 +6073,6 @@ function escapeHtml(
     );
 
 }
-
 
 /* =====================================================
    AUTO TRACK SAVED BOOKING

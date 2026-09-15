@@ -8,7 +8,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<meta name="theme-color" content="#18151d">
+<meta name="theme-color" content="#17141b">
 
 <meta name="description"
       content="طبيبك TABIBK - حجز ومتابعة المواعيد الطبية">
@@ -29,6 +29,7 @@ rel="stylesheet">
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+
 <style>
 
 /* =========================================================
@@ -41,7 +42,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     padding:0;
 }
 
-html{
+html,
+body{
     min-height:100%;
 }
 
@@ -52,9 +54,9 @@ body{
 
     font-family:Cairo,sans-serif;
 
-    background:#100d14;
-
     color:#fff;
+
+    background:#111015;
 
     overflow-x:hidden;
 }
@@ -66,54 +68,40 @@ body{
 
 :root{
 
-    /* PURPLE */
+    --purple-black:#120b17;
+    --purple-deep:#1b0c25;
+    --purple-dark:#291033;
+    --purple:#4b155f;
+    --purple2:#69227f;
+    --purple3:#8a479f;
 
-    --purple-black:#16071d;
-    --purple-deep:#210b2e;
-    --purple-dark:#2d0d3c;
-    --purple:#4a155f;
-    --purple2:#6d238b;
-    --purple3:#8d4baa;
-    --purple-light:#a96bc1;
+    /* DARK WHITE / SILVER */
 
+    --white-dark:#6e7178;
+    --silver-dark:#8c9097;
+    --silver:#b7bac0;
+    --silver-light:#d7d9dd;
+    --silver-bright:#eeeeef;
 
     /* GOLD */
 
-    --gold-dark:#775313;
-    --gold:#b88a25;
-    --gold2:#d3aa45;
-    --gold-light:#e8c969;
-    --gold-bright:#f5df91;
+    --gold-dark:#7a5718;
+    --gold:#b88a29;
+    --gold-light:#e0bd5d;
 
+    --muted:#aaa7ae;
 
-    /* DARK SILVER */
+    --shadow-deep:
+        0 35px 80px rgba(0,0,0,.65);
 
-    --silver-black:#292a2f;
-    --silver-dark:#45474e;
-    --silver:#73767e;
-    --silver-light:#aeb1b8;
-    --silver-bright:#d7d9dd;
+    --shadow-card:
+        0 25px 55px rgba(0,0,0,.52);
 
-
-    /* WHITE */
-
-    --white:#ffffff;
-
-    --muted:#bcb8c0;
-
-
-    /* SHADOW */
-
-    --shadow:
-        0 22px 60px rgba(0,0,0,.48);
-
-    --shadow2:
-        0 35px 90px rgba(0,0,0,.65);
 }
 
 
 /* =========================================================
-   MAIN PAGE
+   PAGE
 ========================================================= */
 
 .page{
@@ -128,54 +116,47 @@ body{
 
     background:
 
-        /* DARK SILVER AREA */
+        /* DARK WHITE / SILVER */
 
         radial-gradient(
-            ellipse at 7% 18%,
-            rgba(115,118,126,.35),
-            transparent 28%
+            circle at 4% 12%,
+            rgba(183,186,192,.20),
+            transparent 23%
         ),
 
         radial-gradient(
-            ellipse at 93% 82%,
-            rgba(69,71,78,.42),
-            transparent 30%
+            circle at 94% 82%,
+            rgba(110,113,120,.24),
+            transparent 27%
         ),
 
-        /* PURPLE LIGHT */
+        /* PURPLE */
 
         radial-gradient(
-            ellipse at 55% 35%,
-            rgba(109,35,139,.30),
+            circle at 50% 30%,
+            rgba(105,34,127,.30),
             transparent 35%
         ),
 
-        /* GOLD LIGHT */
-
         radial-gradient(
-            ellipse at 80% 10%,
-            rgba(211,170,69,.13),
+            circle at 80% 10%,
+            rgba(138,71,159,.15),
             transparent 25%
         ),
 
         linear-gradient(
             135deg,
-
-            #120914 0%,
-
-            #24102e 25%,
-
-            #321342 47%,
-
-            #26252c 70%,
-
-            #111016 100%
+            #111015 0%,
+            #211027 24%,
+            #32133e 46%,
+            #29272d 67%,
+            #151419 100%
         );
 }
 
 
 /* =========================================================
-   GOLD FRAME
+   3D BACKGROUND ORBS
 ========================================================= */
 
 .page::before{
@@ -184,37 +165,33 @@ body{
 
     position:absolute;
 
-    z-index:20;
+    width:520px;
+    height:520px;
 
-    inset:9px;
+    top:-280px;
+    left:-200px;
 
-    border:
+    border-radius:50%;
 
-        1.5px solid
-        rgba(232,201,105,.72);
+    background:
 
-    border-radius:25px;
+        radial-gradient(
+            circle at 35% 35%,
+            rgba(238,238,239,.22),
+            rgba(110,113,120,.08) 35%,
+            transparent 70%
+        );
 
     box-shadow:
 
-        0 0 0 1px
-        rgba(119,83,19,.45),
+        120px 180px 100px
+        rgba(0,0,0,.30);
 
-        0 0 22px
-        rgba(211,170,69,.12),
-
-        inset 0 0 18px
-        rgba(211,170,69,.055);
+    filter:blur(1px);
 
     pointer-events:none;
-
-    opacity:.95;
 }
 
-
-/* =========================================================
-   INNER GOLD FRAME
-========================================================= */
 
 .page::after{
 
@@ -222,23 +199,34 @@ body{
 
     position:absolute;
 
-    z-index:20;
+    width:600px;
+    height:600px;
 
-    inset:14px;
+    right:-330px;
+    bottom:-350px;
 
-    border:
+    border-radius:50%;
 
-        1px solid
-        rgba(232,201,105,.20);
+    background:
 
-    border-radius:21px;
+        radial-gradient(
+            circle at 40% 35%,
+            rgba(138,71,159,.25),
+            rgba(41,16,51,.05) 48%,
+            transparent 70%
+        );
+
+    box-shadow:
+
+        -80px -100px 100px
+        rgba(0,0,0,.30);
 
     pointer-events:none;
 }
 
 
 /* =========================================================
-   SILVER DECORATION
+   3D MEDICAL BACKGROUND
 ========================================================= */
 
 .medical-pattern{
@@ -249,46 +237,11 @@ body{
 
     pointer-events:none;
 
-    opacity:.17;
+    opacity:.16;
 }
 
 
-/* silver circles */
-
-.medical-pattern::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:700px;
-    height:700px;
-
-    left:-360px;
-    top:-360px;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(174,177,184,.30);
-
-    box-shadow:
-
-        0 0 0 35px
-        rgba(174,177,184,.06),
-
-        0 0 0 75px
-        rgba(174,177,184,.045),
-
-        0 0 0 120px
-        rgba(211,170,69,.035);
-}
-
-
-/* =========================================================
-   ECG
-========================================================= */
+/* ECG */
 
 .medical-pattern::before{
 
@@ -296,60 +249,54 @@ body{
 
     position:absolute;
 
+    width:120%;
+
+    height:160px;
+
     left:-10%;
-    right:-10%;
 
-    top:52%;
-
-    height:120px;
-
-    opacity:.8;
+    top:50%;
 
     background:
 
         linear-gradient(
             90deg,
-            transparent 0%,
-            transparent 12%,
-            rgba(174,177,184,.8) 12.2%,
-            transparent 12.4%,
-            transparent 29%,
-            rgba(211,170,69,.85) 29.2%,
-            transparent 29.4%,
-            transparent 44%,
-            rgba(174,177,184,.7) 44.2%,
-            transparent 44.4%,
-            transparent 65%,
-            rgba(141,75,170,.8) 65.2%,
-            transparent 65.4%,
-            transparent 100%
+            transparent 0 14%,
+            rgba(215,217,221,.55) 14.2%,
+            transparent 14.4% 28%,
+            rgba(224,189,93,.60) 28.2%,
+            transparent 28.4% 43%,
+            rgba(215,217,221,.45) 43.2%,
+            transparent 43.4% 61%,
+            rgba(138,71,159,.55) 61.2%,
+            transparent 61.4% 100%
         );
 
     clip-path:
 
         polygon(
             0 52%,
-            14% 52%,
-            17% 52%,
-            18% 37%,
-            19% 52%,
-            30% 52%,
-            33% 52%,
-            35% 15%,
-            36% 84%,
-            37% 52%,
-            44% 52%,
+            13% 52%,
+            16% 52%,
+            17% 38%,
+            18% 52%,
+            28% 52%,
+            31% 52%,
+            33% 18%,
+            34% 85%,
+            35% 52%,
+            43% 52%,
             47% 52%,
-            49% 32%,
+            49% 34%,
             50% 52%,
-            63% 52%,
-            66% 52%,
-            68% 19%,
-            69% 82%,
-            70% 52%,
-            84% 52%,
+            61% 52%,
+            64% 52%,
+            66% 20%,
+            67% 82%,
+            68% 52%,
+            83% 52%,
             86% 52%,
-            88% 37%,
+            88% 38%,
             89% 52%,
             100% 52%,
             100% 57%,
@@ -358,8 +305,41 @@ body{
 }
 
 
+/* circles */
+
+.medical-pattern::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+    height:600px;
+
+    right:-300px;
+    top:-300px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(215,217,221,.18);
+
+    box-shadow:
+
+        0 0 0 35px
+        rgba(215,217,221,.04),
+
+        0 0 0 75px
+        rgba(215,217,221,.025),
+
+        0 0 0 125px
+        rgba(138,71,159,.025);
+}
+
+
 /* =========================================================
-   SHELL
+   MAIN CONTAINER
 ========================================================= */
 
 .shell{
@@ -375,15 +355,17 @@ body{
     margin:auto;
 
     padding:
-        25px 30px 18px;
+        22px 30px 15px;
 }
 
 
 /* =========================================================
-   TOPBAR
+   TOP BAR 3D
 ========================================================= */
 
 .topbar{
+
+    position:relative;
 
     display:flex;
 
@@ -394,29 +376,60 @@ body{
     padding:
         10px 14px;
 
-    border-radius:19px;
+    border-radius:20px;
 
     background:
 
         linear-gradient(
-            135deg,
-
-            rgba(50,18,66,.96),
-
-            rgba(20,18,23,.96)
+            145deg,
+            rgba(82,84,91,.38),
+            rgba(35,20,42,.92) 48%,
+            rgba(19,15,22,.96)
         );
 
     border:
         1px solid
-        rgba(211,170,69,.38);
+        rgba(215,217,221,.20);
 
     box-shadow:
 
-        0 15px 40px
-        rgba(0,0,0,.45),
+        0 20px 45px
+        rgba(0,0,0,.48),
 
         inset 0 1px 0
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.15),
+
+        inset 0 -12px 25px
+        rgba(0,0,0,.18);
+
+    backdrop-filter:blur(14px);
+}
+
+
+/* metallic upper reflection */
+
+.topbar::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:20px;
+    right:20px;
+    top:1px;
+
+    height:1px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    opacity:.7;
 }
 
 
@@ -430,11 +443,11 @@ body{
 
     align-items:center;
 
-    gap:13px;
-
-    color:#fff;
+    gap:12px;
 
     text-decoration:none;
+
+    color:#fff;
 }
 
 
@@ -450,33 +463,33 @@ body{
 
     border-radius:15px;
 
-    color:#fff;
-
     font-size:22px;
+
+    color:#fff;
 
     background:
 
         linear-gradient(
             145deg,
-
-            #9b5db6,
-
-            #53166b 50%,
-
-            #241035
+            #9d5eb5 0%,
+            #5d1d75 48%,
+            #24102d 100%
         );
 
     border:
-        2px solid
-        var(--gold-light);
+        1px solid
+        rgba(215,217,221,.38);
 
     box-shadow:
 
-        0 10px 28px
-        rgba(0,0,0,.42),
+        0 12px 28px
+        rgba(0,0,0,.50),
 
-        inset 0 1px 0
-        rgba(255,255,255,.25);
+        inset 0 2px 2px
+        rgba(255,255,255,.22),
+
+        inset 0 -8px 12px
+        rgba(0,0,0,.18);
 }
 
 
@@ -487,8 +500,6 @@ body{
     font-size:21px;
 
     font-weight:900;
-
-    line-height:1.1;
 }
 
 
@@ -496,7 +507,7 @@ body{
 
     display:block;
 
-    margin-top:3px;
+    margin-top:1px;
 
     color:var(--gold-light);
 
@@ -525,25 +536,24 @@ body{
 
     border-radius:12px;
 
-    color:var(--silver-bright);
+    color:var(--silver-light);
 
     background:
 
         linear-gradient(
             145deg,
-
-            rgba(174,177,184,.16),
-
-            rgba(69,71,78,.10)
+            rgba(215,217,221,.14),
+            rgba(69,71,78,.08)
         );
 
     border:
         1px solid
-        rgba(174,177,184,.28);
+        rgba(215,217,221,.18);
 
-    font-size:10px;
+    box-shadow:
 
-    font-weight:800;
+        inset 0 1px 0
+        rgba(255,255,255,.12);
 }
 
 
@@ -562,9 +572,13 @@ body{
     text-align:center;
 
     padding:
-        20px 0 13px;
+        18px 0 12px;
 }
 
+
+/* =========================================================
+   3D LOGO
+========================================================= */
 
 .hero-logo{
 
@@ -581,40 +595,43 @@ body{
     align-items:center;
     justify-content:center;
 
-    border-radius:25px;
-
-    color:#fff;
+    border-radius:26px;
 
     font-size:34px;
+
+    color:#fff;
 
     background:
 
         linear-gradient(
             145deg,
-
-            #a369bb,
-
-            #601d7b 48%,
-
-            #23102f
+            #a668bd 0%,
+            #67207f 42%,
+            #35103f 75%,
+            #1b0d22 100%
         );
 
     border:
-        2px solid
-        var(--gold-light);
+        1px solid
+        rgba(215,217,221,.35);
 
     box-shadow:
 
-        0 18px 45px
-        rgba(0,0,0,.50),
+        0 25px 45px
+        rgba(0,0,0,.58),
 
-        0 0 0 6px
-        rgba(174,177,184,.05),
+        0 10px 20px
+        rgba(138,71,159,.22),
 
-        inset 0 1px 0
-        rgba(255,255,255,.28);
+        inset 0 3px 4px
+        rgba(255,255,255,.24),
+
+        inset 0 -14px 20px
+        rgba(0,0,0,.25);
 }
 
+
+/* logo reflection */
 
 .hero-logo::before{
 
@@ -622,13 +639,44 @@ body{
 
     position:absolute;
 
-    inset:7px;
+    top:6px;
+    left:10px;
+    right:10px;
 
-    border-radius:18px;
+    height:30px;
+
+    border-radius:20px;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.17),
+            transparent
+        );
+
+    pointer-events:none;
+}
+
+
+.hero-logo::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-7px;
+
+    border-radius:31px;
 
     border:
         1px solid
-        rgba(174,177,184,.32);
+        rgba(215,217,221,.09);
+
+    box-shadow:
+
+        0 0 35px
+        rgba(138,71,159,.13);
 }
 
 
@@ -640,10 +688,10 @@ body{
 
     font-weight:900;
 
-    color:#fff;
-
     text-shadow:
-        0 5px 25px rgba(0,0,0,.45);
+
+        0 5px 20px
+        rgba(0,0,0,.55);
 }
 
 
@@ -663,9 +711,9 @@ body{
 
 .hero p{
 
-    margin-top:4px;
+    margin-top:3px;
 
-    color:var(--silver-bright);
+    color:var(--silver-light);
 
     font-size:12px;
 
@@ -688,25 +736,27 @@ body{
 
     border-radius:999px;
 
-    color:var(--silver-bright);
+    color:var(--silver-light);
 
     background:
 
         linear-gradient(
-            135deg,
-
-            rgba(174,177,184,.18),
-
-            rgba(69,71,78,.08)
+            145deg,
+            rgba(183,186,192,.16),
+            rgba(69,71,78,.06)
         );
 
     border:
         1px solid
-        rgba(174,177,184,.28);
+        rgba(215,217,221,.17);
 
     box-shadow:
+
         inset 0 1px 0
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.12),
+
+        0 8px 20px
+        rgba(0,0,0,.20);
 
     font-size:9px;
 
@@ -721,16 +771,16 @@ body{
 
     border-radius:50%;
 
-    background:#31c984;
+    background:#36ce89;
 
     box-shadow:
         0 0 0 5px
-        rgba(49,201,132,.08);
+        rgba(54,206,137,.08);
 }
 
 
 /* =========================================================
-   ROLES
+   CARDS
 ========================================================= */
 
 .roles{
@@ -747,19 +797,19 @@ body{
     max-width:1020px;
 
     margin:
-        4px auto 0;
+        3px auto 0;
 }
 
 
 /* =========================================================
-   PREMIUM CARD
+   3D CARD
 ========================================================= */
 
 .role{
 
     position:relative;
 
-    min-height:190px;
+    min-height:188px;
 
     display:flex;
 
@@ -776,36 +826,47 @@ body{
 
     text-decoration:none;
 
-    border-radius:24px;
+    border-radius:25px;
 
     border:
         1px solid
-        rgba(174,177,184,.28);
+        rgba(215,217,221,.20);
 
     background:
 
         linear-gradient(
             145deg,
-
-            rgba(67,25,84,.98),
-
-            rgba(24,12,30,.99)
+            rgba(101,34,126,.98),
+            rgba(54,19,67,.98) 45%,
+            rgba(24,18,27,.99) 100%
         );
 
     box-shadow:
 
-        0 20px 50px
-        rgba(0,0,0,.48),
+        0 30px 55px
+        rgba(0,0,0,.58),
 
-        inset 0 1px 0
-        rgba(255,255,255,.08);
+        0 12px 20px
+        rgba(0,0,0,.22),
+
+        inset 0 2px 2px
+        rgba(255,255,255,.11),
+
+        inset 0 -18px 28px
+        rgba(0,0,0,.18);
+
+    transform:
+        translateY(0)
+        perspective(900px);
 
     transition:
-        .3s ease;
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
 }
 
 
-/* silver shine */
+/* 3D top shine */
 
 .role::before{
 
@@ -813,29 +874,26 @@ body{
 
     position:absolute;
 
-    inset:1px;
+    left:8%;
+    right:8%;
+    top:1px;
 
-    border-radius:23px;
+    height:2px;
+
+    border-radius:50%;
 
     background:
 
         linear-gradient(
-            120deg,
-
-            rgba(255,255,255,.10),
-
-            transparent 24%,
-
-            transparent 68%,
-
-            rgba(211,170,69,.08)
+            90deg,
+            transparent,
+            rgba(255,255,255,.34),
+            transparent
         );
-
-    pointer-events:none;
 }
 
 
-/* corner ornament */
+/* metallic orb */
 
 .role::after{
 
@@ -843,63 +901,69 @@ body{
 
     position:absolute;
 
-    width:145px;
-    height:145px;
+    width:170px;
+    height:170px;
 
-    right:-78px;
-    bottom:-78px;
+    right:-95px;
+    bottom:-100px;
 
     border-radius:50%;
 
-    border:
-        1px solid
-        rgba(174,177,184,.24);
+    background:
+
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(215,217,221,.13),
+            rgba(110,113,120,.05) 45%,
+            transparent 70%
+        );
 
     box-shadow:
 
-        0 0 0 20px
-        rgba(174,177,184,.025),
+        0 0 0 18px
+        rgba(215,217,221,.025),
 
-        0 0 0 42px
-        rgba(211,170,69,.018);
+        0 0 0 40px
+        rgba(215,217,221,.018);
 }
 
 
 /* =========================================================
-   HOVER
+   HOVER 3D
 ========================================================= */
 
 .role:hover{
 
     transform:
-        translateY(-8px)
-        scale(1.015);
+        translateY(-9px)
+        perspective(900px)
+        rotateX(2deg);
 
     border-color:
-        rgba(232,201,105,.72);
+        rgba(215,217,221,.38);
 
     box-shadow:
 
-        0 30px 75px
-        rgba(0,0,0,.65),
+        0 42px 80px
+        rgba(0,0,0,.72),
 
-        0 0 28px
-        rgba(211,170,69,.08),
+        0 15px 25px
+        rgba(0,0,0,.25),
 
-        inset 0 1px 0
-        rgba(255,255,255,.13);
+        inset 0 2px 3px
+        rgba(255,255,255,.15);
 }
 
 
 /* =========================================================
-   ICON
+   ICON 3D
 ========================================================= */
 
 .role-icon{
 
     position:relative;
 
-    z-index:2;
+    z-index:3;
 
     flex:
         0 0 68px;
@@ -918,36 +982,44 @@ body{
 
     border:
         1px solid
-        rgba(255,255,255,.25);
+        rgba(255,255,255,.22);
 
     box-shadow:
 
-        0 14px 32px
-        rgba(0,0,0,.40),
+        0 18px 30px
+        rgba(0,0,0,.50),
 
-        inset 0 1px 0
-        rgba(255,255,255,.24),
+        0 5px 10px
+        rgba(0,0,0,.20),
 
-        inset 0 -8px 15px
-        rgba(0,0,0,.12);
+        inset 0 3px 4px
+        rgba(255,255,255,.25),
 
-    transition:.3s ease;
+        inset 0 -12px 18px
+        rgba(0,0,0,.18);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
 }
 
 
 .role:hover .role-icon{
 
     transform:
-        translateY(-3px)
+        translateY(-5px)
         scale(1.05);
 
     box-shadow:
 
-        0 18px 38px
-        rgba(0,0,0,.48),
+        0 24px 38px
+        rgba(0,0,0,.58),
 
-        0 0 20px
-        rgba(232,201,105,.08);
+        inset 0 3px 4px
+        rgba(255,255,255,.28),
+
+        inset 0 -12px 18px
+        rgba(0,0,0,.18);
 }
 
 
@@ -961,28 +1033,24 @@ body{
 
         linear-gradient(
             145deg,
-
-            #651e82 0%,
-
-            #42144f 43%,
-
-            #211526 100%
+            #70268b 0%,
+            #4b155f 45%,
+            #29242d 100%
         );
 }
 
 
 .patient .role-icon{
 
-    color:#251329;
+    color:#2c1734;
 
     background:
 
         linear-gradient(
             145deg,
-
-            #f0d77f,
-
-            #b78927
+            #eeeeef 0%,
+            #b7bac0 45%,
+            #696c73 100%
         );
 }
 
@@ -997,32 +1065,25 @@ body{
 
         linear-gradient(
             145deg,
-
-            #72268e 0%,
-
-            #49175b 43%,
-
-            #202127 100%
+            #65227d 0%,
+            #41134f 44%,
+            #24252a 100%
         );
-
-    border-color:
-        rgba(174,177,184,.36);
 }
 
 
 .doctor .role-icon{
 
+    color:#28142f;
+
     background:
 
         linear-gradient(
             145deg,
-
-            #b7bbc2,
-
-            #686b73
+            #dfe1e4 0%,
+            #aeb1b8 48%,
+            #60636a 100%
         );
-
-    color:#28132f;
 }
 
 
@@ -1036,56 +1097,45 @@ body{
 
         linear-gradient(
             145deg,
-
-            #563a12 0%,
-
-            #3b2440 43%,
-
-            #1b171e 100%
+            #5c2870 0%,
+            #3c1749 44%,
+            #25252a 100%
         );
-
-    border-color:
-        rgba(232,201,105,.42);
 }
 
 
 .admin .role-icon{
 
+    color:#28162e;
+
     background:
 
         linear-gradient(
             145deg,
-
-            #f5df91,
-
-            #a87820
+            #f0d27a 0%,
+            #c39a3c 50%,
+            #735316 100%
         );
-
-    color:#2b172f;
 }
 
 
 /* =========================================================
-   CONTENT
+   CARD CONTENT
 ========================================================= */
 
 .role > div:not(.role-icon):not(.arrow){
 
     position:relative;
 
-    z-index:3;
+    z-index:4;
 
     flex:1;
 
     min-width:0;
-
-    padding-right:4px;
 }
 
 
 .role h2{
-
-    margin:0;
 
     color:#fff;
 
@@ -1094,16 +1144,44 @@ body{
     line-height:1.35;
 
     font-weight:900;
+
+    text-shadow:
+        0 3px 12px
+        rgba(0,0,0,.35);
+}
+
+
+.role h2::after{
+
+    content:"";
+
+    display:block;
+
+    width:40px;
+
+    height:2px;
+
+    margin-top:7px;
+
+    border-radius:5px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            var(--gold-light),
+            transparent
+        );
 }
 
 
 .role p{
 
-    max-width:230px;
+    max-width:235px;
 
-    margin-top:8px;
+    margin-top:7px;
 
-    color:var(--silver-bright);
+    color:#d1d0d4;
 
     font-size:10px;
 
@@ -1123,11 +1201,11 @@ body{
 
     z-index:5;
 
-    left:15px;
-    bottom:15px;
+    left:14px;
+    bottom:14px;
 
-    width:32px;
-    height:32px;
+    width:33px;
+    height:33px;
 
     display:flex;
 
@@ -1136,21 +1214,27 @@ body{
 
     border-radius:10px;
 
-    color:var(--gold-light);
+    color:var(--silver-light);
 
     background:
 
         linear-gradient(
             145deg,
-
-            rgba(174,177,184,.12),
-
+            rgba(183,186,192,.15),
             rgba(69,71,78,.08)
         );
 
     border:
         1px solid
-        rgba(174,177,184,.22);
+        rgba(215,217,221,.16);
+
+    box-shadow:
+
+        inset 0 1px 0
+        rgba(255,255,255,.12),
+
+        0 8px 15px
+        rgba(0,0,0,.25);
 
     transition:.3s ease;
 }
@@ -1158,16 +1242,14 @@ body{
 
 .role:hover .arrow{
 
-    color:#26152e;
+    color:#fff;
 
     background:
 
         linear-gradient(
             145deg,
-
-            #f0d77f,
-
-            #b78927
+            #b88a29,
+            #765314
         );
 
     transform:
@@ -1215,36 +1297,24 @@ body{
 
         linear-gradient(
             145deg,
-
-            rgba(115,118,126,.22),
-
-            rgba(41,42,47,.13)
+            rgba(183,186,192,.17),
+            rgba(69,71,78,.07)
         );
 
     border:
         1px solid
-        rgba(174,177,184,.22);
+        rgba(215,217,221,.16);
 
     box-shadow:
 
-        0 10px 28px
-        rgba(0,0,0,.25),
+        0 15px 28px
+        rgba(0,0,0,.30),
 
-        inset 0 1px 0
-        rgba(255,255,255,.07);
+        inset 0 2px 2px
+        rgba(255,255,255,.10),
 
-    color:var(--silver-bright);
-
-    transition:.25s ease;
-}
-
-
-.feature:hover{
-
-    transform:translateY(-3px);
-
-    border-color:
-        rgba(232,201,105,.42);
+        inset 0 -10px 15px
+        rgba(0,0,0,.12);
 }
 
 
@@ -1258,7 +1328,7 @@ body{
 
 .feature span{
 
-    color:var(--silver-bright);
+    color:#d3d2d6;
 
     font-size:9px;
 
@@ -1272,11 +1342,11 @@ body{
 
 .footer{
 
-    margin-top:10px;
+    margin-top:9px;
 
     text-align:center;
 
-    color:#777982;
+    color:#777980;
 
     font-size:8px;
 }
@@ -1297,15 +1367,13 @@ body{
     .shell{
 
         padding:
-            22px 18px 16px;
+            20px 18px 14px;
     }
-
 
     .roles{
 
         gap:12px;
     }
-
 
     .role{
 
@@ -1314,30 +1382,7 @@ body{
         gap:18px;
 
         padding:
-            18px 15px;
-    }
-
-
-    .role-icon{
-
-        flex-basis:55px;
-
-        width:55px;
-        height:55px;
-
-        font-size:22px;
-    }
-
-
-    .role h2{
-
-        font-size:16px;
-    }
-
-
-    .role p{
-
-        font-size:9px;
+            18px;
     }
 
 }
@@ -1350,23 +1395,8 @@ body{
 @media(max-width:600px){
 
     body{
+
         overflow:auto;
-    }
-
-
-    .page::before{
-
-        inset:6px;
-
-        border-radius:19px;
-    }
-
-
-    .page::after{
-
-        inset:10px;
-
-        border-radius:16px;
     }
 
 
@@ -1375,16 +1405,16 @@ body{
         min-height:100dvh;
 
         padding:
-            17px 14px 13px;
+            14px 12px 11px;
     }
 
 
     .topbar{
 
-        border-radius:15px;
-
         padding:
             8px 10px;
+
+        border-radius:16px;
     }
 
 
@@ -1431,18 +1461,18 @@ body{
     .hero{
 
         padding:
-            14px 0 9px;
+            13px 0 8px;
     }
 
 
     .hero-logo{
 
-        width:64px;
-        height:64px;
+        width:62px;
+        height:62px;
 
-        border-radius:19px;
+        border-radius:20px;
 
-        font-size:27px;
+        font-size:26px;
     }
 
 
@@ -1468,10 +1498,10 @@ body{
 
     .tag{
 
-        margin-top:5px;
-
         padding:
-            4px 8px;
+            4px 9px;
+
+        margin-top:5px;
 
         font-size:7px;
     }
@@ -1485,18 +1515,18 @@ body{
 
         gap:9px;
 
-        margin-top:3px;
+        margin-top:2px;
     }
 
 
     .role{
 
-        min-height:102px;
+        min-height:103px;
 
-        gap:19px;
+        gap:18px;
 
         padding:
-            13px 44px 13px 14px;
+            13px 43px 13px 13px;
 
         border-radius:18px;
     }
@@ -1519,8 +1549,16 @@ body{
     .role h2{
 
         font-size:14px;
+    }
 
-        white-space:normal;
+
+    .role h2::after{
+
+        width:28px;
+
+        height:1px;
+
+        margin-top:4px;
     }
 
 
@@ -1532,13 +1570,13 @@ body{
 
         font-size:8px;
 
-        line-height:1.65;
+        line-height:1.6;
     }
 
 
     .role .arrow{
 
-        left:10px;
+        left:9px;
 
         top:50%;
 
@@ -1550,9 +1588,7 @@ body{
         transform:
             translateY(-50%);
 
-        border-radius:9px;
-
-        font-size:10px;
+        font-size:9px;
     }
 
 
@@ -1585,11 +1621,11 @@ body{
 
     .feature{
 
-        min-height:41px;
+        min-height:40px;
 
         border-radius:11px;
 
-        padding:6px;
+        gap:6px;
     }
 
 
@@ -1601,13 +1637,13 @@ body{
 
     .feature span{
 
-        font-size:7.5px;
+        font-size:7px;
     }
 
 
     .footer{
 
-        margin-top:7px;
+        margin-top:6px;
 
         font-size:7px;
     }
@@ -1624,16 +1660,16 @@ body{
     .shell{
 
         padding:
-            14px 12px 11px;
+            12px 10px 9px;
     }
 
 
     .hero-logo{
 
-        width:58px;
-        height:58px;
+        width:56px;
+        height:56px;
 
-        font-size:24px;
+        font-size:23px;
     }
 
 
@@ -1645,9 +1681,9 @@ body{
 
     .role{
 
-        min-height:94px;
+        min-height:95px;
 
-        gap:15px;
+        gap:14px;
     }
 
 
@@ -1682,16 +1718,17 @@ body{
 
 <body>
 
+
 <div class="page">
 
+
     <div class="medical-pattern"></div>
+
 
     <div class="shell">
 
 
-        <!-- =================================================
-             TOP BAR
-        ================================================= -->
+        <!-- TOP BAR -->
 
         <header class="topbar">
 
@@ -1705,6 +1742,7 @@ body{
                     <i class="fa-solid fa-heart-pulse"></i>
 
                 </div>
+
 
                 <div>
 
@@ -1732,13 +1770,12 @@ body{
         </header>
 
 
-        <!-- =================================================
-             HERO
-        ================================================= -->
+        <!-- HERO -->
 
         <main>
 
             <section class="hero">
+
 
                 <div class="hero-logo">
 
@@ -1770,12 +1807,11 @@ body{
 
                 </div>
 
+
             </section>
 
 
-            <!-- =================================================
-                 LOGIN CARDS
-            ================================================= -->
+            <!-- LOGIN -->
 
             <section
                 class="roles"
@@ -1894,9 +1930,7 @@ body{
             </section>
 
 
-            <!-- =================================================
-                 FEATURES
-            ================================================= -->
+            <!-- FEATURES -->
 
             <section class="features">
 
@@ -1947,12 +1981,9 @@ body{
 
             </section>
 
+
         </main>
 
-
-        <!-- =================================================
-             FOOTER
-        ================================================= -->
 
         <footer class="footer">
 
@@ -1972,6 +2003,7 @@ body{
     </div>
 
 </div>
+
 
 </body>
 

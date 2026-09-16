@@ -452,6 +452,9 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
   .btn{min-height:49px;font-size:12px}
 }
 
+
+/* FINAL SPECIALTY UI */
+.specialty-picker{display:none;margin-top:6px}.specialty-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.specialty-card{position:relative;min-height:78px;width:100%;appearance:none;border:1px solid rgba(199,154,50,.20);background:linear-gradient(145deg,#fff,#faf5fc);border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:right;direction:rtl;transition:.22s;font-family:inherit;box-shadow:0 8px 20px rgba(50,15,70,.055)}.specialty-card:hover{transform:translateY(-2px);border-color:rgba(199,154,50,.60)}.specialty-card.active{border-color:var(--gold);background:linear-gradient(145deg,#fffdf6,#f3e9f8);box-shadow:0 12px 28px rgba(50,15,70,.11),inset 0 0 0 1px rgba(199,154,50,.22)}.specialty-icon{width:44px;height:44px;flex:0 0 44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#f0e3f6,#fff8e7);font-size:22px}.specialty-card-text{min-width:0;flex:1}.specialty-card-text strong{display:block;color:var(--purple);font-size:12px;font-weight:900;line-height:1.5}.specialty-card-text small{display:block;color:var(--muted);font-size:9px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.specialty-arrow{width:27px;height:27px;border-radius:9px;display:grid;place-items:center;background:#f3edf5;color:#a89baa;flex:0 0 27px}.specialty-card.active .specialty-icon{background:linear-gradient(145deg,var(--purple),#70288e)}.specialty-card.active .specialty-arrow{background:var(--gold);color:#fff}.specialty-empty{grid-column:1/-1;padding:24px 15px;border-radius:18px;background:#faf7fb;border:1px dashed rgba(199,154,50,.35);text-align:center;color:var(--muted)}.specialty-empty-icon{display:block;font-size:30px;margin-bottom:7px}.specialty-empty strong{display:block;color:var(--purple);font-size:13px}.specialty-empty small{display:block;margin-top:4px;font-size:10px}#specialty,#doctor{display:none!important}.doctor-info{display:none!important}@media(max-width:560px){.specialty-grid{grid-template-columns:1fr}.specialty-card{min-height:72px}}
 </style>
 
 </head>
@@ -642,10 +645,10 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
                     </label>
 
                     <div id="specialtyPicker" class="specialty-picker">
-                        <select id="specialty" disabled>
-                            <option value="">اختر الاختصاص</option>
-                        </select>
+                        <div class="picker-label"><span><i class="fa-solid fa-stethoscope"></i> اختر الاختصاص الطبي</span><span id="specialtyCount"></span></div>
+                        <div id="specialtyGrid" class="specialty-grid"></div>
                     </div>
+                    <select id="specialty" disabled aria-hidden="true"><option value="">اختر الاختصاص</option></select>
 
                 </div>
 
@@ -1450,6 +1453,12 @@ const doctorSelect =
 const specialtyPicker =
     document.getElementById("specialtyPicker");
 
+const specialtyGrid =
+    document.getElementById("specialtyGrid");
+
+const specialtyCount =
+    document.getElementById("specialtyCount");
+
 const specialtySelect =
     document.getElementById("specialty");
 
@@ -1721,40 +1730,76 @@ function getCatalogLabel(doctorSpecialty){
 }
 
 function renderSpecialties(){
+    specialtyGrid.innerHTML = "";
+    specialtyCount.textContent = "";
+    specialtySelect.innerHTML = `<option value="">اختر الاختصاص</option>`;
+
     const available = [];
     const seen = new Set();
-
     doctors.forEach(doctor => {
         const raw = getDoctorSpecialty(doctor);
         const label = getCatalogLabel(raw);
         const key = normalizeSpecialty(label);
-        if(!seen.has(key)){
-            seen.add(key);
-            available.push({label, raw});
-        }
+        if(key && !seen.has(key)){ seen.add(key); available.push({label, raw}); }
     });
 
-    specialtySelect.innerHTML = `<option value="">اختر الاختصاص</option>`;
+    available.sort((a,b)=>a.label.localeCompare(b.label,"ar"));
+    specialtyCount.textContent = `${available.length} اختصاص`;
 
     if(!available.length){
-        specialtySelect.disabled = true;
         specialtyPicker.classList.add("show");
-        specialtySelect.innerHTML = `<option value="">لا توجد اختصاصات متاحة في هذه البلدية</option>`;
+        specialtySelect.disabled = true;
+        specialtyGrid.innerHTML = `<div class="specialty-empty"><span class="specialty-empty-icon">🩺</span><strong>لا توجد اختصاصات متاحة</strong><small>لا يوجد طبيب مسجل في هذه البلدية حاليًا.</small></div>`;
         return;
     }
 
-    available
-        .sort((a,b)=>a.label.localeCompare(b.label,"ar"))
-        .forEach(item => {
-            const option = document.createElement("option");
-            option.value = item.label;
-            option.textContent = item.label;
-            option.dataset.rawSpecialty = item.raw;
-            specialtySelect.appendChild(option);
+    available.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.label;
+        option.textContent = item.label;
+        specialtySelect.appendChild(option);
+
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "specialty-card";
+        card.dataset.specialty = item.label;
+        card.innerHTML = `<span class="specialty-icon">${getSpecialtyEmoji(item.label)}</span><span class="specialty-card-text"><strong>${escapeHtml(item.label)}</strong><small>أطباء ${escapeHtml(item.label)}</small></span><span class="specialty-arrow"><i class="fa-solid fa-chevron-left"></i></span>`;
+        card.addEventListener("click", () => {
+            document.querySelectorAll(".specialty-card").forEach(c=>c.classList.remove("active"));
+            card.classList.add("active");
+            specialtySelect.value = item.label;
+            selectSpecialty(item.label);
         });
+        specialtyGrid.appendChild(card);
+    });
 
     specialtySelect.disabled = false;
     specialtyPicker.classList.add("show");
+}
+
+function getSpecialtyEmoji(specialty){
+    const s = normalizeSpecialty(specialty);
+    if(/قلب|cardio/.test(s)) return "❤️";
+    if(/اطفال|طفل|pediatr|neonat/.test(s)) return "👶";
+    if(/عيون|ophthal/.test(s)) return "👁️";
+    if(/اسنان|dent/.test(s)) return "🦷";
+    if(/جلد|dermat/.test(s)) return "🧴";
+    if(/اعصاب|neuro/.test(s)) return "🧠";
+    if(/عظام|ortho/.test(s)) return "🦴";
+    if(/نساء|توليد|gynec|obst/.test(s)) return "🤰";
+    if(/انف|اذن|حنجره|orl|oto/.test(s)) return "👂";
+    if(/هضم|كبد|gastro/.test(s)) return "🫃";
+    if(/كلى|nephro|مسالك|uro/.test(s)) return "🩻";
+    if(/رئه|صدر|pulmo/.test(s)) return "🫁";
+    if(/دم|hemat/.test(s)) return "🩸";
+    if(/غدد|سكري|endo/.test(s)) return "🧬";
+    if(/نفسي|psy/.test(s)) return "🧠";
+    if(/جراح|surg/.test(s)) return "🔬";
+    if(/طوارئ|urgence|emergency/.test(s)) return "🚑";
+    if(/تخدير|انعاش|anesth|reanim/.test(s)) return "💉";
+    if(/علاج طبيعي|تأهيل|physio|رياض|sport/.test(s)) return "🏃";
+    if(/مسنين|geriatr/.test(s)) return "🧓";
+    return "🩺";
 }
 
 function selectSpecialty(specialty){
@@ -1773,6 +1818,7 @@ function selectSpecialty(specialty){
 }
 
 specialtySelect.addEventListener("change", function(){
+    document.querySelectorAll(".specialty-card").forEach(c=>c.classList.toggle("active", normalizeSpecialty(c.dataset.specialty)===normalizeSpecialty(this.value)));
     if(!this.value){
         doctorsGrid.innerHTML = "";
         doctorsPicker.classList.remove("show");
@@ -1861,8 +1907,7 @@ function renderSelectedDoctorInfo(doctor){
     }
 
     doctorInfo.innerHTML = `
-        <strong><i class="fa-solid fa-user-doctor"></i>${escapeHtml(doctor.name || "طبيب")}</strong>
-        <span><i class="fa-solid ${getSpecialtyIcon(getDoctorSpecialty(doctor))}"></i> ${escapeHtml(getDoctorSpecialty(doctor))}</span>
+        <strong><i class="fa-solid ${getSpecialtyIcon(getDoctorSpecialty(doctor))}"></i> ${escapeHtml(getDoctorSpecialty(doctor))}</strong>
         ${extraInfo}`;
     doctorInfo.classList.add("show");
 }

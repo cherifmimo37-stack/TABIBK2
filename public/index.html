@@ -23,39 +23,45 @@
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-
 <style>
 
 /* =========================================================
-   TABIBK PREMIUM LOGIN
+   TABIBK
 ========================================================= */
 
 :root{
 
     --purple-dark:#18051f;
     --purple:#2b0b3d;
-    --purple2:#45145b;
-    --purple3:#65247f;
+    --purple-soft:#4a155f;
+    --purple-light:#6d238b;
 
     --gold:#c79a32;
     --gold-light:#efd477;
+    --gold-bright:#ffe9a3;
 
-    /* الأبيض الغامق / العاجي */
-    --white-dark:#f3f0f5;
-    --white-soft:#ddd7e1;
-
-    --text:#f3f0f5;
-    --muted:#bdb2c4;
+    /* WHITE DARK / SOFT */
+    --white-dark:#f2eff4;
+    --white-soft:#ddd8e1;
+    --white-muted:#c4bac9;
 
     --patient:#28a98b;
     --doctor:#6d45c7;
     --admin:#c79a32;
+
+    --shadow:rgba(0,0,0,.35);
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
+
     -webkit-tap-highlight-color:transparent;
 }
 
@@ -71,28 +77,29 @@ body{
 
     min-height:100vh;
 
-    color:var(--text);
+    color:var(--white-dark);
 
     background:
 
         radial-gradient(
-            circle at 50% 14%,
-            rgba(109,35,139,.28),
-            transparent 28%
+            circle at 50% 12%,
+            rgba(109,35,139,.16),
+            transparent 30%
         ),
 
         radial-gradient(
             circle at 90% 85%,
-            rgba(199,154,50,.09),
+            rgba(199,154,50,.055),
             transparent 25%
         ),
 
         linear-gradient(
             145deg,
-            #120318,
-            var(--purple-dark) 40%,
-            var(--purple) 75%,
-            #21082e
+            #eeeaf0 0%,
+            #f5f2f6 22%,
+            #ece7ef 42%,
+            #382044 72%,
+            #21082e 100%
         );
 
     overflow-x:hidden;
@@ -104,62 +111,82 @@ body{
 ========================================================= */
 
 .background{
+
     position:fixed;
     inset:0;
-    pointer-events:none;
+
     overflow:hidden;
+
+    pointer-events:none;
+
     z-index:0;
 }
 
-.bg-light{
+.bg-purple{
+
     position:absolute;
+
+    width:420px;
+    height:420px;
+
     border-radius:50%;
+
+    top:-250px;
+    right:-160px;
+
+    background:
+        rgba(109,35,139,.14);
+
     filter:blur(90px);
 }
 
-.bg-light.one{
+.bg-purple-bottom{
 
-    width:300px;
-    height:300px;
+    position:absolute;
 
-    top:-150px;
-    right:-100px;
+    width:350px;
+    height:350px;
 
-    background:rgba(141,75,170,.18);
+    border-radius:50%;
+
+    bottom:-200px;
+    left:-130px;
+
+    background:
+        rgba(74,21,95,.13);
+
+    filter:blur(100px);
 }
 
-.bg-light.two{
+.bg-gold{
 
-    width:250px;
-    height:250px;
+    position:absolute;
 
-    bottom:-130px;
-    left:-100px;
+    width:190px;
+    height:190px;
 
-    background:rgba(199,154,50,.08);
-}
+    border-radius:50%;
 
-.bg-light.three{
-
-    width:180px;
-    height:180px;
-
-    top:45%;
+    top:35%;
     left:50%;
 
     transform:translate(-50%,-50%);
 
-    background:rgba(109,35,139,.08);
+    background:
+        rgba(199,154,50,.055);
+
+    filter:blur(90px);
 }
 
 
 /* =========================================================
-   APP
+   MAIN APP
 ========================================================= */
 
 .app{
 
     position:relative;
+
     z-index:2;
 
     width:100%;
@@ -174,21 +201,21 @@ body{
         16px
         25px;
 
-    animation:appEnter .9s ease both;
+    animation:
+        appEnter .9s ease both;
 }
 
 @keyframes appEnter{
 
     from{
         opacity:0;
-        transform:translateY(20px);
+        transform:translateY(18px);
     }
 
     to{
         opacity:1;
         transform:translateY(0);
     }
-
 }
 
 
@@ -199,7 +226,9 @@ body{
 .brand{
 
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
 
     text-align:center;
@@ -209,7 +238,7 @@ body{
 
 
 /* =========================================================
-   HEART LOGO CONTAINER
+   LOGO AREA
 ========================================================= */
 
 .logo-area{
@@ -220,32 +249,37 @@ body{
     height:155px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     margin-bottom:0;
 }
 
 
-/* Outer glow */
+/* =========================================================
+   LOGO GLOW
+========================================================= */
 
 .logo-glow{
 
     position:absolute;
 
-    width:135px;
-    height:135px;
+    width:140px;
+    height:140px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(239,212,119,.14),
-            transparent 65%
+            rgba(239,212,119,.28),
+            rgba(199,154,50,.08) 45%,
+            transparent 70%
         );
 
-    filter:blur(7px);
+    filter:blur(8px);
 
     animation:
         glowPulse 2.2s ease-in-out infinite;
@@ -253,63 +287,112 @@ body{
 
 @keyframes glowPulse{
 
-    0%,100%{
+    0%,
+    100%{
         transform:scale(.92);
         opacity:.55;
     }
 
     50%{
-        transform:scale(1.1);
+        transform:scale(1.12);
         opacity:1;
     }
-
 }
 
 
 /* =========================================================
-   FULL HEART
+   HEART RING
+========================================================= */
+
+.logo-ring{
+
+    position:absolute;
+
+    width:146px;
+    height:146px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(199,154,50,.35);
+
+    box-shadow:
+
+        0 0 25px
+        rgba(199,154,50,.12),
+
+        inset 0 0 25px
+        rgba(255,255,255,.04);
+
+    animation:
+        ringPulse 3s ease-in-out infinite;
+}
+
+@keyframes ringPulse{
+
+    0%,
+    100%{
+        transform:scale(.96);
+        opacity:.45;
+    }
+
+    50%{
+        transform:scale(1.05);
+        opacity:.9;
+    }
+}
+
+
+/* =========================================================
+   FULL GOLD HEART
 ========================================================= */
 
 .heart{
 
     position:relative;
 
-    width:105px;
-    height:94px;
+    width:100px;
+    height:90px;
 
-    transform:rotate(-45deg);
+    transform:
+        rotate(-45deg);
 
     background:
+
         linear-gradient(
             145deg,
-            #fff1a8 0%,
+            var(--gold-bright) 0%,
             var(--gold-light) 28%,
-            var(--gold) 62%,
-            #9d7118 100%
+            var(--gold) 65%,
+            #9a6e15 100%
         );
 
     border-radius:
-        16px
+        15px
         0
         18px
         18px;
 
     box-shadow:
 
-        0 0 12px rgba(239,212,119,.8),
+        0 0 12px
+        rgba(255,225,130,.9),
 
-        0 0 28px rgba(199,154,50,.45),
+        0 0 28px
+        rgba(199,154,50,.48),
 
-        0 18px 35px rgba(0,0,0,.38);
+        0 16px 32px
+        rgba(0,0,0,.35);
 
     animation:
-        heartbeat 1.65s ease-in-out infinite;
+        heartBeat 1.65s ease-in-out infinite;
 
     z-index:3;
 }
 
 
-/* top circles */
+/* Heart circles */
 
 .heart::before,
 .heart::after{
@@ -318,41 +401,46 @@ body{
 
     position:absolute;
 
-    width:105px;
-    height:94px;
+    width:100px;
+    height:90px;
 
     background:
+
         linear-gradient(
             145deg,
-            #fff1a8 0%,
+            var(--gold-bright) 0%,
             var(--gold-light) 28%,
-            var(--gold) 62%,
-            #9d7118 100%
+            var(--gold) 65%,
+            #9a6e15 100%
         );
 
     border-radius:50%;
 }
 
 
-/* left upper */
+/* Left */
 
 .heart::before{
 
-    top:-52px;
+    top:-50px;
     left:0;
 }
 
 
-/* right upper */
+/* Right */
 
 .heart::after{
 
     top:0;
-    left:52px;
+    left:50px;
 }
 
 
-@keyframes heartbeat{
+/* =========================================================
+   HEART BEAT
+========================================================= */
+
+@keyframes heartBeat{
 
     0%,
     100%{
@@ -399,12 +487,13 @@ body{
     z-index:10;
 
     width:108px;
-    height:50px;
+    height:48px;
 
-    top:22px;
-    left:-2px;
+    top:21px;
+    left:-4px;
 
-    transform:rotate(45deg);
+    transform:
+        rotate(45deg);
 
     overflow:hidden;
 
@@ -421,7 +510,7 @@ body{
 
     fill:none;
 
-    stroke:#fffdf2;
+    stroke:#fffdf3;
 
     stroke-width:3.4;
 
@@ -433,14 +522,15 @@ body{
 
     filter:
         drop-shadow(
-            0 0 5px rgba(255,255,255,.95)
+            0 0 5px
+            rgba(255,255,255,.95)
         );
 
     animation:
-        ecgAnimation 1.9s linear infinite;
+        ecgMove 1.9s linear infinite;
 }
 
-@keyframes ecgAnimation{
+@keyframes ecgMove{
 
     0%{
         stroke-dashoffset:170;
@@ -453,56 +543,11 @@ body{
     100%{
         stroke-dashoffset:-170;
     }
-
 }
 
 
 /* =========================================================
-   HEART RING
-========================================================= */
-
-.logo-ring{
-
-    position:absolute;
-
-    width:145px;
-    height:145px;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(239,212,119,.23);
-
-    box-shadow:
-
-        0 0 25px
-        rgba(199,154,50,.08),
-
-        inset 0 0 25px
-        rgba(239,212,119,.04);
-
-    animation:
-        ringAnimation 3s ease-in-out infinite;
-}
-
-@keyframes ringAnimation{
-
-    0%,100%{
-        transform:scale(.96);
-        opacity:.45;
-    }
-
-    50%{
-        transform:scale(1.05);
-        opacity:.9;
-    }
-
-}
-
-
-/* =========================================================
-   BRAND NAME
+   BRAND TEXT
 ========================================================= */
 
 .brand-ar{
@@ -513,12 +558,12 @@ body{
 
     font-weight:900;
 
-    color:var(--white-dark);
+    color:
+        var(--white-dark);
 
     text-shadow:
-        0 2px 15px rgba(0,0,0,.3);
+        0 2px 14px rgba(0,0,0,.25);
 }
-
 
 .brand-en{
 
@@ -532,9 +577,9 @@ body{
 
     letter-spacing:6px;
 
-    color:var(--gold-light);
+    color:
+        var(--gold-light);
 }
-
 
 .tagline{
 
@@ -548,10 +593,10 @@ body{
 
     font-weight:500;
 
-    color:var(--white-soft);
+    color:
+        var(--white-dark);
 
     opacity:.92;
-
 }
 
 
@@ -562,11 +607,13 @@ body{
 .welcome{
 
     width:100%;
+
     max-width:650px;
 
     text-align:center;
 
     margin-top:27px;
+
     margin-bottom:17px;
 
     animation:
@@ -579,30 +626,29 @@ body{
 
     font-weight:800;
 
-    color:var(--white-dark);
+    color:
+        var(--white-dark);
 
     margin-bottom:5px;
-}
 
-.welcome p{
-
-    font-size:11px;
-
-    color:var(--muted);
-
+    text-shadow:
+        0 2px 10px
+        rgba(0,0,0,.18);
 }
 
 
 /* =========================================================
-   LOGIN CARDS
+   LOGIN CONTAINER
 ========================================================= */
 
 .login-container{
 
     width:100%;
+
     max-width:650px;
 
     display:flex;
+
     flex-direction:column;
 
     gap:14px;
@@ -610,7 +656,6 @@ body{
     animation:
         fadeUp .8s .4s ease both;
 }
-
 
 @keyframes fadeUp{
 
@@ -623,12 +668,11 @@ body{
         opacity:1;
         transform:translateY(0);
     }
-
 }
 
 
 /* =========================================================
-   CARD
+   LOGIN CARD
 ========================================================= */
 
 .login-card{
@@ -636,16 +680,21 @@ body{
     position:relative;
 
     width:100%;
+
     min-height:105px;
 
     display:flex;
+
     align-items:center;
 
-    padding:16px 17px;
+    padding:
+        16px
+        17px;
 
     text-decoration:none;
 
-    color:var(--white-dark);
+    color:
+        var(--white-dark);
 
     border-radius:25px;
 
@@ -655,24 +704,27 @@ body{
 
         linear-gradient(
             135deg,
-            rgba(255,255,255,.105),
-            rgba(255,255,255,.035)
+            rgba(255,255,255,.25),
+            rgba(255,255,255,.08)
         );
 
     border:
         1px solid
-        rgba(255,255,255,.13);
+        rgba(255,255,255,.24);
 
     box-shadow:
 
         0 16px 35px
-        rgba(0,0,0,.30),
+        rgba(21,8,30,.27),
 
         inset 0 1px 0
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.32);
 
-    backdrop-filter:blur(15px);
-    -webkit-backdrop-filter:blur(15px);
+    backdrop-filter:
+        blur(15px);
+
+    -webkit-backdrop-filter:
+        blur(15px);
 
     transition:
         transform .25s ease,
@@ -681,7 +733,7 @@ body{
 }
 
 
-/* light reflection */
+/* subtle light */
 
 .login-card::after{
 
@@ -698,36 +750,36 @@ body{
     left:-50px;
 
     background:
-        rgba(255,255,255,.035);
+        rgba(255,255,255,.08);
 
     pointer-events:none;
 }
 
 
 /* =========================================================
-   PATIENT CARD
+   PATIENT
 ========================================================= */
 
 .login-card.patient{
 
     border-color:
-        rgba(40,169,139,.30);
+        rgba(40,169,139,.32);
 
     box-shadow:
 
         0 16px 35px
-        rgba(0,0,0,.30),
+        rgba(21,8,30,.27),
 
-        0 0 25px
+        0 0 24px
         rgba(40,169,139,.07),
 
         inset 0 1px 0
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.30);
 }
 
 
 /* =========================================================
-   DOCTOR CARD
+   DOCTOR
 ========================================================= */
 
 .login-card.doctor{
@@ -738,45 +790,46 @@ body{
     box-shadow:
 
         0 16px 35px
-        rgba(0,0,0,.30),
+        rgba(21,8,30,.27),
 
-        0 0 25px
-        rgba(109,69,199,.09),
+        0 0 24px
+        rgba(109,69,199,.08),
 
         inset 0 1px 0
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.30);
 }
 
 
 /* =========================================================
-   ADMIN CARD
+   ADMIN
 ========================================================= */
 
 .login-card.admin{
 
     border-color:
-        rgba(199,154,50,.36);
+        rgba(199,154,50,.35);
 
     box-shadow:
 
         0 16px 35px
-        rgba(0,0,0,.30),
+        rgba(21,8,30,.27),
 
-        0 0 25px
-        rgba(199,154,50,.09),
+        0 0 24px
+        rgba(199,154,50,.08),
 
         inset 0 1px 0
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.30);
 }
 
 
 /* =========================================================
-   CARD ICON
+   ICON
 ========================================================= */
 
 .card-icon{
 
     position:relative;
+
     z-index:3;
 
     width:64px;
@@ -785,6 +838,7 @@ body{
     flex-shrink:0;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -793,22 +847,23 @@ body{
     border-radius:20px;
 
     background:
-        rgba(255,255,255,.065);
+        rgba(255,255,255,.12);
 
     border:
         1px solid
-        rgba(255,255,255,.10);
+        rgba(255,255,255,.17);
 
     box-shadow:
+
         inset 0 1px 0
-        rgba(255,255,255,.09),
+        rgba(255,255,255,.16),
 
         0 9px 20px
-        rgba(0,0,0,.18);
+        rgba(0,0,0,.16);
 }
 
 
-/* patient icon */
+/* Patient */
 
 .patient .card-icon{
 
@@ -817,60 +872,61 @@ body{
     background:
         linear-gradient(
             145deg,
-            rgba(40,169,139,.24),
-            rgba(40,169,139,.07)
+            rgba(40,169,139,.22),
+            rgba(255,255,255,.07)
         );
 
     border-color:
-        rgba(40,169,139,.35);
+        rgba(40,169,139,.38);
 
     box-shadow:
-        0 0 22px
-        rgba(40,169,139,.13);
+        0 0 20px
+        rgba(40,169,139,.12);
 }
 
 
-/* doctor icon */
+/* Doctor */
 
 .doctor .card-icon{
 
-    color:#b49cff;
+    color:#b39cff;
 
     background:
         linear-gradient(
             145deg,
-            rgba(109,69,199,.27),
-            rgba(109,69,199,.07)
+            rgba(109,69,199,.23),
+            rgba(255,255,255,.07)
         );
 
     border-color:
         rgba(109,69,199,.40);
 
     box-shadow:
-        0 0 22px
-        rgba(109,69,199,.15);
+        0 0 20px
+        rgba(109,69,199,.13);
 }
 
 
-/* admin icon */
+/* Admin */
 
 .admin .card-icon{
 
-    color:var(--gold-light);
+    color:
+        var(--gold-light);
 
     background:
         linear-gradient(
             145deg,
-            rgba(199,154,50,.25),
-            rgba(199,154,50,.07)
+            rgba(199,154,50,.23),
+            rgba(255,255,255,.07)
         );
 
     border-color:
-        rgba(199,154,50,.40);
+        rgba(199,154,50,.42);
 
     box-shadow:
-        0 0 22px
-        rgba(199,154,50,.15);
+        0 0 20px
+        rgba(199,154,50,.13);
 }
 
 
@@ -880,13 +936,14 @@ body{
 
     filter:
         drop-shadow(
-            0 0 7px currentColor
+            0 0 7px
+            currentColor
         );
 }
 
 
 /* =========================================================
-   CARD TEXT
+   TEXT
 ========================================================= */
 
 .card-content{
@@ -898,18 +955,17 @@ body{
     text-align:right;
 }
 
-
 .card-title{
 
     font-size:17px;
 
     font-weight:800;
 
-    color:var(--white-dark);
+    color:
+        var(--white-dark);
 
     margin-bottom:3px;
 }
-
 
 .card-description{
 
@@ -917,9 +973,10 @@ body{
 
     line-height:1.8;
 
-    color:var(--white-soft);
+    color:
+        var(--white-soft);
 
-    opacity:.78;
+    opacity:.82;
 }
 
 
@@ -935,15 +992,17 @@ body{
     flex-shrink:0;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     border-radius:13px;
 
     background:
-        rgba(255,255,255,.055);
+        rgba(255,255,255,.10);
 
-    color:var(--white-soft);
+    color:
+        var(--white-dark);
 
     font-size:12px;
 
@@ -952,13 +1011,12 @@ body{
         background .25s ease;
 }
 
-
 .patient .card-arrow{
     color:#5ee0c0;
 }
 
 .doctor .card-arrow{
-    color:#b49cff;
+    color:#b39cff;
 }
 
 .admin .card-arrow{
@@ -973,10 +1031,8 @@ body{
 @media (hover:hover){
 
     .login-card:hover{
-
         transform:
             translateY(-4px);
-
     }
 
     .patient:hover{
@@ -987,7 +1043,7 @@ body{
         box-shadow:
 
             0 22px 45px
-            rgba(0,0,0,.38),
+            rgba(21,8,30,.32),
 
             0 0 30px
             rgba(40,169,139,.12);
@@ -1001,7 +1057,7 @@ body{
         box-shadow:
 
             0 22px 45px
-            rgba(0,0,0,.38),
+            rgba(21,8,30,.32),
 
             0 0 30px
             rgba(109,69,199,.14);
@@ -1010,12 +1066,12 @@ body{
     .admin:hover{
 
         border-color:
-            rgba(199,154,50,.60);
+            rgba(199,154,50,.58);
 
         box-shadow:
 
             0 22px 45px
-            rgba(0,0,0,.38),
+            rgba(21,8,30,.32),
 
             0 0 30px
             rgba(199,154,50,.14);
@@ -1027,11 +1083,9 @@ body{
             translateX(-4px);
 
         background:
-            rgba(255,255,255,.10);
+            rgba(255,255,255,.15);
     }
-
 }
-
 
 .login-card:active{
 
@@ -1055,7 +1109,8 @@ body{
 
     margin-top:19px;
 
-    color:#a99bab;
+    color:
+        var(--white-soft);
 
     font-size:10px;
 
@@ -1063,10 +1118,10 @@ body{
         fadeUp .8s .55s ease both;
 }
 
-
 .security i{
 
-    color:var(--gold-light);
+    color:
+        var(--gold-light);
 
     font-size:10px;
 }
@@ -1084,20 +1139,19 @@ body{
 
     text-align:center;
 
-    color:#918394;
+    color:
+        var(--white-muted);
 
     font-size:10px;
 
     line-height:1.8;
 }
 
-
 .footer strong{
 
     color:
-        var(--white-soft);
+        var(--white-dark);
 }
-
 
 .version{
 
@@ -1150,6 +1204,7 @@ body{
     .brand-en{
 
         font-size:13px;
+
         letter-spacing:5px;
     }
 
@@ -1165,6 +1220,7 @@ body{
     .welcome{
 
         margin-top:22px;
+
         margin-bottom:14px;
     }
 
@@ -1182,7 +1238,9 @@ body{
 
         min-height:94px;
 
-        padding:13px 14px;
+        padding:
+            13px
+            14px;
 
         border-radius:21px;
     }
@@ -1223,7 +1281,7 @@ body{
 
 
 /* =========================================================
-   VERY SMALL PHONES
+   VERY SMALL
 ========================================================= */
 
 @media (max-width:350px){
@@ -1264,7 +1322,7 @@ body{
 
 
 /* =========================================================
-   ACCESSIBILITY
+   REDUCED MOTION
 ========================================================= */
 
 @media (prefers-reduced-motion:reduce){
@@ -1294,25 +1352,25 @@ body{
 
 <div class="background">
 
-    <div class="bg-light one"></div>
+    <div class="bg-purple"></div>
 
-    <div class="bg-light two"></div>
+    <div class="bg-purple-bottom"></div>
 
-    <div class="bg-light three"></div>
+    <div class="bg-gold"></div>
 
 </div>
 
 
 
 <!-- ======================================================
-     APP
+     APPLICATION
 ====================================================== -->
 
 <main class="app">
 
 
     <!-- ==================================================
-         LOGO
+         BRAND
     ================================================== -->
 
     <section class="brand">
@@ -1325,7 +1383,7 @@ body{
             <div class="logo-ring"></div>
 
 
-            <!-- FULL HEART -->
+            <!-- GOLD HEART -->
 
             <div class="heart">
 
@@ -1335,7 +1393,7 @@ body{
                 <div class="ecg">
 
                     <svg
-                        viewBox="0 0 108 50"
+                        viewBox="0 0 108 48"
                         preserveAspectRatio="none">
 
                         <path
@@ -1363,7 +1421,6 @@ body{
                     </svg>
 
                 </div>
-
 
             </div>
 
@@ -1413,14 +1470,11 @@ body{
     <section class="login-container">
 
 
-        <!-- ==============================================
-             PATIENT
-        =============================================== -->
+        <!-- PATIENT -->
 
         <a
             href="/patient.html"
             class="login-card patient">
-
 
             <div class="card-icon">
 
@@ -1451,19 +1505,15 @@ body{
 
             </div>
 
-
         </a>
 
 
 
-        <!-- ==============================================
-             DOCTOR
-        =============================================== -->
+        <!-- DOCTOR -->
 
         <a
-            href="/doctorn.html"
+            href="/doctor.html"
             class="login-card doctor">
-
 
             <div class="card-icon">
 
@@ -1494,19 +1544,15 @@ body{
 
             </div>
 
-
         </a>
 
 
 
-        <!-- ==============================================
-             ADMIN
-        =============================================== -->
+        <!-- ADMIN -->
 
         <a
             href="/admin.html"
             class="login-card admin">
-
 
             <div class="card-icon">
 
@@ -1536,7 +1582,6 @@ body{
                 <i class="fa-solid fa-arrow-left"></i>
 
             </div>
-
 
         </a>
 

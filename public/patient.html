@@ -27,1484 +27,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 
-<style> /* ========================================================= TABIBK PREMIUM MEDICAL LUXURY PURPLE • GOLD • WHITE PATIENT UI ========================================================= */ *{ box-sizing:border-box; margin:0; padding:0; } :root{ --purple:#4a155f; --purple-dark:#2b0b3d; --purple2:#6d238b; --purple3:#8d4baa; --gold:#c79a32; --gold2:#e9c45d; --gold3:#fff0ad; --white:#fff; --cream:#fffaf1; --bg:#f7f4fa; --text:#24162c; --muted:#817487; --green:#159765; --red:#c72e45; --border:rgba(199,154,50,.25); --shadow: 0 20px 55px rgba(50,15,70,.12); --gold-shadow: 0 15px 35px rgba(199,154,50,.22); } html{ scroll-behavior:smooth; } body{ font-family:"Cairo",sans-serif; direction:rtl; min-height:100vh; color:var(--text); background: radial-gradient( circle at 8% 12%, rgba(199,154,50,.10), transparent 25% ), radial-gradient( circle at 92% 20%, rgba(109,35,139,.10), transparent 27% ), linear-gradient( 180deg, #fffdf9 0%, #f7f3fa 55%, #fffdf9 100% ); overflow-x:hidden; } /* ========================================================= GLOBAL DECORATION ========================================================= */ body::before{ content:""; position:fixed; width:520px; height:520px; border-radius:50%; border: 1px solid rgba(199,154,50,.08); top:-270px; right:-240px; pointer-events:none; z-index:0; } body::after{ content:""; position:fixed; width:430px; height:430px; border-radius:50%; border: 1px solid rgba(74,21,95,.07); bottom:-250px; left:-220px; pointer-events:none; z-index:0; } /* ========================================================= HEADER ========================================================= */ .header{ position:relative; overflow:hidden; color:white; padding: 20px 20px 85px; background: radial-gradient( circle at 82% 15%, rgba(233,196,93,.20), transparent 23% ), radial-gradient( circle at 15% 85%, rgba(141,75,170,.18), transparent 27% ), linear-gradient( 135deg, #250832, #431153 45%, #682180 ); border-bottom: 3px solid var(--gold); box-shadow: 0 20px 50px rgba(43,11,61,.22); } /* ornamental circles */ .header::before{ content:""; position:absolute; width:380px; height:380px; border-radius:50%; border: 1px solid rgba(233,196,93,.22); right:-180px; top:-230px; } .header::after{ content:""; position:absolute; width:240px; height:240px; border-radius:50%; border: 1px solid rgba(255,255,255,.09); left:-120px; bottom:-170px; } /* ========================================================= HEADER CONTENT ========================================================= */ .header-content{ max-width:1180px; margin:auto; position:relative; z-index:3; } /* ========================================================= TOPBAR ========================================================= */ .topbar{ display:flex; align-items:center; justify-content:space-between; gap:20px; } /* ========================================================= BRAND ========================================================= */ .brand{ display:flex; align-items:center; gap:14px; } .brand-icon{ width:62px; height:62px; border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:29px; color:var(--purple-dark); background: linear-gradient( 145deg, #fff3b8, var(--gold2), var(--gold) ); border: 2px solid rgba(255,255,255,.55); box-shadow: 0 12px 35px rgba(0,0,0,.24), inset 0 2px 0 rgba(255,255,255,.85); position:relative; } .brand-icon::after{ content:""; position:absolute; inset:5px; border-radius:15px; border: 1px solid rgba(74,21,95,.18); } .brand-text strong{ display:block; font-size:27px; font-weight:900; letter-spacing:.5px; } .brand-text span{ display:block; margin-top:1px; color:#eadcf0; font-size:11px; } /* ========================================================= HEADER BADGE ========================================================= */ .header-badge{ display:flex; align-items:center; gap:8px; padding:9px 15px; border-radius:30px; color:var(--gold2); background: rgba(255,255,255,.07); border: 1px solid rgba(233,196,93,.32); backdrop-filter:blur(12px); font-size:10px; font-weight:800; } /* ========================================================= HERO ========================================================= */ .header-title{ max-width:760px; margin: 48px auto 0; text-align:center; } .header-title h1{ font-size:38px; line-height:1.4; font-weight:900; text-shadow: 0 7px 25px rgba(0,0,0,.20); } .header-title h1 span{ color:var(--gold2); position:relative; } .header-title h1 span::after{ content:""; position:absolute; right:0; left:0; bottom:-7px; height:2px; background: linear-gradient( 90deg, transparent, var(--gold2), transparent ); } .header-title p{ margin-top:15px; color:#e8dcea; font-size:14px; } /* ========================================================= MAIN CONTAINER ========================================================= */ .container{ width:min(1180px, calc(100% - 30px)); margin: -42px auto 50px; position:relative; z-index:5; } /* ========================================================= TABS ========================================================= */ .tabs{ display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:22px; } .tab{ min-height:68px; border: 1px solid rgba(199,154,50,.25); border-radius:20px; background: rgba(255,255,255,.97); color:var(--muted); font-family:inherit; font-size:14px; font-weight:900; cursor:pointer; box-shadow: 0 14px 35px rgba(50,15,70,.09); transition: transform .25s, box-shadow .25s, background .25s; position:relative; overflow:hidden; } .tab::before{ content:""; position:absolute; width:90px; height:90px; border-radius:50%; border: 1px solid rgba(199,154,50,.13); left:-35px; bottom:-55px; } .tab i{ margin-left:9px; color:var(--gold); font-size:17px; } .tab:hover{ transform:translateY(-3px); box-shadow: 0 18px 40px rgba(50,15,70,.14); } .tab.active{ color:white; border-color:var(--gold); background: linear-gradient( 135deg, var(--purple-dark), var(--purple), var(--purple2) ); box-shadow: 0 18px 40px rgba(74,21,95,.28); } .tab.active i{ color:var(--gold2); } /* ========================================================= CARDS ========================================================= */ .card{ position:relative; overflow:hidden; background: linear-gradient( 145deg, rgba(255,255,255,.99), rgba(255,251,244,.99) ); border: 1px solid rgba(199,154,50,.26); border-radius:28px; padding:27px; margin-bottom:20px; box-shadow: 0 22px 55px rgba(50,15,70,.10), inset 0 1px 0 white; transition: transform .25s, box-shadow .25s; } .card:hover{ box-shadow: 0 26px 65px rgba(50,15,70,.13); } /* gold frame */ .card::before{ content:""; position:absolute; inset:8px; border: 1px solid rgba(199,154,50,.08); border-radius:21px; pointer-events:none; } /* top ornament */ .card::after{ content:"✦"; position:absolute; top:15px; left:19px; color:rgba(199,154,50,.20); font-size:20px; } /* ========================================================= CARD TITLE ========================================================= */ .card-title{ display:flex; align-items:center; gap:14px; margin-bottom:23px; position:relative; z-index:2; } .card-title .icon{ flex:0 0 52px; width:52px; height:52px; display:flex; align-items:center; justify-content:center; border-radius:17px; color:var(--purple); background: linear-gradient( 145deg, #fff0b0, #fffaf0 ); border: 1px solid rgba(199,154,50,.35); box-shadow: var(--gold-shadow); font-size:20px; position:relative; } .card-title .icon::after{ content:""; position:absolute; inset:5px; border-radius:12px; border: 1px solid rgba(74,21,95,.10); } .card-title h2{ color:var(--purple); font-size:19px; font-weight:900; } .card-title p{ color:var(--muted); margin-top:3px; font-size:11px; } /* ========================================================= FORM GRID ========================================================= */ .form-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:17px; position:relative; z-index:2; } .field{ display:flex; flex-direction:column; gap:8px; } .field.full{ grid-column:1/-1; } .field label{ color:#4c3b52; font-size:12px; font-weight:800; } .field label i{ color:var(--gold); margin-left:5px; } /* ========================================================= INPUTS ========================================================= */ .field input, .field select, .field textarea{ width:100%; min-height:49px; border: 1px solid #e8dfe9; border-radius:15px; background:#fffdfb; color:var(--text); font-family:inherit; font-size:13px; padding:12px 15px; outline:none; transition: border .2s, box-shadow .2s, transform .2s; } .field input:hover, .field select:hover, .field textarea:hover{ border-color: rgba(199,154,50,.55); } .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--gold); background:white; box-shadow: 0 0 0 4px rgba(199,154,50,.09), 0 10px 25px rgba(74,21,95,.06); transform:translateY(-1px); } .field textarea{ min-height:105px; resize:vertical; } select:disabled{ opacity:.55; cursor:not-allowed; } /* ========================================================= DOCTOR PREMIUM PROFILE ========================================================= */ .doctor-select{ position:relative; } /* The selected doctor information becomes a premium profile card. */ .doctor-info{ margin-top:13px; min-height:92px; display:none; align-items:center; gap:15px; padding:15px 17px; border-radius:20px; background: linear-gradient( 135deg, #fffaf0, #f8effd ); border: 1px solid rgba(199,154,50,.32); box-shadow: 0 12px 28px rgba(50,15,70,.07); position:relative; overflow:hidden; } .doctor-info::before{ content:""; width:64px; height:64px; flex:0 0 64px; border-radius:50%; background: linear-gradient( 145deg, var(--purple2), var(--purple-dark) ); border: 3px solid var(--gold2); box-shadow: 0 7px 18px rgba(74,21,95,.20); } .doctor-info::after{ content:"👨‍⚕️"; position:absolute; right:20px; font-size:35px; transform:translateY(-1px); } .doctor-info strong{ display:block; color:var(--purple); font-size:14px; font-weight:900; padding-right:75px; } .doctor-info strong i{ color:var(--gold); margin-left:5px; } .doctor-info span{ display:block; margin-top:4px; color:var(--muted); font-size:11px; padding-right:75px; } .doctor-info.show{ display:flex; animation: doctorAppear .35s ease; } @keyframes doctorAppear{ from{ opacity:0; transform:translateY(-8px); } to{ opacity:1; transform:translateY(0); } } /* ========================================================= PREMIUM BUTTONS ========================================================= */ .btn{ width:100%; min-height:52px; border:0; border-radius:17px; padding:14px 18px; font-family:inherit; font-size:13px; font-weight:900; display:flex; align-items:center; justify-content:center; gap:9px; cursor:pointer; position:relative; overflow:hidden; transition: transform .22s, box-shadow .22s; } .btn::before{ content:""; position:absolute; top:-30%; bottom:-30%; width:40%; left:-60%; background: linear-gradient( 90deg, transparent, rgba(255,255,255,.42), transparent ); transform:skewX(-20deg); transition:.6s; } .btn:hover::before{ left:120%; } .btn:hover{ transform:translateY(-3px); } .btn:active{ transform:translateY(0); } .btn-primary{ color:var(--purple-dark); background: linear-gradient( 135deg, #f7db79, var(--gold), #b98721 ); box-shadow: 0 15px 32px rgba(199,154,50,.28), inset 0 2px 0 rgba(255,255,255,.65); } .btn-primary:hover{ box-shadow: 0 20px 42px rgba(199,154,50,.35); } .btn-dark{ color:white; background: linear-gradient( 135deg, var(--purple-dark), var(--purple), var(--purple2) ); box-shadow: 0 14px 30px rgba(74,21,95,.24); } .btn-green{ color:white; background: linear-gradient( 135deg, #19ae75, #0d8055 ); box-shadow: 0 12px 27px rgba(13,128,85,.18); } .btn-light{ color:var(--purple); background:#faf4fc; border: 1px solid rgba(74,21,95,.12); } .btn:disabled{ opacity:.55; cursor:not-allowed; transform:none; } /* ========================================================= SUCCESS RESULT ========================================================= */ .result{ display:none; } .result.show{ display:block; animation: resultAppear .45s ease; } @keyframes resultAppear{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:translateY(0); } } .success-box{ text-align:center; padding:25px 10px; } .success-icon{ width:92px; height:92px; margin:0 auto 18px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--purple); background: linear-gradient( 145deg, #fff0ae, #fffdf5 ); border: 2px solid rgba(199,154,50,.38); box-shadow: 0 15px 35px rgba(199,154,50,.20); font-size:38px; position:relative; } .success-icon::after{ content:""; position:absolute; inset:-8px; border-radius:50%; border: 1px dashed rgba(199,154,50,.30); } .success-box h2{ color:var(--purple); font-size:22px; font-weight:900; } .success-box p{ color:var(--muted); margin-top:6px; font-size:12px; } /* ========================================================= BOOKING TICKET ========================================================= */ .booking-number{ max-width:390px; margin:23px auto; padding:22px; border-radius:22px; color:white; background: linear-gradient( 135deg, #290a3b, var(--purple), #70288e ); border: 1px solid rgba(233,196,93,.40); box-shadow: 0 18px 40px rgba(50,15,70,.22); position:relative; overflow:hidden; } .booking-number::before, .booking-number::after{ content:""; position:absolute; width:80px; height:80px; border-radius:50%; border: 1px solid rgba(233,196,93,.18); } .booking-number::before{ top:-50px; right:-35px; } .booking-number::after{ bottom:-55px; left:-35px; } .booking-number small{ display:block; color:#d9c9df; font-size:10px; } .booking-number strong{ display:block; margin-top:5px; color:var(--gold2); font-size:29px; font-weight:900; letter-spacing:1.5px; } /* ========================================================= STATUS ========================================================= */ .status-card{ text-align:center; } .status-badge{ display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:30px; font-size:12px; font-weight:900; margin-bottom:15px; } .status-pending{ background:#fff6df; color:#a76500; border:1px solid #f2dca8; } .status-confirmed{ background:#e9f8f1; color:#087c4e; border:1px solid #bfe8d5; } .status-rejected{ background:#ffedf0; color:#bd2333; border:1px solid #f3c3ca; } .status-started{ background:#f2e9ff; color:#68249a; border:1px solid #d9c5ee; } .status-completed{ background:#f1edf4; color:#5d5264; border:1px solid #ddd4e3; } .status-cancelled{ background:#ffecef; color:#bd2333; border:1px solid #f3c3ca; } .status-title{ color:var(--purple); font-size:22px; font-weight:900; } .status-message{ color:var(--muted); margin-top:5px; font-size:12px; } /* ========================================================= QUEUE DASHBOARD ========================================================= */ .queue-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:13px; margin-top:23px; } .queue-item{ padding:19px 8px; text-align:center; border-radius:19px; background: linear-gradient( 145deg, #fffdf9, #f8f0fc ); border: 1px solid rgba(199,154,50,.22); box-shadow: 0 10px 25px rgba(50,15,70,.06); } .queue-item i{ display:block; color:var(--gold); font-size:20px; margin-bottom:7px; } .queue-item strong{ display:block; color:var(--purple); font-size:25px; font-weight:900; } .queue-item span{ display:block; margin-top:2px; color:var(--muted); font-size:10px; } /* ========================================================= DETAILS ========================================================= */ .info-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:13px; } .info-item{ padding:16px; border-radius:17px; background: linear-gradient( 145deg, #fffdfb, #faf4fc ); border: 1px solid rgba(199,154,50,.17); position:relative; overflow:hidden; } .info-item::before{ content:""; position:absolute; right:0; top:0; bottom:0; width:4px; background: linear-gradient( 180deg, var(--gold2), var(--gold) ); } .info-item span{ display:block; color:var(--muted); font-size:10px; } .info-item strong{ display:block; margin-top:4px; color:var(--purple); font-size:13px; } /* ========================================================= ALERT ========================================================= */ .alert{ display:none; padding:15px 17px; border-radius:17px; margin-bottom:16px; font-size:12px; font-weight:800; } .alert.show{ display:block; animation: alertAppear .25s ease; } .alert.error{ background:#fff0f2; color:#b42333; border:1px solid #f1c4ca; } .alert.success{ background:#eaf9f2; color:#087c4e; border:1px solid #bce7d4; } .alert.info{ background:#f4edff; color:#642692; border:1px solid #ddcaed; } @keyframes alertAppear{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:translateY(0); } } /* ========================================================= LOADING ========================================================= */ .loading{ display:none; text-align:center; padding:22px; color:var(--muted); font-size:11px; } .loading.show{ display:block; } .spinner{ width:31px; height:31px; margin: 0 auto 9px; border: 3px solid #eee5f0; border-top-color:var(--gold); border-right-color:var(--purple); border-radius:50%; animation: spin .7s linear infinite; } @keyframes spin{ to{ transform:rotate(360deg); } } /* ========================================================= EMPTY ========================================================= */ .empty{ text-align:center; padding:30px 10px; color:var(--muted); } .empty i{ display:block; color:#cdbfd3; font-size:37px; margin-bottom:10px; } .empty p{ font-size:12px; } /* ========================================================= REJECTION ========================================================= */ #rejectedCard{ background: linear-gradient( 145deg, #fff6f8, #fff ); border: 1px solid rgba(201,46,66,.20); } #rejectionReason{ margin-top:8px; color:#a51f31; font-weight:800; } /* ========================================================= FOOTER ========================================================= */ .footer{ position:relative; text-align:center; padding: 30px 20px 35px; color:#9c91a3; font-size:10px; } .footer::before{ content:""; display:block; width:160px; height:1px; margin: 0 auto 17px; background: linear-gradient( 90deg, transparent, var(--gold), transparent ); } .footer strong{ color:var(--purple); font-weight:900; font-size:12px; } .footer .gold{ color:var(--gold); } /* ========================================================= HIDDEN ========================================================= */ .hidden{ display:none!important; } /* ========================================================= MOBILE ========================================================= */ @media(max-width:700px){ .header{ padding: 15px 15px 65px; } .brand-icon{ width:53px; height:53px; border-radius:17px; font-size:24px; } .brand-text strong{ font-size:21px; } .brand-text span{ font-size:9px; } .header-badge{ display:none; } .header-title{ margin-top:30px; } .header-title h1{ font-size:25px; } .header-title p{ font-size:11px; } .container{ width: calc(100% - 18px); margin-top:-30px; } .tabs{ gap:9px; } .tab{ min-height:59px; padding:11px 7px; font-size:11px; border-radius:17px; } .card{ padding:19px; border-radius:23px; } .card-title{ gap:11px; } .card-title .icon{ width:45px; height:45px; flex-basis:45px; border-radius:14px; font-size:17px; } .card-title h2{ font-size:16px; } .card-title p{ font-size:9px; } .form-grid{ grid-template-columns:1fr; } .field.full{ grid-column:auto; } .doctor-info{ min-height:84px; padding:12px; } .doctor-info::before{ width:55px; height:55px; flex-basis:55px; } .doctor-info::after{ right:16px; font-size:30px; } .doctor-info strong, .doctor-info span{ padding-right:60px; } .queue-grid{ gap:7px; } .queue-item{ padding:15px 5px; } .queue-item strong{ font-size:21px; } .queue-item span{ font-size:8px; } .info-grid{ grid-template-columns:1fr; } .success-box > div[style]{ grid-template-columns:1fr!important; } .booking-number strong{ font-size:25px; } } /* ========================================================= VERY SMALL ========================================================= */ @media(max-width:380px){ .brand-text strong{ font-size:19px; } .header-title h1{ font-size:22px; } .card{ padding:15px; } .queue-item strong{ font-size:18px; } .btn{ min-height:49px; font-size:12px; } } 
-/* =========================================================
-   PROFESSIONAL STABILITY / ACCESSIBILITY POLISH
-   ========================================================= */
-button, select, input, textarea{
-    -webkit-tap-highlight-color:transparent;
-}
-
-button:focus-visible,
-select:focus-visible,
-input:focus-visible,
-textarea:focus-visible{
-    outline:3px solid rgba(199,154,50,.28);
-    outline-offset:2px;
-}
-
-@media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{
-        animation-duration:.01ms!important;
-        animation-iteration-count:1!important;
-        scroll-behavior:auto!important;
-        transition-duration:.01ms!important;
-    }
-}
-
-@media(max-width:700px){
-    input, select, textarea{
-        font-size:16px!important;
-    }
-
-    .btn{
-        touch-action:manipulation;
-    }
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<!-- =====================================================
-     HEADER
-     ===================================================== -->
-
-<header class="header">
-
-    <div class="header-content">
-
-        <div class="topbar">
-
-            <div class="brand">
-
-                <div class="brand-icon">
-
-                    <i class="fa-solid fa-heart-pulse"></i>
-
-                </div>
-
-                <div class="brand-text">
-
-                    <strong>طبيبك</strong>
-
-                    <span>TABIBK • رعايتك تبدأ هنا</span>
-
-                </div>
-
-            </div>
-
-
-            <div class="header-badge">
-
-                <i class="fa-solid fa-shield-heart"></i>
-
-                منصة طبية موثوقة
-
-            </div>
-
-        </div>
-
-
-        <div class="header-title">
-
-            <h1>
-                احجز موعدك مع <span>طبيبك</span>
-            </h1>
-
-            <p>
-                اختر الطبيب والموعد المناسب وتابع حجزك بسهولة
-            </p>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-
-<!-- =====================================================
-     MAIN
-     ===================================================== -->
-
-<main class="container">
-
-
-    <!-- =================================================
-         TABS
-         ================================================= -->
-
-    <div class="tabs">
-
-        <button
-            id="bookTab"
-            class="tab active"
-            onclick="showSection('booking')">
-
-            <i class="fa-solid fa-calendar-plus"></i>
-
-            حجز موعد
-
-        </button>
-
-
-        <button
-            id="trackTab"
-            class="tab"
-            onclick="showSection('tracking')">
-
-            <i class="fa-solid fa-location-dot"></i>
-
-            متابعة الحجز
-
-        </button>
-
-    </div>
-
-
-
-    <!-- =================================================
-         BOOKING SECTION
-         ================================================= -->
-
-    <section
-        id="bookingSection">
-
-
-        <!-- ALERT -->
-
-        <div
-            id="bookingAlert"
-            class="alert">
-        </div>
-
-
-
-        <!-- =================================================
-             DOCTOR
-             ================================================= -->
-
-        <div class="card">
-
-            <div class="card-title">
-
-                <div class="icon">
-
-                    <i class="fa-solid fa-user-doctor"></i>
-
-                </div>
-
-                <div>
-
-                    <h2>
-                        اختيار الطبيب
-                    </h2>
-
-                    <p>
-                        اختر مكانك ثم الطبيب المناسب
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="form-grid">
-
-
-                <!-- WILAYA -->
-
-                <div class="field">
-
-                    <label>
-
-                        <i class="fa-solid fa-map-location-dot"></i>
-
-                        الولاية
-
-                    </label>
-
-                    <select
-                        id="wilaya">
-
-                        <option value="">
-                            اختر الولاية
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- MUNICIPALITY -->
-
-                <div class="field">
-
-                    <label>
-
-                        <i class="fa-solid fa-location-dot"></i>
-
-                        البلدية
-
-                    </label>
-
-                    <select
-                        id="municipality"
-                        disabled>
-
-                        <option value="">
-                            اختر البلدية
-                        </option>
-
-                    </select>
-
-                </div>
-
-<!-- SPECIALTY -->
-
-<div class="field full" id="specialtyField">
-
-    <label>
-
-        <i class="fa-solid fa-stethoscope"></i>
-
-        اختصاص الطبيب
-
-    </label>
-
-    <select
-        id="specialty"
-        disabled>
-
-        <option value="">
-            اختر الاختصاص
-        </option>
-
-    </select>
-
-</div>
-                  
-                <!-- DOCTOR -->
-
-                <div class="field full" id="doctorField" style="display:none;">
-
-                    <label>
-
-                        <i class="fa-solid fa-stethoscope"></i>
-
-                        الطبيب
-
-                    </label>
-
-                    <div class="doctor-select">
-
-                        <select
-                            id="doctor"
-                            disabled>
-
-                            <option value="">
-                                اختر الطبيب
-                            </option>
-
-                        </select>
-
-
-                        <div
-                            id="doctorInfo"
-                            class="doctor-info">
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =================================================
-             PATIENT INFORMATION
-             ================================================= -->
-
-        <div class="card">
-
-            <div class="card-title">
-
-                <div class="icon">
-
-                    <i class="fa-solid fa-id-card"></i>
-
-                </div>
-
-                <div>
-
-                    <h2>
-                        معلومات المريض
-                    </h2>
-
-                    <p>
-                        أدخل معلوماتك لإنشاء طلب الموعد
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="form-grid">
-
-
-                <!-- NAME -->
-
-                <div class="field full">
-
-                    <label>
-
-                        <i class="fa-solid fa-user"></i>
-
-                        الاسم واللقب
-
-                    </label>
-
-                    <input
-                        type="text"
-                        id="patientName"
-                        placeholder="أدخل الاسم واللقب">
-
-                </div>
-
-
-                <!-- PHONE -->
-
-                <div class="field">
-
-                    <label>
-
-                        <i class="fa-solid fa-phone"></i>
-
-                        رقم الهاتف
-
-                    </label>
-
-                    <input
-                        type="tel"
-                        id="patientPhone"
-                        inputmode="numeric"
-                        placeholder="0550000000">
-
-                </div>
-
-
-                <!-- AGE -->
-
-                <div class="field">
-
-                    <label>
-
-                        <i class="fa-solid fa-cake-candles"></i>
-
-                        العمر
-
-                    </label>
-
-                    <input
-                        type="number"
-                        id="patientAge"
-                        min="1"
-                        max="120"
-                        placeholder="العمر">
-
-                </div>
-
-
-                <!-- GENDER -->
-
-                <div class="field">
-
-                    <label>
-
-                        <i class="fa-solid fa-venus-mars"></i>
-
-                        الجنس
-
-                    </label>
-
-                    <select
-                        id="patientGender">
-
-                        <option value="">
-                            اختر الجنس
-                        </option>
-
-                        <option value="ذكر">
-                            ذكر
-                        </option>
-
-                        <option value="أنثى">
-                            أنثى
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- DATE -->
-
-                <div class="field">
-
-                    <label>
-
-                        <i class="fa-solid fa-calendar-day"></i>
-
-                        تاريخ الموعد
-
-                    </label>
-
-                    <input
-                        type="date"
-                        id="date">
-
-                </div>
-
-
-                <!-- TIME -->
-
-                <div class="field">
-
-                    <label>
-
-                        <i class="fa-solid fa-clock"></i>
-
-                        وقت الموعد
-
-                    </label>
-
-                    <input
-                        type="time"
-                        id="time">
-
-                </div>
-
-
-                <!-- REASON -->
-
-                <div class="field full">
-
-                    <label>
-
-                        <i class="fa-solid fa-notes-medical"></i>
-
-                        سبب الزيارة
-                        <span style="font-weight:400;color:#aaa">
-                            (اختياري)
-                        </span>
-
-                    </label>
-
-                    <textarea
-                        id="reason"
-                        placeholder="اكتب سبب الزيارة إن رغبت...">
-                    </textarea>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =================================================
-             SUBMIT
-             ================================================= -->
-
-        <div class="card">
-
-            <div
-                id="bookingLoading"
-                class="loading">
-
-                <div class="spinner"></div>
-
-                جاري إرسال طلب الحجز...
-
-            </div>
-
-
-            <button
-                id="submitBooking"
-                class="btn btn-primary"
-                onclick="createAppointment()">
-
-                <i class="fa-solid fa-calendar-check"></i>
-
-                إرسال طلب الحجز
-
-            </button>
-
-        </div>
-
-
-
-        <!-- =================================================
-             BOOKING RESULT
-             ================================================= -->
-
-        <div
-            id="bookingResult"
-            class="card result">
-
-
-            <div class="success-box">
-
-                <div class="success-icon">
-
-                    <i class="fa-solid fa-circle-check"></i>
-
-                </div>
-
-
-                <h2>
-                    تم إرسال طلب الحجز بنجاح
-                </h2>
-
-
-                <p>
-                    احتفظ برقم الحجز لمتابعة حالة الموعد
-                </p>
-
-
-                <div class="booking-number">
-
-                    <small>
-                        رقم الحجز الخاص بك
-                    </small>
-
-                    <strong id="newBookingNumber">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div
-                    style="
-                        display:grid;
-                        grid-template-columns:1fr 1fr;
-                        gap:10px;
-                        max-width:420px;
-                        margin:auto;
-                    ">
-
-
-                    <button
-                        class="btn btn-dark"
-                        onclick="goToTracking()">
-
-                        <i class="fa-solid fa-magnifying-glass"></i>
-
-                        متابعة الحجز
-
-                    </button>
-
-
-                    <button
-                        class="btn btn-green"
-                        onclick="openWhatsApp()">
-
-                        <i class="fa-brands fa-whatsapp"></i>
-
-                        مشاركة WhatsApp
-
-                    </button>
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         TRACKING SECTION
-         ================================================= -->
-
-    <section
-        id="trackingSection"
-        class="hidden">
-
-
-        <!-- ALERT -->
-
-        <div
-            id="trackingAlert"
-            class="alert">
-        </div>
-
-
-
-        <!-- =================================================
-             TRACKING SEARCH
-             ================================================= -->
-
-        <div class="card">
-
-            <div class="card-title">
-
-                <div class="icon">
-
-                    <i class="fa-solid fa-magnifying-glass"></i>
-
-                </div>
-
-                <div>
-
-                    <h2>
-                        متابعة موعدك
-                    </h2>
-
-                    <p>
-                        أدخل رقم الحجز لمعرفة آخر تحديث
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="form-grid">
-
-
-                <div class="field full">
-
-                    <label>
-
-                        <i class="fa-solid fa-ticket"></i>
-
-                        رقم الحجز
-
-                    </label>
-
-                    <input
-                        type="text"
-                        id="trackingNumber"
-                        placeholder="مثال: TABIBK-12345">
-
-                </div>
-
-
-                <div class="field full">
-
-                    <button
-                        id="trackButton"
-                        class="btn btn-primary"
-                        onclick="trackAppointment()">
-
-                        <i class="fa-solid fa-location-crosshairs"></i>
-
-                        متابعة الحجز
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="trackingLoading"
-                class="loading">
-
-                <div class="spinner"></div>
-
-                جاري البحث عن الحجز...
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =================================================
-             TRACKING RESULT
-             ================================================= -->
-
-        <div
-            id="trackingResult"
-            class="card result status-card">
-
-
-            <div
-                id="statusBadge"
-                class="status-badge status-pending">
-
-                <i class="fa-solid fa-clock"></i>
-
-                <span>
-                    في انتظار التأكيد
-                </span>
-
-            </div>
-
-
-            <div
-                id="statusTitle"
-                class="status-title">
-
-                طلبك قيد المراجعة
-
-            </div>
-
-
-            <div
-                id="statusMessage"
-                class="status-message">
-
-                ننتظر تأكيد الطبيب.
-
-            </div>
-
-
-
-            <!-- QUEUE -->
-
-            <div class="queue-grid">
-
-
-                <div class="queue-item">
-
-                    <i class="fa-solid fa-ticket"></i>
-
-                    <strong id="queueNumber">
-                        -
-                    </strong>
-
-                    <span>
-                        رقمك في الطابور
-                    </span>
-
-                </div>
-
-
-                <div class="queue-item">
-
-                    <i class="fa-solid fa-users"></i>
-
-                    <strong id="patientsAhead">
-                        -
-                    </strong>
-
-                    <span>
-                        المرضى قبلك
-                    </span>
-
-                </div>
-
-
-                <div class="queue-item">
-
-                    <i class="fa-solid fa-person-walking-arrow-right"></i>
-
-                    <strong id="currentTurn">
-                        -
-                    </strong>
-
-                    <span>
-                        الدور الحالي
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =================================================
-             APPOINTMENT DETAILS
-             ================================================= -->
-
-        <div
-            id="appointmentDetails"
-            class="card result">
-
-
-            <div class="card-title">
-
-                <div class="icon">
-
-                    <i class="fa-solid fa-file-medical"></i>
-
-                </div>
-
-                <div>
-
-                    <h2>
-                        تفاصيل الموعد
-                    </h2>
-
-                    <p>
-                        معلومات حجزك الحالية
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="info-grid">
-
-
-                <div class="info-item">
-
-                    <span>
-                        رقم الحجز
-                    </span>
-
-                    <strong id="detailBooking">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="info-item">
-
-                    <span>
-                        الطبيب
-                    </span>
-
-                    <strong id="detailDoctor">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="info-item">
-
-                    <span>
-                        التخصص
-                    </span>
-
-                    <strong id="detailSpecialty">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="info-item">
-
-                    <span>
-                        الولاية
-                    </span>
-
-                    <strong id="detailWilaya">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="info-item">
-
-                    <span>
-                        البلدية
-                    </span>
-
-                    <strong id="detailMunicipality">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="info-item">
-
-                    <span>
-                        التاريخ
-                    </span>
-
-                    <strong id="detailDate">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="info-item">
-
-                    <span>
-                        الوقت
-                    </span>
-
-                    <strong id="detailTime">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="info-item">
-
-                    <span>
-                        المريض
-                    </span>
-
-                    <strong id="detailPatient">
-                        -
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- REJECTION -->
-
-            <div
-                id="rejectedCard"
-                class="card hidden"
-                style="margin-top:15px;margin-bottom:0;padding:17px;">
-
-                <div class="card-title"
-                     style="margin-bottom:8px;">
-
-                    <div class="icon"
-                         style="background:#fff0f2;color:#c92e42;">
-
-                        <i class="fa-solid fa-circle-xmark"></i>
-
-                    </div>
-
-                    <div>
-
-                        <h2 style="color:#b42333;">
-                            سبب الرفض
-                        </h2>
-
-                        <p>
-                            ملاحظة من الطبيب
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div id="rejectionReason">
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-</main>
-
-
-
-<!-- =====================================================
-     FOOTER
-     ===================================================== -->
-
-<footer class="footer">
-
-    <div>
-
-        <strong>
-            <i class="fa-solid fa-heart-pulse"></i>
-            طبيبك TABIBK
-        </strong>
-
-    </div>
-
-    <div style="margin-top:5px;">
-
-        رعايتك تبدأ بخطوة
-
-        <span class="gold">♥</span>
-
-    </div>
-
-    <div style="margin-top:5px;">
-
-        © 2026 جميع الحقوق محفوظة
-
-    </div>
-
-</footer>
-
-
-
-<script>
-
-/* =====================================================
-   TABIBK PATIENT
-   ===================================================== */
-
-const API = "";
-
-let doctors = [];
-let selectedDoctor = null;
-
-let currentBookingNumber =
-    localStorage.getItem("tabibkBookingNumber") || "";
-
-let currentAppointment = null;
-
-let previousStatus = null;
-
-let trackingTimer = null;
-let trackingRequestInFlight = false;
-let bookingInFlight = false;
-let lastTrackedStatus = null;
-let lastTrackedQueue = null;
-
-/* PROFESSIONAL PATIENT NOTIFICATION STATE */
-let patientNotificationTimer = null;
-let lastPatientNotificationId = Number(localStorage.getItem("tabibkLastPatientNotificationId") || 0);
-let notificationRequestInFlight = false;
-let notificationAudio = null;
-
-function getStoredPatientPhone(){
-    return (localStorage.getItem("tabibkPatientPhone") || document.getElementById("patientPhone")?.value || "").replace(/\s+/g, "");
-}
-
-
-
-/* =====================================================
-   ELEMENTS
-   ===================================================== */
-
-const wilayaSelect =
-    document.getElementById("wilaya");
-
-const municipalitySelect =
-    document.getElementById("municipality");
-
-const doctorSelect =
-    document.getElementById("doctor");
-
-      const specialtySelect = document.getElementById("specialty");
-
-const doctorInfo =
-    document.getElementById("doctorInfo");
-
-
-/* =====================================================
-   INITIALIZATION
-   ===================================================== */
-
-document.addEventListener("DOMContentLoaded", async () => {
-
-    setMinimumDate();
-
-    await loadWilayas();
-
-    if(currentBookingNumber){
-
-        document.getElementById("trackingNumber").value =
-            currentBookingNumber;
-
-    }
-
-    setTimeout(() => {
-        prepareNotificationAudio();
-        startPatientNotificationMonitor();
-    }, 700);
-
-});
-
-
-/* =====================================================
-   DATE
-   ===================================================== */
-
-function setMinimumDate(){
-
-    const dateInput =
-        document.getElementById("date");
-
-    const now = new Date();
-
-    const year =
-        now.getFullYear();
-
-    const month =
-        String(now.getMonth()+1).padStart(2,"0");
-
-    const day =
-        String(now.getDate()).padStart(2,"0");
-
-    dateInput.min =
-        `${year}-${month}-${day}`;
-
-}
-
-
-/* =====================================================
-   LOAD WILAYAS
-   ===================================================== */
-
-async function loadWilayas(){
-
-    try{
-
-        const response =
-            await fetch(`${API}/api/wilayas`);
-
-        const data =
-            await response.json();
-
-        if(!data.success){
-
-            throw new Error(
-                data.message ||
-                "تعذر تحميل الولايات"
-            );
-
-        }
-
-        const wilayas =
-            data.wilayas || data.data || [];
-
-        wilayaSelect.innerHTML =
-            `<option value="">اختر الولاية</option>`;
-
-        wilayas.forEach(wilaya => {
-
-            const option =
-                document.createElement("option");
-
-            option.value =
-                wilaya.id;
-
-            option.textContent =
-                wilaya.name;
-
-            wilayaSelect.appendChild(option);
-
-        });
-
-    }catch(error){
-
-        showAlert(
-            "bookingAlert",
-            "تعذر الاتصال بالسيرفر. تأكد أن TABIBK يعمل على Render.",
-            "error"
-        );
-
-        console.error(error);
-
-    }
-
-}
-
-
-/* =====================================================
-   WILAYA CHANGE
-   ===================================================== */
-
-wilayaSelect.addEventListener(
-    "change",
-    async function(){
-
-        municipalitySelect.innerHTML =
-            `<option value="">اختر البلدية</option>`;
-
-        doctorSelect.innerHTML =
-            `<option value="">اختر الطبيب</option>`;
-
-        municipalitySelect.disabled =
-            true;
-
-        doctorSelect.disabled =
-            true;
-
-        doctorInfo.classList.remove("show");
-
-        if(!this.value){
-            return;
-        }
-
-        try{
-
-            const response =
-                await fetch(
-                    `${API}/api/wilayas/${this.value}/municipalities`
-                );
-
-            const data =
-                await response.json();
-
-            if(!data.success){
-
-                throw new Error(
-                    data.message ||
-                    "تعذر تحميل البلديات"
-                );
-
-            }
-
-            const municipalities =
-                data.municipalities ||
-                data.data ||
-                [];
-
-            municipalities.forEach(item => {
-
-                const option =
-                    document.createElement("option");
-
-                if(typeof item === "string"){
-
-                    option.value = item;
-                    option.textContent = item;
-
-                }else{
-
-                    option.value =
-                        item.name;
-
-                    option.textContent =
-                        item.name;
-
-                }
-
-                municipalitySelect.appendChild(option);
-
-            });
-
-            municipalitySelect.disabled =
-                false;
-
-        }catch(error){
-
-            showAlert(
-                "bookingAlert",
-                "تعذر تحميل البلديات.",
-                "error"
-            );
-
-            console.error(error);
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   MUNICIPALITY CHANGE
-   ===================================================== */
-
-municipalitySelect.addEventListener(
-    "change",
-    async function(){
-
-        doctorSelect.innerHTML =
-            `<option value="">اختر الطبيب</option>`;
-
-        doctorSelect.disabled =
-            true;
-
-        doctorInfo.classList.remove("show");
-
-          specialtySelect.innerHTML =
-    `<option value="">اختر الاختصاص</option>`;
-
-specialtySelect.disabled =
-    true;
-
-document.getElementById("doctorField").style.display =
-    "none";
-
-        if(!this.value){
-            return;
-        }
-
-        await loadDoctors();
-
-    }
-);
-
-
-/* =====================================================
-   LOAD DOCTORS
-   ===================================================== */
-
-async function loadDoctors(){
-
-    try{
-
-        const params =
-            new URLSearchParams();
-
-        params.set(
-            "wilaya",
-            getSelectedWilayaName()
-        );
-
-        params.set(
-            "municipality",
-            municipalitySelect.value
-        );
-
-        const response =
-            await fetch(
-                `${API}/api/doctors?${params.toString()}`
-            );
-
-        const data =
-            await response.json();
-
-        if(!data.success){
-
-            throw new Error(
-                data.message ||
-                "تعذر تحميل الأطباء"
-            );
-
-        }
-
-        doctors =
-            data.doctors ||
-            data.data ||
-            [];
-
-          const specialties = [
-    ...new Set(
-        doctors
-            .map(doctor => String(doctor.specialty || "").trim())
-            .filter(Boolean)
-    )
-];
-
-specialtySelect.innerHTML = `
-    <option value="">
-        اختر الاختصاص
-    </option>
-`;
-
-specialties.forEach(specialty => {
-
-    const option = document.createElement("option");
-
-    option.value = specialty;
-    option.textContent = specialty;
-
-    specialtySelect.appendChild(option);
-
-});
-
-specialtySelect.disabled = specialties.length === 0;
-
-        doctorSelect.innerHTML =
-            `<option value="">
-                اختر الطبيب
-            </option>`;
-
-        if(!doctors.length){
-
-            doctorSelect.innerHTML +=
-                `<option value="">
-                    لا يوجد أطباء متاحون حاليًا
-                </option>`;
-
-            doctorSelect.disabled =
-                true;
-
-            return;
-        }
-
-        doctors.forEach(
-            doctor => {
-
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-                option.value =
-                    doctor.id;
-
-                option.textContent =
-                    `${doctor.name} — ${doctor.specialty}`;
-
-                doctorSelect.appendChild(
-                    option
-                );
-
-            }
-        );
-
-        doctorSelect.disabled =
-            false;
-
-    }catch(error){
-
-        console.error(
-            "LOAD DOCTORS ERROR:",
-            error
-        );
-
-        showAlert(
-            "bookingAlert",
-            "تعذر تحميل قائمة الأطباء.",
-            "error"
-        );
-
-    }
-
-}
-
-
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<meta name="theme-color"
-      content="#4b176d">
-
-<title>TABIBK | طبيبك</title>
-
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet">
-
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-
 <style>
 
 /* =========================================================
@@ -1683,144 +205,42 @@ body::after{
 .field textarea{min-height:105px;resize:vertical}
 select:disabled{opacity:.55;cursor:not-allowed}
 
-/* =========================================================
-   PROFESSIONAL SPECIALTY / DOCTOR CHOICES
-   ========================================================= */
-.state-select-hidden{
-  position:absolute!important;
-  width:1px!important;
-  height:1px!important;
-  padding:0!important;
-  margin:-1px!important;
-  overflow:hidden!important;
-  clip:rect(0,0,0,0)!important;
-  white-space:nowrap!important;
-  border:0!important;
-}
-.choice-list{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-  margin-top:2px;
-}
-.choice-card{
-  width:100%;
-  min-height:72px;
-  border:1px solid rgba(199,154,50,.24);
-  border-radius:18px;
-  background:linear-gradient(145deg,#fff,#fffaf2);
-  color:var(--purple);
-  font-family:inherit;
-  text-align:right;
-  padding:11px 13px;
-  display:flex;
-  align-items:center;
-  gap:11px;
-  cursor:pointer;
-  box-shadow:0 9px 22px rgba(53,16,68,.07),inset 0 1px 0 rgba(255,255,255,.9);
-  transition:transform .2s,box-shadow .2s,border-color .2s,background .2s;
-  position:relative;
-  overflow:hidden;
-}
-.choice-card::before{
-  content:"";
-  position:absolute;
-  inset:5px;
-  border:1px solid rgba(199,154,50,.08);
-  border-radius:14px;
-  pointer-events:none;
-}
-.choice-card:hover{
-  transform:translateY(-2px);
-  border-color:rgba(199,154,50,.55);
-  box-shadow:0 15px 30px rgba(53,16,68,.12);
-}
-.choice-card.active{
-  color:#fff;
-  border-color:var(--gold-2);
-  background:linear-gradient(135deg,var(--purple-dark),var(--purple),var(--purple-3));
-  box-shadow:0 15px 32px rgba(53,16,68,.22);
-}
-.choice-icon{
-  flex:0 0 45px;
-  width:45px;height:45px;
-  border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--purple);
-  background:linear-gradient(145deg,#fff0ae,#fffdf5);
-  border:1px solid rgba(199,154,50,.38);
-  box-shadow:0 7px 17px rgba(199,154,50,.16);
-  font-size:18px;
-  position:relative;
-  z-index:1;
-}
-.choice-card.active .choice-icon{
-  color:var(--purple-dark);
-  background:linear-gradient(145deg,#fff4bf,var(--gold-2));
-}
-.choice-text{
-  min-width:0;
-  position:relative;z-index:1;
-}
-.choice-text strong{
-  display:block;
-  font-size:12px;
-  font-weight:900;
-  line-height:1.5;
-}
-.choice-text span{
-  display:block;
-  margin-top:2px;
-  color:var(--muted);
-  font-size:9px;
-}
-.choice-card.active .choice-text span{color:#eadff0}
-.choice-check{
-  margin-right:auto;
-  color:var(--gold-2);
-  font-size:13px;
-  position:relative;z-index:1;
-}
-.choice-empty{
-  grid-column:1/-1;
-  min-height:78px;
-  border:1px dashed rgba(53,16,68,.16);
-  border-radius:18px;
-  background:linear-gradient(145deg,#fffdfb,#f8f1fa);
-  color:var(--muted);
-  display:flex;align-items:center;justify-content:center;
-  gap:9px;padding:14px;text-align:center;font-size:10px;
-}
-.choice-empty i{color:var(--gold);font-size:17px}
-.doctor-list{grid-template-columns:1fr}
-.doctor-card{
-  min-height:78px;
-}
-.doctor-avatar{
-  flex:0 0 47px;width:47px;height:47px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;background:linear-gradient(145deg,var(--purple-3),var(--purple-dark));
-  border:2px solid var(--gold-2);
-  box-shadow:0 8px 18px rgba(53,16,68,.2);
-  font-size:19px;
-  position:relative;z-index:1;
-}
-.doctor-card.active .doctor-avatar{
-  color:var(--purple-dark);
-  background:linear-gradient(145deg,#fff1ae,var(--gold-2));
-}
-.doctor-specialty{
-  color:var(--muted);
-  font-size:9px;
-  margin-top:3px;
-}
-.doctor-card.active .doctor-specialty{color:#eadff0}
-.choice-card:focus-visible{
-  outline:3px solid rgba(199,154,50,.28);
-  outline-offset:2px;
-}
-
 /* DOCTOR PROFILE */
+/* PREMIUM SPECIALTY / DOCTOR PICKER */
+.specialty-picker{display:none;margin-top:4px}
+.specialty-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.specialty-card{appearance:none;border:1px solid rgba(199,154,50,.20);background:linear-gradient(145deg,#fff,#faf4fc);border-radius:17px;padding:13px 11px;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:right;direction:rtl;transition:.2s;box-shadow:0 7px 18px rgba(50,15,70,.05);font-family:inherit}
+.specialty-card:hover{transform:translateY(-1px);border-color:rgba(199,154,50,.55)}
+.specialty-card.active{border-color:var(--gold);background:linear-gradient(145deg,#fffdf7,#f5ebfa);box-shadow:0 10px 24px rgba(50,15,70,.10),inset 0 0 0 1px rgba(199,154,50,.18)}
+.specialty-icon{width:42px;height:42px;flex:0 0 42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#f1e7f6,#fff8e7);color:var(--purple);font-size:17px}
+.specialty-card.active .specialty-icon{background:linear-gradient(145deg,var(--purple),#70288e);color:var(--gold-2)}
+.specialty-card strong{display:block;color:var(--purple);font-size:12px;font-weight:900}
+.specialty-card small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.specialty-empty{padding:16px;border-radius:16px;background:#faf7fb;border:1px dashed rgba(199,154,50,.35);color:var(--muted);text-align:center;font-size:11px}
+.doctors-picker{display:none;margin-top:16px}
+.doctors-picker.show,.specialty-picker.show{display:block;animation:doctorAppear .3s ease}
+.picker-label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;color:#4b3a52;font-size:12px;font-weight:900}
+.picker-label span{color:var(--muted);font-size:10px;font-weight:700}
+.doctors-grid{display:grid;grid-template-columns:1fr;gap:10px}
+.doctor-card-premium{appearance:none;width:100%;border:1px solid rgba(199,154,50,.18);background:linear-gradient(145deg,#fff,#faf4fc);border-radius:18px;padding:13px;display:flex;align-items:center;gap:12px;direction:rtl;text-align:right;cursor:pointer;font-family:inherit;transition:.2s;box-shadow:0 8px 20px rgba(50,15,70,.05)}
+.doctor-card-premium:hover{transform:translateY(-1px);border-color:rgba(199,154,50,.50)}
+.doctor-card-premium.active{border-color:var(--gold);background:linear-gradient(145deg,#fffdf7,#f6ecfa);box-shadow:0 10px 25px rgba(50,15,70,.11),inset 0 0 0 1px rgba(199,154,50,.18)}
+.doctor-avatar{width:49px;height:49px;flex:0 0 49px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,#f0e4f6,#fff8e5);color:var(--purple);font-size:21px}
+.doctor-card-premium.active .doctor-avatar{background:linear-gradient(145deg,var(--purple),#70288e);color:var(--gold-2)}
+.doctor-card-content{min-width:0;flex:1}
+.doctor-card-name{display:flex;align-items:center;gap:6px;color:var(--purple);font-size:13px;font-weight:900}
+.doctor-card-name i{color:var(--gold);font-size:10px}
+.doctor-card-specialty{margin-top:3px;color:var(--muted);font-size:10px}
+.doctor-card-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.doctor-card-meta span{display:inline-flex;align-items:center;gap:4px;padding:4px 7px;border-radius:9px;background:#f7f1fa;color:#6d5b74;font-size:8px}
+.doctor-card-meta i{color:var(--gold)}
+.doctor-check{width:31px;height:31px;flex:0 0 31px;border-radius:11px;display:grid;place-items:center;background:#f3edf5;color:#b6a8bb;font-size:12px}
+.doctor-card-premium.active .doctor-check{background:var(--gold);color:#fff}
+.doctor-list-empty{padding:20px 12px;text-align:center;border-radius:17px;background:#faf7fb;border:1px dashed rgba(199,154,50,.30);color:var(--muted);font-size:11px}
+.doctor-list-empty i{display:block;color:#cdbfd3;font-size:26px;margin-bottom:7px}
+#doctor{display:none!important}
+@media(max-width:700px){.specialty-grid{grid-template-columns:1fr 1fr}.specialty-card{padding:11px 9px}.specialty-icon{width:38px;height:38px;flex-basis:38px}.doctor-card-premium{padding:11px}.doctor-avatar{width:45px;height:45px;flex-basis:45px}}
+
 .doctor-select{position:relative}
 .doctor-info{
   margin-top:12px;min-height:92px;display:none;align-items:center;gap:14px;
@@ -2012,12 +432,6 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
   .card-title p{font-size:9px}
   .form-grid{grid-template-columns:1fr}
   .field.full{grid-column:auto}
-  .choice-list{grid-template-columns:1fr;gap:9px}
-  .choice-card{min-height:68px;padding:10px 11px;border-radius:16px}
-  .choice-icon{width:42px;height:42px;flex-basis:42px;border-radius:13px;font-size:17px}
-  .doctor-avatar{width:44px;height:44px;flex-basis:44px}
-  .choice-text strong{font-size:11px}
-  .choice-text span{font-size:8px}
   .doctor-info{min-height:84px;padding:12px}
   .doctor-info::before{width:54px;height:54px;flex-basis:54px}
   .doctor-info::after{right:15px;font-size:29px}
@@ -2242,66 +656,63 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
                 </div>
 
 
-                <!-- SPECIALTY -->
+                <!-- LOCATION / SPECIALTY / DOCTORS -->
 
-                <div class="field full specialty-field" id="specialtyField">
+                <div class="field">
 
                     <label>
-
-                        <i class="fa-solid fa-stethoscope"></i>
-
-                        اختصاص الطبيب
-
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        الولاية
                     </label>
 
-                    <select id="specialty" class="state-select-hidden" disabled>
-                        <option value="">اختر الاختصاص</option>
+                    <select id="wilaya">
+                        <option value="">اختر الولاية</option>
                     </select>
 
-                    <div id="specialtyList" class="choice-list specialty-list">
-                        <div class="choice-empty">
-                            <i class="fa-solid fa-stethoscope"></i>
-                            <span>اختر البلدية أولًا لعرض الاختصاصات</span>
-                        </div>
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        <i class="fa-solid fa-location-dot"></i>
+                        البلدية
+                    </label>
+
+                    <select id="municipality" disabled>
+                        <option value="">اختر البلدية</option>
+                    </select>
+
+                </div>
+
+                <div class="field full">
+
+                    <label>
+                        <i class="fa-solid fa-stethoscope"></i>
+                        الاختصاص
+                    </label>
+
+                    <div id="specialtyPicker" class="specialty-picker">
+                        <div id="specialtyGrid" class="specialty-grid"></div>
                     </div>
 
                 </div>
 
+                <div class="field full">
 
-                <!-- DOCTOR -->
-
-                <div class="field full doctor-field" id="doctorField" style="display:none;">
-
-                    <label>
-
-                        <i class="fa-solid fa-user-doctor"></i>
-
-                        الطبيب
-
-                    </label>
-
-                    <div class="doctor-select">
-
-                        <select
-                            id="doctor"
-                            class="state-select-hidden"
-                            disabled>
-
-                            <option value="">
-                                اختر الطبيب
-                            </option>
-
-                        </select>
-
-                        <div id="doctorList" class="choice-list doctor-list">
+                    <div id="doctorsPicker" class="doctors-picker">
+                        <div class="picker-label">
+                            <span><i class="fa-solid fa-user-doctor"></i> الأطباء المتاحون</span>
+                            <span id="doctorCount"></span>
                         </div>
-
-                        <div
-                            id="doctorInfo"
-                            class="doctor-info">
-                        </div>
-
+                        <div id="doctorsGrid" class="doctors-grid"></div>
                     </div>
+
+                    <!-- Hidden compatibility select: booking logic still uses doctorSelect.value -->
+                    <select id="doctor" disabled aria-hidden="true">
+                        <option value="">اختر الطبيب</option>
+                    </select>
+
+                    <div id="doctorInfo" class="doctor-info"></div>
 
                 </div>
 
@@ -3081,20 +1492,23 @@ const wilayaSelect =
 const municipalitySelect =
     document.getElementById("municipality");
 
-const specialtySelect =
-    document.getElementById("specialty");
-
-const specialtyList =
-    document.getElementById("specialtyList");
-
 const doctorSelect =
     document.getElementById("doctor");
 
-const doctorList =
-    document.getElementById("doctorList");
+const specialtyPicker =
+    document.getElementById("specialtyPicker");
 
-const doctorField =
-    document.getElementById("doctorField");
+const specialtyGrid =
+    document.getElementById("specialtyGrid");
+
+const doctorsPicker =
+    document.getElementById("doctorsPicker");
+
+const doctorsGrid =
+    document.getElementById("doctorsGrid");
+
+const doctorCount =
+    document.getElementById("doctorCount");
 
 const doctorInfo =
     document.getElementById("doctorInfo");
@@ -3211,539 +1625,298 @@ async function loadWilayas(){
 
 
 /* =====================================================
+   BOOKING LOCATION / SPECIALTY / DOCTORS
+   ===================================================== */
+
+function resetDoctorAndSpecialty(){
+    doctors = [];
+    selectedDoctor = null;
+    doctorSelect.innerHTML = `<option value="">اختر الطبيب</option>`;
+    doctorSelect.value = "";
+    doctorSelect.disabled = true;
+    specialtyGrid.innerHTML = "";
+    specialtyPicker.classList.remove("show");
+    doctorsGrid.innerHTML = "";
+    doctorsPicker.classList.remove("show");
+    doctorCount.textContent = "";
+    doctorInfo.classList.remove("show");
+    doctorInfo.innerHTML = "";
+}
+
+function getSpecialtyIcon(specialty){
+    const s = String(specialty || "").toLowerCase();
+    if(/قلب|cardio/.test(s)) return "fa-heart-pulse";
+    if(/أطفال|اطفال|pédi|pedi/.test(s)) return "fa-baby";
+    if(/عيون|عين|ophthal|ophtal/.test(s)) return "fa-eye";
+    if(/أسنان|اسنان|dent/.test(s)) return "fa-tooth";
+    if(/جلد|derma/.test(s)) return "fa-hand-dots";
+    if(/أعصاب|اعصاب|neuro/.test(s)) return "fa-brain";
+    if(/عظام|orthop|ortho/.test(s)) return "fa-bone";
+    if(/نساء|توليد|gyn|obst/.test(s)) return "fa-person-pregnant";
+    if(/أنف|اذن|حنجرة|orl|oto/.test(s)) return "fa-ear-listen";
+    if(/باطنة|داخلي|internal/.test(s)) return "fa-stethoscope";
+    if(/مسالك|uro/.test(s)) return "fa-kidneys";
+    if(/نفسية|psy|mental/.test(s)) return "fa-head-side-virus";
+    if(/عيادة عامة|طب عام|عام|general/.test(s)) return "fa-user-doctor";
+    if(/جراحة|surg/.test(s)) return "fa-user-doctor";
+    return "fa-stethoscope";
+}
+
+function normalizeSpecialty(value){
+    return String(value || "").trim();
+}
+
+function getDoctorSpecialty(doctor){
+    return normalizeSpecialty(doctor?.specialty || doctor?.speciality || doctor?.specialization || "طب عام") || "طب عام";
+}
+
+function getDoctorDuration(doctor){
+    return doctor?.consultationDuration || doctor?.duration || doctor?.appointmentDuration || "";
+}
+
+function getDoctorGenderIcon(doctor){
+    const gender = String(doctor?.gender || doctor?.sex || "").toLowerCase();
+    if(/أنث|female|woman|femme/.test(gender)) return "fa-person-dress";
+    return "fa-user-doctor";
+}
+
+function renderSpecialties(){
+    const map = new Map();
+
+    doctors.forEach(doctor => {
+        const specialty = getDoctorSpecialty(doctor);
+        const key = specialty.toLocaleLowerCase("ar");
+        if(!map.has(key)) map.set(key, specialty);
+    });
+
+    specialtyGrid.innerHTML = "";
+
+    if(!map.size){
+        specialtyGrid.innerHTML = `
+            <div class="specialty-empty" style="grid-column:1/-1">
+                <i class="fa-solid fa-stethoscope"></i>
+                لا توجد اختصاصات متاحة في هذه البلدية حاليًا.
+            </div>`;
+        specialtyPicker.classList.add("show");
+        return;
+    }
+
+    [...map.values()].sort((a,b)=>a.localeCompare(b,"ar")).forEach(specialty => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "specialty-card";
+        button.dataset.specialty = specialty;
+        button.innerHTML = `
+            <span class="specialty-icon"><i class="fa-solid ${getSpecialtyIcon(specialty)}"></i></span>
+            <span style="min-width:0;flex:1">
+                <strong>${escapeHtml(specialty)}</strong>
+                <small>عرض الأطباء</small>
+            </span>`;
+        button.addEventListener("click",()=>selectSpecialty(specialty,button));
+        specialtyGrid.appendChild(button);
+    });
+
+    specialtyPicker.classList.add("show");
+}
+
+function selectSpecialty(specialty, button){
+    document.querySelectorAll(".specialty-card").forEach(card=>card.classList.remove("active"));
+    if(button) button.classList.add("active");
+
+    selectedDoctor = null;
+    doctorSelect.value = "";
+    doctorSelect.disabled = true;
+    doctorInfo.classList.remove("show");
+    doctorInfo.innerHTML = "";
+
+    const filtered = doctors.filter(d => getDoctorSpecialty(d) === specialty);
+    renderDoctors(filtered);
+}
+
+function renderDoctors(list){
+    doctorsGrid.innerHTML = "";
+    doctorsPicker.classList.add("show");
+    doctorCount.textContent = `${list.length} طبيب`;
+
+    if(!list.length){
+        doctorsGrid.innerHTML = `
+            <div class="doctor-list-empty">
+                <i class="fa-solid fa-user-doctor"></i>
+                لا يوجد أطباء لهذا الاختصاص حاليًا.
+            </div>`;
+        return;
+    }
+
+    list.forEach(doctor => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "doctor-card-premium";
+        card.dataset.doctorId = String(doctor.id);
+
+        const duration = getDoctorDuration(doctor);
+        const workingHours = doctor.workingHours || {};
+        let meta = "";
+        if(duration){
+            meta += `<span><i class="fa-regular fa-clock"></i>${escapeHtml(duration)} د</span>`;
+        }
+        if(workingHours.open && workingHours.close){
+            meta += `<span><i class="fa-solid fa-business-time"></i>${escapeHtml(workingHours.open)}–${escapeHtml(workingHours.close)}</span>`;
+        }
+        if(doctor.active === true || doctor.online === true){
+            meta += `<span><i class="fa-solid fa-circle-check"></i>متاح</span>`;
+        }
+
+        card.innerHTML = `
+            <span class="doctor-avatar"><i class="fa-solid ${getDoctorGenderIcon(doctor)}"></i></span>
+            <span class="doctor-card-content">
+                <span class="doctor-card-name">
+                    <i class="fa-solid fa-award"></i>
+                    ${escapeHtml(doctor.name || "طبيب")}
+                </span>
+                <span class="doctor-card-specialty">${escapeHtml(getDoctorSpecialty(doctor))}</span>
+                ${meta ? `<span class="doctor-card-meta">${meta}</span>` : ""}
+            </span>
+            <span class="doctor-check"><i class="fa-solid fa-check"></i></span>`;
+
+        card.addEventListener("click",()=>selectDoctorCard(doctor,card));
+        doctorsGrid.appendChild(card);
+    });
+}
+
+function selectDoctorCard(doctor, card){
+    document.querySelectorAll(".doctor-card-premium").forEach(item=>item.classList.remove("active"));
+    card.classList.add("active");
+
+    selectedDoctor = doctor;
+    doctorSelect.innerHTML = `<option value="${escapeHtml(doctor.id)}">${escapeHtml(doctor.name || "طبيب")}</option>`;
+    doctorSelect.value = String(doctor.id);
+    doctorSelect.disabled = false;
+
+    renderSelectedDoctorInfo(doctor);
+}
+
+function renderSelectedDoctorInfo(doctor){
+    const duration = getDoctorDuration(doctor);
+    const workingHours = doctor.workingHours || {};
+    const vacation = doctor.vacation || {};
+    let extraInfo = "";
+
+    if(duration){
+        extraInfo += `<span><i class="fa-regular fa-clock"></i> مدة الكشف: ${escapeHtml(duration)} دقيقة</span>`;
+    }
+    if(workingHours.enabled !== false && workingHours.open && workingHours.close){
+        extraInfo += `<span><i class="fa-solid fa-business-time"></i> أوقات العمل: ${escapeHtml(workingHours.open)} — ${escapeHtml(workingHours.close)}</span>`;
+    }
+    if(vacation.enabled && vacation.startDate && vacation.endDate){
+        extraInfo += `<span class="doctor-vacation"><i class="fa-solid fa-umbrella-beach"></i> عطلة الطبيب: ${escapeHtml(vacation.startDate)} إلى ${escapeHtml(vacation.endDate)}</span>`;
+    }
+
+    doctorInfo.innerHTML = `
+        <strong><i class="fa-solid fa-user-doctor"></i>${escapeHtml(doctor.name || "طبيب")}</strong>
+        <span><i class="fa-solid ${getSpecialtyIcon(getDoctorSpecialty(doctor))}"></i> ${escapeHtml(getDoctorSpecialty(doctor))}</span>
+        ${extraInfo}`;
+    doctorInfo.classList.add("show");
+}
+
+/* =====================================================
    WILAYA CHANGE
    ===================================================== */
 
-wilayaSelect.addEventListener(
-    "change",
-    async function(){
+wilayaSelect.addEventListener("change", async function(){
+    municipalitySelect.innerHTML = `<option value="">اختر البلدية</option>`;
+    municipalitySelect.disabled = true;
+    resetDoctorAndSpecialty();
+    hideAlert("bookingAlert");
 
-        municipalitySelect.innerHTML =
-            `<option value="">اختر البلدية</option>`;
+    if(!this.value) return;
 
-        resetDoctorAndSpecialty();
-
-        municipalitySelect.disabled =
-            true;
-
-        doctorInfo.classList.remove("show");
-
-        if(!this.value){
-            return;
+    try{
+        const response = await fetch(`${API}/api/wilayas/${encodeURIComponent(this.value)}/municipalities`,{cache:"no-store"});
+        const data = await readJsonResponse(response);
+        if(!response.ok || !data.success){
+            throw new Error(data.message || "تعذر تحميل البلديات");
         }
 
-        try{
+        const municipalities = data.municipalities || data.data || [];
+        municipalities.forEach(item=>{
+            const name = typeof item === "string" ? item : item?.name;
+            if(!name) return;
+            const option = document.createElement("option");
+            option.value = name;
+            option.textContent = name;
+            municipalitySelect.appendChild(option);
+        });
 
-            const response =
-                await fetch(
-                    `${API}/api/wilayas/${this.value}/municipalities`
-                );
-
-            const data =
-                await response.json();
-
-            if(!data.success){
-
-                throw new Error(
-                    data.message ||
-                    "تعذر تحميل البلديات"
-                );
-
-            }
-
-            const municipalities =
-                data.municipalities ||
-                data.data ||
-                [];
-
-            municipalities.forEach(item => {
-
-                const option =
-                    document.createElement("option");
-
-                if(typeof item === "string"){
-
-                    option.value = item;
-                    option.textContent = item;
-
-                }else{
-
-                    option.value =
-                        item.name;
-
-                    option.textContent =
-                        item.name;
-
-                }
-
-                municipalitySelect.appendChild(option);
-
-            });
-
-            municipalitySelect.disabled =
-                false;
-
-        }catch(error){
-
-            showAlert(
-                "bookingAlert",
-                "تعذر تحميل البلديات.",
-                "error"
-            );
-
-            console.error(error);
-
+        municipalitySelect.disabled = municipalities.length === 0;
+        if(!municipalities.length){
+            showAlert("bookingAlert","لا توجد بلديات مسجلة لهذه الولاية.","info");
         }
-
+    }catch(error){
+        console.error("LOAD MUNICIPALITIES ERROR:",error);
+        municipalitySelect.innerHTML = `<option value="">تعذر تحميل البلديات</option>`;
+        municipalitySelect.disabled = true;
+        showAlert("bookingAlert",error.message || "تعذر تحميل البلديات.","error");
     }
-);
-
+});
 
 /* =====================================================
    MUNICIPALITY CHANGE
    ===================================================== */
 
-municipalitySelect.addEventListener(
-    "change",
-    async function(){
-
-        resetDoctorAndSpecialty();
-
-        doctorInfo.classList.remove("show");
-
-        if(!this.value){
-            return;
-        }
-
-        await loadDoctors();
-
-    }
-);
-
+municipalitySelect.addEventListener("change", async function(){
+    resetDoctorAndSpecialty();
+    hideAlert("bookingAlert");
+    if(!this.value) return;
+    await loadDoctors();
+});
 
 /* =====================================================
    LOAD DOCTORS
    ===================================================== */
 
 async function loadDoctors(){
-
     try{
+        specialtyPicker.classList.remove("show");
+        doctorsPicker.classList.remove("show");
+        specialtyGrid.innerHTML = `<div class="specialty-empty" style="grid-column:1/-1"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الاختصاصات...</div>`;
+        specialtyPicker.classList.add("show");
 
-        const params =
-            new URLSearchParams();
+        const params = new URLSearchParams();
+        const wilayaName = getSelectedWilayaName();
+        const municipality = municipalitySelect.value;
+        if(wilayaName) params.set("wilaya",wilayaName);
+        if(municipality) params.set("municipality",municipality);
 
-        params.set(
-            "wilaya",
-            getSelectedWilayaName()
-        );
-
-        params.set(
-            "municipality",
-            municipalitySelect.value
-        );
-
-        const response =
-            await fetch(
-                `${API}/api/doctors?${params.toString()}`
-            );
-
-        const data =
-            await response.json();
-
-        if(!data.success){
-
-            throw new Error(
-                data.message ||
-                "تعذر تحميل الأطباء"
-            );
-
+        const response = await fetch(`${API}/api/doctors?${params.toString()}`,{headers:{"Accept":"application/json"},cache:"no-store"});
+        const data = await readJsonResponse(response);
+        if(!response.ok || !data.success){
+            throw new Error(data.message || "تعذر تحميل الأطباء");
         }
 
-        doctors =
-            data.doctors ||
-            data.data ||
-            [];
-
-        selectedDoctor = null;
-        doctorInfo.classList.remove("show");
-        doctorField.style.display = "none";
-        doctorSelect.innerHTML =
-            `<option value="">اختر الطبيب</option>`;
-        doctorSelect.disabled = true;
-
-        specialtySelect.innerHTML =
-            `<option value="">اختر الاختصاص</option>`;
-        specialtySelect.value = "";
-        specialtySelect.disabled = doctors.length === 0;
-
+        doctors = Array.isArray(data.doctors) ? data.doctors : (Array.isArray(data.data) ? data.data : []);
         renderSpecialties();
-        clearDoctorList("اختر اختصاصًا لعرض الأطباء");
 
         if(!doctors.length){
-
-            renderEmptyChoice(
-                specialtyList,
-                "لا يوجد أطباء متاحون حاليًا",
-                "fa-solid fa-user-doctor"
-            );
-
-            return;
+            doctorsGrid.innerHTML = `<div class="doctor-list-empty"><i class="fa-solid fa-user-doctor"></i>لا يوجد أطباء مسجلون في هذه البلدية حاليًا.</div>`;
+            doctorsPicker.classList.add("show");
+            doctorCount.textContent = "0 طبيب";
         }
-
     }catch(error){
-
-        console.error(
-            "LOAD DOCTORS ERROR:",
-            error
-        );
-
-        specialtySelect.innerHTML =
-            `<option value="">اختر الاختصاص</option>`;
-        specialtySelect.disabled = true;
-        clearDoctorList("تعذر تحميل الأطباء");
-
-        showAlert(
-            "bookingAlert",
-            "تعذر تحميل قائمة الأطباء.",
-            "error"
-        );
-
+        console.error("LOAD DOCTORS ERROR:",error);
+        specialtyGrid.innerHTML = `<div class="specialty-empty" style="grid-column:1/-1"><i class="fa-solid fa-triangle-exclamation"></i>${escapeHtml(error.message || "تعذر تحميل الأطباء")}</div>`;
+        specialtyPicker.classList.add("show");
+        showAlert("bookingAlert","تعذر تحميل الأطباء. حاول اختيار البلدية مرة أخرى.","error");
     }
-
 }
-
-
-
-/* =====================================================
-   SPECIALTY + DOCTOR CHOICES
-   ===================================================== */
-
-function getSpecialtyIcon(specialty){
-
-    const value = String(specialty || "").toLowerCase();
-
-    if(value.includes("قلب") || value.includes("cardio"))
-        return "fa-solid fa-heart-pulse";
-
-    if(value.includes("أطفال") || value.includes("اطفال") || value.includes("pediatr"))
-        return "fa-solid fa-child-reaching";
-
-    if(value.includes("نساء") || value.includes("توليد") || value.includes("gynec"))
-        return "fa-solid fa-person-pregnant";
-
-    if(value.includes("جلد") || value.includes("dermat"))
-        return "fa-solid fa-hand-dots";
-
-    if(value.includes("عيون") || value.includes("عين") || value.includes("ophthalm"))
-        return "fa-solid fa-eye";
-
-    if(value.includes("أسنان") || value.includes("اسنان") || value.includes("dent"))
-        return "fa-solid fa-tooth";
-
-    if(value.includes("أنف") || value.includes("اذن") || value.includes("أذن") || value.includes("حنجرة") || value.includes("orl"))
-        return "fa-solid fa-ear-listen";
-
-    if(value.includes("عظام") || value.includes("ortho"))
-        return "fa-solid fa-bone";
-
-    if(value.includes("أعصاب") || value.includes("اعصاب") || value.includes("neuro"))
-        return "fa-solid fa-brain";
-
-    if(value.includes("نفسية") || value.includes("نفسي") || value.includes("psych"))
-        return "fa-solid fa-head-side-virus";
-
-    if(value.includes("مسالك") || value.includes("urolog"))
-        return "fa-solid fa-droplet";
-
-    if(value.includes("جراحة") || value.includes("chirurg"))
-        return "fa-solid fa-user-doctor";
-
-    if(value.includes("باطنية") || value.includes("داخلية") || value.includes("intern"))
-        return "fa-solid fa-heart-circle-plus";
-
-    if(value.includes("صدر") || value.includes("pulmo"))
-        return "fa-solid fa-lungs";
-
-    if(value.includes("غدد") || value.includes("endo"))
-        return "fa-solid fa-dna";
-
-    return "fa-solid fa-stethoscope";
-}
-
-function getSpecialtyDescription(specialty){
-
-    const value = String(specialty || "").trim();
-
-    if(!value) return "اختصاص طبي";
-
-    return `أطباء ${value}`;
-}
-
-function renderSpecialties(){
-
-    specialtyList.innerHTML = "";
-
-    const specialties = [
-        ...new Set(
-            doctors
-                .map(doctor => String(doctor.specialty || "").trim())
-                .filter(Boolean)
-        )
-    ].sort((a,b) => a.localeCompare(b,"ar"));
-
-    if(!specialties.length){
-
-        renderEmptyChoice(
-            specialtyList,
-            "لا توجد اختصاصات متاحة حاليًا",
-            "fa-solid fa-stethoscope"
-        );
-
-        return;
-    }
-
-    specialties.forEach(specialty => {
-
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "choice-card specialty-card";
-        button.dataset.specialty = specialty;
-
-        button.innerHTML = `
-            <span class="choice-icon">
-                <i class="${getSpecialtyIcon(specialty)}"></i>
-            </span>
-            <span class="choice-text">
-                <strong>${escapeHtml(specialty)}</strong>
-                <span>${escapeHtml(getSpecialtyDescription(specialty))}</span>
-            </span>
-            <span class="choice-check">
-                <i class="fa-solid fa-chevron-left"></i>
-            </span>
-        `;
-
-        button.addEventListener("click", () => {
-            specialtySelect.value = specialty;
-            specialtySelect.dispatchEvent(new Event("change", {bubbles:true}));
-        });
-
-        specialtyList.appendChild(button);
-
-    });
-}
-
-function renderEmptyChoice(container, message, icon){
-
-    container.innerHTML = `
-        <div class="choice-empty">
-            <i class="${icon}"></i>
-            <span>${escapeHtml(message)}</span>
-        </div>
-    `;
-}
-
-function clearDoctorList(message = "اختر اختصاصًا لعرض الأطباء"){
-
-    doctorList.innerHTML = "";
-
-    renderEmptyChoice(
-        doctorList,
-        message,
-        "fa-solid fa-user-doctor"
-    );
-}
-
-function renderDoctorsBySpecialty(specialty){
-
-    doctorList.innerHTML = "";
-
-    const filteredDoctors = doctors.filter(
-        doctor => String(doctor.specialty || "").trim() === specialty
-    );
-
-    if(!filteredDoctors.length){
-
-        renderEmptyChoice(
-            doctorList,
-            "لا يوجد طبيب متاح في هذا الاختصاص حاليًا",
-            "fa-solid fa-user-doctor"
-        );
-
-        doctorSelect.value = "";
-        doctorSelect.disabled = true;
-        doctorField.style.display = "block";
-        return;
-    }
-
-    filteredDoctors.forEach(doctor => {
-
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "choice-card doctor-card";
-        button.dataset.doctorId = String(doctor.id);
-
-        button.innerHTML = `
-            <span class="doctor-avatar">
-                <i class="fa-solid fa-user-doctor"></i>
-            </span>
-            <span class="choice-text">
-                <strong>${escapeHtml(doctor.name || "طبيب")}</strong>
-                <span class="doctor-specialty">${escapeHtml(doctor.specialty || "طبيب")}</span>
-            </span>
-            <span class="choice-check">
-                <i class="fa-solid fa-chevron-left"></i>
-            </span>
-        `;
-
-        button.addEventListener("click", () => {
-
-            doctorSelect.value = String(doctor.id);
-            doctorSelect.dispatchEvent(new Event("change", {bubbles:true}));
-
-            document.querySelectorAll(".doctor-card").forEach(card => {
-                card.classList.toggle(
-                    "active",
-                    card.dataset.doctorId === String(doctor.id)
-                );
-            });
-
-        });
-
-        doctorList.appendChild(button);
-
-    });
-
-    doctorSelect.disabled = false;
-    doctorField.style.display = "block";
-}
-
-function resetDoctorAndSpecialty(){
-
-    specialtySelect.innerHTML =
-        `<option value="">اختر الاختصاص</option>`;
-
-    specialtySelect.value = "";
-    specialtySelect.disabled = true;
-
-    doctorSelect.innerHTML =
-        `<option value="">اختر الطبيب</option>`;
-
-    doctorSelect.value = "";
-    doctorSelect.disabled = true;
-
-    selectedDoctor = null;
-    doctorField.style.display = "none";
-
-    renderEmptyChoice(
-        specialtyList,
-        "اختر البلدية أولًا لعرض الاختصاصات",
-        "fa-solid fa-stethoscope"
-    );
-
-    clearDoctorList();
-}
-
-/* SPECIALTY CHANGE */
-specialtySelect.addEventListener("change", function(){
-
-    const specialty = this.value;
-
-    document.querySelectorAll(".specialty-card").forEach(card => {
-        card.classList.toggle(
-            "active",
-            card.dataset.specialty === specialty
-        );
-    });
-
-    doctorSelect.value = "";
-    doctorSelect.disabled = true;
-    selectedDoctor = null;
-    doctorInfo.classList.remove("show");
-
-    if(!specialty){
-        doctorField.style.display = "none";
-        clearDoctorList();
-        return;
-    }
-
-    renderDoctorsBySpecialty(specialty);
-});
-
-
-/* =====================================================
-   DOCTOR CHANGE
-   ===================================================== */
-
-doctorSelect.addEventListener(
-    "change",
-    function(){
-
-        selectedDoctor =
-            doctors.find(
-                d => String(d.id) === String(this.value)
-            );
-
-        document.querySelectorAll(".doctor-card").forEach(card => {
-            card.classList.toggle(
-                "active",
-                card.dataset.doctorId === String(this.value)
-            );
-        });
-
-        if(!selectedDoctor){
-
-            doctorInfo.classList.remove("show");
-
-            return;
-        }
-
-        const duration = selectedDoctor.consultationDuration || selectedDoctor.duration || "";
-        const workingHours = selectedDoctor.workingHours || {};
-        const vacation = selectedDoctor.vacation || {};
-        let extraInfo = "";
-
-        if(duration){
-            extraInfo += `<span><i class="fa-regular fa-clock"></i> مدة الكشف: ${escapeHtml(duration)} دقيقة</span>`;
-        }
-        if(workingHours.enabled !== false && workingHours.open && workingHours.close){
-            extraInfo += `<span><i class="fa-solid fa-business-time"></i> أوقات العمل: ${escapeHtml(workingHours.open)} — ${escapeHtml(workingHours.close)}</span>`;
-        }
-        if(vacation.enabled && vacation.startDate && vacation.endDate){
-            extraInfo += `<span class="doctor-vacation"><i class="fa-solid fa-umbrella-beach"></i> عطلة الطبيب: ${escapeHtml(vacation.startDate)} إلى ${escapeHtml(vacation.endDate)}</span>`;
-        }
-
-        doctorInfo.innerHTML = `
-            <strong>
-                <i class="fa-solid fa-user-doctor"></i>
-                ${escapeHtml(selectedDoctor.name)}
-            </strong>
-            <span><i class="fa-solid fa-stethoscope"></i> ${escapeHtml(selectedDoctor.specialty || "طبيب")}</span>
-            ${extraInfo}
-        `;
-
-        doctorInfo.classList.add("show");
-
-    }
-);
-
 
 /* =====================================================
    GET WILAYA NAME
    ===================================================== */
 
 function getSelectedWilayaName(){
-
-    const option =
-        wilayaSelect.options[
-            wilayaSelect.selectedIndex
-        ];
-
-    return option
-        ? option.textContent
-        : "";
-
+    const option = wilayaSelect.options[wilayaSelect.selectedIndex];
+    return option ? option.textContent.trim() : "";
 }
-
 
 /* =====================================================
    CREATE APPOINTMENT
@@ -4482,1361 +2655,6 @@ function getStatusData(status){
 
                 message:
                     "الطبيب بدأ الكشف. يرجى التوجه إلى العيادة.",
-
-                icon:"fa-stethoscope",
-
-                className:
-                    "status-started"
-
-            };
-
-
-        case "completed":
-
-            return {
-
-                text:"اكتمل الموعد",
-
-                title:"تم إكمال الكشف",
-
-                message:
-                    "نتمنى لك دوام الصحة والعافية ❤️",
-
-                icon:"fa-check-double",
-
-                className:
-                    "status-completed"
-
-            };
-
-
-        case "cancelled":
-
-            return {
-
-                text:"تم إلغاء الموعد",
-
-                title:"تم إلغاء الموعد",
-
-                message:
-                    "يمكنك إنشاء طلب حجز جديد.",
-
-                icon:"fa-ban",
-
-                className:
-                    "status-cancelled"
-
-            };
-
-
-        case "pending":
-
-        default:
-
-            return {
-
-                text:"في انتظار التأكيد",
-
-                title:"طلبك قيد المراجعة",
-
-                message:
-                    "ننتظر تأكيد الطبيب. سنقوم بتحديث الحالة تلقائيًا.",
-
-                icon:"fa-clock",
-
-                className:
-                    "status-pending"
-
-            };
-
-    }
-
-}
-
-
-/* =====================================================
-   STATUS NOTIFICATION
-   ===================================================== */
-
-function getStatusNotification(status){
-
-    switch(status){
-
-        case "confirmed":
-        case "accepted":
-            return "تم تأكيد موعدك من طرف الطبيب.";
-
-        case "rejected":
-            return "تم رفض طلب الموعد.";
-
-        case "started":
-            return "حان دورك الآن. توجه إلى الطبيب.";
-
-        case "completed":
-            return "تم إكمال موعدك.";
-
-        default:
-            return "تم تحديث حالة موعدك.";
-
-    }
-
-}
-
-
-/* =====================================================
-   PATIENTS AHEAD
-   ===================================================== */
-
-function calculatePatientsAhead(
-    appointment
-){
-
-    const queue =
-        appointment.queueNumber ??
-        appointment.turnNumber;
-
-    const current =
-        appointment.currentTurn ??
-        appointment.currentNumber;
-
-    if(
-        queue !== undefined &&
-        current !== undefined &&
-        Number.isFinite(Number(queue)) &&
-        Number.isFinite(Number(current))
-    ){
-
-        return Math.max(
-            0,
-            Number(queue) -
-            Number(current) -
-            1
-        );
-
-    }
-
-    return "-";
-
-}
-
-
-/* =====================================================
-   DOCTOR NAME
-   ===================================================== */
-
-function getDoctorName(
-    doctorId
-){
-
-    const doctor =
-        doctors.find(
-            d =>
-                String(d.id) ===
-                String(doctorId)
-        );
-
-    return doctor
-        ? doctor.name
-        : "-";
-
-}
-
-
-/* =====================================================
-   SECTIONS
-   ===================================================== */
-
-function showSection(
-    section
-){
-
-    const booking =
-        document.getElementById(
-            "bookingSection"
-        );
-
-    const tracking =
-        document.getElementById(
-            "trackingSection"
-        );
-
-
-    const bookTab =
-        document.getElementById(
-            "bookTab"
-        );
-
-    const trackTab =
-        document.getElementById(
-            "trackTab"
-        );
-
-
-    if(section === "booking"){
-
-        booking.classList.remove(
-            "hidden"
-        );
-
-        tracking.classList.add(
-            "hidden"
-        );
-
-        bookTab.classList.add(
-            "active"
-        );
-
-        trackTab.classList.remove(
-            "active"
-        );
-
-        stopTracking();
-
-    }else{
-
-        booking.classList.add(
-            "hidden"
-        );
-
-        tracking.classList.remove(
-            "hidden"
-        );
-
-        bookTab.classList.remove(
-            "active"
-        );
-
-        trackTab.classList.add(
-            "active"
-        );
-
-
-        if(currentBookingNumber){
-
-            document.getElementById(
-                "trackingNumber"
-            ).value =
-                currentBookingNumber;
-
-            trackAppointment();
-
-            startTracking();
-
-        }
-
-    }
-
-}
-
-
-/* =====================================================
-   GO TRACKING
-   ===================================================== */
-
-function goToTracking(){
-
-    showSection(
-        "tracking"
-    );
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* =====================================================
-   AUTO REFRESH
-   ===================================================== */
-
-function startTracking(){
-    stopTracking();
-
-    if(!currentBookingNumber){
-        return;
-    }
-
-    const trackingSection =
-        document.getElementById("trackingSection");
-
-    if(trackingSection.classList.contains("hidden")){
-        return;
-    }
-
-    trackingTimer = setInterval(() => {
-        if(
-            document.visibilityState === "visible" &&
-            !document.getElementById("trackingSection")
-                .classList.contains("hidden")
-        ){
-            trackAppointment(true);
-        }
-    }, 5000);
-}
-
-function stopTracking(){
-    if(trackingTimer){
-        clearInterval(trackingTimer);
-        trackingTimer = null;
-    }
-}
-
-/* =====================================================
-   ALERT
-   ===================================================== */
-
-function showAlert(
-    id,
-    message,
-    type = "info"
-){
-
-    const element =
-        document.getElementById(id);
-
-    element.className =
-        `alert ${type} show`;
-
-    element.textContent =
-        message;
-
-}
-
-
-function hideAlert(id){
-
-    const element =
-        document.getElementById(id);
-
-    element.className =
-        "alert";
-
-    element.textContent =
-        "";
-
-}
-
-
-/* =====================================================
-   PROFESSIONAL PATIENT NOTIFICATIONS
-   ===================================================== */
-
-function ensurePatientNotificationUI(){
-    if(document.getElementById("tabibkPatientToast")){ return; }
-
-    const style = document.createElement("style");
-    style.id = "tabibkPatientNotificationStyle";
-    style.textContent = `
-        #tabibkPatientToast{position:fixed;top:18px;left:50%;transform:translate(-50%,-150%);width:min(92vw,430px);z-index:99999;background:linear-gradient(135deg,#2b0b3d,#4a155f);color:#fff;border:1px solid rgba(233,196,93,.75);border-radius:18px;padding:14px 16px;box-shadow:0 14px 40px rgba(43,11,61,.30);transition:transform .35s ease,opacity .35s ease;opacity:0;direction:rtl;font-family:Cairo,Arial,sans-serif}
-        #tabibkPatientToast.show{transform:translate(-50%,0);opacity:1}
-        #tabibkPatientToast .t-row{display:flex;gap:12px;align-items:flex-start}
-        #tabibkPatientToast .t-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:rgba(233,196,93,.16);color:#e9c45d;font-size:20px;flex:0 0 42px}
-        #tabibkPatientToast .t-title{font-weight:800;font-size:15px;margin-bottom:3px}
-        #tabibkPatientToast .t-body{font-size:13px;line-height:1.65;opacity:.95}
-        #tabibkPatientToast .t-close{margin-right:auto;background:none;border:0;color:#fff;opacity:.7;font-size:18px;cursor:pointer;padding:0 4px}
-    `;
-    document.head.appendChild(style);
-
-    const toast = document.createElement("div");
-    toast.id = "tabibkPatientToast";
-    toast.innerHTML = `<div class="t-row"><div class="t-icon"><i class="fa-solid fa-bell"></i></div><div style="flex:1;min-width:0"><div class="t-title" id="tabibkPatientToastTitle">إشعار طبيبك</div><div class="t-body" id="tabibkPatientToastBody"></div></div><button class="t-close" type="button" aria-label="إغلاق">×</button></div>`;
-    document.body.appendChild(toast);
-    toast.querySelector(".t-close").onclick = () => toast.classList.remove("show");
-}
-
-function showPatientNotification(title, body, type="success"){
-    ensurePatientNotificationUI();
-    const toast = document.getElementById("tabibkPatientToast");
-    document.getElementById("tabibkPatientToastTitle").textContent = title || "إشعار طبيبك";
-    document.getElementById("tabibkPatientToastBody").textContent = body || "تم تحديث موعدك.";
-    toast.querySelector(".t-icon i").className = type === "error" ? "fa-solid fa-circle-xmark" : "fa-solid fa-bell";
-    toast.classList.add("show");
-    clearTimeout(window.tabibkToastTimer);
-    window.tabibkToastTimer = setTimeout(() => toast.classList.remove("show"), 9000);
-}
-
-async function requestNotificationPermission(){
-    if(!("Notification" in window)){ return false; }
-    try{
-        if(Notification.permission === "granted"){ return true; }
-        if(Notification.permission === "default"){
-            return (await Notification.requestPermission()) === "granted";
-        }
-    }catch(error){ console.log("Notification permission error:", error); }
-    return false;
-}
-
-async function sendBrowserNotification(title, body){
-    if(!("Notification" in window)){ return; }
-    try{
-        let permission = Notification.permission;
-        if(permission === "default"){ permission = await Notification.requestPermission(); }
-        if(permission !== "granted"){ return; }
-        new Notification(title || "TABIBK", {body:body || "تم تحديث موعدك.",icon:"/favicon.ico",badge:"/favicon.ico",tag:"tabibk-patient-notification",renotify:true,requireInteraction:true});
-    }catch(error){ console.log("Browser notification error:", error); }
-}
-
-function prepareNotificationAudio(){
-    try{
-        if(!notificationAudio){
-            notificationAudio = new Audio("/TABIBK_notification.wav");
-            notificationAudio.preload = "auto";
-            notificationAudio.volume = 0.9;
-        }
-        notificationAudio.load();
-    }catch(error){ console.log("Notification audio prepare error:", error); }
-}
-
-function playNotificationSound(){
-    try{
-        if(!notificationAudio){ prepareNotificationAudio(); }
-        if(notificationAudio){
-            notificationAudio.currentTime = 0;
-            const promise = notificationAudio.play();
-            if(promise && typeof promise.catch === "function"){
-                promise.catch(() => playNotificationFallback());
-            }
-            return;
-        }
-    }catch(error){ console.log("Notification audio error:", error); }
-    playNotificationFallback();
-}
-
-function playNotificationFallback(){
-    try{
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if(!AudioContext){ return; }
-        const context = new AudioContext();
-        const oscillator = context.createOscillator();
-        const gain = context.createGain();
-        oscillator.type = "sine";
-        oscillator.frequency.setValueAtTime(880, context.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(660, context.currentTime + .18);
-        gain.gain.setValueAtTime(.0001, context.currentTime);
-        gain.gain.exponentialRampToValueAtTime(.18, context.currentTime + .03);
-        gain.gain.exponentialRampToValueAtTime(.0001, context.currentTime + .55);
-        oscillator.connect(gain); gain.connect(context.destination);
-        oscillator.start(); oscillator.stop(context.currentTime + .6);
-    }catch(error){ console.log("Audio fallback blocked:", error); }
-}
-
-function normalizeClientPhone(phone){
-    return String(phone || "").trim().replace(/[\s\-().]/g, "");
-}
-
-function notificationMatchesActivePatient(notification){
-    const patientPhone = normalizeClientPhone(getStoredPatientPhone());
-    const notificationPhone = normalizeClientPhone(notification?.patientPhone);
-    return !!patientPhone && !!notificationPhone && patientPhone === notificationPhone;
-}
-
-async function checkPatientNotifications(){
-    const patientPhone = getStoredPatientPhone();
-    if(!patientPhone || notificationRequestInFlight){ return; }
-    notificationRequestInFlight = true;
-    try{
-        const response = await fetch(`${API}/api/patient/notifications?phone=${encodeURIComponent(patientPhone)}&_=${Date.now()}`,{headers:{"Accept":"application/json"},cache:"no-store"});
-        if(!response.ok){ return; }
-        const data = await response.json();
-        if(!data.success || !Array.isArray(data.notifications)){ return; }
-
-        const notifications = data.notifications.filter(notificationMatchesActivePatient).sort((a,b)=>Number(a.id||0)-Number(b.id||0));
-        if(!notifications.length){ return; }
-
-        const newestId = Math.max(...notifications.map(n=>Number(n.id)||0));
-        const cursor = Number(lastPatientNotificationId || 0);
-
-        // Initial sync: do not replay old notifications from previous sessions.
-        if(cursor === 0){
-            lastPatientNotificationId = newestId;
-            localStorage.setItem("tabibkLastPatientNotificationId",String(newestId));
-            return;
-        }
-
-        const newNotifications = notifications.filter(n=>Number(n.id||0)>cursor);
-        for(const notification of newNotifications){
-            const type = String(notification.type || "");
-            const title = notification.title || "تحديث موعد TABIBK";
-            const message = notification.message || "تم تحديث موعدك.";
-            const relevant = ["appointment_confirmed","appointment_accepted","appointment_rejected","appointment_completed","appointment_started","appointment_cancelled"].includes(type) || /موعد|حجز|تأكيد|رفض|إنهاء|دورك/.test(`${title} ${message}`);
-            if(!relevant){ continue; }
-
-            const errorType = /رفض|إلغاء/.test(`${title} ${message}`) ? "error" : "success";
-            showPatientNotification(title,message,errorType);
-            playNotificationSound();
-            sendBrowserNotification(title,message);
-
-            fetch(`${API}/api/patient/notifications/${encodeURIComponent(notification.id)}/read`,{
-                method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({phone:patientPhone})
-            }).catch(()=>{});
-        }
-
-        lastPatientNotificationId = newestId;
-        localStorage.setItem("tabibkLastPatientNotificationId",String(newestId));
-    }catch(error){
-        console.log("TABIBK patient notification error:",error);
-    }finally{
-        notificationRequestInFlight = false;
-    }
-}
-
-function startPatientNotificationMonitor(){
-    if(patientNotificationTimer){ clearInterval(patientNotificationTimer); }
-    checkPatientNotifications();
-    patientNotificationTimer = setInterval(()=>{
-        if(document.visibilityState === "visible"){ checkPatientNotifications(); }
-    },2500);
-}
-
-function stopPatientNotificationMonitor(){
-    if(patientNotificationTimer){ clearInterval(patientNotificationTimer); patientNotificationTimer=null; }
-}
-
-document.addEventListener("visibilitychange",()=>{
-    if(document.visibilityState === "visible"){ checkPatientNotifications(); }
-});
-
-/* =====================================================
-   ESCAPE HTML
-   ===================================================== */
-
-function escapeHtml(
-    value
-){
-
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-/* =====================================================
-   AUTO TRACK SAVED BOOKING
-   ===================================================== */
-
-window.addEventListener(
-    "load",
-    () => {
-
-        if(currentBookingNumber){
-
-            console.log(
-                "آخر رقم حجز:",
-                currentBookingNumber
-            );
-
-        }
-
-    }
-);
-
-
-// Prime the notification audio after the first user gesture.
-document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true,passive:true});
-</script>
-
-</body>
-
-</html>
-
-
-function getSelectedWilayaName(){
-
-    const option =
-        wilayaSelect.options[
-            wilayaSelect.selectedIndex
-        ];
-
-    return option
-        ? option.textContent
-        : "";
-
-}
-
-
-/* =====================================================
-   CREATE APPOINTMENT
-   ===================================================== */
-
-async function createAppointment(){
-    if(bookingInFlight){
-        return;
-    }
-
-    hideAlert("bookingAlert");
-
-    const patientName =
-        document.getElementById("patientName").value.trim();
-
-    const patientPhone =
-        document.getElementById("patientPhone").value.trim()
-            .replace(/\s+/g,"");
-
-    const patientAge =
-        document.getElementById("patientAge").value;
-
-    const patientGender =
-        document.getElementById("patientGender").value;
-
-    const date =
-        document.getElementById("date").value;
-
-    const time =
-        document.getElementById("time").value;
-
-    const reason =
-        document.getElementById("reason").value.trim();
-
-    const doctorId =
-        doctorSelect.value;
-
-    const wilaya =
-        getSelectedWilayaName();
-
-    const municipality =
-        municipalitySelect.value;
-
-    if(!wilaya){
-        return showAlert("bookingAlert","اختر الولاية أولًا.","error");
-    }
-
-    if(!municipality){
-        return showAlert("bookingAlert","اختر البلدية.","error");
-    }
-
-    if(!doctorId){
-        return showAlert("bookingAlert","اختر الطبيب.","error");
-    }
-
-    if(!patientName || patientName.length < 3){
-        return showAlert(
-            "bookingAlert",
-            "أدخل الاسم واللقب بشكل صحيح.",
-            "error"
-        );
-    }
-
-    if(!patientPhone){
-        return showAlert("bookingAlert","أدخل رقم الهاتف.","error");
-    }
-
-    if(!/^0[567][0-9]{8}$/.test(patientPhone)){
-        return showAlert(
-            "bookingAlert",
-            "رقم الهاتف غير صحيح. مثال: 0550000000",
-            "error"
-        );
-    }
-
-    const ageNumber = Number(patientAge);
-
-    if(!patientAge || !Number.isInteger(ageNumber) || ageNumber < 1 || ageNumber > 120){
-        return showAlert(
-            "bookingAlert",
-            "أدخل عمرًا صحيحًا بين 1 و120 سنة.",
-            "error"
-        );
-    }
-
-    if(!patientGender){
-        return showAlert("bookingAlert","اختر الجنس.","error");
-    }
-
-    if(!date){
-        return showAlert("bookingAlert","اختر تاريخ الموعد.","error");
-    }
-
-    if(date < getTodayISO()){
-        return showAlert(
-            "bookingAlert",
-            "لا يمكن اختيار تاريخ مضى.",
-            "error"
-        );
-    }
-
-    if(!time){
-        return showAlert("bookingAlert","اختر وقت الموعد.","error");
-    }
-
-    const button =
-        document.getElementById("submitBooking");
-
-    const loading =
-        document.getElementById("bookingLoading");
-
-    bookingInFlight = true;
-    button.disabled = true;
-    loading.classList.add("show");
-
-    try{
-        const payload = {
-            doctorId: Number(doctorId),
-            patientName,
-            patientPhone,
-            patientAge: ageNumber,
-            patientGender,
-            wilaya,
-            municipality,
-            date,
-            time,
-            reason
-        };
-
-        const response = await fetch(
-            `${API}/api/appointments`,
-            {
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json",
-                    "Accept":"application/json"
-                },
-                body:JSON.stringify(payload)
-            }
-        );
-
-        const data = await readJsonResponse(response);
-
-        if(!response.ok || !data.success){
-
-    if(data.notification){
-
-        playNotificationSound();
-
-        showAlert(
-            "bookingAlert",
-            data.message ||
-            "الطبيب غير متاح في هذا الوقت.",
-            "error"
-        );
-
-        requestNotificationPermission();
-
-        sendBrowserNotification(
-            "TABIBK",
-            data.message ||
-            "الطبيب غير متاح في هذا الوقت."
-        );
-
-        return;
-    }
-
-    throw new Error(
-        data.message ||
-        data.error ||
-        "تعذر إنشاء الحجز"
-    );
-}
-
-        const appointment =
-            data.appointment ||
-            data.data ||
-            data;
-
-        currentAppointment = appointment;
-
-        const bookingNumber =
-            appointment.bookingNumber ||
-            data.bookingNumber ||
-            appointment.number;
-
-        if(!bookingNumber){
-            throw new Error(
-                "تم إنشاء الحجز لكن لم يصل رقم الحجز من السيرفر."
-            );
-        }
-
-        currentBookingNumber = String(bookingNumber);
-
-        localStorage.setItem("tabibkPatientPhone", patientPhone);
-
-        localStorage.setItem(
-            "tabibkBookingNumber",
-            currentBookingNumber
-        );
-
-        document.getElementById(
-            "newBookingNumber"
-        ).textContent = currentBookingNumber;
-
-        document.getElementById(
-            "bookingResult"
-        ).classList.add("show");
-
-        window.lastWhatsAppMessage =
-            buildWhatsAppMessage(
-                appointment,
-                currentBookingNumber
-            );
-
-        document.getElementById(
-            "trackingNumber"
-        ).value = currentBookingNumber;
-
-        playNotificationSound();
-
-        requestNotificationPermission();
-        sendBrowserNotification(
-            "TABIBK",
-            `تم إرسال طلب الحجز. رقمك: ${currentBookingNumber}`
-        );
-
-        document.getElementById(
-            "bookingResult"
-        ).scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
-        // Start appointment tracking + dedicated patient notification channel.
-        startTracking();
-        startPatientNotificationMonitor();
-
-    }catch(error){
-        console.error("CREATE APPOINTMENT ERROR:", error);
-
-        showAlert(
-            "bookingAlert",
-            error.message ||
-            "حدث خطأ أثناء إرسال الطلب. حاول مرة أخرى.",
-            "error"
-        );
-
-    }finally{
-        bookingInFlight = false;
-        button.disabled = false;
-        loading.classList.remove("show");
-    }
-}
-
-/* =====================================================
-   SAFE RESPONSE + DATE HELPERS
-   ===================================================== */
-
-async function readJsonResponse(response){
-    const contentType =
-        response.headers.get("content-type") || "";
-
-    if(!contentType.includes("application/json")){
-        const text = await response.text();
-
-        throw new Error(
-            text
-                ? "السيرفر أعاد استجابة غير صالحة."
-                : "لم تصل استجابة صحيحة من السيرفر."
-        );
-    }
-
-    try{
-        return await response.json();
-    }catch(error){
-        throw new Error(
-            "تعذر قراءة استجابة السيرفر."
-        );
-    }
-}
-
-function getTodayISO(){
-    const now = new Date();
-
-    return [
-        now.getFullYear(),
-        String(now.getMonth()+1).padStart(2,"0"),
-        String(now.getDate()).padStart(2,"0")
-    ].join("-");
-}
-
-/* =====================================================
-   WHATSAPP
-   ===================================================== */
-
-function buildWhatsAppMessage(
-    appointment,
-    bookingNumber
-){
-
-    const doctorName =
-        appointment.doctorName ||
-        selectedDoctor?.name ||
-        "الطبيب";
-
-    return `
-السلام عليكم
-
-تم إرسال طلب موعد طبي عبر TABIBK.
-
-رقم الحجز:
-${bookingNumber}
-
-المريض:
-${appointment.patientName || document.getElementById("patientName").value}
-
-الطبيب:
-${doctorName}
-
-التاريخ:
-${appointment.date || document.getElementById("date").value}
-
-الوقت:
-${appointment.time || document.getElementById("time").value}
-
-الحالة:
-في انتظار تأكيد الطبيب.
-
-شكراً لاستخدام TABIBK
-`.trim();
-
-}
-
-
-function openWhatsApp(){
-
-    if(!currentAppointment &&
-       !currentBookingNumber){
-
-        return;
-
-    }
-
-    const message =
-        window.lastWhatsAppMessage ||
-        buildWhatsAppMessage(
-            currentAppointment || {},
-            currentBookingNumber
-        );
-
-    const url =
-        `https://wa.me/?text=${encodeURIComponent(message)}`;
-
-    window.open(
-        url,
-        "_blank"
-    );
-
-}
-
-
-/* =====================================================
-   TRACKING
-   ===================================================== */
-
-async function trackAppointment(
-    silent = false
-){
-    const input =
-        document.getElementById("trackingNumber");
-
-    const number =
-        input.value.trim();
-
-    if(!number){
-        if(!silent){
-            showAlert(
-                "trackingAlert",
-                "أدخل رقم الحجز.",
-                "error"
-            );
-        }
-        return;
-    }
-
-    // Never allow overlapping 5-second polling requests.
-    if(trackingRequestInFlight){
-        return;
-    }
-
-    if(!silent){
-        hideAlert("trackingAlert");
-
-        document.getElementById(
-            "trackButton"
-        ).disabled = true;
-
-        document.getElementById(
-            "trackingLoading"
-        ).classList.add("show");
-    }
-
-    trackingRequestInFlight = true;
-
-    try{
-        const response = await fetch(
-            `${API}/api/appointments/${encodeURIComponent(number)}`,
-            {
-                headers:{
-                    "Accept":"application/json"
-                },
-                cache:"no-store"
-            }
-        );
-
-        const data = await readJsonResponse(response);
-
-        if(!response.ok || !data.success){
-            throw new Error(
-                data.message ||
-                data.error ||
-                "الحجز غير موجود"
-            );
-        }
-
-        const appointment =
-            data.appointment ||
-            data.data ||
-            data;
-
-        currentAppointment = appointment;
-
-        currentBookingNumber =
-            String(
-                appointment.bookingNumber ||
-                number
-            );
-
-        localStorage.setItem(
-            "tabibkBookingNumber",
-            currentBookingNumber
-        );
-
-        input.value = currentBookingNumber;
-
-        renderAppointment(appointment);
-
-        document.getElementById(
-            "trackingResult"
-        ).classList.add("show");
-
-        document.getElementById(
-            "appointmentDetails"
-        ).classList.add("show");
-
-        const newStatus =
-            appointment.status || "pending";
-
-        const newQueue =
-            appointment.queueNumber ??
-            appointment.turnNumber ??
-            appointment.queue ??
-            null;
-
-        const statusChanged =
-            previousStatus !== null &&
-            previousStatus !== newStatus;
-
-        const queueChanged =
-            lastTrackedQueue !== null &&
-            String(lastTrackedQueue) !== String(newQueue);
-
-        if(statusChanged || queueChanged){
-            playNotificationSound();
-
-            sendBrowserNotification(
-                "تحديث موعد TABIBK",
-                statusChanged
-                    ? getStatusNotification(newStatus)
-                    : "تم تحديث رقم الطابور الخاص بك."
-            );
-        }
-
-        previousStatus = newStatus;
-        lastTrackedStatus = newStatus;
-        lastTrackedQueue = newQueue;
-
-    }catch(error){
-        console.error("TRACK APPOINTMENT ERROR:", error);
-
-        if(!silent){
-            showAlert(
-                "trackingAlert",
-                error.message ||
-                "تعذر العثور على الحجز. تحقق من رقم الحجز.",
-                "error"
-            );
-        }
-
-    }finally{
-        trackingRequestInFlight = false;
-
-        if(!silent){
-            document.getElementById(
-                "trackButton"
-            ).disabled = false;
-
-            document.getElementById(
-                "trackingLoading"
-            ).classList.remove("show");
-        }
-    }
-}
-
-/* =====================================================
-   RENDER APPOINTMENT
-   ===================================================== */
-
-function renderAppointment(
-    appointment
-){
-
-    const status =
-        appointment.status ||
-        "pending";
-
-
-    const statusData =
-        getStatusData(status);
-
-
-    const badge =
-        document.getElementById(
-            "statusBadge"
-        );
-
-    badge.className =
-        `status-badge ${statusData.className}`;
-
-
-    badge.innerHTML = `
-
-        <i class="fa-solid ${statusData.icon}"></i>
-
-        <span>
-            ${statusData.text}
-        </span>
-
-    `;
-
-
-    document.getElementById(
-        "statusTitle"
-    ).textContent =
-        statusData.title;
-
-
-    document.getElementById(
-        "statusMessage"
-    ).textContent =
-        statusData.message;
-
-
-    const queueNumber =
-        appointment.queueNumber ??
-        appointment.turnNumber ??
-        appointment.queue ??
-        "-";
-
-
-    const patientsAhead =
-        appointment.patientsAhead ??
-        appointment.ahead ??
-        calculatePatientsAhead(
-            appointment
-        );
-
-
-    const currentTurn =
-        appointment.currentTurn ??
-        appointment.currentQueue ??
-        appointment.currentNumber ??
-        "-";
-
-
-    document.getElementById(
-        "queueNumber"
-    ).textContent =
-        queueNumber;
-
-
-    document.getElementById(
-        "patientsAhead"
-    ).textContent =
-        patientsAhead;
-
-
-    document.getElementById(
-        "currentTurn"
-    ).textContent =
-        currentTurn;
-
-
-    document.getElementById(
-        "detailBooking"
-    ).textContent =
-        appointment.bookingNumber ||
-        currentBookingNumber ||
-        "-";
-
-
-    document.getElementById(
-        "detailDoctor"
-    ).textContent =
-        appointment.doctorName ||
-        appointment.doctor?.name ||
-        getDoctorName(
-            appointment.doctorId
-        );
-
-
-    document.getElementById(
-        "detailSpecialty"
-    ).textContent =
-        appointment.specialty ||
-        appointment.doctor?.specialty ||
-        "-";
-
-
-    document.getElementById(
-        "detailWilaya"
-    ).textContent =
-        appointment.wilaya ||
-        "-";
-
-
-    document.getElementById(
-        "detailMunicipality"
-    ).textContent =
-        appointment.municipality ||
-        "-";
-
-
-    document.getElementById(
-        "detailDate"
-    ).textContent =
-        appointment.date ||
-        "-";
-
-
-    document.getElementById(
-        "detailTime"
-    ).textContent =
-        appointment.time ||
-        "-";
-
-
-    document.getElementById(
-        "detailPatient"
-    ).textContent =
-        appointment.patientName ||
-        appointment.name ||
-        "-";
-
-
-    const rejectedCard =
-        document.getElementById(
-            "rejectedCard"
-        );
-
-
-    const rejectionReason =
-        appointment.rejectionReason ||
-        appointment.rejectReason ||
-        appointment.reasonForRejection;
-
-
-    if(
-        status === "rejected" &&
-        rejectionReason
-    ){
-
-        rejectedCard.classList.remove(
-            "hidden"
-        );
-
-        document.getElementById(
-            "rejectionReason"
-        ).textContent =
-            rejectionReason;
-
-    }else{
-
-        rejectedCard.classList.add(
-            "hidden"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   STATUS DATA
-   ===================================================== */
-
-function getStatusData(status){
-
-    switch(status){
-
-        case "confirmed":
-
-        case "accepted":
-
-            return {
-
-                text:"تم تأكيد الموعد",
-
-                title:"موعدك مؤكد ✅",
-
-                message:
-                    "تم قبول طلبك من طرف الطبيب. يرجى الحضور في الوقت المحدد.",
-
-                icon:"fa-circle-check",
-
-                className:
-                    "status-confirmed"
-
-            };
-
-
-        case "rejected":
-
-            return {
-
-                text:"تم رفض الموعد",
-
-                title:"تم رفض طلب الموعد",
-
-                message:
-                    "يمكنك البحث عن طبيب أو موعد آخر.",
-
-                icon:"fa-circle-xmark",
-
-                className:
-                    "status-rejected"
-
-            };
-
-
-        case "started":
-
-            return {
-
-                text:"حان دورك الآن",
-
-                title:"الكشف جارٍ 🟢",
-
-                message:
-                    "الطبيب ينتظرك. يرجى التوجه إلى العيادة.",
 
                 icon:"fa-stethoscope",
 

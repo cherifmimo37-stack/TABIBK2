@@ -662,14 +662,16 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
                     <label>
                         <i class="fa-solid fa-stethoscope"></i>
-                        الاختصاص
+                        الاختصاص الطبي
                     </label>
 
-                    <div id="specialtyPicker" class="specialty-picker">
-                        <div class="picker-label"><span><i class="fa-solid fa-stethoscope"></i> اختر الاختصاص الطبي</span><span id="specialtyCount"></span></div>
-                        <div id="specialtyGrid" class="specialty-grid"></div>
-                    </div>
-                    <select id="specialty" disabled aria-hidden="true"><option value="">اختر الاختصاص</option></select>
+                    <select id="specialty">
+                        <option value="">اختر الاختصاص الطبي</option>
+                    </select>
+
+                    <small style="color:#8a7b91;font-size:10px;margin-top:2px;">
+                        يمكنك اختيار الاختصاص مباشرة، ثم تحديد الولاية والبلدية لعرض الأطباء المتوفرين.
+                    </small>
 
                 </div>
 
@@ -1504,6 +1506,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     setMinimumDate();
 
+    // عرض قائمة الاختصاصات مباشرة عند فتح الصفحة
+    renderSpecialties();
+
     await loadWilayas();
 
     if(currentBookingNumber){
@@ -1608,20 +1613,19 @@ async function loadWilayas(){
 function resetDoctorAndSpecialty(){
     doctors = [];
     selectedDoctor = null;
+
     doctorSelect.innerHTML = `<option value="">اختر الطبيب</option>`;
     doctorSelect.value = "";
     doctorSelect.disabled = true;
-    specialtySelect.innerHTML = `<option value="">اختر الاختصاص</option>`;
-    specialtySelect.value = "";
-    specialtySelect.disabled = true;
-    specialtyPicker.classList.remove("show");
-    specialtyGrid.innerHTML = "";
-    specialtyCount.textContent = "";
+
     doctorsGrid.innerHTML = "";
     doctorsPicker.classList.remove("show");
     doctorCount.textContent = "";
     doctorInfo.classList.remove("show");
     doctorInfo.innerHTML = "";
+
+    // الاختصاص يبقى ظاهرًا ومتاحًا دائمًا، ولا يتطلب اختيار الولاية أو البلدية.
+    specialtySelect.disabled = false;
 }
 
 function getSpecialtyIcon(specialty){
@@ -1741,55 +1745,45 @@ function getCatalogLabel(doctorSpecialty){
 }
 
 function renderSpecialties(){
-    specialtyGrid.innerHTML = "";
-    specialtyCount.textContent = "";
-    specialtySelect.innerHTML = `<option value="">اختر الاختصاص</option>`;
+    // القائمة المنسدلة للاختصاصات تظهر دائمًا، حتى قبل اختيار الولاية والبلدية.
+    const currentValue = specialtySelect.value || "";
+    specialtySelect.innerHTML = `<option value="">اختر الاختصاص الطبي</option>`;
 
-    // عرض كتالوج الاختصاصات كاملًا، وليس فقط الاختصاصات الموجودة حاليًا.
-    // عند اختيار اختصاص بدون طبيب في البلدية تظهر رسالة واضحة بدل اختفاء الاختصاص.
-    const available = SPECIALTY_CATALOG.map(entry => ({
-        label: entry[0],
-        raw: entry[0]
-    }));
-
-    specialtyCount.textContent = `${available.length} اختصاص طبي`;
-
-    available.forEach(item => {
+    SPECIALTY_CATALOG.forEach(item => {
         const option = document.createElement("option");
-        option.value = item.label;
-        option.textContent = item.label;
+        option.value = item[0];
+        option.textContent = item[0];
         specialtySelect.appendChild(option);
-
-        const card = document.createElement("button");
-        card.type = "button";
-        card.className = "specialty-card";
-        card.dataset.specialty = item.label;
-        card.innerHTML = `
-            <span class="specialty-icon"><i class="fa-solid ${getSpecialtyIcon(item.label)}"></i></span>
-            <span class="specialty-card-text">
-                <strong>${escapeHtml(item.label)}</strong>
-                <small>عرض الأطباء المتخصصين</small>
-            </span>
-            <span class="specialty-arrow"><i class="fa-solid fa-chevron-left"></i></span>`;
-        card.addEventListener("click", () => {
-            document.querySelectorAll(".specialty-card").forEach(c=>c.classList.remove("active"));
-            card.classList.add("active");
-            specialtySelect.value = item.label;
-            selectSpecialty(item.label);
-        });
-        specialtyGrid.appendChild(card);
     });
 
+    if(currentValue && SPECIALTY_CATALOG.some(item => normalizeSpecialty(item[0]) === normalizeSpecialty(currentValue))){
+        specialtySelect.value = currentValue;
+    }else{
+        specialtySelect.value = "";
+    }
+
     specialtySelect.disabled = false;
-    specialtyPicker.classList.add("show");
 }
 
 function selectSpecialty(specialty){
     selectedDoctor = null;
+    doctorSelect.innerHTML = `<option value="">اختر الطبيب</option>`;
     doctorSelect.value = "";
     doctorSelect.disabled = true;
     doctorInfo.classList.remove("show");
     doctorInfo.innerHTML = "";
+
+    // لا نطلب الأطباء قبل تحديد البلدية. الاختصاص نفسه يبقى ظاهرًا ويمكن اختياره مسبقًا.
+    if(!wilayaSelect.value || !municipalitySelect.value){
+        doctorsGrid.innerHTML = `
+            <div class="doctor-list-empty">
+                <i class="fa-solid fa-map-location-dot"></i>
+                اختر الولاية والبلدية لعرض أطباء هذا الاختصاص.
+            </div>`;
+        doctorsPicker.classList.add("show");
+        doctorCount.textContent = "";
+        return;
+    }
 
     const catalogItem = SPECIALTY_CATALOG.find(entry => normalizeSpecialty(entry[0]) === normalizeSpecialty(specialty));
     const filtered = catalogItem
@@ -1954,11 +1948,10 @@ municipalitySelect.addEventListener("change", async function(){
 
 async function loadDoctors(){
     try{
-        specialtyPicker.classList.remove("show");
         doctorsPicker.classList.remove("show");
-        specialtySelect.innerHTML = `<option value="">جاري تحميل الاختصاصات...</option>`;
-        specialtySelect.disabled = true;
-        specialtyPicker.classList.add("show");
+        doctorCount.textContent = "";
+        // لا نلمس قائمة الاختصاصات أثناء تحميل الأطباء.
+        renderSpecialties();
 
         const params = new URLSearchParams();
         const wilayaName = getSelectedWilayaName();
@@ -1975,16 +1968,20 @@ async function loadDoctors(){
         doctors = Array.isArray(data.doctors) ? data.doctors : (Array.isArray(data.data) ? data.data : []);
         renderSpecialties();
 
-        if(!doctors.length){
+        if(specialtySelect.value){
+            selectSpecialty(specialtySelect.value);
+        }else if(!doctors.length){
             doctorsGrid.innerHTML = `<div class="doctor-list-empty"><i class="fa-solid fa-user-doctor"></i>لا يوجد أطباء مسجلون في هذه البلدية حاليًا.</div>`;
             doctorsPicker.classList.add("show");
             doctorCount.textContent = "0 طبيب";
+        }else{
+            doctorsGrid.innerHTML = `<div class="doctor-list-empty"><i class="fa-solid fa-stethoscope"></i>اختر الاختصاص لعرض الأطباء.</div>`;
+            doctorsPicker.classList.add("show");
+            doctorCount.textContent = `${doctors.length} طبيب إجمالًا`;
         }
     }catch(error){
         console.error("LOAD DOCTORS ERROR:",error);
-        specialtySelect.innerHTML = `<option value="">تعذر تحميل الاختصاصات</option>`;
-        specialtySelect.disabled = true;
-        specialtyPicker.classList.add("show");
+        renderSpecialties();
         showAlert("bookingAlert","تعذر تحميل الأطباء. حاول اختيار البلدية مرة أخرى.","error");
     }
 }

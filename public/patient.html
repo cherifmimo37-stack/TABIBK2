@@ -1618,17 +1618,41 @@ function getSpecialtyIcon(specialty){
     if(/باطنة|داخلي|internal/.test(s)) return "fa-stethoscope";
     if(/مسالك|uro/.test(s)) return "fa-kidneys";
     if(/نفسية|psy|mental/.test(s)) return "fa-head-side-virus";
-    if(/عيادة عامة|طب عام|عام|general/.test(s)) return "fa-user-doctor";
-    if(/جراحة|surg/.test(s)) return "fa-user-doctor";
+    if(/رئة|صدر|pulmo/.test(s)) return "fa-lungs";
+    if(/كلى|nephro/.test(s)) return "fa-kidneys";
+    if(/جهاز هضمي|هضم|gastro/.test(s)) return "fa-stomach";
+    if(/غدد|سكري|endo/.test(s)) return "fa-droplet";
+    if(/دم|hemat/.test(s)) return "fa-droplet";
+    if(/روماتيزم|rheuma/.test(s)) return "fa-bone";
+    if(/أورام|onco/.test(s)) return "fa-ribbon";
+    if(/تخدير|anesth/.test(s)) return "fa-syringe";
+    if(/طوارئ|urgence|emergency/.test(s)) return "fa-truck-medical";
+    if(/إنعاش|réanimation|reanimation|icu/.test(s)) return "fa-heart-circle-bolt";
+    if(/جراحة قلب|cardiac surg/.test(s)) return "fa-heart-pulse";
+    if(/جراحة عامة|جراحة|surg/.test(s)) return "fa-user-doctor";
+    if(/أوعية|vascular/.test(s)) return "fa-wave-square";
+    if(/تجميل|plastic/.test(s)) return "fa-wand-magic-sparkles";
+    if(/مسنين|geriatr/.test(s)) return "fa-person-cane";
+    if(/طب رياضي|sports/.test(s)) return "fa-person-running";
+    if(/طب أسرة|أسرة|family/.test(s)) return "fa-people-roof";
+    if(/طب عام|عام|general/.test(s)) return "fa-user-doctor";
     return "fa-stethoscope";
 }
 
 function normalizeSpecialty(value){
-    return String(value || "").trim();
+    return String(value || "")
+        .trim()
+        .replace(/[ًٌٍَُِّْـ]/g, "")
+        .replace(/[إأآ]/g,"ا")
+        .replace(/ة/g,"ه")
+        .replace(/ى/g,"ي")
+        .replace(/يء/g,"ي")
+        .replace(/\s+/g," ")
+        .toLocaleLowerCase("ar");
 }
 
 function getDoctorSpecialty(doctor){
-    return normalizeSpecialty(doctor?.specialty || doctor?.speciality || doctor?.specialization || "طب عام") || "طب عام";
+    return String(doctor?.specialty || doctor?.speciality || doctor?.specialization || "طب عام").trim() || "طب عام";
 }
 
 function getDoctorDuration(doctor){
@@ -1641,30 +1665,91 @@ function getDoctorGenderIcon(doctor){
     return "fa-user-doctor";
 }
 
+/* =====================================================
+   PROFESSIONAL SPECIALTY CATALOG
+   One list, many medical specialties.
+   The matching aliases let the UI work with Arabic/French/English
+   specialty names already stored by the server.
+   ===================================================== */
+const SPECIALTY_CATALOG = [
+    ["طب عام", ["طب عام","الطب العام","general medicine","médecine générale","general"]],
+    ["طب الأسرة", ["طب الأسرة","طب اسرة","الطب العائلي","family medicine","médecine familiale"]],
+    ["أمراض القلب والشرايين", ["قلب","قلب وشرايين","أمراض القلب","cardio","cardiologie","cardiology"]],
+    ["طب الأطفال", ["أطفال","اطفال","طب الأطفال","pédiatrie","pediatrics"]],
+    ["طب العيون", ["عيون","طب العيون","ophthalmologie","ophtalmologie","ophthalmology"]],
+    ["طب الأسنان", ["أسنان","اسنان","طب الأسنان","dentiste","dentistry","odontologie"]],
+    ["الأمراض الجلدية", ["جلد","جلدية","أمراض جلدية","dermatologie","dermatology"]],
+    ["طب الأعصاب", ["أعصاب","اعصاب","neurologie","neurology"]],
+    ["جراحة العظام والمفاصل", ["عظام","جراحة العظام","orthopédie","orthopedics","ortho"]],
+    ["أمراض النساء والتوليد", ["نساء","نسائية","توليد","نساء وتوليد","gynécologie","obstétrique","gynecology","obstetrics"]],
+    ["الأنف والأذن والحنجرة", ["أنف وأذن وحنجرة","اذن","أنف","حنجرة","orl","oto-rhino","otolaryngology"]],
+    ["الأمراض الباطنية", ["باطنة","أمراض باطنية","طب داخلي","médecine interne","internal medicine"]],
+    ["أمراض الجهاز الهضمي والكبد", ["هضم","جهاز هضمي","كبد","gastro","gastro-entérologie","gastroenterology"]],
+    ["أمراض الكلى", ["كلى","أمراض الكلى","nephrologie","nephrology"]],
+    ["أمراض المسالك البولية", ["مسالك","مسالك بولية","uro","urologie","urology"]],
+    ["أمراض الغدد والسكري", ["غدد","غدد صماء","سكري","endocrinologie","endocrinology"]],
+    ["أمراض الرئة والصدر", ["رئة","صدر","أمراض صدرية","pneumologie","pulmonology"]],
+    ["أمراض الدم", ["دم","أمراض الدم","hématologie","hematology"]],
+    ["أمراض الروماتيزم", ["روماتيزم","روماتولوجيا","rhumatologie","rheumatology"]],
+    ["الأمراض المعدية", ["أمراض معدية","عدوى","infectiologie","infectious diseases"]],
+    ["الأورام", ["أورام","oncologie","oncology"]],
+    ["الجراحة العامة", ["جراحة عامة","جراحة","chirurgie générale","general surgery"]],
+    ["جراحة القلب والشرايين", ["جراحة قلب","جراحة القلب","جراحة الشرايين","chirurgie cardiaque","cardiac surgery"]],
+    ["جراحة الأعصاب", ["جراحة أعصاب","جراحة الاعصاب","neurochirurgie","neurosurgery"]],
+    ["جراحة الأوعية الدموية", ["أوعية","جراحة الأوعية","chirurgie vasculaire","vascular surgery"]],
+    ["جراحة الأطفال", ["جراحة أطفال","جراحة الاطفال","chirurgie pédiatrique","pediatric surgery"]],
+    ["جراحة التجميل", ["تجميل","جراحة تجميل","chirurgie plastique","plastic surgery"]],
+    ["طب نفسي", ["نفسي","طب نفسي","psychiatrie","psychiatry","mental health"]],
+    ["طب التأهيل والعلاج الطبيعي", ["تأهيل","علاج طبيعي","فيزيو","rééducation","kinésithérapie","physiotherapy"]],
+    ["طب الطوارئ", ["طوارئ","استعجالات","urgence","urgences","emergency medicine"]],
+    ["التخدير والإنعاش", ["تخدير","إنعاش","anesthésie","réanimation","anesthesiology"]],
+    ["طب المسنين", ["مسنين","طب الشيخوخة","gériatrie","geriatrics"]],
+    ["طب الرياضة", ["طب رياضي","médecine du sport","sports medicine"]],
+    ["طب العمل", ["طب العمل","médecine du travail","occupational medicine"]],
+    ["طب الأطفال حديثي الولادة", ["حديثي الولادة","neonatologie","neonatology"]]
+];
+
+function specialtyMatchesCatalog(doctorSpecialty, catalogItem){
+    const value = normalizeSpecialty(doctorSpecialty);
+    const aliases = catalogItem[1].map(normalizeSpecialty);
+    return aliases.some(alias => value === alias || value.includes(alias) || alias.includes(value));
+}
+
+function getCatalogLabel(doctorSpecialty){
+    const item = SPECIALTY_CATALOG.find(entry => specialtyMatchesCatalog(doctorSpecialty, entry));
+    return item ? item[0] : doctorSpecialty;
+}
+
 function renderSpecialties(){
-    const map = new Map();
+    const available = [];
+    const seen = new Set();
 
     doctors.forEach(doctor => {
-        const specialty = getDoctorSpecialty(doctor);
-        const key = specialty.toLocaleLowerCase("ar").replace(/\s+/g," ").trim();
-        if(!map.has(key)) map.set(key, specialty);
+        const raw = getDoctorSpecialty(doctor);
+        const label = getCatalogLabel(raw);
+        const key = normalizeSpecialty(label);
+        if(!seen.has(key)){
+            seen.add(key);
+            available.push({label, raw});
+        }
     });
 
     specialtySelect.innerHTML = `<option value="">اختر الاختصاص</option>`;
 
-    if(!map.size){
+    if(!available.length){
         specialtySelect.disabled = true;
         specialtyPicker.classList.add("show");
-        specialtySelect.innerHTML = `<option value="">لا توجد اختصاصات متاحة</option>`;
+        specialtySelect.innerHTML = `<option value="">لا توجد اختصاصات متاحة في هذه البلدية</option>`;
         return;
     }
 
-    [...map.values()]
-        .sort((a,b)=>a.localeCompare(b,"ar"))
-        .forEach(specialty => {
+    available
+        .sort((a,b)=>a.label.localeCompare(b.label,"ar"))
+        .forEach(item => {
             const option = document.createElement("option");
-            option.value = specialty;
-            option.textContent = specialty;
+            option.value = item.label;
+            option.textContent = item.label;
+            option.dataset.rawSpecialty = item.raw;
             specialtySelect.appendChild(option);
         });
 
@@ -1679,7 +1764,11 @@ function selectSpecialty(specialty){
     doctorInfo.classList.remove("show");
     doctorInfo.innerHTML = "";
 
-    const filtered = doctors.filter(d => getDoctorSpecialty(d) === specialty);
+    const catalogItem = SPECIALTY_CATALOG.find(entry => normalizeSpecialty(entry[0]) === normalizeSpecialty(specialty));
+    const filtered = catalogItem
+        ? doctors.filter(d => specialtyMatchesCatalog(getDoctorSpecialty(d), catalogItem))
+        : doctors.filter(d => normalizeSpecialty(getDoctorSpecialty(d)) === normalizeSpecialty(specialty));
+
     renderDoctors(filtered);
 }
 

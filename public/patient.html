@@ -642,7 +642,9 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
                     </label>
 
                     <div id="specialtyPicker" class="specialty-picker">
-                        <div id="specialtyGrid" class="specialty-grid"></div>
+                        <select id="specialty" disabled>
+                            <option value="">اختر الاختصاص</option>
+                        </select>
                     </div>
 
                 </div>
@@ -1448,8 +1450,8 @@ const doctorSelect =
 const specialtyPicker =
     document.getElementById("specialtyPicker");
 
-const specialtyGrid =
-    document.getElementById("specialtyGrid");
+const specialtySelect =
+    document.getElementById("specialty");
 
 const doctorsPicker =
     document.getElementById("doctorsPicker");
@@ -1591,7 +1593,9 @@ function resetDoctorAndSpecialty(){
     doctorSelect.innerHTML = `<option value="">اختر الطبيب</option>`;
     doctorSelect.value = "";
     doctorSelect.disabled = true;
-    specialtyGrid.innerHTML = "";
+    specialtySelect.innerHTML = `<option value="">اختر الاختصاص</option>`;
+    specialtySelect.value = "";
+    specialtySelect.disabled = true;
     specialtyPicker.classList.remove("show");
     doctorsGrid.innerHTML = "";
     doctorsPicker.classList.remove("show");
@@ -1642,44 +1646,33 @@ function renderSpecialties(){
 
     doctors.forEach(doctor => {
         const specialty = getDoctorSpecialty(doctor);
-        const key = specialty.toLocaleLowerCase("ar");
+        const key = specialty.toLocaleLowerCase("ar").replace(/\s+/g," ").trim();
         if(!map.has(key)) map.set(key, specialty);
     });
 
-    specialtyGrid.innerHTML = "";
+    specialtySelect.innerHTML = `<option value="">اختر الاختصاص</option>`;
 
     if(!map.size){
-        specialtyGrid.innerHTML = `
-            <div class="specialty-empty" style="grid-column:1/-1">
-                <i class="fa-solid fa-stethoscope"></i>
-                لا توجد اختصاصات متاحة في هذه البلدية حاليًا.
-            </div>`;
+        specialtySelect.disabled = true;
         specialtyPicker.classList.add("show");
+        specialtySelect.innerHTML = `<option value="">لا توجد اختصاصات متاحة</option>`;
         return;
     }
 
-    [...map.values()].sort((a,b)=>a.localeCompare(b,"ar")).forEach(specialty => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "specialty-card";
-        button.dataset.specialty = specialty;
-        button.innerHTML = `
-            <span class="specialty-icon"><i class="fa-solid ${getSpecialtyIcon(specialty)}"></i></span>
-            <span style="min-width:0;flex:1">
-                <strong>${escapeHtml(specialty)}</strong>
-                <small>عرض الأطباء</small>
-            </span>`;
-        button.addEventListener("click",()=>selectSpecialty(specialty,button));
-        specialtyGrid.appendChild(button);
-    });
+    [...map.values()]
+        .sort((a,b)=>a.localeCompare(b,"ar"))
+        .forEach(specialty => {
+            const option = document.createElement("option");
+            option.value = specialty;
+            option.textContent = specialty;
+            specialtySelect.appendChild(option);
+        });
 
+    specialtySelect.disabled = false;
     specialtyPicker.classList.add("show");
 }
 
-function selectSpecialty(specialty, button){
-    document.querySelectorAll(".specialty-card").forEach(card=>card.classList.remove("active"));
-    if(button) button.classList.add("active");
-
+function selectSpecialty(specialty){
     selectedDoctor = null;
     doctorSelect.value = "";
     doctorSelect.disabled = true;
@@ -1689,6 +1682,16 @@ function selectSpecialty(specialty, button){
     const filtered = doctors.filter(d => getDoctorSpecialty(d) === specialty);
     renderDoctors(filtered);
 }
+
+specialtySelect.addEventListener("change", function(){
+    if(!this.value){
+        doctorsGrid.innerHTML = "";
+        doctorsPicker.classList.remove("show");
+        doctorCount.textContent = "";
+        return;
+    }
+    selectSpecialty(this.value);
+});
 
 function renderDoctors(list){
     doctorsGrid.innerHTML = "";
@@ -1837,7 +1840,8 @@ async function loadDoctors(){
     try{
         specialtyPicker.classList.remove("show");
         doctorsPicker.classList.remove("show");
-        specialtyGrid.innerHTML = `<div class="specialty-empty" style="grid-column:1/-1"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الاختصاصات...</div>`;
+        specialtySelect.innerHTML = `<option value="">جاري تحميل الاختصاصات...</option>`;
+        specialtySelect.disabled = true;
         specialtyPicker.classList.add("show");
 
         const params = new URLSearchParams();
@@ -1862,7 +1866,8 @@ async function loadDoctors(){
         }
     }catch(error){
         console.error("LOAD DOCTORS ERROR:",error);
-        specialtyGrid.innerHTML = `<div class="specialty-empty" style="grid-column:1/-1"><i class="fa-solid fa-triangle-exclamation"></i>${escapeHtml(error.message || "تعذر تحميل الأطباء")}</div>`;
+        specialtySelect.innerHTML = `<option value="">تعذر تحميل الاختصاصات</option>`;
+        specialtySelect.disabled = true;
         specialtyPicker.classList.add("show");
         showAlert("bookingAlert","تعذر تحميل الأطباء. حاول اختيار البلدية مرة أخرى.","error");
     }

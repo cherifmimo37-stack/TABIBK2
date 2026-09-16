@@ -265,10 +265,33 @@ textarea:focus-visible{
 
                 </div>
 
+<!-- SPECIALTY -->
 
+<div class="field full" id="specialtyField">
+
+    <label>
+
+        <i class="fa-solid fa-stethoscope"></i>
+
+        اختصاص الطبيب
+
+    </label>
+
+    <select
+        id="specialty"
+        disabled>
+
+        <option value="">
+            اختر الاختصاص
+        </option>
+
+    </select>
+
+</div>
+                  
                 <!-- DOCTOR -->
 
-                <div class="field full">
+                <div class="field full" id="doctorField" style="display:none;">
 
                     <label>
 
@@ -1079,6 +1102,8 @@ const municipalitySelect =
 const doctorSelect =
     document.getElementById("doctor");
 
+      const specialtySelect = document.getElementById("specialty");
+
 const doctorInfo =
     document.getElementById("doctorInfo");
 
@@ -1302,6 +1327,15 @@ municipalitySelect.addEventListener(
 
         doctorInfo.classList.remove("show");
 
+          specialtySelect.innerHTML =
+    `<option value="">اختر الاختصاص</option>`;
+
+specialtySelect.disabled =
+    true;
+
+document.getElementById("doctorField").style.display =
+    "none";
+
         if(!this.value){
             return;
         }
@@ -1354,6 +1388,33 @@ async function loadDoctors(){
             data.doctors ||
             data.data ||
             [];
+
+          const specialties = [
+    ...new Set(
+        doctors
+            .map(doctor => String(doctor.specialty || "").trim())
+            .filter(Boolean)
+    )
+];
+
+specialtySelect.innerHTML = `
+    <option value="">
+        اختر الاختصاص
+    </option>
+`;
+
+specialties.forEach(specialty => {
+
+    const option = document.createElement("option");
+
+    option.value = specialty;
+    option.textContent = specialty;
+
+    specialtySelect.appendChild(option);
+
+});
+
+specialtySelect.disabled = specialties.length === 0;
 
         doctorSelect.innerHTML =
             `<option value="">
@@ -1422,6 +1483,53 @@ async function loadDoctors(){
 doctorSelect.addEventListener(
     "change",
     function(){
+
+          specialtySelect.addEventListener("change", function () {
+
+    const selectedSpecialty = this.value;
+
+    doctorSelect.innerHTML = `
+        <option value="">
+            اختر الطبيب
+        </option>
+    `;
+
+    doctorInfo.innerHTML = "";
+
+    if (!selectedSpecialty) {
+
+        doctorSelect.disabled = true;
+
+        document.getElementById("doctorField").style.display = "none";
+
+        return;
+    }
+
+    const filteredDoctors = doctors.filter(
+        doctor =>
+            String(doctor.specialty || "").trim() ===
+            selectedSpecialty
+    );
+
+    filteredDoctors.forEach(doctor => {
+
+        const option = document.createElement("option");
+
+        option.value = doctor.id;
+
+        option.textContent =
+            `🩺 ${doctor.name}`;
+
+        doctorSelect.appendChild(option);
+
+    });
+
+    doctorSelect.disabled = filteredDoctors.length === 0;
+
+    document.getElementById("doctorField").style.display =
+        filteredDoctors.length > 0 ? "block" : "none";
+
+});
 
         selectedDoctor =
             doctors.find(

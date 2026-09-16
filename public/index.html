@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -11,7 +13,10 @@
     <title>طبيبك | TABIBK</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet">
@@ -19,1642 +24,1826 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <style>
 
-        /* =========================================================
-           TABIBK
-           PREMIUM PURPLE / GOLD / WHITE
-           LOGIN PAGE
-        ========================================================= */
+<style>
 
-        :root{
+/* =========================================================
+   TABIBK — PREMIUM LOGIN
+========================================================= */
 
-            --purple-dark:#18051f;
-            --purple:#2b0b3d;
-            --purple-soft:#4a155f;
-            --purple-light:#6d238b;
-            --purple3:#8d4baa;
+:root{
 
-            --gold:#c79a32;
-            --gold-light:#efd477;
-            --gold-bright:#fff3ad;
+    --purple-dark:#18051f;
+    --purple:#2b0b3d;
+    --purple-soft:#4a155f;
+    --purple-light:#6d238b;
+    --purple3:#8d4baa;
 
-            --white-dark:#f2eff4;
-            --white-soft:#ddd8e1;
-            --white-muted:#c4bac9;
+    --gold:#c79a32;
+    --gold-light:#efd477;
+    --gold-bright:#fff3ad;
 
-            --patient:#28a98b;
-            --doctor:#6d45c7;
-            --admin:#c79a32;
+    --white:#ffffff;
+    --white-dark:#f4f1f5;
+    --white-soft:#e5dfe8;
 
-            --shadow:rgba(0,0,0,.35);
-        }
+    --patient:#27a98a;
+    --doctor:#7445c7;
+    --admin:#c79a32;
+}
 
 
-        *{
-            box-sizing:border-box;
-            margin:0;
-            padding:0;
-        }
+/* =========================================================
+   RESET
+========================================================= */
 
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-        html{
-            scroll-behavior:smooth;
-        }
 
+html{
+    scroll-behavior:smooth;
+}
 
-        body{
 
-            font-family:"Cairo",sans-serif;
+body{
 
-            min-height:100vh;
+    font-family:"Cairo",sans-serif;
 
-            color:var(--white-dark);
+    min-height:100vh;
 
-            background:
+    color:var(--white);
 
-                radial-gradient(
-                    circle at 50% 8%,
-                    rgba(199,154,50,.16),
-                    transparent 24%
-                ),
+    overflow-x:hidden;
 
-                radial-gradient(
-                    circle at 20% 25%,
-                    rgba(141,75,170,.18),
-                    transparent 32%
-                ),
+    background:
 
-                linear-gradient(
-                    180deg,
-                    #2b0b3d 0%,
-                    #45145b 24%,
-                    #6d238b 43%,
-                    #b9afbd 70%,
-                    #eeeaf0 100%
-                );
+        radial-gradient(
+            circle at 50% 5%,
+            rgba(239,212,119,.18),
+            transparent 23%
+        ),
 
-            overflow-x:hidden;
-        }
+        radial-gradient(
+            circle at 12% 25%,
+            rgba(141,75,170,.20),
+            transparent 30%
+        ),
 
+        linear-gradient(
+            180deg,
+            #25082f 0%,
+            #431253 24%,
+            #6b2487 42%,
+            #b7aeba 69%,
+            #eeeaf0 100%
+        );
+}
 
-        /* =========================================================
-           BACKGROUND DECORATION
-        ========================================================= */
 
-        .background{
-            position:fixed;
-            inset:0;
-            overflow:hidden;
-            pointer-events:none;
-            z-index:0;
-        }
+/* =========================================================
+   BACKGROUND
+========================================================= */
 
+.background{
 
-        .bg-purple{
-            position:absolute;
+    position:fixed;
 
-            width:420px;
-            height:420px;
+    inset:0;
 
-            top:-220px;
-            right:-150px;
+    overflow:hidden;
 
-            border-radius:50%;
+    pointer-events:none;
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(141,75,170,.30),
-                    transparent 68%
-                );
+    z-index:0;
+}
 
-            filter:blur(20px);
-        }
 
+.bg-purple{
 
-        .bg-purple-bottom{
-            position:absolute;
+    position:absolute;
 
-            width:500px;
-            height:500px;
+    width:450px;
+    height:450px;
 
-            bottom:-300px;
-            left:-220px;
+    top:-240px;
+    right:-170px;
 
-            border-radius:50%;
+    border-radius:50%;
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(74,21,95,.16),
-                    transparent 70%
-                );
+    background:
 
-            filter:blur(30px);
-        }
+        radial-gradient(
+            circle,
+            rgba(156,81,188,.28),
+            transparent 68%
+        );
 
+    filter:blur(18px);
+}
 
-        .bg-gold{
-            position:absolute;
 
-            width:300px;
-            height:300px;
+.bg-purple-bottom{
 
-            top:32%;
-            left:50%;
+    position:absolute;
 
-            transform:translate(-50%,-50%);
+    width:520px;
+    height:520px;
 
-            border-radius:50%;
+    bottom:-330px;
+    left:-250px;
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(199,154,50,.10),
-                    transparent 70%
-                );
+    border-radius:50%;
 
-            filter:blur(30px);
-        }
+    background:
 
+        radial-gradient(
+            circle,
+            rgba(74,21,95,.15),
+            transparent 70%
+        );
 
-        /* =========================================================
-           MAIN CONTAINER
-        ========================================================= */
+    filter:blur(30px);
+}
 
-        .page{
 
-            position:relative;
+.bg-gold{
 
-            z-index:1;
+    position:absolute;
 
-            min-height:100vh;
+    width:330px;
+    height:330px;
 
-            width:100%;
+    top:29%;
+    left:50%;
 
-            display:flex;
+    transform:translate(-50%,-50%);
 
-            justify-content:center;
+    border-radius:50%;
 
-            align-items:flex-start;
+    background:
 
-            padding:
-                35px
-                20px
-                25px;
-        }
+        radial-gradient(
+            circle,
+            rgba(199,154,50,.10),
+            transparent 70%
+        );
 
+    filter:blur(30px);
+}
 
-        .container{
 
-            width:100%;
+/* =========================================================
+   PAGE
+========================================================= */
 
-            max-width:1080px;
+.page{
 
-            margin:auto;
+    position:relative;
 
-            display:flex;
+    z-index:1;
 
-            flex-direction:column;
+    min-height:100vh;
 
-            align-items:center;
-        }
+    width:100%;
 
+    display:flex;
 
-        /* =========================================================
-           LOGO
-        ========================================================= */
+    justify-content:center;
 
-        .logo-area{
+    align-items:flex-start;
 
-            position:relative;
+    padding:
+        15px
+        18px
+        16px;
+}
 
-            width:165px;
-            height:165px;
 
-            display:flex;
+.container{
 
-            align-items:center;
-            justify-content:center;
+    width:100%;
 
-            margin-bottom:5px;
-        }
+    max-width:1080px;
 
+    margin:auto;
 
-        .logo-glow{
+    display:flex;
 
-            position:absolute;
+    flex-direction:column;
 
-            width:130px;
-            height:130px;
+    align-items:center;
+}
 
-            border-radius:50%;
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(239,212,119,.22),
-                    rgba(199,154,50,.08) 42%,
-                    transparent 72%
-                );
+/* =========================================================
+   LOGO AREA
+========================================================= */
 
-            filter:blur(9px);
+.logo-area{
 
-            animation:logoGlow 2.2s ease-in-out infinite;
-        }
+    position:relative;
 
+    width:150px;
+    height:150px;
 
-        .logo-ring{
+    display:flex;
 
-            position:absolute;
+    align-items:center;
+    justify-content:center;
 
-            width:146px;
-            height:146px;
+    margin-top:-8px;
 
-            border-radius:50%;
+    margin-bottom:-2px;
+}
 
-            border:
-                1px solid
-                rgba(239,212,119,.45);
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(199,154,50,.07),
-                    transparent 68%
-                );
+.logo-glow{
 
-            box-shadow:
+    position:absolute;
 
-                0 0 25px
-                rgba(199,154,50,.15),
+    width:125px;
+    height:125px;
 
-                inset 0 0 25px
-                rgba(255,255,255,.08);
+    border-radius:50%;
 
-            animation:
-                ringPulse
-                3s
-                ease-in-out
-                infinite;
-        }
+    background:
 
+        radial-gradient(
+            circle,
+            rgba(255,227,133,.28),
+            rgba(199,154,50,.08) 42%,
+            transparent 72%
+        );
 
-        /* =========================================================
-           PROFESSIONAL HEART
-        ========================================================= */
+    filter:blur(8px);
 
-        .heart{
+    animation:
+        logoGlow
+        2.4s
+        ease-in-out
+        infinite;
+}
 
-            position:relative;
 
-            width:100px;
-            height:88px;
+.logo-ring{
 
-            transform:rotate(-45deg);
+    position:absolute;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #fff3ad 0%,
-                    #efd477 25%,
-                    #c79a32 58%,
-                    #9b6d16 100%
-                );
+    width:138px;
+    height:138px;
 
-            border-radius:
-                12px
-                0
-                20px
-                14px;
+    border-radius:50%;
 
-            box-shadow:
+    border:
+        1px solid
+        rgba(255,225,130,.52);
 
-                0 0 10px
-                rgba(255,229,145,.95),
+    background:
 
-                0 0 25px
-                rgba(199,154,50,.55),
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.04),
+            transparent 68%
+        );
 
-                0 15px 35px
-                rgba(0,0,0,.38);
+    box-shadow:
 
-            animation:
-                premiumHeartBeat
-                1.65s
-                ease-in-out
-                infinite;
+        0 0 22px
+        rgba(239,212,119,.18),
 
-            z-index:3;
-        }
+        inset 0 0 22px
+        rgba(255,255,255,.07);
 
+    animation:
+        ringPulse
+        3s
+        ease-in-out
+        infinite;
+}
 
-        .heart::before,
-        .heart::after{
 
-            content:"";
+/* =========================================================
+   NEW GOLD HEART
+========================================================= */
 
-            position:absolute;
+.heart{
 
-            width:100px;
-            height:88px;
+    position:relative;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #fff3ad 0%,
-                    #efd477 25%,
-                    #c79a32 58%,
-                    #9b6d16 100%
-                );
+    width:86px;
+    height:78px;
 
-            border-radius:50%;
-        }
+    transform:
+        rotate(-45deg);
 
+    background:
 
-        .heart::before{
+        linear-gradient(
+            145deg,
+            #fff8c9 0%,
+            #f5df88 22%,
+            #d3a93e 53%,
+            #b17d1d 78%,
+            #8b6010 100%
+        );
 
-            top:-47px;
-            left:0;
-        }
+    border-radius:
+        10px
+        4px
+        17px
+        8px;
 
+    box-shadow:
 
-        .heart::after{
+        0 0 8px
+        rgba(255,237,157,.95),
 
-            top:0;
-            left:47px;
-        }
+        0 0 20px
+        rgba(220,176,62,.65),
 
+        0 10px 28px
+        rgba(40,10,50,.35);
 
-        /* =========================================================
-           ECG
-        ========================================================= */
+    animation:
+        heartBeat
+        1.55s
+        ease-in-out
+        infinite;
 
-        .ecg{
+    z-index:5;
+}
 
-            position:absolute;
 
-            z-index:10;
+/* upper heart lobes */
 
-            width:108px;
-            height:48px;
+.heart::before,
+.heart::after{
 
-            top:21px;
-            left:-4px;
+    content:"";
 
-            transform:rotate(45deg);
+    position:absolute;
 
-            overflow:hidden;
+    width:86px;
+    height:78px;
 
-            pointer-events:none;
-        }
+    background:
 
+        linear-gradient(
+            145deg,
+            #fff8c9 0%,
+            #f5df88 22%,
+            #d3a93e 53%,
+            #b17d1d 78%,
+            #8b6010 100%
+        );
 
-        .ecg svg{
+    border-radius:50%;
+}
 
-            width:100%;
-            height:100%;
 
-            overflow:visible;
-        }
+.heart::before{
 
+    top:-39px;
 
-        .ecg-line{
+    left:0;
+}
 
-            fill:none;
 
-            stroke:#fffdf3;
+.heart::after{
 
-            stroke-width:3.4;
+    top:0;
 
-            stroke-linecap:round;
-            stroke-linejoin:round;
+    left:39px;
+}
 
-            stroke-dasharray:170;
 
-            stroke-dashoffset:170;
+/* =========================================================
+   HEART INNER HIGHLIGHT
+========================================================= */
 
-            filter:
-                drop-shadow(
-                    0 0 5px
-                    rgba(255,255,255,.95)
-                );
+.heart-highlight{
 
-            animation:
-                ecgMove
-                1.9s
-                linear
-                infinite;
-        }
+    position:absolute;
 
+    z-index:8;
 
-        /* =========================================================
-           BRAND
-        ========================================================= */
+    width:45px;
+    height:18px;
 
-        .brand{
+    top:12px;
+    left:18px;
 
-            text-align:center;
+    transform:
+        rotate(45deg);
 
-            margin-top:5px;
+    border-radius:50%;
 
-            margin-bottom:15px;
-        }
+    background:
 
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.60),
+            rgba(255,255,255,0)
+        );
 
-        .brand-ar{
+    filter:blur(2px);
 
-            font-size:34px;
+    opacity:.65;
+}
 
-            font-weight:900;
 
-            line-height:1;
+/* =========================================================
+   ECG
+========================================================= */
 
-            color:#fff;
+.ecg{
 
-            letter-spacing:.2px;
+    position:absolute;
 
-            text-shadow:
+    z-index:15;
 
-                0 2px 10px
-                rgba(0,0,0,.25),
+    width:105px;
+    height:45px;
 
-                0 0 15px
-                rgba(239,212,119,.18);
-        }
+    top:17px;
+    left:-10px;
 
+    transform:
+        rotate(45deg);
 
-        .brand-en{
+    overflow:hidden;
 
-            margin-top:5px;
+    pointer-events:none;
+}
 
-            font-size:14px;
 
-            font-weight:800;
+.ecg svg{
 
-            letter-spacing:6px;
+    width:100%;
+    height:100%;
+}
 
-            color:var(--gold-light);
 
-            direction:ltr;
+.ecg-line{
 
-            text-shadow:
-                0 2px 7px rgba(0,0,0,.25);
-        }
+    fill:none;
 
+    stroke:#ffffff;
 
-        .tagline{
+    stroke-width:3.5;
 
-            max-width:650px;
+    stroke-linecap:round;
 
-            text-align:center;
+    stroke-linejoin:round;
 
-            color:#f7f4f8;
+    stroke-dasharray:170;
 
-            font-size:14px;
+    stroke-dashoffset:170;
 
-            line-height:1.9;
+    filter:
 
-            font-weight:500;
+        drop-shadow(
+            0 0 5px
+            rgba(255,255,255,.95)
+        );
 
-            opacity:.94;
+    animation:
+        ecgMove
+        1.8s
+        linear
+        infinite;
+}
 
-            margin-bottom:27px;
 
-            text-shadow:
-                0 1px 5px rgba(0,0,0,.25);
-        }
+/* =========================================================
+   BRAND
+========================================================= */
 
+.brand{
 
-        /* =========================================================
-           WELCOME
-        ========================================================= */
+    text-align:center;
 
-        .welcome{
+    margin-top:0;
 
-            text-align:center;
+    margin-bottom:10px;
+}
 
-            margin-bottom:28px;
 
-            width:100%;
-        }
+.brand-ar{
 
+    font-size:32px;
 
-        .welcome h1{
+    font-weight:900;
 
-            font-size:25px;
+    line-height:1;
 
-            font-weight:800;
+    color:#fff;
 
-            color:#fff;
+    text-shadow:
 
-            margin-bottom:8px;
+        0 2px 9px
+        rgba(0,0,0,.25),
 
-            text-shadow:
-                0 2px 8px rgba(0,0,0,.25);
-        }
+        0 0 16px
+        rgba(239,212,119,.18);
+}
 
 
-        .welcome p{
+.brand-en{
 
-            font-size:13px;
+    margin-top:4px;
 
-            color:#f0ebf2;
+    font-size:13px;
 
-            opacity:.9;
+    font-weight:800;
 
-            line-height:1.8;
-        }
+    letter-spacing:6px;
 
+    color:var(--gold-light);
 
-        /* =========================================================
-           LOGIN GRID
-        ========================================================= */
+    direction:ltr;
+}
 
-        .login-grid{
 
-            width:100%;
+.tagline{
 
-            display:grid;
+    max-width:650px;
 
-            grid-template-columns:
-                repeat(3,1fr);
+    text-align:center;
 
-            gap:18px;
+    color:#faf7fb;
 
-            margin-top:3px;
-        }
+    font-size:13px;
 
+    line-height:1.75;
 
-        /* =========================================================
-           LOGIN CARD
-        ========================================================= */
+    font-weight:500;
 
-        .login-card{
+    opacity:.94;
 
-            position:relative;
+    margin-bottom:17px;
 
-            overflow:hidden;
+    text-shadow:
+        0 1px 5px rgba(0,0,0,.25);
+}
 
-            text-decoration:none;
 
-            color:inherit;
+/* =========================================================
+   WELCOME
+========================================================= */
 
-            min-height:235px;
+.welcome{
 
-            padding:27px 20px 23px;
+    text-align:center;
 
-            border-radius:25px;
+    margin-bottom:18px;
 
-            display:flex;
+    width:100%;
+}
 
-            flex-direction:column;
 
-            align-items:center;
+.welcome h1{
 
-            justify-content:center;
+    font-size:23px;
 
-            text-align:center;
+    font-weight:800;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.18),
-                    rgba(255,255,255,.07)
-                );
+    color:#fff;
 
-            border:
-                1px solid
-                rgba(255,255,255,.24);
+    margin-bottom:4px;
 
-            box-shadow:
+    text-shadow:
+        0 2px 8px rgba(0,0,0,.25);
+}
 
-                0 18px 40px
-                rgba(26,8,35,.22),
 
-                inset 0 1px 0
-                rgba(255,255,255,.16);
+.welcome p{
 
-            backdrop-filter:blur(15px);
-            -webkit-backdrop-filter:blur(15px);
+    font-size:12px;
 
-            transition:
-                transform .28s ease,
-                box-shadow .28s ease,
-                border-color .28s ease;
-        }
+    color:#f4eff6;
 
+    opacity:.92;
+}
 
-        .login-card::before{
 
-            content:"";
+/* =========================================================
+   LOGIN GRID
+========================================================= */
 
-            position:absolute;
+.login-grid{
 
-            width:150px;
-            height:150px;
+    width:100%;
 
-            top:-80px;
-            left:-70px;
+    display:grid;
 
-            border-radius:50%;
+    grid-template-columns:
+        repeat(3,1fr);
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,.14),
-                    transparent 70%
-                );
-        }
+    gap:17px;
+}
 
 
-        .login-card:hover{
+/* =========================================================
+   PREMIUM CARDS
+========================================================= */
 
-            transform:
-                translateY(-7px);
+.login-card{
 
-            box-shadow:
+    position:relative;
 
-                0 25px 50px
-                rgba(25,5,35,.32),
+    overflow:hidden;
 
-                inset 0 1px 0
-                rgba(255,255,255,.22);
-        }
+    min-height:208px;
 
+    padding:
+        22px
+        19px
+        20px;
 
-        .login-card:active{
+    border-radius:24px;
 
-            transform:
-                translateY(-2px)
-                scale(.985);
-        }
+    display:flex;
 
+    flex-direction:column;
 
-        /* =========================================================
-           CARD ICON
-        ========================================================= */
+    align-items:center;
 
-        .card-icon{
+    justify-content:center;
 
-            width:74px;
-            height:74px;
+    text-align:center;
 
-            border-radius:22px;
+    text-decoration:none;
 
-            display:flex;
+    color:inherit;
 
-            align-items:center;
-            justify-content:center;
+    background:
 
-            margin-bottom:17px;
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.72),
+            rgba(249,246,250,.47) 55%,
+            rgba(255,255,255,.30)
+        );
 
-            font-size:29px;
+    border:
+        1px solid
+        rgba(255,255,255,.72);
 
-            transition:
-                transform .3s ease;
-        }
+    box-shadow:
 
+        0 16px 35px
+        rgba(43,11,61,.20),
 
-        .login-card:hover .card-icon{
+        inset 0 1px 0
+        rgba(255,255,255,.90),
 
-            transform:
-                scale(1.08)
-                rotate(-3deg);
-        }
+        inset 0 -1px 0
+        rgba(74,21,95,.08);
 
+    backdrop-filter:blur(17px);
 
-        /* PATIENT */
+    -webkit-backdrop-filter:blur(17px);
 
-        .patient{
+    transition:
+        transform .28s ease,
+        box-shadow .28s ease,
+        border-color .28s ease;
+}
 
-            border-color:
-                rgba(40,169,139,.40);
-        }
 
+.login-card::before{
 
-        .patient .card-icon{
+    content:"";
 
-            color:#54e0bd;
+    position:absolute;
 
-            background:
-                rgba(40,169,139,.14);
+    width:180px;
+    height:180px;
 
-            border:
-                1px solid
-                rgba(40,169,139,.38);
+    top:-115px;
+    right:-90px;
 
-            box-shadow:
-                0 0 25px
-                rgba(40,169,139,.18);
-        }
+    border-radius:50%;
 
+    background:
 
-        /* DOCTOR */
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.75),
+            transparent 70%
+        );
 
-        .doctor{
+    pointer-events:none;
+}
 
-            border-color:
-                rgba(141,75,170,.45);
-        }
 
+.login-card::after{
 
-        .doctor .card-icon{
+    content:"";
 
-            color:#c58ce4;
+    position:absolute;
 
-            background:
-                rgba(109,35,139,.17);
+    inset:auto 0 0 0;
 
-            border:
-                1px solid
-                rgba(141,75,170,.45);
+    height:4px;
 
-            box-shadow:
-                0 0 25px
-                rgba(141,75,170,.22);
-        }
+    opacity:.75;
 
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(199,154,50,.65),
+            transparent
+        );
+}
 
-        /* ADMIN */
 
-        .admin{
+.login-card:hover{
 
-            border-color:
-                rgba(239,212,119,.38);
-        }
+    transform:
+        translateY(-6px);
 
+    box-shadow:
 
-        .admin .card-icon{
+        0 23px 45px
+        rgba(43,11,61,.28),
 
-            color:#ffe49a;
+        inset 0 1px 0
+        rgba(255,255,255,.95);
+}
 
-            background:
-                rgba(199,154,50,.13);
 
-            border:
-                1px solid
-                rgba(239,212,119,.38);
+.login-card:active{
 
-            box-shadow:
-                0 0 25px
-                rgba(199,154,50,.20);
-        }
+    transform:
+        translateY(-1px)
+        scale(.985);
+}
 
 
-        /* =========================================================
-           CARD TEXT
-        ========================================================= */
+/* =========================================================
+   CARD ICON
+========================================================= */
 
-        .login-card h2{
+.card-icon{
 
-            font-size:20px;
+    width:68px;
+    height:68px;
 
-            font-weight:800;
+    border-radius:20px;
 
-            color:#fff;
+    display:flex;
 
-            margin-bottom:8px;
-        }
+    align-items:center;
+    justify-content:center;
 
+    margin-bottom:13px;
 
-        .login-card p{
+    font-size:27px;
 
-            font-size:12.5px;
+    transition:
+        transform .3s ease;
+}
 
-            line-height:1.85;
 
-            color:#eee8f0;
+.login-card:hover .card-icon{
 
-            max-width:245px;
+    transform:
+        scale(1.08)
+        rotate(-3deg);
+}
 
-            opacity:.9;
-        }
 
+/* PATIENT */
 
-        .card-arrow{
+.patient{
 
-            position:absolute;
+    border-top:
+        3px solid
+        rgba(39,169,138,.75);
+}
 
-            bottom:16px;
 
-            left:18px;
+.patient .card-icon{
 
-            width:30px;
-            height:30px;
+    color:#16866e;
 
-            border-radius:50%;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(39,169,138,.18),
+            rgba(39,169,138,.07)
+        );
 
-            display:flex;
+    border:
+        1px solid
+        rgba(39,169,138,.35);
 
-            align-items:center;
-            justify-content:center;
+    box-shadow:
+        0 7px 18px
+        rgba(39,169,138,.18);
+}
 
-            background:
-                rgba(255,255,255,.09);
 
-            color:#fff;
+.patient h2{
 
-            font-size:12px;
+    color:#176d5d;
+}
 
-            transition:
-                transform .25s ease,
-                background .25s ease;
-        }
 
+/* DOCTOR */
 
-        .login-card:hover .card-arrow{
+.doctor{
 
-            transform:
-                translateX(-3px);
+    border-top:
+        3px solid
+        rgba(116,69,199,.78);
+}
 
-            background:
-                rgba(255,255,255,.17);
-        }
 
+.doctor .card-icon{
 
-        /* =========================================================
-           SECURITY LINE
-        ========================================================= */
+    color:#6233ad;
 
-        .security{
+    background:
+        linear-gradient(
+            145deg,
+            rgba(116,69,199,.18),
+            rgba(116,69,199,.07)
+        );
 
-            margin-top:25px;
+    border:
+        1px solid
+        rgba(116,69,199,.35);
 
-            display:flex;
+    box-shadow:
+        0 7px 18px
+        rgba(116,69,199,.18);
+}
 
-            align-items:center;
 
-            justify-content:center;
+.doctor h2{
 
-            gap:9px;
+    color:#51228e;
+}
 
-            color:#f3eef5;
 
-            font-size:12px;
+/* ADMIN */
 
-            opacity:.9;
+.admin{
 
-            text-align:center;
-        }
+    border-top:
+        3px solid
+        rgba(199,154,50,.85);
+}
 
 
-        .security i{
+.admin .card-icon{
 
-            color:var(--gold-light);
+    color:#a27618;
 
-            font-size:14px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(199,154,50,.20),
+            rgba(199,154,50,.07)
+        );
 
-            filter:
-                drop-shadow(
-                    0 0 5px
-                    rgba(239,212,119,.45)
-                );
-        }
+    border:
+        1px solid
+        rgba(199,154,50,.40);
 
+    box-shadow:
+        0 7px 18px
+        rgba(199,154,50,.20);
+}
 
-        /* =========================================================
-           FOOTER
-        ========================================================= */
 
-        footer{
+.admin h2{
 
-            width:100%;
+    color:#86620e;
+}
 
-            text-align:center;
 
-            margin-top:25px;
+/* =========================================================
+   CARD TEXT
+========================================================= */
 
-            padding-top:18px;
+.login-card h2{
 
-            border-top:
-                1px solid
-                rgba(255,255,255,.13);
-        }
+    font-size:19px;
 
+    font-weight:900;
 
-        .footer-main{
+    margin-bottom:5px;
+}
 
-            font-size:12px;
 
-            color:#f0ebf2;
+.login-card p{
 
-            opacity:.9;
+    font-size:11.5px;
 
-            margin-bottom:5px;
-        }
+    line-height:1.8;
 
+    color:#554d58;
 
-        .footer-version{
+    max-width:240px;
 
-            font-size:10px;
+    font-weight:500;
+}
 
-            color:#dfd4e3;
 
-            opacity:.65;
+.card-arrow{
 
-            direction:ltr;
-        }
+    position:absolute;
 
+    bottom:13px;
 
-        /* =========================================================
-           ANIMATIONS
-        ========================================================= */
+    left:14px;
 
-        @keyframes premiumHeartBeat{
+    width:28px;
+    height:28px;
 
-            0%,100%{
-                transform:
-                    rotate(-45deg)
-                    scale(1);
-            }
+    border-radius:50%;
 
-            8%{
-                transform:
-                    rotate(-45deg)
-                    scale(1.09);
-            }
+    display:flex;
 
-            16%{
-                transform:
-                    rotate(-45deg)
-                    scale(.98);
-            }
+    align-items:center;
+    justify-content:center;
 
-            24%{
-                transform:
-                    rotate(-45deg)
-                    scale(1.055);
-            }
+    background:
+        rgba(74,21,95,.07);
 
-            38%,100%{
-                transform:
-                    rotate(-45deg)
-                    scale(1);
-            }
-        }
+    color:#5a4761;
 
+    font-size:11px;
 
-        @keyframes ecgMove{
+    transition:
+        transform .25s ease,
+        background .25s ease;
+}
 
-            0%{
-                stroke-dashoffset:170;
-                opacity:.5;
-            }
 
-            15%{
-                opacity:1;
-            }
+.login-card:hover .card-arrow{
 
-            75%{
-                stroke-dashoffset:0;
-                opacity:1;
-            }
+    transform:
+        translateX(-3px);
 
-            100%{
-                stroke-dashoffset:-170;
-                opacity:.45;
-            }
-        }
+    background:
+        rgba(74,21,95,.13);
+}
 
 
-        @keyframes ringPulse{
+/* =========================================================
+   SECURITY
+========================================================= */
 
-            0%,100%{
-                transform:scale(1);
-                opacity:.75;
-            }
+.security{
 
-            50%{
-                transform:scale(1.045);
-                opacity:1;
-            }
-        }
+    margin-top:15px;
 
+    display:flex;
 
-        @keyframes logoGlow{
+    align-items:center;
 
-            0%,100%{
-                transform:scale(.94);
-                opacity:.65;
-            }
+    justify-content:center;
 
-            50%{
-                transform:scale(1.08);
-                opacity:1;
-            }
-        }
+    gap:8px;
 
+    color:#4b4050;
 
-        /* =========================================================
-           RESPONSIVE TABLET
-        ========================================================= */
+    font-size:11.5px;
 
-        @media(max-width:800px){
+    font-weight:600;
 
-            .page{
+    text-align:center;
+}
 
-                padding:
-                    27px
-                    15px
-                    20px;
-            }
 
+.security i{
 
-            .login-grid{
+    color:#a67b1d;
 
-                grid-template-columns:
-                    repeat(3,1fr);
+    font-size:14px;
+}
 
-                gap:12px;
-            }
 
+/* =========================================================
+   FOOTER
+========================================================= */
 
-            .login-card{
+footer{
 
-                min-height:225px;
+    width:100%;
 
-                padding:
-                    23px
-                    13px
-                    20px;
-            }
+    text-align:center;
 
+    margin-top:12px;
 
-            .card-icon{
+    padding-top:11px;
 
-                width:65px;
-                height:65px;
+    padding-bottom:3px;
 
-                font-size:25px;
+    border-top:
+        1px solid
+        rgba(74,21,95,.16);
+}
 
-                border-radius:19px;
-            }
 
+.footer-main{
 
-            .login-card h2{
+    font-size:11px;
 
-                font-size:18px;
-            }
+    color:#514655;
 
+    font-weight:600;
 
-            .login-card p{
+    margin-bottom:3px;
+}
 
-                font-size:11.5px;
-            }
-        }
 
+.footer-version{
 
-        /* =========================================================
-           RESPONSIVE PHONE
-        ========================================================= */
+    font-size:9px;
 
-        @media(max-width:620px){
+    color:#786b7d;
 
-            .page{
+    opacity:.75;
 
-                padding:
-                    22px
-                    13px
-                    18px;
-            }
+    direction:ltr;
+}
 
 
-            .logo-area{
+/* =========================================================
+   ANIMATIONS
+========================================================= */
 
-                width:145px;
-                height:145px;
-            }
+@keyframes heartBeat{
 
+    0%,100%{
 
-            .logo-ring{
+        transform:
+            rotate(-45deg)
+            scale(1);
+    }
 
-                width:130px;
-                height:130px;
-            }
+    8%{
 
+        transform:
+            rotate(-45deg)
+            scale(1.11);
+    }
 
-            .heart{
+    16%{
 
-                width:86px;
-                height:76px;
-            }
+        transform:
+            rotate(-45deg)
+            scale(.98);
+    }
 
+    24%{
 
-            .heart::before,
-            .heart::after{
+        transform:
+            rotate(-45deg)
+            scale(1.065);
+    }
 
-                width:86px;
-                height:76px;
-            }
+    38%{
 
+        transform:
+            rotate(-45deg)
+            scale(1);
+    }
+}
 
-            .heart::before{
 
-                top:-41px;
-            }
+@keyframes ecgMove{
 
+    0%{
 
-            .heart::after{
+        stroke-dashoffset:170;
 
-                left:41px;
-            }
+        opacity:.35;
+    }
 
+    15%{
 
-            .ecg{
+        opacity:1;
+    }
 
-                width:94px;
-                height:43px;
+    70%{
 
-                top:18px;
-                left:-4px;
-            }
+        stroke-dashoffset:0;
 
+        opacity:1;
+    }
 
-            .brand-ar{
+    100%{
 
-                font-size:31px;
-            }
+        stroke-dashoffset:-170;
 
+        opacity:.35;
+    }
+}
 
-            .brand-en{
 
-                font-size:12px;
+@keyframes ringPulse{
 
-                letter-spacing:5px;
-            }
+    0%,100%{
 
+        transform:scale(1);
 
-            .tagline{
+        opacity:.65;
+    }
 
-                font-size:12.5px;
+    50%{
 
-                max-width:340px;
+        transform:scale(1.045);
 
-                margin-bottom:23px;
-            }
+        opacity:1;
+    }
+}
 
 
-            .welcome{
+@keyframes logoGlow{
 
-                margin-bottom:21px;
-            }
+    0%,100%{
 
+        transform:scale(.94);
 
-            .welcome h1{
+        opacity:.65;
+    }
 
-                font-size:21px;
-            }
+    50%{
 
+        transform:scale(1.08);
 
-            .welcome p{
+        opacity:1;
+    }
+}
 
-                font-size:11.5px;
-            }
 
+/* =========================================================
+   TABLET
+========================================================= */
 
-            .login-grid{
+@media(max-width:800px){
 
-                grid-template-columns:1fr;
+    .page{
 
-                gap:13px;
+        padding:
+            10px
+            14px
+            12px;
+    }
 
-                max-width:440px;
-            }
 
+    .login-grid{
 
-            .login-card{
+        gap:12px;
+    }
 
-                min-height:150px;
 
-                padding:
-                    18px
-                    20px;
+    .login-card{
 
-                display:grid;
+        min-height:205px;
 
-                grid-template-columns:
-                    70px
-                    1fr;
+        padding:
+            20px
+            12px;
+    }
 
-                grid-template-rows:
-                    auto auto;
 
-                column-gap:15px;
+    .card-icon{
 
-                text-align:right;
+        width:61px;
+        height:61px;
 
-                align-items:center;
-            }
+        font-size:24px;
+    }
 
 
-            .card-icon{
+    .login-card h2{
 
-                grid-row:
-                    1 / 3;
+        font-size:17px;
+    }
 
-                width:65px;
-                height:65px;
 
-                margin:0;
+    .login-card p{
 
-                border-radius:20px;
+        font-size:10.8px;
+    }
+}
 
-                font-size:25px;
-            }
 
+/* =========================================================
+   PHONE
+========================================================= */
 
-            .login-card h2{
+@media(max-width:620px){
 
-                font-size:18px;
+    .page{
 
-                margin-bottom:3px;
-            }
+        padding:
+            5px
+            12px
+            8px;
+    }
 
 
-            .login-card p{
+    .logo-area{
 
-                max-width:none;
+        width:132px;
+        height:132px;
 
-                font-size:11.5px;
+        margin-top:-9px;
+        margin-bottom:-4px;
+    }
 
-                line-height:1.75;
-            }
 
+    .logo-ring{
 
-            .card-arrow{
+        width:124px;
+        height:124px;
+    }
 
-                bottom:12px;
 
-                left:12px;
-            }
+    .heart{
 
+        width:76px;
+        height:69px;
+    }
 
-            .security{
 
-                margin-top:19px;
+    .heart::before,
+    .heart::after{
 
-                font-size:10.5px;
-            }
+        width:76px;
+        height:69px;
+    }
 
 
-            footer{
+    .heart::before{
 
-                margin-top:20px;
+        top:-35px;
+    }
 
-                padding-top:14px;
-            }
-        }
 
+    .heart::after{
 
-        /* =========================================================
-           SMALL PHONE
-        ========================================================= */
+        left:35px;
+    }
 
-        @media(max-width:380px){
 
-            .page{
+    .ecg{
 
-                padding-top:16px;
-            }
+        width:91px;
+        height:40px;
 
+        top:15px;
+        left:-10px;
+    }
 
-            .logo-area{
 
-                transform:scale(.90);
+    .brand{
 
-                margin-bottom:-4px;
-            }
+        margin-bottom:7px;
+    }
 
 
-            .brand-ar{
+    .brand-ar{
 
-                font-size:28px;
-            }
+        font-size:29px;
+    }
 
 
-            .tagline{
+    .brand-en{
 
-                font-size:11.5px;
+        font-size:11px;
 
-                margin-bottom:18px;
-            }
+        letter-spacing:5px;
+    }
 
 
-            .welcome h1{
+    .tagline{
 
-                font-size:19px;
-            }
+        font-size:11.5px;
 
+        line-height:1.65;
 
-            .login-card{
+        margin-bottom:12px;
 
-                min-height:140px;
+        max-width:350px;
+    }
 
-                grid-template-columns:
-                    62px
-                    1fr;
 
-                column-gap:12px;
+    .welcome{
 
-                padding:
-                    16px;
-            }
+        margin-bottom:13px;
+    }
 
 
-            .card-icon{
+    .welcome h1{
 
-                width:58px;
-                height:58px;
+        font-size:19px;
 
-                font-size:22px;
-            }
+        margin-bottom:2px;
+    }
 
 
-            .login-card h2{
+    .welcome p{
 
-                font-size:17px;
-            }
+        font-size:10.5px;
+    }
 
 
-            .login-card p{
+    .login-grid{
 
-                font-size:10.5px;
-            }
-        }
+        grid-template-columns:1fr;
 
-    </style>
+        gap:9px;
+
+        max-width:450px;
+    }
+
+
+    .login-card{
+
+        min-height:121px;
+
+        padding:
+            13px
+            17px;
+
+        display:grid;
+
+        grid-template-columns:
+            61px
+            1fr;
+
+        grid-template-rows:
+            auto auto;
+
+        column-gap:13px;
+
+        text-align:right;
+
+        align-items:center;
+
+        border-radius:20px;
+    }
+
+
+    .card-icon{
+
+        grid-row:
+            1 / 3;
+
+        width:57px;
+        height:57px;
+
+        margin:0;
+
+        border-radius:17px;
+
+        font-size:22px;
+    }
+
+
+    .login-card h2{
+
+        font-size:16px;
+
+        margin-bottom:2px;
+    }
+
+
+    .login-card p{
+
+        font-size:10.5px;
+
+        line-height:1.6;
+
+        max-width:none;
+    }
+
+
+    .card-arrow{
+
+        bottom:9px;
+
+        left:10px;
+
+        width:25px;
+        height:25px;
+
+        font-size:10px;
+    }
+
+
+    .security{
+
+        margin-top:9px;
+
+        font-size:10px;
+    }
+
+
+    footer{
+
+        margin-top:7px;
+
+        padding-top:8px;
+    }
+
+
+    .footer-main{
+
+        font-size:9.8px;
+    }
+
+
+    .footer-version{
+
+        font-size:8px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media(max-width:380px){
+
+    .page{
+
+        padding-top:2px;
+    }
+
+
+    .logo-area{
+
+        transform:scale(.88);
+
+        margin-bottom:-9px;
+    }
+
+
+    .brand-ar{
+
+        font-size:27px;
+    }
+
+
+    .tagline{
+
+        font-size:10.5px;
+
+        margin-bottom:9px;
+    }
+
+
+    .welcome h1{
+
+        font-size:18px;
+    }
+
+
+    .login-card{
+
+        min-height:112px;
+
+        grid-template-columns:
+            55px
+            1fr;
+
+        column-gap:10px;
+
+        padding:
+            11px
+            14px;
+    }
+
+
+    .card-icon{
+
+        width:52px;
+        height:52px;
+
+        font-size:20px;
+    }
+
+
+    .login-card h2{
+
+        font-size:15px;
+    }
+
+
+    .login-card p{
+
+        font-size:9.8px;
+    }
+
+
+    .security{
+
+        font-size:9px;
+    }
+}
+
+</style>
+
 </head>
 
 
 <body>
 
-    <!-- =========================================================
-         BACKGROUND
-    ========================================================= -->
 
-    <div class="background">
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
 
-        <div class="bg-purple"></div>
+<div class="background">
 
-        <div class="bg-purple-bottom"></div>
+    <div class="bg-purple"></div>
 
-        <div class="bg-gold"></div>
+    <div class="bg-purple-bottom"></div>
+
+    <div class="bg-gold"></div>
+
+</div>
+
+
+
+<!-- =========================================================
+     PAGE
+========================================================= -->
+
+<main class="page">
+
+<div class="container">
+
+
+    <!-- =====================================================
+         LOGO
+    ====================================================== -->
+
+    <div class="logo-area">
+
+        <div class="logo-glow"></div>
+
+        <div class="logo-ring"></div>
+
+        <div class="heart">
+
+            <div class="heart-highlight"></div>
+
+            <div class="ecg">
+
+                <svg
+                    viewBox="0 0 108 48"
+                    preserveAspectRatio="none">
+
+                    <path
+                        class="ecg-line"
+                        d="
+                        M0 27
+                        L13 27
+                        L18 27
+                        L22 23
+                        L26 31
+                        L31 27
+                        L39 27
+                        L44 27
+                        L49 8
+                        L55 42
+                        L61 27
+                        L70 27
+                        L76 27
+                        L81 22
+                        L85 32
+                        L90 27
+                        L108 27
+                        "/>
+
+                </svg>
+
+            </div>
+
+        </div>
 
     </div>
 
 
-    <!-- =========================================================
-         PAGE
-    ========================================================= -->
 
-    <main class="page">
+    <!-- =====================================================
+         BRAND
+    ====================================================== -->
 
-        <div class="container">
+    <div class="brand">
 
+        <div class="brand-ar">
+            طبيبك
+        </div>
 
-            <!-- =====================================================
-                 LOGO
-            ====================================================== -->
+        <div class="brand-en">
+            TABIBK
+        </div>
 
-            <div class="logo-area">
-
-                <div class="logo-glow"></div>
-
-                <div class="logo-ring"></div>
-
-                <div class="heart">
-
-                    <div class="ecg">
-
-                        <svg
-                            viewBox="0 0 108 48"
-                            preserveAspectRatio="none">
-
-                            <path
-                                class="ecg-line"
-                                d="
-                                M0 27
-                                L13 27
-                                L18 27
-                                L22 23
-                                L26 31
-                                L31 27
-                                L39 27
-                                L44 27
-                                L49 8
-                                L55 42
-                                L61 27
-                                L70 27
-                                L76 27
-                                L81 22
-                                L85 32
-                                L90 27
-                                L108 27
-                                " />
-
-                        </svg>
-
-                    </div>
-
-                </div>
-
-            </div>
+    </div>
 
 
-            <!-- =====================================================
-                 BRAND
-            ====================================================== -->
 
-            <div class="brand">
+    <div class="tagline">
 
-                <div class="brand-ar">
-                    طبيبك
-                </div>
+        احجز موعدك الطبي بسهولة،
+        وتابع رحلتك الصحية من مكان واحد.
 
-                <div class="brand-en">
-                    TABIBK
-                </div>
+    </div>
+
+
+
+    <!-- =====================================================
+         WELCOME
+    ====================================================== -->
+
+    <section class="welcome">
+
+        <h1>
+            كل ما تحتاجه لصحتك في تطبيق واحد
+        </h1>
+
+        <p>
+            اختر طريقة الدخول المناسبة لك وابدأ تجربتك مع طبيبك
+        </p>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LOGIN CARDS
+    ====================================================== -->
+
+    <section class="login-grid">
+
+
+        <!-- PATIENT -->
+
+        <a
+            href="/patient.html"
+            class="login-card patient">
+
+            <div class="card-icon">
+
+                <i class="fa-solid fa-user"></i>
 
             </div>
 
 
-            <div class="tagline">
+            <h2>
+                المريض
+            </h2>
 
-                احجز موعدك الطبي بسهولة،
-                وتابع رحلتك الصحية من مكان واحد.
+
+            <p>
+                احجز موعدك مع الطبيب
+                وتابع حالة حجزك بسهولة.
+            </p>
+
+
+            <span class="card-arrow">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+            </span>
+
+        </a>
+
+
+
+        <!-- DOCTOR -->
+
+        <a
+            href="/doctor.html"
+            class="login-card doctor">
+
+            <div class="card-icon">
+
+                <i class="fa-solid fa-user-doctor"></i>
 
             </div>
 
 
-            <!-- =====================================================
-                 WELCOME
-            ====================================================== -->
-
-            <section class="welcome">
-
-                <h1>
-                    كل ما تحتاجه لصحتك في تطبيق واحد
-                </h1>
-
-                <p>
-                </p>
-
-            </section>
+            <h2>
+                الطبيب
+            </h2>
 
 
-            <!-- =====================================================
-                 LOGIN CARDS
-            ====================================================== -->
-
-            <section class="login-grid">
-
-
-                <!-- PATIENT -->
-
-                <a
-                    href="/patient.html"
-                    class="login-card patient">
-
-                    <div class="card-icon">
-
-                        <i class="fa-solid fa-user"></i>
-
-                    </div>
+            <p>
+                إدارة المواعيد والمرضى
+                وتنظيم الاستشارات.
+            </p>
 
 
-                    <h2>
-                        المريض
-                    </h2>
+            <span class="card-arrow">
 
+                <i class="fa-solid fa-arrow-left"></i>
 
-                    <p>
-                        احجز موعدك مع الطبيب
-                        وتابع حالة حجزك بسهولة.
-                    </p>
+            </span>
 
-
-                    <span class="card-arrow">
-
-                        <i class="fa-solid fa-arrow-left"></i>
-
-                    </span>
-
-                </a>
+        </a>
 
 
 
-                <!-- DOCTOR -->
+        <!-- ADMIN -->
 
-                <a
-                    href="/doctor.html"
-                    class="login-card doctor">
+        <a
+            href="/admin.html"
+            class="login-card admin">
 
-                    <div class="card-icon">
+            <div class="card-icon">
 
-                        <i class="fa-solid fa-user-doctor"></i>
-
-                    </div>
-
-
-                    <h2>
-                        الطبيب
-                    </h2>
-
-
-                    <p>
-                        إدارة المواعيد والمرضى
-                        وتنظيم الاستشارات.
-                    </p>
-
-
-                    <span class="card-arrow">
-
-                        <i class="fa-solid fa-arrow-left"></i>
-
-                    </span>
-
-                </a>
-
-
-
-                <!-- ADMIN -->
-
-                <a
-                    href="/admin.html"
-                    class="login-card admin">
-
-                    <div class="card-icon">
-
-                        <i class="fa-solid fa-shield-halved"></i>
-
-                    </div>
-
-
-                    <h2>
-                        الإدارة
-                    </h2>
-
-
-                    <p>
-                        إدارة المنصة والأطباء
-                        والمواعيد والخدمات.
-                    </p>
-
-
-                    <span class="card-arrow">
-
-                        <i class="fa-solid fa-arrow-left"></i>
-
-                    </span>
-
-                </a>
-
-            </section>
-
-
-            <!-- =====================================================
-                 SECURITY
-            ====================================================== -->
-
-            <div class="security">
-
-                <i class="fa-solid fa-shield-heart"></i>
-
-                <span>
-                    بياناتك وخدماتك الطبية في مكان واحد
-                </span>
+                <i class="fa-solid fa-shield-halved"></i>
 
             </div>
 
 
-            <!-- =====================================================
-                 FOOTER
-            ====================================================== -->
-
-            <footer>
-
-                <div class="footer-main">
-
-                    طبيبك TABIBK —
-                    رعاية أقرب، مواعيد أسهل
-
-                </div>
+            <h2>
+                الإدارة
+            </h2>
 
 
-                <div class="footer-version">
+            <p>
+                إدارة المنصة والأطباء
+                والمواعيد والخدمات.
+            </p>
 
-                    TABIBK • v1.0
 
-                </div>
+            <span class="card-arrow">
 
-            </footer>
+                <i class="fa-solid fa-arrow-left"></i>
 
+            </span>
+
+        </a>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SECURITY
+    ====================================================== -->
+
+    <div class="security">
+
+        <i class="fa-solid fa-shield-heart"></i>
+
+        <span>
+            بياناتك وخدماتك الطبية في مكان واحد
+        </span>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div class="footer-main">
+
+            طبيبك TABIBK —
+            رعاية أقرب، مواعيد أسهل
 
         </div>
 
-    </main>
+
+        <div class="footer-version">
+
+            TABIBK • v1.0
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+</main>
+
 
 </body>
 </html>

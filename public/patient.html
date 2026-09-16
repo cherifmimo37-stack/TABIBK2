@@ -455,6 +455,27 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
 /* FINAL SPECIALTY UI */
 .specialty-picker{margin-top:6px}.specialty-picker.show{display:block;animation:doctorAppear .3s ease}.specialty-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.specialty-card{position:relative;min-height:78px;width:100%;appearance:none;border:1px solid rgba(199,154,50,.20);background:linear-gradient(145deg,#fff,#faf5fc);border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:right;direction:rtl;transition:.22s;font-family:inherit;box-shadow:0 8px 20px rgba(50,15,70,.055)}.specialty-card:hover{transform:translateY(-2px);border-color:rgba(199,154,50,.60)}.specialty-card.active{border-color:var(--gold);background:linear-gradient(145deg,#fffdf6,#f3e9f8);box-shadow:0 12px 28px rgba(50,15,70,.11),inset 0 0 0 1px rgba(199,154,50,.22)}.specialty-icon{width:44px;height:44px;flex:0 0 44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#f0e3f6,#fff8e7);font-size:22px}.specialty-card-text{min-width:0;flex:1}.specialty-card-text strong{display:block;color:var(--purple);font-size:12px;font-weight:900;line-height:1.5}.specialty-card-text small{display:block;color:var(--muted);font-size:9px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.specialty-arrow{width:27px;height:27px;border-radius:9px;display:grid;place-items:center;background:#f3edf5;color:#a89baa;flex:0 0 27px}.specialty-card.active .specialty-icon{background:linear-gradient(145deg,var(--purple),#70288e)}.specialty-card.active .specialty-arrow{background:var(--gold);color:#fff}.specialty-empty{grid-column:1/-1;padding:24px 15px;border-radius:18px;background:#faf7fb;border:1px dashed rgba(199,154,50,.35);text-align:center;color:var(--muted)}.specialty-empty-icon{display:block;font-size:30px;margin-bottom:7px}.specialty-empty strong{display:block;color:var(--purple);font-size:13px}.specialty-empty small{display:block;margin-top:4px;font-size:10px}#specialty,#doctor{display:none!important}.doctor-info{display:none!important}@media(max-width:560px){.specialty-grid{grid-template-columns:1fr}.specialty-card{min-height:72px}}
+
+
+/* ============================================================
+   TABIBK FINAL PATIENT UI — SAFE OVERRIDES
+   ============================================================ */
+.specialty-picker{margin-top:6px;}
+.specialty-picker.show{display:block !important;animation:doctorAppear .3s ease;}
+.specialty-grid{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px;}
+.specialty-card{display:flex;align-items:center;gap:12px;width:100%;min-height:78px;padding:12px 14px;border:1px solid rgba(74,21,95,.14);border-radius:18px;background:#fff;box-shadow:0 5px 18px rgba(43,11,61,.07);cursor:pointer;text-align:right;transition:.2s ease;}
+.specialty-card:hover{transform:translateY(-2px);box-shadow:0 9px 24px rgba(43,11,61,.12);border-color:rgba(199,154,50,.55);}
+.specialty-card.active{border-color:#c79a32;box-shadow:0 0 0 2px rgba(199,154,50,.15),0 9px 24px rgba(43,11,61,.12);}
+.specialty-icon{width:48px;height:48px;min-width:48px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#4a155f,#6d238b);color:#e9c45d;font-size:21px;box-shadow:inset 0 1px 0 rgba(255,255,255,.18);}
+.specialty-card-text{display:flex;flex:1;min-width:0;flex-direction:column;gap:4px;}
+.specialty-card-text strong{font-size:15px;color:#2b0b3d;font-weight:800;}
+.specialty-card-text small{font-size:11px;color:#81758a;}
+.specialty-arrow{color:#c79a32;font-size:13px;}
+.specialty-empty{grid-column:1/-1;padding:18px;text-align:center;border-radius:16px;background:#fff;color:#777;}
+#specialty{display:none !important;}
+.doctor-info{display:none !important;}
+@media(max-width:560px){.specialty-grid{grid-template-columns:1fr;}.specialty-card{min-height:72px;}}
+
 </style>
 
 </head>
@@ -1541,41 +1562,30 @@ async function loadWilayas(){
             await response.json();
 
         if(!data.success){
-
             throw new Error(
                 data.message ||
                 "تعذر تحميل الولايات"
             );
-
         }
 
-        const rawWilayas =
+        const wilayas =
             data.wilayas || data.data || [];
-
-        // حماية إضافية: منع ظهور أي ولاية مرتين حتى لو كانت
-        // البيانات القادمة من الـ API تحتوي على تكرار.
-        const seenWilayas = new Set();
-        const wilayas = (Array.isArray(rawWilayas) ? rawWilayas : []).filter(wilaya => {
-            const id = String(wilaya?.id ?? "").trim();
-            const name = String(wilaya?.name ?? "").trim().replace(/\s+/g," ");
-            const key = id || name;
-            if(!key || !name || seenWilayas.has(key) || seenWilayas.has(name)) return false;
-            seenWilayas.add(key);
-            seenWilayas.add(name);
-            return true;
-        });
 
         wilayaSelect.innerHTML =
             `<option value="">اختر الولاية</option>`;
 
-        const wilayaFragment = document.createDocumentFragment();
         wilayas.forEach(wilaya => {
-            const option = document.createElement("option");
-            option.value = wilaya.id;
-            option.textContent = String(wilaya.name).trim();
-            wilayaFragment.appendChild(option);
+            const option =
+                document.createElement("option");
+
+            option.value =
+                wilaya.id;
+
+            option.textContent =
+                wilaya.name;
+
+            wilayaSelect.appendChild(option);
         });
-        wilayaSelect.appendChild(wilayaFragment);
 
     }catch(error){
 
@@ -1586,10 +1596,9 @@ async function loadWilayas(){
         );
 
         console.error(error);
-
     }
-
 }
+
 
 
 /* =====================================================

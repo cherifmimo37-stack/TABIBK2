@@ -606,57 +606,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
             <div class="form-grid">
 
-
-                <!-- WILAYA -->
-
-                <div class="field">
-
-                    <label>
-
-                        <i class="fa-solid fa-map-location-dot"></i>
-
-                        الولاية
-
-                    </label>
-
-                    <select
-                        id="wilaya">
-
-                        <option value="">
-                            اختر الولاية
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- MUNICIPALITY -->
-
-                <div class="field">
-
-                    <label>
-
-                        <i class="fa-solid fa-location-dot"></i>
-
-                        البلدية
-
-                    </label>
-
-                    <select
-                        id="municipality"
-                        disabled>
-
-                        <option value="">
-                            اختر البلدية
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- LOCATION / SPECIALTY / DOCTORS -->
+                    <!-- LOCATION / SPECIALTY / DOCTORS -->
 
                 <div class="field">
 
@@ -1588,26 +1538,33 @@ async function loadWilayas(){
 
         }
 
-        const wilayas =
+        const rawWilayas =
             data.wilayas || data.data || [];
+
+        // حماية إضافية: منع ظهور أي ولاية مرتين حتى لو كانت
+        // البيانات القادمة من الـ API تحتوي على تكرار.
+        const seenWilayas = new Set();
+        const wilayas = (Array.isArray(rawWilayas) ? rawWilayas : []).filter(wilaya => {
+            const id = String(wilaya?.id ?? "").trim();
+            const name = String(wilaya?.name ?? "").trim().replace(/\s+/g," ");
+            const key = id || name;
+            if(!key || !name || seenWilayas.has(key) || seenWilayas.has(name)) return false;
+            seenWilayas.add(key);
+            seenWilayas.add(name);
+            return true;
+        });
 
         wilayaSelect.innerHTML =
             `<option value="">اختر الولاية</option>`;
 
+        const wilayaFragment = document.createDocumentFragment();
         wilayas.forEach(wilaya => {
-
-            const option =
-                document.createElement("option");
-
-            option.value =
-                wilaya.id;
-
-            option.textContent =
-                wilaya.name;
-
-            wilayaSelect.appendChild(option);
-
+            const option = document.createElement("option");
+            option.value = wilaya.id;
+            option.textContent = String(wilaya.name).trim();
+            wilayaFragment.appendChild(option);
         });
+        wilayaSelect.appendChild(wilayaFragment);
 
     }catch(error){
 
@@ -1838,17 +1795,19 @@ wilayaSelect.addEventListener("change", async function(){
         }
 
         const municipalities = data.municipalities || data.data || [];
+        const seenMunicipalities = new Set();
         municipalities.forEach(item=>{
-            const name = typeof item === "string" ? item : item?.name;
-            if(!name) return;
+            const name = String(typeof item === "string" ? item : item?.name || "").trim().replace(/\s+/g," ");
+            if(!name || seenMunicipalities.has(name)) return;
+            seenMunicipalities.add(name);
             const option = document.createElement("option");
             option.value = name;
             option.textContent = name;
             municipalitySelect.appendChild(option);
         });
 
-        municipalitySelect.disabled = municipalities.length === 0;
-        if(!municipalities.length){
+        municipalitySelect.disabled = municipalitySelect.options.length <= 1;
+        if(municipalitySelect.options.length <= 1){
             showAlert("bookingAlert","لا توجد بلديات مسجلة لهذه الولاية.","info");
         }
     }catch(error){

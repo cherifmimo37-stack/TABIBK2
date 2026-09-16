@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-               maximum-scale=1.0, user-scalable=no">
 
-<meta name="theme-color" content="#2b0b3d">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<meta name="theme-color" content="#21082e">
 
 <title>طبيبك | TABIBK</title>
 
@@ -21,24 +23,33 @@
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+
 <style>
 
+/* =========================================================
+   TABIBK PREMIUM LOGIN
+========================================================= */
+
 :root{
-    --purple:#4a155f;
-    --purple-dark:#21082e;
-    --purple-deep:#16051f;
-    --purple2:#6d238b;
-    --purple3:#8d4baa;
+
+    --purple-dark:#18051f;
+    --purple:#2b0b3d;
+    --purple2:#45145b;
+    --purple3:#65247f;
 
     --gold:#c79a32;
-    --gold2:#e9c45d;
-    --gold3:#ffe49a;
+    --gold-light:#efd477;
 
-    --white:#ffffff;
-    --text:#f8f4fa;
-    --muted:#c9b9d0;
+    /* الأبيض الغامق / العاجي */
+    --white-dark:#f3f0f5;
+    --white-soft:#ddd7e1;
 
-    --shadow:rgba(0,0,0,.45);
+    --text:#f3f0f5;
+    --muted:#bdb2c4;
+
+    --patient:#28a98b;
+    --doctor:#6d45c7;
+    --admin:#c79a32;
 }
 
 *{
@@ -55,29 +66,38 @@ body{
 }
 
 body{
+
     font-family:"Cairo",sans-serif;
-    background:
-        radial-gradient(
-            circle at 50% 18%,
-            rgba(141,75,170,.24),
-            transparent 32%
-        ),
-        radial-gradient(
-            circle at 10% 90%,
-            rgba(199,154,50,.08),
-            transparent 30%
-        ),
-        linear-gradient(
-            145deg,
-            var(--purple-deep),
-            var(--purple-dark) 48%,
-            #30103f
-        );
+
+    min-height:100vh;
 
     color:var(--text);
-    min-height:100vh;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 14%,
+            rgba(109,35,139,.28),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(199,154,50,.09),
+            transparent 25%
+        ),
+
+        linear-gradient(
+            145deg,
+            #120318,
+            var(--purple-dark) 40%,
+            var(--purple) 75%,
+            #21082e
+        );
+
     overflow-x:hidden;
 }
+
 
 /* =========================================================
    BACKGROUND
@@ -86,49 +106,59 @@ body{
 .background{
     position:fixed;
     inset:0;
-    overflow:hidden;
     pointer-events:none;
+    overflow:hidden;
     z-index:0;
 }
 
-.glow{
+.bg-light{
     position:absolute;
     border-radius:50%;
-    filter:blur(70px);
-    opacity:.22;
+    filter:blur(90px);
 }
 
-.glow.one{
-    width:260px;
-    height:260px;
-    background:#8d4baa;
-    top:-100px;
-    right:-70px;
+.bg-light.one{
+
+    width:300px;
+    height:300px;
+
+    top:-150px;
+    right:-100px;
+
+    background:rgba(141,75,170,.18);
 }
 
-.glow.two{
-    width:220px;
-    height:220px;
-    background:#c79a32;
-    bottom:-100px;
-    left:-80px;
-    opacity:.10;
+.bg-light.two{
+
+    width:250px;
+    height:250px;
+
+    bottom:-130px;
+    left:-100px;
+
+    background:rgba(199,154,50,.08);
 }
 
-.glow.three{
+.bg-light.three{
+
     width:180px;
     height:180px;
-    background:#6d238b;
+
     top:45%;
-    left:40%;
-    opacity:.10;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    background:rgba(109,35,139,.08);
 }
 
+
 /* =========================================================
-   MAIN
+   APP
 ========================================================= */
 
 .app{
+
     position:relative;
     z-index:2;
 
@@ -140,429 +170,617 @@ body{
     align-items:center;
 
     padding:
-        28px
-        18px
-        30px;
+        24px
+        16px
+        25px;
 
-    animation:pageEnter .9s ease both;
+    animation:appEnter .9s ease both;
 }
 
-@keyframes pageEnter{
+@keyframes appEnter{
+
     from{
         opacity:0;
-        transform:translateY(18px);
+        transform:translateY(20px);
     }
 
     to{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
+
 /* =========================================================
-   LOGO
+   BRAND
 ========================================================= */
 
 .brand{
+
     display:flex;
     flex-direction:column;
     align-items:center;
+
     text-align:center;
 
-    margin-top:8px;
+    margin-top:5px;
 }
 
-.logo-wrap{
+
+/* =========================================================
+   HEART LOGO CONTAINER
+========================================================= */
+
+.logo-area{
+
     position:relative;
 
-    width:150px;
-    height:150px;
+    width:180px;
+    height:155px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    margin-bottom:8px;
+    margin-bottom:0;
 }
 
-.logo-ring{
+
+/* Outer glow */
+
+.logo-glow{
+
     position:absolute;
-    inset:5px;
+
+    width:135px;
+    height:135px;
 
     border-radius:50%;
 
-    border:1px solid rgba(233,196,93,.25);
+    background:
+        radial-gradient(
+            circle,
+            rgba(239,212,119,.14),
+            transparent 65%
+        );
 
-    box-shadow:
-        0 0 30px rgba(199,154,50,.12),
-        inset 0 0 25px rgba(233,196,93,.06);
+    filter:blur(7px);
 
-    animation:ringPulse 3s ease-in-out infinite;
+    animation:
+        glowPulse 2.2s ease-in-out infinite;
 }
 
-@keyframes ringPulse{
+@keyframes glowPulse{
+
     0%,100%{
-        transform:scale(1);
+        transform:scale(.92);
         opacity:.55;
     }
 
     50%{
-        transform:scale(1.045);
+        transform:scale(1.1);
         opacity:1;
     }
+
 }
+
 
 /* =========================================================
-   HEART
+   FULL HEART
 ========================================================= */
 
-.heart-logo{
+.heart{
+
     position:relative;
 
-    width:106px;
-    height:96px;
+    width:105px;
+    height:94px;
 
-    filter:
-        drop-shadow(0 0 7px rgba(233,196,93,.75))
-        drop-shadow(0 0 24px rgba(199,154,50,.35));
+    transform:rotate(-45deg);
 
-    animation:heartBeat 1.65s ease-in-out infinite;
+    background:
+        linear-gradient(
+            145deg,
+            #fff1a8 0%,
+            var(--gold-light) 28%,
+            var(--gold) 62%,
+            #9d7118 100%
+        );
+
+    border-radius:
+        16px
+        0
+        18px
+        18px;
+
+    box-shadow:
+
+        0 0 12px rgba(239,212,119,.8),
+
+        0 0 28px rgba(199,154,50,.45),
+
+        0 18px 35px rgba(0,0,0,.38);
+
+    animation:
+        heartbeat 1.65s ease-in-out infinite;
+
+    z-index:3;
 }
 
-.heart-logo::before,
-.heart-logo::after{
+
+/* top circles */
+
+.heart::before,
+.heart::after{
+
     content:"";
 
     position:absolute;
 
-    width:55px;
-    height:82px;
-
-    top:5px;
+    width:105px;
+    height:94px;
 
     background:
         linear-gradient(
-            135deg,
-            var(--gold3),
-            var(--gold2) 35%,
-            var(--gold) 75%,
-            #a97916
+            145deg,
+            #fff1a8 0%,
+            var(--gold-light) 28%,
+            var(--gold) 62%,
+            #9d7118 100%
         );
 
-    border-radius:55px 55px 8px 8px;
+    border-radius:50%;
 }
 
-.heart-logo::before{
-    left:49px;
-    transform:rotate(45deg);
-    transform-origin:0 100%;
-}
 
-.heart-logo::after{
+/* left upper */
+
+.heart::before{
+
+    top:-52px;
     left:0;
-    transform:rotate(-45deg);
-    transform-origin:100% 100%;
 }
 
-@keyframes heartBeat{
-    0%,100%{
-        transform:scale(1);
+
+/* right upper */
+
+.heart::after{
+
+    top:0;
+    left:52px;
+}
+
+
+@keyframes heartbeat{
+
+    0%,
+    100%{
+        transform:
+            rotate(-45deg)
+            scale(1);
     }
 
-    10%{
-        transform:scale(1.075);
+    8%{
+        transform:
+            rotate(-45deg)
+            scale(1.10);
     }
 
-    20%{
-        transform:scale(.99);
+    16%{
+        transform:
+            rotate(-45deg)
+            scale(.98);
     }
 
-    30%{
-        transform:scale(1.045);
+    24%{
+        transform:
+            rotate(-45deg)
+            scale(1.06);
     }
 
-    45%,100%{
-        transform:scale(1);
+    38%,
+    100%{
+        transform:
+            rotate(-45deg)
+            scale(1);
     }
 }
+
 
 /* =========================================================
    ECG
 ========================================================= */
 
 .ecg{
+
     position:absolute;
 
-    width:104px;
-    height:45px;
+    z-index:10;
 
-    left:3px;
-    top:37px;
+    width:108px;
+    height:50px;
 
-    z-index:5;
+    top:22px;
+    left:-2px;
+
+    transform:rotate(45deg);
 
     overflow:hidden;
 
-    filter:
-        drop-shadow(0 0 4px rgba(255,255,255,.9));
+    pointer-events:none;
 }
 
 .ecg svg{
+
     width:100%;
     height:100%;
-    overflow:visible;
 }
 
 .ecg-line{
+
     fill:none;
 
-    stroke:#fff7d0;
-    stroke-width:3;
+    stroke:#fffdf2;
+
+    stroke-width:3.4;
 
     stroke-linecap:round;
     stroke-linejoin:round;
 
-    stroke-dasharray:150;
-    stroke-dashoffset:150;
+    stroke-dasharray:170;
+    stroke-dashoffset:170;
+
+    filter:
+        drop-shadow(
+            0 0 5px rgba(255,255,255,.95)
+        );
 
     animation:
-        ecgMove 2.1s linear infinite;
+        ecgAnimation 1.9s linear infinite;
 }
 
-@keyframes ecgMove{
+@keyframes ecgAnimation{
+
     0%{
-        stroke-dashoffset:150;
+        stroke-dashoffset:170;
     }
 
-    55%{
+    60%{
         stroke-dashoffset:0;
     }
 
     100%{
-        stroke-dashoffset:-150;
+        stroke-dashoffset:-170;
     }
+
 }
 
+
 /* =========================================================
-   BRAND TEXT
+   HEART RING
+========================================================= */
+
+.logo-ring{
+
+    position:absolute;
+
+    width:145px;
+    height:145px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(239,212,119,.23);
+
+    box-shadow:
+
+        0 0 25px
+        rgba(199,154,50,.08),
+
+        inset 0 0 25px
+        rgba(239,212,119,.04);
+
+    animation:
+        ringAnimation 3s ease-in-out infinite;
+}
+
+@keyframes ringAnimation{
+
+    0%,100%{
+        transform:scale(.96);
+        opacity:.45;
+    }
+
+    50%{
+        transform:scale(1.05);
+        opacity:.9;
+    }
+
+}
+
+
+/* =========================================================
+   BRAND NAME
 ========================================================= */
 
 .brand-ar{
-    font-size:32px;
+
+    font-size:34px;
+
+    line-height:1;
+
     font-weight:900;
 
-    line-height:1.1;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff9e5,
-            var(--gold2),
-            var(--gold)
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-
-    color:transparent;
+    color:var(--white-dark);
 
     text-shadow:
-        0 3px 20px rgba(199,154,50,.12);
+        0 2px 15px rgba(0,0,0,.3);
 }
+
 
 .brand-en{
+
     direction:ltr;
 
-    margin-top:2px;
+    margin-top:7px;
 
     font-size:14px;
+
     font-weight:800;
 
-    letter-spacing:5px;
+    letter-spacing:6px;
 
-    color:#ead9ee;
-
-    opacity:.9;
+    color:var(--gold-light);
 }
+
 
 .tagline{
-    margin-top:12px;
+
+    margin-top:15px;
+
+    max-width:420px;
 
     font-size:13px;
+
+    line-height:1.9;
+
     font-weight:500;
 
-    color:var(--muted);
+    color:var(--white-soft);
 
-    text-align:center;
+    opacity:.92;
+
 }
+
 
 /* =========================================================
    WELCOME
 ========================================================= */
 
 .welcome{
+
     width:100%;
-    max-width:620px;
+    max-width:650px;
 
     text-align:center;
 
-    margin-top:28px;
+    margin-top:27px;
     margin-bottom:17px;
 
-    animation:fadeUp .8s .25s ease both;
+    animation:
+        fadeUp .8s .25s ease both;
 }
 
 .welcome h1{
-    font-size:21px;
+
+    font-size:20px;
+
     font-weight:800;
 
-    color:#fff;
+    color:var(--white-dark);
 
-    margin-bottom:4px;
+    margin-bottom:5px;
 }
 
 .welcome p{
-    font-size:12px;
+
+    font-size:11px;
+
     color:var(--muted);
+
 }
+
 
 /* =========================================================
    LOGIN CARDS
 ========================================================= */
 
 .login-container{
-    width:100%;
-    max-width:620px;
 
-    display:grid;
-    grid-template-columns:1fr;
+    width:100%;
+    max-width:650px;
+
+    display:flex;
+    flex-direction:column;
 
     gap:14px;
 
-    animation:fadeUp .8s .4s ease both;
+    animation:
+        fadeUp .8s .4s ease both;
 }
 
+
 @keyframes fadeUp{
+
     from{
         opacity:0;
-        transform:translateY(25px);
+        transform:translateY(22px);
     }
 
     to{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
+
+/* =========================================================
+   CARD
+========================================================= */
+
 .login-card{
+
     position:relative;
 
     width:100%;
-    min-height:102px;
+    min-height:105px;
 
     display:flex;
     align-items:center;
 
-    padding:17px 18px;
-
-    border-radius:24px;
+    padding:16px 17px;
 
     text-decoration:none;
-    color:#fff;
+
+    color:var(--white-dark);
+
+    border-radius:25px;
 
     overflow:hidden;
 
     background:
+
         linear-gradient(
             135deg,
             rgba(255,255,255,.105),
             rgba(255,255,255,.035)
         );
 
-    border:1px solid rgba(255,255,255,.12);
+    border:
+        1px solid
+        rgba(255,255,255,.13);
 
     box-shadow:
-        0 15px 35px rgba(0,0,0,.25),
-        inset 0 1px 0 rgba(255,255,255,.08);
 
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
+        0 16px 35px
+        rgba(0,0,0,.30),
+
+        inset 0 1px 0
+        rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+    -webkit-backdrop-filter:blur(15px);
 
     transition:
         transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
+        box-shadow .25s ease,
+        border-color .25s ease;
 }
 
-.login-card::before{
-    content:"";
 
-    position:absolute;
-
-    top:0;
-    bottom:0;
-    right:0;
-
-    width:4px;
-
-    background:
-        linear-gradient(
-            180deg,
-            var(--gold2),
-            var(--gold)
-        );
-
-    box-shadow:
-        0 0 15px rgba(233,196,93,.45);
-}
+/* light reflection */
 
 .login-card::after{
+
     content:"";
 
     position:absolute;
 
-    width:130px;
-    height:130px;
+    width:160px;
+    height:160px;
 
     border-radius:50%;
 
-    background:rgba(233,196,93,.07);
+    top:-100px;
+    left:-50px;
 
-    left:-45px;
-    top:-60px;
+    background:
+        rgba(255,255,255,.035);
 
     pointer-events:none;
 }
 
-.login-card:active{
-    transform:scale(.975);
-}
-
-@media (hover:hover){
-
-    .login-card:hover{
-        transform:translateY(-4px);
-
-        border-color:
-            rgba(233,196,93,.42);
-
-        box-shadow:
-            0 20px 42px rgba(0,0,0,.35),
-            0 0 24px rgba(199,154,50,.08),
-            inset 0 1px 0 rgba(255,255,255,.12);
-    }
-}
 
 /* =========================================================
-   ICON
+   PATIENT CARD
+========================================================= */
+
+.login-card.patient{
+
+    border-color:
+        rgba(40,169,139,.30);
+
+    box-shadow:
+
+        0 16px 35px
+        rgba(0,0,0,.30),
+
+        0 0 25px
+        rgba(40,169,139,.07),
+
+        inset 0 1px 0
+        rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   DOCTOR CARD
+========================================================= */
+
+.login-card.doctor{
+
+    border-color:
+        rgba(109,69,199,.34);
+
+    box-shadow:
+
+        0 16px 35px
+        rgba(0,0,0,.30),
+
+        0 0 25px
+        rgba(109,69,199,.09),
+
+        inset 0 1px 0
+        rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   ADMIN CARD
+========================================================= */
+
+.login-card.admin{
+
+    border-color:
+        rgba(199,154,50,.36);
+
+    box-shadow:
+
+        0 16px 35px
+        rgba(0,0,0,.30),
+
+        0 0 25px
+        rgba(199,154,50,.09),
+
+        inset 0 1px 0
+        rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   CARD ICON
 ========================================================= */
 
 .card-icon{
-    position:relative;
-    z-index:2;
 
-    width:62px;
-    height:62px;
+    position:relative;
+    z-index:3;
+
+    width:64px;
+    height:64px;
 
     flex-shrink:0;
 
@@ -570,40 +788,109 @@ body{
     align-items:center;
     justify-content:center;
 
-    border-radius:19px;
-
     margin-left:15px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.065);
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,.09),
+
+        0 9px 20px
+        rgba(0,0,0,.18);
+}
+
+
+/* patient icon */
+
+.patient .card-icon{
+
+    color:#5ee0c0;
 
     background:
         linear-gradient(
             145deg,
-            rgba(233,196,93,.19),
-            rgba(199,154,50,.06)
+            rgba(40,169,139,.24),
+            rgba(40,169,139,.07)
         );
 
-    border:1px solid rgba(233,196,93,.25);
+    border-color:
+        rgba(40,169,139,.35);
 
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.08),
-        0 7px 20px rgba(0,0,0,.18);
+        0 0 22px
+        rgba(40,169,139,.13);
 }
 
-.card-icon i{
-    font-size:27px;
 
-    color:var(--gold2);
+/* doctor icon */
+
+.doctor .card-icon{
+
+    color:#b49cff;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(109,69,199,.27),
+            rgba(109,69,199,.07)
+        );
+
+    border-color:
+        rgba(109,69,199,.40);
+
+    box-shadow:
+        0 0 22px
+        rgba(109,69,199,.15);
+}
+
+
+/* admin icon */
+
+.admin .card-icon{
+
+    color:var(--gold-light);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(199,154,50,.25),
+            rgba(199,154,50,.07)
+        );
+
+    border-color:
+        rgba(199,154,50,.40);
+
+    box-shadow:
+        0 0 22px
+        rgba(199,154,50,.15);
+}
+
+
+.card-icon i{
+
+    font-size:27px;
 
     filter:
         drop-shadow(
-            0 0 8px rgba(233,196,93,.25)
+            0 0 7px currentColor
         );
 }
+
 
 /* =========================================================
    CARD TEXT
 ========================================================= */
 
 .card-content{
+
     flex:1;
 
     min-width:0;
@@ -611,28 +898,39 @@ body{
     text-align:right;
 }
 
+
 .card-title{
+
     font-size:17px;
+
     font-weight:800;
 
-    color:#fff;
+    color:var(--white-dark);
 
-    margin-bottom:2px;
+    margin-bottom:3px;
 }
+
 
 .card-description{
+
     font-size:11px;
 
-    color:var(--muted);
+    line-height:1.8;
 
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    color:var(--white-soft);
+
+    opacity:.78;
 }
 
+
+/* =========================================================
+   ARROW
+========================================================= */
+
 .card-arrow{
-    width:36px;
-    height:36px;
+
+    width:37px;
+    height:37px;
 
     flex-shrink:0;
 
@@ -640,174 +938,333 @@ body{
     align-items:center;
     justify-content:center;
 
-    border-radius:12px;
-
-    background:rgba(255,255,255,.055);
-
-    color:var(--gold2);
-
-    font-size:13px;
-
-    transition:.25s ease;
-}
-
-.login-card:hover .card-arrow{
-    transform:translateX(-4px);
+    border-radius:13px;
 
     background:
-        rgba(233,196,93,.12);
+        rgba(255,255,255,.055);
+
+    color:var(--white-soft);
+
+    font-size:12px;
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
 }
 
+
+.patient .card-arrow{
+    color:#5ee0c0;
+}
+
+.doctor .card-arrow{
+    color:#b49cff;
+}
+
+.admin .card-arrow{
+    color:var(--gold-light);
+}
+
+
 /* =========================================================
-   SECURITY NOTE
+   HOVER
+========================================================= */
+
+@media (hover:hover){
+
+    .login-card:hover{
+
+        transform:
+            translateY(-4px);
+
+    }
+
+    .patient:hover{
+
+        border-color:
+            rgba(40,169,139,.55);
+
+        box-shadow:
+
+            0 22px 45px
+            rgba(0,0,0,.38),
+
+            0 0 30px
+            rgba(40,169,139,.12);
+    }
+
+    .doctor:hover{
+
+        border-color:
+            rgba(109,69,199,.58);
+
+        box-shadow:
+
+            0 22px 45px
+            rgba(0,0,0,.38),
+
+            0 0 30px
+            rgba(109,69,199,.14);
+    }
+
+    .admin:hover{
+
+        border-color:
+            rgba(199,154,50,.60);
+
+        box-shadow:
+
+            0 22px 45px
+            rgba(0,0,0,.38),
+
+            0 0 30px
+            rgba(199,154,50,.14);
+    }
+
+    .login-card:hover .card-arrow{
+
+        transform:
+            translateX(-4px);
+
+        background:
+            rgba(255,255,255,.10);
+    }
+
+}
+
+
+.login-card:active{
+
+    transform:
+        scale(.975);
+}
+
+
+/* =========================================================
+   SECURITY
 ========================================================= */
 
 .security{
-    width:100%;
-    max-width:620px;
 
     display:flex;
-    justify-content:center;
+
     align-items:center;
+    justify-content:center;
+
     gap:7px;
 
     margin-top:19px;
 
-    color:#a995af;
+    color:#a99bab;
 
     font-size:10px;
 
-    animation:fadeUp .8s .55s ease both;
+    animation:
+        fadeUp .8s .55s ease both;
 }
+
 
 .security i{
-    color:var(--gold2);
+
+    color:var(--gold-light);
 
     font-size:10px;
 }
+
 
 /* =========================================================
    FOOTER
 ========================================================= */
 
 .footer{
+
     margin-top:auto;
 
-    padding-top:28px;
+    padding-top:26px;
 
     text-align:center;
 
-    color:#8f7b97;
+    color:#918394;
 
     font-size:10px;
 
-    line-height:1.7;
+    line-height:1.8;
 }
+
 
 .footer strong{
-    color:#c7a8cf;
+
+    color:
+        var(--white-soft);
 }
 
+
 .version{
+
     direction:ltr;
 
-    opacity:.6;
+    opacity:.5;
 
     margin-top:2px;
 }
 
+
 /* =========================================================
-   RESPONSIVE
+   MOBILE
 ========================================================= */
-
-@media (min-width:700px){
-
-    .app{
-        justify-content:center;
-        padding-top:35px;
-    }
-
-    .login-container{
-        grid-template-columns:1fr 1fr;
-        max-width:760px;
-    }
-
-    .login-card:last-child{
-        grid-column:1 / -1;
-        max-width:calc(50% - 7px);
-        justify-self:center;
-    }
-
-    .brand{
-        margin-top:0;
-    }
-}
 
 @media (max-width:420px){
 
     .app{
+
         padding:
-            20px
-            14px
-            24px;
+            17px
+            13px
+            22px;
     }
 
-    .logo-wrap{
+    .logo-area{
+
+        width:160px;
+        height:140px;
+    }
+
+    .heart{
+
+        transform:
+            rotate(-45deg)
+            scale(.86);
+    }
+
+    .logo-ring{
+
         width:130px;
         height:130px;
     }
 
-    .heart-logo{
-        transform:scale(.88);
+    .brand-ar{
+
+        font-size:31px;
     }
 
-    .brand-ar{
-        font-size:29px;
+    .brand-en{
+
+        font-size:13px;
+        letter-spacing:5px;
+    }
+
+    .tagline{
+
+        font-size:11px;
+
+        max-width:340px;
+
+        margin-top:12px;
     }
 
     .welcome{
+
         margin-top:22px;
+        margin-bottom:14px;
     }
 
     .welcome h1{
-        font-size:19px;
+
+        font-size:18px;
+    }
+
+    .login-container{
+
+        gap:11px;
     }
 
     .login-card{
+
         min-height:94px;
+
+        padding:13px 14px;
+
         border-radius:21px;
-        padding:14px;
     }
 
     .card-icon{
+
         width:56px;
         height:56px;
 
-        border-radius:17px;
-
         margin-left:12px;
+
+        border-radius:17px;
     }
 
     .card-icon i{
-        font-size:24px;
+
+        font-size:23px;
     }
 
     .card-title{
-        font-size:16px;
+
+        font-size:15px;
     }
 
     .card-description{
+
         font-size:10px;
     }
 
     .card-arrow{
+
         width:32px;
         height:32px;
+
+        border-radius:11px;
     }
 }
 
+
 /* =========================================================
-   REDUCED MOTION
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width:350px){
+
+    .app{
+
+        padding-top:12px;
+    }
+
+    .logo-area{
+
+        transform:
+            scale(.88);
+
+        margin-bottom:-8px;
+    }
+
+    .brand-ar{
+
+        font-size:28px;
+    }
+
+    .tagline{
+
+        font-size:10px;
+    }
+
+    .welcome{
+
+        margin-top:17px;
+    }
+
+    .login-card{
+
+        min-height:88px;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
 ========================================================= */
 
 @media (prefers-reduced-motion:reduce){
@@ -815,8 +1272,11 @@ body{
     *,
     *::before,
     *::after{
+
         animation-duration:.01ms !important;
+
         animation-iteration-count:1 !important;
+
         transition-duration:.01ms !important;
     }
 }
@@ -824,17 +1284,24 @@ body{
 </style>
 </head>
 
+
 <body>
+
 
 <!-- ======================================================
      BACKGROUND
 ====================================================== -->
 
 <div class="background">
-    <div class="glow one"></div>
-    <div class="glow two"></div>
-    <div class="glow three"></div>
+
+    <div class="bg-light one"></div>
+
+    <div class="bg-light two"></div>
+
+    <div class="bg-light three"></div>
+
 </div>
+
 
 
 <!-- ======================================================
@@ -843,49 +1310,60 @@ body{
 
 <main class="app">
 
-    <!-- BRAND -->
+
+    <!-- ==================================================
+         LOGO
+    ================================================== -->
 
     <section class="brand">
 
-        <div class="logo-wrap">
+
+        <div class="logo-area">
+
+            <div class="logo-glow"></div>
 
             <div class="logo-ring"></div>
 
-            <div class="heart-logo">
+
+            <!-- FULL HEART -->
+
+            <div class="heart">
+
+
+                <!-- ECG -->
 
                 <div class="ecg">
 
                     <svg
-                        viewBox="0 0 104 45"
-                        preserveAspectRatio="none"
-                        aria-hidden="true">
+                        viewBox="0 0 108 50"
+                        preserveAspectRatio="none">
 
                         <path
                             class="ecg-line"
                             d="
-                            M0 24
-                            L15 24
-                            L20 24
-                            L24 21
-                            L28 27
-                            L33 24
-                            L40 24
-                            L44 24
-                            L48 8
-                            L53 38
-                            L58 24
-                            L66 24
-                            L72 24
-                            L77 19
-                            L81 29
-                            L86 24
-                            L104 24
-                            "
-                        />
+                            M0 27
+                            L13 27
+                            L18 27
+                            L22 23
+                            L26 31
+                            L31 27
+                            L39 27
+                            L44 27
+                            L49 8
+                            L55 42
+                            L61 27
+                            L70 27
+                            L76 27
+                            L81 22
+                            L85 32
+                            L90 27
+                            L108 27
+                            " />
 
                     </svg>
 
                 </div>
+
 
             </div>
 
@@ -896,30 +1374,36 @@ body{
             طبيبك
         </div>
 
+
         <div class="brand-en">
             TABIBK
         </div>
 
+
         <div class="tagline">
-            منصتك الذكية لحجز المواعيد الطبية
+
+            احجز موعدك الطبي بسهولة،
+            وتابع رحلتك الصحية من مكان واحد.
+
         </div>
+
 
     </section>
 
 
-    <!-- WELCOME -->
+
+    <!-- ==================================================
+         WELCOME
+    ================================================== -->
 
     <section class="welcome">
 
         <h1>
-            مرحباً بك في طبيبك
+            كل ما تحتاجه لصحتك في تطبيق واحد
         </h1>
 
-        <p>
-            اختر نوع الدخول للمتابعة
-        </p>
-
     </section>
+
 
 
     <!-- ==================================================
@@ -929,89 +1413,130 @@ body{
     <section class="login-container">
 
 
-        <!-- PATIENT -->
+        <!-- ==============================================
+             PATIENT
+        =============================================== -->
 
         <a
-            class="login-card"
-            href="/patient.html">
+            href="/patient.html"
+            class="login-card patient">
+
 
             <div class="card-icon">
+
                 <i class="fa-solid fa-user"></i>
+
             </div>
+
 
             <div class="card-content">
 
                 <div class="card-title">
-                    دخول المريض
+                    المريض
                 </div>
 
                 <div class="card-description">
-                    احجز موعدك وتابع مواعيدك الطبية بسهولة
+
+                    احجز موعدك مع الطبيب
+                    وتابع حالة حجزك بسهولة.
+
                 </div>
 
             </div>
 
+
             <div class="card-arrow">
+
                 <i class="fa-solid fa-arrow-left"></i>
+
             </div>
+
 
         </a>
 
 
-        <!-- DOCTOR -->
+
+        <!-- ==============================================
+             DOCTOR
+        =============================================== -->
 
         <a
-            class="login-card"
-            href="/doctorn.html">
+            href="/doctorn.html"
+            class="login-card doctor">
+
 
             <div class="card-icon">
+
                 <i class="fa-solid fa-user-doctor"></i>
+
             </div>
+
 
             <div class="card-content">
 
                 <div class="card-title">
-                    دخول الطبيب
+                    الطبيب
                 </div>
 
                 <div class="card-description">
-                    إدارة المواعيد والمرضى والطلبات
+
+                    إدارة المواعيد والمرضى
+                    وتنظيم الاستشارات.
+
                 </div>
 
             </div>
 
+
             <div class="card-arrow">
+
                 <i class="fa-solid fa-arrow-left"></i>
+
             </div>
+
 
         </a>
 
 
-        <!-- ADMIN -->
+
+        <!-- ==============================================
+             ADMIN
+        =============================================== -->
 
         <a
-            class="login-card"
-            href="/admin.html">
+            href="/admin.html"
+            class="login-card admin">
+
 
             <div class="card-icon">
+
                 <i class="fa-solid fa-shield-halved"></i>
+
             </div>
+
 
             <div class="card-content">
 
                 <div class="card-title">
-                    لوحة الإدارة
+                    الإدارة
                 </div>
 
                 <div class="card-description">
-                    إدارة الأطباء والمواعيد والمنصة
+
+                    إدارة المنصة والأطباء
+                    والمواعيد والخدمات.
+
                 </div>
 
             </div>
 
+
             <div class="card-arrow">
+
                 <i class="fa-solid fa-arrow-left"></i>
+
             </div>
+
 
         </a>
 
@@ -1019,35 +1544,51 @@ body{
     </section>
 
 
-    <!-- SECURITY -->
+
+    <!-- ==================================================
+         SECURITY
+    ================================================== -->
 
     <div class="security">
 
-        <i class="fa-solid fa-shield-halved"></i>
+        <i class="fa-solid fa-shield-heart"></i>
 
         <span>
-            منصة طبية آمنة وموثوقة
+            بياناتك وخدماتك الطبية في مكان واحد
         </span>
 
     </div>
 
 
-    <!-- FOOTER -->
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
 
     <footer class="footer">
 
         <div>
-            <strong>طبيبك TABIBK</strong>
+
+            <strong>
+                طبيبك TABIBK
+            </strong>
+
             — رعاية أقرب، مواعيد أسهل
+
         </div>
 
+
         <div class="version">
+
             TABIBK • v1.0
+
         </div>
 
     </footer>
 
+
 </main>
+
 
 </body>
 </html>

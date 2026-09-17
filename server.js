@@ -10,6 +10,16 @@ const crypto = require("crypto");
 
 const app = express();
 
+// ============================================================
+// TABIBK APK DOWNLOAD
+// ============================================================
+
+app.get("/download", (req, res) => {
+    res.redirect(
+        "https://github.com/cherifmimo37-stack/TABIBK2/releases/latest/download/app-debug.apk"
+    );
+});
+
 const WILAYAS_FILE = path.join(
     __dirname,
     "wilayas.json"

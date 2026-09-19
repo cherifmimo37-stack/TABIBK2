@@ -1,5 +1,6 @@
 package com.tabibk.app
-
+import android.util.Log
+import com.google.firebase.messaging.FirebaseMessaging
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
@@ -31,6 +32,13 @@ private var tabibkReady = false
 override fun onCreate(savedInstanceState: Bundle?) {
 
     super.onCreate(savedInstanceState)
+    FirebaseMessaging.getInstance().token
+    .addOnCompleteListener { task ->
+        if (task.isSuccessful) {
+            val token = task.result
+            Log.d("TABIBK_FCM_TOKEN", token)
+        }
+    }
 
     if (android.os.Build.VERSION.SDK_INT >= 33 &&
     checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED

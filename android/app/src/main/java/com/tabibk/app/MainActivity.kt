@@ -224,132 +224,134 @@ class MainActivity : AppCompatActivity() {
     // فحص جاهزية TABIBK
     // ================================================================
 
-    private fun checkTabibkReady() {
+private fun checkTabibkReady() {
 
-        if (tabibkReady) {
-            return
-        }
+    if (tabibkReady) {
+        return
+    }
 
-        webView.postDelayed({
+    webView.postDelayed({
 
-            webView.evaluateJavascript(
-                """
-                (function() {
+        webView.evaluateJavascript(
+            """
+            (function() {
 
-                    var bodyText =
-                        document.body
-                            ? document.body.innerText
-                            : "";
+                var bodyText =
+                    document.body
+                        ? document.body.innerText
+                        : "";
 
-                    var html =
-                        document.documentElement
-                            ? document.documentElement.innerHTML
-                            : "";
+                var title =
+                    document.title || "";
 
-                    var title =
-                        document.title || "";
+                var currentUrl =
+                    window.location.href || "";
 
-                    var currentUrl =
-                        window.location.href || "";
+                return JSON.stringify({
+                    body: bodyText,
+                    title: title,
+                    url: currentUrl
+                });
 
-                    return JSON.stringify({
-                        body: bodyText,
-                        html: html,
-                        title: title,
-                        url: currentUrl
-                    });
+            })();
+            """.trimIndent()
+        ) { result ->
 
-                })();
-                """.trimIndent()
-            ) { result ->
+            val pageText =
+                result
+                    .replace("\\n", " ")
+                    .replace("\\r", " ")
+                    .replace("\\\"", "\"")
+                    .replace("\\/", "/")
 
-                val pageText =
-                    result
-                        .replace("\\n", " ")
-                        .replace("\\r", " ")
-                        .replace("\\\"", "\"")
-                        .replace("\\/", "/")
+            // ====================================================
+            // صفحة Render
+            // ====================================================
 
-                // ====================================================
-                // علامات صفحة Render
-                // ====================================================
+            val renderPage =
+                pageText.contains(
+                    "Application loading",
+                    ignoreCase = true
+                ) ||
+                pageText.contains(
+                    "Application is loading",
+                    ignoreCase = true
+                ) ||
+                pageText.contains(
+                    "Loading application",
+                    ignoreCase = true
+                )
 
-                val renderPage =
-                    pageText.contains(
-                        "Application loading",
-                        ignoreCase = true
-                    ) ||
-                    pageText.contains(
-                        "Application is loading",
-                        ignoreCase = true
-                    ) ||
-                    pageText.contains(
-                        "Loading application",
-                        ignoreCase = true
-                    )
+            // ====================================================
+            // TABIBK الحقيقي
+            // ====================================================
 
-                // ====================================================
-                // علامات TABIBK
-                // ====================================================
+            val hasTabibk =
+                pageText.contains(
+                    "طبيبك",
+                    ignoreCase = true
+                )
 
-                val tabibkPage =
-                    pageText.contains(
-                        "TABIBK",
-                        ignoreCase = true
-                    ) ||
-                    pageText.contains(
-                        "طبيبك",
-                        ignoreCase = true
-                    )
+            val hasTabibkUrl =
+                pageText.contains(
+                    "tabibk2.onrender.com",
+                    ignoreCase = true
+                )
 
-                // ====================================================
-                // Render مازال يحضر
-                // ====================================================
+            // ====================================================
+            // إذا كانت Render
+            // نبقى على Splash
+            // ====================================================
 
-                if (
-                    renderPage &&
-                    !tabibkPage
-                ) {
+            if (renderPage) {
 
-                    webView.postDelayed(
-                        {
-                            checkTabibkReady()
-                        },
-                        1000
-                    )
-
-                    return@evaluateJavascript
-                }
-
-                // ====================================================
-                // TABIBK أصبح جاهز
-                // ====================================================
-
-                if (tabibkPage) {
-
-                    tabibkReady =
-                        true
-
-                    showTabibk()
-
-                    return@evaluateJavascript
-                }
-
-                // ====================================================
-                // لم نتأكد بعد
-                // ====================================================
+                webView.visibility =
+                    View.INVISIBLE
 
                 webView.postDelayed(
                     {
-                        checkTabibkReady()
+                        webView.reload()
                     },
-                    1000
+                    2000
                 )
+
+                return@evaluateJavascript
             }
 
-        }, 500)
-    }
+            // ====================================================
+            // TABIBK جاهز
+            // ====================================================
 
+            if (
+                hasTabibk &&
+                hasTabibkUrl
+            ) {
+
+                tabibkReady =
+                    true
+
+                showTabibk()
+
+                return@evaluateJavascript
+            }
+
+            // ====================================================
+            // لم نتأكد بعد
+            // ====================================================
+
+            webView.visibility =
+                View.INVISIBLE
+
+            webView.postDelayed(
+                {
+                    checkTabibkReady()
+                },
+                1000
+            )
+        }
+
+    }, 500)
+}
     // ================================================================
     // إظهار TABIBK الحقيقي
     // ================================================================

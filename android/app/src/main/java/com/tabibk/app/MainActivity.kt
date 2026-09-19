@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 import android.view.Gravity
 import android.view.View
 import android.webkit.CookieManager
@@ -28,6 +31,16 @@ private var tabibkReady = false
 override fun onCreate(savedInstanceState: Bundle?) {
 
     super.onCreate(savedInstanceState)
+
+    if (android.os.Build.VERSION.SDK_INT >= 33 &&
+    checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+) {
+    ActivityCompat.requestPermissions(
+        this,
+        arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+        1001
+    )
+}
 
     // ============================================================
     // ألوان TABIBK

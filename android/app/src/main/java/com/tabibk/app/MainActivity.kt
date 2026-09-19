@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 private lateinit var webView: WebView
 private lateinit var splashView: View
 
-private var pageReady = false
+private var tabibkReady = false
 
 @SuppressLint("SetJavaScriptEnabled")
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +56,10 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
     webView.layoutParams = webParams
 
+    // مهم جدًا:
+    // WebView مخفي بالكامل أثناء تشغيل Render
+    webView.visibility = View.INVISIBLE
+
     // ============================================================
     // COOKIES
     // ============================================================
@@ -76,7 +80,9 @@ override fun onCreate(savedInstanceState: Bundle?) {
     with(webView.settings) {
 
         javaScriptEnabled = true
+
         domStorageEnabled = true
+
         databaseEnabled = true
 
         loadsImagesAutomatically = true
@@ -88,6 +94,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
         cacheMode = WebSettings.LOAD_DEFAULT
 
         allowFileAccess = true
+
         allowContentAccess = true
 
         mixedContentMode =
@@ -110,11 +117,12 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
             super.onPageFinished(view, url)
 
-            checkRealTabibkPage()
+            checkTabibkReady()
         }
     }
 
-    webView.webChromeClient = WebChromeClient()
+    webView.webChromeClient =
+        WebChromeClient()
 
     // ============================================================
     // إضافة WebView
@@ -126,18 +134,19 @@ override fun onCreate(savedInstanceState: Bundle?) {
     // SPLASH
     // ============================================================
 
-    splashView = createSplashScreen()
+    splashView =
+        createSplashScreen()
 
     root.addView(splashView)
 
     // ============================================================
-    // إظهار التطبيق
+    // إظهار ROOT
     // ============================================================
 
     setContentView(root)
 
     // ============================================================
-    // تحميل طبيبك
+    // تحميل TABIBK
     // ============================================================
 
     webView.loadUrl(
@@ -146,12 +155,12 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 
 // ================================================================
-// فحص صفحة TABIBK الحقيقية
+// فحص جاهزية TABIBK
 // ================================================================
 
-private fun checkRealTabibkPage() {
+private fun checkTabibkReady() {
 
-    if (pageReady) {
+    if (tabibkReady) {
         return
     }
 
@@ -161,7 +170,7 @@ private fun checkRealTabibkPage() {
             """
             (function() {
 
-                var body =
+                var bodyText =
                     document.body
                         ? document.body.innerText
                         : "";
@@ -174,89 +183,95 @@ private fun checkRealTabibkPage() {
                 var title =
                     document.title || "";
 
+                var currentUrl =
+                    window.location.href || "";
+
                 return JSON.stringify({
-                    body: body,
+                    body: bodyText,
                     html: html,
                     title: title,
-                    url: location.href
+                    url: currentUrl
                 });
 
             })();
             """.trimIndent()
         ) { result ->
 
-            val text =
+            val pageText =
                 result
                     .replace("\\n", " ")
+                    .replace("\\r", " ")
                     .replace("\\\"", "\"")
                     .replace("\\/", "/")
 
-            // ----------------------------------------------------
-            // صفحة Render الانتظار
-            // ----------------------------------------------------
+            // ====================================================
+            // علامات صفحة Render
+            // ====================================================
 
-            val renderLoading =
-                text.contains(
+            val renderPage =
+                pageText.contains(
                     "Application loading",
                     ignoreCase = true
                 ) ||
-                text.contains(
+                pageText.contains(
                     "Application is loading",
+                    ignoreCase = true
+                ) ||
+                pageText.contains(
+                    "Loading application",
                     ignoreCase = true
                 )
 
-            // ----------------------------------------------------
-            // علامات أن TABIBK الحقيقي ظهر
-            // ----------------------------------------------------
+            // ====================================================
+            // علامات TABIBK
+            // ====================================================
 
             val tabibkPage =
-                text.contains(
+                pageText.contains(
                     "TABIBK",
                     ignoreCase = true
                 ) ||
-                text.contains(
+                pageText.contains(
                     "طبيبك",
                     ignoreCase = true
                 )
 
-            // ----------------------------------------------------
-            // إذا Render مازال يحضر
-            // نبقى مخبيين WebView وراء Splash
-            // ----------------------------------------------------
+            // ====================================================
+            // Render مازال يحضر
+            // ====================================================
 
-            if (renderLoading) {
+            if (renderPage && !tabibkPage) {
 
                 webView.postDelayed(
                     {
-                        checkRealTabibkPage()
+                        checkTabibkReady()
                     },
-                    1500
+                    1000
                 )
 
                 return@evaluateJavascript
             }
 
-            // ----------------------------------------------------
-            // إذا ظهرت واجهة TABIBK
-            // ----------------------------------------------------
+            // ====================================================
+            // TABIBK أصبح جاهز
+            // ====================================================
 
             if (tabibkPage) {
 
-                pageReady = true
+                tabibkReady = true
 
-                hideSplash()
+                showTabibk()
 
                 return@evaluateJavascript
             }
 
-            // ----------------------------------------------------
-            // إذا لم نتأكد بعد
-            // نعيد الفحص
-            // ----------------------------------------------------
+            // ====================================================
+            // لم نتأكد بعد
+            // ====================================================
 
             webView.postDelayed(
                 {
-                    checkRealTabibkPage()
+                    checkTabibkReady()
                 },
                 1000
             )
@@ -266,12 +281,38 @@ private fun checkRealTabibkPage() {
 }
 
 // ================================================================
+// إظهار TABIBK الحقيقي
+// ================================================================
+
+private fun showTabibk() {
+
+    runOnUiThread {
+
+        // أولًا نظهر WebView الحقيقي
+        webView.visibility =
+            View.VISIBLE
+
+        // ثم نخفي Splash
+        splashView.animate()
+            .alpha(0f)
+            .setDuration(350)
+            .withEndAction {
+
+                splashView.visibility =
+                    View.GONE
+            }
+            .start()
+    }
+}
+
+// ================================================================
 // إنشاء شاشة البداية
 // ================================================================
 
 private fun createSplashScreen(): View {
 
-    val splash = FrameLayout(this)
+    val splash =
+        FrameLayout(this)
 
     splash.setBackgroundColor(
         Color.rgb(43, 11, 61)
@@ -462,28 +503,6 @@ private fun createSplashScreen(): View {
     splash.addView(content)
 
     return splash
-}
-
-// ================================================================
-// إخفاء شاشة البداية
-// ================================================================
-
-private fun hideSplash() {
-
-    if (::splashView.isInitialized &&
-        splashView.visibility == View.VISIBLE
-    ) {
-
-        splashView.animate()
-            .alpha(0f)
-            .setDuration(350)
-            .withEndAction {
-
-                splashView.visibility =
-                    View.GONE
-            }
-            .start()
-    }
 }
 
 // ================================================================

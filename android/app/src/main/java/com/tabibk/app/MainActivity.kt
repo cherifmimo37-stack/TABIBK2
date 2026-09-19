@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-```
 private lateinit var webView: WebView
 private lateinit var splashView: View
 
@@ -533,6 +532,5 @@ override fun onBackPressed() {
         super.onBackPressed()
     }
 }
-```
 
 }

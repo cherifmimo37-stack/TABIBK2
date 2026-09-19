@@ -1,13 +1,12 @@
 package com.tabibk.app
-import android.util.Log
-import com.google.firebase.messaging.FirebaseMessaging
+
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.webkit.CookieManager
@@ -19,248 +18,351 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
-private lateinit var webView: WebView
-private lateinit var splashView: View
+    private lateinit var webView: WebView
+    private lateinit var splashView: View
 
-private var tabibkReady = false
+    private var tabibkReady = false
 
-@SuppressLint("SetJavaScriptEnabled")
-override fun onCreate(savedInstanceState: Bundle?) {
+    @SuppressLint("SetJavaScriptEnabled")
+    override fun onCreate(savedInstanceState: Bundle?) {
 
-    super.onCreate(savedInstanceState)
-    FirebaseMessaging.getInstance().token
-    .addOnCompleteListener { task ->
-        if (task.isSuccessful) {
-            val token = task.result
-            Log.d("TABIBK_FCM_TOKEN", token)
-        }
-    }
+        super.onCreate(savedInstanceState)
 
-    if (android.os.Build.VERSION.SDK_INT >= 33 &&
-    checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
-) {
-    ActivityCompat.requestPermissions(
-        this,
-        arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-        1001
-    )
-}
+        // ============================================================
+        // FCM TOKEN
+        // ============================================================
 
-    // ============================================================
-    // ألوان TABIBK
-    // ============================================================
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
 
-    window.statusBarColor = Color.rgb(43, 11, 61)
-    window.navigationBarColor = Color.rgb(43, 11, 61)
+                if (task.isSuccessful) {
 
-    // ============================================================
-    // ROOT
-    // ============================================================
+                    val token = task.result
 
-    val root = FrameLayout(this)
+                    Log.d(
+                        "TABIBK_FCM_TOKEN",
+                        token
+                    )
 
-    // ============================================================
-    // WEBVIEW
-    // ============================================================
+                    // عرض الـToken مؤقتًا على الهاتف
+                    runOnUiThread {
 
-    webView = WebView(this)
+                        AlertDialog.Builder(this)
+                            .setTitle("🔔 TABIBK FCM Token")
+                            .setMessage(token)
+                            .setPositiveButton("نسخ") { dialog, _ ->
 
-    val webParams = FrameLayout.LayoutParams(
-        FrameLayout.LayoutParams.MATCH_PARENT,
-        FrameLayout.LayoutParams.MATCH_PARENT
-    )
+                                val clipboard =
+                                    getSystemService(CLIPBOARD_SERVICE)
+                                            as android.content.ClipboardManager
 
-    webView.layoutParams = webParams
+                                val clip =
+                                    android.content.ClipData.newPlainText(
+                                        "FCM Token",
+                                        token
+                                    )
 
-    // مهم جدًا:
-    // WebView مخفي بالكامل أثناء تشغيل Render
-    webView.visibility = View.INVISIBLE
+                                clipboard.setPrimaryClip(clip)
 
-    // ============================================================
-    // COOKIES
-    // ============================================================
+                                dialog.dismiss()
+                            }
+                            .setNegativeButton("إغلاق", null)
+                            .show()
+                    }
+                }
+            }
 
-    val cookieManager = CookieManager.getInstance()
+        // ============================================================
+        // صلاحية الإشعارات Android 13+
+        // ============================================================
 
-    cookieManager.setAcceptCookie(true)
-
-    cookieManager.setAcceptThirdPartyCookies(
-        webView,
-        true
-    )
-
-    // ============================================================
-    // WEBVIEW SETTINGS
-    // ============================================================
-
-    with(webView.settings) {
-
-        javaScriptEnabled = true
-
-        domStorageEnabled = true
-
-        databaseEnabled = true
-
-        loadsImagesAutomatically = true
-
-        javaScriptCanOpenWindowsAutomatically = true
-
-        setSupportMultipleWindows(false)
-
-        cacheMode = WebSettings.LOAD_DEFAULT
-
-        allowFileAccess = true
-
-        allowContentAccess = true
-
-        mixedContentMode =
-            WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
-
-        userAgentString =
-            "$userAgentString TABIBK-Android"
-    }
-
-    // ============================================================
-    // WEBVIEW CLIENT
-    // ============================================================
-
-    webView.webViewClient = object : WebViewClient() {
-
-        override fun onPageFinished(
-            view: WebView?,
-            url: String?
+        if (
+            android.os.Build.VERSION.SDK_INT >= 33 &&
+            checkSelfPermission(
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
 
-            super.onPageFinished(view, url)
-
-            checkTabibkReady()
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.POST_NOTIFICATIONS
+                ),
+                1001
+            )
         }
+
+        // ============================================================
+        // ألوان TABIBK
+        // ============================================================
+
+        window.statusBarColor =
+            Color.rgb(43, 11, 61)
+
+        window.navigationBarColor =
+            Color.rgb(43, 11, 61)
+
+        // ============================================================
+        // ROOT
+        // ============================================================
+
+        val root =
+            FrameLayout(this)
+
+        // ============================================================
+        // WEBVIEW
+        // ============================================================
+
+        webView =
+            WebView(this)
+
+        val webParams =
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+
+        webView.layoutParams =
+            webParams
+
+        // مهم جدًا:
+        // WebView مخفي بالكامل أثناء تشغيل Render
+
+        webView.visibility =
+            View.INVISIBLE
+
+        // ============================================================
+        // COOKIES
+        // ============================================================
+
+        val cookieManager =
+            CookieManager.getInstance()
+
+        cookieManager.setAcceptCookie(true)
+
+        cookieManager.setAcceptThirdPartyCookies(
+            webView,
+            true
+        )
+
+        // ============================================================
+        // WEBVIEW SETTINGS
+        // ============================================================
+
+        with(webView.settings) {
+
+            javaScriptEnabled =
+                true
+
+            domStorageEnabled =
+                true
+
+            databaseEnabled =
+                true
+
+            loadsImagesAutomatically =
+                true
+
+            javaScriptCanOpenWindowsAutomatically =
+                true
+
+            setSupportMultipleWindows(false)
+
+            cacheMode =
+                WebSettings.LOAD_DEFAULT
+
+            allowFileAccess =
+                true
+
+            allowContentAccess =
+                true
+
+            mixedContentMode =
+                WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
+
+            userAgentString =
+                "$userAgentString TABIBK-Android"
+        }
+
+        // ============================================================
+        // WEBVIEW CLIENT
+        // ============================================================
+
+        webView.webViewClient =
+            object : WebViewClient() {
+
+                override fun onPageFinished(
+                    view: WebView?,
+                    url: String?
+                ) {
+
+                    super.onPageFinished(
+                        view,
+                        url
+                    )
+
+                    checkTabibkReady()
+                }
+            }
+
+        webView.webChromeClient =
+            WebChromeClient()
+
+        // ============================================================
+        // إضافة WebView
+        // ============================================================
+
+        root.addView(webView)
+
+        // ============================================================
+        // SPLASH
+        // ============================================================
+
+        splashView =
+            createSplashScreen()
+
+        root.addView(splashView)
+
+        // ============================================================
+        // إظهار ROOT
+        // ============================================================
+
+        setContentView(root)
+
+        // ============================================================
+        // تحميل TABIBK
+        // ============================================================
+
+        webView.loadUrl(
+            "https://tabibk2.onrender.com"
+        )
     }
 
-    webView.webChromeClient =
-        WebChromeClient()
+    // ================================================================
+    // فحص جاهزية TABIBK
+    // ================================================================
 
-    // ============================================================
-    // إضافة WebView
-    // ============================================================
+    private fun checkTabibkReady() {
 
-    root.addView(webView)
+        if (tabibkReady) {
+            return
+        }
 
-    // ============================================================
-    // SPLASH
-    // ============================================================
+        webView.postDelayed({
 
-    splashView =
-        createSplashScreen()
+            webView.evaluateJavascript(
+                """
+                (function() {
 
-    root.addView(splashView)
+                    var bodyText =
+                        document.body
+                            ? document.body.innerText
+                            : "";
 
-    // ============================================================
-    // إظهار ROOT
-    // ============================================================
+                    var html =
+                        document.documentElement
+                            ? document.documentElement.innerHTML
+                            : "";
 
-    setContentView(root)
+                    var title =
+                        document.title || "";
 
-    // ============================================================
-    // تحميل TABIBK
-    // ============================================================
+                    var currentUrl =
+                        window.location.href || "";
 
-    webView.loadUrl(
-        "https://tabibk2.onrender.com"
-    )
-}
+                    return JSON.stringify({
+                        body: bodyText,
+                        html: html,
+                        title: title,
+                        url: currentUrl
+                    });
 
-// ================================================================
-// فحص جاهزية TABIBK
-// ================================================================
+                })();
+                """.trimIndent()
+            ) { result ->
 
-private fun checkTabibkReady() {
+                val pageText =
+                    result
+                        .replace("\\n", " ")
+                        .replace("\\r", " ")
+                        .replace("\\\"", "\"")
+                        .replace("\\/", "/")
 
-    if (tabibkReady) {
-        return
-    }
+                // ====================================================
+                // علامات صفحة Render
+                // ====================================================
 
-    webView.postDelayed({
+                val renderPage =
+                    pageText.contains(
+                        "Application loading",
+                        ignoreCase = true
+                    ) ||
+                    pageText.contains(
+                        "Application is loading",
+                        ignoreCase = true
+                    ) ||
+                    pageText.contains(
+                        "Loading application",
+                        ignoreCase = true
+                    )
 
-        webView.evaluateJavascript(
-            """
-            (function() {
+                // ====================================================
+                // علامات TABIBK
+                // ====================================================
 
-                var bodyText =
-                    document.body
-                        ? document.body.innerText
-                        : "";
+                val tabibkPage =
+                    pageText.contains(
+                        "TABIBK",
+                        ignoreCase = true
+                    ) ||
+                    pageText.contains(
+                        "طبيبك",
+                        ignoreCase = true
+                    )
 
-                var html =
-                    document.documentElement
-                        ? document.documentElement.innerHTML
-                        : "";
+                // ====================================================
+                // Render مازال يحضر
+                // ====================================================
 
-                var title =
-                    document.title || "";
+                if (
+                    renderPage &&
+                    !tabibkPage
+                ) {
 
-                var currentUrl =
-                    window.location.href || "";
+                    webView.postDelayed(
+                        {
+                            checkTabibkReady()
+                        },
+                        1000
+                    )
 
-                return JSON.stringify({
-                    body: bodyText,
-                    html: html,
-                    title: title,
-                    url: currentUrl
-                });
+                    return@evaluateJavascript
+                }
 
-            })();
-            """.trimIndent()
-        ) { result ->
+                // ====================================================
+                // TABIBK أصبح جاهز
+                // ====================================================
 
-            val pageText =
-                result
-                    .replace("\\n", " ")
-                    .replace("\\r", " ")
-                    .replace("\\\"", "\"")
-                    .replace("\\/", "/")
+                if (tabibkPage) {
 
-            // ====================================================
-            // علامات صفحة Render
-            // ====================================================
+                    tabibkReady =
+                        true
 
-            val renderPage =
-                pageText.contains(
-                    "Application loading",
-                    ignoreCase = true
-                ) ||
-                pageText.contains(
-                    "Application is loading",
-                    ignoreCase = true
-                ) ||
-                pageText.contains(
-                    "Loading application",
-                    ignoreCase = true
-                )
+                    showTabibk()
 
-            // ====================================================
-            // علامات TABIBK
-            // ====================================================
+                    return@evaluateJavascript
+                }
 
-            val tabibkPage =
-                pageText.contains(
-                    "TABIBK",
-                    ignoreCase = true
-                ) ||
-                pageText.contains(
-                    "طبيبك",
-                    ignoreCase = true
-                )
-
-            // ====================================================
-            // Render مازال يحضر
-            // ====================================================
-
-            if (renderPage && !tabibkPage) {
+                // ====================================================
+                // لم نتأكد بعد
+                // ====================================================
 
                 webView.postDelayed(
                     {
@@ -268,290 +370,262 @@ private fun checkTabibkReady() {
                     },
                     1000
                 )
-
-                return@evaluateJavascript
             }
 
-            // ====================================================
-            // TABIBK أصبح جاهز
-            // ====================================================
+        }, 500)
+    }
 
-            if (tabibkPage) {
+    // ================================================================
+    // إظهار TABIBK الحقيقي
+    // ================================================================
 
-                tabibkReady = true
+    private fun showTabibk() {
 
-                showTabibk()
+        runOnUiThread {
 
-                return@evaluateJavascript
-            }
+            // أولًا نظهر WebView الحقيقي
+            webView.visibility =
+                View.VISIBLE
 
-            // ====================================================
-            // لم نتأكد بعد
-            // ====================================================
+            // ثم نخفي Splash
+            splashView.animate()
+                .alpha(0f)
+                .setDuration(350)
+                .withEndAction {
 
-            webView.postDelayed(
-                {
-                    checkTabibkReady()
-                },
-                1000
-            )
+                    splashView.visibility =
+                        View.GONE
+                }
+                .start()
         }
-
-    }, 500)
-}
-
-// ================================================================
-// إظهار TABIBK الحقيقي
-// ================================================================
-
-private fun showTabibk() {
-
-    runOnUiThread {
-
-        // أولًا نظهر WebView الحقيقي
-        webView.visibility =
-            View.VISIBLE
-
-        // ثم نخفي Splash
-        splashView.animate()
-            .alpha(0f)
-            .setDuration(350)
-            .withEndAction {
-
-                splashView.visibility =
-                    View.GONE
-            }
-            .start()
     }
-}
 
-// ================================================================
-// إنشاء شاشة البداية
-// ================================================================
+    // ================================================================
+    // إنشاء شاشة البداية
+    // ================================================================
 
-private fun createSplashScreen(): View {
+    private fun createSplashScreen(): View {
 
-    val splash =
-        FrameLayout(this)
+        val splash =
+            FrameLayout(this)
 
-    splash.setBackgroundColor(
-        Color.rgb(43, 11, 61)
-    )
-
-    val content =
-        LinearLayout(this)
-
-    content.orientation =
-        LinearLayout.VERTICAL
-
-    content.gravity =
-        Gravity.CENTER
-
-    val contentParams =
-        FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT
+        splash.setBackgroundColor(
+            Color.rgb(43, 11, 61)
         )
 
-    content.layoutParams =
-        contentParams
+        val content =
+            LinearLayout(this)
 
-    // ============================================================
-    // شعار طبيبك
-    // ============================================================
+        content.orientation =
+            LinearLayout.VERTICAL
 
-    val logo =
-        ImageView(this)
+        content.gravity =
+            Gravity.CENTER
 
-    logo.setImageResource(
-        R.drawable.ic_tabibk
-    )
+        val contentParams =
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
 
-    logo.scaleType =
-        ImageView.ScaleType.CENTER_INSIDE
+        content.layoutParams =
+            contentParams
 
-    val logoParams =
-        LinearLayout.LayoutParams(
-            dp(150),
-            dp(150)
+        // ============================================================
+        // شعار طبيبك
+        // ============================================================
+
+        val logo =
+            ImageView(this)
+
+        logo.setImageResource(
+            R.drawable.ic_tabibk
         )
 
-    logo.layoutParams =
-        logoParams
+        logo.scaleType =
+            ImageView.ScaleType.CENTER_INSIDE
 
-    content.addView(logo)
+        val logoParams =
+            LinearLayout.LayoutParams(
+                dp(150),
+                dp(150)
+            )
 
-    // ============================================================
-    // طبيبك
-    // ============================================================
+        logo.layoutParams =
+            logoParams
 
-    val title =
-        TextView(this)
+        content.addView(logo)
 
-    title.text =
-        "طبيبك"
+        // ============================================================
+        // طبيبك
+        // ============================================================
 
-    title.textSize =
-        42f
+        val title =
+            TextView(this)
 
-    title.setTextColor(
-        Color.rgb(233, 196, 93)
-    )
+        title.text =
+            "طبيبك"
 
-    title.typeface =
-        Typeface.create(
-            "sans-serif",
-            Typeface.BOLD
+        title.textSize =
+            42f
+
+        title.setTextColor(
+            Color.rgb(233, 196, 93)
         )
 
-    title.gravity =
-        Gravity.CENTER
+        title.typeface =
+            Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+            )
 
-    val titleParams =
-        LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
+        title.gravity =
+            Gravity.CENTER
+
+        val titleParams =
+            LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+
+        titleParams.topMargin =
+            dp(5)
+
+        title.layoutParams =
+            titleParams
+
+        content.addView(title)
+
+        // ============================================================
+        // TABIBK
+        // ============================================================
+
+        val tabibk =
+            TextView(this)
+
+        tabibk.text =
+            "TABIBK"
+
+        tabibk.textSize =
+            20f
+
+        tabibk.setTextColor(
+            Color.WHITE
         )
 
-    titleParams.topMargin =
-        dp(5)
+        tabibk.letterSpacing =
+            0.25f
 
-    title.layoutParams =
-        titleParams
+        tabibk.typeface =
+            Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+            )
 
-    content.addView(title)
+        tabibk.gravity =
+            Gravity.CENTER
 
-    // ============================================================
-    // TABIBK
-    // ============================================================
+        content.addView(tabibk)
 
-    val tabibk =
-        TextView(this)
+        // ============================================================
+        // الشعار
+        // ============================================================
 
-    tabibk.text =
-        "TABIBK"
+        val slogan =
+            TextView(this)
 
-    tabibk.textSize =
-        20f
+        slogan.text =
+            "مواعيدك .. أسهل"
 
-    tabibk.setTextColor(
-        Color.WHITE
-    )
+        slogan.textSize =
+            18f
 
-    tabibk.letterSpacing =
-        0.25f
-
-    tabibk.typeface =
-        Typeface.create(
-            "sans-serif",
-            Typeface.BOLD
+        slogan.setTextColor(
+            Color.rgb(233, 196, 93)
         )
 
-    tabibk.gravity =
-        Gravity.CENTER
+        slogan.gravity =
+            Gravity.CENTER
 
-    content.addView(tabibk)
+        val sloganParams =
+            LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
 
-    // ============================================================
-    // الشعار
-    // ============================================================
+        sloganParams.topMargin =
+            dp(20)
 
-    val slogan =
-        TextView(this)
+        slogan.layoutParams =
+            sloganParams
 
-    slogan.text =
-        "مواعيدك .. أسهل"
+        content.addView(slogan)
 
-    slogan.textSize =
-        18f
+        // ============================================================
+        // نص التحميل
+        // ============================================================
 
-    slogan.setTextColor(
-        Color.rgb(233, 196, 93)
-    )
+        val loading =
+            TextView(this)
 
-    slogan.gravity =
-        Gravity.CENTER
+        loading.text =
+            "جاري تجهيز طبيبك..."
 
-    val sloganParams =
-        LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
+        loading.textSize =
+            14f
+
+        loading.setTextColor(
+            Color.LTGRAY
         )
 
-    sloganParams.topMargin =
-        dp(20)
+        loading.gravity =
+            Gravity.CENTER
 
-    slogan.layoutParams =
-        sloganParams
+        val loadingParams =
+            LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
 
-    content.addView(slogan)
+        loadingParams.topMargin =
+            dp(35)
 
-    // ============================================================
-    // نص التحميل
-    // ============================================================
+        loading.layoutParams =
+            loadingParams
 
-    val loading =
-        TextView(this)
+        content.addView(loading)
 
-    loading.text =
-        "جاري تجهيز طبيبك..."
+        splash.addView(content)
 
-    loading.textSize =
-        14f
-
-    loading.setTextColor(
-        Color.LTGRAY
-    )
-
-    loading.gravity =
-        Gravity.CENTER
-
-    val loadingParams =
-        LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-
-    loadingParams.topMargin =
-        dp(35)
-
-    loading.layoutParams =
-        loadingParams
-
-    content.addView(loading)
-
-    splash.addView(content)
-
-    return splash
-}
-
-// ================================================================
-// تحويل DP
-// ================================================================
-
-private fun dp(value: Int): Int {
-
-    return (
-        value *
-            resources.displayMetrics.density
-        ).toInt()
-}
-
-// ================================================================
-// زر الرجوع
-// ================================================================
-
-@Deprecated("Deprecated in Java")
-override fun onBackPressed() {
-
-    if (webView.canGoBack()) {
-
-        webView.goBack()
-
-    } else {
-
-        super.onBackPressed()
+        return splash
     }
-}
 
+    // ================================================================
+    // تحويل DP
+    // ================================================================
+
+    private fun dp(value: Int): Int {
+
+        return (
+            value *
+                resources.displayMetrics.density
+            ).toInt()
+    }
+
+    // ================================================================
+    // زر الرجوع
+    // ================================================================
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+
+        if (webView.canGoBack()) {
+
+            webView.goBack()
+
+        } else {
+
+            super.onBackPressed()
+        }
+    }
 }

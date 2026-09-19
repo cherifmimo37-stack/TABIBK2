@@ -18,7 +18,6 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.firebase.messaging.FirebaseMessaging
@@ -46,36 +45,12 @@ class MainActivity : AppCompatActivity() {
 
                     val token = task.result
 
+                    // تسجيل الـToken في Log فقط
+                    // بدون عرضه للمستخدم
                     Log.d(
                         "TABIBK_FCM_TOKEN",
                         token
                     )
-
-                    // عرض الـToken مؤقتًا على الهاتف
-                    runOnUiThread {
-
-                        AlertDialog.Builder(this)
-                            .setTitle("🔔 TABIBK FCM Token")
-                            .setMessage(token)
-                            .setPositiveButton("نسخ") { dialog, _ ->
-
-                                val clipboard =
-                                    getSystemService(CLIPBOARD_SERVICE)
-                                            as android.content.ClipboardManager
-
-                                val clip =
-                                    android.content.ClipData.newPlainText(
-                                        "FCM Token",
-                                        token
-                                    )
-
-                                clipboard.setPrimaryClip(clip)
-
-                                dialog.dismiss()
-                            }
-                            .setNegativeButton("إغلاق", null)
-                            .show()
-                    }
                 }
             }
 

@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var splashView: View
 
     private var tabibkReady = false
+    private var checkingPage = false
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +46,6 @@ class MainActivity : AppCompatActivity() {
 
                     val token = task.result
 
-                    // تسجيل الـToken في Log فقط
-                    // بدون عرضه للمستخدم
                     Log.d(
                         "TABIBK_FCM_TOKEN",
                         token
@@ -108,7 +107,7 @@ class MainActivity : AppCompatActivity() {
             webParams
 
         // مهم جدًا:
-        // WebView مخفي بالكامل أثناء تشغيل Render
+        // WebView يبقى مخفي بالكامل حتى نتأكد أن TABIBK الحقيقي جاهز
 
         webView.visibility =
             View.INVISIBLE
@@ -185,6 +184,38 @@ class MainActivity : AppCompatActivity() {
 
                     checkTabibkReady()
                 }
+
+                override fun onReceivedError(
+                    view: WebView?,
+                    errorCode: Int,
+                    description: String?,
+                    failingUrl: String?
+                ) {
+
+                    super.onReceivedError(
+                        view,
+                        errorCode,
+                        description,
+                        failingUrl
+                    )
+
+                    // نبقى على Splash
+                    // ولا نظهر صفحة الخطأ للمستخدم
+
+                    webView.visibility =
+                        View.INVISIBLE
+
+                    checkingPage = false
+
+                    webView.postDelayed(
+                        {
+                            if (!tabibkReady) {
+                                webView.reload()
+                            }
+                        },
+                        2500
+                    )
+                }
             }
 
         webView.webChromeClient =
@@ -224,134 +255,166 @@ class MainActivity : AppCompatActivity() {
     // فحص جاهزية TABIBK
     // ================================================================
 
-private fun checkTabibkReady() {
+    private fun checkTabibkReady() {
 
-    if (tabibkReady) {
-        return
-    }
+        if (tabibkReady) {
+            return
+        }
 
-    webView.postDelayed({
+        if (checkingPage) {
+            return
+        }
 
-        webView.evaluateJavascript(
-            """
-            (function() {
+        checkingPage = true
 
-                var bodyText =
-                    document.body
-                        ? document.body.innerText
-                        : "";
+        webView.postDelayed({
 
-                var title =
-                    document.title || "";
+            webView.evaluateJavascript(
+                """
+                (function() {
 
-                var currentUrl =
-                    window.location.href || "";
+                    var bodyText =
+                        document.body
+                            ? document.body.innerText
+                            : "";
 
-                return JSON.stringify({
-                    body: bodyText,
-                    title: title,
-                    url: currentUrl
-                });
+                    var title =
+                        document.title || "";
 
-            })();
-            """.trimIndent()
-        ) { result ->
+                    var currentUrl =
+                        window.location.href || "";
 
-            val pageText =
-                result
-                    .replace("\\n", " ")
-                    .replace("\\r", " ")
-                    .replace("\\\"", "\"")
-                    .replace("\\/", "/")
+                    return JSON.stringify({
+                        body: bodyText,
+                        title: title,
+                        url: currentUrl
+                    });
 
-            // ====================================================
-            // صفحة Render
-            // ====================================================
+                })();
+                """.trimIndent()
+            ) { result ->
 
-            val renderPage =
-                pageText.contains(
-                    "Application loading",
-                    ignoreCase = true
-                ) ||
-                pageText.contains(
-                    "Application is loading",
-                    ignoreCase = true
-                ) ||
-                pageText.contains(
-                    "Loading application",
-                    ignoreCase = true
-                )
+                checkingPage = false
 
-            // ====================================================
-            // TABIBK الحقيقي
-            // ====================================================
+                val pageText =
+                    result
+                        .replace("\\n", " ")
+                        .replace("\\r", " ")
+                        .replace("\\\"", "\"")
+                        .replace("\\/", "/")
 
-            val hasTabibk =
-                pageText.contains(
-                    "طبيبك",
-                    ignoreCase = true
-                )
+                // ====================================================
+                // رابط الصفحة الحقيقي
+                // ====================================================
 
-            val hasTabibkUrl =
-                pageText.contains(
-                    "tabibk2.onrender.com",
-                    ignoreCase = true
-                )
+                val currentUrl =
+                    webView.url ?: ""
 
-            // ====================================================
-            // إذا كانت Render
-            // نبقى على Splash
-            // ====================================================
+                val correctUrl =
+                    currentUrl.contains(
+                        "tabibk2.onrender.com",
+                        ignoreCase = true
+                    )
 
-            if (renderPage) {
+                // ====================================================
+                // صفحة Render
+                // ====================================================
+
+                val renderPage =
+                    pageText.contains(
+                        "Application loading",
+                        ignoreCase = true
+                    ) ||
+                    pageText.contains(
+                        "Application is loading",
+                        ignoreCase = true
+                    ) ||
+                    pageText.contains(
+                        "Loading application",
+                        ignoreCase = true
+                    ) ||
+                    pageText.contains(
+                        "Your application is loading",
+                        ignoreCase = true
+                    )
+
+                // ====================================================
+                // TABIBK الحقيقي
+                // ====================================================
+
+                val hasTabibk =
+                    pageText.contains(
+                        "طبيبك",
+                        ignoreCase = true
+                    ) ||
+                    pageText.contains(
+                        "TABIBK",
+                        ignoreCase = true
+                    )
+
+                // ====================================================
+                // إذا كانت صفحة Render
+                // نبقى على Splash
+                // ====================================================
+
+                if (renderPage) {
+
+                    webView.visibility =
+                        View.INVISIBLE
+
+                    webView.postDelayed(
+                        {
+
+                            if (!tabibkReady) {
+                                webView.reload()
+                            }
+
+                        },
+                        2000
+                    )
+
+                    return@evaluateJavascript
+                }
+
+                // ====================================================
+                // TABIBK جاهز
+                // ====================================================
+
+                if (
+                    correctUrl &&
+                    hasTabibk
+                ) {
+
+                    tabibkReady =
+                        true
+
+                    showTabibk()
+
+                    return@evaluateJavascript
+                }
+
+                // ====================================================
+                // لم نتأكد بعد
+                // ====================================================
 
                 webView.visibility =
                     View.INVISIBLE
 
                 webView.postDelayed(
                     {
-                        webView.reload()
+
+                        if (!tabibkReady) {
+                            checkTabibkReady()
+                        }
+
                     },
-                    2000
+                    1000
                 )
-
-                return@evaluateJavascript
             }
 
-            // ====================================================
-            // TABIBK جاهز
-            // ====================================================
+        }, 500)
+    }
 
-            if (
-                hasTabibk &&
-                hasTabibkUrl
-            ) {
-
-                tabibkReady =
-                    true
-
-                showTabibk()
-
-                return@evaluateJavascript
-            }
-
-            // ====================================================
-            // لم نتأكد بعد
-            // ====================================================
-
-            webView.visibility =
-                View.INVISIBLE
-
-            webView.postDelayed(
-                {
-                    checkTabibkReady()
-                },
-                1000
-            )
-        }
-
-    }, 500)
-}
     // ================================================================
     // إظهار TABIBK الحقيقي
     // ================================================================
@@ -360,20 +423,24 @@ private fun checkTabibkReady() {
 
         runOnUiThread {
 
-            // أولًا نظهر WebView الحقيقي
-            webView.visibility =
-                View.VISIBLE
+            if (tabibkReady) {
 
-            // ثم نخفي Splash
-            splashView.animate()
-                .alpha(0f)
-                .setDuration(350)
-                .withEndAction {
+                // نظهر WebView الحقيقي
+                webView.visibility =
+                    View.VISIBLE
 
-                    splashView.visibility =
-                        View.GONE
-                }
-                .start()
+                // نخفي Splash تدريجيًا
+                splashView.animate()
+                    .alpha(0f)
+                    .setDuration(350)
+                    .withEndAction {
+
+                        splashView.visibility =
+                            View.GONE
+
+                    }
+                    .start()
+            }
         }
     }
 

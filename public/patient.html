@@ -33,6 +33,18 @@
    TABIBK — PREMIUM PATIENT APP UI
    Purple / Gold / White • Mobile First • Stable UI
 ========================================================= */
+
+      .doctor-online-status{
+    color:#16a34a !important;
+    font-weight:700;
+}
+
+.doctor-online-status i{
+    color:#16a34a !important;
+    font-size:8px;
+}
+
+      
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --purple:#351044;
@@ -1833,9 +1845,9 @@ function renderDoctors(list){
         if(workingHours.open && workingHours.close){
             meta += `<span><i class="fa-solid fa-business-time"></i>${escapeHtml(workingHours.open)}–${escapeHtml(workingHours.close)}</span>`;
         }
-        if(doctor.active === true || doctor.online === true){
-            meta += `<span><i class="fa-solid fa-circle-check"></i>متاح</span>`;
-        }
+       if(doctor.active === true || doctor.online === true){
+    meta += `<span class="doctor-online-status"><i class="fa-solid fa-circle"></i> متصل</span>`;
+}
 
         card.innerHTML = `
             <span class="doctor-avatar"><i class="fa-solid ${getDoctorGenderIcon(doctor)}"></i></span>

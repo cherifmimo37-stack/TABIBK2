@@ -1845,7 +1845,7 @@ function renderDoctors(list){
         if(workingHours.open && workingHours.close){
             meta += `<span><i class="fa-solid fa-business-time"></i>${escapeHtml(workingHours.open)}–${escapeHtml(workingHours.close)}</span>`;
         }
-       if(doctor.active === true || doctor.online === true){
+       if(doctor.online === true){
     meta += `<span class="doctor-online-status"><i class="fa-solid fa-circle"></i> متصل</span>`;
 }
 

@@ -1850,7 +1850,12 @@ function renderDoctors(list){
 }
 
         card.innerHTML = `
-            <span class="doctor-avatar"><i class="fa-solid ${getDoctorGenderIcon(doctor)}"></i></span>
+            <span class="doctor-avatar">
+    <img
+        src="${doctor.gender === 'female' ? '/images/doctor-female.png' : '/images/doctor.png'}"
+        alt="${escapeHtml(doctor.name || 'طبيب')}"
+    >
+</span>
             <span class="doctor-card-content">
                 <span class="doctor-card-name">
                     <i class="fa-solid fa-award"></i>

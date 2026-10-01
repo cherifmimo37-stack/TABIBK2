@@ -6044,21 +6044,35 @@ function renderStats() {
    TURN
 ============================================================ */
 
-function renderTurn() {
+function renderTurn(){
+
+    /*
+     * =====================================================
+     * CURRENT / NEXT TURN
+     * =====================================================
+     *
+     * إذا كاين مريض بدأ الكشف:
+     *     هو الدور الحالي.
+     *
+     * إذا ما كاش مريض بدأ الكشف:
+     *     أول مريض منتظر هو الدور الحالي.
+     *
+     * هذا يخلي واجهة الطبيب متوافقة مع منطق الطابور
+     * الموجود في السيرفر.
+     * =====================================================
+     */
 
     const active =
         appointments
             .filter(
                 appointment =>
-                    appointment.status ===
-                    "started"
+                    appointment.status === "started"
             )
             .sort(
                 (a, b) =>
                     Number(a.queueNumber || 0) -
                     Number(b.queueNumber || 0)
             );
-
 
     const waiting =
         appointments
@@ -6079,17 +6093,63 @@ function renderTurn() {
             );
 
 
+    /*
+     * الدور الحالي:
+     *
+     * 1) المريض الذي بدأ الكشف
+     * 2) إذا ما كاش، أول مريض في الطابور
+     */
+
     const current =
         active.length
             ? active[0]
-            : null;
+            : (
+                waiting.length
+                    ? waiting[0]
+                    : null
+            );
 
 
-    const next =
-        waiting.length
-            ? waiting[0]
-            : null;
+    /*
+     * الدور القادم:
+     *
+     * إذا كاين مريض راهو حاليا في الكشف،
+     * نجيب أول واحد منتظر.
+     *
+     * إذا ما كاش كشف جاري،
+     * الدور القادم يكون المريض الثاني.
+     */
 
+    let next = null;
+
+    if(current){
+
+        const currentQueue =
+            Number(
+                current.queueNumber || 0
+            );
+
+        next =
+            waiting.find(
+                appointment =>
+                    Number(
+                        appointment.queueNumber || 0
+                    ) > currentQueue
+            ) || null;
+
+    }else{
+
+        next =
+            waiting.length > 0
+                ? waiting[0]
+                : null;
+
+    }
+
+
+    /*
+     * عرض الدور الحالي
+     */
 
     $("currentTurn").textContent =
         current
@@ -6097,17 +6157,23 @@ function renderTurn() {
             : "—";
 
 
+    /*
+     * عرض الدور القادم
+     */
+
     $("nextTurn").textContent =
         next
             ? `#${next.queueNumber}`
             : "—";
 
 
+    /*
+     * عدد المرضى المنتظرين
+     */
+
     $("waitingCount").textContent =
         waiting.length;
 }
-
-
 /* ============================================================
    RENDER APPOINTMENTS
 ============================================================ */

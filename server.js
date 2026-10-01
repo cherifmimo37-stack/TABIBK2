@@ -4131,18 +4131,17 @@ app.post(
     (req, res) => {
 
         const {
-
-            name,
-            specialty,
-            wilaya,
-            municipality,
-            phone,
-            whatsapp,
-            duration,
-            password,
-            loginPassword
-
-        } = req.body;
+    name,
+    specialty,
+    wilaya,
+    municipality,
+    phone,
+    whatsapp,
+    duration,
+    password,
+    loginPassword,
+    gender
+} = req.body;
 
         if (
             !name ||
@@ -4225,6 +4224,10 @@ app.post(
 
             name:
                 String(name).trim(),
+            gender:
+    String(
+        gender || "male"
+    ).trim(),
 
             specialty:
                 String(

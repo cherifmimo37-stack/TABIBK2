@@ -265,6 +265,10 @@ function normalizeDatabase(database) {
                 return {
 
                     ...doctor,
+                    gender:
+    String(
+        doctor.gender || "male"
+    ),
 
                     id:
                         Number(doctor.id) ||

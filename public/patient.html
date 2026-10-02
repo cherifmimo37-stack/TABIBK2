@@ -2974,11 +2974,6 @@ function initDoctorRating(){
         );
 
 
-    if(!stars.length){
-        return;
-    }
-
-
     stars.forEach(
         star => {
 
@@ -3014,13 +3009,9 @@ function initDoctorRating(){
                     const labels = {
 
                         1:"تقييم سيئ 😞",
-
                         2:"تقييم ضعيف 😕",
-
                         3:"تقييم متوسط 😐",
-
                         4:"تقييم جيد 😊",
-
                         5:"تقييم ممتاز 🤩"
 
                     };
@@ -3037,6 +3028,24 @@ function initDoctorRating(){
 
         }
     );
+
+
+    const submitButton =
+        document.getElementById(
+            "submitDoctorRating"
+        );
+
+
+    if(submitButton){
+
+        submitButton.addEventListener(
+            "click",
+            submitDoctorRating
+        );
+
+    }
+
+}
 /* =====================================================
    SUBMIT DOCTOR RATING
    ===================================================== */

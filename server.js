@@ -1419,23 +1419,25 @@ const nextAppointment =
     ratingCount,
 
     nextAppointment:
-        nextAppointment
-            ? {
-                date:
-                    nextAppointment.date ||
-                    nextAppointment.appointmentDate ||
-                    null,
+    nextAppointment
+        ? {
+            date:
+                nextAppointment.date ||
+                null,
 
-                bookingNumber:
-                    nextAppointment.bookingNumber ||
-                    null,
+            time:
+                nextAppointment.time ||
+                null,
 
-                status:
-                    nextAppointment.status ||
-                    null
-            }
-            : null,
+            bookingNumber:
+                nextAppointment.bookingNumber ||
+                null,
 
+            status:
+                nextAppointment.status ||
+                null
+        }
+        : null,
     queueCount
 
 };

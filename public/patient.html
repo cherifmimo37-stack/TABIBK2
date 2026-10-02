@@ -513,6 +513,44 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .doctor-info{display:none !important;}
 @media(max-width:560px){.specialty-grid{grid-template-columns:1fr;}.specialty-card{min-height:72px;}}
 
+      /* =========================================================
+   SELECTED DOCTOR IMAGE
+========================================================= */
+
+.selected-doctor-image{
+    width:72px !important;
+    height:72px !important;
+    min-width:72px !important;
+    min-height:72px !important;
+    max-width:72px !important;
+    max-height:72px !important;
+    border-radius:50% !important;
+    object-fit:cover !important;
+    display:block !important;
+    flex:0 0 72px !important;
+    border:3px solid var(--gold-2);
+    box-shadow:0 7px 18px rgba(53,16,68,.18);
+}
+
+.selected-doctor-details{
+    flex:1;
+    min-width:0;
+}
+  .doctor-info::before,
+.doctor-info::after{
+    display:none !important;
+}
+
+.doctor-info{
+    min-height:92px;
+    display:none;
+    align-items:center;
+    gap:14px;
+}
+
+.doctor-info.show{
+    display:flex !important;
+}    
 </style>
 
 </head>
@@ -1913,6 +1951,11 @@ function renderSelectedDoctorInfo(doctor){
     const workingHours = doctor.workingHours || {};
     const vacation = doctor.vacation || {};
     let extraInfo = "";
+      
+      const doctorImage =
+    doctor.gender === "female"
+        ? "/images/doctor-female.png"
+        : "/images/doctor.png";
 
     if(duration){
         extraInfo += `<span><i class="fa-regular fa-clock"></i> مدة الكشف: ${escapeHtml(duration)} دقيقة</span>`;
@@ -1925,8 +1968,21 @@ function renderSelectedDoctorInfo(doctor){
     }
 
     doctorInfo.innerHTML = `
-        <strong><i class="fa-solid ${getSpecialtyIcon(getDoctorSpecialty(doctor))}"></i> ${escapeHtml(getDoctorSpecialty(doctor))}</strong>
-        ${extraInfo}`;
+    <img
+        class="selected-doctor-image"
+        src="${doctorImage}"
+        alt="${escapeHtml(doctor.name || "طبيب")}"
+    >
+
+    <div class="selected-doctor-details">
+        <strong>
+            <i class="fa-solid ${getSpecialtyIcon(getDoctorSpecialty(doctor))}"></i>
+            ${escapeHtml(getDoctorSpecialty(doctor))}
+        </strong>
+
+        ${extraInfo}
+    </div>
+`;
     doctorInfo.classList.add("show");
 }
 

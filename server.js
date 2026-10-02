@@ -3658,6 +3658,147 @@ app.post(
 );
 
 // ============================================================
+// SUBMIT DOCTOR RATING
+// ============================================================
+
+app.post(
+    "/api/appointments/:bookingNumber/rating",
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+
+        const appointment =
+            database.appointments.find(
+                item =>
+                    String(
+                        item.bookingNumber
+                    ) ===
+                    String(
+                        req.params.bookingNumber
+                    )
+            );
+
+
+        if(!appointment){
+
+            return res
+                .status(404)
+                .json({
+                    success:false,
+                    message:
+                        "الحجز غير موجود"
+                });
+
+        }
+
+
+        // التقييم مسموح فقط بعد انتهاء الكشف
+
+        if(
+            appointment.status !==
+            "completed"
+        ){
+
+            return res
+                .status(400)
+                .json({
+                    success:false,
+                    message:
+                        "يمكن تقييم الطبيب بعد انتهاء الكشف فقط"
+                });
+
+        }
+
+
+        const rating =
+            Number(
+                req.body.rating
+            );
+
+
+        const review =
+            String(
+                req.body.review ||
+                ""
+            ).trim();
+
+
+        // التحقق من التقييم
+
+        if(
+            !Number.isInteger(rating) ||
+            rating < 1 ||
+            rating > 5
+        ){
+
+            return res
+                .status(400)
+                .json({
+                    success:false,
+                    message:
+                        "التقييم يجب أن يكون بين 1 و5 نجوم"
+                });
+
+        }
+
+
+        // منع إرسال تقييم أكثر من مرة
+
+        if(
+            appointment.doctorRating
+        ){
+
+            return res
+                .status(400)
+                .json({
+                    success:false,
+                    message:
+                        "تم إرسال تقييم هذا الموعد مسبقًا"
+                });
+
+        }
+
+
+        appointment.doctorRating =
+            rating;
+
+
+        appointment.doctorReview =
+            review;
+
+
+        appointment.ratedAt =
+            new Date().toISOString();
+
+
+        appointment.updatedAt =
+            new Date().toISOString();
+
+
+        saveDatabase(
+            database
+        );
+
+
+        res.json({
+
+            success:true,
+
+            message:
+                "تم إرسال تقييمك بنجاح ❤️",
+
+            rating,
+
+            review
+
+        });
+
+    }
+);
+
+// ============================================================
 // DELETE OLD DOCTOR APPOINTMENTS
 // ============================================================
 

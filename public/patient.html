@@ -690,6 +690,85 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .doctor-info{display:none !important;}
 @media(max-width:560px){.specialty-grid{grid-template-columns:1fr;}.specialty-card{min-height:72px;}}
 
+      /* ============================================================
+   TABIBK — DOCTOR CARD 2.0
+   ============================================================ */
+
+.doctor-card-premium{
+    position:relative;
+    padding:14px !important;
+    border-radius:20px !important;
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #fffdf8 48%,
+            #f8f0fb 100%
+        ) !important;
+    border:1px solid rgba(199,154,50,.24) !important;
+    box-shadow:
+        0 10px 26px rgba(50,15,70,.07),
+        inset 0 1px 0 rgba(255,255,255,.95) !important;
+}
+
+.doctor-card-premium:hover{
+    transform:translateY(-2px);
+    border-color:rgba(199,154,50,.55) !important;
+    box-shadow:
+        0 16px 34px rgba(50,15,70,.11),
+        0 0 0 1px rgba(199,154,50,.08) !important;
+}
+
+.doctor-card-premium.active{
+    border-color:var(--gold) !important;
+    box-shadow:
+        0 16px 34px rgba(50,15,70,.12),
+        inset 0 0 0 1px rgba(199,154,50,.20) !important;
+}
+
+.doctor-card-premium .doctor-card-content{
+    padding-right:2px;
+}
+
+.doctor-card-premium .doctor-card-name{
+    font-size:14px !important;
+    font-weight:900 !important;
+}
+
+.doctor-card-premium .doctor-card-specialty{
+    font-size:10px !important;
+    margin-top:4px !important;
+}
+
+.doctor-card-premium .doctor-card-meta{
+    margin-top:8px !important;
+    gap:6px !important;
+}
+
+.doctor-card-premium .doctor-card-meta span{
+    padding:5px 8px !important;
+    border-radius:10px !important;
+    font-size:8.5px !important;
+    background:#f8f2fa !important;
+}
+
+.doctor-card-premium .doctor-card-meta .doctor-online-status{
+    background:#eaf9f1 !important;
+    color:#12845b !important;
+    border:1px solid rgba(18,132,91,.12);
+}
+
+.doctor-card-premium .doctor-card-meta .doctor-rating{
+    background:#fff7dc !important;
+    color:#8a6500 !important;
+}
+
+.doctor-card-premium .doctor-check{
+    width:34px !important;
+    height:34px !important;
+    flex:0 0 34px !important;
+    border-radius:11px !important;
+}
       /* =========================================================
    SELECTED DOCTOR IMAGE
 ========================================================= */

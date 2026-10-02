@@ -262,6 +262,167 @@ select:disabled{opacity:.55;cursor:not-allowed}
     font-weight:800;
     white-space:nowrap;
 }
+      /* =========================================================
+   DOCTOR REVIEWS
+========================================================= */
+
+.doctor-reviews-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    width:100%;
+    margin-top:7px;
+    padding:6px 8px;
+    border-radius:10px;
+    background:#faf5ff;
+    border:1px solid rgba(125,92,150,.16);
+    color:#72547f;
+    font-size:9px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.doctor-reviews-btn i{
+    color:#c79a32;
+}
+
+.doctor-reviews-btn:hover{
+    background:#f4eaff;
+    transform:translateY(-1px);
+}
+
+
+/* =========================================================
+   REVIEWS BOX
+========================================================= */
+
+.doctor-reviews-box{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+    width:min(94%,520px);
+    max-height:82vh;
+    margin:auto;
+    padding:16px;
+    background:#fff;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(40,20,50,.25);
+    overflow:hidden;
+    direction:rtl;
+}
+
+
+/* الرأس */
+
+.doctor-reviews-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding-bottom:12px;
+    border-bottom:1px solid #eee6f1;
+}
+
+.doctor-reviews-head > div{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.doctor-reviews-head strong{
+    color:#4e3858;
+    font-size:15px;
+    font-weight:900;
+}
+
+.doctor-reviews-head strong i{
+    color:#e0aa18;
+}
+
+.doctor-reviews-head span{
+    color:#8a7b91;
+    font-size:10px;
+    font-weight:700;
+}
+
+.doctor-reviews-close{
+    width:34px;
+    height:34px;
+    border:0;
+    border-radius:50%;
+    background:#f7f1fa;
+    color:#735c7d;
+    cursor:pointer;
+    font-size:14px;
+}
+
+
+/* قائمة التعليقات */
+
+.doctor-reviews-list{
+    flex:1;
+    overflow-y:auto;
+    padding:12px 2px 4px;
+}
+
+.doctor-review-item{
+    padding:12px;
+    margin-bottom:9px;
+    border-radius:14px;
+    background:#faf8fb;
+    border:1px solid #eee7f1;
+}
+
+.doctor-review-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:7px;
+}
+
+.doctor-review-stars{
+    color:#e0aa18;
+    font-size:13px;
+    letter-spacing:1px;
+}
+
+.doctor-review-date{
+    color:#9b8da0;
+    font-size:8px;
+}
+
+.doctor-review-text{
+    color:#514455;
+    font-size:11px;
+    line-height:1.7;
+    word-break:break-word;
+}
+
+
+/* لا توجد تعليقات */
+
+.doctor-reviews-empty{
+    min-height:160px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    color:#9b8da0;
+    text-align:center;
+    font-size:11px;
+}
+
+.doctor-reviews-empty i{
+    color:#c79a32;
+    font-size:28px;
+}
+      
 .doctor-check{width:31px;height:31px;flex:0 0 31px;border-radius:11px;display:grid;place-items:center;background:#f3edf5;color:#b6a8bb;font-size:12px}
 .doctor-card-premium.active .doctor-check{background:var(--gold);color:#fff}
 .doctor-list-empty{padding:20px 12px;text-align:center;border-radius:17px;background:#faf7fb;border:1px dashed rgba(199,154,50,.30);color:var(--muted);font-size:11px}
@@ -2114,11 +2275,42 @@ if(ratingCount > 0){
                     ${escapeHtml(doctor.name || "طبيب")}
                 </span>
                 <span class="doctor-card-specialty">${escapeHtml(getDoctorSpecialty(doctor))}</span>
-                ${meta ? `<span class="doctor-card-meta">${meta}</span>` : ""}
+
+${meta ? `<span class="doctor-card-meta">${meta}</span>` : ""}
+
+<span
+    class="doctor-reviews-btn"
+    data-doctor-id="${escapeHtml(doctor.id)}"
+>
+    <i class="fa-regular fa-comments"></i>
+    عرض التقييمات والتعليقات
+</span>
             </span>
             <span class="doctor-check"><i class="fa-solid fa-check"></i></span>`;
 
-        card.addEventListener("click",()=>selectDoctorCard(doctor,card));
+        card.addEventListener("click", (event) => {
+
+    if(
+        event.target.closest(
+            ".doctor-reviews-btn"
+        )
+    ){
+        event.preventDefault();
+        event.stopPropagation();
+
+        loadDoctorReviews(
+            doctor.id
+        );
+
+        return;
+    }
+
+    selectDoctorCard(
+        doctor,
+        card
+    );
+
+});
         doctorsGrid.appendChild(card);
     });
 }
@@ -2133,6 +2325,149 @@ function selectDoctorCard(doctor, card){
     doctorSelect.disabled = false;
 }
 
+      async function loadDoctorReviews(doctorId){
+
+    try{
+
+        const response =
+            await fetch(
+                `/api/doctors/${encodeURIComponent(doctorId)}/rating`
+            );
+
+        const data =
+            await response.json();
+
+        if(
+            !data.success
+        ){
+            alert(
+                "تعذر تحميل تقييمات الطبيب"
+            );
+            return;
+        }
+
+        let reviewsHtml = "";
+
+        if(
+            !data.reviews ||
+            !data.reviews.length
+        ){
+
+            reviewsHtml = `
+                <div class="doctor-reviews-empty">
+                    <i class="fa-regular fa-comments"></i>
+                    <span>
+                        لا توجد تعليقات من المرضى بعد.
+                    </span>
+                </div>
+            `;
+
+        }else{
+
+            reviewsHtml =
+                data.reviews.map(
+                    item => `
+                        <div class="doctor-review-item">
+
+                            <div class="doctor-review-top">
+
+                                <span class="doctor-review-stars">
+                                    ${"★".repeat(item.rating)}
+                                    ${"☆".repeat(5 - item.rating)}
+                                </span>
+
+                                <span class="doctor-review-date">
+                                    ${item.ratedAt
+                                        ? new Date(
+                                            item.ratedAt
+                                          ).toLocaleDateString("ar-DZ")
+                                        : ""
+                                    }
+                                </span>
+
+                            </div>
+
+                            <div class="doctor-review-text">
+                                ${escapeHtml(item.review)}
+                            </div>
+
+                        </div>
+                    `
+                ).join("");
+
+        }
+
+
+        const box =
+            document.createElement("div");
+
+        box.className =
+            "doctor-reviews-box";
+
+        box.innerHTML = `
+
+            <div class="doctor-reviews-head">
+
+                <div>
+
+                    <strong>
+                        <i class="fa-solid fa-star"></i>
+                        تقييمات المرضى
+                    </strong>
+
+                    <span>
+                        ${Number(data.average || 0).toFixed(1)}
+                        ⭐
+                        (${Number(data.count || 0)} تقييم)
+                    </span>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="doctor-reviews-close"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+            <div class="doctor-reviews-list">
+                ${reviewsHtml}
+            </div>
+
+        `;
+
+
+        const closeButton =
+            box.querySelector(
+                ".doctor-reviews-close"
+            );
+
+        closeButton.addEventListener(
+            "click",
+            () => box.remove()
+        );
+
+
+        document.body.appendChild(box);
+
+
+    }catch(error){
+
+        console.error(
+            "خطأ في تحميل تقييمات الطبيب:",
+            error
+        );
+
+        alert(
+            "حدث خطأ أثناء تحميل التقييمات"
+        );
+
+    }
+
+}
+      
 function renderSelectedDoctorInfo(doctor){
     const duration = getDoctorDuration(doctor);
     const workingHours = doctor.workingHours || {};

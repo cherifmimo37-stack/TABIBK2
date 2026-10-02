@@ -245,6 +245,22 @@ select:disabled{opacity:.55;cursor:not-allowed}
 .doctor-card-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 .doctor-card-meta span{display:inline-flex;align-items:center;gap:4px;padding:4px 7px;border-radius:9px;background:#f7f1fa;color:#6d5b74;font-size:8px}
 .doctor-card-meta i{color:var(--gold)}
+      .doctor-rating{
+    color:#8a6500 !important;
+    background:#fff6d8 !important;
+    border:1px solid rgba(199,154,50,.25);
+    font-weight:900;
+}
+
+.doctor-rating i{
+    color:#e0aa18 !important;
+}
+
+.doctor-rating small{
+    font-size:7px;
+    color:#8b7a4d;
+    font-weight:700;
+}
 .doctor-check{width:31px;height:31px;flex:0 0 31px;border-radius:11px;display:grid;place-items:center;background:#f3edf5;color:#b6a8bb;font-size:12px}
 .doctor-card-premium.active .doctor-check{background:var(--gold);color:#fff}
 .doctor-list-empty{padding:20px 12px;text-align:center;border-radius:17px;background:#faf7fb;border:1px dashed rgba(199,154,50,.30);color:var(--muted);font-size:11px}
@@ -2060,6 +2076,20 @@ function renderDoctors(list){
         const duration = getDoctorDuration(doctor);
         const workingHours = doctor.workingHours || {};
         let meta = "";
+
+          const rating = Number(doctor.rating || doctor.averageRating || 0);
+const ratingCount = Number(doctor.ratingCount || doctor.ratingsCount || 0);
+
+if(ratingCount > 0){
+    meta += `
+        <span class="doctor-rating">
+            <i class="fa-solid fa-star"></i>
+            ${rating.toFixed(1)}
+            <small>(${ratingCount} تقييم)</small>
+        </span>
+    `;
+}
+          
         if(duration){
             meta += `<span><i class="fa-regular fa-clock"></i>${escapeHtml(duration)} د</span>`;
         }

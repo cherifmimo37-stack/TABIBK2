@@ -1254,6 +1254,86 @@ app.get(
     doctors.map(
         doctor => {
 
+                        // ----------------------------------------------------
+            // UPCOMING APPOINTMENT + QUEUE
+            // ----------------------------------------------------
+
+            const doctorAppointments =
+                database.appointments.filter(
+                    appointment =>
+                        Number(
+                            appointment.doctorId
+                        ) === Number(
+                            doctor.id
+                        ) &&
+                        ![
+                            "completed",
+                            "cancelled",
+                            "rejected"
+                        ].includes(
+                            String(
+                                appointment.status || ""
+                            ).toLowerCase()
+                        )
+                );
+
+            const now =
+                Date.now();
+
+            const upcomingAppointments =
+                doctorAppointments
+                    .filter(
+                        appointment => {
+
+                            const appointmentDate =
+                                new Date(
+                                    appointment.date ||
+                                    appointment.appointmentDate ||
+                                    appointment.createdAt
+                                );
+
+                            return (
+                                !Number.isNaN(
+                                    appointmentDate.getTime()
+                                ) &&
+                                appointmentDate.getTime() >= now
+                            );
+                        }
+                    )
+                    .sort(
+                        (a, b) =>
+                            new Date(
+                                a.date ||
+                                a.appointmentDate ||
+                                a.createdAt
+                            ).getTime() -
+                            new Date(
+                                b.date ||
+                                b.appointmentDate ||
+                                b.createdAt
+                            ).getTime()
+                    );
+
+            const nextAppointment =
+                upcomingAppointments.length
+                    ? upcomingAppointments[0]
+                    : null;
+
+            const queueCount =
+                doctorAppointments.filter(
+                    appointment =>
+                        [
+                            "pending",
+                            "confirmed",
+                            "accepted",
+                            "waiting"
+                        ].includes(
+                            String(
+                                appointment.status || ""
+                            ).toLowerCase()
+                        )
+                ).length;
+
             const ratings =
                 database.appointments.filter(
                     appointment =>

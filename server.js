@@ -3799,6 +3799,84 @@ app.post(
 );
 
 // ============================================================
+// GET DOCTOR RATING
+// ============================================================
+
+app.get(
+    "/api/doctors/:doctorId/rating",
+    (req, res) => {
+
+        const database =
+            readDatabase();
+
+        const doctorId =
+            Number(
+                req.params.doctorId
+            );
+
+
+        const ratings =
+            database.appointments.filter(
+                appointment =>
+                    Number(
+                        appointment.doctorId
+                    ) === doctorId &&
+                    appointment.status === "completed" &&
+                    Number.isInteger(
+                        Number(
+                            appointment.doctorRating
+                        )
+                    ) &&
+                    Number(
+                        appointment.doctorRating
+                    ) >= 1 &&
+                    Number(
+                        appointment.doctorRating
+                    ) <= 5
+            );
+
+
+        const count =
+            ratings.length;
+
+
+        const total =
+            ratings.reduce(
+                (sum, appointment) =>
+                    sum +
+                    Number(
+                        appointment.doctorRating
+                    ),
+                0
+            );
+
+
+        const average =
+            count > 0
+                ? Number(
+                    (
+                        total /
+                        count
+                    ).toFixed(1)
+                )
+                : 0;
+
+
+        res.json({
+
+            success: true,
+
+            doctorId,
+
+            average,
+
+            count
+
+        });
+
+    }
+);
+// ============================================================
 // DELETE OLD DOCTOR APPOINTMENTS
 // ============================================================
 

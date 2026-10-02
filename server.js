@@ -1389,15 +1389,35 @@ app.get(
 
             return {
 
-                ...cleanDoctor(
-                    doctor
-                ),
+    ...cleanDoctor(
+        doctor
+    ),
 
-                rating,
+    rating,
 
-                ratingCount
+    ratingCount,
 
-            };
+    nextAppointment:
+        nextAppointment
+            ? {
+                date:
+                    nextAppointment.date ||
+                    nextAppointment.appointmentDate ||
+                    null,
+
+                bookingNumber:
+                    nextAppointment.bookingNumber ||
+                    null,
+
+                status:
+                    nextAppointment.status ||
+                    null
+            }
+            : null,
+
+    queueCount
+
+};
 
         }
     );

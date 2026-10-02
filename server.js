@@ -3954,15 +3954,17 @@ app.get(
         
         res.json({
 
-            success: true,
+    success: true,
 
-            doctorId,
+    doctorId,
 
-            average,
+    average,
 
-            count
+    count,
 
-        });
+    reviews
+
+});
 
     }
 );

@@ -1251,12 +1251,76 @@ app.get(
         }
 
         doctors =
-            doctors.map(
-                doctor =>
-                    cleanDoctor(
-                        doctor
+    doctors.map(
+        doctor => {
+
+            const ratings =
+                database.appointments.filter(
+                    appointment =>
+                        Number(
+                            appointment.doctorId
+                        ) === Number(
+                            doctor.id
+                        ) &&
+                        appointment.status ===
+                            "completed" &&
+                        Number.isInteger(
+                            Number(
+                                appointment.doctorRating
+                            )
+                        ) &&
+                        Number(
+                            appointment.doctorRating
+                        ) >= 1 &&
+                        Number(
+                            appointment.doctorRating
+                        ) <= 5
+                );
+
+
+            const ratingCount =
+                ratings.length;
+
+
+            const ratingTotal =
+                ratings.reduce(
+                    (
+                        sum,
+                        appointment
+                    ) =>
+                        sum +
+                        Number(
+                            appointment.doctorRating
+                        ),
+                    0
+                );
+
+
+            const rating =
+                ratingCount > 0
+                    ? Number(
+                        (
+                            ratingTotal /
+                            ratingCount
+                        ).toFixed(1)
                     )
-            );
+                    : 0;
+
+
+            return {
+
+                ...cleanDoctor(
+                    doctor
+                ),
+
+                rating,
+
+                ratingCount
+
+            };
+
+        }
+    );
 
         res.json({
             success: true,

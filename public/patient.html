@@ -1942,8 +1942,6 @@ function selectDoctorCard(doctor, card){
     doctorSelect.innerHTML = `<option value="${escapeHtml(doctor.id)}">${escapeHtml(doctor.name || "طبيب")}</option>`;
     doctorSelect.value = String(doctor.id);
     doctorSelect.disabled = false;
-
-    renderSelectedDoctorInfo(doctor);
 }
 
 function renderSelectedDoctorInfo(doctor){

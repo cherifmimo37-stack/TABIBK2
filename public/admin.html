@@ -4792,6 +4792,13 @@ function openDoctorModal(
         .value =
         doctor.name || "";
 
+      document
+    .getElementById(
+        "doctorGender"
+    )
+    .value =
+    doctor.gender || "male";
+
     document
         .getElementById(
             "doctorSpecialty"
@@ -4906,14 +4913,21 @@ document
             const body = {
 
                 name:
-                    document
-                        .getElementById(
-                            "doctorName"
-                        )
-                        .value
-                        .trim(),
+    document
+        .getElementById(
+            "doctorName"
+        )
+        .value
+        .trim(),
 
-                specialty:
+gender:
+    document
+        .getElementById(
+            "doctorGender"
+        )
+        .value,
+
+specialty:
                     document
                         .getElementById(
                             "doctorSpecialty"

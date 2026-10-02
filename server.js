@@ -1277,47 +1277,68 @@ app.get(
                         )
                 );
 
-            const now =
-                Date.now();
+          const now =
+    Date.now();
 
-            const upcomingAppointments =
-                doctorAppointments
-                    .filter(
-                        appointment => {
+const upcomingAppointments =
+    doctorAppointments
+        .filter(
+            appointment => {
 
-                            const appointmentDate =
-                                new Date(
-                                    appointment.date ||
-                                    appointment.appointmentDate ||
-                                    appointment.createdAt
-                                );
+                if(
+                    !appointment.date ||
+                    !appointment.time
+                ){
+                    return false;
+                }
 
-                            return (
-                                !Number.isNaN(
-                                    appointmentDate.getTime()
-                                ) &&
-                                appointmentDate.getTime() >= now
-                            );
-                        }
-                    )
-                    .sort(
-                        (a, b) =>
-                            new Date(
-                                a.date ||
-                                a.appointmentDate ||
-                                a.createdAt
-                            ).getTime() -
-                            new Date(
-                                b.date ||
-                                b.appointmentDate ||
-                                b.createdAt
-                            ).getTime()
+                const appointmentDate =
+                    new Date(
+                        String(
+                            appointment.date
+                        ) +
+                        "T" +
+                        String(
+                            appointment.time
+                        ) +
+                        ":00+01:00"
                     );
 
-            const nextAppointment =
-                upcomingAppointments.length
-                    ? upcomingAppointments[0]
-                    : null;
+                return (
+                    !Number.isNaN(
+                        appointmentDate.getTime()
+                    ) &&
+                    appointmentDate.getTime() >= now
+                );
+            }
+        )
+        .sort(
+            (a, b) => {
+
+                const dateA =
+                    new Date(
+                        String(a.date) +
+                        "T" +
+                        String(a.time) +
+                        ":00+01:00"
+                    ).getTime();
+
+                const dateB =
+                    new Date(
+                        String(b.date) +
+                        "T" +
+                        String(b.time) +
+                        ":00+01:00"
+                    ).getTime();
+
+                return dateA - dateB;
+            }
+        );
+
+const nextAppointment =
+    upcomingAppointments.length
+        ? upcomingAppointments[0]
+        : null;
 
             const queueCount =
                 doctorAppointments.filter(

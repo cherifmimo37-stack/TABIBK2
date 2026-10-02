@@ -4415,6 +4415,15 @@ app.put(
         }
 
         if (
+    body.gender !== undefined
+) {
+    doctor.gender =
+        String(
+            body.gender
+        ).trim();
+}
+
+        if (
             body.specialty !== undefined
         ) {
             doctor.specialty =

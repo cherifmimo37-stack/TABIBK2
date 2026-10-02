@@ -2321,6 +2321,13 @@ function renderDoctors(list){
 
           const rating = Number(doctor.rating || doctor.averageRating || 0);
 const ratingCount = Number(doctor.ratingCount || doctor.ratingsCount || 0);
+          const queueCount =
+    Number(
+        doctor.queueCount || 0
+    );
+
+const nextAppointment =
+    doctor.nextAppointment || null;
 
 if(ratingCount > 0){
     meta += `

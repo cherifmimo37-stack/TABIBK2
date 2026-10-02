@@ -3037,7 +3037,167 @@ function initDoctorRating(){
 
         }
     );
+/* =====================================================
+   SUBMIT DOCTOR RATING
+   ===================================================== */
 
+async function submitDoctorRating(){
+
+    const button =
+        document.getElementById(
+            "submitDoctorRating"
+        );
+
+    const message =
+        document.getElementById(
+            "ratingMessage"
+        );
+
+    const reviewInput =
+        document.getElementById(
+            "doctorReview"
+        );
+
+
+    if(!currentBookingNumber){
+
+        message.textContent =
+            "رقم الحجز غير موجود.";
+
+        return;
+
+    }
+
+
+    if(!selectedDoctorRating){
+
+        message.textContent =
+            "اختر عدد النجوم أولاً ⭐";
+
+        return;
+
+    }
+
+
+    const review =
+        reviewInput.value.trim();
+
+
+    button.disabled = true;
+
+    button.innerHTML = `
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        جاري إرسال التقييم...
+    `;
+
+
+    try{
+
+        const response =
+            await fetch(
+                `${API}/api/appointments/${encodeURIComponent(
+                    currentBookingNumber
+                )}/rating`,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json",
+
+                        "Accept":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            rating:
+                                selectedDoctorRating,
+
+                            review:
+                                review
+
+                        })
+                }
+            );
+
+
+        const data =
+            await readJsonResponse(
+                response
+            );
+
+
+        if(
+            !response.ok ||
+            !data.success
+        ){
+
+            throw new Error(
+                data.message ||
+                "تعذر إرسال التقييم"
+            );
+
+        }
+
+
+        message.textContent =
+            "تم إرسال تقييمك بنجاح ❤️";
+
+        message.style.color =
+            "#198754";
+
+
+        button.innerHTML = `
+            <i class="fa-solid fa-check"></i>
+            تم إرسال التقييم
+        `;
+
+
+        document.querySelectorAll(
+            ".rating-star"
+        ).forEach(
+            star => {
+
+                star.disabled = true;
+
+            }
+        );
+
+
+        reviewInput.disabled =
+            true;
+
+
+    }catch(error){
+
+        console.error(
+            "SUBMIT RATING ERROR:",
+            error
+        );
+
+
+        message.textContent =
+            error.message ||
+            "تعذر إرسال التقييم.";
+
+        message.style.color =
+            "#c92e42";
+
+
+        button.disabled = false;
+
+
+        button.innerHTML = `
+            <i class="fa-solid fa-paper-plane"></i>
+            إرسال التقييم
+        `;
+
+    }
+
+}
+      
 }
 /* =====================================================
    STATUS DATA

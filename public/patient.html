@@ -2348,6 +2348,48 @@ if(ratingCount > 0){
        if(doctor.online === true){
     meta += `<span class="doctor-online-status"><i class="fa-solid fa-circle"></i> متصل</span>`;
 }
+          if(nextAppointment){
+    const appointmentDate =
+        new Date(
+            nextAppointment.date
+        );
+
+    if(!Number.isNaN(appointmentDate.getTime())){
+        const dateText =
+            appointmentDate.toLocaleDateString(
+                "ar-DZ",
+                {
+                    day: "2-digit",
+                    month: "2-digit"
+                }
+            );
+
+        const timeText =
+            appointmentDate.toLocaleTimeString(
+                "ar-DZ",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+        meta += `
+            <span class="doctor-next-appointment">
+                <i class="fa-regular fa-calendar-check"></i>
+                أقرب موعد ${dateText} ${timeText}
+            </span>
+        `;
+    }
+}
+
+          if(queueCount > 0){
+    meta += `
+        <span class="doctor-queue">
+            <i class="fa-solid fa-users"></i>
+            ${queueCount} مرضى في الانتظار
+        </span>
+    `;
+}
 
         card.innerHTML = `
             <span class="doctor-avatar">

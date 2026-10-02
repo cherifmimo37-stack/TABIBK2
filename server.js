@@ -3925,7 +3925,33 @@ app.get(
                 )
                 : 0;
 
+        const reviews =
+            ratings
+                .filter(
+                    appointment =>
+                        String(
+                            appointment.doctorReview || ""
+                        ).trim()
+                )
+                .map(
+                    appointment => ({
+                        rating:
+                            Number(
+                                appointment.doctorRating
+                            ),
 
+                        review:
+                            String(
+                                appointment.doctorReview
+                            ).trim(),
+
+                        ratedAt:
+                            appointment.ratedAt ||
+                            null
+                    })
+                )
+                .reverse();
+        
         res.json({
 
             success: true,

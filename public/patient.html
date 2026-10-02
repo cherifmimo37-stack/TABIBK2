@@ -2,7 +2,6 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -1458,7 +1457,165 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
             </div>
 
 
+                </div>
+
+
+        <!-- =================================================
+             DOCTOR RATING
+             ================================================= -->
+
+        <div
+            id="doctorRatingCard"
+            class="card hidden"
+            style="margin-top:15px;margin-bottom:0;padding:17px;"
+        >
+
+            <div
+                class="card-title"
+                style="margin-bottom:12px;"
+            >
+
+                <div
+                    class="icon"
+                    style="background:#fff7df;color:#d39b00;"
+                >
+
+                    <i class="fa-solid fa-star"></i>
+
+                </div>
+
+                <div>
+
+                    <h2>
+                        قيّم الطبيب
+                    </h2>
+
+                    <p>
+                        كيف كانت تجربتك مع الطبيب؟
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STARS -->
+
+            <div
+                id="ratingStars"
+                style="
+                    display:flex;
+                    justify-content:center;
+                    gap:10px;
+                    margin:15px 0;
+                    direction:rtl;
+                "
+            >
+
+                <button
+                    type="button"
+                    class="rating-star"
+                    data-rating="5"
+                >
+                    <i class="fa-solid fa-star"></i>
+                </button>
+
+                <button
+                    type="button"
+                    class="rating-star"
+                    data-rating="4"
+                >
+                    <i class="fa-solid fa-star"></i>
+                </button>
+
+                <button
+                    type="button"
+                    class="rating-star"
+                    data-rating="3"
+                >
+                    <i class="fa-solid fa-star"></i>
+                </button>
+
+                <button
+                    type="button"
+                    class="rating-star"
+                    data-rating="2"
+                >
+                    <i class="fa-solid fa-star"></i>
+                </button>
+
+                <button
+                    type="button"
+                    class="rating-star"
+                    data-rating="1"
+                >
+                    <i class="fa-solid fa-star"></i>
+                </button>
+
+            </div>
+
+
+            <div
+                id="ratingText"
+                style="
+                    text-align:center;
+                    font-weight:700;
+                    margin-bottom:12px;
+                    color:#555;
+                "
+            >
+                اختر تقييمك من 1 إلى 5
+            </div>
+
+
+            <!-- COMMENT -->
+
+            <textarea
+                id="doctorReview"
+                placeholder="اكتب تعليقك عن تجربتك مع الطبيب (اختياري)..."
+                maxlength="500"
+                style="
+                    width:100%;
+                    min-height:100px;
+                    resize:vertical;
+                    padding:12px;
+                    border:1px solid #ddd;
+                    border-radius:12px;
+                    font-family:inherit;
+                    box-sizing:border-box;
+                    outline:none;
+                "
+            ></textarea>
+
+
+            <button
+                type="button"
+                id="submitDoctorRating"
+                class="btn primary"
+                style="
+                    width:100%;
+                    margin-top:12px;
+                "
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                إرسال التقييم
+
+            </button>
+
+
+            <div
+                id="ratingMessage"
+                style="
+                    margin-top:10px;
+                    text-align:center;
+                    font-weight:700;
+                "
+            ></div>
+
         </div>
+
 
     </section>
 
@@ -1592,6 +1749,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             currentBookingNumber;
 
     }
+          initDoctorRating();
 
     setTimeout(() => {
         prepareNotificationAudio();
@@ -2594,7 +2752,34 @@ function renderAppointment(
         appointment.status ||
         "pending";
 
+    // =====================================================
+    // DOCTOR RATING VISIBILITY
+    // =====================================================
 
+    const doctorRatingCard =
+        document.getElementById(
+            "doctorRatingCard"
+        );
+
+
+    if(doctorRatingCard){
+
+        if(status === "completed"){
+
+            doctorRatingCard.classList.remove(
+                "hidden"
+            );
+
+        }else{
+
+            doctorRatingCard.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+      
     const statusData =
         getStatusData(status);
 
@@ -2769,7 +2954,91 @@ function renderAppointment(
 
 }
 
+/* =====================================================
+   DOCTOR RATING UI
+   ===================================================== */
 
+let selectedDoctorRating = 0;
+
+
+function initDoctorRating(){
+
+    const stars =
+        document.querySelectorAll(
+            ".rating-star"
+        );
+
+    const ratingText =
+        document.getElementById(
+            "ratingText"
+        );
+
+
+    if(!stars.length){
+        return;
+    }
+
+
+    stars.forEach(
+        star => {
+
+            star.addEventListener(
+                "click",
+                () => {
+
+                    selectedDoctorRating =
+                        Number(
+                            star.dataset.rating
+                        );
+
+
+                    stars.forEach(
+                        item => {
+
+                            const rating =
+                                Number(
+                                    item.dataset.rating
+                                );
+
+
+                            item.classList.toggle(
+                                "selected",
+                                rating <=
+                                selectedDoctorRating
+                            );
+
+                        }
+                    );
+
+
+                    const labels = {
+
+                        1:"تقييم سيئ 😞",
+
+                        2:"تقييم ضعيف 😕",
+
+                        3:"تقييم متوسط 😐",
+
+                        4:"تقييم جيد 😊",
+
+                        5:"تقييم ممتاز 🤩"
+
+                    };
+
+
+                    ratingText.textContent =
+                        labels[
+                            selectedDoctorRating
+                        ] ||
+                        "اختر تقييمك من 1 إلى 5";
+
+                }
+            );
+
+        }
+    );
+
+}
 /* =====================================================
    STATUS DATA
    ===================================================== */

@@ -4065,22 +4065,29 @@ app.get(
                         ).trim()
                 )
                 .map(
-                    appointment => ({
-                        rating:
-                            Number(
-                                appointment.doctorRating
-                            ),
+    appointment => ({
+        rating:
+            Number(
+                appointment.doctorRating
+            ),
 
-                        review:
-                            String(
-                                appointment.doctorReview
-                            ).trim(),
+        review:
+            String(
+                appointment.doctorReview
+            ).trim(),
 
-                        ratedAt:
-                            appointment.ratedAt ||
-                            null
-                    })
-                )
+        reviewerName:
+            String(
+                appointment.reviewerName ||
+                appointment.patientName ||
+                "مريض"
+            ).trim(),
+
+        ratedAt:
+            appointment.ratedAt ||
+            null
+    })
+)
                 .reverse();
         
         res.json({

@@ -10,7 +10,7 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 >
 
-<meta name="theme-color" content="#5B2A91">
+<meta name="theme-color" content="#4B2378">
 
 <title>طبيبك | TABIBK</title>
 
@@ -18,38 +18,41 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet"
 >
 
 <style>
 
 /* =========================================================
-   TABIBK PREMIUM
-   Purple + Gold Medical Identity
+   TABIBK ULTIMATE
+   Purple / Gold Medical Identity
    ========================================================= */
 
 :root{
 
-    --purple-dark:#3B1764;
-    --purple:#5B2A91;
-    --purple-main:#6D3FB5;
-    --purple-light:#8B63C7;
+    --purple-950:#241035;
+    --purple-900:#32144F;
+    --purple-800:#431B69;
+    --purple-700:#552487;
+    --purple-600:#6D3BA6;
+    --purple-500:#8053B5;
 
-    --gold:#D6A63A;
-    --gold-light:#E8C56B;
-    --gold-soft:#FBF3DF;
+    --gold-700:#A87516;
+    --gold-600:#C49328;
+    --gold-500:#D9AD48;
+    --gold-400:#E8C86F;
 
+    --cream:#FBF9FD;
     --white:#FFFFFF;
-    --ivory:#FAF8FC;
 
-    --text:#292233;
-    --muted:#7D7487;
+    --ink:#261B31;
+    --muted:#81768B;
 
-    --border:rgba(91,42,145,.11);
+    --line:rgba(67,27,105,.10);
 
     --shadow:
-        0 18px 45px rgba(57,25,91,.10);
+        0 20px 55px rgba(48,18,76,.10);
 }
 
 
@@ -61,6 +64,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
+
     -webkit-tap-highlight-color:transparent;
 }
 
@@ -74,27 +78,14 @@ body{
 
     font-family:"Cairo",sans-serif;
 
-    color:var(--text);
+    color:var(--ink);
 
     background:
-
-        radial-gradient(
-            circle at 100% 0%,
-            rgba(109,63,181,.12),
-            transparent 28%
-        ),
-
-        radial-gradient(
-            circle at 0% 100%,
-            rgba(214,166,58,.08),
-            transparent 26%
-        ),
-
         linear-gradient(
             145deg,
-            #FFFFFF 0%,
-            #FAF8FC 55%,
-            #F6F1FB 100%
+            #ffffff 0%,
+            #fcfaff 48%,
+            #f6f0fb 100%
         );
 
     overflow-x:hidden;
@@ -102,58 +93,78 @@ body{
 
 
 /* =========================================================
-   BACKGROUND DECORATION
+   BACKGROUND
    ========================================================= */
 
 .background{
     position:fixed;
     inset:0;
 
-    pointer-events:none;
-
     overflow:hidden;
+
+    pointer-events:none;
 
     z-index:0;
 }
 
-.bg-orb{
+.glow{
     position:absolute;
 
     border-radius:50%;
 
-    filter:blur(2px);
+    filter:blur(3px);
 }
 
-.bg-orb.one{
+.glow-1{
+    width:330px;
+    height:330px;
 
-    width:260px;
-    height:260px;
-
-    right:-150px;
-    top:-110px;
+    right:-190px;
+    top:-180px;
 
     background:
         radial-gradient(
             circle,
-            rgba(109,63,181,.14),
-            transparent 70%
+            rgba(109,59,166,.18),
+            transparent 68%
         );
 }
 
-.bg-orb.two{
+.glow-2{
+    width:300px;
+    height:300px;
 
-    width:220px;
-    height:220px;
-
-    left:-130px;
-    bottom:-100px;
+    left:-190px;
+    bottom:-160px;
 
     background:
         radial-gradient(
             circle,
-            rgba(214,166,58,.11),
-            transparent 70%
+            rgba(217,173,72,.10),
+            transparent 68%
         );
+}
+
+
+/* =========================================================
+   MEDICAL LINE
+   ========================================================= */
+
+.medical-line{
+
+    position:absolute;
+
+    width:100%;
+    height:110px;
+
+    top:45%;
+
+    opacity:.045;
+}
+
+.medical-line svg{
+    width:100%;
+    height:100%;
 }
 
 
@@ -174,90 +185,125 @@ body{
     justify-content:center;
 
     padding:
+        12px
         14px
-        14px
-        24px;
+        22px;
 }
 
 .container{
 
     width:100%;
 
-    max-width:540px;
+    max-width:570px;
 }
 
 
 /* =========================================================
-   TOP BAR
+   TOP NAV
    ========================================================= */
 
-.topbar{
+.top-nav{
 
     display:flex;
 
-    justify-content:flex-start;
+    align-items:center;
+
+    justify-content:space-between;
+
+    height:32px;
 
     margin-bottom:5px;
 }
 
-.admin-link{
+.security{
 
-    display:inline-flex;
+    display:flex;
 
     align-items:center;
 
-    gap:6px;
+    gap:5px;
 
-    padding:7px 11px;
+    color:#8A8190;
 
-    border-radius:12px;
+    font-size:7px;
 
-    text-decoration:none;
-
-    color:var(--purple);
-
-    background:rgba(255,255,255,.78);
-
-    border:
-        1px solid
-        rgba(91,42,145,.10);
-
-    box-shadow:
-        0 6px 18px rgba(57,25,91,.05);
-
-    font-size:9px;
-
-    font-weight:800;
-
-    transition:.2s ease;
+    font-weight:700;
 }
 
-.admin-link:active{
-    transform:scale(.96);
-}
+.security-icon{
 
-.admin-icon{
-
-    width:20px;
-    height:20px;
+    width:18px;
+    height:18px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    border-radius:7px;
+    border-radius:6px;
+
+    color:var(--purple-700);
+
+    background:#F1EAF8;
+
+    font-size:9px;
+}
+
+.admin{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    padding:
+        6px
+        10px;
+
+    color:var(--purple-700);
+
+    background:white;
+
+    border:
+        1px solid
+        rgba(67,27,105,.09);
+
+    border-radius:11px;
+
+    text-decoration:none;
+
+    box-shadow:
+        0 5px 16px
+        rgba(48,18,76,.05);
+
+    font-size:8px;
+
+    font-weight:800;
+}
+
+.admin span{
+
+    width:18px;
+    height:18px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:6px;
 
     color:white;
 
     background:
         linear-gradient(
             135deg,
-            var(--purple),
-            var(--purple-dark)
+            var(--purple-700),
+            var(--purple-900)
         );
 
-    font-size:10px;
+    font-size:9px;
 }
 
 
@@ -269,74 +315,70 @@ body{
 
     text-align:center;
 
-    margin-bottom:16px;
+    margin-top:4px;
+
+    margin-bottom:14px;
 }
 
 .logo{
 
     position:relative;
 
-    width:72px;
-    height:72px;
+    width:76px;
+    height:76px;
 
-    margin:0 auto 9px;
+    margin:
+        0
+        auto
+        9px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    border-radius:23px;
+    border-radius:25px;
 
     background:
         linear-gradient(
             145deg,
-            var(--purple),
-            var(--purple-dark)
+            var(--purple-600),
+            var(--purple-900)
         );
 
     box-shadow:
-        0 14px 32px rgba(91,42,145,.22);
+        0 17px 38px
+        rgba(67,27,105,.23);
 }
 
-
-/* gold ring */
-
-.logo::before{
-
-    content:"";
+.logo-border{
 
     position:absolute;
 
     inset:5px;
 
-    border-radius:18px;
+    border-radius:20px;
 
     border:
-        1.5px solid
-        rgba(232,197,107,.85);
+        1px solid
+        rgba(232,200,111,.70);
 }
-
-
-/* heart */
 
 .logo-heart{
 
     position:relative;
 
-    width:38px;
-    height:38px;
+    width:39px;
+    height:39px;
+
+    color:white;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    color:white;
-
     font-size:31px;
-
-    line-height:1;
 }
 
 
@@ -348,145 +390,150 @@ body{
 
     position:absolute;
 
-    width:28px;
+    width:29px;
     height:2px;
 
-    background:var(--gold-light);
-
+    top:21px;
     right:-2px;
-    top:20px;
 
-    transform:
-        rotate(-3deg);
+    background:var(--gold-400);
+
+    transform:rotate(-4deg);
 
     box-shadow:
-
-        -7px -4px 0 -0.3px
-        var(--gold-light),
-
-        -12px 4px 0 -0.3px
-        var(--gold-light);
+        -7px -4px 0 -0.2px var(--gold-400),
+        -12px 4px 0 -0.2px var(--gold-400);
 }
 
+.brand-name{
 
-.brand h1{
+    display:flex;
 
-    font-size:30px;
+    justify-content:center;
+
+    align-items:baseline;
+
+    gap:5px;
+}
+
+.brand-name h1{
+
+    color:var(--purple-950);
+
+    font-size:31px;
 
     font-weight:900;
 
-    line-height:1.15;
-
-    color:var(--purple-dark);
-
-    letter-spacing:.2px;
+    line-height:1;
 }
 
-.brand h1 span{
+.brand-name b{
 
-    color:var(--gold);
+    color:var(--gold-600);
+
+    font-size:17px;
+
+    font-weight:900;
 }
 
 .brand p{
 
-    margin-top:4px;
+    margin-top:5px;
 
     color:var(--muted);
 
-    font-size:9px;
+    font-size:8px;
 
     font-weight:600;
+
+    letter-spacing:.2px;
 }
 
 
 /* =========================================================
-   INTRO CARD
+   HERO
    ========================================================= */
 
-.intro{
+.hero{
 
     position:relative;
 
-    overflow:hidden;
+    min-height:135px;
 
-    padding:
-        15px
-        16px
-        16px;
+    overflow:hidden;
 
     margin-bottom:13px;
 
-    border-radius:22px;
+    padding:
+        20px
+        18px;
+
+    border-radius:25px;
 
     background:
-
         linear-gradient(
-            135deg,
-            var(--purple-dark),
-            var(--purple)
+            120deg,
+            var(--purple-950),
+            var(--purple-800) 52%,
+            var(--purple-700)
         );
 
     box-shadow:
-        0 18px 40px rgba(59,23,100,.18);
+        0 22px 48px
+        rgba(48,18,76,.20);
 }
 
 
-/* gold glow */
+/* decorative gold line */
 
-.intro::before{
+.hero::before{
 
     content:"";
 
     position:absolute;
 
-    width:150px;
-    height:150px;
+    width:230px;
+    height:230px;
 
     border-radius:50%;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(232,197,107,.22),
-            transparent 68%
-        );
+    border:
+        1px solid
+        rgba(232,200,111,.18);
 
-    top:-95px;
-    left:-55px;
+    right:-125px;
+    top:-115px;
 }
 
-.intro::after{
+.hero::after{
 
     content:"";
 
     position:absolute;
 
-    width:130px;
-    height:130px;
+    width:180px;
+    height:180px;
 
     border-radius:50%;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.09),
-            transparent 68%
-        );
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
-    right:-70px;
-    bottom:-75px;
+    left:-115px;
+    bottom:-105px;
 }
 
-.intro-content{
+.hero-content{
 
     position:relative;
 
     z-index:2;
 
-    text-align:center;
+    max-width:400px;
 }
 
-.intro-badge{
+.hero-badge{
 
     display:inline-flex;
 
@@ -495,68 +542,115 @@ body{
     gap:6px;
 
     padding:
-        4px
-        10px;
+        5px
+        9px;
 
-    margin-bottom:7px;
+    margin-bottom:8px;
 
     border-radius:20px;
 
-    color:#FFF;
-
     background:
-        rgba(255,255,255,.10);
+        rgba(255,255,255,.09);
 
     border:
         1px solid
-        rgba(255,255,255,.13);
+        rgba(255,255,255,.10);
 
-    font-size:8px;
+    color:#F4E9FF;
 
-    font-weight:700;
+    font-size:7px;
+
+    font-weight:800;
 }
 
-.badge-dot{
+.hero-badge i{
 
     width:5px;
     height:5px;
 
     border-radius:50%;
 
-    background:#9EE6B4;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(158,230,180,.10);
+    background:#79D89A;
 }
 
-.intro h2{
+.hero h2{
 
     color:white;
 
-    font-size:17px;
+    font-size:19px;
 
     font-weight:900;
+
+    line-height:1.5;
 }
 
-.intro p{
+.hero h2 strong{
+
+    color:var(--gold-400);
+}
+
+.hero p{
 
     margin-top:3px;
 
     color:
-        rgba(255,255,255,.70);
+        rgba(255,255,255,.67);
 
-    font-size:9px;
+    font-size:8.5px;
 
     line-height:1.8;
 }
 
 
+/* decorative medical cross */
+
+.hero-cross{
+
+    position:absolute;
+
+    left:22px;
+    top:27px;
+
+    width:50px;
+    height:50px;
+
+    opacity:.10;
+}
+
+.hero-cross::before,
+.hero-cross::after{
+
+    content:"";
+
+    position:absolute;
+
+    background:white;
+
+    border-radius:5px;
+}
+
+.hero-cross::before{
+
+    width:14px;
+    height:50px;
+
+    left:18px;
+}
+
+.hero-cross::after{
+
+    width:50px;
+    height:14px;
+
+    top:18px;
+}
+
+
 /* =========================================================
-   LOGIN TITLE
+   SELECT TITLE
    ========================================================= */
 
-.section-title{
+.choose{
 
     display:flex;
 
@@ -566,50 +660,47 @@ body{
 
     gap:8px;
 
-    margin-bottom:9px;
+    margin-bottom:8px;
 }
 
-.section-title::before,
-.section-title::after{
+.choose-line{
 
-    content:"";
-
-    width:28px;
+    width:35px;
     height:1px;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(214,166,58,.55)
+            var(--gold-500)
         );
 }
 
-.section-title::after{
+.choose-line:last-child{
 
     background:
         linear-gradient(
             90deg,
-            rgba(214,166,58,.55),
+            var(--gold-500),
             transparent
         );
 }
 
-.section-title span{
+.choose span{
 
-    color:var(--purple-dark);
+    color:var(--purple-800);
 
-    font-size:10px;
+    font-size:9px;
 
-    font-weight:800;
+    font-weight:900;
 }
 
 
 /* =========================================================
-   LOGIN GRID
+   ROLES
    ========================================================= */
 
-.login-grid{
+.roles{
 
     display:grid;
 
@@ -628,12 +719,12 @@ body{
 
     position:relative;
 
-    min-height:284px;
+    min-height:292px;
 
     padding:
-        11px
-        11px
-        12px;
+        10px
+        10px
+        11px;
 
     display:flex;
 
@@ -645,15 +736,17 @@ body{
 
     text-decoration:none;
 
-    border-radius:24px;
+    border-radius:25px;
 
     background:#FFFFFF;
 
     border:
         1px solid
-        var(--border);
+        var(--line);
 
-    box-shadow:var(--shadow);
+    box-shadow:
+        0 18px 45px
+        rgba(48,18,76,.085);
 
     transition:
         transform .2s ease,
@@ -665,33 +758,32 @@ body{
     transform:scale(.975);
 
     box-shadow:
-        0 12px 30px
-        rgba(57,25,91,.13);
+        0 10px 28px
+        rgba(48,18,76,.12);
 }
 
 
-/* top purple line */
+/* top identity */
 
-.role-card::before{
-
-    content:"";
+.identity-line{
 
     position:absolute;
 
     top:0;
-    left:16%;
-    right:16%;
+
+    left:20%;
+    right:20%;
 
     height:3px;
 
     border-radius:
-        0 0 10px 10px;
+        0 0 8px 8px;
 
     background:
         linear-gradient(
             90deg,
-            var(--purple),
-            var(--gold)
+            var(--purple-600),
+            var(--gold-500)
         );
 }
 
@@ -700,57 +792,70 @@ body{
    PHOTO
    ========================================================= */
 
-.photo-wrap{
+.photo-container{
 
     position:relative;
 
-    width:132px;
-    height:132px;
+    width:137px;
+    height:137px;
 
-    margin:
-        5px
-        auto
-        9px;
+    margin-top:7px;
 
-    border-radius:50%;
+    margin-bottom:8px;
 
     padding:4px;
+
+    border-radius:50%;
 
     background:
         linear-gradient(
             145deg,
-            var(--gold-light),
-            var(--purple-light),
-            var(--purple)
+            var(--gold-400),
+            var(--purple-500)
         );
 
     box-shadow:
-        0 12px 27px
-        rgba(91,42,145,.16);
+        0 13px 30px
+        rgba(67,27,105,.17);
 }
 
-.photo-wrap::after{
+.photo-container::before{
 
     content:"";
 
     position:absolute;
 
-    width:14px;
-    height:14px;
-
-    right:2px;
-    bottom:8px;
+    inset:-4px;
 
     border-radius:50%;
 
-    background:#3CBF72;
+    border:
+        1px solid
+        rgba(214,166,58,.18);
+}
+
+.photo-container::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:4px;
+    bottom:7px;
+
+    width:15px;
+    height:15px;
+
+    border-radius:50%;
+
+    background:#38B968;
 
     border:
         3px solid
         white;
 
     box-shadow:
-        0 3px 10px
+        0 4px 10px
         rgba(0,0,0,.12);
 }
 
@@ -767,17 +872,17 @@ body{
 
     border-radius:50%;
 
-    background:#F1ECF8;
+    background:#EEE8F5;
 }
 
 
 /* =========================================================
-   ROLE TEXT
+   CARD TEXT
    ========================================================= */
 
 .role-card h3{
 
-    color:var(--purple-dark);
+    color:var(--purple-900);
 
     font-size:16px;
 
@@ -786,29 +891,31 @@ body{
     line-height:1.2;
 }
 
-.role-desc{
+.role-card p{
+
+    min-height:18px;
 
     margin-top:3px;
 
     color:var(--muted);
 
-    font-size:8px;
+    text-align:center;
+
+    font-size:7.5px;
 
     font-weight:600;
 
-    text-align:center;
-
-    min-height:18px;
+    line-height:1.6;
 }
 
 
 /* =========================================================
-   GOLD LABEL
+   GOLD MINI BADGE
    ========================================================= */
 
-.role-label{
+.mini-badge{
 
-    display:inline-flex;
+    display:flex;
 
     align-items:center;
 
@@ -822,25 +929,35 @@ body{
 
     border-radius:20px;
 
-    background:var(--gold-soft);
+    background:
+        linear-gradient(
+            135deg,
+            #FFF8E7,
+            #FBF0D3
+        );
 
-    color:#A67A19;
+    color:
+        var(--gold-700);
 
-    font-size:7px;
+    font-size:6.5px;
 
-    font-weight:800;
+    font-weight:900;
+
+    border:
+        1px solid
+        rgba(214,166,58,.12);
 }
 
 
 /* =========================================================
-   BUTTON
+   ACTION
    ========================================================= */
 
-.role-button{
+.action{
 
     width:100%;
 
-    height:37px;
+    height:38px;
 
     margin-top:auto;
 
@@ -859,32 +976,34 @@ body{
     background:
         linear-gradient(
             135deg,
-            var(--purple),
-            var(--purple-dark)
+            var(--purple-600),
+            var(--purple-900)
         );
 
     box-shadow:
         0 8px 18px
-        rgba(91,42,145,.20);
+        rgba(67,27,105,.19);
 
-    font-size:9px;
+    font-size:8.5px;
 
     font-weight:900;
 }
 
-.role-button .arrow{
+.action-arrow{
 
-    color:var(--gold-light);
+    color:var(--gold-400);
 
     font-size:13px;
+
+    line-height:1;
 }
 
 
 /* =========================================================
-   SECURITY / FEATURES
+   TRUST BAR
    ========================================================= */
 
-.features{
+.trust{
 
     display:grid;
 
@@ -896,9 +1015,9 @@ body{
     margin-top:11px;
 }
 
-.feature{
+.trust-item{
 
-    min-height:59px;
+    min-height:62px;
 
     display:flex;
 
@@ -908,26 +1027,25 @@ body{
 
     justify-content:center;
 
-    gap:3px;
+    gap:4px;
 
     border-radius:15px;
 
-    background:
-        rgba(255,255,255,.82);
+    background:white;
 
     border:
         1px solid
-        rgba(91,42,145,.08);
+        rgba(67,27,105,.07);
 
     box-shadow:
         0 8px 22px
-        rgba(57,25,91,.045);
+        rgba(48,18,76,.045);
 }
 
-.feature-icon{
+.trust-icon{
 
-    width:25px;
-    height:25px;
+    width:27px;
+    height:27px;
 
     display:flex;
 
@@ -936,20 +1054,20 @@ body{
 
     border-radius:8px;
 
-    background:var(--gold-soft);
+    background:#F6EFDA;
 
-    color:var(--purple);
+    color:var(--purple-700);
 
     font-size:12px;
 }
 
-.feature span{
+.trust-item span{
 
-    color:var(--muted);
+    color:#81778A;
 
-    font-size:7px;
+    font-size:6.5px;
 
-    font-weight:700;
+    font-weight:800;
 }
 
 
@@ -959,20 +1077,20 @@ body{
 
 .footer{
 
-    margin-top:13px;
+    margin-top:12px;
 
     text-align:center;
 
-    color:#9A91A3;
+    color:#A39AA9;
 
-    font-size:7px;
+    font-size:6.5px;
 
     font-weight:600;
 }
 
 .footer strong{
 
-    color:var(--purple);
+    color:var(--purple-700);
 
     font-weight:900;
 }
@@ -982,28 +1100,40 @@ body{
    SMALL PHONES
    ========================================================= */
 
-@media(max-width:350px){
+@media(max-width:355px){
 
     .page{
 
-        padding-left:9px;
-        padding-right:9px;
+        padding-left:8px;
+        padding-right:8px;
+    }
+
+    .hero{
+
+        padding:
+            17px
+            14px;
+    }
+
+    .hero h2{
+
+        font-size:17px;
     }
 
     .role-card{
 
-        min-height:262px;
+        min-height:265px;
 
         padding:
-            9px
+            8px
             8px
             10px;
     }
 
-    .photo-wrap{
+    .photo-container{
 
-        width:108px;
-        height:108px;
+        width:112px;
+        height:112px;
     }
 
     .role-card h3{
@@ -1011,27 +1141,22 @@ body{
         font-size:14px;
     }
 
-    .role-desc{
+    .action{
 
-        font-size:7px;
+        height:35px;
+
+        font-size:7.5px;
     }
 
-    .role-button{
+    .brand-name h1{
 
-        height:34px;
-
-        font-size:8px;
-    }
-
-    .brand h1{
-
-        font-size:27px;
+        font-size:28px;
     }
 }
 
 
 /* =========================================================
-   TABLET / DESKTOP
+   LARGER SCREENS
    ========================================================= */
 
 @media(min-width:600px){
@@ -1043,18 +1168,23 @@ body{
 
     .container{
 
-        max-width:570px;
+        max-width:590px;
     }
 
     .role-card{
 
-        min-height:310px;
+        min-height:320px;
     }
 
-    .photo-wrap{
+    .photo-container{
 
-        width:150px;
-        height:150px;
+        width:155px;
+        height:155px;
+    }
+
+    .hero{
+
+        min-height:145px;
     }
 }
 
@@ -1072,8 +1202,50 @@ body{
 
 <div class="background">
 
-    <div class="bg-orb one"></div>
-    <div class="bg-orb two"></div>
+    <div class="glow glow-1"></div>
+
+    <div class="glow glow-2"></div>
+
+    <div class="medical-line">
+
+        <svg
+            viewBox="0 0 1200 110"
+            preserveAspectRatio="none"
+        >
+
+            <polyline
+                points="
+                0,58
+                150,58
+                205,58
+                235,25
+                258,88
+                282,58
+                430,58
+                485,58
+                515,38
+                535,70
+                560,58
+                720,58
+                775,58
+                805,18
+                830,92
+                855,58
+                1000,58
+                1050,58
+                1080,38
+                1100,72
+                1140,58
+                1200,58
+                "
+                fill="none"
+                stroke="#5B2A91"
+                stroke-width="2"
+            />
+
+        </svg>
+
+    </div>
 
 </div>
 
@@ -1088,23 +1260,36 @@ body{
 
 
     <!-- ===================================================
-         ADMIN
+         TOP NAV
          =================================================== -->
 
-    <div class="topbar">
+    <div class="top-nav">
+
+
+        <div class="security">
+
+            <span class="security-icon">
+                ✓
+            </span>
+
+            تجربة صحية رقمية آمنة
+
+        </div>
+
 
         <a
             href="/admin.html"
-            class="admin-link"
+            class="admin"
         >
 
-            <span class="admin-icon">
+            <span>
                 ⚙
             </span>
 
             الإدارة
 
         </a>
+
 
     </div>
 
@@ -1115,7 +1300,10 @@ body{
 
     <header class="brand">
 
+
         <div class="logo">
+
+            <div class="logo-border"></div>
 
             <div class="logo-heart">
                 ♥
@@ -1123,65 +1311,96 @@ body{
 
         </div>
 
-        <h1>
-            طبيبك <span>+</span>
-        </h1>
+
+        <div class="brand-name">
+
+            <h1>
+                طبيبك
+            </h1>
+
+            <b>
+                +
+            </b>
+
+        </div>
+
 
         <p>
             TABIBK • الرعاية الصحية الرقمية
         </p>
 
+
     </header>
 
 
     <!-- ===================================================
-         INTRO
+         HERO
          =================================================== -->
 
-    <section class="intro">
+    <section class="hero">
 
-        <div class="intro-content">
 
-            <div class="intro-badge">
+        <div class="hero-cross"></div>
 
-                <span class="badge-dot"></span>
 
-                منصة صحية رقمية
+        <div class="hero-content">
+
+
+            <div class="hero-badge">
+
+                <i></i>
+
+                منصة طبيبك متاحة الآن
 
             </div>
 
+
             <h2>
-                رعايتك الصحية تبدأ من طبيبك
+
+                صحتك تستحق
+                <strong>
+                    عناية أفضل
+                </strong>
+
             </h2>
 
+
             <p>
-                احجز موعدك بسهولة أو تابع مرضاك
-                من خلال منصة TABIBK
+
+                احجز موعدك، تابع مواعيدك،
+                وتواصل مع طبيبك بسهولة.
+
             </p>
 
+
         </div>
+
 
     </section>
 
 
     <!-- ===================================================
-         TITLE
+         CHOOSE
          =================================================== -->
 
-    <div class="section-title">
+    <div class="choose">
+
+        <div class="choose-line"></div>
 
         <span>
-            اختر طريقة الدخول
+            ابدأ تجربتك
         </span>
+
+        <div class="choose-line"></div>
 
     </div>
 
 
     <!-- ===================================================
-         LOGIN CARDS
+         ROLES
          =================================================== -->
 
-    <div class="login-grid">
+    <div class="roles">
 
 
         <!-- ===============================================
@@ -1193,7 +1412,10 @@ body{
             class="role-card"
         >
 
-            <div class="photo-wrap">
+            <div class="identity-line"></div>
+
+
+            <div class="photo-container">
 
                 <img
                     src="/images/patient.jpg"
@@ -1210,21 +1432,25 @@ body{
             </h3>
 
 
-            <div class="role-desc">
-                احجز موعدك وتابع زياراتك
+            <p>
+                احجز موعدك وتابع
+                رحلتك الصحية
+            </p>
+
+
+            <div class="mini-badge">
+
+                ✦
+                رعاية أسهل
+
             </div>
 
 
-            <div class="role-label">
-                ✦ رعاية أسهل
-            </div>
-
-
-            <div class="role-button">
+            <div class="action">
 
                 دخول المريض
 
-                <span class="arrow">
+                <span class="action-arrow">
                     ←
                 </span>
 
@@ -1242,7 +1468,10 @@ body{
             class="role-card"
         >
 
-            <div class="photo-wrap">
+            <div class="identity-line"></div>
+
+
+            <div class="photo-container">
 
                 <img
                     src="/images/doctor.jpg"
@@ -1259,21 +1488,25 @@ body{
             </h3>
 
 
-            <div class="role-desc">
-                أدر مواعيدك ومرضـاك بسهولة
+            <p>
+                أدر مواعيدك ومرضـاك
+                بسهولة
+            </p>
+
+
+            <div class="mini-badge">
+
+                ✦
+                إدارة ذكية
+
             </div>
 
 
-            <div class="role-label">
-                ✦ إدارة ذكية
-            </div>
-
-
-            <div class="role-button">
+            <div class="action">
 
                 دخول الطبيب
 
-                <span class="arrow">
+                <span class="action-arrow">
                     ←
                 </span>
 
@@ -1281,45 +1514,46 @@ body{
 
         </a>
 
+
     </div>
 
 
     <!-- ===================================================
-         FEATURES
+         TRUST
          =================================================== -->
 
-    <div class="features">
+    <div class="trust">
 
 
-        <div class="feature">
+        <div class="trust-item">
 
-            <div class="feature-icon">
+            <div class="trust-icon">
                 🩺
             </div>
 
             <span>
-                أطباء موثوقون
+                رعاية موثوقة
             </span>
 
         </div>
 
 
-        <div class="feature">
+        <div class="trust-item">
 
-            <div class="feature-icon">
+            <div class="trust-icon">
                 📅
             </div>
 
             <span>
-                حجز سهل
+                حجز سريع
             </span>
 
         </div>
 
 
-        <div class="feature">
+        <div class="trust-item">
 
-            <div class="feature-icon">
+            <div class="trust-icon">
                 🔒
             </div>
 
@@ -1339,9 +1573,12 @@ body{
 
     <footer class="footer">
 
-        <strong>TABIBK</strong>
+        <strong>
+            TABIBK
+        </strong>
 
         — منصتك الصحية الرقمية
+
 
     </footer>
 

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -20,7 +19,7 @@
 
 <link
     rel="preconnect"
-    href="https://fonts.gstatic.com"
+    href="https://fonts.googleapis.com"
     crossorigin
 >
 
@@ -31,80 +30,50 @@
 
 <style>
 
-/* =========================================================
-   TABIBK PREMIUM LOGIN
-   ========================================================= */
-
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
 
-
 :root{
-
     --purple-dark:#321447;
-
     --purple:#5a2478;
-
     --purple-main:#71378f;
-
     --purple-light:#9a5ab5;
-
     --gold:#c99c3e;
-
     --gold-light:#e8cf7d;
-
     --white:#ffffff;
-
     --text:#2e1439;
-
 }
-
-
-/* =========================================================
-   BODY
-   ========================================================= */
 
 html,
 body{
-
     width:100%;
-
     min-height:100%;
-
 }
 
-
 body{
-
     font-family:"Cairo",sans-serif;
-
     color:var(--text);
-
     overflow-x:hidden;
 
     background:
-
         radial-gradient(
             circle at 12% 12%,
             rgba(222,192,238,.20),
             transparent 25%
         ),
-
         radial-gradient(
             circle at 90% 18%,
             rgba(225,190,241,.16),
             transparent 28%
         ),
-
         radial-gradient(
             circle at 50% 100%,
             rgba(34,9,48,.42),
             transparent 45%
         ),
-
         linear-gradient(
             135deg,
             #301244 0%,
@@ -112,7 +81,6 @@ body{
             #693482 66%,
             #432052 100%
         );
-
 }
 
 
@@ -121,93 +89,57 @@ body{
    ========================================================= */
 
 .medical-background{
-
     position:fixed;
-
     inset:0;
-
     overflow:hidden;
-
     pointer-events:none;
-
     z-index:0;
-
 }
 
-
 .medical-background::before{
-
     content:"";
-
     position:absolute;
-
     width:650px;
-
     height:650px;
-
     top:-300px;
-
     right:-220px;
-
     border-radius:50%;
 
     background:
-
         radial-gradient(
             circle,
             rgba(239,218,249,.20),
             transparent 68%
         );
-
 }
 
-
 .medical-background::after{
-
     content:"";
-
     position:absolute;
-
     width:650px;
-
     height:650px;
-
     bottom:-350px;
-
     left:-260px;
-
     border-radius:50%;
 
     background:
-
         radial-gradient(
             circle,
             rgba(188,126,218,.20),
             transparent 68%
         );
-
 }
 
-
-/* =========================================================
-   MEDICAL GRID
-   ========================================================= */
-
 .medical-grid{
-
     position:absolute;
-
     inset:0;
-
     opacity:.13;
 
     background-image:
-
         linear-gradient(
             rgba(255,255,255,.16) 1px,
             transparent 1px
         ),
-
         linear-gradient(
             90deg,
             rgba(255,255,255,.16) 1px,
@@ -217,7 +149,6 @@ body{
     background-size:42px 42px;
 
     mask-image:
-
         linear-gradient(
             to bottom,
             transparent,
@@ -225,123 +156,63 @@ body{
             black 85%,
             transparent
         );
-
 }
 
-
-/* =========================================================
-   MEDICAL CIRCLES
-   ========================================================= */
-
 .medical-circle{
-
     position:absolute;
-
     border-radius:50%;
-
     border:
         1px solid
         rgba(255,255,255,.12);
-
 }
-
 
 .circle-one{
-
     width:270px;
-
     height:270px;
-
     right:-110px;
-
     top:35%;
-
 }
-
 
 .circle-two{
-
     width:190px;
-
     height:190px;
-
     left:-75px;
-
     top:28%;
-
 }
-
-
-/* =========================================================
-   MEDICAL CROSSES
-   ========================================================= */
 
 .cross{
-
     position:absolute;
-
     color:#ffffff;
-
     opacity:.08;
-
     font-size:75px;
-
     font-weight:300;
-
 }
-
 
 .cross-a{
-
     top:22%;
-
     left:4%;
-
 }
-
 
 .cross-b{
-
     bottom:22%;
-
     right:5%;
-
 }
-
-
-/* =========================================================
-   ECG
-   ========================================================= */
 
 .ecg{
-
     position:absolute;
-
     width:100%;
-
     height:190px;
-
     left:0;
-
     top:48%;
-
     opacity:.16;
-
 }
 
-
 .ecg path{
-
     fill:none;
-
     stroke:#f1ddfb;
-
     stroke-width:3;
-
     stroke-linecap:round;
-
     stroke-linejoin:round;
-
 }
 
 
@@ -350,21 +221,14 @@ body{
    ========================================================= */
 
 .page{
-
     position:relative;
-
     z-index:5;
-
     width:100%;
-
     max-width:980px;
-
     margin:auto;
-
     padding:
         18px 18px
         35px;
-
 }
 
 
@@ -373,43 +237,25 @@ body{
    ========================================================= */
 
 .admin-wrapper{
-
     width:100%;
-
     display:flex;
-
     justify-content:flex-start;
-
     margin-top:18px;
-
     margin-bottom:4px;
-
 }
 
-
 .admin{
-
     display:flex;
-
     align-items:center;
-
     gap:7px;
-
-    padding:
-        8px 13px;
-
+    padding:8px 13px;
     border-radius:30px;
-
     color:#ffffff;
-
     text-decoration:none;
-
     font-size:10px;
-
     font-weight:800;
 
     background:
-
         rgba(54,19,70,.55);
 
     border:
@@ -417,41 +263,27 @@ body{
         rgba(255,255,255,.18);
 
     box-shadow:
-
         0 8px 24px
         rgba(20,5,28,.22);
 
     backdrop-filter:blur(14px);
-
     transition:.25s ease;
-
 }
 
-
 .admin:hover{
-
     transform:translateY(-2px);
 
     border-color:
         rgba(232,207,125,.60);
-
 }
 
-
 .admin-icon{
-
     width:23px;
-
     height:23px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     border-radius:50%;
-
     color:#432052;
 
     background:
@@ -462,7 +294,6 @@ body{
         );
 
     font-size:11px;
-
 }
 
 
@@ -471,45 +302,24 @@ body{
    ========================================================= */
 
 .header{
-
     text-align:center;
-
     margin-top:2px;
-
     margin-bottom:25px;
-
 }
-
-
-/* =========================================================
-   PROFESSIONAL HEART LOGO
-   ========================================================= */
 
 .logo{
-
     position:relative;
-
     width:110px;
-
     height:110px;
-
     margin:auto;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
 }
 
-
 .logo-ring{
-
     position:absolute;
-
     inset:4px;
-
     border-radius:50%;
 
     border:
@@ -517,42 +327,27 @@ body{
         rgba(232,207,125,.75);
 
     box-shadow:
-
         0 0 35px
         rgba(232,207,125,.14);
-
 }
 
-
 .logo-ring-two{
-
     position:absolute;
-
     inset:12px;
-
     border-radius:50%;
 
     border:
         1px dashed
         rgba(255,255,255,.30);
-
 }
 
-
-/* heart */
-
 .heart{
-
     position:relative;
-
     width:52px;
-
     height:46px;
-
     transform:rotate(-45deg);
 
     background:
-
         linear-gradient(
             145deg,
             #e0bd60,
@@ -564,141 +359,81 @@ body{
         8px 7px;
 
     box-shadow:
-
         0 12px 25px
         rgba(0,0,0,.18);
 
     z-index:2;
-
 }
-
 
 .heart::before,
 .heart::after{
-
     content:"";
-
     position:absolute;
-
     width:52px;
-
     height:52px;
-
     border-radius:50%;
 
     background:
-
         linear-gradient(
             145deg,
             #e0bd60,
             #a97820
         );
-
 }
-
 
 .heart::before{
-
     top:-25px;
-
     left:0;
-
 }
-
 
 .heart::after{
-
     left:25px;
-
     top:0;
-
 }
-
-
-/* ECG inside heart */
 
 .logo-ecg{
-
     position:absolute;
-
     width:82px;
-
     height:35px;
-
     z-index:10;
-
 }
-
 
 .logo-ecg path{
-
     fill:none;
-
     stroke:#ffffff;
-
     stroke-width:4;
-
     stroke-linecap:round;
-
     stroke-linejoin:round;
-
 }
 
-
-/* =========================================================
-   BRAND
-   ========================================================= */
-
 .brand{
-
     margin-top:2px;
-
     font-size:
         clamp(42px,7vw,62px);
-
     line-height:1;
-
     font-weight:900;
-
     color:#ffffff;
-
     letter-spacing:-2px;
 
     text-shadow:
-
         0 5px 18px
         rgba(0,0,0,.20);
-
 }
-
 
 .tabibk{
-
     margin-top:8px;
-
     color:#e5c7f0;
-
     font-size:13px;
-
     font-weight:800;
-
     letter-spacing:7px;
-
     padding-left:7px;
-
 }
 
-
 .subtitle{
-
     margin-top:7px;
-
     color:#eadcf0;
-
     font-size:11px;
-
     font-weight:600;
-
 }
 
 
@@ -707,9 +442,7 @@ body{
    ========================================================= */
 
 .login-area{
-
     max-width:800px;
-
     margin:auto;
 
     display:grid;
@@ -718,7 +451,6 @@ body{
         1fr 1fr;
 
     gap:18px;
-
 }
 
 
@@ -727,29 +459,20 @@ body{
    ========================================================= */
 
 .card{
-
     position:relative;
-
     min-height:385px;
-
     overflow:hidden;
-
     border-radius:28px;
-
     padding:16px;
 
     display:flex;
-
     flex-direction:column;
-
     justify-content:flex-end;
 
     text-decoration:none;
-
     color:var(--text);
 
     background:
-
         linear-gradient(
             145deg,
             rgba(255,255,255,.99),
@@ -761,7 +484,6 @@ body{
         rgba(255,255,255,.70);
 
     box-shadow:
-
         0 30px 70px
         rgba(18,4,26,.28),
 
@@ -774,48 +496,33 @@ body{
     transition:
         transform .3s ease,
         box-shadow .3s ease;
-
 }
 
-
 .card:hover{
-
     transform:translateY(-6px);
 
     box-shadow:
-
         0 35px 80px
         rgba(18,4,26,.36);
-
 }
 
-
 .card::before{
-
     content:"";
-
     position:absolute;
-
     top:0;
-
     left:16%;
-
     right:16%;
-
     height:3px;
-
     border-radius:
         0 0 10px 10px;
 
     background:
-
         linear-gradient(
             90deg,
             transparent,
             var(--gold-light),
             transparent
         );
-
 }
 
 
@@ -824,272 +531,422 @@ body{
    ========================================================= */
 
 .avatar-area{
-
     position:absolute;
-
     top:0;
-
     left:0;
-
     right:0;
-
     height:270px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
 }
 
-
 .avatar-glow{
-
     position:absolute;
-
     width:235px;
-
     height:235px;
-
     border-radius:50%;
 
     background:
-
         radial-gradient(
             circle,
             rgba(117,58,147,.22) 0%,
             rgba(170,116,196,.12) 42%,
             transparent 70%
         );
-
 }
 
 
 /* =========================================================
-   PERSON
+   3D CARTOON AVATAR
    ========================================================= */
 
 .person{
-
     position:relative;
-
     width:190px;
-
     height:235px;
-
     z-index:3;
 
     filter:
-
         drop-shadow(
-            0 20px 18px
-            rgba(48,20,61,.20)
+            0 22px 20px
+            rgba(48,20,61,.22)
         );
 
+    transform-style:preserve-3d;
 }
 
 
-/* hair */
+/* subtle 3D halo */
 
-.person .hair{
-
+.person::before{
+    content:"";
     position:absolute;
 
-    width:105px;
+    width:125px;
+    height:125px;
 
-    height:67px;
-
-    top:9px;
-
+    top:10px;
     left:50%;
 
-    transform:translateX(-50%);
-
-    background:
-
-        linear-gradient(
-            145deg,
-            #422b46,
-            #17101c 75%
-        );
-
-    border-radius:
-        50px 50px
-        30px 30px;
-
-    z-index:4;
-
-    box-shadow:
-
-        inset
-        5px 3px 8px
-        rgba(255,255,255,.08);
-
-}
-
-
-/* face */
-
-.person .face{
-
-    position:absolute;
-
-    width:94px;
-
-    height:108px;
-
-    top:27px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    border-radius:
-        45% 45%
-        46% 46%;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            #ffe1c9 0%,
-            #f2b895 55%,
-            #c8795b 100%
-        );
-
-    box-shadow:
-
-        inset
-        7px 5px 12px
-        rgba(255,255,255,.38),
-
-        inset
-        -8px -10px 15px
-        rgba(101,45,34,.13);
-
-    z-index:3;
-
-}
-
-
-/* eyes */
-
-.person .eye{
-
-    position:absolute;
-
-    top:57px;
-
-    width:8px;
-
-    height:6px;
+    transform:
+        translateX(-50%)
+        translateZ(-10px);
 
     border-radius:50%;
 
-    background:#362033;
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(255,255,255,.55),
+            rgba(207,175,221,.16) 45%,
+            transparent 72%
+        );
+
+    filter:blur(1px);
+}
+
+
+/* =========================================================
+   HAIR
+   ========================================================= */
+
+.person .hair{
+    position:absolute;
+
+    width:108px;
+    height:69px;
+
+    top:8px;
+    left:50%;
+
+    transform:
+        translateX(-50%)
+        translateZ(8px);
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #66506a 0%,
+            #3b273f 35%,
+            #18111d 78%
+        );
+
+    border-radius:
+        55px 55px
+        34px 34px;
+
+    z-index:5;
 
     box-shadow:
-        0 1px 1px
-        rgba(255,255,255,.4);
+        inset
+        7px 5px 10px
+        rgba(255,255,255,.13),
 
-    z-index:6;
+        inset
+        -8px -10px 14px
+        rgba(0,0,0,.24),
 
+        0 5px 9px
+        rgba(42,20,49,.18);
 }
 
 
-.person .eye.one{
+/* hair highlight */
 
-    left:25px;
+.person .hair::after{
+    content:"";
 
+    position:absolute;
+
+    width:42px;
+    height:13px;
+
+    top:9px;
+    left:18px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.16),
+            transparent
+        );
+
+    transform:rotate(-18deg);
+
+    filter:blur(2px);
 }
 
 
-.person .eye.two{
+/* =========================================================
+   FACE
+   ========================================================= */
 
-    right:25px;
+.person .face{
+    position:absolute;
 
+    width:96px;
+    height:111px;
+
+    top:28px;
+    left:50%;
+
+    transform:
+        translateX(-50%)
+        translateZ(6px);
+
+    border-radius:
+        48% 48%
+        46% 46%;
+
+    background:
+        radial-gradient(
+            circle at 32% 23%,
+            #fff0e2 0%,
+            #ffd9bd 25%,
+            #f2b18e 60%,
+            #bd7256 100%
+        );
+
+    box-shadow:
+
+        inset
+        8px 6px 14px
+        rgba(255,255,255,.48),
+
+        inset
+        -10px -13px 18px
+        rgba(101,45,34,.16),
+
+        0 5px 8px
+        rgba(65,31,38,.12);
+
+    z-index:4;
+}
+
+
+/* ears */
+
+.person .face::before{
+    content:"";
+
+    position:absolute;
+
+    width:12px;
+    height:25px;
+
+    top:43px;
+    left:-7px;
+
+    border-radius:50%;
+
+    background:#e9a887;
+
+    box-shadow:
+        91px 0 0 #e9a887;
 }
 
 
 /* nose */
 
 .person .face::after{
-
     content:"";
 
     position:absolute;
 
-    width:7px;
+    width:8px;
+    height:17px;
 
-    height:13px;
-
-    top:61px;
-
+    top:60px;
     left:50%;
 
     transform:translateX(-50%);
 
     border-right:
         2px solid
-        rgba(121,67,50,.30);
+        rgba(121,67,50,.28);
 
     border-bottom:
         2px solid
-        rgba(121,67,50,.18);
+        rgba(121,67,50,.20);
 
-    z-index:6;
+    border-radius:0 0 5px 0;
 
+    z-index:7;
 }
 
 
-/* smile */
+/* =========================================================
+   EYES
+   ========================================================= */
 
-.person .smile{
+.person .eye{
+    position:absolute;
+
+    top:57px;
+
+    width:11px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            #ffffff 0 14%,
+            #2c1b31 18% 75%,
+            #110b14 100%
+        );
+
+    box-shadow:
+        0 1px 2px
+        rgba(0,0,0,.22);
+
+    z-index:8;
+}
+
+.person .eye.one{
+    left:23px;
+}
+
+.person .eye.two{
+    right:23px;
+}
+
+
+/* eyebrows */
+
+.person .face .eye::before{
+    content:"";
 
     position:absolute;
 
-    top:79px;
+    width:17px;
+    height:4px;
 
+    top:-8px;
+
+    background:
+        #4a303f;
+
+    border-radius:50%;
+
+    opacity:.8;
+}
+
+.person .eye.one::before{
+    left:-3px;
+    transform:rotate(-5deg);
+}
+
+.person .eye.two::before{
+    right:-3px;
+    transform:rotate(5deg);
+}
+
+
+/* =========================================================
+   SMILE
+   ========================================================= */
+
+.person .smile{
+    position:absolute;
+
+    top:82px;
     left:50%;
 
     transform:translateX(-50%);
 
-    width:27px;
-
-    height:12px;
+    width:29px;
+    height:13px;
 
     border-bottom:
-        2px solid
+        3px solid
         #944c53;
 
     border-radius:50%;
 
-    z-index:6;
-
+    z-index:8;
 }
 
-
-/* body */
-
-.person .body{
+.person .smile::after{
+    content:"";
 
     position:absolute;
 
-    width:155px;
+    width:16px;
+    height:4px;
 
-    height:112px;
+    left:50%;
+    bottom:-1px;
 
-    bottom:0;
+    transform:translateX(-50%);
 
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.75);
+}
+
+
+/* =========================================================
+   NECK
+   ========================================================= */
+
+.person .body::before{
+    content:"";
+
+    position:absolute;
+
+    width:32px;
+    height:27px;
+
+    top:-17px;
     left:50%;
 
     transform:translateX(-50%);
 
     border-radius:
-        70px 70px
-        22px 22px;
+        0 0 15px 15px;
 
+    background:
+        linear-gradient(
+            90deg,
+            #c8795b,
+            #f0b08c,
+            #c8795b
+        );
+
+    z-index:2;
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.person .body{
+    position:absolute;
+
+    width:158px;
+    height:114px;
+
+    bottom:0;
+    left:50%;
+
+    transform:
+        translateX(-50%)
+        translateZ(2px);
+
+    border-radius:
+        72px 72px
+        23px 23px;
+
+    overflow:hidden;
 }
 
 
@@ -1098,38 +955,35 @@ body{
    ========================================================= */
 
 .patient .body{
-
     background:
-
         linear-gradient(
             145deg,
-            #8d5aab,
-            #4b2165
+            #9b69b8 0%,
+            #71378f 45%,
+            #3e1a56 100%
         );
 
     box-shadow:
 
         inset
-        10px 8px 18px
-        rgba(255,255,255,.13),
+        12px 8px 20px
+        rgba(255,255,255,.18),
 
         inset
-        -12px -12px 20px
-        rgba(35,10,48,.25);
+        -14px -15px 22px
+        rgba(35,10,48,.30),
 
+        0 8px 12px
+        rgba(45,18,56,.16);
 }
 
-
 .patient .shirt{
-
     position:absolute;
 
-    width:108px;
-
-    height:90px;
+    width:109px;
+    height:91px;
 
     left:50%;
-
     bottom:0;
 
     transform:translateX(-50%);
@@ -1139,19 +993,53 @@ body{
         12px 12px;
 
     background:
-
         linear-gradient(
             145deg,
-            #ffffff,
-            #e9deef
+            #ffffff 0%,
+            #f5eef8 45%,
+            #d8c7df 100%
         );
 
     box-shadow:
 
         inset
-        5px 3px 8px
-        rgba(255,255,255,.8);
+        6px 4px 9px
+        rgba(255,255,255,.9),
 
+        inset
+        -7px -9px 12px
+        rgba(87,48,100,.10);
+}
+
+
+/* patient shirt collar */
+
+.patient .shirt::before,
+.patient .shirt::after{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    width:36px;
+    height:35px;
+
+    background:#ffffff;
+
+    box-shadow:
+        inset 0 -3px 5px
+        rgba(85,46,98,.08);
+}
+
+.patient .shirt::before{
+    left:12px;
+    transform:skewY(25deg);
+}
+
+.patient .shirt::after{
+    right:12px;
+    transform:skewY(-25deg);
 }
 
 
@@ -1160,38 +1048,35 @@ body{
    ========================================================= */
 
 .doctor .body{
-
     background:
-
         linear-gradient(
             145deg,
-            #ffffff,
-            #ded5e4
+            #ffffff 0%,
+            #f3edf6 42%,
+            #cfc2d5 100%
         );
 
     box-shadow:
 
         inset
-        10px 7px 18px
+        12px 8px 20px
         rgba(255,255,255,.95),
 
         inset
-        -10px -12px 18px
-        rgba(87,48,100,.12);
+        -12px -14px 20px
+        rgba(87,48,100,.14),
 
+        0 8px 12px
+        rgba(45,18,56,.14);
 }
 
-
 .doctor .shirt{
-
     position:absolute;
 
-    width:112px;
-
-    height:91px;
+    width:113px;
+    height:92px;
 
     left:50%;
-
     bottom:0;
 
     transform:translateX(-50%);
@@ -1200,38 +1085,81 @@ body{
         48px 48px
         12px 12px;
 
-    background:#ffffff;
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f3edf5
+        );
 
+    box-shadow:
+        inset
+        6px 4px 9px
+        rgba(255,255,255,.95),
+
+        inset
+        -7px -9px 13px
+        rgba(79,46,91,.10);
 }
 
 
-/* tie */
+/* doctor's collar */
 
-.tie{
+.doctor .shirt::before,
+.doctor .shirt::after{
+    content:"";
 
     position:absolute;
 
     top:0;
 
+    width:39px;
+    height:37px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #e7dce9
+        );
+}
+
+.doctor .shirt::before{
+    left:10px;
+    transform:skewY(26deg);
+}
+
+.doctor .shirt::after{
+    right:10px;
+    transform:skewY(-26deg);
+}
+
+
+/* =========================================================
+   TIE
+   ========================================================= */
+
+.tie{
+    position:absolute;
+
+    top:0;
     left:50%;
 
-    transform:translateX(-50%);
+    transform:
+        translateX(-50%);
 
     width:16px;
-
     height:61px;
 
     background:
-
         linear-gradient(
             90deg,
-            #4c1d65,
-            #a86bc4,
-            #4c1d65
+            #40185a,
+            #b477ce,
+            #541f70
         );
 
     clip-path:
-
         polygon(
             28% 0,
             72% 0,
@@ -1240,21 +1168,25 @@ body{
             0 100%
         );
 
+    z-index:5;
+
+    box-shadow:
+        2px 0 4px
+        rgba(58,23,74,.20);
 }
 
 
-/* stethoscope */
+/* =========================================================
+   STETHOSCOPE
+   ========================================================= */
 
 .stethoscope{
-
     position:absolute;
 
     right:7px;
-
     top:17px;
 
     width:52px;
-
     height:58px;
 
     border:
@@ -1269,39 +1201,35 @@ body{
     z-index:7;
 
     filter:
-
         drop-shadow(
             0 2px 2px
             rgba(86,52,20,.15)
         );
-
 }
 
-
 .stethoscope::after{
-
     content:"";
 
     position:absolute;
 
     width:14px;
-
     height:14px;
 
     border-radius:50%;
 
     background:
-
-        linear-gradient(
-            145deg,
-            #e1bd61,
-            #ae7c21
+        radial-gradient(
+            circle at 35% 30%,
+            #f5dc91,
+            #ae7c21 75%
         );
 
     bottom:-8px;
-
     left:14px;
 
+    box-shadow:
+        0 2px 3px
+        rgba(58,35,12,.20);
 }
 
 
@@ -1310,29 +1238,18 @@ body{
    ========================================================= */
 
 .card-content{
-
     position:relative;
-
     z-index:10;
-
     text-align:center;
-
 }
-
 
 .card-title{
-
     color:#32143e;
-
     font-size:26px;
-
     font-weight:900;
-
 }
 
-
 .card-text{
-
     margin:
         3px 0
         12px;
@@ -1340,30 +1257,23 @@ body{
     min-height:42px;
 
     color:#78677e;
-
     font-size:10px;
-
     line-height:1.8;
-
 }
 
 
 /* =========================================================
-   BIG LOGIN BUTTON
+   BUTTON
    ========================================================= */
 
 .button{
-
     width:100%;
-
     height:58px;
 
     border-radius:31px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     gap:10px;
@@ -1371,11 +1281,9 @@ body{
     color:#ffffff;
 
     font-size:13px;
-
     font-weight:900;
 
     background:
-
         linear-gradient(
             100deg,
             #4e1e68 0%,
@@ -1384,31 +1292,22 @@ body{
         );
 
     box-shadow:
-
         0 13px 30px
         rgba(78,30,105,.30),
 
         inset
         0 1px 0
         rgba(255,255,255,.20);
-
 }
-
 
 .button span{
-
     font-size:17px;
-
 }
 
-
 .card:hover .button{
-
     box-shadow:
-
         0 16px 35px
         rgba(78,30,105,.38);
-
 }
 
 
@@ -1417,52 +1316,36 @@ body{
    ========================================================= */
 
 .features{
-
     max-width:700px;
-
     margin:
         24px auto
         0;
 
     display:flex;
-
 }
 
-
 .feature{
-
     flex:1;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     gap:6px;
 
     color:#f0e4f4;
-
     font-size:9px;
-
 }
 
-
 .feature + .feature{
-
     border-right:
         1px solid
         rgba(255,255,255,.20);
-
 }
 
-
 .feature b{
-
     color:var(--gold-light);
-
     font-size:14px;
-
 }
 
 
@@ -1471,33 +1354,20 @@ body{
    ========================================================= */
 
 .footer{
-
     text-align:center;
-
     margin-top:22px;
-
 }
-
 
 .footer strong{
-
     color:#ead3f2;
-
     font-size:9px;
-
     letter-spacing:5px;
-
 }
 
-
 .footer p{
-
     margin-top:3px;
-
     color:#d1bfd8;
-
     font-size:8px;
-
 }
 
 
@@ -1508,218 +1378,127 @@ body{
 @media(max-width:600px){
 
     .page{
-
         padding:
             14px 7px
             25px;
-
     }
-
 
     .admin-wrapper{
-
         margin-top:13px;
-
         margin-bottom:2px;
-
     }
-
 
     .admin{
-
         padding:
             7px 11px;
-
         font-size:8px;
-
     }
-
 
     .admin-icon{
-
         width:21px;
-
         height:21px;
-
     }
-
 
     .header{
-
         margin-bottom:16px;
-
     }
-
 
     .logo{
-
         width:91px;
-
         height:91px;
-
     }
-
 
     .heart,
     .heart::before,
     .heart::after{
-
         width:43px;
-
         height:43px;
-
     }
-
 
     .heart::before{
-
         top:-21px;
-
     }
-
 
     .heart::after{
-
         left:21px;
-
     }
-
 
     .logo-ecg{
-
         width:67px;
-
     }
-
 
     .brand{
-
         font-size:38px;
-
     }
-
 
     .tabibk{
-
         font-size:10px;
-
         letter-spacing:6px;
-
     }
-
 
     .subtitle{
-
         font-size:8px;
-
     }
-
 
     .login-area{
-
         gap:7px;
-
     }
-
 
     .card{
-
         min-height:335px;
-
         padding:
             8px 6px;
-
         border-radius:19px;
-
     }
-
 
     .avatar-area{
-
         height:215px;
-
     }
-
 
     .avatar-glow{
-
         width:180px;
-
         height:180px;
-
     }
-
 
     .person{
-
         transform:scale(.76);
-
     }
-
 
     .card-title{
-
         font-size:18px;
-
     }
-
 
     .card-text{
-
         font-size:7px;
-
         min-height:39px;
-
         margin-bottom:7px;
-
     }
-
 
     .button{
-
         height:48px;
-
         font-size:9px;
-
         border-radius:27px;
-
     }
-
 
     .button span{
-
         font-size:14px;
-
     }
-
 
     .features{
-
         margin-top:16px;
-
     }
-
 
     .feature{
-
         font-size:6.5px;
-
         gap:3px;
-
     }
-
 
     .feature b{
-
         font-size:10px;
-
     }
 
-
     .footer{
-
         margin-top:17px;
-
     }
 
 }
@@ -1732,62 +1511,37 @@ body{
 @media(max-width:360px){
 
     .page{
-
         padding-left:4px;
-
         padding-right:4px;
-
     }
-
 
     .login-area{
-
         gap:5px;
-
     }
-
 
     .card{
-
         min-height:320px;
-
     }
-
 
     .avatar-area{
-
         height:200px;
-
     }
-
 
     .person{
-
         transform:scale(.68);
-
     }
-
 
     .card-title{
-
         font-size:15px;
-
     }
-
 
     .card-text{
-
         font-size:6.5px;
-
     }
 
-
     .button{
-
         height:45px;
-
         font-size:8px;
-
     }
 
 }
@@ -1890,9 +1644,7 @@ body{
 
 
 
-    <!-- =====================================================
-         HEADER
-         ===================================================== -->
+    <!-- HEADER -->
 
     <header class="header">
 
@@ -1950,16 +1702,12 @@ body{
 
 
 
-    <!-- =====================================================
-         LOGIN CARDS
-         ===================================================== -->
+    <!-- LOGIN CARDS -->
 
     <section class="login-area">
 
 
-        <!-- =================================================
-             PATIENT
-             ================================================= -->
+        <!-- PATIENT -->
 
         <a
             href="/patient.html"
@@ -2038,9 +1786,7 @@ body{
 
 
 
-        <!-- =================================================
-             DOCTOR
-             ================================================= -->
+        <!-- DOCTOR -->
 
         <a
             href="/doctor.html"
@@ -2126,9 +1872,7 @@ body{
 
 
 
-    <!-- =====================================================
-         FEATURES
-         ===================================================== -->
+    <!-- FEATURES -->
 
     <section class="features">
 
@@ -2164,9 +1908,7 @@ body{
 
 
 
-    <!-- =====================================================
-         FOOTER
-         ===================================================== -->
+    <!-- FOOTER -->
 
     <footer class="footer">
 
@@ -2187,4 +1929,3 @@ body{
 </body>
 
 </html>
-```

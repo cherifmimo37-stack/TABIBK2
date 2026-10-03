@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -11,7 +10,7 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 >
 
-<meta name="theme-color" content="#5b21b6">
+<meta name="theme-color" content="#5B2A91">
 
 <title>طبيبك | TABIBK</title>
 
@@ -24,6 +23,35 @@
 >
 
 <style>
+
+/* =========================================================
+   TABIBK PREMIUM
+   Purple + Gold Medical Identity
+   ========================================================= */
+
+:root{
+
+    --purple-dark:#3B1764;
+    --purple:#5B2A91;
+    --purple-main:#6D3FB5;
+    --purple-light:#8B63C7;
+
+    --gold:#D6A63A;
+    --gold-light:#E8C56B;
+    --gold-soft:#FBF3DF;
+
+    --white:#FFFFFF;
+    --ivory:#FAF8FC;
+
+    --text:#292233;
+    --muted:#7D7487;
+
+    --border:rgba(91,42,145,.11);
+
+    --shadow:
+        0 18px 45px rgba(57,25,91,.10);
+}
+
 
 /* =========================================================
    RESET
@@ -43,99 +71,100 @@ body{
 }
 
 body{
+
     font-family:"Cairo",sans-serif;
-    overflow-x:hidden;
-    color:#ffffff;
+
+    color:var(--text);
 
     background:
+
         radial-gradient(
-            circle at 15% 10%,
-            rgba(196,181,253,.30),
-            transparent 24%
+            circle at 100% 0%,
+            rgba(109,63,181,.12),
+            transparent 28%
         ),
+
         radial-gradient(
-            circle at 88% 25%,
-            rgba(168,85,247,.28),
-            transparent 25%
+            circle at 0% 100%,
+            rgba(214,166,58,.08),
+            transparent 26%
         ),
-        radial-gradient(
-            circle at 50% 100%,
-            rgba(126,34,206,.42),
-            transparent 35%
-        ),
+
         linear-gradient(
             145deg,
-            #2e1065 0%,
-            #4c1d95 35%,
-            #6d28d9 70%,
-            #3b0764 100%
+            #FFFFFF 0%,
+            #FAF8FC 55%,
+            #F6F1FB 100%
         );
+
+    overflow-x:hidden;
 }
 
+
 /* =========================================================
-   MEDICAL BACKGROUND
+   BACKGROUND DECORATION
    ========================================================= */
 
-.medical-bg{
+.background{
     position:fixed;
     inset:0;
-    overflow:hidden;
+
     pointer-events:none;
+
+    overflow:hidden;
+
     z-index:0;
 }
 
-.medical-bg .circle{
+.bg-orb{
     position:absolute;
+
     border-radius:50%;
-    border:1px solid rgba(255,255,255,.08);
+
+    filter:blur(2px);
 }
 
-.circle.one{
-    width:380px;
-    height:380px;
-    top:-180px;
+.bg-orb.one{
+
+    width:260px;
+    height:260px;
+
     right:-150px;
+    top:-110px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(109,63,181,.14),
+            transparent 70%
+        );
 }
 
-.circle.two{
-    width:520px;
-    height:520px;
-    bottom:-280px;
-    left:-230px;
+.bg-orb.two{
+
+    width:220px;
+    height:220px;
+
+    left:-130px;
+    bottom:-100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(214,166,58,.11),
+            transparent 70%
+        );
 }
 
-.circle.three{
-    width:240px;
-    height:240px;
-    top:42%;
-    left:-160px;
-}
-
-/* ECG */
-
-.ecg{
-    position:absolute;
-    left:0;
-    right:0;
-    top:48%;
-
-    width:100%;
-    height:90px;
-
-    opacity:.10;
-}
-
-.ecg svg{
-    width:100%;
-    height:100%;
-}
 
 /* =========================================================
    PAGE
    ========================================================= */
 
 .page{
+
     position:relative;
+
     z-index:2;
 
     width:100%;
@@ -147,492 +176,720 @@ body{
     padding:
         14px
         14px
-        22px;
+        24px;
 }
 
 .container{
+
     width:100%;
-    max-width:560px;
+
+    max-width:540px;
 }
 
+
 /* =========================================================
-   ADMIN
+   TOP BAR
    ========================================================= */
 
 .topbar{
+
     display:flex;
+
     justify-content:flex-start;
 
-    margin-bottom:7px;
+    margin-bottom:5px;
 }
 
-.admin{
-    display:flex;
+.admin-link{
+
+    display:inline-flex;
+
     align-items:center;
+
     gap:6px;
 
-    padding:7px 12px;
+    padding:7px 11px;
 
-    color:#ffffff;
+    border-radius:12px;
+
     text-decoration:none;
 
-    font-size:10px;
-    font-weight:700;
+    color:var(--purple);
 
-    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.78);
 
-    background:rgba(255,255,255,.08);
-
-    border-radius:13px;
-
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
+    border:
+        1px solid
+        rgba(91,42,145,.10);
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,.10);
+        0 6px 18px rgba(57,25,91,.05);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    transition:.2s ease;
+}
+
+.admin-link:active{
+    transform:scale(.96);
 }
 
 .admin-icon{
-    width:22px;
-    height:22px;
+
+    width:20px;
+    height:20px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     border-radius:7px;
 
-    background:rgba(255,255,255,.12);
+    color:white;
 
-    font-size:11px;
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple-dark)
+        );
+
+    font-size:10px;
 }
+
 
 /* =========================================================
    BRAND
    ========================================================= */
 
 .brand{
+
     text-align:center;
-    margin-top:3px;
+
     margin-bottom:16px;
 }
 
 .logo{
+
     position:relative;
 
-    width:73px;
-    height:73px;
+    width:72px;
+    height:72px;
 
     margin:0 auto 9px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
-    border-radius:24px;
+    border-radius:23px;
 
     background:
         linear-gradient(
             145deg,
-            #ffffff,
-            #ede9fe
+            var(--purple),
+            var(--purple-dark)
         );
 
     box-shadow:
-        0 18px 40px rgba(0,0,0,.20);
-
-    transform:rotate(-2deg);
+        0 14px 32px rgba(91,42,145,.22);
 }
 
+
+/* gold ring */
+
 .logo::before{
+
     content:"";
 
     position:absolute;
+
     inset:5px;
 
-    border-radius:20px;
+    border-radius:18px;
 
-    border:2px solid #7c3aed;
+    border:
+        1.5px solid
+        rgba(232,197,107,.85);
 }
 
+
+/* heart */
+
 .logo-heart{
+
     position:relative;
 
-    width:40px;
-    height:40px;
+    width:38px;
+    height:38px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
-    color:#7c3aed;
+    color:white;
 
-    font-size:34px;
+    font-size:31px;
+
     line-height:1;
-
-    transform:rotate(2deg);
 }
 
+
+/* ECG */
+
 .logo-heart::after{
+
     content:"";
 
     position:absolute;
 
-    width:27px;
+    width:28px;
     height:2px;
 
-    background:#7c3aed;
+    background:var(--gold-light);
 
-    right:-1px;
-    top:21px;
+    right:-2px;
+    top:20px;
 
-    transform:rotate(-5deg);
+    transform:
+        rotate(-3deg);
 
     box-shadow:
-        -7px -5px 0 -0.3px #7c3aed,
-        -12px 4px 0 -0.3px #7c3aed;
+
+        -7px -4px 0 -0.3px
+        var(--gold-light),
+
+        -12px 4px 0 -0.3px
+        var(--gold-light);
 }
 
+
 .brand h1{
-    font-size:31px;
+
+    font-size:30px;
+
     font-weight:900;
 
-    letter-spacing:.3px;
+    line-height:1.15;
 
-    color:#ffffff;
+    color:var(--purple-dark);
 
-    text-shadow:
-        0 5px 20px rgba(0,0,0,.15);
+    letter-spacing:.2px;
+}
+
+.brand h1 span{
+
+    color:var(--gold);
 }
 
 .brand p{
-    margin-top:2px;
 
-    color:rgba(255,255,255,.72);
+    margin-top:4px;
 
-    font-size:10px;
+    color:var(--muted);
+
+    font-size:9px;
+
     font-weight:600;
 }
 
+
 /* =========================================================
-   HERO
+   INTRO CARD
    ========================================================= */
 
-.hero{
+.intro{
+
     position:relative;
-
-    padding:17px 16px 18px;
-
-    margin-bottom:14px;
-
-    border-radius:25px;
 
     overflow:hidden;
 
-    border:1px solid rgba(255,255,255,.16);
+    padding:
+        15px
+        16px
+        16px;
+
+    margin-bottom:13px;
+
+    border-radius:22px;
 
     background:
+
         linear-gradient(
             135deg,
-            rgba(255,255,255,.15),
-            rgba(255,255,255,.055)
+            var(--purple-dark),
+            var(--purple)
         );
 
     box-shadow:
-        0 20px 55px rgba(20,5,45,.18);
-
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+        0 18px 40px rgba(59,23,100,.18);
 }
 
-.hero::before{
+
+/* gold glow */
+
+.intro::before{
+
     content:"";
 
     position:absolute;
 
-    width:180px;
-    height:180px;
+    width:150px;
+    height:150px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(255,255,255,.18),
-            transparent 65%
+            rgba(232,197,107,.22),
+            transparent 68%
         );
 
-    top:-105px;
-    left:-70px;
+    top:-95px;
+    left:-55px;
 }
 
-.hero-content{
+.intro::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.09),
+            transparent 68%
+        );
+
+    right:-70px;
+    bottom:-75px;
+}
+
+.intro-content{
+
     position:relative;
+
     z-index:2;
 
     text-align:center;
 }
 
-.status{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
+.intro-badge{
 
-    padding:5px 11px;
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:
+        4px
+        10px;
 
     margin-bottom:7px;
 
-    border-radius:30px;
+    border-radius:20px;
 
-    background:rgba(255,255,255,.10);
+    color:#FFF;
 
-    border:1px solid rgba(255,255,255,.12);
+    background:
+        rgba(255,255,255,.10);
 
-    color:#ffffff;
+    border:
+        1px solid
+        rgba(255,255,255,.13);
 
-    font-size:9px;
+    font-size:8px;
+
     font-weight:700;
 }
 
-.status-dot{
-    width:6px;
-    height:6px;
+.badge-dot{
+
+    width:5px;
+    height:5px;
 
     border-radius:50%;
 
-    background:#86efac;
+    background:#9EE6B4;
 
     box-shadow:
-        0 0 0 4px rgba(134,239,172,.12);
+        0 0 0 3px
+        rgba(158,230,180,.10);
 }
 
-.hero h2{
-    font-size:19px;
+.intro h2{
+
+    color:white;
+
+    font-size:17px;
+
     font-weight:900;
-
-    color:#ffffff;
 }
 
-.hero p{
+.intro p{
+
     margin-top:3px;
 
-    color:rgba(255,255,255,.70);
+    color:
+        rgba(255,255,255,.70);
 
-    font-size:10px;
+    font-size:9px;
+
     line-height:1.8;
 }
+
+
+/* =========================================================
+   LOGIN TITLE
+   ========================================================= */
+
+.section-title{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    margin-bottom:9px;
+}
+
+.section-title::before,
+.section-title::after{
+
+    content:"";
+
+    width:28px;
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(214,166,58,.55)
+        );
+}
+
+.section-title::after{
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(214,166,58,.55),
+            transparent
+        );
+}
+
+.section-title span{
+
+    color:var(--purple-dark);
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
 
 /* =========================================================
    LOGIN GRID
    ========================================================= */
 
 .login-grid{
+
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+        1fr 1fr;
 
     gap:11px;
 }
+
 
 /* =========================================================
    ROLE CARD
    ========================================================= */
 
-.role{
+.role-card{
+
     position:relative;
 
-    min-height:278px;
+    min-height:284px;
 
-    padding:12px;
+    padding:
+        11px
+        11px
+        12px;
 
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
 
     overflow:hidden;
 
-    border-radius:27px;
-
     text-decoration:none;
 
-    border:1px solid rgba(255,255,255,.19);
+    border-radius:24px;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.19),
-            rgba(255,255,255,.065)
-        );
+    background:#FFFFFF;
 
-    box-shadow:
-        0 22px 50px rgba(18,5,45,.22),
-        inset 0 1px 0 rgba(255,255,255,.12);
+    border:
+        1px solid
+        var(--border);
 
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+    box-shadow:var(--shadow);
 
     transition:
-        transform .22s ease,
-        background .22s ease;
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
-.role:active{
+.role-card:active{
+
     transform:scale(.975);
+
+    box-shadow:
+        0 12px 30px
+        rgba(57,25,91,.13);
 }
 
-.role::before{
+
+/* top purple line */
+
+.role-card::before{
+
     content:"";
 
     position:absolute;
 
-    width:160px;
-    height:160px;
+    top:0;
+    left:16%;
+    right:16%;
 
-    border-radius:50%;
+    height:3px;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.16),
-            transparent 68%
-        );
-
-    top:-100px;
-    right:-75px;
-}
-
-.role::after{
-    content:"";
-
-    position:absolute;
-
-    width:120px;
-    height:120px;
-
-    border-radius:50%;
+    border-radius:
+        0 0 10px 10px;
 
     background:
-        radial-gradient(
-            circle,
-            rgba(216,180,254,.13),
-            transparent 70%
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--gold)
         );
-
-    bottom:-80px;
-    left:-65px;
 }
+
 
 /* =========================================================
-   IMAGE FRAME
+   PHOTO
    ========================================================= */
 
-.person{
+.photo-wrap{
+
     position:relative;
-    z-index:2;
 
-    width:128px;
-    height:128px;
+    width:132px;
+    height:132px;
 
-    margin-top:2px;
-    margin-bottom:9px;
+    margin:
+        5px
+        auto
+        9px;
 
     border-radius:50%;
 
-    overflow:hidden;
+    padding:4px;
 
     background:
         linear-gradient(
             145deg,
-            #ede9fe,
-            #ddd6fe
+            var(--gold-light),
+            var(--purple-light),
+            var(--purple)
         );
 
-    border:4px solid rgba(255,255,255,.85);
-
     box-shadow:
-        0 15px 32px rgba(22,5,45,.22);
+        0 12px 27px
+        rgba(91,42,145,.16);
 }
 
-.person svg{
-    display:block;
+.photo-wrap::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:14px;
+    height:14px;
+
+    right:2px;
+    bottom:8px;
+
+    border-radius:50%;
+
+    background:#3CBF72;
+
+    border:
+        3px solid
+        white;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,.12);
+}
+
+.photo{
 
     width:100%;
     height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    object-position:center top;
+
+    border-radius:50%;
+
+    background:#F1ECF8;
 }
 
+
 /* =========================================================
-   TEXT
+   ROLE TEXT
    ========================================================= */
 
-.role h3{
-    position:relative;
-    z-index:2;
+.role-card h3{
 
-    color:#ffffff;
+    color:var(--purple-dark);
 
     font-size:16px;
+
     font-weight:900;
+
+    line-height:1.2;
 }
 
 .role-desc{
-    position:relative;
-    z-index:2;
 
-    margin-top:2px;
+    margin-top:3px;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    font-weight:600;
 
     text-align:center;
 
-    color:rgba(255,255,255,.64);
-
-    font-size:8.5px;
-    font-weight:600;
+    min-height:18px;
 }
+
+
+/* =========================================================
+   GOLD LABEL
+   ========================================================= */
+
+.role-label{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:4px;
+
+    margin-top:6px;
+
+    padding:
+        3px
+        8px;
+
+    border-radius:20px;
+
+    background:var(--gold-soft);
+
+    color:#A67A19;
+
+    font-size:7px;
+
+    font-weight:800;
+}
+
 
 /* =========================================================
    BUTTON
    ========================================================= */
 
-.role-btn{
-    position:relative;
-    z-index:3;
+.role-button{
 
     width:100%;
+
     height:37px;
 
     margin-top:auto;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    gap:5px;
+    gap:6px;
 
-    border-radius:13px;
+    border-radius:12px;
 
-    color:#5b21b6;
+    color:white;
 
-    background:#ffffff;
-
-    font-size:10px;
-    font-weight:900;
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple-dark)
+        );
 
     box-shadow:
-        0 10px 25px rgba(0,0,0,.15);
+        0 8px 18px
+        rgba(91,42,145,.20);
+
+    font-size:9px;
+
+    font-weight:900;
 }
 
-.arrow{
+.role-button .arrow{
+
+    color:var(--gold-light);
+
     font-size:13px;
-    line-height:1;
 }
+
 
 /* =========================================================
-   FEATURES
+   SECURITY / FEATURES
    ========================================================= */
 
 .features{
+
     display:grid;
 
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+        repeat(3,1fr);
 
     gap:7px;
 
@@ -640,101 +897,138 @@ body{
 }
 
 .feature{
-    min-height:61px;
+
+    min-height:59px;
 
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
+
     justify-content:center;
 
     gap:3px;
 
-    border-radius:16px;
-
-    border:1px solid rgba(255,255,255,.13);
+    border-radius:15px;
 
     background:
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.82);
 
-    backdrop-filter:blur(15px);
-    -webkit-backdrop-filter:blur(15px);
+    border:
+        1px solid
+        rgba(91,42,145,.08);
+
+    box-shadow:
+        0 8px 22px
+        rgba(57,25,91,.045);
 }
 
 .feature-icon{
-    width:26px;
-    height:26px;
+
+    width:25px;
+    height:25px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     border-radius:8px;
 
-    background:rgba(255,255,255,.11);
+    background:var(--gold-soft);
 
-    font-size:13px;
+    color:var(--purple);
+
+    font-size:12px;
 }
 
 .feature span{
-    color:rgba(255,255,255,.68);
 
-    font-size:7.5px;
+    color:var(--muted);
+
+    font-size:7px;
+
     font-weight:700;
 }
+
 
 /* =========================================================
    FOOTER
    ========================================================= */
 
 .footer{
+
     margin-top:13px;
 
     text-align:center;
 
-    color:rgba(255,255,255,.48);
+    color:#9A91A3;
 
-    font-size:8px;
+    font-size:7px;
+
     font-weight:600;
 }
 
 .footer strong{
-    color:#ffffff;
+
+    color:var(--purple);
+
+    font-weight:900;
 }
 
+
 /* =========================================================
-   MOBILE
+   SMALL PHONES
    ========================================================= */
 
-@media(max-width:370px){
+@media(max-width:350px){
 
     .page{
+
         padding-left:9px;
         padding-right:9px;
     }
 
-    .role{
-        min-height:258px;
-        padding:9px;
+    .role-card{
+
+        min-height:262px;
+
+        padding:
+            9px
+            8px
+            10px;
     }
 
-    .person{
+    .photo-wrap{
+
         width:108px;
         height:108px;
     }
 
-    .role h3{
+    .role-card h3{
+
         font-size:14px;
     }
 
-    .role-btn{
-        height:35px;
-        font-size:9px;
+    .role-desc{
+
+        font-size:7px;
+    }
+
+    .role-button{
+
+        height:34px;
+
+        font-size:8px;
     }
 
     .brand h1{
-        font-size:28px;
+
+        font-size:27px;
     }
 }
+
 
 /* =========================================================
    TABLET / DESKTOP
@@ -743,25 +1037,24 @@ body{
 @media(min-width:600px){
 
     .page{
-        padding-top:28px;
+
+        padding-top:25px;
     }
 
     .container{
-        max-width:590px;
+
+        max-width:570px;
     }
 
-    .role{
+    .role-card{
+
         min-height:310px;
     }
 
-    .person{
-        width:145px;
-        height:145px;
-    }
+    .photo-wrap{
 
-    .hero{
-        padding-top:20px;
-        padding-bottom:20px;
+        width:150px;
+        height:150px;
     }
 }
 
@@ -773,77 +1066,36 @@ body{
 <body>
 
 
-<!-- =========================================================
-     MEDICAL BACKGROUND
-     ========================================================= -->
+<!-- =======================================================
+     BACKGROUND
+     ======================================================= -->
 
-<div class="medical-bg">
+<div class="background">
 
-    <div class="circle one"></div>
-    <div class="circle two"></div>
-    <div class="circle three"></div>
-
-    <div class="ecg">
-
-        <svg
-            viewBox="0 0 1000 100"
-            preserveAspectRatio="none"
-        >
-
-            <polyline
-                points="
-                0,55
-                120,55
-                155,55
-                175,20
-                195,80
-                220,55
-                370,55
-                400,55
-                430,35
-                450,65
-                470,55
-                620,55
-                655,55
-                675,15
-                695,85
-                720,55
-                870,55
-                900,55
-                930,35
-                950,70
-                1000,55
-                "
-                fill="none"
-                stroke="white"
-                stroke-width="2"
-            />
-
-        </svg>
-
-    </div>
+    <div class="bg-orb one"></div>
+    <div class="bg-orb two"></div>
 
 </div>
 
 
-<!-- =========================================================
+<!-- =======================================================
      PAGE
-     ========================================================= -->
+     ======================================================= -->
 
 <div class="page">
 
 <div class="container">
 
 
-    <!-- =====================================================
+    <!-- ===================================================
          ADMIN
-         ===================================================== -->
+         =================================================== -->
 
     <div class="topbar">
 
         <a
             href="/admin.html"
-            class="admin"
+            class="admin-link"
         >
 
             <span class="admin-icon">
@@ -857,11 +1109,11 @@ body{
     </div>
 
 
-    <!-- =====================================================
+    <!-- ===================================================
          BRAND
-         ===================================================== -->
+         =================================================== -->
 
-    <div class="brand">
+    <header class="brand">
 
         <div class="logo">
 
@@ -872,39 +1124,39 @@ body{
         </div>
 
         <h1>
-            طبيبك
+            طبيبك <span>+</span>
         </h1>
 
         <p>
             TABIBK • الرعاية الصحية الرقمية
         </p>
 
-    </div>
+    </header>
 
 
-    <!-- =====================================================
-         HERO
-         ===================================================== -->
+    <!-- ===================================================
+         INTRO
+         =================================================== -->
 
-    <section class="hero">
+    <section class="intro">
 
-        <div class="hero-content">
+        <div class="intro-content">
 
-            <div class="status">
+            <div class="intro-badge">
 
-                <span class="status-dot"></span>
+                <span class="badge-dot"></span>
 
-                منصة صحية رقمية متاحة الآن
+                منصة صحية رقمية
 
             </div>
 
             <h2>
-                رعايتك الصحية أقرب مما تتوقع
+                رعايتك الصحية تبدأ من طبيبك
             </h2>
 
             <p>
-                احجز موعدك أو أدر مواعيد مرضاك
-                بسهولة وأمان عبر طبيبك
+                احجز موعدك بسهولة أو تابع مرضاك
+                من خلال منصة TABIBK
             </p>
 
         </div>
@@ -912,226 +1164,43 @@ body{
     </section>
 
 
-    <!-- =====================================================
-         ROLES
-         ===================================================== -->
+    <!-- ===================================================
+         TITLE
+         =================================================== -->
+
+    <div class="section-title">
+
+        <span>
+            اختر طريقة الدخول
+        </span>
+
+    </div>
+
+
+    <!-- ===================================================
+         LOGIN CARDS
+         =================================================== -->
 
     <div class="login-grid">
 
 
-        <!-- =================================================
+        <!-- ===============================================
              PATIENT
-             ================================================= -->
+             =============================================== -->
 
         <a
             href="/patient.html"
-            class="role"
+            class="role-card"
         >
 
-            <div class="person">
+            <div class="photo-wrap">
 
-                <svg
-                    viewBox="0 0 200 200"
-                    xmlns="http://www.w3.org/2000/svg"
+                <img
+                    src="/images/patient.jpg"
+                    alt="المريض"
+                    class="photo"
+                    loading="eager"
                 >
-
-                    <!-- background -->
-
-                    <defs>
-
-                        <linearGradient
-                            id="patientBg"
-                            x1="0"
-                            y1="0"
-                            x2="1"
-                            y2="1"
-                        >
-
-                            <stop
-                                offset="0%"
-                                stop-color="#ede9fe"
-                            />
-
-                            <stop
-                                offset="100%"
-                                stop-color="#c4b5fd"
-                            />
-
-                        </linearGradient>
-
-                        <linearGradient
-                            id="patientShirt"
-                            x1="0"
-                            y1="0"
-                            x2="1"
-                            y2="1"
-                        >
-
-                            <stop
-                                offset="0%"
-                                stop-color="#8b5cf6"
-                            />
-
-                            <stop
-                                offset="100%"
-                                stop-color="#6d28d9"
-                            />
-
-                        </linearGradient>
-
-                    </defs>
-
-
-                    <rect
-                        width="200"
-                        height="200"
-                        fill="url(#patientBg)"
-                    />
-
-
-                    <!-- decorative circle -->
-
-                    <circle
-                        cx="160"
-                        cy="35"
-                        r="28"
-                        fill="#ffffff"
-                        opacity=".22"
-                    />
-
-
-                    <!-- hair -->
-
-                    <path
-                        d="
-                        M69 78
-                        C66 43 91 25 121 29
-                        C151 32 161 56 151 82
-                        C141 65 124 57 104 58
-                        C91 58 80 66 69 78Z
-                        "
-                        fill="#33213f"
-                    />
-
-
-                    <!-- face -->
-
-                    <ellipse
-                        cx="109"
-                        cy="82"
-                        rx="35"
-                        ry="42"
-                        fill="#f1c6a5"
-                    />
-
-
-                    <!-- hair front -->
-
-                    <path
-                        d="
-                        M74 71
-                        C76 43 100 33 123 38
-                        C141 42 149 56 145 70
-                        C134 58 121 55 107 58
-                        C94 60 83 66 74 71Z
-                        "
-                        fill="#38233f"
-                    />
-
-
-                    <!-- eyes -->
-
-                    <ellipse
-                        cx="95"
-                        cy="83"
-                        rx="3"
-                        ry="2.5"
-                        fill="#3b273f"
-                    />
-
-                    <ellipse
-                        cx="122"
-                        cy="83"
-                        rx="3"
-                        ry="2.5"
-                        fill="#3b273f"
-                    />
-
-
-                    <!-- nose -->
-
-                    <path
-                        d="M108 84 L105 94 L111 95"
-                        fill="none"
-                        stroke="#c48667"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
-
-
-                    <!-- smile -->
-
-                    <path
-                        d="M101 101 Q108 106 116 101"
-                        fill="none"
-                        stroke="#b86565"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
-
-
-                    <!-- neck -->
-
-                    <rect
-                        x="96"
-                        y="117"
-                        width="27"
-                        height="28"
-                        rx="10"
-                        fill="#edbd9b"
-                    />
-
-
-                    <!-- body -->
-
-                    <path
-                        d="
-                        M49 200
-                        C53 153 72 139 97 136
-                        L110 154
-                        L124 136
-                        C151 140 169 158 174 200Z
-                        "
-                        fill="url(#patientShirt)"
-                    />
-
-
-                    <!-- shirt detail -->
-
-                    <path
-                        d="M96 139 L110 155 L124 139"
-                        fill="none"
-                        stroke="#ffffff"
-                        stroke-width="3"
-                        opacity=".7"
-                    />
-
-
-                    <!-- small heart -->
-
-                    <path
-                        d="
-                        M151 153
-                        C145 146 134 154 140 162
-                        L151 173
-                        L162 162
-                        C168 154 157 146 151 153Z
-                        "
-                        fill="#ffffff"
-                        opacity=".9"
-                    />
-
-                </svg>
 
             </div>
 
@@ -1140,11 +1209,18 @@ body{
                 المريض
             </h3>
 
+
             <div class="role-desc">
-                حجز ومتابعة المواعيد
+                احجز موعدك وتابع زياراتك
             </div>
 
-            <div class="role-btn">
+
+            <div class="role-label">
+                ✦ رعاية أسهل
+            </div>
+
+
+            <div class="role-button">
 
                 دخول المريض
 
@@ -1157,285 +1233,23 @@ body{
         </a>
 
 
-        <!-- =================================================
+        <!-- ===============================================
              DOCTOR
-             ================================================= -->
+             =============================================== -->
 
         <a
             href="/doctor.html"
-            class="role"
+            class="role-card"
         >
 
-            <div class="person">
+            <div class="photo-wrap">
 
-                <svg
-                    viewBox="0 0 200 200"
-                    xmlns="http://www.w3.org/2000/svg"
+                <img
+                    src="/images/doctor.jpg"
+                    alt="الطبيب"
+                    class="photo"
+                    loading="eager"
                 >
-
-                    <defs>
-
-                        <linearGradient
-                            id="doctorBg"
-                            x1="0"
-                            y1="0"
-                            x2="1"
-                            y2="1"
-                        >
-
-                            <stop
-                                offset="0%"
-                                stop-color="#f5f3ff"
-                            />
-
-                            <stop
-                                offset="100%"
-                                stop-color="#ddd6fe"
-                            />
-
-                        </linearGradient>
-
-                        <linearGradient
-                            id="coat"
-                            x1="0"
-                            y1="0"
-                            x2="1"
-                            y2="1"
-                        >
-
-                            <stop
-                                offset="0%"
-                                stop-color="#ffffff"
-                            />
-
-                            <stop
-                                offset="100%"
-                                stop-color="#ede9fe"
-                            />
-
-                        </linearGradient>
-
-                    </defs>
-
-
-                    <rect
-                        width="200"
-                        height="200"
-                        fill="url(#doctorBg)"
-                    />
-
-
-                    <!-- background circle -->
-
-                    <circle
-                        cx="40"
-                        cy="35"
-                        r="28"
-                        fill="#ffffff"
-                        opacity=".28"
-                    />
-
-
-                    <!-- hair -->
-
-                    <path
-                        d="
-                        M67 78
-                        C66 42 89 27 117 30
-                        C145 33 157 54 151 81
-                        C140 67 130 58 112 58
-                        C93 58 79 67 67 78Z
-                        "
-                        fill="#34233f"
-                    />
-
-
-                    <!-- face -->
-
-                    <ellipse
-                        cx="108"
-                        cy="82"
-                        rx="35"
-                        ry="42"
-                        fill="#e9b994"
-                    />
-
-
-                    <!-- hair top -->
-
-                    <path
-                        d="
-                        M73 67
-                        C76 39 99 29 122 37
-                        C138 42 148 54 146 68
-                        C132 56 119 52 104 57
-                        C91 60 81 66 73 67Z
-                        "
-                        fill="#39263f"
-                    />
-
-
-                    <!-- ears -->
-
-                    <circle
-                        cx="73"
-                        cy="83"
-                        r="7"
-                        fill="#e5b38f"
-                    />
-
-                    <circle
-                        cx="143"
-                        cy="83"
-                        r="7"
-                        fill="#e5b38f"
-                    />
-
-
-                    <!-- eyes -->
-
-                    <ellipse
-                        cx="95"
-                        cy="82"
-                        rx="3"
-                        ry="2.5"
-                        fill="#30253a"
-                    />
-
-                    <ellipse
-                        cx="121"
-                        cy="82"
-                        rx="3"
-                        ry="2.5"
-                        fill="#30253a"
-                    />
-
-
-                    <!-- eyebrows -->
-
-                    <path
-                        d="M88 75 Q95 71 101 75"
-                        fill="none"
-                        stroke="#39263f"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
-
-                    <path
-                        d="M115 75 Q122 71 128 75"
-                        fill="none"
-                        stroke="#39263f"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
-
-
-                    <!-- nose -->
-
-                    <path
-                        d="M108 83 L105 95 L111 95"
-                        fill="none"
-                        stroke="#bd7d60"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
-
-
-                    <!-- smile -->
-
-                    <path
-                        d="M100 101 Q108 106 117 101"
-                        fill="none"
-                        stroke="#a95e5e"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
-
-
-                    <!-- neck -->
-
-                    <rect
-                        x="96"
-                        y="117"
-                        width="27"
-                        height="27"
-                        rx="10"
-                        fill="#e5b38f"
-                    />
-
-
-                    <!-- coat -->
-
-                    <path
-                        d="
-                        M48 200
-                        C52 158 72 140 96 136
-                        L108 151
-                        L123 136
-                        C149 140 168 158 174 200Z
-                        "
-                        fill="url(#coat)"
-                    />
-
-
-                    <!-- shirt -->
-
-                    <path
-                        d="
-                        M96 137
-                        L108 153
-                        L123 137
-                        L117 163
-                        L108 177
-                        L99 163Z
-                        "
-                        fill="#7c3aed"
-                    />
-
-
-                    <!-- coat collar -->
-
-                    <path
-                        d="M77 142 L99 164 L91 183 L69 151Z"
-                        fill="#ffffff"
-                    />
-
-                    <path
-                        d="M140 143 L118 164 L125 183 L148 151Z"
-                        fill="#ffffff"
-                    />
-
-
-                    <!-- stethoscope -->
-
-                    <path
-                        d="
-                        M86 145
-                        C86 169 94 180 108 180
-                        C122 180 130 169 130 145
-                        "
-                        fill="none"
-                        stroke="#7c3aed"
-                        stroke-width="4"
-                        stroke-linecap="round"
-                    />
-
-
-                    <circle
-                        cx="108"
-                        cy="181"
-                        r="8"
-                        fill="#7c3aed"
-                    />
-
-                    <circle
-                        cx="108"
-                        cy="181"
-                        r="4"
-                        fill="#ffffff"
-                    />
-
-                </svg>
 
             </div>
 
@@ -1444,11 +1258,18 @@ body{
                 الطبيب
             </h3>
 
+
             <div class="role-desc">
-                إدارة المرضى والمواعيد
+                أدر مواعيدك ومرضـاك بسهولة
             </div>
 
-            <div class="role-btn">
+
+            <div class="role-label">
+                ✦ إدارة ذكية
+            </div>
+
+
+            <div class="role-button">
 
                 دخول الطبيب
 
@@ -1463,11 +1284,12 @@ body{
     </div>
 
 
-    <!-- =====================================================
+    <!-- ===================================================
          FEATURES
-         ===================================================== -->
+         =================================================== -->
 
     <div class="features">
+
 
         <div class="feature">
 
@@ -1476,7 +1298,7 @@ body{
             </div>
 
             <span>
-                رعاية موثوقة
+                أطباء موثوقون
             </span>
 
         </div>
@@ -1489,7 +1311,7 @@ body{
             </div>
 
             <span>
-                حجز سريع
+                حجز سهل
             </span>
 
         </div>
@@ -1498,35 +1320,38 @@ body{
         <div class="feature">
 
             <div class="feature-icon">
-                🔔
+                🔒
             </div>
 
             <span>
-                إشعارات فورية
+                خصوصية وأمان
             </span>
 
         </div>
 
+
     </div>
 
 
-    <!-- =====================================================
+    <!-- ===================================================
          FOOTER
-         ===================================================== -->
+         =================================================== -->
 
-    <div class="footer">
+    <footer class="footer">
 
         <strong>TABIBK</strong>
 
         — منصتك الصحية الرقمية
 
-    </div>
+    </footer>
 
 
 </div>
 
 </div>
+
 
 </body>
+
 </html>
 ```

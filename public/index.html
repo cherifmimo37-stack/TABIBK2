@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     >
 
-    <meta name="theme-color" content="#160522">
+    <meta name="theme-color" content="#180621">
 
     <title>طبيبك | TABIBK</title>
 
@@ -26,11 +26,38 @@
 
     <style>
 
+        /* =========================================================
+           TABIBK PREMIUM HOME
+           ========================================================= */
+
+        :root {
+
+            --purple-950: #100218;
+            --purple-900: #180621;
+            --purple-800: #24092f;
+            --purple-700: #350d48;
+            --purple-600: #4d1765;
+            --purple-500: #6f278e;
+            --purple-400: #984bb9;
+
+            --gold: #c99b35;
+            --gold-light: #f1d77b;
+            --gold-bright: #fff0a5;
+
+            --white: #ffffff;
+            --text-soft: #eee7f1;
+
+            --patient: #8f54cf;
+            --doctor: #7042bd;
+        }
+
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
 
         html,
         body {
@@ -38,49 +65,34 @@
             min-height: 100%;
         }
 
+
         body {
+
+            min-height: 100vh;
 
             font-family: "Cairo", sans-serif;
 
-            color: #fff;
+            color: var(--white);
 
             overflow-x: hidden;
 
             background:
-
-                radial-gradient(
-                    ellipse at 50% 12%,
-                    rgba(151, 72, 192, .42),
-                    transparent 31%
-                ),
-
-                radial-gradient(
-                    ellipse at 0% 50%,
-                    rgba(100, 36, 145, .42),
-                    transparent 35%
-                ),
-
-                radial-gradient(
-                    ellipse at 100% 70%,
-                    rgba(114, 44, 158, .36),
-                    transparent 34%
-                ),
-
                 linear-gradient(
                     180deg,
-                    #21072f 0%,
-                    #2b0b3d 38%,
-                    #190622 72%,
-                    #0e0217 100%
-                );
+                    rgba(17, 3, 25, .70),
+                    rgba(32, 7, 45, .88)
+                ),
 
-            min-height: 100vh;
+                url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=85")
+                center center / cover fixed no-repeat;
+
+            background-color: var(--purple-950);
         }
 
 
-        /* =====================================================
-           MEDICAL BACKGROUND
-           ===================================================== */
+        /* =========================================================
+           BACKGROUND OVERLAY
+           ========================================================= */
 
         body::before {
 
@@ -96,19 +108,37 @@
 
             background:
 
-                linear-gradient(
-                    115deg,
-                    rgba(255,255,255,.05),
-                    transparent 25%,
-                    transparent 70%,
-                    rgba(255,255,255,.04)
-                );
+                radial-gradient(
+                    circle at 50% 12%,
+                    rgba(155, 67, 202, .38),
+                    transparent 34%
+                ),
 
-            opacity: .8;
+                radial-gradient(
+                    circle at 5% 55%,
+                    rgba(110, 38, 154, .30),
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at 95% 70%,
+                    rgba(123, 45, 168, .28),
+                    transparent 34%
+                ),
+
+                linear-gradient(
+                    180deg,
+                    rgba(25, 5, 34, .50),
+                    rgba(14, 2, 21, .84)
+                );
         }
 
 
-        .medical-bg {
+        /* =========================================================
+           BACKGROUND MEDICAL DECORATION
+           ========================================================= */
+
+        .medical-background {
 
             position: fixed;
 
@@ -116,13 +146,13 @@
 
             z-index: 0;
 
-            overflow: hidden;
-
             pointer-events: none;
+
+            overflow: hidden;
         }
 
 
-        .medical-bg::before {
+        .medical-background::before {
 
             content: "";
 
@@ -131,23 +161,24 @@
             width: 420px;
             height: 420px;
 
-            left: -180px;
-            top: 120px;
+            top: 12%;
+
+            left: -210px;
 
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle,
-                    rgba(173, 80, 218, .35),
+                    rgba(176, 89, 220, .30),
                     transparent 70%
                 );
 
-            filter: blur(12px);
+            filter: blur(15px);
         }
 
 
-        .medical-bg::after {
+        .medical-background::after {
 
             content: "";
 
@@ -156,53 +187,58 @@
             width: 500px;
             height: 500px;
 
-            right: -230px;
-            top: 210px;
+            right: -250px;
+
+            bottom: 5%;
 
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle,
-                    rgba(132, 61, 185, .36),
+                    rgba(124, 53, 174, .28),
                     transparent 70%
                 );
 
-            filter: blur(15px);
+            filter: blur(18px);
         }
 
 
-        /* medical ECG decoration */
-
-        .ecg-background {
+        .background-ecg {
 
             position: absolute;
 
-            width: 700px;
+            width: 850px;
 
-            opacity: .08;
+            left: 50%;
 
-            left: -130px;
+            top: 48%;
 
-            top: 220px;
+            transform:
+                translate(-50%, -50%)
+                rotate(-4deg);
 
-            transform: rotate(-7deg);
+            opacity: .055;
         }
 
-        .ecg-background path {
+
+        .background-ecg path {
 
             fill: none;
 
-            stroke: #f0d57c;
+            stroke: #f2d87c;
 
             stroke-width: 4;
 
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
         }
 
 
-        /* =====================================================
-           MAIN
-           ===================================================== */
+        /* =========================================================
+           PAGE
+           ========================================================= */
 
         .page {
 
@@ -217,172 +253,119 @@
             margin: auto;
 
             padding:
-
-                24px 24px
-                42px;
+                22px 24px
+                40px;
         }
 
 
-        /* =====================================================
-           ADMIN
-           ===================================================== */
+        /* =========================================================
+           ADMIN MINI BUTTON
+           ========================================================= */
 
         .admin-area {
 
             display: flex;
 
-            justify-content: center;
+            justify-content: flex-start;
 
-            margin-bottom: 30px;
+            margin-bottom: 4px;
         }
 
 
         .admin-button {
 
-            width: 420px;
-
-            min-height: 82px;
-
-            padding: 11px 17px;
-
-            display: flex;
+            display: inline-flex;
 
             align-items: center;
 
-            gap: 15px;
+            gap: 9px;
 
-            color: #fff;
+            padding:
+                8px 15px;
+
+            color: #f8effb;
 
             text-decoration: none;
 
-            border-radius: 48px;
-
-            border: 1.5px solid #efd477;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-                    rgba(47, 14, 64, .97),
-                    rgba(25, 6, 35, .97)
-                );
-
-            box-shadow:
-
-                0 10px 35px rgba(0,0,0,.34),
-
-                0 0 28px rgba(239,212,119,.12);
-        }
-
-
-        .admin-icon {
-
-            width: 56px;
-            height: 56px;
-
-            flex-shrink: 0;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 50%;
-
-            color: #ffe68d;
-
-            font-size: 24px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #4d2361,
-                    #24102f
-                );
+            border-radius: 30px;
 
             border:
                 1px solid
-                rgba(239,212,119,.35);
+                rgba(239, 212, 119, .48);
+
+            background:
+                rgba(25, 6, 35, .64);
+
+            backdrop-filter: blur(14px);
+
+            -webkit-backdrop-filter: blur(14px);
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,.20);
+
+            transition: .25s ease;
         }
 
 
-        .admin-content {
+        .admin-button:hover {
 
-            flex: 1;
+            transform: translateY(-2px);
 
-            text-align: right;
+            border-color:
+                rgba(239, 212, 119, .85);
+
+            background:
+                rgba(50, 13, 66, .82);
         }
 
 
-        .admin-title {
+        .admin-button i {
 
-            font-size: 20px;
+            color: var(--gold-light);
 
-            line-height: 1.25;
-
-            font-weight: 900;
+            font-size: 13px;
         }
 
 
-        .admin-description {
-
-            margin-top: 3px;
+        .admin-button span {
 
             font-size: 11px;
 
-            color: #d7c8dc;
+            font-weight: 700;
         }
 
 
-        .admin-arrow {
-
-            width: 43px;
-            height: 43px;
-
-            flex-shrink: 0;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background:
-                rgba(117,64,147,.34);
-
-            border:
-                1px solid
-                rgba(255,255,255,.15);
-
-            font-size: 17px;
-        }
-
-
-        /* =====================================================
-           LOGO
-           ===================================================== */
+        /* =========================================================
+           BRAND
+           ========================================================= */
 
         .brand {
 
             text-align: center;
 
-            margin-bottom: 36px;
+            margin-top: -5px;
+
+            margin-bottom: 34px;
         }
 
 
-        .logo-area {
+        /* =========================================================
+           PROFESSIONAL HEART LOGO
+           ========================================================= */
+
+        .logo {
 
             position: relative;
 
-            width: 190px;
-            height: 190px;
+            width: 150px;
+            height: 150px;
 
             margin: auto;
 
             display: flex;
 
             align-items: center;
+
             justify-content: center;
         }
 
@@ -391,109 +374,127 @@
 
             position: absolute;
 
-            inset: 11px;
+            inset: 7px;
 
             border-radius: 50%;
 
             border:
-                2px solid
-                rgba(239,212,119,.55);
+                1px solid
+                rgba(239, 212, 119, .50);
 
             box-shadow:
-
-                0 0 24px
-                rgba(239,212,119,.17);
+                0 0 30px
+                rgba(239, 212, 119, .13);
         }
 
 
-        .heart {
-
-            position: relative;
-
-            width: 96px;
-            height: 96px;
-
-            margin-top: 10px;
-
-            transform: rotate(-45deg);
-
-            border-radius: 18px;
-
-            background:
-
-                linear-gradient(
-                    145deg,
-                    #ffe795,
-                    #d2a33a 60%,
-                    #a87820
-                );
-
-            box-shadow:
-
-                0 0 34px
-                rgba(239,212,119,.34),
-
-                inset 4px 5px 10px
-                rgba(255,255,255,.38);
-        }
-
-
-        .heart::before,
-        .heart::after {
+        .logo-ring::before {
 
             content: "";
 
             position: absolute;
 
-            width: 96px;
-            height: 96px;
+            inset: 8px;
+
+            border-radius: 50%;
+
+            border:
+                1px dashed
+                rgba(239, 212, 119, .20);
+        }
+
+
+        .heart-shape {
+
+            position: relative;
+
+            width: 72px;
+            height: 72px;
+
+            transform:
+                rotate(-45deg);
+
+            border-radius:
+                13px 13px 18px 13px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffe99b 0%,
+                    #e3b84f 48%,
+                    #a97520 100%
+                );
+
+            box-shadow:
+
+                0 0 34px
+                rgba(239, 212, 119, .32),
+
+                inset
+                4px 5px 9px
+                rgba(255,255,255,.38),
+
+                inset
+                -4px -4px 8px
+                rgba(115,70,10,.18);
+        }
+
+
+        .heart-shape::before,
+        .heart-shape::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 72px;
+            height: 72px;
 
             border-radius: 50%;
 
             background:
-
                 linear-gradient(
                     145deg,
-                    #ffe795,
-                    #d2a33a 60%,
-                    #a87820
+                    #ffe99b 0%,
+                    #e3b84f 48%,
+                    #a97520 100%
                 );
         }
 
 
-        .heart::before {
+        .heart-shape::before {
 
-            top: -48px;
+            top: -36px;
 
             left: 0;
         }
 
 
-        .heart::after {
+        .heart-shape::after {
+
+            left: 36px;
 
             top: 0;
-
-            left: 48px;
         }
 
 
-        .heart-ecg {
+        .logo-ecg {
 
             position: absolute;
 
             z-index: 5;
 
-            width: 135px;
+            width: 108px;
 
-            height: 58px;
+            height: 50px;
 
-            left: 28px;
+            top: 51px;
 
-            top: 68px;
+            left: 21px;
         }
 
 
-        .heart-ecg path {
+        .logo-ecg path {
 
             fill: none;
 
@@ -507,64 +508,62 @@
 
             filter:
                 drop-shadow(
-                    0 0 5px
-                    rgba(255,255,255,.9)
+                    0 0 4px
+                    rgba(255,255,255,.95)
                 );
         }
 
 
-        .brand-ar {
+        .brand-name {
 
-            font-size: clamp(
-                48px,
-                7vw,
-                72px
-            );
+            margin-top: 2px;
+
+            font-size:
+                clamp(48px, 7vw, 70px);
 
             line-height: .95;
 
             font-weight: 900;
 
-            color: white;
+            letter-spacing: -2px;
 
             text-shadow:
-
-                0 5px 22px
-                rgba(0,0,0,.35);
+                0 6px 24px
+                rgba(0,0,0,.34);
         }
 
 
         .brand-en {
 
-            margin-top: 12px;
+            margin-top: 10px;
 
-            color: #efd477;
+            color: var(--gold-light);
 
-            font-size: 22px;
+            font-size: 19px;
 
             font-weight: 700;
 
-            letter-spacing: 10px;
+            letter-spacing: 9px;
 
-            padding-left: 10px;
+            padding-left: 9px;
         }
 
 
         .tagline {
 
-            margin-top: 15px;
-
             display: flex;
-
-            justify-content: center;
 
             align-items: center;
 
-            gap: 17px;
+            justify-content: center;
 
-            color: #f0e8f3;
+            gap: 14px;
 
-            font-size: 16px;
+            margin-top: 12px;
+
+            color: var(--text-soft);
+
+            font-size: 14px;
 
             font-weight: 600;
         }
@@ -575,7 +574,7 @@
 
             content: "";
 
-            width: 78px;
+            width: 55px;
 
             height: 1px;
 
@@ -583,7 +582,7 @@
                 linear-gradient(
                     90deg,
                     transparent,
-                    #efd477
+                    var(--gold-light)
                 );
         }
 
@@ -593,25 +592,23 @@
             background:
                 linear-gradient(
                     90deg,
-                    #efd477,
+                    var(--gold-light),
                     transparent
                 );
         }
 
 
-        /* =====================================================
-           LOGIN CARDS
-           IMPORTANT:
-           ALWAYS SIDE BY SIDE
-           ===================================================== */
+        /* =========================================================
+           LOGIN AREA
+           ========================================================= */
 
         .login-grid {
 
             width: 100%;
 
-            max-width: 790px;
+            max-width: 820px;
 
-            margin: 0 auto;
+            margin: auto;
 
             display: grid;
 
@@ -619,15 +616,19 @@
                 minmax(0, 1fr)
                 minmax(0, 1fr);
 
-            gap: 26px;
+            gap: 22px;
         }
 
+
+        /* =========================================================
+           LOGIN CARD
+           ========================================================= */
 
         .login-card {
 
             position: relative;
 
-            height: 470px;
+            height: 430px;
 
             min-width: 0;
 
@@ -639,52 +640,61 @@
 
             justify-content: flex-end;
 
-            padding: 24px;
+            padding:
+                20px;
 
             color: white;
 
             text-decoration: none;
 
-            border-radius: 26px;
+            border-radius: 25px;
 
             border:
                 1px solid
-                rgba(225,186,248,.52);
+                rgba(232, 199, 247, .40);
 
             background:
 
                 linear-gradient(
                     180deg,
-                    rgba(151,86,187,.34) 0%,
-                    rgba(78,31,99,.56) 38%,
-                    rgba(27,7,37,.97) 100%
+                    rgba(107, 47, 137, .28),
+                    rgba(27, 7, 38, .84)
                 );
+
+            backdrop-filter: blur(14px);
+
+            -webkit-backdrop-filter: blur(14px);
 
             box-shadow:
 
-                0 22px 55px
-                rgba(0,0,0,.38),
+                0 24px 55px
+                rgba(0,0,0,.32),
 
-                inset 0 1px 0
+                inset
+                0 1px 0
                 rgba(255,255,255,.10);
 
-            transition: .3s ease;
+            transition:
+                transform .3s ease,
+                border-color .3s ease,
+                box-shadow .3s ease;
         }
 
 
         .login-card:hover {
 
-            transform: translateY(-7px);
+            transform: translateY(-6px);
 
-            border-color: #efd477;
+            border-color:
+                rgba(239,212,119,.72);
 
             box-shadow:
 
-                0 28px 65px
-                rgba(0,0,0,.46),
+                0 30px 65px
+                rgba(0,0,0,.43),
 
-                0 0 32px
-                rgba(169,91,215,.18);
+                0 0 35px
+                rgba(148,76,190,.18);
         }
 
 
@@ -694,23 +704,25 @@
 
             position: absolute;
 
-            top: -80px;
+            width: 300px;
+            height: 300px;
+
+            top: -145px;
 
             left: 50%;
 
             transform: translateX(-50%);
-
-            width: 280px;
-            height: 280px;
 
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle,
-                    rgba(202,133,240,.34),
-                    transparent 70%
+                    rgba(188, 106, 229, .30),
+                    transparent 68%
                 );
+
+            pointer-events: none;
         }
 
 
@@ -720,38 +732,37 @@
 
             position: absolute;
 
-            bottom: 0;
-
             left: 0;
             right: 0;
 
-            height: 4px;
+            bottom: 0;
+
+            height: 3px;
 
             background:
-
                 linear-gradient(
                     90deg,
                     transparent,
-                    #efd477,
+                    var(--gold-light),
                     transparent
                 );
         }
 
 
-        /* =====================================================
-           PERSON
-           ===================================================== */
+        /* =========================================================
+           AVATAR
+           ========================================================= */
 
-        .person-area {
+        .avatar-area {
 
             position: absolute;
 
-            top: 18px;
+            top: 8px;
 
             left: 0;
             right: 0;
 
-            height: 285px;
+            height: 265px;
 
             display: flex;
 
@@ -761,104 +772,110 @@
         }
 
 
-        .person-glow {
+        .avatar-glow {
 
             position: absolute;
 
-            width: 245px;
-            height: 245px;
+            width: 230px;
+            height: 230px;
 
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle,
-                    rgba(189,112,231,.34),
-                    transparent 69%
+                    rgba(177, 91, 221, .30),
+                    transparent 68%
                 );
         }
 
 
-        .person-circle {
+        .avatar-ring {
 
             position: relative;
 
             z-index: 2;
 
-            width: 185px;
-            height: 185px;
+            width: 190px;
+            height: 190px;
 
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
+            padding: 7px;
 
             border-radius: 50%;
 
             background:
-
                 linear-gradient(
                     145deg,
-                    rgba(168,98,215,.85),
-                    rgba(63,22,83,.96)
+                    rgba(239,212,119,.92),
+                    rgba(157,104,30,.75)
                 );
-
-            border:
-                1px solid
-                rgba(255,255,255,.24);
 
             box-shadow:
 
-                0 22px 40px
+                0 20px 40px
                 rgba(0,0,0,.34),
 
-                inset 0 3px 14px
-                rgba(255,255,255,.12);
+                0 0 28px
+                rgba(239,212,119,.16);
         }
 
 
-        .person-circle i {
+        .avatar-ring::before {
 
-            font-size: 108px;
+            content: "";
 
-            color: white;
+            position: absolute;
 
-            filter:
-                drop-shadow(
-                    0 6px 12px
-                    rgba(0,0,0,.25)
-                );
+            inset: 3px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(255,255,255,.45);
         }
 
 
-        .doctor-circle {
+        .avatar {
+
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            object-position: center;
+
+            border-radius: 50%;
 
             background:
-
                 linear-gradient(
                     145deg,
-                    rgba(133,85,201,.90),
-                    rgba(51,19,73,.97)
+                    #7e4aa3,
+                    #321040
                 );
+
+            border:
+                4px solid
+                rgba(30,7,42,.80);
         }
 
 
-        .doctor-circle i {
-
-            font-size: 98px;
-        }
-
-
-        .role-icon {
+        .avatar-badge {
 
             position: absolute;
 
             z-index: 5;
 
-            bottom: 3px;
+            bottom: 1px;
 
-            width: 58px;
-            height: 58px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 49px;
+            height: 49px;
 
             display: flex;
 
@@ -869,29 +886,32 @@
 
             color: white;
 
-            font-size: 22px;
-
             background:
-
                 linear-gradient(
                     145deg,
-                    #a456dc,
+                    #a65bd9,
                     #57228b
                 );
 
             border:
                 2px solid
-                rgba(255,255,255,.3);
+                rgba(255,255,255,.35);
 
             box-shadow:
-                0 8px 22px
-                rgba(0,0,0,.3);
+                0 7px 20px
+                rgba(0,0,0,.30);
         }
 
 
-        /* =====================================================
-           CARD TEXT
-           ===================================================== */
+        .avatar-badge i {
+
+            font-size: 18px;
+        }
+
+
+        /* =========================================================
+           CARD CONTENT
+           ========================================================= */
 
         .card-content {
 
@@ -905,90 +925,102 @@
 
         .card-title {
 
-            font-size: 30px;
+            font-size: 27px;
 
             font-weight: 900;
 
-            margin-bottom: 7px;
+            margin-bottom: 5px;
         }
 
 
-        .card-text {
+        .card-description {
 
-            min-height: 54px;
+            min-height: 48px;
 
-            color: #eee2f1;
+            color: #e9dfee;
 
-            font-size: 14px;
+            font-size: 12px;
 
-            line-height: 1.85;
+            line-height: 1.8;
 
-            margin-bottom: 19px;
+            margin-bottom: 14px;
         }
 
 
         .card-button {
 
-            width: 100%;
+            height: 50px;
 
-            height: 54px;
+            width: 100%;
 
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
-            gap: 16px;
+            gap: 10px;
 
-            border-radius: 32px;
+            border-radius: 28px;
 
             color: white;
 
             font-family: inherit;
 
-            font-size: 14px;
+            font-size: 13px;
 
             font-weight: 800;
 
             background:
-
                 linear-gradient(
                     100deg,
-                    #672b92,
-                    #934ac1
+                    #63268d,
+                    #9347bf
                 );
 
             border:
                 1px solid
-                rgba(239,212,255,.46);
+                rgba(236,200,255,.40);
 
             box-shadow:
 
-                0 9px 25px
-                rgba(0,0,0,.28),
+                0 8px 24px
+                rgba(0,0,0,.25),
 
-                inset 0 1px 0
-                rgba(255,255,255,.18);
+                inset
+                0 1px 0
+                rgba(255,255,255,.16);
         }
 
 
-        /* =====================================================
-           FEATURES
-           ===================================================== */
+        .login-card:hover .card-button {
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #7835a5,
+                    #a656cf
+                );
+        }
+
+
+        /* =========================================================
+           SMALL FEATURES
+           ========================================================= */
 
         .features {
 
-            display: flex;
+            max-width: 730px;
 
-            justify-content: center;
+            margin:
+                30px auto
+                0;
+
+            display: flex;
 
             align-items: center;
 
-            max-width: 720px;
-
-            margin:
-                43px auto
-                0;
+            justify-content: center;
         }
 
 
@@ -1002,13 +1034,11 @@
 
             justify-content: center;
 
-            gap: 9px;
+            gap: 8px;
 
-            color: #eee5f1;
+            color: #e9dfea;
 
-            font-size: 13px;
-
-            white-space: nowrap;
+            font-size: 12px;
         }
 
 
@@ -1016,43 +1046,35 @@
 
             border-right:
                 1px solid
-                rgba(239,212,119,.38);
+                rgba(239,212,119,.30);
         }
 
 
         .feature i {
 
-            color: #efd477;
+            color: var(--gold-light);
 
-            font-size: 21px;
+            font-size: 18px;
         }
 
 
-        /* =====================================================
+        /* =========================================================
            FOOTER
-           ===================================================== */
+           ========================================================= */
 
         .footer {
 
             text-align: center;
 
-            margin-top: 48px;
+            margin-top: 34px;
         }
 
 
-        .footer-title {
+        .footer-brand {
 
-            display: flex;
+            color: var(--gold-light);
 
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 20px;
-
-            color: #efd477;
-
-            font-size: 13px;
+            font-size: 11px;
 
             font-weight: 700;
 
@@ -1060,48 +1082,19 @@
         }
 
 
-        .footer-title::before,
-        .footer-title::after {
-
-            content: "";
-
-            width: 90px;
-
-            height: 1px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    transparent,
-                    #c79a32
-                );
-        }
-
-
-        .footer-title::after {
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #c79a32,
-                    transparent
-                );
-        }
-
-
         .footer-text {
 
-            margin-top: 9px;
+            margin-top: 5px;
 
-            color: #bbaac2;
+            color: #bba9c2;
 
-            font-size: 11px;
+            font-size: 9px;
         }
 
 
-        /* =====================================================
+        /* =========================================================
            TABLET
-           ===================================================== */
+           ========================================================= */
 
         @media (max-width: 800px) {
 
@@ -1109,74 +1102,64 @@
 
                 padding:
                     18px 15px
-                    35px;
+                    30px;
             }
 
-            .admin-button {
-
-                width: 380px;
-            }
 
             .login-grid {
 
                 gap: 14px;
 
-                max-width: 700px;
+                max-width: 720px;
             }
+
 
             .login-card {
 
-                height: 425px;
+                height: 400px;
 
                 padding:
-                    18px 16px
-                    19px;
+                    17px;
             }
 
-            .person-area {
 
-                height: 255px;
+            .avatar-area {
+
+                height: 245px;
             }
 
-            .person-circle {
 
-                width: 155px;
-                height: 155px;
+            .avatar-ring {
+
+                width: 165px;
+                height: 165px;
             }
 
-            .person-circle i {
-
-                font-size: 88px;
-            }
-
-            .doctor-circle i {
-
-                font-size: 80px;
-            }
 
             .card-title {
 
-                font-size: 26px;
+                font-size: 24px;
             }
 
-            .card-text {
 
-                font-size: 12px;
+            .card-description {
+
+                font-size: 11px;
             }
         }
 
 
-        /* =====================================================
+        /* =========================================================
            MOBILE
-           ===================================================== */
+           ========================================================= */
 
         @media (max-width: 600px) {
 
             .page {
 
                 padding:
-                    12px 9px
-                    28px;
+                    10px 8px
+                    25px;
             }
 
 
@@ -1184,50 +1167,30 @@
 
             .admin-area {
 
-                margin-bottom: 15px;
+                justify-content: flex-start;
+
+                margin-bottom: 2px;
             }
 
 
             .admin-button {
 
-                width: 94%;
-
-                min-height: 62px;
-
                 padding:
-                    8px 10px;
+                    6px 11px;
 
-                gap: 9px;
+                gap: 7px;
             }
 
 
-            .admin-icon {
+            .admin-button i {
 
-                width: 43px;
-                height: 43px;
-
-                font-size: 18px;
+                font-size: 11px;
             }
 
 
-            .admin-title {
+            .admin-button span {
 
-                font-size: 15px;
-            }
-
-
-            .admin-description {
-
-                font-size: 8px;
-            }
-
-
-            .admin-arrow {
-
-                width: 35px;
-                height: 35px;
-
-                font-size: 13px;
+                font-size: 9px;
             }
 
 
@@ -1235,336 +1198,169 @@
 
             .brand {
 
-                margin-bottom: 19px;
+                margin-bottom: 22px;
             }
 
 
-            .logo-area {
+            .logo {
 
-                width: 132px;
-                height: 132px;
+                width: 118px;
+                height: 118px;
             }
 
 
             .logo-ring {
 
-                inset: 5px;
+                inset: 4px;
             }
 
 
-            .heart {
+            .heart-shape {
 
-                width: 68px;
-                height: 68px;
+                width: 59px;
+                height: 59px;
 
-                border-radius: 13px;
-
-                margin-top: 7px;
+                border-radius: 11px;
             }
 
 
-            .heart::before,
-            .heart::after {
+            .heart-shape::before,
+            .heart-shape::after {
 
-                width: 68px;
-                height: 68px;
+                width: 59px;
+                height: 59px;
             }
 
 
-            .heart::before {
+            .heart-shape::before {
 
-                top: -34px;
+                top: -29px;
             }
 
 
-            .heart::after {
+            .heart-shape::after {
 
-                left: 34px;
+                left: 29px;
             }
 
 
-            .heart-ecg {
+            .logo-ecg {
 
-                width: 95px;
+                width: 88px;
 
-                height: 45px;
+                height: 42px;
 
-                left: 19px;
+                top: 39px;
 
-                top: 48px;
+                left: 15px;
             }
 
 
-            .brand-ar {
+            .brand-name {
 
-                font-size: 45px;
+                font-size: 43px;
+
+                margin-top: 0;
             }
 
 
             .brand-en {
 
-                margin-top: 7px;
-
-                font-size: 15px;
+                font-size: 14px;
 
                 letter-spacing: 7px;
 
                 padding-left: 7px;
+
+                margin-top: 7px;
             }
 
 
             .tagline {
 
-                margin-top: 9px;
-
-                font-size: 10px;
+                margin-top: 8px;
 
                 gap: 7px;
+
+                font-size: 9px;
             }
 
 
             .tagline::before,
             .tagline::after {
 
-                width: 27px;
+                width: 25px;
             }
 
 
-            /* =================================================
-               VERY IMPORTANT:
-               TWO CARDS STAY SIDE BY SIDE
-               ================================================= */
+            /* =====================================================
+               KEEP BOTH CARDS SIDE BY SIDE
+               ===================================================== */
 
             .login-grid {
-
-                width: 100%;
 
                 grid-template-columns:
                     minmax(0, 1fr)
                     minmax(0, 1fr);
 
-                gap: 8px;
+                gap: 7px;
 
-                margin-top: 0;
+                width: 100%;
             }
 
 
             .login-card {
 
-                width: 100%;
-
-                height: 340px;
-
-                min-width: 0;
+                height: 335px;
 
                 padding:
-                    13px 9px
-                    12px;
+                    10px 8px
+                    11px;
 
                 border-radius: 17px;
             }
 
 
-            .person-area {
+            .avatar-area {
 
-                top: 2px;
+                top: 1px;
 
                 height: 200px;
             }
 
 
-            .person-glow {
+            .avatar-glow {
 
-                width: 170px;
-                height: 170px;
+                width: 165px;
+                height: 165px;
             }
 
 
-            .person-circle {
+            .avatar-ring {
 
-                width: 120px;
-                height: 120px;
+                width: 122px;
+                height: 122px;
+
+                padding: 5px;
             }
 
 
-            .person-circle i {
+            .avatar {
 
-                font-size: 67px;
+                border-width: 3px;
             }
 
 
-            .doctor-circle i {
+            .avatar-badge {
 
-                font-size: 61px;
+                width: 35px;
+                height: 35px;
+
+                bottom: -1px;
             }
 
 
-            .role-icon {
-
-                width: 38px;
-                height: 38px;
-
-                bottom: 0;
-
-                font-size: 14px;
-            }
-
-
-            .card-title {
-
-                font-size: 20px;
-
-                margin-bottom: 4px;
-            }
-
-
-            .card-text {
-
-                min-height: 48px;
-
-                font-size: 9px;
-
-                line-height: 1.7;
-
-                margin-bottom: 10px;
-            }
-
-
-            .card-button {
-
-                height: 40px;
-
-                gap: 7px;
-
-                font-size: 9px;
-
-                border-radius: 22px;
-            }
-
-
-            .card-button i {
-
-                font-size: 9px;
-            }
-
-
-            /* FEATURES */
-
-            .features {
-
-                margin-top: 23px;
-
-                gap: 0;
-            }
-
-
-            .feature {
-
-                font-size: 8px;
-
-                gap: 5px;
-
-                padding: 0 4px;
-            }
-
-
-            .feature i {
-
-                font-size: 14px;
-            }
-
-
-            /* FOOTER */
-
-            .footer {
-
-                margin-top: 27px;
-            }
-
-
-            .footer-title {
-
-                font-size: 9px;
-
-                letter-spacing: 4px;
-
-                gap: 9px;
-            }
-
-
-            .footer-title::before,
-            .footer-title::after {
-
-                width: 38px;
-            }
-
-
-            .footer-text {
-
-                font-size: 8px;
-            }
-        }
-
-
-        /* =====================================================
-           VERY SMALL PHONES
-           ===================================================== */
-
-        @media (max-width: 360px) {
-
-            .page {
-
-                padding-left: 6px;
-
-                padding-right: 6px;
-            }
-
-
-            .login-grid {
-
-                gap: 6px;
-            }
-
-
-            .login-card {
-
-                height: 320px;
-
-                padding:
-                    10px 7px
-                    10px;
-            }
-
-
-            .person-area {
-
-                height: 187px;
-            }
-
-
-            .person-circle {
-
-                width: 108px;
-                height: 108px;
-            }
-
-
-            .person-circle i {
-
-                font-size: 60px;
-            }
-
-
-            .doctor-circle i {
-
-                font-size: 54px;
-            }
-
-
-            .role-icon {
-
-                width: 34px;
-                height: 34px;
+            .avatar-badge i {
 
                 font-size: 12px;
             }
@@ -1572,33 +1368,150 @@
 
             .card-title {
 
-                font-size: 18px;
+                font-size: 19px;
+
+                margin-bottom: 3px;
             }
 
 
-            .card-text {
+            .card-description {
+
+                min-height: 45px;
 
                 font-size: 8px;
+
+                line-height: 1.7;
+
+                margin-bottom: 9px;
             }
 
 
             .card-button {
 
-                height: 37px;
+                height: 39px;
+
+                font-size: 8px;
+
+                gap: 6px;
+            }
+
+
+            .card-button i {
 
                 font-size: 8px;
             }
 
 
-            .brand-ar {
+            /* FEATURES */
 
-                font-size: 40px;
+            .features {
+
+                margin-top: 20px;
             }
 
 
-            .brand-en {
+            .feature {
+
+                font-size: 7px;
+
+                gap: 4px;
+            }
+
+
+            .feature i {
 
                 font-size: 13px;
+            }
+
+
+            /* FOOTER */
+
+            .footer {
+
+                margin-top: 24px;
+            }
+
+
+            .footer-brand {
+
+                font-size: 8px;
+
+                letter-spacing: 4px;
+            }
+
+
+            .footer-text {
+
+                font-size: 7px;
+            }
+        }
+
+
+        /* =========================================================
+           SMALL PHONES
+           ========================================================= */
+
+        @media (max-width: 360px) {
+
+            .login-grid {
+
+                gap: 5px;
+            }
+
+
+            .login-card {
+
+                height: 315px;
+
+                padding:
+                    8px 6px
+                    9px;
+            }
+
+
+            .avatar-area {
+
+                height: 185px;
+            }
+
+
+            .avatar-ring {
+
+                width: 108px;
+                height: 108px;
+            }
+
+
+            .avatar-badge {
+
+                width: 32px;
+                height: 32px;
+            }
+
+
+            .card-title {
+
+                font-size: 17px;
+            }
+
+
+            .card-description {
+
+                font-size: 7px;
+            }
+
+
+            .card-button {
+
+                height: 36px;
+
+                font-size: 7px;
+            }
+
+
+            .brand-name {
+
+                font-size: 39px;
             }
         }
 
@@ -1610,32 +1523,37 @@
 <body>
 
 
-    <!-- =====================================================
-         BACKGROUND
-         ===================================================== -->
+    <!-- =========================================================
+         MEDICAL BACKGROUND
+         ========================================================= -->
 
-    <div class="medical-bg">
+    <div class="medical-background">
 
         <svg
-            class="ecg-background"
-            viewBox="0 0 900 180"
+            class="background-ecg"
+            viewBox="0 0 1000 180"
             preserveAspectRatio="none"
         >
 
             <path
                 d="
                     M0 95
-                    H120
-                    L145 95
-                    L170 40
-                    L198 145
-                    L225 95
-                    H370
-                    L400 95
-                    L425 58
-                    L450 120
-                    L478 95
-                    H900
+                    H145
+                    L175 95
+                    L202 42
+                    L230 145
+                    L258 95
+                    H390
+                    L420 95
+                    L445 58
+                    L472 120
+                    L500 95
+                    H630
+                    L655 95
+                    L682 45
+                    L710 140
+                    L738 95
+                    H1000
                 "
             />
 
@@ -1644,16 +1562,17 @@
     </div>
 
 
-    <!-- =====================================================
+
+    <!-- =========================================================
          PAGE
-         ===================================================== -->
+         ========================================================= -->
 
     <main class="page">
 
 
-        <!-- =================================================
+        <!-- =====================================================
              ADMIN
-             ================================================= -->
+             ===================================================== -->
 
         <div class="admin-area">
 
@@ -1662,31 +1581,13 @@
                 class="admin-button"
             >
 
-                <div class="admin-icon">
+                <i class="fa-solid fa-shield-halved"></i>
 
-                    <i class="fa-solid fa-shield-halved"></i>
+                <span>
+                    الإدارة
+                </span>
 
-                </div>
-
-
-                <div class="admin-content">
-
-                    <div class="admin-title">
-                        دخول الإدارة
-                    </div>
-
-                    <div class="admin-description">
-                        إدارة المنصة والأطباء والمواعيد
-                    </div>
-
-                </div>
-
-
-                <div class="admin-arrow">
-
-                    <i class="fa-solid fa-arrow-left"></i>
-
-                </div>
+                <i class="fa-solid fa-arrow-left"></i>
 
             </a>
 
@@ -1694,38 +1595,38 @@
 
 
 
-        <!-- =================================================
+        <!-- =====================================================
              BRAND
-             ================================================= -->
+             ===================================================== -->
 
         <section class="brand">
 
 
-            <div class="logo-area">
+            <div class="logo">
 
                 <div class="logo-ring"></div>
 
-                <div class="heart"></div>
+                <div class="heart-shape"></div>
 
 
                 <svg
-                    class="heart-ecg"
+                    class="logo-ecg"
                     viewBox="0 0 150 60"
                 >
 
                     <path
                         d="
                             M2 31
-                            H32
-                            L46 31
-                            L57 8
-                            L70 51
-                            L82 31
-                            H105
-                            L115 31
-                            L125 20
-                            L134 41
-                            L143 31
+                            H30
+                            L43 31
+                            L55 8
+                            L68 51
+                            L80 31
+                            H103
+                            L113 31
+                            L123 20
+                            L133 41
+                            L142 31
                             H148
                         "
                     />
@@ -1735,7 +1636,7 @@
             </div>
 
 
-            <div class="brand-ar">
+            <div class="brand-name">
                 طبيبك
             </div>
 
@@ -1753,35 +1654,43 @@
 
 
 
-        <!-- =================================================
-             PATIENT + DOCTOR
-             ================================================= -->
+        <!-- =====================================================
+             LOGIN CARDS
+             ===================================================== -->
 
         <section class="login-grid">
 
 
-            <!-- =============================================
+            <!-- =================================================
                  PATIENT
-                 ============================================= -->
+                 ================================================= -->
 
             <a
                 href="/patient.html"
                 class="login-card"
             >
 
-                <div class="person-area">
+                <div class="avatar-area">
 
-                    <div class="person-glow"></div>
+                    <div class="avatar-glow"></div>
 
 
-                    <div class="person-circle">
+                    <div class="avatar-ring">
 
-                        <i class="fa-solid fa-user"></i>
+                        <img
+                            class="avatar"
+                            src="/images/patient.png"
+                            alt="المريض"
+                            onerror="
+                                this.style.display='none';
+                                this.parentElement.style.background='linear-gradient(145deg,#8f54cf,#321040)';
+                            "
+                        >
 
                     </div>
 
 
-                    <div class="role-icon">
+                    <div class="avatar-badge">
 
                         <i class="fa-solid fa-user"></i>
 
@@ -1797,7 +1706,7 @@
                     </div>
 
 
-                    <div class="card-text">
+                    <div class="card-description">
 
                         احجز موعدك مع الطبيب
                         <br>
@@ -1820,28 +1729,36 @@
 
 
 
-            <!-- =============================================
+            <!-- =================================================
                  DOCTOR
-                 ============================================= -->
+                 ================================================= -->
 
             <a
                 href="/doctor.html"
                 class="login-card"
             >
 
-                <div class="person-area">
+                <div class="avatar-area">
 
-                    <div class="person-glow"></div>
+                    <div class="avatar-glow"></div>
 
 
-                    <div class="person-circle doctor-circle">
+                    <div class="avatar-ring">
 
-                        <i class="fa-solid fa-user-doctor"></i>
+                        <img
+                            class="avatar"
+                            src="/images/doctor.png"
+                            alt="الطبيب"
+                            onerror="
+                                this.style.display='none';
+                                this.parentElement.style.background='linear-gradient(145deg,#7547bd,#321040)';
+                            "
+                        >
 
                     </div>
 
 
-                    <div class="role-icon">
+                    <div class="avatar-badge">
 
                         <i class="fa-solid fa-stethoscope"></i>
 
@@ -1857,7 +1774,7 @@
                     </div>
 
 
-                    <div class="card-text">
+                    <div class="card-description">
 
                         إدارة المواعيد والمرضى
                         <br>
@@ -1883,9 +1800,9 @@
 
 
 
-        <!-- =================================================
+        <!-- =====================================================
              FEATURES
-             ================================================= -->
+             ===================================================== -->
 
         <section class="features">
 
@@ -1895,7 +1812,7 @@
                 <i class="fa-regular fa-calendar-check"></i>
 
                 <span>
-                    سهولة في الحجز
+                    حجز سهل
                 </span>
 
             </div>
@@ -1927,16 +1844,15 @@
 
 
 
-        <!-- =================================================
+        <!-- =====================================================
              FOOTER
-             ================================================= -->
+             ===================================================== -->
 
         <footer class="footer">
 
-            <div class="footer-title">
+            <div class="footer-brand">
                 TABIBK
             </div>
-
 
             <div class="footer-text">
                 طبيبك ... دائمًا معك

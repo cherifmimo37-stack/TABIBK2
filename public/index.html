@@ -1,1585 +1,545 @@
-```html
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+```css
+/* =========================================================
+   TABIBK PREMIUM AVATAR + PURPLE MEDICAL BACKGROUND
+   ========================================================= */
 
-<head>
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>طبيبك | TABIBK</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet">
-
-<style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-:root{
-    --purple:#632c86;
-    --purple2:#8d55ad;
-    --purple-dark:#32163f;
-    --gold:#c79b3b;
-    --gold2:#e4c66e;
-    --white:#ffffff;
-    --soft:#f7f2fa;
-    --text:#28132f;
-}
-
-html,
-body{
-    width:100%;
-    min-height:100%;
-}
+/* ---------------------------------------------------------
+   خلفية بنفسجية أقوى
+   --------------------------------------------------------- */
 
 body{
-    font-family:"Cairo",sans-serif;
-    color:var(--text);
-    overflow-x:hidden;
-
     background:
+
         radial-gradient(
-            circle at 15% 20%,
-            rgba(132,72,163,.18),
-            transparent 28%
+            circle at 15% 15%,
+            rgba(255,255,255,.16),
+            transparent 25%
         ),
 
         radial-gradient(
-            circle at 88% 15%,
-            rgba(199,155,59,.10),
-            transparent 24%
+            circle at 90% 20%,
+            rgba(214,177,238,.20),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(43,12,59,.35),
+            transparent 42%
         ),
 
         linear-gradient(
             135deg,
-            #ffffff 0%,
-            #faf7fc 42%,
-            #eee3f4 100%
+            #321447 0%,
+            #55236f 38%,
+            #713a8c 70%,
+            #432052 100%
         );
 }
 
 
-/* =========================================================
-   MEDICAL BACKGROUND
-   ========================================================= */
-
-.medical-background{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:0;
-}
+/* طبقة طبية مضيئة */
 
 .medical-background::before{
-    content:"";
-    position:absolute;
 
-    width:520px;
-    height:520px;
+    width:650px;
+    height:650px;
 
-    top:-260px;
-    right:-180px;
-
-    border-radius:50%;
+    top:-300px;
+    right:-220px;
 
     background:
         radial-gradient(
             circle,
-            rgba(103,45,137,.25),
-            rgba(103,45,137,0) 70%
+            rgba(225,194,241,.20),
+            transparent 67%
         );
 }
+
 
 .medical-background::after{
-    content:"";
-    position:absolute;
 
-    width:550px;
-    height:550px;
+    width:650px;
+    height:650px;
 
-    bottom:-300px;
-    left:-230px;
-
-    border-radius:50%;
+    bottom:-350px;
+    left:-260px;
 
     background:
         radial-gradient(
             circle,
-            rgba(147,91,173,.22),
-            transparent 70%
+            rgba(188,126,218,.20),
+            transparent 68%
         );
 }
 
 
-/* medical grid */
+/* شبكة طبية */
 
 .medical-grid{
-    position:absolute;
-    inset:0;
 
-    opacity:.18;
+    opacity:.13;
 
     background-image:
+
         linear-gradient(
-            rgba(105,53,135,.08) 1px,
+            rgba(255,255,255,.15) 1px,
             transparent 1px
         ),
+
         linear-gradient(
             90deg,
-            rgba(105,53,135,.08) 1px,
+            rgba(255,255,255,.15) 1px,
             transparent 1px
         );
 
-    background-size:45px 45px;
-
-    mask-image:
-        linear-gradient(
-            to bottom,
-            transparent,
-            black 18%,
-            black 78%,
-            transparent
-        );
+    background-size:42px 42px;
 }
 
 
 /* ECG */
 
 .ecg{
-    position:absolute;
-
-    width:100%;
-    height:190px;
-
-    left:0;
-    top:48%;
-
-    opacity:.12;
+    opacity:.16;
 }
 
 .ecg path{
-    fill:none;
-    stroke:#6f378d;
-    stroke-width:3;
-    stroke-linecap:round;
-    stroke-linejoin:round;
+    stroke:#f1dfff;
 }
 
 
-/* medical circles */
-
-.medical-circle{
-    position:absolute;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(103,45,137,.12);
-}
-
-.circle-one{
-    width:250px;
-    height:250px;
-
-    right:-100px;
-    top:35%;
-}
-
-.circle-two{
-    width:180px;
-    height:180px;
-
-    left:-70px;
-    top:28%;
-}
-
-
-/* crosses */
-
-.cross{
-    position:absolute;
-
-    color:#713b8d;
-
-    opacity:.08;
-
-    font-size:75px;
-
-    font-weight:300;
-}
-
-.cross-a{
-    top:22%;
-    left:4%;
-}
-
-.cross-b{
-    bottom:22%;
-    right:5%;
-}
-
-
-/* =========================================================
-   MAIN
-   ========================================================= */
-
-.page{
-    position:relative;
-    z-index:5;
-
-    width:100%;
-    max-width:980px;
-
-    margin:auto;
-
-    padding:
-        26px 18px
-        35px;
-}
-
-
-/* =========================================================
-   ADMIN
-   ========================================================= */
-
-.admin-wrapper{
-    width:100%;
-
-    display:flex;
-
-    justify-content:flex-start;
-
-    margin-top:18px;
-
-    margin-bottom:4px;
-}
-
-.admin{
-    display:flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    padding:
-        8px 13px;
-
-    border-radius:30px;
-
-    color:#472052;
-
-    text-decoration:none;
-
-    font-size:10px;
-
-    font-weight:800;
-
-    background:
-        rgba(255,255,255,.78);
-
-    border:
-        1px solid
-        rgba(99,44,134,.18);
-
-    box-shadow:
-        0 8px 24px
-        rgba(68,31,87,.09);
-
-    backdrop-filter:blur(14px);
-
-    transition:.25s ease;
-}
-
-.admin:hover{
-    transform:translateY(-2px);
-
-    border-color:
-        rgba(199,155,59,.55);
-}
-
-.admin-icon{
-    width:23px;
-    height:23px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            145deg,
-            var(--purple),
-            var(--purple2)
-        );
-
-    font-size:10px;
-}
-
-
-/* =========================================================
-   LOGO
-   ========================================================= */
-
-.header{
-    text-align:center;
-
-    margin-top:2px;
-
-    margin-bottom:25px;
-}
-
-.logo{
-    position:relative;
-
-    width:110px;
-    height:110px;
-
-    margin:auto;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-}
-
-.logo-ring{
-    position:absolute;
-
-    inset:4px;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(199,155,59,.65);
-
-    box-shadow:
-        0 0 35px
-        rgba(199,155,59,.12);
-}
-
-.logo-ring-two{
-    position:absolute;
-
-    inset:12px;
-
-    border-radius:50%;
-
-    border:
-        1px dashed
-        rgba(99,44,134,.22);
-}
-
-
-/* professional heart */
-
-.heart{
-    position:relative;
-
-    width:52px;
-    height:46px;
-
-    transform:rotate(-45deg);
-
-    background:
-        linear-gradient(
-            145deg,
-            #d9b452,
-            #ae7d21
-        );
-
-    border-radius:
-        7px 7px 8px 7px;
-
-    box-shadow:
-        0 12px 25px
-        rgba(167,119,29,.25);
-
-    z-index:2;
-}
-
-.heart::before,
-.heart::after{
-    content:"";
-
-    position:absolute;
-
-    width:52px;
-    height:52px;
-
-    border-radius:50%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #d9b452,
-            #ae7d21
-        );
-}
-
-.heart::before{
-    top:-25px;
-    left:0;
-}
-
-.heart::after{
-    left:25px;
-    top:0;
-}
-
-
-/* ECG over heart */
-
-.logo-ecg{
-    position:absolute;
-
-    width:82px;
-    height:35px;
-
-    z-index:10;
-}
-
-.logo-ecg path{
-    fill:none;
-
-    stroke:#fff;
-
-    stroke-width:4;
-
-    stroke-linecap:round;
-
-    stroke-linejoin:round;
-}
-
-
-.brand{
-    margin-top:2px;
-
-    font-size:
-        clamp(42px,7vw,62px);
-
-    line-height:1;
-
-    font-weight:900;
-
-    color:#36153f;
-
-    letter-spacing:-2px;
-}
-
-.tabibk{
-    margin-top:8px;
-
-    color:#83509c;
-
-    font-size:13px;
-
-    font-weight:800;
-
-    letter-spacing:7px;
-
-    padding-left:7px;
-}
-
-.subtitle{
-    margin-top:7px;
-
-    color:#77667d;
-
-    font-size:11px;
-
-    font-weight:600;
-}
-
-
-/* =========================================================
-   LOGIN AREA
-   ========================================================= */
-
-.login-area{
-    max-width:800px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:18px;
-}
-
-
-/* =========================================================
-   CARD
-   ========================================================= */
+/* ---------------------------------------------------------
+   الكروت تبقى بيضاء باش يكون contrast قوي
+   --------------------------------------------------------- */
 
 .card{
-    position:relative;
-
-    min-height:385px;
-
-    overflow:hidden;
-
-    border-radius:28px;
-
-    padding:16px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:flex-end;
-
-    text-decoration:none;
-
-    color:var(--text);
 
     background:
+
         linear-gradient(
             145deg,
-            rgba(255,255,255,.96),
-            rgba(246,239,250,.88)
+            rgba(255,255,255,.98),
+            rgba(249,244,252,.96)
         );
 
     border:
         1px solid
-        rgba(99,44,134,.17);
+        rgba(255,255,255,.55);
 
     box-shadow:
-        0 25px 65px
-        rgba(70,31,91,.13),
 
-        inset 0 1px 0
-        rgba(255,255,255,.95);
+        0 30px 70px
+        rgba(24,7,34,.28),
 
-    backdrop-filter:blur(16px);
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease;
-}
-
-.card:hover{
-    transform:translateY(-5px);
-
-    box-shadow:
-        0 30px 75px
-        rgba(70,31,91,.19);
+        inset
+        0 1px 0
+        rgba(255,255,255,1);
 }
 
 
-/* top decorative line */
-
-.card::before{
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:16%;
-    right:16%;
-
-    height:3px;
-
-    border-radius:0 0 10px 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--gold2),
-            transparent
-        );
-}
-
-
-/* =========================================================
-   AVATAR
-   ========================================================= */
+/* ---------------------------------------------------------
+   AVATAR AREA
+   --------------------------------------------------------- */
 
 .avatar-area{
-    position:absolute;
 
-    top:0;
-    left:0;
-    right:0;
-
-    height:255px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
+    height:270px;
 }
+
+
+/* هالة خلف الشخصية */
 
 .avatar-glow{
-    position:absolute;
 
-    width:220px;
-    height:220px;
-
-    border-radius:50%;
+    width:235px;
+    height:235px;
 
     background:
+
         radial-gradient(
             circle,
-            rgba(118,59,145,.18),
-            transparent 68%
+            rgba(117,58,147,.22) 0%,
+            rgba(170,116,196,.12) 42%,
+            transparent 70%
         );
 }
 
 
-/* avatar illustration */
+/* ---------------------------------------------------------
+   PROFESSIONAL 3D-LIKE PERSON
+   --------------------------------------------------------- */
 
 .person{
-    position:relative;
 
-    width:175px;
-    height:220px;
-
-    z-index:3;
+    width:190px;
+    height:235px;
 
     filter:
+
         drop-shadow(
-            0 18px 16px
-            rgba(60,25,77,.18)
+            0 20px 18px
+            rgba(48,20,61,.20)
         );
 }
 
 
-/* hair */
-
-.person .hair{
-    position:absolute;
-
-    width:96px;
-    height:65px;
-
-    top:15px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    background:
-        linear-gradient(
-            145deg,
-            #3a263d,
-            #17111b
-        );
-
-    border-radius:
-        50px 50px
-        30px 30px;
-
-    z-index:4;
-}
-
-
-/* face */
+/* الرأس */
 
 .person .face{
-    position:absolute;
 
-    width:88px;
-    height:103px;
+    width:94px;
+    height:108px;
 
-    top:29px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    border-radius:
-        45% 45%
-        46% 46%;
+    top:27px;
 
     background:
+
         linear-gradient(
             135deg,
-            #ffd8bc,
-            #efb28d 60%,
-            #c87b5c
+            #ffe1c9 0%,
+            #f2b895 55%,
+            #c8795b 100%
         );
 
     box-shadow:
-        inset 5px 5px 10px
-        rgba(255,255,255,.30),
 
-        inset -7px -8px 12px
-        rgba(103,48,37,.10);
+        inset
+        7px 5px 12px
+        rgba(255,255,255,.38),
 
-    z-index:3;
+        inset
+        -8px -10px 15px
+        rgba(101,45,34,.13);
 }
 
 
-/* eyes */
+/* شعر أكثر احترافية */
+
+.person .hair{
+
+    width:105px;
+    height:67px;
+
+    top:9px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #3e2943,
+            #17101c 75%
+        );
+
+    box-shadow:
+        inset
+        5px 3px 8px
+        rgba(255,255,255,.08);
+}
+
+
+/* عيون */
 
 .person .eye{
-    position:absolute;
 
-    top:55px;
+    width:8px;
+    height:6px;
 
-    width:7px;
-    height:5px;
+    top:57px;
 
-    border-radius:50%;
-
-    background:#362033;
-
-    z-index:6;
-}
-
-.person .eye.one{
-    left:25px;
-}
-
-.person .eye.two{
-    right:25px;
+    box-shadow:
+        0 1px 1px
+        rgba(255,255,255,.4);
 }
 
 
-/* smile */
+/* ابتسامة */
 
 .person .smile{
-    position:absolute;
 
-    top:78px;
-    left:50%;
+    top:79px;
 
-    transform:translateX(-50%);
-
-    width:24px;
-    height:10px;
+    width:27px;
+    height:12px;
 
     border-bottom:
-        2px solid
-        #9b5055;
-
-    border-radius:50%;
-
-    z-index:6;
+        2px solid #944c53;
 }
 
 
-/* body */
+/* جسم */
 
 .person .body{
-    position:absolute;
 
-    width:145px;
-    height:105px;
+    width:155px;
+    height:112px;
 
     bottom:0;
-    left:50%;
-
-    transform:translateX(-50%);
 
     border-radius:
-        65px 65px
-        18px 18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #8050a3,
-            #4c2268
-        );
+        70px 70px
+        22px 22px;
 }
 
 
-/* patient shirt */
+/* ---------------------------------------------------------
+   PATIENT
+   --------------------------------------------------------- */
 
 .patient .body{
+
     background:
+
         linear-gradient(
             145deg,
-            #76509a,
-            #48225f
+            #8d5aab,
+            #4b2165
         );
+
+    box-shadow:
+
+        inset
+        10px 8px 18px
+        rgba(255,255,255,.13),
+
+        inset
+        -12px -12px 20px
+        rgba(35,10,48,.25);
 }
+
 
 .patient .shirt{
-    position:absolute;
 
-    width:100px;
-    height:82px;
-
-    left:50%;
-    bottom:0;
-
-    transform:translateX(-50%);
-
-    border-radius:
-        45px 45px
-        12px 12px;
+    width:108px;
+    height:90px;
 
     background:
-        linear-gradient(
-            145deg,
-            #eee5f4,
-            #ffffff
-        );
-}
 
-
-/* doctor coat */
-
-.doctor .body{
-    background:
         linear-gradient(
             145deg,
             #ffffff,
-            #e7e0eb
-        );
-}
-
-.doctor .shirt{
-    position:absolute;
-
-    width:108px;
-    height:88px;
-
-    left:50%;
-    bottom:0;
-
-    transform:translateX(-50%);
-
-    border-radius:
-        48px 48px
-        12px 12px;
-
-    background:#fff;
-}
-
-
-/* tie */
-
-.tie{
-    position:absolute;
-
-    top:0;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:15px;
-    height:58px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #562675,
-            #9a60b4,
-            #562675
-        );
-
-    clip-path:
-        polygon(
-            28% 0,
-            72% 0,
-            100% 100%,
-            50% 82%,
-            0 100%
-        );
-}
-
-
-/* stethoscope */
-
-.stethoscope{
-    position:absolute;
-
-    right:7px;
-    top:17px;
-
-    width:47px;
-    height:53px;
-
-    border:
-        4px solid
-        var(--gold);
-
-    border-top:0;
-
-    border-radius:
-        0 0 30px 30px;
-
-    z-index:7;
-}
-
-.stethoscope::after{
-    content:"";
-
-    position:absolute;
-
-    width:12px;
-    height:12px;
-
-    border-radius:50%;
-
-    background:var(--gold);
-
-    bottom:-8px;
-    left:14px;
-}
-
-
-/* =========================================================
-   CONTENT
-   ========================================================= */
-
-.card-content{
-    position:relative;
-
-    z-index:10;
-
-    text-align:center;
-}
-
-.card-title{
-    color:#35163f;
-
-    font-size:25px;
-
-    font-weight:900;
-}
-
-.card-text{
-    margin:
-        3px 0
-        12px;
-
-    min-height:42px;
-
-    color:#78677e;
-
-    font-size:10px;
-
-    line-height:1.8;
-}
-
-.button{
-    height:47px;
-
-    width:100%;
-
-    border-radius:25px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:8px;
-
-    color:white;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    background:
-        linear-gradient(
-            100deg,
-            #592575,
-            #8950a8
+            #e9deef
         );
 
     box-shadow:
-        0 10px 24px
-        rgba(89,37,117,.22);
+        inset
+        5px 3px 8px
+        rgba(255,255,255,.8);
 }
 
 
-/* =========================================================
-   FEATURES
-   ========================================================= */
+/* ---------------------------------------------------------
+   DOCTOR
+   --------------------------------------------------------- */
 
-.features{
-    max-width:700px;
+.doctor .body{
 
-    margin:
-        24px auto
-        0;
+    background:
 
-    display:flex;
-}
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #ded5e4
+        );
 
-.feature{
-    flex:1;
+    box-shadow:
 
-    display:flex;
+        inset
+        10px 7px 18px
+        rgba(255,255,255,.95),
 
-    align-items:center;
-    justify-content:center;
-
-    gap:6px;
-
-    color:#796b7f;
-
-    font-size:9px;
-}
-
-.feature + .feature{
-    border-right:
-        1px solid
-        rgba(99,44,134,.15);
-}
-
-.feature b{
-    color:#a87928;
-
-    font-size:14px;
+        inset
+        -10px -12px 18px
+        rgba(87,48,100,.12);
 }
 
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
+.doctor .shirt{
 
-.footer{
-    text-align:center;
+    width:112px;
+    height:91px;
 
-    margin-top:22px;
-}
+    background:
 
-.footer strong{
-    color:#704087;
-
-    font-size:9px;
-
-    letter-spacing:5px;
-}
-
-.footer p{
-    margin-top:3px;
-
-    color:#9c8fa2;
-
-    font-size:8px;
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f1edf3
+        );
 }
 
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
+/* ربطة العنق */
+
+.tie{
+
+    width:16px;
+    height:61px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #4c1d65,
+            #a86bc4,
+            #4c1d65
+        );
+
+    box-shadow:
+        0 3px 6px
+        rgba(52,20,67,.18);
+}
+
+
+/* سماعة الطبيب */
+
+.stethoscope{
+
+    width:52px;
+    height:58px;
+
+    border:
+        4px solid
+        #c99c3e;
+
+    filter:
+        drop-shadow(
+            0 2px 2px
+            rgba(86,52,20,.15)
+        );
+}
+
+.stethoscope::after{
+
+    width:14px;
+    height:14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e1bd61,
+            #ae7c21
+        );
+}
+
+
+/* ---------------------------------------------------------
+   النص
+   --------------------------------------------------------- */
+
+.card-title{
+
+    color:#32143e;
+
+    font-size:26px;
+}
+
+
+/* ---------------------------------------------------------
+   أزرار الدخول — أكبر
+   --------------------------------------------------------- */
+
+.button{
+
+    height:56px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    background:
+
+        linear-gradient(
+            100deg,
+            #4e1e68 0%,
+            #71378f 48%,
+            #9256ad 100%
+        );
+
+    box-shadow:
+
+        0 12px 28px
+        rgba(78,30,105,.28),
+
+        inset
+        0 1px 0
+        rgba(255,255,255,.18);
+}
+
+
+/* تأثير بسيط */
+
+.card:hover .button{
+
+    box-shadow:
+
+        0 15px 32px
+        rgba(78,30,105,.34);
+}
+
+
+/* ---------------------------------------------------------
+   الهاتف
+   --------------------------------------------------------- */
 
 @media(max-width:600px){
 
-    .page{
-        padding:
-            18px 7px
-            25px;
-    }
-
-    .admin-wrapper{
-        margin-top:15px;
-        margin-bottom:2px;
-    }
-
-    .admin{
-        padding:
-            7px 11px;
-
-        font-size:8px;
-    }
-
-    .admin-icon{
-        width:21px;
-        height:21px;
-    }
-
-    .header{
-        margin-bottom:16px;
-    }
-
-    .logo{
-        width:91px;
-        height:91px;
-    }
-
-    .heart,
-    .heart::before,
-    .heart::after{
-        width:43px;
-        height:43px;
-    }
-
-    .heart::before{
-        top:-21px;
-    }
-
-    .heart::after{
-        left:21px;
-    }
-
-    .logo-ecg{
-        width:67px;
-    }
-
-    .brand{
-        font-size:38px;
-    }
-
-    .tabibk{
-        font-size:10px;
-        letter-spacing:6px;
-    }
-
-    .subtitle{
-        font-size:8px;
-    }
-
-    .login-area{
-        gap:7px;
-    }
-
-    .card{
-        min-height:325px;
-
-        padding:
-            8px 6px;
-
-        border-radius:19px;
-    }
-
     .avatar-area{
-        height:205px;
+        height:215px;
+    }
+
+    .person{
+        transform:scale(.76);
     }
 
     .avatar-glow{
-        width:170px;
-        height:170px;
-    }
-
-    .person{
-        transform:scale(.72);
-    }
-
-    .card-title{
-        font-size:17px;
-    }
-
-    .card-text{
-        font-size:7px;
-
-        min-height:39px;
-
-        margin-bottom:7px;
-    }
-
-    .button{
-        height:37px;
-
-        font-size:7.5px;
-
-        gap:4px;
-    }
-
-    .features{
-        margin-top:16px;
-    }
-
-    .feature{
-        font-size:6.5px;
-        gap:3px;
-    }
-
-    .feature b{
-        font-size:10px;
-    }
-
-    .footer{
-        margin-top:17px;
-    }
-}
-
-
-/* =========================================================
-   VERY SMALL PHONES
-   ========================================================= */
-
-@media(max-width:360px){
-
-    .page{
-        padding-left:4px;
-        padding-right:4px;
-    }
-
-    .login-area{
-        gap:5px;
+        width:180px;
+        height:180px;
     }
 
     .card{
-        min-height:305px;
-    }
-
-    .avatar-area{
-        height:190px;
-    }
-
-    .person{
-        transform:scale(.63);
+        min-height:335px;
     }
 
     .card-title{
-        font-size:15px;
-    }
-
-    .card-text{
-        font-size:6.5px;
+        font-size:18px;
     }
 
     .button{
-        height:34px;
-        font-size:7px;
+
+        height:48px;
+
+        font-size:9px;
+
+        border-radius:26px;
     }
+
 }
 
-</style>
-</head>
 
+/* ---------------------------------------------------------
+   الهواتف الصغيرة
+   --------------------------------------------------------- */
 
-<body>
+@media(max-width:360px){
 
+    .avatar-area{
+        height:200px;
+    }
 
-<!-- =========================================================
-     MEDICAL BACKGROUND
-     ========================================================= -->
+    .person{
+        transform:scale(.68);
+    }
 
-<div class="medical-background">
+    .card{
+        min-height:320px;
+    }
 
-    <div class="medical-grid"></div>
+    .button{
+        height:45px;
+        font-size:8px;
+    }
 
-    <div class="medical-circle circle-one"></div>
-
-    <div class="medical-circle circle-two"></div>
-
-    <div class="cross cross-a">+</div>
-
-    <div class="cross cross-b">+</div>
-
-
-    <svg
-        class="ecg"
-        viewBox="0 0 1200 190"
-        preserveAspectRatio="none"
-    >
-
-        <path
-            d="
-            M0 98
-            H180
-            L220 98
-            L248 48
-            L280 148
-            L310 98
-            H455
-            L490 98
-            L520 62
-            L552 132
-            L580 98
-            H740
-            L780 98
-            L812 43
-            L845 150
-            L875 98
-            H1020
-            L1050 98
-            L1080 70
-            L1110 125
-            L1140 98
-            H1200
-            "
-        />
-
-    </svg>
-
-</div>
-
-
-
-<!-- =========================================================
-     PAGE
-     ========================================================= -->
-
-<main class="page">
-
-
-    <!-- ADMIN -->
-
-    <div class="admin-wrapper">
-
-        <a
-            href="/admin.html"
-            class="admin"
-        >
-
-            <span class="admin-icon">
-                ⚙
-            </span>
-
-            <span>
-                الإدارة
-            </span>
-
-            <span>
-                ←
-            </span>
-
-        </a>
-
-    </div>
-
-
-
-    <!-- HEADER -->
-
-    <header class="header">
-
-
-        <div class="logo">
-
-            <div class="logo-ring"></div>
-
-            <div class="logo-ring-two"></div>
-
-            <div class="heart"></div>
-
-
-            <svg
-                class="logo-ecg"
-                viewBox="0 0 150 60"
-            >
-
-                <path
-                    d="
-                    M3 31
-                    H32
-                    L45 31
-                    L57 8
-                    L69 52
-                    L82 31
-                    H105
-                    L116 31
-                    L126 20
-                    L137 42
-                    L147 31
-                    "
-                />
-
-            </svg>
-
-        </div>
-
-
-        <div class="brand">
-            طبيبك
-        </div>
-
-
-        <div class="tabibk">
-            TABIBK
-        </div>
-
-
-        <div class="subtitle">
-            رعايتك الصحية تبدأ من هنا
-        </div>
-
-    </header>
-
-
-
-    <!-- LOGIN -->
-
-    <section class="login-area">
-
-
-        <!-- PATIENT -->
-
-        <a
-            href="/patient.html"
-            class="card"
-        >
-
-            <div class="avatar-area">
-
-                <div class="avatar-glow"></div>
-
-
-                <div class="person patient">
-
-                    <div class="hair"></div>
-
-                    <div class="face">
-
-                        <span class="eye one"></span>
-
-                        <span class="eye two"></span>
-
-                        <span class="smile"></span>
-
-                    </div>
-
-
-                    <div class="body">
-
-                        <div class="shirt"></div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="card-content">
-
-                <div class="card-title">
-                    المريض
-                </div>
-
-                <div class="card-text">
-                    احجز موعدك مع الطبيب
-                    <br>
-                    وتابع حجزك بكل سهولة.
-                </div>
-
-                <div class="button">
-                    دخول المريض
-                    <span>←</span>
-                </div>
-
-            </div>
-
-        </a>
-
-
-
-        <!-- DOCTOR -->
-
-        <a
-            href="/doctor.html"
-            class="card doctor"
-        >
-
-            <div class="avatar-area">
-
-                <div class="avatar-glow"></div>
-
-
-                <div class="person doctor">
-
-                    <div class="hair"></div>
-
-                    <div class="face">
-
-                        <span class="eye one"></span>
-
-                        <span class="eye two"></span>
-
-                        <span class="smile"></span>
-
-                    </div>
-
-
-                    <div class="body">
-
-                        <div class="shirt"></div>
-
-                        <div class="tie"></div>
-
-                        <div class="stethoscope"></div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="card-content">
-
-                <div class="card-title">
-                    الطبيب
-                </div>
-
-                <div class="card-text">
-                    إدارة المواعيد والمرضى
-                    <br>
-                    وتنظيم الاستشارات.
-                </div>
-
-                <div class="button">
-                    دخول الطبيب
-                    <span>←</span>
-                </div>
-
-            </div>
-
-        </a>
-
-
-    </section>
-
-
-
-    <!-- FEATURES -->
-
-    <section class="features">
-
-        <div class="feature">
-            <b>✓</b>
-            حجز سريع
-        </div>
-
-        <div class="feature">
-            <b>◷</b>
-            متابعة مباشرة
-        </div>
-
-        <div class="feature">
-            <b>♥</b>
-            رعاية موثوقة
-        </div>
-
-    </section>
-
-
-
-    <!-- FOOTER -->
-
-    <footer class="footer">
-
-        <strong>TABIBK</strong>
-
-        <p>
-            طبيبك ... دائمًا معك
-        </p>
-
-    </footer>
-
-
-</main>
-
-</body>
-
-</html>
+}
 ```

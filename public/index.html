@@ -5,28 +5,25 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
 
-<title>TABIBK | طبيبك</title>
+<title>طبيبك | TABIBK</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet">
-
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+>
 
 <style>
 
 /* =========================================================
-   RESET
+   TABIBK — PREMIUM SILVER GLASS
 ========================================================= */
 
 *{
@@ -35,264 +32,129 @@
     box-sizing:border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+:root{
+
+    --purple:#713c91;
+    --purple-dark:#24122f;
+    --purple-deep:#100817;
+
+    --silver:#dfe2e7;
+    --silver-light:#f8f9fb;
+    --silver-dark:#9fa5ae;
+
+    --gold:#d6ae52;
+    --gold-light:#f4dc91;
+
+    --white:#ffffff;
+
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
 }
 
 body{
 
-    font-family:'Cairo',sans-serif;
+    font-family:"Cairo",sans-serif;
 
     min-height:100vh;
 
-    color:#32165d;
+    color:white;
 
     overflow-x:hidden;
 
-    background:#f7f5fa;
-
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.page{
-
-    min-height:100vh;
-
-    position:relative;
-
-    overflow:hidden;
-
     background:
 
-        linear-gradient(
-            rgba(255,255,255,.78),
-            rgba(255,255,255,.90)
+        radial-gradient(
+            circle at 10% 5%,
+            rgba(255,255,255,.22),
+            transparent 23%
         ),
 
         radial-gradient(
-            circle at 15% 15%,
-            rgba(110,47,155,.18),
-            transparent 25%
+            circle at 92% 12%,
+            rgba(218,178,77,.15),
+            transparent 22%
         ),
 
         radial-gradient(
-            circle at 85% 20%,
-            rgba(214,164,55,.16),
-            transparent 25%
+            circle at 50% 100%,
+            rgba(116,55,151,.35),
+            transparent 42%
         ),
 
         linear-gradient(
             135deg,
-            #f7f4fa,
-            #ffffff,
-            #f5f0fa
+            #0d0911 0%,
+            #1c1222 35%,
+            #302039 65%,
+            #0d0911 100%
         );
 
 }
 
 
 /* =========================================================
-   MEDICAL BACKGROUND
+   BACKGROUND
 ========================================================= */
 
-.medical-bg{
+.bg{
 
-    position:absolute;
+    position:fixed;
 
     inset:0;
 
-    pointer-events:none;
-
     overflow:hidden;
 
+    pointer-events:none;
+
     z-index:0;
-
 }
 
-
-/* medical circles */
-
-.medical-circle{
-
-    position:absolute;
-
-    border-radius:50%;
-
-    border:1px solid rgba(75,28,112,.07);
-
-}
-
-.mc1{
-
-    width:480px;
-    height:480px;
-
-    right:-180px;
-    top:-170px;
-
-}
-
-.mc2{
-
-    width:350px;
-    height:350px;
-
-    left:-150px;
-    bottom:-100px;
-
-}
-
-.mc3{
-
-    width:220px;
-    height:220px;
-
-    right:15%;
-    bottom:-100px;
-
-}
-
-
-/* medical icons */
-
-.medical-icon{
-
-    position:absolute;
-
-    color:#5b238b;
-
-    opacity:.07;
-
-    font-size:80px;
-
-    transform:rotate(-10deg);
-
-}
-
-.mi1{
-
-    top:13%;
-    left:6%;
-
-}
-
-.mi2{
-
-    top:32%;
-    right:4%;
-
-    font-size:70px;
-
-    color:#c3942d;
-
-    transform:rotate(12deg);
-
-}
-
-.mi3{
-
-    bottom:15%;
-    left:5%;
-
-    font-size:100px;
-
-}
-
-.mi4{
-
-    bottom:25%;
-    right:7%;
-
-    color:#5b238b;
-
-    font-size:70px;
-
-}
-
-.mi5{
-
-    top:7%;
-    right:27%;
-
-    color:#c3942d;
-
-    font-size:55px;
-
-}
-
-
-/* =========================================================
-   MEDICAL CROSS
-========================================================= */
-
-.cross{
-
-    position:absolute;
-
-    width:90px;
-    height:90px;
-
-    opacity:.045;
-
-}
-
-.cross:before,
-.cross:after{
+.bg::before{
 
     content:"";
 
     position:absolute;
 
-    background:#54217e;
+    width:500px;
+    height:500px;
 
-    border-radius:8px;
+    right:-250px;
+    top:-180px;
 
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.08);
+
+    filter:blur(5px);
 }
 
-.cross:before{
+.bg::after{
 
-    width:25px;
-    height:90px;
+    content:"";
 
-    left:32px;
-    top:0;
+    position:absolute;
 
-}
+    width:450px;
+    height:450px;
 
-.cross:after{
+    left:-220px;
+    bottom:-170px;
 
-    width:90px;
-    height:25px;
+    border-radius:50%;
 
-    top:32px;
-    left:0;
+    background:
+        rgba(113,60,145,.28);
 
-}
-
-.cross.c1{
-
-    top:45%;
-    left:13%;
-
-}
-
-.cross.c2{
-
-    top:20%;
-    right:17%;
-
-    transform:scale(.7);
-
+    filter:blur(8px);
 }
 
 
-/* =========================================================
-   BACKGROUND GRID
-========================================================= */
+/* glass grid */
 
 .grid{
 
@@ -300,58 +162,103 @@ body{
 
     inset:0;
 
-    opacity:.025;
+    opacity:.035;
 
     background-image:
 
         linear-gradient(
-            rgba(70,30,100,.7) 1px,
+            rgba(255,255,255,.7) 1px,
             transparent 1px
         ),
 
         linear-gradient(
             90deg,
-            rgba(70,30,100,.7) 1px,
+            rgba(255,255,255,.7) 1px,
             transparent 1px
         );
 
-    background-size:50px 50px;
-
+    background-size:55px 55px;
 }
 
 
-/* =========================================================
-   GOLD LIGHT
-========================================================= */
+/* decorative rings */
 
-.gold-light{
+.ring{
 
     position:absolute;
 
-    width:450px;
-    height:450px;
-
     border-radius:50%;
 
-    right:-250px;
-    top:30%;
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+.ring-one{
+
+    width:600px;
+    height:600px;
+
+    right:-330px;
+    top:20%;
+}
+
+.ring-two{
+
+    width:370px;
+    height:370px;
+
+    left:-220px;
+    top:40%;
+}
+
+
+/* floating glass shapes */
+
+.shape{
+
+    position:absolute;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
     background:
+        rgba(255,255,255,.025);
 
-        radial-gradient(
-            circle,
-            rgba(211,163,57,.12),
-            transparent 70%
-        );
+    backdrop-filter:blur(15px);
 
+    transform:rotate(25deg);
+}
+
+.shape-one{
+
+    width:100px;
+    height:100px;
+
+    right:7%;
+    top:28%;
+
+    border-radius:25px;
+}
+
+.shape-two{
+
+    width:70px;
+    height:70px;
+
+    left:9%;
+    top:25%;
+
+    border-radius:50%;
 }
 
 
 /* =========================================================
-   CONTAINER
+   PAGE
 ========================================================= */
 
-.container{
+.page{
 
     position:relative;
 
@@ -359,833 +266,807 @@ body{
 
     width:100%;
 
-    max-width:1100px;
-
-    min-height:100vh;
+    max-width:1080px;
 
     margin:auto;
 
     padding:
-        22px 25px 20px;
-
+        16px 22px
+        32px;
 }
 
 
 /* =========================================================
-   TOP BAR
+   ADMIN
 ========================================================= */
 
-.topbar{
+.admin-area{
 
-    width:100%;
+    display:flex;
+
+    justify-content:flex-start;
+
+    margin-bottom:0;
+}
+
+.admin{
 
     display:flex;
 
     align-items:center;
 
-    justify-content:space-between;
+    gap:8px;
 
-    margin-bottom:15px;
+    text-decoration:none;
 
-}
-
-
-/* mini logo */
-
-.brand-mini{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    color:#4c1c78;
-
-    font-size:17px;
-
-    font-weight:900;
-
-}
-
-.brand-mini i{
-
-    color:#c7972e;
-
-    font-size:23px;
-
-}
-
-
-/* admin */
-
-.admin-top{
-
-    border:1px solid #d0a343;
-
-    background:#ffffff;
-
-    color:#45206b;
+    color:#eeeaf1;
 
     padding:
-        9px 20px;
+        7px 12px;
 
     border-radius:30px;
 
-    font-family:'Cairo';
+    background:
+        rgba(255,255,255,.075);
+
+    border:
+        1px solid
+        rgba(255,255,255,.16);
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.18);
+
+    font-size:9px;
 
     font-weight:800;
 
-    cursor:pointer;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    box-shadow:
-        0 7px 20px rgba(45,15,70,.08);
-
-    transition:.3s;
-
+    transition:.25s ease;
 }
 
-.admin-top i{
-
-    color:#c2932d;
-
-}
-
-.admin-top:hover{
-
-    background:#4c1c78;
-
-    color:white;
+.admin:hover{
 
     transform:translateY(-2px);
 
+    background:
+        rgba(255,255,255,.13);
+
+    border-color:
+        rgba(241,211,127,.55);
 }
 
+.admin-icon{
 
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-
-    text-align:center;
-
-    animation:
-        heroIn .8s ease;
-
-}
-
-@keyframes heroIn{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(-25px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.logo{
-
-    width:112px;
-    height:112px;
-
-    margin:0 auto 5px;
-
-    border-radius:50%;
-
-    position:relative;
+    width:24px;
+    height:24px;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
+
+    border-radius:50%;
+
+    color:#422e45;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.header{
+
+    text-align:center;
+
+    margin-top:-2px;
+
+    margin-bottom:28px;
+}
+
+
+/* logo */
+
+.logo{
+
+    position:relative;
+
+    width:91px;
+    height:91px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
 
     background:
 
         linear-gradient(
             145deg,
-            #ffffff,
-            #f5eff9
+            rgba(255,255,255,.19),
+            rgba(255,255,255,.045)
         );
 
     border:
-        5px solid #d0a343;
+        1px solid
+        rgba(255,255,255,.24);
+
+    backdrop-filter:
+        blur(25px);
 
     box-shadow:
 
-        0 12px 35px rgba(67,27,100,.14),
+        0 25px 55px
+        rgba(0,0,0,.3),
 
-        inset 0 0 0 5px #ffffff;
+        inset
+        0 1px 0
+        rgba(255,255,255,.4);
+}
 
+.logo::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:8px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(238,207,119,.65);
 }
 
 
 /* heart */
 
-.logo-heart{
-
-    width:54px;
-    height:48px;
+.heart{
 
     position:relative;
 
-    transform:
-        rotate(-45deg);
+    width:36px;
+    height:33px;
 
-    border-left:
-        6px solid #512080;
+    transform:rotate(-45deg);
 
-    border-bottom:
-        6px solid #512080;
+    background:
+        linear-gradient(
+            145deg,
+            #f5da8b,
+            #9b7027
+        );
 
-    border-radius:
-        0 0 0 12px;
+    border-radius:7px;
 
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.35);
+
+    z-index:2;
 }
 
-.logo-heart:before{
+.heart::before,
+.heart::after{
 
     content:"";
 
     position:absolute;
 
-    width:42px;
-    height:42px;
-
-    top:-24px;
-    left:-6px;
-
-    border:
-        6px solid #512080;
+    width:36px;
+    height:36px;
 
     border-radius:50%;
 
+    background:
+        linear-gradient(
+            145deg,
+            #f5da8b,
+            #9b7027
+        );
 }
 
-.logo-heart:after{
+.heart::before{
 
-    content:"";
+    top:-18px;
+
+    left:0;
+}
+
+.heart::after{
+
+    top:0;
+
+    left:18px;
+}
+
+
+/* ECG */
+
+.logo-ecg{
 
     position:absolute;
 
-    width:42px;
-    height:42px;
+    width:70px;
 
-    top:5px;
-    left:21px;
+    height:30px;
 
-    border:
-        6px solid #d1a13c;
+    z-index:8;
+}
 
-    border-radius:50%;
+.logo-ecg path{
 
+    fill:none;
+
+    stroke:#fff;
+
+    stroke-width:3.5;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
 }
 
 
-/* pulse */
+.brand{
 
-.pulse{
+    margin-top:9px;
 
-    position:absolute;
-
-    font-size:24px;
-
-    color:#d0a13b;
-
-    z-index:5;
-
-}
-
-
-/* =========================================================
-   BRAND NAME
-========================================================= */
-
-.brand-name{
-
-    font-size:61px;
+    font-size:
+        clamp(43px,7vw,62px);
 
     line-height:1;
 
     font-weight:900;
 
-    letter-spacing:-3px;
+    letter-spacing:-2px;
 
-    color:#4a1b75;
-
+    text-shadow:
+        0 8px 28px
+        rgba(0,0,0,.35);
 }
 
-.brand-name span{
-
-    color:#c5942d;
-
-}
-
-.arabic-name{
-
-    display:inline-block;
-
-    position:relative;
+.brand-en{
 
     margin-top:8px;
 
-    font-size:29px;
+    color:#e6cbea;
+
+    font-size:11px;
 
     font-weight:900;
 
-    color:#49206f;
+    letter-spacing:9px;
 
+    padding-left:9px;
 }
 
-.arabic-name:before,
-.arabic-name:after{
+.subtitle{
 
-    content:"";
+    margin-top:5px;
 
-    position:absolute;
+    color:#cfc3d5;
 
-    width:65px;
-
-    height:2px;
-
-    top:50%;
-
-    background:#d0a13b;
-
-}
-
-.arabic-name:before{
-
-    right:calc(100% + 15px);
-
-}
-
-.arabic-name:after{
-
-    left:calc(100% + 15px);
-
-}
-
-.tagline{
-
-    margin-top:6px;
-
-    color:#806d8e;
-
-    font-size:15px;
+    font-size:10px;
 
     font-weight:600;
-
-}
-
-.hero-line{
-
-    width:180px;
-
-    height:3px;
-
-    margin:14px auto 0;
-
-    border-radius:10px;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            #d1a13c,
-            #5b238b,
-            transparent
-        );
-
 }
 
 
 /* =========================================================
-   LOGIN SECTION
+   LOGIN AREA
 ========================================================= */
 
-.login-section{
+.login-area{
+
+    width:100%;
 
     max-width:850px;
 
-    margin:
-        24px auto 0;
+    margin:auto;
 
     display:grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        1fr 1fr;
 
-    gap:22px;
-
+    gap:20px;
 }
 
 
 /* =========================================================
-   LOGIN CARD
+   GLASS CARD
 ========================================================= */
 
 .login-card{
 
     position:relative;
 
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.98),
-            rgba(249,246,252,.96)
-        );
-
-    border-radius:25px;
-
-    padding:
-        25px 25px 22px;
-
-    text-align:center;
-
-    border:
-        1px solid rgba(75,30,110,.10);
-
-    box-shadow:
-
-        0 15px 40px rgba(52,21,78,.10),
-
-        inset 0 1px 0 white;
+    height:455px;
 
     overflow:hidden;
 
-    transition:.35s;
+    border-radius:34px;
 
-    animation:
-        cardIn .7s ease both;
-
-}
-
-.login-card:nth-child(2){
-
-    animation-delay:.12s;
-
-}
-
-@keyframes cardIn{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(30px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-.login-card:hover{
-
-    transform:translateY(-7px);
-
-    box-shadow:
-
-        0 22px 50px rgba(52,21,78,.16);
-
-    border-color:
-        rgba(202,158,55,.5);
-
-}
-
-
-/* top decoration */
-
-.card-top{
-
-    position:absolute;
-
-    top:0;
-    right:0;
-    left:0;
-
-    height:5px;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            #4c1c78,
-            #d2a33e
-        );
-
-}
-
-
-/* =========================================================
-   AVATAR
-========================================================= */
-
-.avatar{
-
-    width:105px;
-    height:105px;
-
-    margin:4px auto 0;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    position:relative;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            #f7edf9,
-            #ffffff
-        );
-
-    border:
-        4px solid #eadff0;
-
-    box-shadow:
-
-        0 8px 22px rgba(57,21,84,.10),
-
-        inset 0 0 0 5px white;
-
-}
-
-.avatar i{
-
-    font-size:52px;
-
-    color:#54217f;
-
-}
-
-.avatar.doctor{
-
-    background:
-
-        linear-gradient(
-            145deg,
-            #fff8e9,
-            #ffffff
-        );
-
-    border-color:#f0e3c6;
-
-}
-
-.avatar.doctor i{
-
-    color:#4c1c78;
-
-}
-
-
-/* badge */
-
-.badge{
-
-    position:absolute;
-
-    width:34px;
-    height:34px;
-
-    bottom:0;
-    left:0;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    color:#ffffff;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            #d9b253,
-            #b57d17
-        );
-
-    border:
-        3px solid white;
-
-    box-shadow:
-        0 5px 12px rgba(80,40,10,.15);
-
-}
-
-
-/* =========================================================
-   CARD TEXT
-========================================================= */
-
-.login-card h2{
-
-    margin-top:13px;
-
-    font-size:23px;
-
-    font-weight:900;
-
-    color:#411866;
-
-}
-
-.login-card p{
-
-    color:#81738b;
-
-    font-size:12px;
-
-    line-height:2;
-
-    min-height:48px;
-
-    margin:
-        4px auto 8px;
-
-    max-width:340px;
-
-}
-
-
-/* =========================================================
-   LOGIN BUTTON
-========================================================= */
-
-.login-btn{
-
-    width:100%;
-
-    border:none;
-
-    padding:13px 16px;
-
-    border-radius:15px;
-
-    font-family:'Cairo';
-
-    font-size:14px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:13px;
+    text-decoration:none;
 
     color:white;
 
     background:
 
         linear-gradient(
-            100deg,
-            #451774,
-            #652394
+            145deg,
+            rgba(255,255,255,.22),
+            rgba(255,255,255,.075)
         );
 
     border:
-        1px solid #d0a13c;
+        1px solid
+        rgba(255,255,255,.25);
+
+    backdrop-filter:
+        blur(28px);
+
+    -webkit-backdrop-filter:
+        blur(28px);
 
     box-shadow:
 
-        0 8px 20px rgba(65,22,105,.18);
+        0 35px 90px
+        rgba(0,0,0,.38),
 
-    transition:.3s;
+        inset
+        0 1px 0
+        rgba(255,255,255,.36),
 
+        inset
+        0 -1px 0
+        rgba(255,255,255,.05);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
 }
 
-.login-btn i{
+.login-card:hover{
 
-    width:28px;
-    height:28px;
+    transform:
+        translateY(-8px);
 
-    display:flex;
+    border-color:
+        rgba(241,211,127,.52);
 
-    align-items:center;
-    justify-content:center;
+    box-shadow:
 
-    border-radius:50%;
+        0 48px 110px
+        rgba(0,0,0,.48),
 
-    background:
-        rgba(255,255,255,.14);
-
-}
-
-.login-btn:hover{
-
-    transform:translateY(-2px);
-
-    background:
-
-        linear-gradient(
-            100deg,
-            #c0922c,
-            #dfb64e
-        );
-
-    color:#35164f;
-
+        inset
+        0 1px 0
+        rgba(255,255,255,.42);
 }
 
 
-/* =========================================================
-   ADMIN SECTION
-========================================================= */
+/* top gold line */
 
-.admin-section{
+.login-card::before{
 
-    max-width:600px;
+    content:"";
 
-    margin:
-        20px auto 0;
+    position:absolute;
 
-    text-align:center;
+    top:0;
 
-}
+    left:15%;
+    right:15%;
 
-.admin-row{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:15px;
-
-}
-
-.admin-line{
-
-    height:1px;
-
-    flex:1;
-
-    max-width:90px;
+    height:2px;
 
     background:
 
         linear-gradient(
             90deg,
             transparent,
-            #d0a13c
+            var(--gold-light),
+            var(--gold),
+            transparent
         );
 
+    box-shadow:
+        0 0 18px
+        rgba(218,180,83,.45);
 }
 
-.admin-line.right{
+
+/* bottom purple glow */
+
+.login-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+    height:150px;
+
+    bottom:-90px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    border-radius:50%;
+
+    background:
+        rgba(112,52,144,.30);
+
+    filter:blur(30px);
+}
+
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.label{
+
+    position:absolute;
+
+    right:17px;
+    top:16px;
+
+    z-index:30;
+
+    padding:
+        5px 11px;
+
+    border-radius:20px;
+
+    color:#eee5f1;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    backdrop-filter:blur(10px);
+
+    font-size:7px;
+
+    font-weight:800;
+}
+
+.number{
+
+    position:absolute;
+
+    left:18px;
+    top:12px;
+
+    color:
+        rgba(255,255,255,.12);
+
+    font-size:31px;
+
+    font-weight:900;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+
+    position:absolute;
+
+    left:18px;
+    top:18px;
+
+    z-index:30;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    color:#d9cedd;
+
+    font-size:6px;
+}
+
+.status-dot{
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#72d18e;
+
+    box-shadow:
+        0 0 10px
+        rgba(114,209,142,.75);
+}
+
+
+/* =========================================================
+   PERSON AREA
+========================================================= */
+
+.person-area{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+
+    top:35px;
+
+    height:275px;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+}
+
+
+/* silver glass orb */
+
+.person-orb{
+
+    position:absolute;
+
+    width:235px;
+    height:235px;
+
+    bottom:0;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+            circle at 32% 23%,
+            rgba(255,255,255,.34),
+            rgba(255,255,255,.11) 43%,
+            rgba(255,255,255,.035) 68%,
+            transparent 72%
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.21);
+
+    box-shadow:
+
+        inset
+        0 0 45px
+        rgba(255,255,255,.11),
+
+        0 25px 60px
+        rgba(0,0,0,.18);
+}
+
+.person-orb::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:12px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(237,207,121,.32);
+}
+
+
+/* =========================================================
+   BUILT-IN SVG PEOPLE
+========================================================= */
+
+.person-svg{
+
+    position:relative;
+
+    z-index:10;
+
+    width:255px;
+
+    height:275px;
+
+    filter:
+        drop-shadow(
+            0 25px 18px
+            rgba(0,0,0,.30)
+        );
+
+    transition:
+        transform .35s ease;
+}
+
+.login-card:hover .person-svg{
+
+    transform:
+        translateY(-5px)
+        scale(1.025);
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.card-content{
+
+    position:absolute;
+
+    left:16px;
+    right:16px;
+
+    bottom:17px;
+
+    z-index:25;
+
+    text-align:center;
+}
+
+.card-title{
+
+    font-size:25px;
+
+    font-weight:900;
+
+    color:white;
+
+    text-shadow:
+        0 4px 16px
+        rgba(0,0,0,.3);
+}
+
+.card-subtitle{
+
+    margin-top:-1px;
+
+    color:#d8c2e1;
+
+    font-size:8px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+}
+
+.card-description{
+
+    margin:
+        5px auto
+        12px;
+
+    color:#d6cbd9;
+
+    font-size:8px;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.login-button{
+
+    width:100%;
+
+    height:55px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    border-radius:30px;
 
     background:
 
         linear-gradient(
-            90deg,
-            #d0a13c,
-            transparent
+            100deg,
+            rgba(91,39,116,.96),
+            rgba(135,72,166,.96)
         );
 
-}
-
-.admin-center{
-
-    background:#ffffff;
-
-    color:#4b1c73;
-
     border:
-        1px solid #d0a13c;
-
-    border-radius:30px;
-
-    padding:
-        9px 28px;
-
-    font-family:'Cairo';
-
-    font-size:14px;
-
-    font-weight:800;
-
-    cursor:pointer;
+        1px solid
+        rgba(255,255,255,.19);
 
     box-shadow:
-        0 7px 20px rgba(51,20,75,.07);
 
-    transition:.3s;
+        0 14px 30px
+        rgba(0,0,0,.23),
 
-}
-
-.admin-center i{
-
-    color:#c4932c;
-
-    margin-right:6px;
-
-}
-
-.admin-center:hover{
-
-    background:#4b1c73;
+        inset
+        0 1px 0
+        rgba(255,255,255,.28);
 
     color:white;
 
+    font-size:11px;
+
+    font-weight:900;
+
+    transition:.25s ease;
 }
 
-.admin-text{
+.login-card:hover .login-button{
 
-    color:#9a8ba2;
+    background:
 
-    font-size:10px;
+        linear-gradient(
+            100deg,
+            #66317e,
+            #9958b8
+        );
 
-    margin-top:4px;
+    box-shadow:
+        0 17px 38px
+        rgba(0,0,0,.32);
+}
 
+.arrow{
+
+    width:27px;
+    height:27px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    color:#453048;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    font-size:13px;
 }
 
 
@@ -1195,79 +1076,59 @@ body{
 
 .features{
 
-    max-width:850px;
+    max-width:760px;
 
     margin:
-        19px auto 0;
+        24px auto 0;
 
-    display:grid;
+    padding:
+        11px 5px;
 
-    grid-template-columns:
-        repeat(4,1fr);
+    display:flex;
+
+    border-radius:22px;
 
     background:
-        rgba(255,255,255,.72);
+        rgba(255,255,255,.055);
 
     border:
-        1px solid rgba(75,28,110,.07);
+        1px solid
+        rgba(255,255,255,.10);
 
-    border-radius:17px;
-
-    box-shadow:
-        0 8px 25px rgba(54,21,80,.05);
-
-    overflow:hidden;
-
+    backdrop-filter:
+        blur(18px);
 }
 
 .feature{
 
-    text-align:center;
+    flex:1;
 
-    padding:
-        10px 5px;
+    display:flex;
 
-    border-left:
-        1px solid rgba(75,28,110,.07);
+    align-items:center;
 
-}
+    justify-content:center;
 
-.feature:last-child{
+    gap:6px;
 
-    border-left:none;
-
-}
-
-.feature i{
-
-    display:block;
-
-    font-size:20px;
-
-    color:#c39632;
-
-    margin-bottom:3px;
-
-}
-
-.feature strong{
-
-    display:block;
-
-    color:#553071;
-
-    font-size:10px;
-
-}
-
-.feature span{
-
-    display:block;
-
-    color:#9a8da1;
+    color:#cec3d3;
 
     font-size:8px;
+}
 
+.feature + .feature{
+
+    border-right:
+        1px solid
+        rgba(255,255,255,.12);
+}
+
+.feature-icon{
+
+    color:
+        var(--gold-light);
+
+    font-size:12px;
 }
 
 
@@ -1279,841 +1140,416 @@ body{
 
     text-align:center;
 
-    color:#a094a7;
-
-    font-size:9px;
-
-    margin-top:12px;
-
+    margin-top:17px;
 }
 
 .footer strong{
 
-    color:#c39531;
+    color:#d9c3e1;
 
+    font-size:8px;
+
+    letter-spacing:5px;
+}
+
+.footer p{
+
+    margin-top:3px;
+
+    color:#93869b;
+
+    font-size:7px;
 }
 
 
 /* =========================================================
-   MODAL
+   TABLET / MOBILE
 ========================================================= */
 
-.modal{
+@media(max-width:700px){
 
-    position:fixed;
-
-    inset:0;
-
-    z-index:1000;
-
-    display:none;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:18px;
-
-    background:
-        rgba(34,13,49,.65);
-
-    backdrop-filter:
-        blur(8px);
-
-}
-
-.modal.active{
-
-    display:flex;
-
-}
-
-.modal-box{
-
-    width:100%;
-
-    max-width:420px;
-
-    background:#ffffff;
-
-    border-radius:24px;
-
-    padding:27px;
-
-    position:relative;
-
-    border:
-        1px solid #d2a541;
-
-    box-shadow:
-        0 30px 80px rgba(31,12,47,.30);
-
-    animation:
-        modalIn .3s ease;
-
-}
-
-@keyframes modalIn{
-
-    from{
-
-        opacity:0;
-
-        transform:
-            scale(.94)
-            translateY(20px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:
-            scale(1)
-            translateY(0);
-
-    }
-
-}
-
-.close{
-
-    position:absolute;
-
-    top:12px;
-
-    left:12px;
-
-    width:34px;
-    height:34px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#f4eff7;
-
-    color:#4b1b73;
-
-    cursor:pointer;
-
-}
-
-.modal-logo{
-
-    text-align:center;
-
-    font-size:20px;
-
-    font-weight:900;
-
-    color:#4a1b73;
-
-    margin-bottom:5px;
-
-}
-
-.modal-logo i{
-
-    color:#c49731;
-
-    margin-left:5px;
-
-}
-
-.modal-box h2{
-
-    text-align:center;
-
-    color:#351452;
-
-    font-size:21px;
-
-    margin-bottom:18px;
-
-}
-
-.form-group{
-
-    margin-bottom:12px;
-
-}
-
-.form-group label{
-
-    display:block;
-
-    color:#674c78;
-
-    font-size:11px;
-
-    margin-bottom:5px;
-
-}
-
-.input{
-
-    width:100%;
-
-    border:
-        1px solid #ded4e4;
-
-    background:#faf9fb;
-
-    color:#32154d;
-
-    padding:
-        12px;
-
-    border-radius:12px;
-
-    outline:none;
-
-    font-family:'Cairo';
-
-    font-size:13px;
-
-}
-
-.input:focus{
-
-    border-color:#c79b39;
-
-    box-shadow:
-        0 0 0 3px rgba(199,155,57,.10);
-
-}
-
-.modal-btn{
-
-    width:100%;
-
-    border:none;
-
-    border-radius:13px;
-
-    padding:12px;
-
-    background:
-
-        linear-gradient(
-            100deg,
-            #481975,
-            #6d269c
-        );
-
-    color:white;
-
-    font-family:'Cairo';
-
-    font-size:14px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    border:
-        1px solid #d1a03a;
-
-    transition:.3s;
-
-}
-
-.modal-btn:hover{
-
-    background:
-
-        linear-gradient(
-            100deg,
-            #c2912d,
-            #deb550
-        );
-
-    color:#35144f;
-
-}
-
-.modal-info{
-
-    text-align:center;
-
-    margin-top:10px;
-
-    color:#9a8da1;
-
-    font-size:10px;
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-.toast{
-
-    position:fixed;
-
-    z-index:3000;
-
-    bottom:20px;
-
-    left:50%;
-
-    transform:
-        translate(-50%,80px);
-
-    opacity:0;
-
-    background:#4b1b74;
-
-    color:white;
-
-    padding:
-        10px 20px;
-
-    border-radius:30px;
-
-    font-size:12px;
-
-    font-weight:700;
-
-    border:
-        1px solid #d0a13b;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.20);
-
-    transition:.3s;
-
-}
-
-.toast.show{
-
-    opacity:1;
-
-    transform:
-        translate(-50%,0);
-
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media(max-width:800px){
-
-    .container{
+    .page{
 
         padding:
-            18px 16px;
-
+            11px 9px
+            24px;
     }
 
-    .brand-name{
+    .header{
 
-        font-size:52px;
-
+        margin-bottom:16px;
     }
-
-    .login-section{
-
-        max-width:720px;
-
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:600px){
-
-    body{
-
-        background:#faf8fb;
-
-    }
-
-    .container{
-
-        padding:
-            14px 12px 15px;
-
-    }
-
-    .topbar{
-
-        margin-bottom:5px;
-
-    }
-
-    .brand-mini{
-
-        font-size:13px;
-
-    }
-
-    .brand-mini i{
-
-        font-size:19px;
-
-    }
-
-    .admin-top{
-
-        padding:
-            7px 13px;
-
-        font-size:10px;
-
-    }
-
-    .admin-top i{
-
-        font-size:11px;
-
-    }
-
-
-    /* LOGO */
 
     .logo{
 
-        width:82px;
-        height:82px;
-
-        border-width:3px;
-
-        margin-top:5px;
-
+        width:76px;
+        height:76px;
     }
 
-    .logo-heart{
+    .brand{
 
-        width:40px;
-        height:36px;
-
-        border-width:4px;
-
+        font-size:36px;
     }
 
-    .logo-heart:before{
+    .brand-en{
 
-        width:32px;
-        height:32px;
+        font-size:8px;
 
-        top:-19px;
-
-        border-width:4px;
-
+        letter-spacing:6px;
     }
 
-    .logo-heart:after{
+    .subtitle{
 
-        width:32px;
-        height:32px;
-
-        top:4px;
-        left:16px;
-
-        border-width:4px;
-
+        font-size:8px;
     }
 
-    .pulse{
+    .login-area{
 
-        font-size:17px;
-
-    }
-
-
-    /* BRAND */
-
-    .brand-name{
-
-        font-size:43px;
-
-        letter-spacing:-2px;
-
-        margin-top:4px;
-
-    }
-
-    .arabic-name{
-
-        font-size:23px;
-
-        margin-top:6px;
-
-    }
-
-    .arabic-name:before,
-    .arabic-name:after{
-
-        width:35px;
-
-    }
-
-    .arabic-name:before{
-
-        right:calc(100% + 8px);
-
-    }
-
-    .arabic-name:after{
-
-        left:calc(100% + 8px);
-
-    }
-
-    .tagline{
-
-        font-size:12px;
-
-    }
-
-    .hero-line{
-
-        width:130px;
-
-        margin-top:9px;
-
-    }
-
-
-    /* CARDS */
-
-    .login-section{
-
-        grid-template-columns:1fr;
-
-        gap:13px;
-
-        margin-top:17px;
-
+        gap:7px;
     }
 
     .login-card{
 
-        padding:
-            20px 17px 17px;
+        height:365px;
 
-        border-radius:21px;
-
+        border-radius:24px;
     }
 
-    .avatar{
+    .person-area{
 
-        width:82px;
-        height:82px;
+        top:25px;
 
+        height:220px;
     }
 
-    .avatar i{
+    .person-orb{
 
-        font-size:40px;
-
+        width:180px;
+        height:180px;
     }
 
-    .badge{
+    .person-svg{
 
-        width:29px;
-        height:29px;
-
-        font-size:11px;
-
+        width:190px;
+        height:215px;
     }
 
-    .login-card h2{
+    .card-content{
 
-        font-size:19px;
+        left:8px;
+        right:8px;
 
-        margin-top:9px;
-
+        bottom:10px;
     }
 
-    .login-card p{
+    .card-title{
 
-        font-size:10px;
+        font-size:18px;
+    }
 
-        line-height:1.9;
+    .card-subtitle{
 
-        min-height:auto;
+        font-size:6px;
+    }
+
+    .card-description{
+
+        font-size:6.5px;
 
         margin-bottom:7px;
-
     }
 
-    .login-btn{
+    .login-button{
 
-        padding:
-            11px;
+        height:46px;
 
-        border-radius:13px;
-
-        font-size:12px;
-
-        gap:9px;
-
+        font-size:8px;
     }
 
-    .login-btn i{
+    .arrow{
 
-        width:25px;
-        height:25px;
+        width:22px;
+        height:22px;
 
+        font-size:10px;
     }
-
-
-    /* ADMIN */
-
-    .admin-section{
-
-        margin-top:14px;
-
-    }
-
-    .admin-line{
-
-        max-width:35px;
-
-    }
-
-    .admin-row{
-
-        gap:7px;
-
-    }
-
-    .admin-center{
-
-        padding:
-            8px 20px;
-
-        font-size:11px;
-
-    }
-
-    .admin-text{
-
-        font-size:9px;
-
-    }
-
-
-    /* FEATURES */
 
     .features{
 
-        margin-top:13px;
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-        border-radius:14px;
-
+        margin-top:14px;
     }
 
     .feature{
 
+        font-size:6px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media(max-width:420px){
+
+    .page{
+
         padding:
-            9px 3px;
-
+            7px 5px
+            18px;
     }
 
-    .feature:nth-child(2){
+    .admin{
 
-        border-left:none;
-
-    }
-
-    .feature:nth-child(1),
-    .feature:nth-child(2){
-
-        border-bottom:
-            1px solid rgba(75,28,110,.07);
-
-    }
-
-    .feature i{
-
-        font-size:17px;
-
-    }
-
-    .feature strong{
-
-        font-size:9px;
-
-    }
-
-    .feature span{
+        padding:
+            6px 9px;
 
         font-size:7px;
-
     }
 
-    .footer{
+    .admin-icon{
 
-        margin-top:9px;
+        width:21px;
+        height:21px;
 
+        font-size:10px;
     }
 
+    .header{
 
-    /* BACKGROUND */
-
-    .medical-icon{
-
-        font-size:50px;
-
+        margin-bottom:11px;
     }
-
-    .mi1{
-
-        left:-5px;
-
-    }
-
-    .mi2{
-
-        right:-5px;
-
-    }
-
-    .mi3{
-
-        left:-15px;
-
-    }
-
-    .mi4{
-
-        right:-10px;
-
-    }
-
-}
-
-
-/* =========================================================
-   SMALL PHONE
-========================================================= */
-
-@media(max-width:380px){
-
-    .brand-name{
-
-        font-size:38px;
-
-    }
-
-    .arabic-name{
-
-        font-size:21px;
-
-    }
-
-    .login-card{
-
-        padding:
-            17px 14px;
-
-    }
-
-    .avatar{
-
-        width:76px;
-        height:76px;
-
-    }
-
-    .avatar i{
-
-        font-size:36px;
-
-    }
-
-    .login-card h2{
-
-        font-size:18px;
-
-    }
-
-}
-
-
-/* =========================================================
-   VERY SMALL SCREEN
-========================================================= */
-
-@media(max-height:650px) and (max-width:600px){
 
     .logo{
 
-        width:65px;
-        height:65px;
-
+        width:66px;
+        height:66px;
     }
 
-    .brand-name{
+    .heart,
+    .heart::before,
+    .heart::after{
 
-        font-size:34px;
-
+        width:27px;
+        height:27px;
     }
 
-    .login-section{
+    .heart::before{
 
-        margin-top:10px;
+        top:-13px;
+    }
 
+    .heart::after{
+
+        left:13px;
+    }
+
+    .logo-ecg{
+
+        width:51px;
+    }
+
+    .brand{
+
+        font-size:30px;
+    }
+
+    .brand-en{
+
+        margin-top:4px;
+
+        font-size:7px;
+
+        letter-spacing:5px;
+    }
+
+    .subtitle{
+
+        margin-top:3px;
+
+        font-size:6.5px;
+    }
+
+    .login-area{
+
+        gap:5px;
     }
 
     .login-card{
 
-        padding:14px;
+        height:335px;
 
+        border-radius:19px;
     }
 
-    .avatar{
+    .label{
 
-        width:65px;
-        height:65px;
+        top:8px;
+        right:8px;
 
+        padding:
+            3px 6px;
+
+        font-size:5px;
     }
 
-    .avatar i{
+    .number{
 
-        font-size:31px;
+        top:7px;
+        left:8px;
 
+        font-size:18px;
+    }
+
+    .status{
+
+        top:10px;
+        left:9px;
+
+        font-size:4px;
+    }
+
+    .status-dot{
+
+        width:5px;
+        height:5px;
+    }
+
+    .person-area{
+
+        top:23px;
+
+        height:190px;
+    }
+
+    .person-orb{
+
+        width:150px;
+        height:150px;
+    }
+
+    .person-svg{
+
+        width:155px;
+        height:180px;
+    }
+
+    .card-content{
+
+        bottom:9px;
+    }
+
+    .card-title{
+
+        font-size:14px;
+    }
+
+    .card-subtitle{
+
+        font-size:5px;
+    }
+
+    .card-description{
+
+        font-size:5px;
+
+        line-height:1.65;
+
+        margin:
+            3px auto
+            6px;
+    }
+
+    .login-button{
+
+        height:40px;
+
+        border-radius:21px;
+
+        font-size:6px;
+    }
+
+    .arrow{
+
+        width:19px;
+        height:19px;
+
+        font-size:8px;
     }
 
     .features{
 
-        margin-top:8px;
+        padding:7px 2px;
 
+        border-radius:16px;
     }
 
+    .feature{
+
+        font-size:4.8px;
+
+        gap:3px;
+    }
+
+    .feature-icon{
+
+        font-size:8px;
+    }
+
+    .footer{
+
+        margin-top:11px;
+    }
+
+    .footer strong{
+
+        font-size:6px;
+    }
+
+    .footer p{
+
+        font-size:5px;
+    }
 }
 
 
 /* =========================================================
-   REDUCE MOTION
+   VERY SMALL
 ========================================================= */
 
-@media(prefers-reduced-motion:reduce){
+@media(max-width:350px){
 
-    *{
+    .login-card{
 
-        animation:none !important;
-
-        transition:none !important;
-
+        height:315px;
     }
 
+    .person-area{
+
+        height:175px;
+    }
+
+    .person-orb{
+
+        width:135px;
+        height:135px;
+    }
+
+    .person-svg{
+
+        width:140px;
+        height:165px;
+    }
+
+    .card-title{
+
+        font-size:12px;
+    }
+
+    .login-button{
+
+        height:37px;
+    }
 }
 
 </style>
@@ -2124,922 +1560,814 @@ body{
 <body>
 
 
-<div class="page">
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
 
+<div class="bg">
 
-    <!-- =====================================================
-         MEDICAL BACKGROUND
-    ====================================================== -->
+    <div class="grid"></div>
 
-    <div class="medical-bg">
+    <div class="ring ring-one"></div>
 
-        <div class="grid"></div>
+    <div class="ring ring-two"></div>
 
-        <div class="medical-circle mc1"></div>
+    <div class="shape shape-one"></div>
 
-        <div class="medical-circle mc2"></div>
-
-        <div class="medical-circle mc3"></div>
-
-        <div class="medical-icon mi1">
-            <i class="fa-solid fa-stethoscope"></i>
-        </div>
-
-        <div class="medical-icon mi2">
-            <i class="fa-solid fa-heart-pulse"></i>
-        </div>
-
-        <div class="medical-icon mi3">
-            <i class="fa-solid fa-kit-medical"></i>
-        </div>
-
-        <div class="medical-icon mi4">
-            <i class="fa-solid fa-user-doctor"></i>
-        </div>
-
-        <div class="medical-icon mi5">
-            <i class="fa-solid fa-capsules"></i>
-        </div>
-
-        <div class="cross c1"></div>
-
-        <div class="cross c2"></div>
-
-        <div class="gold-light"></div>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         MAIN CONTAINER
-    ====================================================== -->
-
-    <main class="container">
-
-
-        <!-- TOP -->
-
-        <div class="topbar">
-
-
-            <div class="brand-mini">
-
-                <i class="fa-solid fa-heart-pulse"></i>
-
-                TABIBK
-
-            </div>
-
-
-            <button
-                class="admin-top"
-                onclick="openModal('adminModal')">
-
-                <i class="fa-solid fa-lock"></i>
-
-                لوحة الإدارة
-
-            </button>
-
-
-        </div>
-
-
-
-        <!-- =================================================
-             HERO
-        ================================================== -->
-
-        <section class="hero">
-
-
-            <div class="logo">
-
-                <div class="logo-heart"></div>
-
-                <div class="pulse">
-                    〽
-                </div>
-
-            </div>
-
-
-            <div class="brand-name">
-
-                TABIB<span>K</span>
-
-            </div>
-
-
-            <div class="arabic-name">
-
-                طبيبك
-
-            </div>
-
-
-            <div class="tagline">
-
-                صحتك ... أولويتنا
-
-            </div>
-
-
-            <div class="hero-line"></div>
-
-
-        </section>
-
-
-
-        <!-- =================================================
-             LOGIN CARDS
-        ================================================== -->
-
-        <section class="login-section">
-
-
-            <!-- PATIENT -->
-
-            <article class="login-card">
-
-                <div class="card-top"></div>
-
-
-                <div class="avatar">
-
-                    <i class="fa-solid fa-user"></i>
-
-
-                    <div class="badge">
-
-                        <i class="fa-solid fa-heart"></i>
-
-                    </div>
-
-                </div>
-
-
-                <h2>
-
-                    دخول المريض
-
-                </h2>
-
-
-                <p>
-
-                    احجز موعدك مع طبيبك،
-                    تابع مواعيدك واستفد من
-                    خدمات طبيبك بكل سهولة.
-
-                </p>
-
-
-                <button
-                    class="login-btn"
-                    onclick="openModal('patientModal')">
-
-                    <span>
-                        تسجيل دخول المريض
-                    </span>
-
-                    <i class="fa-solid fa-arrow-left"></i>
-
-                </button>
-
-
-            </article>
-
-
-
-            <!-- DOCTOR -->
-
-            <article class="login-card">
-
-                <div class="card-top"></div>
-
-
-                <div class="avatar doctor">
-
-                    <i class="fa-solid fa-user-doctor"></i>
-
-
-                    <div class="badge">
-
-                        <i class="fa-solid fa-heart-pulse"></i>
-
-                    </div>
-
-                </div>
-
-
-                <h2>
-
-                    دخول الطبيب
-
-                </h2>
-
-
-                <p>
-
-                    أدر مرضاك، تابع مواعيدك
-                    ونظم جدول العيادة
-                    بطريقة احترافية وسهلة.
-
-                </p>
-
-
-                <button
-                    class="login-btn"
-                    onclick="openModal('doctorModal')">
-
-                    <span>
-                        تسجيل دخول الطبيب
-                    </span>
-
-                    <i class="fa-solid fa-arrow-left"></i>
-
-                </button>
-
-
-            </article>
-
-
-        </section>
-
-
-
-        <!-- =================================================
-             ADMIN
-        ================================================== -->
-
-        <section class="admin-section">
-
-
-            <div class="admin-row">
-
-
-                <div class="admin-line"></div>
-
-
-                <button
-                    class="admin-center"
-                    onclick="openModal('adminModal')">
-
-                    <i class="fa-solid fa-lock"></i>
-
-                    لوحة الإدارة
-
-                </button>
-
-
-                <div class="admin-line right"></div>
-
-
-            </div>
-
-
-            <div class="admin-text">
-
-                إدارة شاملة ... نجاح أكبر
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- =================================================
-             FEATURES
-        ================================================== -->
-
-        <section class="features">
-
-
-            <div class="feature">
-
-                <i class="fa-solid fa-shield-heart"></i>
-
-                <strong>
-                    أمان عالي
-                </strong>
-
-                <span>
-                    حماية بياناتك
-                </span>
-
-            </div>
-
-
-            <div class="feature">
-
-                <i class="fa-solid fa-calendar-check"></i>
-
-                <strong>
-                    حجز سهل
-                </strong>
-
-                <span>
-                    مواعيدك في مكان واحد
-                </span>
-
-            </div>
-
-
-            <div class="feature">
-
-                <i class="fa-solid fa-heart-pulse"></i>
-
-                <strong>
-                    رعاية أفضل
-                </strong>
-
-                <span>
-                    صحتك أولويتنا
-                </span>
-
-            </div>
-
-
-            <div class="feature">
-
-                <i class="fa-solid fa-user-doctor"></i>
-
-                <strong>
-                    أطباء متخصصون
-                </strong>
-
-                <span>
-                    رعاية موثوقة
-                </span>
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- FOOTER -->
-
-        <footer class="footer">
-
-            TABIBK
-
-            <strong>
-                طبيبك
-            </strong>
-
-            © 2026
-
-        </footer>
-
-
-    </main>
-
-
-
-    <!-- =====================================================
-         PATIENT MODAL
-    ====================================================== -->
-
-    <div
-        class="modal"
-        id="patientModal"
-        onclick="outsideClose(event,'patientModal')">
-
-
-        <div class="modal-box">
-
-
-            <button
-                class="close"
-                onclick="closeModal('patientModal')">
-
-                <i class="fa-solid fa-xmark"></i>
-
-            </button>
-
-
-            <div class="modal-logo">
-
-                <i class="fa-solid fa-user"></i>
-
-                TABIBK
-
-            </div>
-
-
-            <h2>
-                دخول المريض
-            </h2>
-
-
-            <div class="form-group">
-
-                <label>
-                    رقم الهاتف أو البريد الإلكتروني
-                </label>
-
-                <input
-                    id="patientUser"
-                    class="input"
-                    type="text"
-                    placeholder="أدخل رقم الهاتف أو البريد">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    كلمة المرور
-                </label>
-
-                <input
-                    id="patientPassword"
-                    class="input"
-                    type="password"
-                    placeholder="أدخل كلمة المرور">
-
-            </div>
-
-
-            <button
-                class="modal-btn"
-                onclick="patientLogin()">
-
-                تسجيل الدخول
-
-            </button>
-
-
-            <div class="modal-info">
-
-                دخول آمن إلى حساب المريض
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         DOCTOR MODAL
-    ====================================================== -->
-
-    <div
-        class="modal"
-        id="doctorModal"
-        onclick="outsideClose(event,'doctorModal')">
-
-
-        <div class="modal-box">
-
-
-            <button
-                class="close"
-                onclick="closeModal('doctorModal')">
-
-                <i class="fa-solid fa-xmark"></i>
-
-            </button>
-
-
-            <div class="modal-logo">
-
-                <i class="fa-solid fa-user-doctor"></i>
-
-                TABIBK
-
-            </div>
-
-
-            <h2>
-                دخول الطبيب
-            </h2>
-
-
-            <div class="form-group">
-
-                <label>
-                    البريد الإلكتروني أو رقم الهاتف
-                </label>
-
-                <input
-                    id="doctorUser"
-                    class="input"
-                    type="text"
-                    placeholder="أدخل معلومات الطبيب">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    كلمة المرور
-                </label>
-
-                <input
-                    id="doctorPassword"
-                    class="input"
-                    type="password"
-                    placeholder="أدخل كلمة المرور">
-
-            </div>
-
-
-            <button
-                class="modal-btn"
-                onclick="doctorLogin()">
-
-                دخول لوحة الطبيب
-
-            </button>
-
-
-            <div class="modal-info">
-
-                مساحة خاصة لإدارة المرضى والمواعيد
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         ADMIN MODAL
-    ====================================================== -->
-
-    <div
-        class="modal"
-        id="adminModal"
-        onclick="outsideClose(event,'adminModal')">
-
-
-        <div class="modal-box">
-
-
-            <button
-                class="close"
-                onclick="closeModal('adminModal')">
-
-                <i class="fa-solid fa-xmark"></i>
-
-            </button>
-
-
-            <div class="modal-logo">
-
-                <i class="fa-solid fa-lock"></i>
-
-                TABIBK ADMIN
-
-            </div>
-
-
-            <h2>
-                لوحة الإدارة
-            </h2>
-
-
-            <div class="form-group">
-
-                <label>
-                    اسم المستخدم
-                </label>
-
-                <input
-                    id="adminUser"
-                    class="input"
-                    type="text"
-                    placeholder="اسم المستخدم">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    كلمة المرور
-                </label>
-
-                <input
-                    id="adminPassword"
-                    class="input"
-                    type="password"
-                    placeholder="كلمة المرور">
-
-            </div>
-
-
-            <button
-                class="modal-btn"
-                onclick="adminLogin()">
-
-                دخول لوحة الإدارة
-
-            </button>
-
-
-            <div class="modal-info">
-
-                وصول مخصص لإدارة نظام TABIBK
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-
-    <!-- TOAST -->
-
-    <div
-        class="toast"
-        id="toast">
-
-        تم تنفيذ العملية
-
-    </div>
-
+    <div class="shape shape-two"></div>
 
 </div>
 
 
+<main class="page">
 
-<script>
 
-/* =========================================================
-   OPEN MODAL
-========================================================= */
+<!-- =====================================================
+     ADMIN
+===================================================== -->
 
-function openModal(id){
+<div class="admin-area">
 
-    const modal =
-        document.getElementById(id);
+    <a
+        href="/admin.html"
+        class="admin"
+    >
 
-    if(!modal) return;
+        <span class="admin-icon">
+            ⚙
+        </span>
 
-    modal.classList.add("active");
+        <span>
+            الإدارة
+        </span>
 
-    document.body.style.overflow="hidden";
+        <span>
+            ←
+        </span>
 
-}
+    </a>
 
+</div>
 
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
 
-function closeModal(id){
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-    const modal =
-        document.getElementById(id);
+<header class="header">
 
-    if(!modal) return;
 
-    modal.classList.remove("active");
+    <div class="logo">
 
-    document.body.style.overflow="";
+        <div class="heart"></div>
 
-}
+        <svg
+            class="logo-ecg"
+            viewBox="0 0 150 60"
+        >
 
+            <path
+                d="
+                    M3 31
+                    H32
+                    L45 31
+                    L57 8
+                    L69 52
+                    L82 31
+                    H105
+                    L116 31
+                    L126 20
+                    L137 42
+                    L147 31
+                "
+            />
 
-/* =========================================================
-   CLOSE WHEN CLICK OUTSIDE
-========================================================= */
+        </svg>
 
-function outsideClose(event,id){
+    </div>
 
-    if(event.target.id === id){
 
-        closeModal(id);
+    <div class="brand">
+        طبيبك
+    </div>
 
-    }
 
-}
+    <div class="brand-en">
+        TABIBK
+    </div>
 
 
-/* =========================================================
-   TOAST
-========================================================= */
+    <div class="subtitle">
+        رعايتك الصحية تبدأ من هنا
+    </div>
 
-let toastTimer;
+</header>
 
 
-function showToast(message){
+<!-- =====================================================
+     LOGIN CARDS
+===================================================== -->
 
-    const toast =
-        document.getElementById("toast");
+<section class="login-area">
 
-    toast.textContent = message;
 
-    toast.classList.add("show");
+<!-- =====================================================
+     PATIENT
+===================================================== -->
 
-    clearTimeout(toastTimer);
+<a
+    href="/patient.html"
+    class="login-card"
+>
 
-    toastTimer = setTimeout(
-        function(){
-
-            toast.classList.remove("show");
-
-        },
-        3000
-    );
-
-}
-
-
-/* =========================================================
-   PATIENT LOGIN
-========================================================= */
-
-function patientLogin(){
-
-    const user =
-        document.getElementById("patientUser")
-        .value
-        .trim();
-
-    const password =
-        document.getElementById("patientPassword")
-        .value
-        .trim();
-
-
-    if(!user || !password){
-
-        showToast(
-            "⚠️ يرجى إدخال معلومات الدخول"
-        );
-
-        return;
-
-    }
-
-
-    closeModal("patientModal");
-
-    showToast(
-        "✅ تم تسجيل الدخول كمريض"
-    );
-
-}
-
-
-/* =========================================================
-   DOCTOR LOGIN
-========================================================= */
-
-function doctorLogin(){
-
-    const user =
-        document.getElementById("doctorUser")
-        .value
-        .trim();
-
-    const password =
-        document.getElementById("doctorPassword")
-        .value
-        .trim();
-
-
-    if(!user || !password){
-
-        showToast(
-            "⚠️ يرجى إدخال معلومات الدخول"
-        );
-
-        return;
-
-    }
-
-
-    closeModal("doctorModal");
-
-    showToast(
-        "✅ تم تسجيل الدخول كطبيب"
-    );
-
-}
-
-
-/* =========================================================
-   ADMIN LOGIN
-========================================================= */
-
-function adminLogin(){
-
-    const user =
-        document.getElementById("adminUser")
-        .value
-        .trim();
-
-    const password =
-        document.getElementById("adminPassword")
-        .value
-        .trim();
-
-
-    if(!user || !password){
-
-        showToast(
-            "⚠️ أدخل اسم المستخدم وكلمة المرور"
-        );
-
-        return;
-
-    }
-
-
-    closeModal("adminModal");
-
-    showToast(
-        "🔐 تم الدخول إلى لوحة الإدارة"
-    );
-
-}
-
-
-/* =========================================================
-   ESC KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(event.key === "Escape"){
-
-            document
-                .querySelectorAll(".modal.active")
-                .forEach(
-                    function(modal){
-
-                        modal.classList.remove("active");
-
-                    }
-                );
-
-            document.body.style.overflow="";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   ENTER KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(event.key !== "Enter") return;
-
-        const activeModal =
-            document.querySelector(".modal.active");
-
-        if(!activeModal) return;
-
-        if(activeModal.id === "patientModal"){
-
-            patientLogin();
-
-        }
-
-        else if(activeModal.id === "doctorModal"){
-
-            doctorLogin();
-
-        }
-
-        else if(activeModal.id === "adminModal"){
-
-            adminLogin();
-
-        }
-
-    }
-);
-
-</script>
+    <div class="label">
+        للرعاية الصحية
+    </div>
+
+    <div class="number">
+        01
+    </div>
+
+    <div class="status">
+
+        <span class="status-dot"></span>
+
+        دخول آمن
+
+    </div>
+
+
+    <div class="person-area">
+
+        <div class="person-orb"></div>
+
+
+        <!-- =============================================
+             PATIENT SVG
+        ============================================== -->
+
+        <svg
+            class="person-svg"
+            viewBox="0 0 300 330"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+
+            <!-- shadow -->
+
+            <ellipse
+                cx="150"
+                cy="313"
+                rx="70"
+                ry="10"
+                fill="rgba(0,0,0,.18)"
+            />
+
+
+            <!-- body -->
+
+            <path
+                d="
+                    M72 306
+                    C73 250 87 216 111 202
+                    C122 196 132 193 150 193
+                    C168 193 178 196 189 202
+                    C213 216 227 250 228 306
+                    Z
+                "
+                fill="#f4f5f7"
+            />
+
+            <!-- shirt shadow -->
+
+            <path
+                d="
+                    M74 305
+                    C78 250 90 220 112 207
+                    C117 229 130 240 150 240
+                    C170 240 183 229 188 207
+                    C210 220 222 250 226 305
+                    Z
+                "
+                fill="#d8dce2"
+            />
+
+            <!-- shirt purple -->
+
+            <path
+                d="
+                    M74 305
+                    C78 252 91 220 112 207
+                    L130 239
+                    L150 257
+                    L170 239
+                    L188 207
+                    C209 220 222 252 226 305
+                    Z
+                "
+                fill="#6f3c90"
+            />
+
+            <!-- neck -->
+
+            <path
+                d="
+                    M127 181
+                    L127 211
+                    C134 222 142 228 150 228
+                    C158 228 166 222 173 211
+                    L173 181
+                    Z
+                "
+                fill="#dba987"
+            />
+
+            <!-- neck shadow -->
+
+            <path
+                d="
+                    M127 181
+                    L127 202
+                    C143 211 158 211 173 202
+                    L173 181
+                    Z
+                "
+                fill="#c68d6f"
+                opacity=".45"
+            />
+
+            <!-- hair -->
+
+            <path
+                d="
+                    M105 117
+                    C105 82 124 57 151 57
+                    C180 57 198 81 198 117
+                    L190 166
+                    L110 166
+                    Z
+                "
+                fill="#3b2939"
+            />
+
+            <!-- ears -->
+
+            <ellipse
+                cx="109"
+                cy="139"
+                rx="10"
+                ry="15"
+                fill="#dca987"
+            />
+
+            <ellipse
+                cx="191"
+                cy="139"
+                rx="10"
+                ry="15"
+                fill="#dca987"
+            />
+
+            <!-- face -->
+
+            <path
+                d="
+                    M115 111
+                    C115 83 130 69 150 69
+                    C171 69 186 83 186 111
+                    L183 153
+                    C177 175 164 187 150 187
+                    C136 187 123 175 117 153
+                    Z
+                "
+                fill="#e2b08e"
+            />
+
+            <!-- hair front -->
+
+            <path
+                d="
+                    M106 116
+                    C106 79 126 58 153 58
+                    C176 59 195 76 198 107
+                    C185 91 176 88 164 90
+                    C151 93 139 89 130 81
+                    C126 95 118 108 106 116
+                    Z
+                "
+                fill="#362536"
+            />
+
+            <!-- eyebrows -->
+
+            <path
+                d="M126 119 Q136 113 143 118"
+                stroke="#4b3030"
+                stroke-width="4"
+                fill="none"
+                stroke-linecap="round"
+            />
+
+            <path
+                d="M157 118 Q166 113 175 119"
+                stroke="#4b3030"
+                stroke-width="4"
+                fill="none"
+                stroke-linecap="round"
+            />
+
+            <!-- eyes -->
+
+            <ellipse
+                cx="135"
+                cy="126"
+                rx="4"
+                ry="3"
+                fill="#352532"
+            />
+
+            <ellipse
+                cx="166"
+                cy="126"
+                rx="4"
+                ry="3"
+                fill="#352532"
+            />
+
+            <!-- nose -->
+
+            <path
+                d="M151 126 L147 144 L153 145"
+                stroke="#b87e64"
+                stroke-width="2"
+                fill="none"
+                stroke-linecap="round"
+            />
+
+            <!-- smile -->
+
+            <path
+                d="M138 154 Q150 163 163 154"
+                stroke="#8e4f50"
+                stroke-width="3"
+                fill="none"
+                stroke-linecap="round"
+            />
+
+            <!-- gold necklace -->
+
+            <circle
+                cx="150"
+                cy="211"
+                r="4"
+                fill="#d8b257"
+            />
+
+            <path
+                d="M127 203 Q150 227 173 203"
+                stroke="#d8b257"
+                stroke-width="2"
+                fill="none"
+            />
+
+        </svg>
+
+    </div>
+
+
+    <div class="card-content">
+
+        <div class="card-title">
+            دخول المريض
+        </div>
+
+        <div class="card-subtitle">
+            PATIENT
+        </div>
+
+        <div class="card-description">
+
+            احجز موعدك مع طبيبك
+            <br>
+            وتابع رحلتك الصحية بسهولة.
+
+        </div>
+
+
+        <div class="login-button">
+
+            <span class="arrow">
+                ←
+            </span>
+
+            الدخول كمريض
+
+        </div>
+
+    </div>
+
+</a>
+
+
+<!-- =====================================================
+     DOCTOR
+===================================================== -->
+
+<a
+    href="/doctor.html"
+    class="login-card"
+>
+
+    <div class="label">
+        للأطباء
+    </div>
+
+    <div class="number">
+        02
+    </div>
+
+    <div class="status">
+
+        <span class="status-dot"></span>
+
+        دخول آمن
+
+    </div>
+
+
+    <div class="person-area">
+
+        <div class="person-orb"></div>
+
+
+        <!-- =============================================
+             DOCTOR SVG
+        ============================================== -->
+
+        <svg
+            class="person-svg"
+            viewBox="0 0 300 330"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+
+            <!-- shadow -->
+
+            <ellipse
+                cx="150"
+                cy="313"
+                rx="72"
+                ry="10"
+                fill="rgba(0,0,0,.18)"
+            />
+
+
+            <!-- white coat -->
+
+            <path
+                d="
+                    M68 305
+                    C71 250 87 214 112 202
+                    L132 235
+                    L150 255
+                    L168 235
+                    L188 202
+                    C213 214 229 250 232 305
+                    Z
+                "
+                fill="#f7f8fa"
+            />
+
+            <!-- coat shadow -->
+
+            <path
+                d="
+                    M69 305
+                    C75 253 89 222 110 209
+                    L125 305
+                    Z
+                "
+                fill="#d7dbe1"
+            />
+
+            <!-- shirt -->
+
+            <path
+                d="
+                    M126 202
+                    L150 250
+                    L174 202
+                    L174 305
+                    L126 305
+                    Z
+                "
+                fill="#6f3c90"
+            />
+
+            <!-- neck -->
+
+            <path
+                d="
+                    M128 179
+                    L128 209
+                    C135 220 143 226 150 226
+                    C157 226 165 220 172 209
+                    L172 179
+                    Z
+                "
+                fill="#d7a17e"
+            />
+
+            <!-- ears -->
+
+            <ellipse
+                cx="108"
+                cy="137"
+                rx="10"
+                ry="15"
+                fill="#d7a17e"
+            />
+
+            <ellipse
+                cx="192"
+                cy="137"
+                rx="10"
+                ry="15"
+                fill="#d7a17e"
+            />
+
+            <!-- face -->
+
+            <path
+                d="
+                    M114 108
+                    C114 80 129 66 150 66
+                    C171 66 186 80 186 108
+                    L183 153
+                    C177 176 164 188 150 188
+                    C136 188 123 176 117 153
+                    Z
+                "
+                fill="#dfa985"
+            />
+
+            <!-- hair -->
+
+            <path
+                d="
+                    M105 111
+                    C106 75 125 54 151 54
+                    C179 54 196 74 198 108
+                    C187 94 178 88 165 90
+                    C151 91 139 87 130 78
+                    C125 95 117 106 105 111
+                    Z
+                "
+                fill="#24202a"
+            />
+
+            <!-- eyebrows -->
+
+            <path
+                d="M126 119 Q136 113 143 118"
+                stroke="#30252a"
+                stroke-width="4"
+                fill="none"
+                stroke-linecap="round"
+            />
+
+            <path
+                d="M157 118 Q166 113 175 119"
+                stroke="#30252a"
+                stroke-width="4"
+                fill="none"
+                stroke-linecap="round"
+            />
+
+            <!-- eyes -->
+
+            <ellipse
+                cx="135"
+                cy="126"
+                rx="4"
+                ry="3"
+                fill="#29202a"
+            />
+
+            <ellipse
+                cx="166"
+                cy="126"
+                rx="4"
+                ry="3"
+                fill="#29202a"
+            />
+
+            <!-- nose -->
+
+            <path
+                d="M151 126 L147 144 L153 145"
+                stroke="#b47760"
+                stroke-width="2"
+                fill="none"
+                stroke-linecap="round"
+            />
+
+            <!-- smile -->
+
+            <path
+                d="M138 154 Q150 162 163 154"
+                stroke="#874b4a"
+                stroke-width="3"
+                fill="none"
+                stroke-linecap="round"
+            />
+
+            <!-- glasses -->
+
+            <rect
+                x="121"
+                y="117"
+                width="25"
+                height="17"
+                rx="6"
+                fill="none"
+                stroke="#b9bec6"
+                stroke-width="2"
+            />
+
+            <rect
+                x="154"
+                y="117"
+                width="25"
+                height="17"
+                rx="6"
+                fill="none"
+                stroke="#b9bec6"
+                stroke-width="2"
+            />
+
+            <path
+                d="M146 123 H154"
+                stroke="#b9bec6"
+                stroke-width="2"
+            />
+
+            <!-- stethoscope -->
+
+            <path
+                d="
+                    M119 207
+                    C119 235 135 248 150 248
+                    C165 248 181 235 181 207
+                "
+                fill="none"
+                stroke="#c5cbd1"
+                stroke-width="4"
+                stroke-linecap="round"
+            />
+
+            <circle
+                cx="150"
+                cy="251"
+                r="8"
+                fill="#d7b052"
+            />
+
+            <!-- coat pocket -->
+
+            <path
+                d="
+                    M181 257
+                    L214 257
+                    L214 288
+                    L181 288
+                    Z
+                "
+                fill="none"
+                stroke="#c2c7ce"
+                stroke-width="2"
+            />
+
+            <!-- gold badge -->
+
+            <circle
+                cx="198"
+                cy="232"
+                r="9"
+                fill="#d7b052"
+            />
+
+            <path
+                d="
+                    M198 227
+                    V237
+                    M193 232
+                    H203
+                "
+                stroke="#fff"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+
+        </svg>
+
+    </div>
+
+
+    <div class="card-content">
+
+        <div class="card-title">
+            دخول الطبيب
+        </div>
+
+        <div class="card-subtitle">
+            DOCTOR
+        </div>
+
+        <div class="card-description">
+
+            أدر مواعيدك ومرضاك
+            <br>
+            ونظّم استشاراتك من مكان واحد.
+
+        </div>
+
+
+        <div class="login-button">
+
+            <span class="arrow">
+                ←
+            </span>
+
+            الدخول كطبيب
+
+        </div>
+
+    </div>
+
+</a>
+
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section class="features">
+
+    <div class="feature">
+
+        <span class="feature-icon">
+            ✓
+        </span>
+
+        حجز سريع
+
+    </div>
+
+
+    <div class="feature">
+
+        <span class="feature-icon">
+            ◷
+        </span>
+
+        متابعة مباشرة
+
+    </div>
+
+
+    <div class="feature">
+
+        <span class="feature-icon">
+            ♥
+        </span>
+
+        رعاية موثوقة
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <strong>
+        TABIBK
+    </strong>
+
+    <p>
+        طبيبك ... دائمًا معك
+    </p>
+
+</footer>
+
+
+</main>
 
 </body>
 

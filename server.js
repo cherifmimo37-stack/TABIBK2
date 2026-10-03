@@ -1341,19 +1341,20 @@ const nextAppointment =
         : null;
 
             const queueCount =
-                doctorAppointments.filter(
-                    appointment =>
-                        [
-                            "pending",
-                            "confirmed",
-                            "accepted",
-                            "waiting"
-                        ].includes(
-                            String(
-                                appointment.status || ""
-                            ).toLowerCase()
-                        )
-                ).length;
+    upcomingAppointments.filter(
+        appointment =>
+            [
+                "pending",
+                "confirmed",
+                "accepted",
+                "started",
+                "waiting"
+            ].includes(
+                String(
+                    appointment.status || ""
+                ).toLowerCase()
+            )
+    ).length;
 
             const ratings =
                 database.appointments.filter(

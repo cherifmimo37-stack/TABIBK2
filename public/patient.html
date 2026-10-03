@@ -3001,25 +3001,38 @@ function selectDoctorCard(doctor, card){
             reviewsHtml =
                 data.reviews.map(
                     item => `
-                        <div class="doctor-review-item">
+<div class="doctor-review-item">
 
-                            <div class="doctor-review-top">
+    <div class="doctor-review-top">
 
-                                <span class="doctor-review-stars">
-                                    ${"★".repeat(item.rating)}
-                                    ${"☆".repeat(5 - item.rating)}
-                                </span>
+        <span class="doctor-review-patient">
+            <span class="doctor-review-patient-avatar">
+                <i class="fa-solid fa-user"></i>
+            </span>
 
-                                <span class="doctor-review-date">
-                                    ${item.ratedAt
-                                        ? new Date(
-                                            item.ratedAt
-                                          ).toLocaleDateString("ar-DZ")
-                                        : ""
-                                    }
-                                </span>
+            <span class="doctor-review-patient-name">
+                ${escapeHtml(
+                    item.reviewerName ||
+                    "مريض"
+                )}
+            </span>
+        </span>
 
-                            </div>
+        <span class="doctor-review-date">
+            ${item.ratedAt
+                ? new Date(
+                    item.ratedAt
+                  ).toLocaleDateString("ar-DZ")
+                : ""
+            }
+        </span>
+
+    </div>
+
+    <div class="doctor-review-stars">
+        ${"★".repeat(item.rating)}
+        ${"☆".repeat(5 - item.rating)}
+    </div>
 
                             <div class="doctor-review-text">
                                 ${escapeHtml(item.review)}

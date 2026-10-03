@@ -4184,6 +4184,12 @@ button.disabled=true;
         message.textContent =
             "تم إرسال تقييمك بنجاح ❤️";
 
+          if(data.doctorId){
+    await loadDoctorReviews(
+        data.doctorId
+    );
+}
+
         message.style.color =
             "#198754";
 

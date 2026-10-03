@@ -3901,16 +3901,19 @@ app.post(
 
 
         const rating =
-            Number(
-                req.body.rating
-            );
+    Number(
+        req.body.rating
+    );
 
+const review =
+    String(
+        req.body.review || ""
+    ).trim();
 
-        const review =
-            String(
-                req.body.review ||
-                ""
-            ).trim();
+const reviewerName =
+    String(
+        req.body.reviewerName || ""
+    ).trim();
 
 
         // التحقق من التقييم
@@ -3953,13 +3956,17 @@ app.post(
             rating;
 
 
-        appointment.doctorReview =
-            review;
+        appointment.doctorRating =
+    rating;
 
+appointment.doctorReview =
+    review;
 
-        appointment.ratedAt =
-            new Date().toISOString();
+appointment.reviewerName =
+    reviewerName;
 
+appointment.ratedAt =
+    new Date().toISOString();
 
         appointment.updatedAt =
             new Date().toISOString();

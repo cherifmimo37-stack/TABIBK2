@@ -562,7 +562,7 @@ body{
 }
 
 /* =========================================================
-   STRONG 3D CARTOON AVATARS
+   PREMIUM 3D CARTOON AVATAR
    ========================================================= */
 
 .person{
@@ -572,20 +572,27 @@ body{
     z-index:3;
 
     filter:
-        drop-shadow(0 24px 18px rgba(34,12,45,.28))
-        drop-shadow(0 5px 5px rgba(34,12,45,.16));
+        drop-shadow(
+            0 24px 20px
+            rgba(34,12,45,.25)
+        );
 
     transform-style:preserve-3d;
 }
 
+/* =========================================================
+   HEAD LIGHT
+   ========================================================= */
+
 .person::before{
     content:"";
+
     position:absolute;
 
-    width:155px;
-    height:155px;
+    width:160px;
+    height:160px;
 
-    top:5px;
+    top:0;
     left:50%;
 
     transform:translateX(-50%);
@@ -594,52 +601,57 @@ body{
 
     background:
         radial-gradient(
-            circle at 35% 25%,
-            rgba(255,255,255,.75),
-            rgba(225,205,235,.32) 38%,
-            rgba(157,103,181,.12) 62%,
+            circle at 35% 22%,
+            rgba(255,255,255,.95),
+            rgba(244,226,250,.55) 28%,
+            rgba(196,143,216,.20) 58%,
             transparent 74%
         );
 
-    filter:blur(1px);
+    filter:blur(2px);
 
-    z-index:-2;
+    z-index:-3;
 }
 
 /* =========================================================
-   HAIR
+   HAIR - PREMIUM
    ========================================================= */
 
 .person .hair{
     position:absolute;
 
-    width:110px;
-    height:72px;
+    width:112px;
+    height:76px;
 
-    top:7px;
+    top:5px;
     left:50%;
 
     transform:translateX(-50%);
 
     background:
         radial-gradient(
-            circle at 28% 18%,
-            #765b79 0%,
-            #49324c 27%,
-            #25172a 62%,
-            #110b14 100%
+            circle at 27% 17%,
+            #85678a 0%,
+            #543b58 22%,
+            #2c1c31 57%,
+            #100a13 100%
         );
 
     border-radius:
-        58px 58px
+        60px 60px
         34px 34px;
 
-    z-index:6;
+    z-index:7;
 
     box-shadow:
-        inset 8px 5px 12px rgba(255,255,255,.16),
-        inset -10px -12px 16px rgba(0,0,0,.35),
-        0 7px 12px rgba(34,13,42,.22);
+        inset 10px 7px 14px
+        rgba(255,255,255,.18),
+
+        inset -12px -14px 18px
+        rgba(0,0,0,.42),
+
+        0 9px 13px
+        rgba(37,14,44,.20);
 }
 
 .person .hair::before{
@@ -647,11 +659,11 @@ body{
 
     position:absolute;
 
-    width:65px;
-    height:20px;
+    width:68px;
+    height:21px;
 
-    top:5px;
-    left:13px;
+    top:6px;
+    left:12px;
 
     border-radius:50%;
 
@@ -659,26 +671,26 @@ body{
         linear-gradient(
             100deg,
             transparent,
-            rgba(255,255,255,.19),
+            rgba(255,255,255,.28),
             transparent
         );
 
-    transform:rotate(-17deg);
+    transform:rotate(-18deg);
 
     filter:blur(2px);
 }
 
 /* =========================================================
-   FACE
+   FACE - 3D
    ========================================================= */
 
 .person .face{
     position:absolute;
 
-    width:98px;
-    height:113px;
+    width:100px;
+    height:115px;
 
-    top:29px;
+    top:28px;
     left:50%;
 
     transform:translateX(-50%);
@@ -689,19 +701,25 @@ body{
 
     background:
         radial-gradient(
-            circle at 31% 20%,
-            #fff5ea 0%,
-            #ffdfc5 23%,
-            #f3b391 57%,
-            #c9785b 100%
+            circle at 30% 18%,
+            #fff8f0 0%,
+            #ffe2cb 22%,
+            #f2b18e 55%,
+            #bd6e54 100%
         );
 
     box-shadow:
-        inset 9px 7px 15px rgba(255,255,255,.55),
-        inset -11px -14px 20px rgba(106,47,35,.19),
-        0 6px 10px rgba(56,23,30,.15);
 
-    z-index:5;
+        inset 11px 8px 17px
+        rgba(255,255,255,.62),
+
+        inset -12px -16px 22px
+        rgba(99,42,31,.22),
+
+        0 8px 12px
+        rgba(57,22,30,.16);
+
+    z-index:6;
 }
 
 /* ears */
@@ -711,18 +729,23 @@ body{
 
     position:absolute;
 
-    width:13px;
-    height:27px;
+    width:14px;
+    height:29px;
 
-    top:44px;
-    left:-8px;
+    top:45px;
+    left:-9px;
 
     border-radius:50%;
 
-    background:#e8a684;
+    background:
+        linear-gradient(
+            90deg,
+            #d88767,
+            #efae89
+        );
 
     box-shadow:
-        93px 0 0 #e8a684;
+        95px 0 0 #dc8a69;
 }
 
 /* nose */
@@ -732,18 +755,24 @@ body{
 
     position:absolute;
 
-    width:9px;
-    height:18px;
+    width:10px;
+    height:20px;
 
-    top:60px;
+    top:59px;
     left:50%;
 
     transform:translateX(-50%);
 
-    border-right:2px solid rgba(111,57,43,.30);
-    border-bottom:2px solid rgba(111,57,43,.22);
+    border-right:
+        2px solid
+        rgba(112,55,41,.30);
 
-    border-radius:0 0 6px 0;
+    border-bottom:
+        2px solid
+        rgba(112,55,41,.22);
+
+    border-radius:
+        0 0 7px 0;
 }
 
 /* =========================================================
@@ -753,25 +782,26 @@ body{
 .person .eye{
     position:absolute;
 
-    top:57px;
+    top:56px;
 
-    width:12px;
-    height:9px;
+    width:13px;
+    height:10px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
-            circle at 35% 25%,
-            #ffffff 0 15%,
-            #39243c 18% 65%,
-            #0c0710 100%
+            circle at 34% 23%,
+            #ffffff 0 14%,
+            #493047 18% 58%,
+            #09060c 100%
         );
 
     box-shadow:
-        0 2px 3px rgba(0,0,0,.24);
+        0 2px 4px
+        rgba(0,0,0,.28);
 
-    z-index:9;
+    z-index:10;
 }
 
 .person .eye.one{
@@ -782,33 +812,29 @@ body{
     right:22px;
 }
 
-/* eyebrows */
-
 .person .eye::before{
     content:"";
 
     position:absolute;
 
-    width:18px;
+    width:19px;
     height:4px;
 
     top:-9px;
 
     border-radius:50%;
 
-    background:#4a303f;
-
-    opacity:.9;
+    background:#46303f;
 }
 
 .person .eye.one::before{
     left:-3px;
-    transform:rotate(-6deg);
+    transform:rotate(-7deg);
 }
 
 .person .eye.two::before{
     right:-3px;
-    transform:rotate(6deg);
+    transform:rotate(7deg);
 }
 
 /* =========================================================
@@ -823,15 +849,16 @@ body{
 
     transform:translateX(-50%);
 
-    width:31px;
-    height:14px;
+    width:33px;
+    height:15px;
 
     border-bottom:
-        3px solid #914951;
+        3px solid
+        #914951;
 
     border-radius:50%;
 
-    z-index:10;
+    z-index:11;
 }
 
 .person .smile::after{
@@ -839,7 +866,7 @@ body{
 
     position:absolute;
 
-    width:17px;
+    width:18px;
     height:4px;
 
     left:50%;
@@ -849,7 +876,8 @@ body{
 
     border-radius:50%;
 
-    background:rgba(255,255,255,.82);
+    background:
+        rgba(255,255,255,.88);
 }
 
 /* =========================================================
@@ -859,8 +887,8 @@ body{
 .person .body{
     position:absolute;
 
-    width:160px;
-    height:116px;
+    width:162px;
+    height:117px;
 
     bottom:0;
     left:50%;
@@ -868,8 +896,8 @@ body{
     transform:translateX(-50%);
 
     border-radius:
-        74px 74px
-        23px 23px;
+        75px 75px
+        24px 24px;
 
     overflow:hidden;
 }
@@ -881,22 +909,23 @@ body{
 
     position:absolute;
 
-    width:34px;
-    height:28px;
+    width:35px;
+    height:29px;
 
     top:-16px;
     left:50%;
 
     transform:translateX(-50%);
 
-    border-radius:0 0 17px 17px;
+    border-radius:
+        0 0 18px 18px;
 
     background:
         linear-gradient(
             90deg,
             #bd7055,
-            #f0ae8a,
-            #c8795b
+            #f0af8b,
+            #c87a5e
         );
 }
 
@@ -908,22 +937,28 @@ body{
     background:
         linear-gradient(
             145deg,
-            #ad76c5 0%,
-            #783b96 42%,
-            #39164e 100%
+            #b37bca 0%,
+            #7b3d98 40%,
+            #35134b 100%
         );
 
     box-shadow:
-        inset 14px 9px 23px rgba(255,255,255,.20),
-        inset -15px -17px 25px rgba(31,8,43,.35),
-        0 9px 14px rgba(45,17,57,.18);
+
+        inset 15px 10px 24px
+        rgba(255,255,255,.22),
+
+        inset -16px -18px 27px
+        rgba(31,8,43,.38),
+
+        0 10px 15px
+        rgba(45,17,57,.20);
 }
 
 .patient .shirt{
     position:absolute;
 
-    width:111px;
-    height:93px;
+    width:112px;
+    height:94px;
 
     left:50%;
     bottom:0;
@@ -931,20 +966,24 @@ body{
     transform:translateX(-50%);
 
     border-radius:
-        47px 47px
+        48px 48px
         13px 13px;
 
     background:
         linear-gradient(
             145deg,
-            #ffffff,
-            #f4edf7 48%,
-            #d7c5de
+            #ffffff 0%,
+            #f7f1f9 45%,
+            #d4c1dc 100%
         );
 
     box-shadow:
-        inset 7px 4px 10px rgba(255,255,255,.95),
-        inset -8px -10px 14px rgba(77,40,89,.12);
+
+        inset 8px 5px 11px
+        rgba(255,255,255,.98),
+
+        inset -9px -11px 15px
+        rgba(77,40,89,.13);
 }
 
 /* =========================================================
@@ -956,21 +995,27 @@ body{
         linear-gradient(
             145deg,
             #ffffff 0%,
-            #f6f0f8 42%,
-            #c8bacf 100%
+            #f7f2f9 43%,
+            #c7b8ce 100%
         );
 
     box-shadow:
-        inset 14px 9px 23px rgba(255,255,255,1),
-        inset -14px -17px 25px rgba(78,43,91,.16),
-        0 9px 14px rgba(45,17,57,.18);
+
+        inset 15px 10px 24px
+        rgba(255,255,255,1),
+
+        inset -15px -18px 26px
+        rgba(78,43,91,.17),
+
+        0 10px 15px
+        rgba(45,17,57,.20);
 }
 
 .doctor .shirt{
     position:absolute;
 
-    width:115px;
-    height:94px;
+    width:116px;
+    height:95px;
 
     left:50%;
     bottom:0;
@@ -985,16 +1030,20 @@ body{
         linear-gradient(
             145deg,
             #ffffff,
-            #f1eaf4
+            #f0e9f3
         );
 
     box-shadow:
-        inset 7px 4px 10px rgba(255,255,255,1),
-        inset -8px -10px 14px rgba(77,40,89,.11);
+
+        inset 8px 5px 11px
+        rgba(255,255,255,1),
+
+        inset -9px -11px 15px
+        rgba(77,40,89,.11);
 }
 
 /* =========================================================
-   TIE
+   DOCTOR TIE
    ========================================================= */
 
 .tie{
@@ -1005,15 +1054,15 @@ body{
 
     transform:translateX(-50%);
 
-    width:17px;
-    height:63px;
+    width:18px;
+    height:64px;
 
     background:
         linear-gradient(
             90deg,
-            #3d1455,
-            #bd80d4,
-            #4d1a67
+            #37114e,
+            #c083d8,
+            #4c1765
         );
 
     clip-path:
@@ -1025,7 +1074,11 @@ body{
             0 100%
         );
 
-    z-index:6;
+    z-index:7;
+
+    box-shadow:
+        2px 0 4px
+        rgba(40,13,54,.18);
 }
 
 /* =========================================================
@@ -1035,26 +1088,27 @@ body{
 .stethoscope{
     position:absolute;
 
-    right:5px;
-    top:16px;
+    right:4px;
+    top:15px;
 
-    width:54px;
-    height:61px;
+    width:55px;
+    height:63px;
 
     border:
-        4px solid #d0a13f;
+        4px solid
+        #d1a13e;
 
     border-top:0;
 
     border-radius:
-        0 0 31px 31px;
+        0 0 32px 32px;
 
-    z-index:8;
+    z-index:9;
 
     filter:
         drop-shadow(
             0 3px 3px
-            rgba(66,38,12,.20)
+            rgba(66,38,12,.24)
         );
 }
 
@@ -1063,23 +1117,25 @@ body{
 
     position:absolute;
 
-    width:15px;
-    height:15px;
+    width:16px;
+    height:16px;
 
     border-radius:50%;
 
-    bottom:-9px;
+    bottom:-10px;
     left:14px;
 
     background:
         radial-gradient(
-            circle at 32% 25%,
-            #ffe69a,
-            #b47c1e 78%
+            circle at 30% 22%,
+            #fff0a8,
+            #d09a2d 58%,
+            #8c5d12 100%
         );
 
     box-shadow:
-        0 3px 4px rgba(50,29,8,.25);
+        0 3px 5px
+        rgba(50,29,8,.30);
 }
 
 /* =========================================================

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 
 <head>
@@ -6,8 +7,9 @@
 <meta charset="UTF-8">
 
 <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+
 >
 
 <title>طبيبك | TABIBK</title>
@@ -23,8 +25,10 @@
 <style>
 
 /* =========================================================
-   RESET
-   ========================================================= */
+   TABIBK PREMIUM LANDING
+   Purple / Silver Glass / Gold
+   Mobile First
+========================================================= */
 
 *{
     margin:0;
@@ -34,7 +38,6 @@
 }
 
 :root{
-
     --purple-dark:#090511;
     --purple:#160b27;
     --purple2:#24113c;
@@ -49,44 +52,32 @@
 
     --white:#ffffff;
     --muted:#bcb9c7;
-
 }
 
 html,
 body{
-
     width:100%;
     min-height:100%;
-
 }
 
 body{
-
     font-family:"Cairo",sans-serif;
-
     color:#fff;
-
     background:#090511;
-
     overflow-x:hidden;
-
 }
 
 
 /* =========================================================
    MAIN PAGE
-   ========================================================= */
+========================================================= */
 
 .page{
-
     min-height:100vh;
-
     position:relative;
-
     overflow:hidden;
 
     background:
-
         radial-gradient(
             circle at 12% 8%,
             rgba(218,221,230,.17),
@@ -118,16 +109,14 @@ body{
             #25143d 58%,
             #10081d 100%
         );
-
 }
 
 
 /* =========================================================
    MEDICAL GLASS DECORATION
-   ========================================================= */
+========================================================= */
 
 .page::before{
-
     content:"";
 
     position:absolute;
@@ -141,7 +130,6 @@ body{
     border-radius:50%;
 
     background:
-
         radial-gradient(
             circle,
             rgba(220,223,232,.18),
@@ -151,12 +139,9 @@ body{
     filter:blur(12px);
 
     pointer-events:none;
-
 }
 
-
 .page::after{
-
     content:"";
 
     position:absolute;
@@ -170,7 +155,6 @@ body{
     border-radius:50%;
 
     background:
-
         radial-gradient(
             circle,
             rgba(133,88,182,.25),
@@ -180,30 +164,22 @@ body{
     filter:blur(15px);
 
     pointer-events:none;
-
 }
 
 
 /* =========================================================
    MEDICAL LINES
-   ========================================================= */
+========================================================= */
 
 .medical-lines{
-
     position:absolute;
-
     inset:0;
-
     z-index:1;
-
     pointer-events:none;
-
     opacity:.14;
-
 }
 
 .medical-lines::before{
-
     content:"";
 
     position:absolute;
@@ -223,11 +199,9 @@ body{
     right:-50px;
 
     transform:rotate(-22deg);
-
 }
 
 .medical-lines::after{
-
     content:"";
 
     position:absolute;
@@ -247,18 +221,15 @@ body{
     left:-40px;
 
     transform:rotate(25deg);
-
 }
 
 
 /* =========================================================
    TOP ADMIN
-   ========================================================= */
+========================================================= */
 
 .topbar{
-
     position:relative;
-
     z-index:20;
 
     width:100%;
@@ -266,13 +237,10 @@ body{
     padding:15px 16px 0;
 
     display:flex;
-
     justify-content:flex-end;
-
 }
 
 .admin-btn{
-
     height:40px;
 
     padding:0 16px;
@@ -284,7 +252,6 @@ body{
         rgba(232,207,147,.50);
 
     background:
-
         linear-gradient(
             145deg,
             rgba(255,255,255,.13),
@@ -297,44 +264,34 @@ body{
     color:#f2d58f;
 
     font-family:inherit;
-
     font-size:11px;
-
     font-weight:800;
 
     display:flex;
-
     align-items:center;
-
     gap:7px;
 
     cursor:pointer;
 
     box-shadow:
-
         inset 0 1px
         rgba(255,255,255,.16),
 
         0 8px 25px
         rgba(0,0,0,.20);
-
 }
 
 .admin-btn:active{
-
     transform:scale(.96);
-
 }
 
 
 /* =========================================================
    CENTER LOGO
-   ========================================================= */
+========================================================= */
 
 .brand-area{
-
     position:relative;
-
     z-index:5;
 
     text-align:center;
@@ -343,18 +300,15 @@ body{
         13px
         20px
         5px;
-
 }
 
 
 /* =========================================================
    LOGO
-   ========================================================= */
+========================================================= */
 
 .logo{
-
     width:78px;
-
     height:78px;
 
     margin:0 auto 8px;
@@ -362,13 +316,10 @@ body{
     border-radius:25px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     background:
-
         linear-gradient(
             145deg,
             #f5f5f7 0%,
@@ -381,7 +332,6 @@ body{
         rgba(255,255,255,.78);
 
     box-shadow:
-
         0 16px 38px
         rgba(0,0,0,.30),
 
@@ -390,60 +340,47 @@ body{
 
         inset 0 1px
         rgba(255,255,255,.95);
-
 }
 
 .logo svg{
-
     width:53px;
     height:53px;
-
 }
 
 .brand-title{
-
     font-size:30px;
-
     line-height:1;
-
     font-weight:900;
 
     color:#fff;
 
     text-shadow:
-        0 3px 15px rgba(0,0,0,.25);
-
+        0 3px 15px
+        rgba(0,0,0,.25);
 }
 
 .brand-title span{
-
     color:var(--gold-light);
-
 }
 
 .brand-sub{
-
     margin-top:5px;
 
     color:#aaa9b7;
 
     font-size:8px;
-
     font-weight:800;
 
     letter-spacing:3px;
-
 }
 
 
 /* =========================================================
    HERO
-   ========================================================= */
+========================================================= */
 
 .hero{
-
     position:relative;
-
     z-index:5;
 
     text-align:center;
@@ -452,15 +389,12 @@ body{
         12px
         20px
         17px;
-
 }
 
 .hero-badge{
-
     display:inline-flex;
 
     align-items:center;
-
     gap:7px;
 
     padding:
@@ -479,16 +413,13 @@ body{
     color:#d6d5de;
 
     font-size:9px;
-
     font-weight:700;
 
     backdrop-filter:blur(16px);
     -webkit-backdrop-filter:blur(16px);
-
 }
 
 .status-dot{
-
     width:7px;
     height:7px;
 
@@ -499,21 +430,16 @@ body{
     box-shadow:
         0 0 12px
         rgba(98,220,164,.80);
-
 }
 
 .hero h1{
-
     margin-top:10px;
 
     font-size:22px;
-
     font-weight:900;
-
 }
 
 .hero p{
-
     margin:4px auto 0;
 
     max-width:310px;
@@ -521,24 +447,19 @@ body{
     color:#b8b5c2;
 
     font-size:10px;
-
     line-height:1.8;
-
 }
 
 
 /* =========================================================
    LOGIN AREA
-   ========================================================= */
+========================================================= */
 
 .login-area{
-
     position:relative;
-
     z-index:5;
 
     width:100%;
-
     max-width:540px;
 
     margin:auto;
@@ -547,11 +468,9 @@ body{
         0
         14px
         25px;
-
 }
 
 .cards{
-
     display:grid;
 
     grid-template-columns:
@@ -559,16 +478,14 @@ body{
         1fr;
 
     gap:11px;
-
 }
 
 
 /* =========================================================
    ROLE CARDS
-   ========================================================= */
+========================================================= */
 
 .role-card{
-
     position:relative;
 
     min-height:270px;
@@ -583,7 +500,6 @@ body{
     overflow:hidden;
 
     background:
-
         linear-gradient(
             145deg,
             rgba(239,241,246,.13),
@@ -598,7 +514,6 @@ body{
     -webkit-backdrop-filter:blur(25px);
 
     box-shadow:
-
         0 22px 48px
         rgba(0,0,0,.28),
 
@@ -611,23 +526,16 @@ body{
     transition:
         transform .18s ease,
         border-color .18s ease;
-
 }
 
 .role-card:active{
-
     transform:scale(.965);
 
     border-color:
         rgba(242,213,141,.95);
-
 }
 
-
-/* glass shine */
-
 .role-card::before{
-
     content:"";
 
     position:absolute;
@@ -641,17 +549,14 @@ body{
     border-radius:50%;
 
     background:
-
         radial-gradient(
             circle,
             rgba(232,235,242,.18),
             transparent 68%
         );
-
 }
 
 .role-card::after{
-
     content:"";
 
     position:absolute;
@@ -665,46 +570,36 @@ body{
     border-radius:50%;
 
     background:
-
         radial-gradient(
             circle,
             rgba(217,174,90,.13),
             transparent 70%
         );
-
 }
 
 
 /* =========================================================
    CARD HEADER
-   ========================================================= */
+========================================================= */
 
 .card-top{
-
     position:relative;
-
     z-index:3;
 
     display:flex;
 
     align-items:center;
-
     justify-content:space-between;
-
 }
 
 .role-label{
-
     color:#d0ccd7;
 
     font-size:8px;
-
     font-weight:700;
-
 }
 
 .online{
-
     width:7px;
     height:7px;
 
@@ -715,18 +610,15 @@ body{
     box-shadow:
         0 0 10px
         rgba(100,220,164,.8);
-
 }
 
 
 /* =========================================================
    AVATAR
-   ========================================================= */
+========================================================= */
 
 .avatar{
-
     position:relative;
-
     z-index:3;
 
     width:118px;
@@ -742,13 +634,10 @@ body{
     overflow:hidden;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     background:
-
         linear-gradient(
             145deg,
             rgba(230,232,239,.17),
@@ -760,37 +649,26 @@ body{
         rgba(239,204,126,.75);
 
     box-shadow:
-
         0 14px 32px
         rgba(0,0,0,.34),
 
         0 0 0 7px
         rgba(220,220,230,.045);
-
 }
 
 .avatar img{
-
     width:100%;
     height:100%;
 
     display:block;
 
     object-fit:contain;
-
     object-position:center;
 
     padding:2px;
-
 }
 
-
-/* =========================================================
-   FALLBACK AVATAR
-   ========================================================= */
-
 .avatar-fallback{
-
     width:100%;
     height:100%;
 
@@ -807,32 +685,25 @@ body{
             rgba(239,241,246,.20),
             rgba(50,27,70,.70)
         );
-
 }
 
 
 /* =========================================================
    CARD TEXT
-   ========================================================= */
+========================================================= */
 
 .card-title{
-
     position:relative;
-
     z-index:3;
 
     text-align:center;
 
     font-size:17px;
-
     font-weight:900;
-
 }
 
 .card-sub{
-
     position:relative;
-
     z-index:3;
 
     text-align:center;
@@ -842,22 +713,18 @@ body{
     color:#b9b5c1;
 
     font-size:8px;
-
 }
 
 
 /* =========================================================
    LOGIN BUTTON
-   ========================================================= */
+========================================================= */
 
 .login-btn{
-
     position:relative;
-
     z-index:4;
 
     width:100%;
-
     height:47px;
 
     margin-top:10px;
@@ -869,7 +736,6 @@ body{
         rgba(255,255,255,.30);
 
     background:
-
         linear-gradient(
             135deg,
             #f1d68e,
@@ -881,13 +747,11 @@ body{
     font-family:inherit;
 
     font-size:12px;
-
     font-weight:900;
 
     cursor:pointer;
 
     box-shadow:
-
         0 9px 21px
         rgba(205,159,67,.20),
 
@@ -897,34 +761,26 @@ body{
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     gap:7px;
-
 }
 
 .login-btn:active{
-
     transform:scale(.97);
-
 }
 
 .login-arrow{
-
     font-size:17px;
-
 }
 
 
 /* =========================================================
    SECURITY
-   ========================================================= */
+========================================================= */
 
 .security{
-
     position:relative;
-
     z-index:5;
 
     display:flex;
@@ -938,26 +794,22 @@ body{
     color:#85818f;
 
     font-size:7px;
-
 }
 
 .security span{
-
     display:flex;
 
     align-items:center;
 
     gap:4px;
-
 }
 
 
 /* =========================================================
-   LOGIN MODAL
-   ========================================================= */
+   MODAL
+========================================================= */
 
 .modal{
-
     position:fixed;
 
     inset:0;
@@ -967,7 +819,6 @@ body{
     display:none;
 
     align-items:center;
-
     justify-content:center;
 
     padding:20px;
@@ -977,19 +828,14 @@ body{
 
     backdrop-filter:blur(13px);
     -webkit-backdrop-filter:blur(13px);
-
 }
 
 .modal.show{
-
     display:flex;
-
 }
 
 .modal-box{
-
     width:100%;
-
     max-width:390px;
 
     padding:
@@ -1000,7 +846,6 @@ body{
     border-radius:27px;
 
     background:
-
         linear-gradient(
             145deg,
             rgba(240,242,247,.15),
@@ -1015,7 +860,6 @@ body{
     -webkit-backdrop-filter:blur(28px);
 
     box-shadow:
-
         0 30px 80px
         rgba(0,0,0,.55),
 
@@ -1024,62 +868,50 @@ body{
 
     animation:
         modalIn .22s ease;
-
 }
 
 @keyframes modalIn{
 
     from{
-
         opacity:0;
 
         transform:
             scale(.94)
             translateY(12px);
-
     }
 
     to{
-
         opacity:1;
 
         transform:
             scale(1)
             translateY(0);
-
     }
-
 }
 
 
 /* =========================================================
    MODAL HEADER
-   ========================================================= */
+========================================================= */
 
 .modal-head{
-
     display:flex;
 
     align-items:center;
-
     justify-content:space-between;
 
     margin-bottom:18px;
-
 }
 
 .modal-title{
-
     display:flex;
 
     align-items:center;
 
     gap:10px;
-
 }
 
 .modal-icon{
-
     width:42px;
     height:42px;
 
@@ -1088,11 +920,9 @@ body{
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     background:
-
         linear-gradient(
             145deg,
             rgba(237,239,245,.25),
@@ -1104,29 +934,22 @@ body{
         rgba(232,198,121,.30);
 
     font-size:20px;
-
 }
 
 .modal-title h2{
-
     font-size:17px;
-
     font-weight:900;
-
 }
 
 .modal-title p{
-
     margin-top:2px;
 
     font-size:8px;
 
     color:#aaa4b3;
-
 }
 
 .close{
-
     width:34px;
     height:34px;
 
@@ -1142,18 +965,15 @@ body{
     font-size:19px;
 
     cursor:pointer;
-
 }
 
 
 /* =========================================================
    INPUTS
-   ========================================================= */
+========================================================= */
 
 .input{
-
     width:100%;
-
     height:50px;
 
     margin-bottom:10px;
@@ -1178,35 +998,28 @@ body{
     font-family:inherit;
 
     font-size:12px;
-
 }
 
 .input:focus{
-
     border-color:
         rgba(225,185,99,.55);
 
     box-shadow:
         0 0 0 3px
         rgba(225,185,99,.06);
-
 }
 
 .input::placeholder{
-
     color:#827a8d;
-
 }
 
 
 /* =========================================================
    SUBMIT
-   ========================================================= */
+========================================================= */
 
 .submit{
-
     width:100%;
-
     height:50px;
 
     margin-top:3px;
@@ -1216,7 +1029,6 @@ body{
     border-radius:14px;
 
     background:
-
         linear-gradient(
             135deg,
             #f0d38b,
@@ -1228,34 +1040,23 @@ body{
     font-family:inherit;
 
     font-size:12px;
-
     font-weight:900;
 
     cursor:pointer;
 
     box-shadow:
-
         0 10px 24px
         rgba(205,159,67,.18),
 
         inset 0 1px
         rgba(255,255,255,.7);
-
 }
 
 .submit:active{
-
     transform:scale(.98);
-
 }
 
-
-/* =========================================================
-   MODAL SWITCH
-   ========================================================= */
-
 .modal-switch{
-
     display:flex;
 
     justify-content:center;
@@ -1267,27 +1068,23 @@ body{
     font-size:8px;
 
     text-align:center;
-
 }
 
 
 /* =========================================================
    SMALL PHONES
-   ========================================================= */
+========================================================= */
 
 @media(max-width:350px){
 
     .topbar{
-
         padding:
             11px
             12px
             0;
-
     }
 
     .admin-btn{
-
         height:36px;
 
         padding:
@@ -1295,121 +1092,88 @@ body{
             11px;
 
         font-size:10px;
-
     }
 
     .logo{
-
         width:68px;
         height:68px;
 
         border-radius:21px;
-
     }
 
     .logo svg{
-
         width:45px;
         height:45px;
-
     }
 
     .brand-title{
-
         font-size:26px;
-
     }
 
     .hero h1{
-
         font-size:20px;
-
     }
 
     .role-card{
-
         min-height:245px;
-
     }
 
     .avatar{
-
         width:96px;
         height:96px;
-
     }
 
     .card-title{
-
         font-size:15px;
-
     }
 
     .login-btn{
-
         height:43px;
-
         font-size:11px;
-
     }
-
 }
 
 
 /* =========================================================
    VERY SMALL WIDTH
-   ========================================================= */
+========================================================= */
 
 @media(max-width:310px){
 
     .cards{
-
         gap:7px;
-
     }
 
     .role-card{
-
         padding:
             9px
             7px
             10px;
 
         border-radius:21px;
-
     }
 
     .avatar{
-
         width:82px;
         height:82px;
-
     }
 
     .card-title{
-
         font-size:14px;
-
     }
 
     .card-sub{
-
         font-size:7px;
-
     }
 
     .login-btn{
-
         font-size:10px;
-
     }
-
 }
 
 </style>
 
 </head>
-
 
 <body>
 
@@ -1417,302 +1181,307 @@ body{
 
 <div class="medical-lines"></div>
 
-
 <!-- =====================================================
-     ADMIN TOP
-     ===================================================== -->
+     ADMIN
+===================================================== -->
 
 <div class="topbar">
 
-    <button
-        class="admin-btn"
-        type="button"
-        onclick="openAdmin()"
+```
+<button
+    class="admin-btn"
+    type="button"
+    onclick="openAdmin()"
+>
+
+    ⚙ الإدارة
+
+</button>
+```
+
+</div>
+
+<!-- =====================================================
+     BRAND
+===================================================== -->
+
+<section class="brand-area">
+
+```
+<div class="logo">
+
+    <svg
+        viewBox="0 0 100 100"
+        fill="none"
     >
 
-        ⚙ الإدارة
+        <path
+            d="
+                M50 82
+                C44 76 19 60 19 38
+                C19 25 28 17 39 17
+                C45 17 49 20 50 26
+                C51 20 55 17 61 17
+                C72 17 81 25 81 38
+                C81 60 56 76 50 82Z
+            "
+            stroke="#29153F"
+            stroke-width="7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
 
-    </button>
+        <path
+            d="
+                M24 45
+                H38
+                L43 35
+                L50 57
+                L57 40
+                L61 45
+                H76
+            "
+            stroke="#29153F"
+            stroke-width="5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+
+    </svg>
 
 </div>
 
 
-<!-- =====================================================
-     BRAND
-     ===================================================== -->
+<div class="brand-title">
 
-<section class="brand-area">
+    <span>طبيبك</span>
 
-    <div class="logo">
-
-        <svg
-            viewBox="0 0 100 100"
-            fill="none"
-        >
-
-            <!-- HEART -->
-
-            <path
-                d="
-                    M50 82
-                    C44 76 19 60 19 38
-                    C19 25 28 17 39 17
-                    C45 17 49 20 50 26
-                    C51 20 55 17 61 17
-                    C72 17 81 25 81 38
-                    C81 60 56 76 50 82Z
-                "
-                stroke="#29153F"
-                stroke-width="7"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            />
-
-            <!-- ECG -->
-
-            <path
-                d="
-                    M24 45
-                    H38
-                    L43 35
-                    L50 57
-                    L57 40
-                    L61 45
-                    H76
-                "
-                stroke="#29153F"
-                stroke-width="5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            />
-
-        </svg>
-
-    </div>
+</div>
 
 
-    <div class="brand-title">
+<div class="brand-sub">
 
-        <span>طبيبك</span>
+    TABIBK • DIGITAL HEALTH
 
-    </div>
-
-
-    <div class="brand-sub">
-
-        TABIBK • DIGITAL HEALTH
-
-    </div>
+</div>
+```
 
 </section>
-
 
 <!-- =====================================================
      HERO
-     ===================================================== -->
+===================================================== -->
 
 <section class="hero">
 
-    <div class="hero-badge">
+```
+<div class="hero-badge">
 
-        <span class="status-dot"></span>
+    <span class="status-dot"></span>
 
-        منصة الرعاية الصحية الرقمية
+    منصة الرعاية الصحية الرقمية
 
-    </div>
-
-
-    <h1>
-
-        أهلاً بك في طبيبك
-
-    </h1>
+</div>
 
 
-    <p>
+<h1>
 
-        اختر حسابك للوصول إلى خدماتك الطبية
-        بسهولة وأمان.
+    أهلاً بك في طبيبك
 
-    </p>
+</h1>
+
+
+<p>
+
+    اختر حسابك للوصول إلى خدماتك الطبية
+    بسهولة وأمان.
+
+</p>
+```
 
 </section>
 
-
 <!-- =====================================================
      LOGIN CARDS
-     ===================================================== -->
+===================================================== -->
 
 <main class="login-area">
 
-    <div class="cards">
+```
+<div class="cards">
 
 
-        <!-- =================================================
-             DOCTOR
-             ================================================= -->
+    <!-- =================================================
+         DOCTOR
+    ================================================= -->
 
-        <div class="role-card">
+    <div class="role-card">
 
-            <div class="card-top">
+        <div class="card-top">
 
-                <span class="role-label">
+            <span class="role-label">
 
-                    الطاقم الطبي
+                الطاقم الطبي
 
-                </span>
+            </span>
 
-                <span class="online"></span>
-
-            </div>
-
-
-            <div class="avatar">
-
-                <img
-                    src="/images/doctor-ai.png"
-                    alt="الطبيب"
-                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-                >
-
-                <div class="avatar-fallback">
-
-                    👨‍⚕️
-
-                </div>
-
-            </div>
-
-
-            <div class="card-title">
-
-                الطبيب
-
-            </div>
-
-
-            <div class="card-sub">
-
-                إدارة المواعيد والمرضى
-
-            </div>
-
-
-            <button
-                class="login-btn"
-                type="button"
-                onclick="doctorLogin()"
-            >
-
-                دخول الطبيب
-
-                <span class="login-arrow">
-
-                    ←
-
-                </span>
-
-            </button>
+            <span class="online"></span>
 
         </div>
 
 
-        <!-- =================================================
-             PATIENT
-             ================================================= -->
+        <div class="avatar">
 
-        <div class="role-card">
-
-            <div class="card-top">
-
-                <span class="role-label">
-
-                    الرعاية الصحية
-
-                </span>
-
-                <span class="online"></span>
-
-            </div>
-
-
-            <div class="avatar">
-
-                <img
-                    src="/images/patient-ai.png"
-                    alt="المريض"
-                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-                >
-
-                <div class="avatar-fallback">
-
-                    🧑‍⚕️
-
-                </div>
-
-            </div>
-
-
-            <div class="card-title">
-
-                المريض
-
-            </div>
-
-
-            <div class="card-sub">
-
-                حجز ومتابعة المواعيد
-
-            </div>
-
-
-            <button
-                class="login-btn"
-                type="button"
-                onclick="patientLogin()"
+            <img
+                src="/images/doctor-ai.png"
+                alt="الطبيب"
+                onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='flex';
+                "
             >
 
-                دخول المريض
+            <div class="avatar-fallback">
 
-                <span class="login-arrow">
+                👨‍⚕️
 
-                    ←
-
-                </span>
-
-            </button>
+            </div>
 
         </div>
 
 
+        <div class="card-title">
+
+            الطبيب
+
+        </div>
+
+
+        <div class="card-sub">
+
+            إدارة المواعيد والمرضى
+
+        </div>
+
+
+        <button
+            class="login-btn"
+            type="button"
+            onclick="doctorLogin()"
+        >
+
+            دخول الطبيب
+
+            <span class="login-arrow">
+
+                ←
+
+            </span>
+
+        </button>
+
     </div>
 
 
-    <div class="security">
+    <!-- =================================================
+         PATIENT
+    ================================================= -->
 
-        <span>
-            🔒 اتصال آمن
-        </span>
+    <div class="role-card">
 
-        <span>
-            🛡 بيانات محمية
-        </span>
+        <div class="card-top">
 
-        <span>
-            ✓ TABIBK
-        </span>
+            <span class="role-label">
+
+                الرعاية الصحية
+
+            </span>
+
+            <span class="online"></span>
+
+        </div>
+
+
+        <div class="avatar">
+
+            <img
+                src="/images/patient-ai.png"
+                alt="المريض"
+                onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='flex';
+                "
+            >
+
+            <div class="avatar-fallback">
+
+                🧑‍⚕️
+
+            </div>
+
+        </div>
+
+
+        <div class="card-title">
+
+            المريض
+
+        </div>
+
+
+        <div class="card-sub">
+
+            حجز ومتابعة المواعيد
+
+        </div>
+
+
+        <button
+            class="login-btn"
+            type="button"
+            onclick="patientLogin()"
+        >
+
+            دخول المريض
+
+            <span class="login-arrow">
+
+                ←
+
+            </span>
+
+        </button>
 
     </div>
+
+
+</div>
+
+
+<div class="security">
+
+    <span>
+        🔒 اتصال آمن
+    </span>
+
+    <span>
+        🛡 بيانات محمية
+    </span>
+
+    <span>
+        ✓ TABIBK
+    </span>
+
+</div>
+```
 
 </main>
 
 </div>
 
-
 <!-- =========================================================
      ADMIN MODAL
-     ========================================================= -->
+========================================================= -->
 
 <div
     class="modal"
@@ -1720,93 +1489,94 @@ body{
     onclick="closeOutside(event)"
 >
 
-    <div class="modal-box">
+```
+<div class="modal-box">
 
-        <div class="modal-head">
+    <div class="modal-head">
 
-            <div class="modal-title">
+        <div class="modal-title">
 
-                <div class="modal-icon">
+            <div class="modal-icon">
 
-                    🛡️
-
-                </div>
-
-                <div>
-
-                    <h2>
-
-                        دخول الإدارة
-
-                    </h2>
-
-                    <p>
-
-                        لوحة التحكم الخاصة بـ TABIBK
-
-                    </p>
-
-                </div>
+                🛡️
 
             </div>
 
+            <div>
 
-            <button
-                class="close"
-                type="button"
-                onclick="closeAdmin()"
-            >
+                <h2>
 
-                ×
+                    دخول الإدارة
 
-            </button>
+                </h2>
+
+                <p>
+
+                    لوحة التحكم الخاصة بـ TABIBK
+
+                </p>
+
+            </div>
 
         </div>
-
-
-        <input
-            class="input"
-            id="adminUser"
-            type="text"
-            placeholder="اسم المستخدم"
-            autocomplete="username"
-        >
-
-
-        <input
-            class="input"
-            id="adminPassword"
-            type="password"
-            placeholder="كلمة المرور"
-            autocomplete="current-password"
-        >
 
 
         <button
-            class="submit"
+            class="close"
             type="button"
-            onclick="adminLogin()"
+            onclick="closeAdmin()"
         >
 
-            تسجيل الدخول
+            ×
 
         </button>
 
+    </div>
 
-        <div class="modal-switch">
 
-            دخول محمي لمنصة TABIBK
+    <input
+        class="input"
+        id="adminUser"
+        type="text"
+        placeholder="اسم المستخدم"
+        autocomplete="username"
+    >
 
-        </div>
+
+    <input
+        class="input"
+        id="adminPassword"
+        type="password"
+        placeholder="كلمة المرور"
+        autocomplete="current-password"
+    >
+
+
+    <button
+        class="submit"
+        type="button"
+        onclick="adminLogin()"
+    >
+
+        تسجيل الدخول
+
+    </button>
+
+
+    <div class="modal-switch">
+
+        دخول محمي لمنصة TABIBK
 
     </div>
 
 </div>
+```
 
+</div>
 
 <!-- =========================================================
      DOCTOR LOGIN MODAL
-     ========================================================= -->
+========================================================= -->
 
 <div
     class="modal"
@@ -1814,216 +1584,126 @@ body{
     onclick="closeDoctorOutside(event)"
 >
 
-    <div class="modal-box">
+```
+<div class="modal-box">
 
-        <div class="modal-head">
+    <div class="modal-head">
 
-            <div class="modal-title">
+        <div class="modal-title">
 
-                <div class="modal-icon">
+            <div class="modal-icon">
 
-                    👨‍⚕️
-
-                </div>
-
-                <div>
-
-                    <h2>
-
-                        دخول الطبيب
-
-                    </h2>
-
-                    <p>
-
-                        حساب الطبيب في منصة TABIBK
-
-                    </p>
-
-                </div>
+                👨‍⚕️
 
             </div>
 
+            <div>
 
-            <button
-                class="close"
-                type="button"
-                onclick="closeDoctor()"
-            >
+                <h2>
 
-                ×
+                    دخول الطبيب
 
-            </button>
+                </h2>
+
+                <p>
+
+                    حساب الطبيب في منصة TABIBK
+
+                </p>
+
+            </div>
 
         </div>
-
-
-        <input
-            class="input"
-            id="doctorUser"
-            type="text"
-            placeholder="اسم المستخدم أو الهاتف"
-            autocomplete="username"
-        >
-
-
-        <input
-            class="input"
-            id="doctorPassword"
-            type="password"
-            placeholder="كلمة المرور"
-            autocomplete="current-password"
-        >
 
 
         <button
-            class="submit"
+            class="close"
             type="button"
-            onclick="submitDoctorLogin()"
+            onclick="closeDoctor()"
         >
 
-            دخول الطبيب
+            ×
 
         </button>
 
+    </div>
 
-        <div class="modal-switch">
 
-            دخول آمن للطاقم الطبي
+    <input
+        class="input"
+        id="doctorUser"
+        type="text"
+        placeholder="اسم المستخدم أو الهاتف"
+        autocomplete="username"
+    >
 
-        </div>
+
+    <input
+        class="input"
+        id="doctorPassword"
+        type="password"
+        placeholder="كلمة المرور"
+        autocomplete="current-password"
+    >
+
+
+    <button
+        class="submit"
+        type="button"
+        onclick="submitDoctorLogin()"
+    >
+
+        دخول الطبيب
+
+    </button>
+
+
+    <div class="modal-switch">
+
+        دخول آمن للطاقم الطبي
 
     </div>
 
 </div>
-
-
-<!-- =========================================================
-     PATIENT LOGIN MODAL
-     ========================================================= -->
-
-<div
-    class="modal"
-    id="patientModal"
-    onclick="closePatientOutside(event)"
->
-
-    <div class="modal-box">
-
-        <div class="modal-head">
-
-            <div class="modal-title">
-
-                <div class="modal-icon">
-
-                    🧑
-
-                </div>
-
-                <div>
-
-                    <h2>
-
-                        دخول المريض
-
-                    </h2>
-
-                    <p>
-
-                        الوصول إلى حجوزاتك ومواعيدك
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <button
-                class="close"
-                type="button"
-                onclick="closePatient()"
-            >
-
-                ×
-
-            </button>
-
-        </div>
-
-
-        <input
-            class="input"
-            id="patientPhone"
-            type="tel"
-            inputmode="tel"
-            placeholder="رقم الهاتف"
-            autocomplete="tel"
-        >
-
-
-        <input
-            class="input"
-            id="patientPassword"
-            type="password"
-            placeholder="كلمة المرور"
-            autocomplete="current-password"
-        >
-
-
-        <button
-            class="submit"
-            type="button"
-            onclick="submitPatientLogin()"
-        >
-
-            دخول المريض
-
-        </button>
-
-
-        <div class="modal-switch">
-
-            وصول سريع وآمن لخدماتك الطبية
-
-        </div>
-
-    </div>
+```
 
 </div>
-
 
 <script>
 
 /* =========================================================
-   HELPERS
-   ========================================================= */
+   MODAL HELPERS
+========================================================= */
 
 function showModal(id){
 
-    const modal = document.getElementById(id);
+    const modal =
+        document.getElementById(id);
 
-    if(!modal) return;
+    if(!modal){
+        return;
+    }
 
     modal.classList.add("show");
-
 }
 
 
 function hideModal(id){
 
-    const modal = document.getElementById(id);
+    const modal =
+        document.getElementById(id);
 
-    if(!modal) return;
+    if(!modal){
+        return;
+    }
 
     modal.classList.remove("show");
-
 }
 
 
 /* =========================================================
    DOCTOR
-   ========================================================= */
+========================================================= */
 
 function doctorLogin(){
 
@@ -2035,13 +1715,10 @@ function doctorLogin(){
             document.getElementById("doctorUser");
 
         if(input){
-
             input.focus();
-
         }
 
     },150);
-
 }
 
 
@@ -2054,7 +1731,10 @@ function closeDoctor(){
 
 function closeDoctorOutside(event){
 
-    if(event.target.id === "doctorModal"){
+    if(
+        event.target &&
+        event.target.id === "doctorModal"
+    ){
 
         closeDoctor();
 
@@ -2062,11 +1742,6 @@ function closeDoctorOutside(event){
 
 }
 
-
-/*
-   نحاول أولاً استعمال صفحات TABIBK الموجودة فعلاً.
-   إذا كانت غير موجودة، نستعمل مسار الدخول الرئيسي.
-*/
 
 function submitDoctorLogin(){
 
@@ -2095,8 +1770,8 @@ function submitDoctorLogin(){
 
 
     /*
-       إذا كان عندك لاحقاً doctor.html
-       يمكن تغييره هنا بسهولة.
+       صفحة الطبيب موجودة فعلاً داخل:
+       public/doctor.html
     */
 
     window.location.href =
@@ -2107,71 +1782,23 @@ function submitDoctorLogin(){
 
 /* =========================================================
    PATIENT
-   ========================================================= */
+   IMPORTANT:
+   لا يوجد للمريض اسم مستخدم أو كلمة مرور هنا.
+   ندخله مباشرة إلى patient.html.
+========================================================= */
 
 function patientLogin(){
 
-    showModal("patientModal");
+    /*
+       صفحة المريض موجودة فعلاً داخل:
+       public/patient.html
 
-    setTimeout(function(){
-
-        const input =
-            document.getElementById("patientPhone");
-
-        if(input){
-
-            input.focus();
-
-        }
-
-    },150);
-
-}
-
-
-function closePatient(){
-
-    hideModal("patientModal");
-
-}
-
-
-function closePatientOutside(event){
-
-    if(event.target.id === "patientModal"){
-
-        closePatient();
-
-    }
-
-}
-
-
-function submitPatientLogin(){
-
-    const phone =
-        document
-        .getElementById("patientPhone")
-        .value
-        .trim();
-
-    const password =
-        document
-        .getElementById("patientPassword")
-        .value
-        .trim();
-
-
-    if(!phone || !password){
-
-        alert(
-            "يرجى إدخال رقم الهاتف وكلمة المرور."
-        );
-
-        return;
-
-    }
-
+       لذلك لا نفتح أي Modal.
+       ولا نطلب:
+       - اسم مستخدم
+       - كلمة مرور
+       - حساب طبيب
+    */
 
     window.location.href =
         "/patient.html";
@@ -2181,7 +1808,7 @@ function submitPatientLogin(){
 
 /* =========================================================
    ADMIN
-   ========================================================= */
+========================================================= */
 
 function openAdmin(){
 
@@ -2193,13 +1820,10 @@ function openAdmin(){
             document.getElementById("adminUser");
 
         if(input){
-
             input.focus();
-
         }
 
     },150);
-
 }
 
 
@@ -2212,7 +1836,10 @@ function closeAdmin(){
 
 function closeOutside(event){
 
-    if(event.target.id === "adminModal"){
+    if(
+        event.target &&
+        event.target.id === "adminModal"
+    ){
 
         closeAdmin();
 
@@ -2220,10 +1847,6 @@ function closeOutside(event){
 
 }
 
-
-/* =========================================================
-   ADMIN LOGIN
-   ========================================================= */
 
 function adminLogin(){
 
@@ -2252,8 +1875,8 @@ function adminLogin(){
 
 
     /*
-       نفس المسار الذي كان مستعملاً سابقاً
-       في نسخة TABIBK.
+       صفحة الإدارة موجودة فعلاً داخل:
+       public/admin.html
     */
 
     window.location.href =
@@ -2264,33 +1887,32 @@ function adminLogin(){
 
 /* =========================================================
    ENTER KEY
-   ========================================================= */
+========================================================= */
 
 document.addEventListener(
     "keydown",
     function(event){
 
         if(event.key !== "Enter"){
-
             return;
-
         }
 
 
         const admin =
-            document
-            .getElementById("adminModal");
+            document.getElementById(
+                "adminModal"
+            );
 
         const doctor =
-            document
-            .getElementById("doctorModal");
-
-        const patient =
-            document
-            .getElementById("patientModal");
+            document.getElementById(
+                "doctorModal"
+            );
 
 
-        if(admin && admin.classList.contains("show")){
+        if(
+            admin &&
+            admin.classList.contains("show")
+        ){
 
             adminLogin();
 
@@ -2299,18 +1921,12 @@ document.addEventListener(
         }
 
 
-        if(doctor && doctor.classList.contains("show")){
+        if(
+            doctor &&
+            doctor.classList.contains("show")
+        ){
 
             submitDoctorLogin();
-
-            return;
-
-        }
-
-
-        if(patient && patient.classList.contains("show")){
-
-            submitPatientLogin();
 
             return;
 
@@ -2321,24 +1937,20 @@ document.addEventListener(
 
 
 /* =========================================================
-   ESC
-   ========================================================= */
+   ESCAPE
+========================================================= */
 
 document.addEventListener(
     "keydown",
     function(event){
 
         if(event.key !== "Escape"){
-
             return;
-
         }
 
         closeAdmin();
 
         closeDoctor();
-
-        closePatient();
 
     }
 );
@@ -2348,4 +1960,3 @@ document.addEventListener(
 </body>
 
 </html>
-

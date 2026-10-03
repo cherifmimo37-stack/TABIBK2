@@ -22,6 +22,10 @@
 
 <style>
 
+/* =========================================================
+   TABIBK PREMIUM SILVER MEDICAL GLASS
+   ========================================================= */
+
 *{
     margin:0;
     padding:0;
@@ -30,34 +34,47 @@
 }
 
 :root{
-    --purple-dark:#100820;
-    --purple:#24103f;
-    --purple-mid:#35195b;
-    --purple-light:#512b7b;
 
-    --gold:#d8ad5b;
-    --gold-light:#f1d58e;
+    --purple-dark:#0c0716;
+    --purple:#1c1031;
+    --purple2:#2b1748;
+    --purple3:#432462;
+
+    --silver:#e8e9ee;
+    --silver2:#bfc2cc;
+    --silver3:#9296a5;
+
+    --gold:#d9ae5a;
+    --gold-light:#f1d48b;
 
     --white:#ffffff;
-    --muted:#c9bed5;
+    --muted:#c8c8d2;
+
 }
 
 html,
 body{
+
     width:100%;
     min-height:100%;
+
 }
 
 body{
+
     font-family:"Cairo",sans-serif;
-    color:white;
-    background:#100820;
+
+    color:#fff;
+
+    background:#0c0716;
+
     overflow-x:hidden;
+
 }
 
 
 /* =========================================================
-   MAIN BACKGROUND
+   MAIN PAGE
    ========================================================= */
 
 .page{
@@ -71,32 +88,43 @@ body{
     background:
 
         radial-gradient(
-            circle at 15% 15%,
-            rgba(119,66,181,.30),
-            transparent 31%
+            circle at 15% 12%,
+            rgba(173,177,191,.18),
+            transparent 25%
         ),
 
         radial-gradient(
-            circle at 90% 30%,
-            rgba(82,42,133,.25),
-            transparent 28%
+            circle at 88% 18%,
+            rgba(116,69,170,.32),
+            transparent 29%
         ),
 
         radial-gradient(
-            circle at 50% 110%,
-            rgba(211,166,78,.10),
-            transparent 35%
+            circle at 50% 55%,
+            rgba(92,53,133,.18),
+            transparent 42%
+        ),
+
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(217,174,90,.10),
+            transparent 25%
         ),
 
         linear-gradient(
             145deg,
-            #0d0618 0%,
-            #1d0d34 42%,
-            #281348 70%,
-            #10071e 100%
+            #08050e 0%,
+            #171025 28%,
+            #25143d 58%,
+            #120a20 100%
         );
+
 }
 
+
+/* =========================================================
+   MEDICAL GLASS DECORATION
+   ========================================================= */
 
 .page::before{
 
@@ -104,23 +132,24 @@ body{
 
     position:absolute;
 
-    width:420px;
-    height:420px;
+    width:520px;
+    height:520px;
+
+    top:-250px;
+    right:-220px;
 
     border-radius:50%;
-
-    top:-220px;
-    right:-170px;
 
     background:
 
         radial-gradient(
             circle,
-            rgba(168,116,226,.24),
-            rgba(168,116,226,0)
+            rgba(220,223,232,.18),
+            rgba(220,223,232,0) 68%
         );
 
-    filter:blur(10px);
+    filter:blur(12px);
+
 }
 
 
@@ -130,41 +159,114 @@ body{
 
     position:absolute;
 
-    width:380px;
-    height:380px;
+    width:460px;
+    height:460px;
+
+    bottom:-280px;
+    left:-210px;
 
     border-radius:50%;
-
-    bottom:-230px;
-    left:-180px;
 
     background:
 
         radial-gradient(
             circle,
-            rgba(224,185,92,.13),
-            rgba(224,185,92,0)
+            rgba(133,88,182,.25),
+            rgba(133,88,182,0) 68%
         );
+
+    filter:blur(15px);
+
+}
+
+
+/* medical lines */
+
+.medical-lines{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:1;
+
+    pointer-events:none;
+
+    opacity:.14;
+
+}
+
+
+.medical-lines::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #d9dce5,
+            transparent
+        );
+
+    top:27%;
+
+    right:-50px;
+
+    transform:rotate(-22deg);
+
+}
+
+
+.medical-lines::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #d9dce5,
+            transparent
+        );
+
+    bottom:24%;
+
+    left:-40px;
+
+    transform:rotate(25deg);
+
 }
 
 
 /* =========================================================
-   ADMIN TOP
+   TOP ADMIN
    ========================================================= */
 
 .topbar{
 
     position:relative;
 
-    z-index:10;
+    z-index:20;
 
     width:100%;
 
-    padding:15px 17px 0;
+    padding:15px 16px 0;
 
     display:flex;
 
     justify-content:flex-end;
+
 }
 
 
@@ -172,22 +274,28 @@ body{
 
     height:40px;
 
-    padding:0 15px;
+    padding:0 16px;
 
     border-radius:13px;
 
     border:
+
         1px solid
-        rgba(239,204,126,.38);
+        rgba(232,207,147,.50);
 
     background:
-        rgba(255,255,255,.065);
 
-    backdrop-filter:blur(18px);
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.13),
+            rgba(255,255,255,.045)
+        );
 
-    -webkit-backdrop-filter:blur(18px);
+    backdrop-filter:blur(22px);
 
-    color:#f2d58d;
+    -webkit-backdrop-filter:blur(22px);
+
+    color:#f2d58f;
 
     font-family:inherit;
 
@@ -199,15 +307,16 @@ body{
 
     align-items:center;
 
-    gap:6px;
+    gap:7px;
 
     box-shadow:
 
         inset 0 1px
-        rgba(255,255,255,.09),
+        rgba(255,255,255,.16),
 
         0 8px 25px
-        rgba(0,0,0,.16);
+        rgba(0,0,0,.20);
+
 }
 
 
@@ -223,19 +332,26 @@ body{
 
     text-align:center;
 
-    padding:13px 20px 8px;
+    padding:
+
+        13px
+        20px
+        5px;
+
 }
 
 
+/* LOGO */
+
 .logo{
 
-    width:76px;
+    width:78px;
 
-    height:76px;
+    height:78px;
 
-    margin:0 auto 9px;
+    margin:0 auto 8px;
 
-    border-radius:24px;
+    border-radius:25px;
 
     display:flex;
 
@@ -247,45 +363,58 @@ body{
 
         linear-gradient(
             145deg,
-            #f0d48b,
-            #b78331
+            #f4f4f6 0%,
+            #c9cbd3 45%,
+            #a7aab5 100%
         );
 
     border:
+
         1px solid
-        rgba(255,255,255,.42);
+        rgba(255,255,255,.75);
 
     box-shadow:
 
-        0 13px 35px
+        0 16px 38px
         rgba(0,0,0,.30),
 
-        0 0 35px
-        rgba(221,176,83,.12),
+        0 0 30px
+        rgba(220,222,230,.13),
 
         inset 0 1px
-        rgba(255,255,255,.70);
+        rgba(255,255,255,.95);
+
 }
 
 
 .logo svg{
-    width:51px;
-    height:51px;
+
+    width:53px;
+    height:53px;
+
 }
 
 
 .brand-title{
 
-    font-size:29px;
+    font-size:30px;
 
     line-height:1;
 
     font-weight:900;
+
+    color:#fff;
+
+    text-shadow:
+        0 3px 15px rgba(0,0,0,.25);
+
 }
 
 
 .brand-title span{
+
     color:var(--gold-light);
+
 }
 
 
@@ -293,13 +422,14 @@ body{
 
     margin-top:5px;
 
-    font-size:9px;
+    color:#aaa9b7;
+
+    font-size:8px;
 
     font-weight:800;
 
     letter-spacing:3px;
 
-    color:#a99ab8;
 }
 
 
@@ -311,11 +441,16 @@ body{
 
     position:relative;
 
-    z-index:4;
+    z-index:5;
 
     text-align:center;
 
-    padding:12px 20px 19px;
+    padding:
+
+        12px
+        20px
+        17px;
+
 }
 
 
@@ -327,24 +462,30 @@ body{
 
     gap:7px;
 
-    padding:6px 12px;
+    padding:
+
+        6px
+        12px;
 
     border-radius:30px;
 
     background:
-        rgba(255,255,255,.045);
+
+        rgba(232,234,240,.065);
 
     border:
-        1px solid
-        rgba(255,255,255,.09);
 
-    color:#d7cde1;
+        1px solid
+        rgba(222,225,235,.15);
+
+    color:#d6d5de;
 
     font-size:9px;
 
     font-weight:700;
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(16px);
+
 }
 
 
@@ -356,21 +497,24 @@ body{
 
     border-radius:50%;
 
-    background:#61d9a0;
+    background:#62dca4;
 
     box-shadow:
+
         0 0 12px
-        rgba(97,217,160,.75);
+        rgba(98,220,164,.80);
+
 }
 
 
 .hero h1{
 
-    margin-top:11px;
+    margin-top:10px;
 
     font-size:22px;
 
     font-weight:900;
+
 }
 
 
@@ -380,16 +524,17 @@ body{
 
     max-width:310px;
 
-    color:#b9adca;
+    color:#b8b5c2;
 
     font-size:10px;
 
     line-height:1.8;
+
 }
 
 
 /* =========================================================
-   LOGIN AREA
+   LOGIN
    ========================================================= */
 
 .login-area{
@@ -404,7 +549,12 @@ body{
 
     margin:auto;
 
-    padding:0 14px 25px;
+    padding:
+
+        0
+        14px
+        25px;
+
 }
 
 
@@ -412,61 +562,66 @@ body{
 
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+
+        1fr
+        1fr;
 
     gap:11px;
+
 }
 
 
 /* =========================================================
-   ROLE CARD
+   CARDS
    ========================================================= */
 
 .role-card{
 
     position:relative;
 
-    min-height:255px;
+    min-height:270px;
 
-    padding:11px 10px 12px;
+    padding:
 
-    border-radius:25px;
+        11px
+        10px
+        12px;
+
+    border-radius:26px;
 
     overflow:hidden;
-
-    cursor:pointer;
 
     background:
 
         linear-gradient(
             145deg,
-            rgba(255,255,255,.105),
+            rgba(239,241,246,.13),
             rgba(255,255,255,.035)
         );
 
     border:
 
         1px solid
-        rgba(224,181,91,.58);
+        rgba(224,181,91,.66);
 
-    backdrop-filter:blur(22px);
+    backdrop-filter:blur(25px);
 
-    -webkit-backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(25px);
 
     box-shadow:
 
-        0 20px 45px
-        rgba(0,0,0,.27),
+        0 22px 48px
+        rgba(0,0,0,.28),
 
         inset 0 1px
-        rgba(255,255,255,.11),
+        rgba(255,255,255,.14),
 
-        0 0 20px
-        rgba(218,174,84,.045);
+        0 0 22px
+        rgba(218,174,84,.06);
 
     transition:
-        transform .18s ease,
-        box-shadow .18s ease;
+        transform .18s ease;
 }
 
 
@@ -474,15 +629,10 @@ body{
 
     transform:scale(.965);
 
-    box-shadow:
-
-        0 10px 25px
-        rgba(0,0,0,.32),
-
-        0 0 20px
-        rgba(218,174,84,.10);
 }
 
+
+/* glass shine */
 
 .role-card::before{
 
@@ -490,21 +640,22 @@ body{
 
     position:absolute;
 
-    width:150px;
-    height:150px;
+    width:190px;
+    height:190px;
+
+    top:-120px;
+    right:-80px;
 
     border-radius:50%;
-
-    top:-85px;
-    right:-70px;
 
     background:
 
         radial-gradient(
             circle,
-            rgba(157,101,216,.25),
+            rgba(232,235,242,.18),
             transparent 68%
         );
+
 }
 
 
@@ -514,21 +665,22 @@ body{
 
     position:absolute;
 
-    width:110px;
-    height:110px;
+    width:120px;
+    height:120px;
+
+    bottom:-75px;
+    left:-55px;
 
     border-radius:50%;
-
-    bottom:-65px;
-    left:-55px;
 
     background:
 
         radial-gradient(
             circle,
-            rgba(226,183,87,.12),
+            rgba(217,174,90,.13),
             transparent 70%
         );
+
 }
 
 
@@ -540,23 +692,25 @@ body{
 
     position:relative;
 
-    z-index:2;
+    z-index:3;
 
     display:flex;
 
     align-items:center;
 
     justify-content:space-between;
+
 }
 
 
 .role-label{
 
-    color:#cfc2dc;
+    color:#d0ccd7;
 
     font-size:8px;
 
     font-weight:700;
+
 }
 
 
@@ -573,51 +727,68 @@ body{
     box-shadow:
         0 0 10px
         rgba(100,220,164,.8);
+
 }
 
 
 /* =========================================================
-   REAL GITHUB IMAGES
+   FULL IMAGE
    ========================================================= */
 
 .avatar{
 
     position:relative;
 
-    z-index:2;
+    z-index:3;
 
-    width:112px;
+    width:118px;
 
-    height:112px;
+    height:118px;
 
-    margin:10px auto 6px;
+    margin:
+
+        9px
+        auto
+        6px;
 
     border-radius:50%;
 
     overflow:hidden;
 
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
     background:
 
-        radial-gradient(
-            circle at 50% 25%,
-            #7952a1,
-            #32184f 78%
+        linear-gradient(
+            145deg,
+            rgba(230,232,239,.17),
+            rgba(72,43,101,.48)
         );
 
     border:
 
         2px solid
-        rgba(239,204,126,.72);
+        rgba(239,204,126,.75);
 
     box-shadow:
 
-        0 13px 30px
-        rgba(0,0,0,.32),
+        0 14px 32px
+        rgba(0,0,0,.34),
 
         0 0 0 7px
-        rgba(218,174,84,.045);
+        rgba(220,220,230,.045);
+
 }
 
+
+/*
+   IMPORTANT:
+   contain = الصورة كاملة بدون قص
+*/
 
 .avatar img{
 
@@ -627,7 +798,12 @@ body{
 
     display:block;
 
-    object-fit:cover;
+    object-fit:contain;
+
+    object-position:center;
+
+    padding:2px;
+
 }
 
 
@@ -639,13 +815,14 @@ body{
 
     position:relative;
 
-    z-index:2;
+    z-index:3;
 
     text-align:center;
 
     font-size:17px;
 
     font-weight:900;
+
 }
 
 
@@ -653,49 +830,51 @@ body{
 
     position:relative;
 
-    z-index:2;
+    z-index:3;
 
     text-align:center;
 
     margin-top:1px;
 
-    color:#aaa0b9;
+    color:#b9b5c1;
 
     font-size:8px;
+
 }
 
 
 /* =========================================================
-   LARGE LOGIN BUTTON
+   BIG LOGIN BUTTON
    ========================================================= */
 
 .login-btn{
 
     position:relative;
 
-    z-index:3;
+    z-index:4;
 
     width:100%;
 
-    height:46px;
+    height:47px;
 
     margin-top:10px;
 
-    border-radius:13px;
+    border-radius:14px;
 
     border:
+
         1px solid
-        rgba(255,255,255,.22);
+        rgba(255,255,255,.30);
 
     background:
 
         linear-gradient(
             135deg,
-            #ead08a,
-            #bc8a39
+            #f1d68e,
+            #bd8b3b
         );
 
-    color:#251431;
+    color:#26152f;
 
     font-family:inherit;
 
@@ -705,11 +884,11 @@ body{
 
     box-shadow:
 
-        0 9px 20px
-        rgba(205,159,67,.18),
+        0 9px 21px
+        rgba(205,159,67,.20),
 
         inset 0 1px
-        rgba(255,255,255,.65);
+        rgba(255,255,255,.72);
 
     display:flex;
 
@@ -718,17 +897,21 @@ body{
     justify-content:center;
 
     gap:7px;
+
 }
 
 
 .login-btn:active{
+
     transform:scale(.97);
+
 }
 
 
 .login-arrow{
+
     font-size:17px;
-    line-height:1;
+
 }
 
 
@@ -740,7 +923,7 @@ body{
 
     position:relative;
 
-    z-index:3;
+    z-index:5;
 
     display:flex;
 
@@ -750,9 +933,10 @@ body{
 
     margin-top:17px;
 
-    color:#857995;
+    color:#85818f;
 
     font-size:7px;
+
 }
 
 
@@ -763,11 +947,12 @@ body{
     align-items:center;
 
     gap:4px;
+
 }
 
 
 /* =========================================================
-   ADMIN MODAL
+   ADMIN MODAL — CENTER
    ========================================================= */
 
 .modal{
@@ -780,70 +965,104 @@ body{
 
     display:none;
 
-    align-items:flex-end;
+    align-items:center;
 
     justify-content:center;
 
-    background:
-        rgba(5,2,12,.76);
+    padding:20px;
 
-    backdrop-filter:blur(10px);
+    background:
+
+        rgba(4,2,10,.74);
+
+    backdrop-filter:blur(13px);
+
+    -webkit-backdrop-filter:blur(13px);
+
 }
 
 
 .modal.show{
+
     display:flex;
+
 }
 
+
+/* CENTER GLASS WINDOW */
 
 .modal-box{
 
     width:100%;
 
-    max-width:540px;
+    max-width:390px;
 
-    padding:20px 18px 28px;
+    padding:
 
-    border-radius:
-        28px
-        28px
-        0
-        0;
+        23px
+        20px
+        21px;
+
+    border-radius:27px;
 
     background:
 
         linear-gradient(
             145deg,
-            #2b1748,
-            #160b28
+            rgba(240,242,247,.15),
+            rgba(56,32,79,.80)
         );
 
-    border-top:
+    border:
+
         1px solid
-        rgba(235,196,108,.35);
+        rgba(225,185,99,.48);
+
+    backdrop-filter:blur(28px);
+
+    -webkit-backdrop-filter:blur(28px);
 
     box-shadow:
-        0 -20px 60px
-        rgba(0,0,0,.45);
+
+        0 30px 80px
+        rgba(0,0,0,.55),
+
+        inset 0 1px
+        rgba(255,255,255,.13);
 
     animation:
-        slideUp .25s ease;
+
+        modalIn .22s ease;
+
 }
 
 
-@keyframes slideUp{
+@keyframes modalIn{
 
     from{
-        transform:translateY(100%);
-        opacity:.4;
+
+        opacity:0;
+
+        transform:
+            scale(.94)
+            translateY(12px);
+
     }
 
     to{
-        transform:translateY(0);
+
         opacity:1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
     }
+
 }
 
+
+/* MODAL HEADER */
 
 .modal-head{
 
@@ -853,36 +1072,94 @@ body{
 
     justify-content:space-between;
 
-    margin-bottom:17px;
+    margin-bottom:18px;
+
 }
 
 
-.modal-head h2{
+.modal-title{
 
-    font-size:18px;
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.modal-icon{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:13px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(237,239,245,.25),
+            rgba(217,174,90,.16)
+        );
+
+    border:
+
+        1px solid
+        rgba(232,198,121,.30);
+
+}
+
+
+.modal-title h2{
+
+    font-size:17px;
 
     font-weight:900;
+
+}
+
+
+.modal-title p{
+
+    margin-top:2px;
+
+    font-size:8px;
+
+    color:#aaa4b3;
+
 }
 
 
 .close{
 
-    width:35px;
+    width:34px;
 
-    height:35px;
+    height:34px;
 
     border:0;
 
-    border-radius:11px;
+    border-radius:10px;
 
     background:
+
         rgba(255,255,255,.07);
 
-    color:white;
+    color:#fff;
 
     font-size:19px;
+
 }
 
+
+/* INPUTS */
 
 .input{
 
@@ -892,37 +1169,61 @@ body{
 
     margin-bottom:10px;
 
-    padding:0 14px;
+    padding:
+
+        0
+        14px;
 
     border-radius:14px;
 
     border:
+
         1px solid
-        rgba(255,255,255,.09);
+        rgba(232,234,240,.13);
 
     outline:none;
 
     background:
-        rgba(0,0,0,.18);
+
+        rgba(0,0,0,.20);
 
     color:white;
 
     font-family:inherit;
 
     font-size:12px;
+
+}
+
+
+.input:focus{
+
+    border-color:
+        rgba(225,185,99,.55);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(225,185,99,.06);
+
 }
 
 
 .input::placeholder{
-    color:#81748e;
+
+    color:#827a8d;
+
 }
 
+
+/* ADMIN SUBMIT */
 
 .submit{
 
     width:100%;
 
     height:50px;
+
+    margin-top:3px;
 
     border:0;
 
@@ -932,15 +1233,26 @@ body{
 
         linear-gradient(
             135deg,
-            #ead08a,
-            #bd8b3b
+            #f0d38b,
+            #bb8939
         );
 
     color:#24132f;
 
     font-family:inherit;
 
+    font-size:12px;
+
     font-weight:900;
+
+    box-shadow:
+
+        0 10px 24px
+        rgba(205,159,67,.18),
+
+        inset 0 1px
+        rgba(255,255,255,.7);
+
 }
 
 
@@ -951,54 +1263,82 @@ body{
 @media(max-width:350px){
 
     .topbar{
-        padding:11px 12px 0;
+
+        padding:
+            11px
+            12px
+            0;
+
     }
 
     .admin-btn{
+
         height:36px;
-        padding:0 11px;
+
+        padding:
+            0
+            11px;
+
         font-size:10px;
+
     }
 
     .logo{
-        width:66px;
-        height:66px;
+
+        width:68px;
+
+        height:68px;
+
         border-radius:21px;
+
     }
 
     .logo svg{
-        width:44px;
-        height:44px;
+
+        width:45px;
+
+        height:45px;
+
     }
 
     .brand-title{
-        font-size:26px;
-    }
 
-    .hero{
-        padding-bottom:14px;
+        font-size:26px;
+
     }
 
     .hero h1{
+
         font-size:20px;
+
     }
 
     .role-card{
-        min-height:235px;
+
+        min-height:245px;
+
     }
 
     .avatar{
-        width:94px;
-        height:94px;
+
+        width:96px;
+
+        height:96px;
+
     }
 
     .card-title{
+
         font-size:15px;
+
     }
 
     .login-btn{
-        height:42px;
+
+        height:43px;
+
         font-size:11px;
+
     }
 
 }
@@ -1011,9 +1351,12 @@ body{
 
 <div class="page">
 
+```
+<div class="medical-lines"></div>
+
 
 <!-- =====================================================
-     ADMIN TOP ONLY
+     ADMIN — TOP ONLY
      ===================================================== -->
 
 <div class="topbar">
@@ -1054,7 +1397,7 @@ body{
                 C72 17 81 25 81 38
                 C81 60 56 76 50 82Z
                 "
-                stroke="#28143F"
+                stroke="#29153F"
                 stroke-width="7"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -1070,7 +1413,7 @@ body{
                 L61 45
                 H76
                 "
-                stroke="#28143F"
+                stroke="#29153F"
                 stroke-width="5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -1093,7 +1436,6 @@ body{
         TABIBK • DIGITAL HEALTH
 
     </div>
-
 
 </section>
 
@@ -1142,9 +1484,7 @@ body{
     <div class="cards">
 
 
-        <!-- =================================================
-             DOCTOR
-             ================================================= -->
+        <!-- ================= DOCTOR ================= -->
 
         <div class="role-card">
 
@@ -1163,8 +1503,6 @@ body{
 
 
             <div class="avatar">
-
-                <!-- الصورة الحقيقية الموجودة في GitHub -->
 
                 <img
                     src="/images/doctor-ai.png"
@@ -1205,9 +1543,7 @@ body{
         </div>
 
 
-        <!-- =================================================
-             PATIENT
-             ================================================= -->
+        <!-- ================= PATIENT ================= -->
 
         <div class="role-card">
 
@@ -1226,8 +1562,6 @@ body{
 
 
             <div class="avatar">
-
-                <!-- الصورة الحقيقية الموجودة في GitHub -->
 
                 <img
                     src="/images/patient-ai.png"
@@ -1271,8 +1605,6 @@ body{
     </div>
 
 
-    <!-- SECURITY -->
-
     <div class="security">
 
         <span>
@@ -1291,12 +1623,12 @@ body{
 
 
 </main>
-
+```
 
 </div>
 
 <!-- =========================================================
-     ADMIN MODAL
+     ADMIN CENTER MODAL
      ========================================================= -->
 
 <div
@@ -1305,23 +1637,48 @@ body{
     onclick="closeOutside(event)"
 >
 
-
+```
 <div class="modal-box">
 
 
     <div class="modal-head">
 
-        <h2>
-            دخول الإدارة
-        </h2>
+
+        <div class="modal-title">
+
+
+            <div class="modal-icon">
+
+                🛡️
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    دخول الإدارة
+                </h2>
+
+                <p>
+                    لوحة التحكم الخاصة بـ TABIBK
+                </p>
+
+            </div>
+
+
+        </div>
 
 
         <button
             class="close"
             onclick="closeAdmin()"
         >
+
             ×
+
         </button>
+
 
     </div>
 
@@ -1331,6 +1688,7 @@ body{
         id="adminUser"
         type="text"
         placeholder="اسم المستخدم"
+        autocomplete="username"
     >
 
 
@@ -1339,6 +1697,7 @@ body{
         id="adminPassword"
         type="password"
         placeholder="كلمة المرور"
+        autocomplete="current-password"
     >
 
 
@@ -1353,15 +1712,21 @@ body{
 
 
 </div>
-
+```
 
 </div>
 
 <script>
 
 /* =========================================================
-   TABIBK NAVIGATION
+   NAVIGATION
    ========================================================= */
+
+/*
+   أبقيت مسارات الدخول كما كانت في النسخة السابقة.
+   إذا كان TABIBK الحالي يستعمل وظائف دخول موجودة
+   داخل index.html، نستبدل هذه الدوال فقط.
+*/
 
 function doctorLogin(){
 
@@ -1380,7 +1745,7 @@ function patientLogin(){
 
 
 /* =========================================================
-   ADMIN
+   ADMIN MODAL
    ========================================================= */
 
 function openAdmin(){
@@ -1395,7 +1760,7 @@ function openAdmin(){
             .getElementById("adminUser")
             .focus();
 
-    },100);
+    },150);
 
 }
 
@@ -1422,6 +1787,10 @@ function closeOutside(event){
 
 }
 
+
+/* =========================================================
+   ADMIN LOGIN
+   ========================================================= */
 
 function adminLogin(){
 
@@ -1459,7 +1828,9 @@ function adminLogin(){
 }
 
 
-/* ESC */
+/* =========================================================
+   ESC TO CLOSE
+   ========================================================= */
 
 document.addEventListener(
     "keydown",

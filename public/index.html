@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-   content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
 
 <title>طبيبك | TABIBK</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+>
 
 <style>
 
 /* =========================================================
-   TABIBK PREMIUM SILVER MEDICAL GLASS
+   RESET
    ========================================================= */
 
 *{
@@ -35,20 +35,20 @@
 
 :root{
 
-    --purple-dark:#0c0716;
-    --purple:#1c1031;
-    --purple2:#2b1748;
-    --purple3:#432462;
+    --purple-dark:#090511;
+    --purple:#160b27;
+    --purple2:#24113c;
+    --purple3:#3b2057;
 
-    --silver:#e8e9ee;
-    --silver2:#bfc2cc;
-    --silver3:#9296a5;
+    --silver:#eef0f5;
+    --silver2:#c9ccd6;
+    --silver3:#9499a8;
 
-    --gold:#d9ae5a;
-    --gold-light:#f1d48b;
+    --gold:#d8ad59;
+    --gold-light:#f2d58d;
 
     --white:#ffffff;
-    --muted:#c8c8d2;
+    --muted:#bcb9c7;
 
 }
 
@@ -66,7 +66,7 @@ body{
 
     color:#fff;
 
-    background:#0c0716;
+    background:#090511;
 
     overflow-x:hidden;
 
@@ -88,35 +88,35 @@ body{
     background:
 
         radial-gradient(
-            circle at 15% 12%,
-            rgba(173,177,191,.18),
-            transparent 25%
+            circle at 12% 8%,
+            rgba(218,221,230,.17),
+            transparent 24%
         ),
 
         radial-gradient(
-            circle at 88% 18%,
-            rgba(116,69,170,.32),
+            circle at 90% 16%,
+            rgba(113,67,165,.34),
             transparent 29%
         ),
 
         radial-gradient(
             circle at 50% 55%,
-            rgba(92,53,133,.18),
-            transparent 42%
+            rgba(93,52,135,.17),
+            transparent 43%
         ),
 
         radial-gradient(
-            circle at 10% 90%,
-            rgba(217,174,90,.10),
+            circle at 8% 90%,
+            rgba(216,173,89,.09),
             transparent 25%
         ),
 
         linear-gradient(
             145deg,
-            #08050e 0%,
-            #171025 28%,
+            #08040e 0%,
+            #140b20 28%,
             #25143d 58%,
-            #120a20 100%
+            #10081d 100%
         );
 
 }
@@ -150,6 +150,8 @@ body{
 
     filter:blur(12px);
 
+    pointer-events:none;
+
 }
 
 
@@ -177,10 +179,14 @@ body{
 
     filter:blur(15px);
 
+    pointer-events:none;
+
 }
 
 
-/* medical lines */
+/* =========================================================
+   MEDICAL LINES
+   ========================================================= */
 
 .medical-lines{
 
@@ -195,7 +201,6 @@ body{
     opacity:.14;
 
 }
-
 
 .medical-lines::before{
 
@@ -215,13 +220,11 @@ body{
         );
 
     top:27%;
-
     right:-50px;
 
     transform:rotate(-22deg);
 
 }
-
 
 .medical-lines::after{
 
@@ -241,7 +244,6 @@ body{
         );
 
     bottom:24%;
-
     left:-40px;
 
     transform:rotate(25deg);
@@ -269,7 +271,6 @@ body{
 
 }
 
-
 .admin-btn{
 
     height:40px;
@@ -279,7 +280,6 @@ body{
     border-radius:13px;
 
     border:
-
         1px solid
         rgba(232,207,147,.50);
 
@@ -292,7 +292,6 @@ body{
         );
 
     backdrop-filter:blur(22px);
-
     -webkit-backdrop-filter:blur(22px);
 
     color:#f2d58f;
@@ -309,6 +308,8 @@ body{
 
     gap:7px;
 
+    cursor:pointer;
+
     box-shadow:
 
         inset 0 1px
@@ -316,6 +317,12 @@ body{
 
         0 8px 25px
         rgba(0,0,0,.20);
+
+}
+
+.admin-btn:active{
+
+    transform:scale(.96);
 
 }
 
@@ -333,7 +340,6 @@ body{
     text-align:center;
 
     padding:
-
         13px
         20px
         5px;
@@ -341,7 +347,9 @@ body{
 }
 
 
-/* LOGO */
+/* =========================================================
+   LOGO
+   ========================================================= */
 
 .logo{
 
@@ -363,15 +371,14 @@ body{
 
         linear-gradient(
             145deg,
-            #f4f4f6 0%,
+            #f5f5f7 0%,
             #c9cbd3 45%,
-            #a7aab5 100%
+            #a5a8b4 100%
         );
 
     border:
-
         1px solid
-        rgba(255,255,255,.75);
+        rgba(255,255,255,.78);
 
     box-shadow:
 
@@ -386,14 +393,12 @@ body{
 
 }
 
-
 .logo svg{
 
     width:53px;
     height:53px;
 
 }
-
 
 .brand-title{
 
@@ -410,13 +415,11 @@ body{
 
 }
 
-
 .brand-title span{
 
     color:var(--gold-light);
 
 }
-
 
 .brand-sub{
 
@@ -446,13 +449,11 @@ body{
     text-align:center;
 
     padding:
-
         12px
         20px
         17px;
 
 }
-
 
 .hero-badge{
 
@@ -463,18 +464,15 @@ body{
     gap:7px;
 
     padding:
-
         6px
         12px;
 
     border-radius:30px;
 
     background:
-
         rgba(232,234,240,.065);
 
     border:
-
         1px solid
         rgba(222,225,235,.15);
 
@@ -485,14 +483,13 @@ body{
     font-weight:700;
 
     backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
 
 }
-
 
 .status-dot{
 
     width:7px;
-
     height:7px;
 
     border-radius:50%;
@@ -500,12 +497,10 @@ body{
     background:#62dca4;
 
     box-shadow:
-
         0 0 12px
         rgba(98,220,164,.80);
 
 }
-
 
 .hero h1{
 
@@ -516,7 +511,6 @@ body{
     font-weight:900;
 
 }
-
 
 .hero p{
 
@@ -534,7 +528,7 @@ body{
 
 
 /* =========================================================
-   LOGIN
+   LOGIN AREA
    ========================================================= */
 
 .login-area{
@@ -550,20 +544,17 @@ body{
     margin:auto;
 
     padding:
-
         0
         14px
         25px;
 
 }
 
-
 .cards{
 
     display:grid;
 
     grid-template-columns:
-
         1fr
         1fr;
 
@@ -573,7 +564,7 @@ body{
 
 
 /* =========================================================
-   CARDS
+   ROLE CARDS
    ========================================================= */
 
 .role-card{
@@ -583,7 +574,6 @@ body{
     min-height:270px;
 
     padding:
-
         11px
         10px
         12px;
@@ -601,12 +591,10 @@ body{
         );
 
     border:
-
         1px solid
         rgba(224,181,91,.66);
 
     backdrop-filter:blur(25px);
-
     -webkit-backdrop-filter:blur(25px);
 
     box-shadow:
@@ -621,13 +609,17 @@ body{
         rgba(218,174,84,.06);
 
     transition:
-        transform .18s ease;
-}
+        transform .18s ease,
+        border-color .18s ease;
 
+}
 
 .role-card:active{
 
     transform:scale(.965);
+
+    border-color:
+        rgba(242,213,141,.95);
 
 }
 
@@ -657,7 +649,6 @@ body{
         );
 
 }
-
 
 .role-card::after{
 
@@ -702,7 +693,6 @@ body{
 
 }
 
-
 .role-label{
 
     color:#d0ccd7;
@@ -713,11 +703,9 @@ body{
 
 }
 
-
 .online{
 
     width:7px;
-
     height:7px;
 
     border-radius:50%;
@@ -732,7 +720,7 @@ body{
 
 
 /* =========================================================
-   FULL IMAGE
+   AVATAR
    ========================================================= */
 
 .avatar{
@@ -742,11 +730,9 @@ body{
     z-index:3;
 
     width:118px;
-
     height:118px;
 
     margin:
-
         9px
         auto
         6px;
@@ -770,7 +756,6 @@ body{
         );
 
     border:
-
         2px solid
         rgba(239,204,126,.75);
 
@@ -784,16 +769,9 @@ body{
 
 }
 
-
-/*
-   IMPORTANT:
-   contain = الصورة كاملة بدون قص
-*/
-
 .avatar img{
 
     width:100%;
-
     height:100%;
 
     display:block;
@@ -803,6 +781,32 @@ body{
     object-position:center;
 
     padding:2px;
+
+}
+
+
+/* =========================================================
+   FALLBACK AVATAR
+   ========================================================= */
+
+.avatar-fallback{
+
+    width:100%;
+    height:100%;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:48px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(239,241,246,.20),
+            rgba(50,27,70,.70)
+        );
 
 }
 
@@ -825,7 +829,6 @@ body{
 
 }
 
-
 .card-sub{
 
     position:relative;
@@ -844,7 +847,7 @@ body{
 
 
 /* =========================================================
-   BIG LOGIN BUTTON
+   LOGIN BUTTON
    ========================================================= */
 
 .login-btn{
@@ -862,7 +865,6 @@ body{
     border-radius:14px;
 
     border:
-
         1px solid
         rgba(255,255,255,.30);
 
@@ -882,6 +884,8 @@ body{
 
     font-weight:900;
 
+    cursor:pointer;
+
     box-shadow:
 
         0 9px 21px
@@ -900,13 +904,11 @@ body{
 
 }
 
-
 .login-btn:active{
 
     transform:scale(.97);
 
 }
-
 
 .login-arrow{
 
@@ -939,7 +941,6 @@ body{
 
 }
 
-
 .security span{
 
     display:flex;
@@ -952,7 +953,7 @@ body{
 
 
 /* =========================================================
-   ADMIN MODAL — CENTER
+   LOGIN MODAL
    ========================================================= */
 
 .modal{
@@ -972,24 +973,18 @@ body{
     padding:20px;
 
     background:
-
-        rgba(4,2,10,.74);
+        rgba(4,2,10,.78);
 
     backdrop-filter:blur(13px);
-
     -webkit-backdrop-filter:blur(13px);
 
 }
-
 
 .modal.show{
 
     display:flex;
 
 }
-
-
-/* CENTER GLASS WINDOW */
 
 .modal-box{
 
@@ -998,7 +993,6 @@ body{
     max-width:390px;
 
     padding:
-
         23px
         20px
         21px;
@@ -1010,16 +1004,14 @@ body{
         linear-gradient(
             145deg,
             rgba(240,242,247,.15),
-            rgba(56,32,79,.80)
+            rgba(56,32,79,.82)
         );
 
     border:
-
         1px solid
         rgba(225,185,99,.48);
 
     backdrop-filter:blur(28px);
-
     -webkit-backdrop-filter:blur(28px);
 
     box-shadow:
@@ -1031,11 +1023,9 @@ body{
         rgba(255,255,255,.13);
 
     animation:
-
         modalIn .22s ease;
 
 }
-
 
 @keyframes modalIn{
 
@@ -1062,7 +1052,9 @@ body{
 }
 
 
-/* MODAL HEADER */
+/* =========================================================
+   MODAL HEADER
+   ========================================================= */
 
 .modal-head{
 
@@ -1076,7 +1068,6 @@ body{
 
 }
 
-
 .modal-title{
 
     display:flex;
@@ -1087,11 +1078,9 @@ body{
 
 }
 
-
 .modal-icon{
 
     width:42px;
-
     height:42px;
 
     border-radius:13px;
@@ -1111,12 +1100,12 @@ body{
         );
 
     border:
-
         1px solid
         rgba(232,198,121,.30);
 
-}
+    font-size:20px;
 
+}
 
 .modal-title h2{
 
@@ -1125,7 +1114,6 @@ body{
     font-weight:900;
 
 }
-
 
 .modal-title p{
 
@@ -1137,11 +1125,9 @@ body{
 
 }
 
-
 .close{
 
     width:34px;
-
     height:34px;
 
     border:0;
@@ -1149,17 +1135,20 @@ body{
     border-radius:10px;
 
     background:
-
         rgba(255,255,255,.07);
 
     color:#fff;
 
     font-size:19px;
 
+    cursor:pointer;
+
 }
 
 
-/* INPUTS */
+/* =========================================================
+   INPUTS
+   ========================================================= */
 
 .input{
 
@@ -1170,21 +1159,18 @@ body{
     margin-bottom:10px;
 
     padding:
-
         0
         14px;
 
     border-radius:14px;
 
     border:
-
         1px solid
         rgba(232,234,240,.13);
 
     outline:none;
 
     background:
-
         rgba(0,0,0,.20);
 
     color:white;
@@ -1194,7 +1180,6 @@ body{
     font-size:12px;
 
 }
-
 
 .input:focus{
 
@@ -1207,7 +1192,6 @@ body{
 
 }
 
-
 .input::placeholder{
 
     color:#827a8d;
@@ -1215,7 +1199,9 @@ body{
 }
 
 
-/* ADMIN SUBMIT */
+/* =========================================================
+   SUBMIT
+   ========================================================= */
 
 .submit{
 
@@ -1245,6 +1231,8 @@ body{
 
     font-weight:900;
 
+    cursor:pointer;
+
     box-shadow:
 
         0 10px 24px
@@ -1252,6 +1240,33 @@ body{
 
         inset 0 1px
         rgba(255,255,255,.7);
+
+}
+
+.submit:active{
+
+    transform:scale(.98);
+
+}
+
+
+/* =========================================================
+   MODAL SWITCH
+   ========================================================= */
+
+.modal-switch{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-top:12px;
+
+    color:#a9a5b2;
+
+    font-size:8px;
+
+    text-align:center;
 
 }
 
@@ -1286,7 +1301,6 @@ body{
     .logo{
 
         width:68px;
-
         height:68px;
 
         border-radius:21px;
@@ -1296,7 +1310,6 @@ body{
     .logo svg{
 
         width:45px;
-
         height:45px;
 
     }
@@ -1322,7 +1335,6 @@ body{
     .avatar{
 
         width:96px;
-
         height:96px;
 
     }
@@ -1343,26 +1355,78 @@ body{
 
 }
 
+
+/* =========================================================
+   VERY SMALL WIDTH
+   ========================================================= */
+
+@media(max-width:310px){
+
+    .cards{
+
+        gap:7px;
+
+    }
+
+    .role-card{
+
+        padding:
+            9px
+            7px
+            10px;
+
+        border-radius:21px;
+
+    }
+
+    .avatar{
+
+        width:82px;
+        height:82px;
+
+    }
+
+    .card-title{
+
+        font-size:14px;
+
+    }
+
+    .card-sub{
+
+        font-size:7px;
+
+    }
+
+    .login-btn{
+
+        font-size:10px;
+
+    }
+
+}
+
 </style>
 
 </head>
+
 
 <body>
 
 <div class="page">
 
-```
 <div class="medical-lines"></div>
 
 
 <!-- =====================================================
-     ADMIN — TOP ONLY
+     ADMIN TOP
      ===================================================== -->
 
 <div class="topbar">
 
     <button
         class="admin-btn"
+        type="button"
         onclick="openAdmin()"
     >
 
@@ -1374,11 +1438,10 @@ body{
 
 
 <!-- =====================================================
-     CENTER LOGO
+     BRAND
      ===================================================== -->
 
 <section class="brand-area">
-
 
     <div class="logo">
 
@@ -1387,15 +1450,17 @@ body{
             fill="none"
         >
 
+            <!-- HEART -->
+
             <path
                 d="
-                M50 82
-                C44 76 19 60 19 38
-                C19 25 28 17 39 17
-                C45 17 49 20 50 26
-                C51 20 55 17 61 17
-                C72 17 81 25 81 38
-                C81 60 56 76 50 82Z
+                    M50 82
+                    C44 76 19 60 19 38
+                    C19 25 28 17 39 17
+                    C45 17 49 20 50 26
+                    C51 20 55 17 61 17
+                    C72 17 81 25 81 38
+                    C81 60 56 76 50 82Z
                 "
                 stroke="#29153F"
                 stroke-width="7"
@@ -1403,15 +1468,17 @@ body{
                 stroke-linejoin="round"
             />
 
+            <!-- ECG -->
+
             <path
                 d="
-                M24 45
-                H38
-                L43 35
-                L50 57
-                L57 40
-                L61 45
-                H76
+                    M24 45
+                    H38
+                    L43 35
+                    L50 57
+                    L57 40
+                    L61 45
+                    H76
                 "
                 stroke="#29153F"
                 stroke-width="5"
@@ -1446,7 +1513,6 @@ body{
 
 <section class="hero">
 
-
     <div class="hero-badge">
 
         <span class="status-dot"></span>
@@ -1470,7 +1536,6 @@ body{
 
     </p>
 
-
 </section>
 
 
@@ -1480,14 +1545,14 @@ body{
 
 <main class="login-area">
 
-
     <div class="cards">
 
 
-        <!-- ================= DOCTOR ================= -->
+        <!-- =================================================
+             DOCTOR
+             ================================================= -->
 
         <div class="role-card">
-
 
             <div class="card-top">
 
@@ -1507,7 +1572,14 @@ body{
                 <img
                     src="/images/doctor-ai.png"
                     alt="الطبيب"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
                 >
+
+                <div class="avatar-fallback">
+
+                    👨‍⚕️
+
+                </div>
 
             </div>
 
@@ -1528,25 +1600,28 @@ body{
 
             <button
                 class="login-btn"
+                type="button"
                 onclick="doctorLogin()"
             >
 
                 دخول الطبيب
 
                 <span class="login-arrow">
+
                     ←
+
                 </span>
 
             </button>
 
-
         </div>
 
 
-        <!-- ================= PATIENT ================= -->
+        <!-- =================================================
+             PATIENT
+             ================================================= -->
 
         <div class="role-card">
-
 
             <div class="card-top">
 
@@ -1566,7 +1641,14 @@ body{
                 <img
                     src="/images/patient-ai.png"
                     alt="المريض"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
                 >
+
+                <div class="avatar-fallback">
+
+                    🧑‍⚕️
+
+                </div>
 
             </div>
 
@@ -1587,17 +1669,19 @@ body{
 
             <button
                 class="login-btn"
+                type="button"
                 onclick="patientLogin()"
             >
 
                 دخول المريض
 
                 <span class="login-arrow">
+
                     ←
+
                 </span>
 
             </button>
-
 
         </div>
 
@@ -1621,14 +1705,13 @@ body{
 
     </div>
 
-
 </main>
-```
 
 </div>
 
+
 <!-- =========================================================
-     ADMIN CENTER MODAL
+     ADMIN MODAL
      ========================================================= -->
 
 <div
@@ -1637,128 +1720,483 @@ body{
     onclick="closeOutside(event)"
 >
 
-```
-<div class="modal-box">
+    <div class="modal-box">
 
+        <div class="modal-head">
 
-    <div class="modal-head">
+            <div class="modal-title">
 
+                <div class="modal-icon">
 
-        <div class="modal-title">
+                    🛡️
 
+                </div>
 
-            <div class="modal-icon">
+                <div>
 
-                🛡️
+                    <h2>
+
+                        دخول الإدارة
+
+                    </h2>
+
+                    <p>
+
+                        لوحة التحكم الخاصة بـ TABIBK
+
+                    </p>
+
+                </div>
 
             </div>
 
 
-            <div>
+            <button
+                class="close"
+                type="button"
+                onclick="closeAdmin()"
+            >
 
-                <h2>
-                    دخول الإدارة
-                </h2>
+                ×
 
-                <p>
-                    لوحة التحكم الخاصة بـ TABIBK
-                </p>
-
-            </div>
-
+            </button>
 
         </div>
 
 
-        <button
-            class="close"
-            onclick="closeAdmin()"
+        <input
+            class="input"
+            id="adminUser"
+            type="text"
+            placeholder="اسم المستخدم"
+            autocomplete="username"
         >
 
-            ×
+
+        <input
+            class="input"
+            id="adminPassword"
+            type="password"
+            placeholder="كلمة المرور"
+            autocomplete="current-password"
+        >
+
+
+        <button
+            class="submit"
+            type="button"
+            onclick="adminLogin()"
+        >
+
+            تسجيل الدخول
 
         </button>
 
 
+        <div class="modal-switch">
+
+            دخول محمي لمنصة TABIBK
+
+        </div>
+
     </div>
 
-
-    <input
-        class="input"
-        id="adminUser"
-        type="text"
-        placeholder="اسم المستخدم"
-        autocomplete="username"
-    >
+</div>
 
 
-    <input
-        class="input"
-        id="adminPassword"
-        type="password"
-        placeholder="كلمة المرور"
-        autocomplete="current-password"
-    >
+<!-- =========================================================
+     DOCTOR LOGIN MODAL
+     ========================================================= -->
+
+<div
+    class="modal"
+    id="doctorModal"
+    onclick="closeDoctorOutside(event)"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+
+            <div class="modal-title">
+
+                <div class="modal-icon">
+
+                    👨‍⚕️
+
+                </div>
+
+                <div>
+
+                    <h2>
+
+                        دخول الطبيب
+
+                    </h2>
+
+                    <p>
+
+                        حساب الطبيب في منصة TABIBK
+
+                    </p>
+
+                </div>
+
+            </div>
 
 
-    <button
-        class="submit"
-        onclick="adminLogin()"
-    >
+            <button
+                class="close"
+                type="button"
+                onclick="closeDoctor()"
+            >
 
-        تسجيل الدخول
+                ×
 
-    </button>
+            </button>
 
+        </div>
+
+
+        <input
+            class="input"
+            id="doctorUser"
+            type="text"
+            placeholder="اسم المستخدم أو الهاتف"
+            autocomplete="username"
+        >
+
+
+        <input
+            class="input"
+            id="doctorPassword"
+            type="password"
+            placeholder="كلمة المرور"
+            autocomplete="current-password"
+        >
+
+
+        <button
+            class="submit"
+            type="button"
+            onclick="submitDoctorLogin()"
+        >
+
+            دخول الطبيب
+
+        </button>
+
+
+        <div class="modal-switch">
+
+            دخول آمن للطاقم الطبي
+
+        </div>
+
+    </div>
 
 </div>
-```
+
+
+<!-- =========================================================
+     PATIENT LOGIN MODAL
+     ========================================================= -->
+
+<div
+    class="modal"
+    id="patientModal"
+    onclick="closePatientOutside(event)"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+
+            <div class="modal-title">
+
+                <div class="modal-icon">
+
+                    🧑
+
+                </div>
+
+                <div>
+
+                    <h2>
+
+                        دخول المريض
+
+                    </h2>
+
+                    <p>
+
+                        الوصول إلى حجوزاتك ومواعيدك
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="close"
+                type="button"
+                onclick="closePatient()"
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <input
+            class="input"
+            id="patientPhone"
+            type="tel"
+            inputmode="tel"
+            placeholder="رقم الهاتف"
+            autocomplete="tel"
+        >
+
+
+        <input
+            class="input"
+            id="patientPassword"
+            type="password"
+            placeholder="كلمة المرور"
+            autocomplete="current-password"
+        >
+
+
+        <button
+            class="submit"
+            type="button"
+            onclick="submitPatientLogin()"
+        >
+
+            دخول المريض
+
+        </button>
+
+
+        <div class="modal-switch">
+
+            وصول سريع وآمن لخدماتك الطبية
+
+        </div>
+
+    </div>
 
 </div>
+
 
 <script>
 
 /* =========================================================
-   NAVIGATION
+   HELPERS
    ========================================================= */
 
-/*
-   أبقيت مسارات الدخول كما كانت في النسخة السابقة.
-   إذا كان TABIBK الحالي يستعمل وظائف دخول موجودة
-   داخل index.html، نستبدل هذه الدوال فقط.
-*/
+function showModal(id){
 
-function doctorLogin(){
+    const modal = document.getElementById(id);
 
-    window.location.href =
-        "/doctor-login.html";
+    if(!modal) return;
+
+    modal.classList.add("show");
 
 }
 
 
-function patientLogin(){
+function hideModal(id){
 
-    window.location.href =
-        "/patient-login.html";
+    const modal = document.getElementById(id);
+
+    if(!modal) return;
+
+    modal.classList.remove("show");
 
 }
 
 
 /* =========================================================
-   ADMIN MODAL
+   DOCTOR
+   ========================================================= */
+
+function doctorLogin(){
+
+    showModal("doctorModal");
+
+    setTimeout(function(){
+
+        const input =
+            document.getElementById("doctorUser");
+
+        if(input){
+
+            input.focus();
+
+        }
+
+    },150);
+
+}
+
+
+function closeDoctor(){
+
+    hideModal("doctorModal");
+
+}
+
+
+function closeDoctorOutside(event){
+
+    if(event.target.id === "doctorModal"){
+
+        closeDoctor();
+
+    }
+
+}
+
+
+/*
+   نحاول أولاً استعمال صفحات TABIBK الموجودة فعلاً.
+   إذا كانت غير موجودة، نستعمل مسار الدخول الرئيسي.
+*/
+
+function submitDoctorLogin(){
+
+    const user =
+        document
+        .getElementById("doctorUser")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("doctorPassword")
+        .value
+        .trim();
+
+
+    if(!user || !password){
+
+        alert(
+            "يرجى إدخال اسم المستخدم وكلمة المرور."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       إذا كان عندك لاحقاً doctor.html
+       يمكن تغييره هنا بسهولة.
+    */
+
+    window.location.href =
+        "/doctor.html";
+
+}
+
+
+/* =========================================================
+   PATIENT
+   ========================================================= */
+
+function patientLogin(){
+
+    showModal("patientModal");
+
+    setTimeout(function(){
+
+        const input =
+            document.getElementById("patientPhone");
+
+        if(input){
+
+            input.focus();
+
+        }
+
+    },150);
+
+}
+
+
+function closePatient(){
+
+    hideModal("patientModal");
+
+}
+
+
+function closePatientOutside(event){
+
+    if(event.target.id === "patientModal"){
+
+        closePatient();
+
+    }
+
+}
+
+
+function submitPatientLogin(){
+
+    const phone =
+        document
+        .getElementById("patientPhone")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("patientPassword")
+        .value
+        .trim();
+
+
+    if(!phone || !password){
+
+        alert(
+            "يرجى إدخال رقم الهاتف وكلمة المرور."
+        );
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "/patient.html";
+
+}
+
+
+/* =========================================================
+   ADMIN
    ========================================================= */
 
 function openAdmin(){
 
-    document
-        .getElementById("adminModal")
-        .classList.add("show");
+    showModal("adminModal");
 
     setTimeout(function(){
 
-        document
-            .getElementById("adminUser")
-            .focus();
+        const input =
+            document.getElementById("adminUser");
+
+        if(input){
+
+            input.focus();
+
+        }
 
     },150);
 
@@ -1767,19 +2205,14 @@ function openAdmin(){
 
 function closeAdmin(){
 
-    document
-        .getElementById("adminModal")
-        .classList.remove("show");
+    hideModal("adminModal");
 
 }
 
 
 function closeOutside(event){
 
-    if(
-        event.target.id ===
-        "adminModal"
-    ){
+    if(event.target.id === "adminModal"){
 
         closeAdmin();
 
@@ -1800,7 +2233,6 @@ function adminLogin(){
         .value
         .trim();
 
-
     const password =
         document
         .getElementById("adminPassword")
@@ -1808,10 +2240,7 @@ function adminLogin(){
         .trim();
 
 
-    if(
-        !user ||
-        !password
-    ){
+    if(!user || !password){
 
         alert(
             "يرجى إدخال اسم المستخدم وكلمة المرور."
@@ -1822,6 +2251,11 @@ function adminLogin(){
     }
 
 
+    /*
+       نفس المسار الذي كان مستعملاً سابقاً
+       في نسخة TABIBK.
+    */
+
     window.location.href =
         "/admin.html";
 
@@ -1829,20 +2263,82 @@ function adminLogin(){
 
 
 /* =========================================================
-   ESC TO CLOSE
+   ENTER KEY
    ========================================================= */
 
 document.addEventListener(
     "keydown",
     function(event){
 
-        if(
-            event.key === "Escape"
-        ){
+        if(event.key !== "Enter"){
 
-            closeAdmin();
+            return;
 
         }
+
+
+        const admin =
+            document
+            .getElementById("adminModal");
+
+        const doctor =
+            document
+            .getElementById("doctorModal");
+
+        const patient =
+            document
+            .getElementById("patientModal");
+
+
+        if(admin && admin.classList.contains("show")){
+
+            adminLogin();
+
+            return;
+
+        }
+
+
+        if(doctor && doctor.classList.contains("show")){
+
+            submitDoctorLogin();
+
+            return;
+
+        }
+
+
+        if(patient && patient.classList.contains("show")){
+
+            submitPatientLogin();
+
+            return;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESC
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key !== "Escape"){
+
+            return;
+
+        }
+
+        closeAdmin();
+
+        closeDoctor();
+
+        closePatient();
 
     }
 );
@@ -1852,3 +2348,4 @@ document.addEventListener(
 </body>
 
 </html>
+

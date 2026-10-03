@@ -2991,7 +2991,10 @@ function selectDoctorCard(doctor, card){
     doctorSelect.disabled = false;
 }
 
-      async function loadDoctorReviews(doctorId){
+      async function loadDoctorReviews(
+    doctorId,
+    inlineOnly = false
+){
 
     try{
 
@@ -3085,6 +3088,10 @@ if(inlineReviews){
     inlineReviews.innerHTML =
         reviewsHtml;
 }
+          if(inlineOnly){
+    return;
+}
+          
         const box =
             document.createElement("div");
 
@@ -3784,8 +3791,9 @@ if(doctorRatingCard){
         );
 
         loadDoctorReviews(
-            appointment.doctorId
-        );
+    appointment.doctorId,
+    true
+);
 
     }else{
 
@@ -4184,9 +4192,10 @@ button.disabled=true;
         message.textContent =
             "تم إرسال تقييمك بنجاح ❤️";
 
-          if(data.doctorId){
+         if(data.doctorId){
     await loadDoctorReviews(
-        data.doctorId
+        data.doctorId,
+        true
     );
 }
 

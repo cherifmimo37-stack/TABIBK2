@@ -1,29 +1,21 @@
+```html
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta
-name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 >
+
+<meta name="theme-color" content="#6d28d9">
 
 <title>طبيبك | TABIBK</title>
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
-
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
@@ -32,14 +24,11 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 
 <style>
 
-/* =========================================================
-   RESET
-   ========================================================= */
-
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,
@@ -50,404 +39,457 @@ body{
 
 body{
     font-family:"Cairo",sans-serif;
-
-    color:#24112f;
-
-    overflow-x:hidden;
-
     background:
         radial-gradient(
-            circle at 15% 5%,
-            rgba(255,255,255,.95),
+            circle at 15% 15%,
+            rgba(167,139,250,.35),
             transparent 28%
         ),
         radial-gradient(
-            circle at 90% 18%,
-            rgba(210,178,235,.38),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 10% 90%,
-            rgba(117,65,151,.25),
-            transparent 30%
+            circle at 90% 80%,
+            rgba(124,58,237,.30),
+            transparent 32%
         ),
         linear-gradient(
             135deg,
-            #f9f7fc 0%,
-            #eee5f5 42%,
-            #e4d4ed 100%
+            #faf8ff 0%,
+            #f4efff 42%,
+            #eee7ff 100%
         );
+    color:#24163d;
+    overflow-x:hidden;
 }
 
 /* =========================================================
-   BACKGROUND
+   BACKGROUND MEDICAL ELEMENTS
    ========================================================= */
 
-.background{
+body::before{
+    content:"";
     position:fixed;
-    inset:0;
-    z-index:0;
-    overflow:hidden;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    background:rgba(124,58,237,.10);
+    filter:blur(70px);
+    top:-180px;
+    right:-150px;
     pointer-events:none;
 }
 
-.glow{
-    position:absolute;
+body::after{
+    content:"";
+    position:fixed;
+    width:360px;
+    height:360px;
     border-radius:50%;
-    filter:blur(4px);
-}
-
-.glow-one{
-    width:430px;
-    height:430px;
-    top:-220px;
-    right:-130px;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(113,55,143,.20),
-            transparent 68%
-        );
-}
-
-.glow-two{
-    width:380px;
-    height:380px;
-    bottom:-190px;
-    left:-120px;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(201,156,62,.18),
-            transparent 68%
-        );
-}
-
-/* Medical rings */
-
-.medical-ring{
-    position:absolute;
-    border-radius:50%;
-    border:1px solid rgba(91,45,119,.09);
-}
-
-.ring-one{
-    width:420px;
-    height:420px;
-    right:-220px;
-    top:30%;
-}
-
-.ring-two{
-    width:270px;
-    height:270px;
-    left:-150px;
-    top:22%;
-}
-
-.ring-three{
-    width:170px;
-    height:170px;
-    right:12%;
-    bottom:5%;
-}
-
-/* Medical cross */
-
-.medical-cross{
-    position:absolute;
-    color:#71378f;
-    opacity:.055;
-    font-weight:300;
-}
-
-.cross-one{
-    font-size:90px;
-    left:4%;
-    top:20%;
-}
-
-.cross-two{
-    font-size:65px;
-    right:5%;
-    bottom:20%;
-}
-
-/* ECG */
-
-.ecg{
-    position:absolute;
-
-    width:100%;
-    height:180px;
-
-    top:46%;
-    left:0;
-
-    opacity:.08;
-}
-
-.ecg path{
-    fill:none;
-
-    stroke:#71378f;
-
-    stroke-width:4;
-
-    stroke-linecap:round;
-    stroke-linejoin:round;
+    background:rgba(168,85,247,.10);
+    filter:blur(70px);
+    bottom:-170px;
+    left:-140px;
+    pointer-events:none;
 }
 
 /* =========================================================
-   MAIN
+   PAGE
    ========================================================= */
 
 .page{
     position:relative;
-    z-index:2;
-
     width:100%;
-    max-width:1050px;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:20px 16px 18px;
+}
 
-    margin:auto;
-
-    padding:
-        20px
-        22px
-        35px;
+.container{
+    position:relative;
+    width:100%;
+    max-width:520px;
+    z-index:2;
 }
 
 /* =========================================================
-   TOP BAR
+   ADMIN
    ========================================================= */
 
-.topbar{
-    width:100%;
-
+.admin-area{
     display:flex;
-
-    align-items:center;
-    justify-content:space-between;
-
-    margin-bottom:5px;
+    justify-content:flex-start;
+    margin-bottom:8px;
 }
 
-.status{
-    display:flex;
+.admin-btn{
+    display:inline-flex;
     align-items:center;
-
     gap:7px;
+    padding:8px 13px;
 
-    padding:
-        7px 12px;
+    color:#5b21b6;
+    background:rgba(255,255,255,.70);
 
-    border-radius:30px;
+    border:1px solid rgba(124,58,237,.14);
+    border-radius:14px;
 
-    background:
-        rgba(255,255,255,.72);
-
-    border:
-        1px solid
-        rgba(91,45,119,.10);
+    font-size:11px;
+    font-weight:700;
 
     box-shadow:
-        0 8px 25px
-        rgba(65,30,80,.07);
+        0 8px 25px rgba(76,29,149,.07);
 
     backdrop-filter:blur(15px);
-
-    color:#674d72;
-
-    font-size:9px;
-    font-weight:700;
-}
-
-.status-dot{
-    width:7px;
-    height:7px;
-
-    border-radius:50%;
-
-    background:#37b879;
-
-    box-shadow:
-        0 0 0 4px
-        rgba(55,184,121,.10);
-}
-
-.admin{
-    display:flex;
-    align-items:center;
-
-    gap:7px;
-
-    padding:
-        8px 13px;
-
-    border-radius:30px;
+    -webkit-backdrop-filter:blur(15px);
 
     text-decoration:none;
-
-    color:#4a2b58;
-
-    background:
-        rgba(255,255,255,.78);
-
-    border:
-        1px solid
-        rgba(91,45,119,.12);
-
-    box-shadow:
-        0 8px 25px
-        rgba(65,30,80,.08);
-
-    backdrop-filter:blur(15px);
-
-    font-size:9px;
-    font-weight:800;
 
     transition:.25s ease;
 }
 
-.admin:hover{
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 12px 30px
-        rgba(65,30,80,.13);
-}
-
-.admin-icon{
-    width:23px;
-    height:23px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            145deg,
-            #7c4497,
-            #4f2169
-        );
-
-    font-size:11px;
+.admin-btn:active{
+    transform:scale(.96);
 }
 
 /* =========================================================
-   BRAND
+   LOGO
    ========================================================= */
 
-.header{
+.brand{
     text-align:center;
-
-    margin-top:2px;
-
-    margin-bottom:22px;
+    margin-top:4px;
+    margin-bottom:18px;
 }
 
-.logo{
+.logo-wrap{
+    width:76px;
+    height:76px;
+    margin:0 auto 10px;
+
     position:relative;
-
-    width:96px;
-    height:96px;
-
-    margin:
-        0 auto 4px;
 
     display:flex;
     align-items:center;
     justify-content:center;
-}
 
-.logo::before{
-    content:"";
-
-    position:absolute;
-
-    inset:3px;
-
-    border-radius:50%;
+    border-radius:25px;
 
     background:
         linear-gradient(
             145deg,
-            #ffffff,
-            #f1e7f5
+            #8b5cf6,
+            #6d28d9
         );
 
     box-shadow:
-        0 18px 45px
-        rgba(71,28,91,.15);
+        0 18px 35px rgba(109,40,217,.27),
+        inset 0 1px 1px rgba(255,255,255,.45);
+
+    transform:rotate(-2deg);
 }
 
-.logo-ring{
+.logo-wrap::before{
+    content:"";
     position:absolute;
+    inset:-5px;
+    border-radius:29px;
+    border:1px solid rgba(124,58,237,.15);
+}
 
-    inset:8px;
+.logo-heart{
+    width:48px;
+    height:48px;
 
+    border:3px solid white;
     border-radius:50%;
 
-    border:
-        1px solid
-        rgba(201,156,62,.65);
-
-    z-index:1;
-}
-
-.logo-ring-two{
-    position:absolute;
-
-    inset:14px;
-
-    border-radius:50%;
-
-    border:
-        1px dashed
-        rgba(113,55,143,.22);
-
-    z-index:1;
-}
-
-/* Professional heart */
-
-.heart{
     position:relative;
 
-    width:39px;
-    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    transform:
-        rotate(-45deg);
+    color:white;
+
+    font-size:28px;
+    font-weight:900;
+
+    transform:rotate(2deg);
+}
+
+.logo-heart::after{
+    content:"";
+    position:absolute;
+    width:30px;
+    height:2px;
+    background:white;
+    right:7px;
+    top:23px;
+    box-shadow:
+        -8px -5px 0 -0.4px white,
+        -13px 5px 0 -0.4px white;
+    opacity:.9;
+}
+
+.brand h1{
+    font-size:29px;
+    line-height:1.15;
+    font-weight:900;
+    letter-spacing:.3px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #4c1d95,
+            #7c3aed,
+            #a855f7
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.brand p{
+    margin-top:4px;
+    color:#756a87;
+    font-size:11px;
+    font-weight:600;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero{
+    position:relative;
+    text-align:center;
+
+    padding:18px 15px 20px;
+    margin-bottom:16px;
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.88),
+            rgba(249,245,255,.72)
+        );
+
+    border:1px solid rgba(124,58,237,.10);
+
+    box-shadow:
+        0 18px 50px rgba(76,29,149,.08);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    border-radius:50%;
+
+    background:rgba(139,92,246,.11);
+
+    top:-80px;
+    left:-60px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:110px;
+    height:110px;
+    border-radius:50%;
+
+    background:rgba(168,85,247,.08);
+
+    bottom:-65px;
+    right:-35px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+
+    padding:5px 10px;
+
+    border-radius:30px;
+
+    background:#f2eaff;
+    color:#6d28d9;
+
+    font-size:10px;
+    font-weight:800;
+
+    margin-bottom:8px;
+}
+
+.live-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#22c55e;
+
+    box-shadow:
+        0 0 0 4px rgba(34,197,94,.10);
+}
+
+.hero h2{
+    font-size:19px;
+    font-weight:900;
+    color:#29163f;
+}
+
+.hero p{
+    margin-top:4px;
+
+    font-size:11px;
+    line-height:1.8;
+
+    color:#766b84;
+}
+
+/* =========================================================
+   LOGIN GRID
+   ========================================================= */
+
+.login-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+/* =========================================================
+   ROLE CARD
+   ========================================================= */
+
+.role-card{
+    position:relative;
+
+    min-height:245px;
+
+    padding:15px 12px 14px;
+
+    border-radius:25px;
+
+    text-decoration:none;
+
+    overflow:hidden;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    border:1px solid rgba(124,58,237,.11);
+
+    background:
+        linear-gradient(
+            160deg,
+            rgba(255,255,255,.94),
+            rgba(249,245,255,.78)
+        );
+
+    box-shadow:
+        0 18px 45px rgba(76,29,149,.10);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.role-card:active{
+    transform:scale(.975);
+}
+
+/* purple glow */
+
+.role-card::before{
+    content:"";
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    border-radius:50%;
+
+    background:rgba(124,58,237,.11);
+
+    filter:blur(5px);
+
+    top:-85px;
+    right:-65px;
+}
+
+/* bottom glow */
+
+.role-card::after{
+    content:"";
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    border-radius:50%;
+
+    background:rgba(168,85,247,.08);
+
+    bottom:-65px;
+    left:-40px;
+}
+
+/* =========================================================
+   AVATAR
+   ========================================================= */
+
+.avatar{
+    position:relative;
+    z-index:2;
+
+    width:104px;
+    height:104px;
+
+    margin-top:3px;
+    margin-bottom:11px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
     background:
         linear-gradient(
             145deg,
-            #e1c16a,
-            #ad7922
+            #ede9fe,
+            #ddd6fe
         );
 
-    border-radius:
-        7px 7px 7px 7px;
+    border:5px solid rgba(255,255,255,.90);
 
     box-shadow:
-        0 12px 22px
-        rgba(173,121,34,.28);
+        0 13px 30px rgba(76,29,149,.14),
+        inset 0 0 0 1px rgba(124,58,237,.08);
 
-    z-index:3;
+    overflow:hidden;
 }
 
-.heart::before,
-.heart::after{
-    content:"";
+/* =========================================================
+   PATIENT AVATAR
+   ========================================================= */
 
+.patient-avatar .head{
     position:absolute;
 
     width:39px;
@@ -455,692 +497,243 @@ body{
 
     border-radius:50%;
 
-    background:
-        linear-gradient(
-            145deg,
-            #e1c16a,
-            #ad7922
-        );
-}
+    background:#f2c7a5;
 
-.heart::before{
-    top:-19px;
-    left:0;
-}
-
-.heart::after{
-    left:19px;
-    top:0;
-}
-
-.logo-ecg{
-    position:absolute;
-
-    width:61px;
-    height:28px;
-
-    z-index:8;
-}
-
-.logo-ecg path{
-    fill:none;
-
-    stroke:#ffffff;
-
-    stroke-width:4;
-
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-
-.brand{
-    font-size:
-        clamp(
-            42px,
-            7vw,
-            60px
-        );
-
-    line-height:1;
-
-    font-weight:900;
-
-    color:#3b194c;
-
-    letter-spacing:-2px;
-}
-
-.brand span{
-    color:#71378f;
-}
-
-.tabibk{
-    margin-top:7px;
-
-    font-size:11px;
-
-    font-weight:900;
-
-    letter-spacing:7px;
-
-    color:#8a6997;
-}
-
-.subtitle{
-    margin-top:6px;
-
-    color:#7d6b84;
-
-    font-size:10px;
-
-    font-weight:600;
-}
-
-/* =========================================================
-   LOGIN CONTAINER
-   ========================================================= */
-
-.login-container{
-    position:relative;
-
-    max-width:850px;
-
-    margin:auto;
-
-    padding:13px;
-
-    border-radius:35px;
-
-    background:
-        rgba(255,255,255,.48);
-
-    border:
-        1px solid
-        rgba(255,255,255,.80);
+    top:20px;
 
     box-shadow:
-        0 35px 90px
-        rgba(55,22,72,.13);
-
-    backdrop-filter:
-        blur(22px);
+        inset -4px -3px 0 rgba(160,82,48,.08);
 }
 
-/* =========================================================
-   CARDS
-   ========================================================= */
-
-.login-area{
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:13px;
-}
-
-.card{
-    position:relative;
-
-    min-height:380px;
-
-    overflow:hidden;
-
-    border-radius:28px;
-
-    text-decoration:none;
-
-    color:#25132e;
-
-    padding:16px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:flex-end;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.98),
-            rgba(249,245,251,.91)
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.90);
-
-    box-shadow:
-        0 20px 50px
-        rgba(48,19,62,.11);
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease;
-}
-
-.card::after{
-    content:"";
-
+.patient-avatar .hair{
     position:absolute;
 
-    width:220px;
-    height:220px;
+    width:47px;
+    height:29px;
 
-    border-radius:50%;
+    background:#3d2455;
 
-    right:-110px;
-    top:-110px;
+    border-radius:50% 50% 35% 35%;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(113,55,143,.12),
-            transparent 70%
-        );
+    top:15px;
 }
 
-.card:hover{
-    transform:
-        translateY(-5px);
-
-    box-shadow:
-        0 28px 65px
-        rgba(48,19,62,.17);
-}
-
-/* Top gold line */
-
-.card-top-line{
-    position:absolute;
-
-    top:0;
-    left:18%;
-    right:18%;
-
-    height:3px;
-
-    border-radius:
-        0 0 10px 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            #d8b965,
-            transparent
-        );
-}
-
-/* =========================================================
-   VISUAL PERSON AREA
-   ========================================================= */
-
-.visual{
-    position:absolute;
-
-    left:0;
-    right:0;
-    top:0;
-
-    height:255px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-/* Glow */
-
-.visual-glow{
-    position:absolute;
-
-    width:205px;
-    height:205px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(113,55,143,.17),
-            rgba(201,156,62,.05) 48%,
-            transparent 72%
-        );
-}
-
-/* Person silhouette */
-
-.person{
-    position:relative;
-
-    width:155px;
-    height:210px;
-
-    z-index:3;
-
-    filter:
-        drop-shadow(
-            0 20px 18px
-            rgba(50,20,65,.15)
-        );
-}
-
-/* Head */
-
-.head{
+.patient-avatar .body{
     position:absolute;
 
     width:73px;
-    height:80px;
-
-    top:12px;
-    left:41px;
-
-    border-radius:
-        48% 48%
-        45% 45%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #f5c7a7,
-            #d99c79
-        );
-
-    box-shadow:
-        inset -5px -6px 10px
-        rgba(130,72,45,.10);
-}
-
-/* Hair */
-
-.hair{
-    position:absolute;
-
-    width:78px;
     height:42px;
 
-    top:3px;
-    left:38px;
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #a855f7
+        );
 
-    border-radius:
-        50% 50%
-        25% 25%;
+    border-radius:35px 35px 16px 16px;
 
+    bottom:7px;
+}
+
+.patient-avatar .collar{
+    position:absolute;
+
+    width:23px;
+    height:19px;
+
+    background:#f2c7a5;
+
+    bottom:35px;
+
+    clip-path:polygon(
+        0 0,
+        100% 0,
+        75% 100%,
+        25% 100%
+    );
+}
+
+/* =========================================================
+   DOCTOR AVATAR
+   ========================================================= */
+
+.doctor-avatar{
     background:
         linear-gradient(
             145deg,
-            #302333,
-            #17121b
+            #f5f3ff,
+            #e9e2ff
         );
-
-    z-index:2;
 }
 
-/* Eyes */
-
-.eye{
+.doctor-avatar .head{
     position:absolute;
 
-    width:7px;
-    height:5px;
-
-    top:46px;
+    width:38px;
+    height:38px;
 
     border-radius:50%;
 
-    background:#3a2634;
+    background:#e8b891;
+
+    top:19px;
 }
 
-.eye-left{
-    left:17px;
-}
-
-.eye-right{
-    right:17px;
-}
-
-/* Nose */
-
-.nose{
+.doctor-avatar .hair{
     position:absolute;
 
-    width:5px;
-    height:12px;
+    width:45px;
+    height:27px;
 
-    left:34px;
-    top:51px;
+    background:#39284b;
 
-    border-right:
-        1px solid
-        rgba(120,70,55,.35);
+    border-radius:50% 50% 35% 35%;
+
+    top:14px;
 }
 
-/* Smile */
-
-.smile{
+.doctor-avatar .body{
     position:absolute;
 
-    width:17px;
-    height:8px;
+    width:74px;
+    height:47px;
 
-    left:28px;
-    top:65px;
+    background:#ffffff;
 
-    border-bottom:
-        2px solid
-        rgba(120,55,65,.55);
+    border-radius:31px 31px 14px 14px;
 
-    border-radius:50%;
-}
-
-/* Body */
-
-.person-body{
-    position:absolute;
-
-    width:120px;
-    height:112px;
-
-    left:17px;
-    bottom:3px;
-
-    border-radius:
-        46px 46px
-        25px 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #e9e2ed
-        );
+    bottom:5px;
 
     box-shadow:
-        inset
-        0 -10px 20px
-        rgba(82,43,100,.08);
+        inset 0 -2px 0 rgba(109,40,217,.05);
 }
 
-/* Doctor coat */
-
-.doctor .person-body{
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #e9e9ed
-        );
-
-    border:
-        1px solid
-        rgba(95,72,105,.10);
-}
-
-.doctor-shirt{
+.doctor-avatar .collar-left,
+.doctor-avatar .collar-right{
     position:absolute;
 
-    width:65px;
-    height:90px;
+    width:21px;
+    height:30px;
 
+    background:#eef0ff;
+
+    bottom:28px;
+}
+
+.doctor-avatar .collar-left{
     left:28px;
-    top:12px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #71378f,
-            #4c2165
-        );
-
-    clip-path:
-        polygon(
-            50% 0,
-            100% 18%,
-            82% 100%,
-            18% 100%,
-            0 18%
-        );
+    transform:rotate(17deg);
 }
 
-/* Stethoscope */
+.doctor-avatar .collar-right{
+    right:28px;
+    transform:rotate(-17deg);
+}
 
-.stethoscope{
+.doctor-avatar .stethoscope{
     position:absolute;
 
-    width:48px;
-    height:67px;
+    width:35px;
+    height:27px;
 
-    left:34px;
-    top:22px;
-
-    border:
-        3px solid
-        #c49a3e;
+    border:2px solid #7c3aed;
 
     border-top:none;
 
-    border-radius:
-        0 0 30px 30px;
+    border-radius:0 0 22px 22px;
+
+    bottom:19px;
 }
 
-.stethoscope::after{
+.doctor-avatar .stethoscope::after{
     content:"";
 
     position:absolute;
 
-    width:11px;
-    height:11px;
+    width:7px;
+    height:7px;
 
     border-radius:50%;
 
-    background:#c49a3e;
+    background:#7c3aed;
 
-    bottom:-7px;
-    left:15px;
-}
-
-/* Patient clothes */
-
-.patient-shirt{
-    position:absolute;
-
-    width:95px;
-    height:90px;
-
+    bottom:-4px;
     left:13px;
-    top:17px;
-
-    border-radius:
-        35px 35px
-        18px 18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #e7d4ef,
-            #b784c9
-        );
-}
-
-/* Patient collar */
-
-.patient-collar{
-    position:absolute;
-
-    width:38px;
-    height:25px;
-
-    top:10px;
-    left:41px;
-
-    border-radius:0 0 20px 20px;
-
-    background:#ffffff;
-}
-
-/* Small medical badge */
-
-.medical-badge{
-    position:absolute;
-
-    width:30px;
-    height:30px;
-
-    border-radius:50%;
-
-    right:7px;
-    top:24px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            145deg,
-            #71378f,
-            #4f2169
-        );
-
-    box-shadow:
-        0 6px 14px
-        rgba(80,32,105,.20);
-
-    font-size:15px;
-
-    z-index:8;
 }
 
 /* =========================================================
-   CARD CONTENT
+   CARD TEXT
    ========================================================= */
 
-.card-content{
+.role-card h3{
     position:relative;
+    z-index:2;
 
-    z-index:10;
+    color:#29163f;
+
+    font-size:16px;
+    font-weight:900;
+}
+
+.role-card .subtitle{
+    position:relative;
+    z-index:2;
+
+    margin-top:3px;
+
+    color:#83778f;
+
+    font-size:9px;
+    font-weight:600;
 
     text-align:center;
 }
 
-.role-label{
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:5px;
-
-    padding:
-        5px 10px;
-
-    border-radius:20px;
-
-    color:#765a82;
-
-    background:#f3edf6;
-
-    font-size:8px;
-
-    font-weight:800;
-
-    margin-bottom:5px;
-}
-
-.role-dot{
-    width:5px;
-    height:5px;
-
-    border-radius:50%;
-
-    background:#37b879;
-}
-
-.card-title{
-    font-size:24px;
-
-    line-height:1.3;
-
-    font-weight:900;
-
-    color:#32143e;
-}
-
-.card-text{
-    margin:
-        4px 0
-        12px;
-
-    color:#7c6b82;
-
-    font-size:9px;
-
-    line-height:1.8;
-}
-
 /* =========================================================
-   BUTTON
+   ACTION BUTTON
    ========================================================= */
 
-.button{
+.role-action{
+    position:relative;
+    z-index:2;
+
+    margin-top:auto;
+
     width:100%;
 
-    height:54px;
+    height:38px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
+    gap:5px;
 
-    gap:10px;
+    border-radius:13px;
 
-    border-radius:28px;
+    color:white;
 
-    color:#ffffff;
+    font-size:11px;
+    font-weight:800;
 
     background:
         linear-gradient(
-            100deg,
-            #4c1d66,
-            #71378f,
-            #9558b2
+            135deg,
+            #7c3aed,
+            #6d28d9
         );
 
     box-shadow:
-        0 12px 25px
-        rgba(82,32,107,.24);
-
-    font-size:11px;
-
-    font-weight:900;
-
-    transition:.25s ease;
+        0 9px 20px rgba(109,40,217,.23);
 }
 
-.card:hover .button{
-    box-shadow:
-        0 16px 32px
-        rgba(82,32,107,.32);
-}
-
-.arrow{
-    width:25px;
-    height:25px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
+.doctor-card .role-action{
     background:
-        rgba(255,255,255,.15);
-
-    font-size:14px;
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #7c3aed
+        );
 }
 
 /* =========================================================
@@ -1148,51 +741,57 @@ body{
    ========================================================= */
 
 .features{
-    max-width:720px;
-
-    margin:
-        18px auto
-        0;
-
-    display:flex;
-
-    justify-content:center;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
 
     gap:8px;
+
+    margin-top:13px;
 }
 
 .feature{
-    flex:1;
-
-    min-height:42px;
+    min-height:64px;
 
     display:flex;
-
+    flex-direction:column;
     align-items:center;
     justify-content:center;
 
-    gap:6px;
+    gap:4px;
 
-    border-radius:15px;
+    border-radius:16px;
 
-    color:#735d7d;
+    background:rgba(255,255,255,.68);
 
-    background:
-        rgba(255,255,255,.55);
+    border:1px solid rgba(124,58,237,.08);
 
-    border:
-        1px solid
-        rgba(255,255,255,.72);
+    box-shadow:
+        0 8px 22px rgba(76,29,149,.05);
 
-    font-size:8px;
-
-    font-weight:700;
+    backdrop-filter:blur(10px);
 }
 
 .feature-icon{
-    color:#8a5ba0;
+    width:27px;
+    height:27px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:9px;
+
+    background:#f0e9ff;
+
+    color:#7c3aed;
 
     font-size:13px;
+}
+
+.feature span{
+    color:#746780;
+    font-size:8px;
+    font-weight:700;
 }
 
 /* =========================================================
@@ -1202,175 +801,44 @@ body{
 .footer{
     text-align:center;
 
-    margin-top:18px;
+    margin-top:16px;
+
+    color:#9489a0;
+
+    font-size:8px;
+    font-weight:600;
 }
 
 .footer strong{
-    color:#765783;
-
-    font-size:8px;
-
-    letter-spacing:5px;
-}
-
-.footer p{
-    margin-top:3px;
-
-    color:#a18da8;
-
-    font-size:7px;
+    color:#7c3aed;
+    font-weight:800;
 }
 
 /* =========================================================
-   MOBILE
+   DESKTOP
    ========================================================= */
 
-@media(max-width:600px){
+@media(min-width:600px){
 
     .page{
-        padding:
-            11px 7px
-            20px;
+        padding-top:30px;
     }
 
-    .topbar{
-        margin-bottom:2px;
+    .container{
+        max-width:560px;
     }
 
-    .status{
-        font-size:7px;
-        padding:6px 9px;
+    .role-card{
+        min-height:275px;
     }
 
-    .admin{
-        font-size:7px;
-        padding:6px 9px;
+    .avatar{
+        width:120px;
+        height:120px;
     }
 
-    .admin-icon{
-        width:20px;
-        height:20px;
-    }
-
-    .header{
-        margin-bottom:12px;
-    }
-
-    .logo{
-        width:78px;
-        height:78px;
-    }
-
-    .heart{
-        width:32px;
-        height:28px;
-    }
-
-    .heart::before,
-    .heart::after{
-        width:32px;
-        height:32px;
-    }
-
-    .heart::before{
-        top:-16px;
-    }
-
-    .heart::after{
-        left:16px;
-    }
-
-    .logo-ecg{
-        width:51px;
-    }
-
-    .brand{
-        font-size:34px;
-    }
-
-    .tabibk{
-        font-size:9px;
-        letter-spacing:5px;
-    }
-
-    .subtitle{
-        font-size:7px;
-    }
-
-    .login-container{
-        padding:6px;
-        border-radius:25px;
-    }
-
-    .login-area{
-        gap:6px;
-    }
-
-    .card{
-        min-height:330px;
-
-        padding:
-            8px 6px;
-
-        border-radius:20px;
-    }
-
-    .visual{
-        height:205px;
-    }
-
-    .visual-glow{
-        width:165px;
-        height:165px;
-    }
-
-    .person{
-        transform:scale(.73);
-    }
-
-    .role-label{
-        font-size:6px;
-        padding:4px 7px;
-    }
-
-    .card-title{
-        font-size:17px;
-    }
-
-    .card-text{
-        font-size:6.5px;
-        min-height:35px;
-        margin-bottom:6px;
-    }
-
-    .button{
-        height:46px;
-        font-size:8px;
-    }
-
-    .arrow{
-        width:21px;
-        height:21px;
-        font-size:11px;
-    }
-
-    .features{
-        gap:4px;
-        margin-top:11px;
-    }
-
-    .feature{
-        min-height:34px;
-        font-size:5.8px;
-        border-radius:11px;
-    }
-
-    .feature-icon{
-        font-size:9px;
-    }
-
-    .footer{
-        margin-top:12px;
+    .brand h1{
+        font-size:32px;
     }
 
 }
@@ -1379,506 +847,264 @@ body{
    VERY SMALL PHONES
    ========================================================= */
 
-@media(max-width:360px){
+@media(max-width:340px){
 
     .page{
-        padding-left:4px;
-        padding-right:4px;
+        padding-left:10px;
+        padding-right:10px;
     }
 
-    .login-container{
-        padding:5px;
+    .login-grid{
+        gap:8px;
     }
 
-    .login-area{
-        gap:4px;
+    .role-card{
+        min-height:225px;
+        padding-left:8px;
+        padding-right:8px;
     }
 
-    .card{
-        min-height:310px;
-        border-radius:18px;
+    .avatar{
+        width:88px;
+        height:88px;
     }
 
-    .visual{
-        height:190px;
+    .role-card h3{
+        font-size:14px;
     }
 
-    .person{
-        transform:scale(.64);
+    .role-action{
+        height:35px;
+        font-size:10px;
     }
-
-    .card-title{
-        font-size:15px;
-    }
-
-    .card-text{
-        font-size:6px;
-    }
-
-    .button{
-        height:43px;
-        font-size:7px;
-    }
-
-}
-
-/* =========================================================
-   ANIMATION
-   ========================================================= */
-
-@keyframes floatPerson{
-
-    0%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-5px);
-    }
-
-    100%{
-        transform:translateY(0);
-    }
-
-}
-
-.person{
-    animation:
-        floatPerson
-        4s
-        ease-in-out
-        infinite;
 }
 
 </style>
-
 </head>
+
 
 <body>
 
-<!-- =======================================================
-     BACKGROUND
-     ======================================================= -->
+<div class="page">
 
-<div class="background">
+<div class="container">
 
-```
-<div class="glow glow-one"></div>
+    <!-- =====================================================
+         ADMIN
+         ===================================================== -->
 
-<div class="glow glow-two"></div>
+    <div class="admin-area">
 
-<div class="medical-ring ring-one"></div>
-
-<div class="medical-ring ring-two"></div>
-
-<div class="medical-ring ring-three"></div>
-
-<div class="medical-cross cross-one">
-    +
-</div>
-
-<div class="medical-cross cross-two">
-    +
-</div>
-
-<svg
-    class="ecg"
-    viewBox="0 0 1200 180"
-    preserveAspectRatio="none"
->
-
-    <path
-        d="
-            M0 90
-            H170
-            L205 90
-            L235 40
-            L265 140
-            L295 90
-            H445
-            L475 90
-            L505 55
-            L535 125
-            L565 90
-            H720
-            L755 90
-            L790 35
-            L820 145
-            L850 90
-            H1010
-            L1040 90
-            L1070 62
-            L1100 120
-            L1130 90
-            H1200
-        "
-    />
-
-</svg>
-```
-
-</div>
-
-<!-- =======================================================
-     PAGE
-     ======================================================= -->
-
-<main class="page">
-
-```
-<!-- TOP BAR -->
-
-<div class="topbar">
-
-    <div class="status">
-
-        <span class="status-dot"></span>
-
-        منصة صحية رقمية
-
-    </div>
-
-
-    <a
-        href="/admin.html"
-        class="admin"
-    >
-
-        <span class="admin-icon">
-            ⚙
-        </span>
-
-        الإدارة
-
-        <span>
-            ←
-        </span>
-
-    </a>
-
-</div>
-
-
-<!-- BRAND -->
-
-<header class="header">
-
-    <div class="logo">
-
-        <div class="logo-ring"></div>
-
-        <div class="logo-ring-two"></div>
-
-        <div class="heart"></div>
-
-        <svg
-            class="logo-ecg"
-            viewBox="0 0 150 60"
+        <a
+            href="/admin.html"
+            class="admin-btn"
         >
-
-            <path
-                d="
-                    M3 31
-                    H30
-                    L43 31
-                    L54 8
-                    L66 52
-                    L79 31
-                    H103
-                    L114 31
-                    L125 20
-                    L137 42
-                    L147 31
-                "
-            />
-
-        </svg>
+            ⚙️ الإدارة
+        </a>
 
     </div>
 
+
+    <!-- =====================================================
+         BRAND
+         ===================================================== -->
 
     <div class="brand">
 
-        طبيبك
+        <div class="logo-wrap">
+
+            <div class="logo-heart">
+                ♥
+            </div>
+
+        </div>
+
+        <h1>طبيبك</h1>
+
+        <p>TABIBK • الرعاية الصحية الرقمية</p>
 
     </div>
 
 
-    <div class="tabibk">
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
 
-        TABIBK
+    <section class="hero">
 
-    </div>
+        <div class="hero-content">
+
+            <div class="hero-badge">
+
+                <span class="live-dot"></span>
+
+                خدمة صحية رقمية
+
+            </div>
+
+            <h2>
+                رعايتك الصحية تبدأ من هنا
+            </h2>
+
+            <p>
+                احجز موعدك بسهولة أو تابع مرضاك
+                من خلال منصة طبيبك.
+            </p>
+
+        </div>
+
+    </section>
 
 
-    <div class="subtitle">
+    <!-- =====================================================
+         LOGIN CARDS
+         ===================================================== -->
 
-        رعايتك الصحية تبدأ من هنا
-
-    </div>
-
-</header>
+    <div class="login-grid">
 
 
-<!-- LOGIN -->
-
-<section class="login-container">
-
-    <div class="login-area">
-
-
-        <!-- PATIENT -->
+        <!-- =================================================
+             PATIENT
+             ================================================= -->
 
         <a
             href="/patient.html"
-            class="card"
+            class="role-card patient-card"
         >
 
-            <div class="card-top-line"></div>
+            <div class="avatar patient-avatar">
 
+                <div class="hair"></div>
 
-            <div class="visual">
+                <div class="head"></div>
 
-                <div class="visual-glow"></div>
+                <div class="collar"></div>
 
-
-                <div class="person">
-
-                    <div class="hair"></div>
-
-                    <div class="head">
-
-                        <span
-                            class="eye eye-left"
-                        ></span>
-
-                        <span
-                            class="eye eye-right"
-                        ></span>
-
-                        <span class="nose"></span>
-
-                        <span class="smile"></span>
-
-                    </div>
-
-
-                    <div class="person-body">
-
-                        <div class="patient-shirt"></div>
-
-                        <div class="patient-collar"></div>
-
-                    </div>
-
-
-                    <div class="medical-badge">
-                        +
-                    </div>
-
-                </div>
+                <div class="body"></div>
 
             </div>
 
+            <h3>
+                المريض
+            </h3>
 
-            <div class="card-content">
+            <div class="subtitle">
+                احجز موعدك مع طبيبك
+            </div>
 
-                <div class="role-label">
-
-                    <span class="role-dot"></span>
-
-                    للمستخدمين
-
-                </div>
-
-
-                <div class="card-title">
-
-                    المريض
-
-                </div>
-
-
-                <div class="card-text">
-
-                    احجز موعدك وتابع دورك
-                    <br>
-                    وتواصل مع طبيبك بسهولة.
-
-                </div>
-
-
-                <div class="button">
-
-                    دخول المريض
-
-                    <span class="arrow">
-                        ←
-                    </span>
-
-                </div>
-
+            <div class="role-action">
+                دخول المريض
+                <span>←</span>
             </div>
 
         </a>
 
 
-        <!-- DOCTOR -->
+        <!-- =================================================
+             DOCTOR
+             ================================================= -->
 
         <a
             href="/doctor.html"
-            class="card"
+            class="role-card doctor-card"
         >
 
-            <div class="card-top-line"></div>
+            <div class="avatar doctor-avatar">
 
+                <div class="hair"></div>
 
-            <div class="visual">
+                <div class="head"></div>
 
-                <div class="visual-glow"></div>
+                <div class="body"></div>
 
+                <div class="collar-left"></div>
+                <div class="collar-right"></div>
 
-                <div class="person doctor">
-
-                    <div class="hair"></div>
-
-                    <div class="head">
-
-                        <span
-                            class="eye eye-left"
-                        ></span>
-
-                        <span
-                            class="eye eye-right"
-                        ></span>
-
-                        <span class="nose"></span>
-
-                        <span class="smile"></span>
-
-                    </div>
-
-
-                    <div class="person-body">
-
-                        <div class="doctor-shirt"></div>
-
-                        <div class="stethoscope"></div>
-
-                    </div>
-
-
-                    <div class="medical-badge">
-                        +
-                    </div>
-
-                </div>
+                <div class="stethoscope"></div>
 
             </div>
 
+            <h3>
+                الطبيب
+            </h3>
 
-            <div class="card-content">
+            <div class="subtitle">
+                إدارة مواعيد مرضاك
+            </div>
 
-                <div class="role-label">
-
-                    <span class="role-dot"></span>
-
-                    للأطباء
-
-                </div>
-
-
-                <div class="card-title">
-
-                    الطبيب
-
-                </div>
-
-
-                <div class="card-text">
-
-                    إدارة المرضى والمواعيد
-                    <br>
-                    وتنظيم الاستشارات بسهولة.
-
-                </div>
-
-
-                <div class="button">
-
-                    دخول الطبيب
-
-                    <span class="arrow">
-                        ←
-                    </span>
-
-                </div>
-
+            <div class="role-action">
+                دخول الطبيب
+                <span>←</span>
             </div>
 
         </a>
 
     </div>
 
-</section>
+
+    <!-- =====================================================
+         FEATURES
+         ===================================================== -->
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🩺
+            </div>
+
+            <span>
+                أطباء موثوقون
+            </span>
+
+        </div>
 
 
-<!-- FEATURES -->
+        <div class="feature">
 
-<section class="features">
+            <div class="feature-icon">
+                📅
+            </div>
 
-    <div class="feature">
+            <span>
+                حجز سهل
+            </span>
 
-        <span class="feature-icon">
-            ✓
-        </span>
+        </div>
 
-        حجز سريع
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🔔
+            </div>
+
+            <span>
+                إشعارات فورية
+            </span>
+
+        </div>
 
     </div>
 
 
-    <div class="feature">
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
 
-        <span class="feature-icon">
-            ◷
-        </span>
+    <div class="footer">
 
-        متابعة مباشرة
+        <strong>TABIBK</strong>
 
-    </div>
-
-
-    <div class="feature">
-
-        <span class="feature-icon">
-            ♥
-        </span>
-
-        رعاية موثوقة
+        — منصتك الصحية الرقمية
 
     </div>
 
-</section>
+</div>
 
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-    <strong>
-        TABIBK
-    </strong>
-
-    <p>
-        طبيبك ... دائمًا معك
-    </p>
-
-</footer>
-```
-
-</main>
+</div>
 
 </body>
-
 </html>
+```

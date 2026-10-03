@@ -3978,17 +3978,12 @@ appointment.ratedAt =
 
 
         res.json({
-
-            success:true,
-
-            message:
-                "تم إرسال تقييمك بنجاح ❤️",
-
-            rating,
-
-            review
-
-        });
+    success: true,
+    message: "تم إرسال تقييمك بنجاح ❤️",
+    rating,
+    review,
+    doctorId: appointment.doctorId
+});
 
     }
 );

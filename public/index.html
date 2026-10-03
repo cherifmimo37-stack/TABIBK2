@@ -1,30 +1,16 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
->
+<title>TABIBK | طبيبك</title>
 
-<title>طبيبك | TABIBK</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-
-/* =========================================================
-   TABIBK — PREMIUM SILVER GLASS
-========================================================= */
 
 *{
     margin:0;
@@ -33,2342 +19,1456 @@
 }
 
 :root{
-
-    --purple:#713c91;
-    --purple-dark:#24122f;
-    --purple-deep:#100817;
-
-    --silver:#dfe2e7;
-    --silver-light:#f8f9fb;
-    --silver-dark:#9fa5ae;
-
-    --gold:#d6ae52;
-    --gold-light:#f4dc91;
-
+    --purple:#7c3aed;
+    --purple2:#9333ea;
+    --purple-dark:#4c1d95;
+    --purple-light:#f3edff;
+    --text:#28143f;
+    --muted:#806e94;
     --white:#ffffff;
-
-}
-
-html,
-body{
-    width:100%;
-    min-height:100%;
 }
 
 body{
-
-    font-family:"Cairo",sans-serif;
-
     min-height:100vh;
-
-    color:white;
-
+    font-family:'Cairo',sans-serif;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 10% 10%,rgba(124,58,237,.15),transparent 28%),
+        radial-gradient(circle at 90% 85%,rgba(147,51,234,.12),transparent 30%),
+        linear-gradient(135deg,#faf8ff,#f0eaff,#fbfaff);
     overflow-x:hidden;
-
-    background:
-
-        radial-gradient(
-            circle at 10% 5%,
-            rgba(255,255,255,.22),
-            transparent 23%
-        ),
-
-        radial-gradient(
-            circle at 92% 12%,
-            rgba(218,178,77,.15),
-            transparent 22%
-        ),
-
-        radial-gradient(
-            circle at 50% 100%,
-            rgba(116,55,151,.35),
-            transparent 42%
-        ),
-
-        linear-gradient(
-            135deg,
-            #0d0911 0%,
-            #1c1222 35%,
-            #302039 65%,
-            #0d0911 100%
-        );
-
 }
 
+/* =========================
+   الخلفية
+========================= */
 
-/* =========================================================
-   BACKGROUND
-========================================================= */
-
-.bg{
-
+.background-shape{
     position:fixed;
-
-    inset:0;
-
-    overflow:hidden;
-
+    border-radius:50%;
+    z-index:-1;
     pointer-events:none;
-
-    z-index:0;
-}
-
-.bg::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:500px;
-    height:500px;
-
-    right:-250px;
-    top:-180px;
-
-    border-radius:50%;
-
-    background:
-        rgba(255,255,255,.08);
-
-    filter:blur(5px);
-}
-
-.bg::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:450px;
-    height:450px;
-
-    left:-220px;
-    bottom:-170px;
-
-    border-radius:50%;
-
-    background:
-        rgba(113,60,145,.28);
-
-    filter:blur(8px);
-}
-
-
-/* glass grid */
-
-.grid{
-
-    position:absolute;
-
-    inset:0;
-
-    opacity:.035;
-
-    background-image:
-
-        linear-gradient(
-            rgba(255,255,255,.7) 1px,
-            transparent 1px
-        ),
-
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.7) 1px,
-            transparent 1px
-        );
-
-    background-size:55px 55px;
-}
-
-
-/* decorative rings */
-
-.ring{
-
-    position:absolute;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(255,255,255,.06);
-}
-
-.ring-one{
-
-    width:600px;
-    height:600px;
-
-    right:-330px;
-    top:20%;
-}
-
-.ring-two{
-
-    width:370px;
-    height:370px;
-
-    left:-220px;
-    top:40%;
-}
-
-
-/* floating glass shapes */
-
-.shape{
-
-    position:absolute;
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    background:
-        rgba(255,255,255,.025);
-
-    backdrop-filter:blur(15px);
-
-    transform:rotate(25deg);
 }
 
 .shape-one{
-
-    width:100px;
-    height:100px;
-
-    right:7%;
-    top:28%;
-
-    border-radius:25px;
+    width:350px;
+    height:350px;
+    top:-180px;
+    right:-100px;
+    background:rgba(124,58,237,.12);
+    filter:blur(5px);
 }
 
 .shape-two{
-
-    width:70px;
-    height:70px;
-
-    left:9%;
-    top:25%;
-
-    border-radius:50%;
+    width:300px;
+    height:300px;
+    bottom:-150px;
+    left:-100px;
+    background:rgba(147,51,234,.10);
+    filter:blur(5px);
 }
 
+/* =========================
+   الصفحة
+========================= */
 
-/* =========================================================
-   PAGE
-========================================================= */
-
-.page{
-
-    position:relative;
-
-    z-index:5;
-
+.container{
     width:100%;
-
-    max-width:1080px;
-
+    max-width:1150px;
     margin:auto;
-
-    padding:
-        16px 22px
-        32px;
+    padding:22px;
 }
 
+/* =========================
+   الإدارة
+========================= */
 
-/* =========================================================
-   ADMIN
-========================================================= */
-
-.admin-area{
-
+.admin-row{
     display:flex;
-
     justify-content:flex-start;
-
-    margin-bottom:0;
 }
 
-.admin{
-
+.admin-button{
     display:flex;
-
     align-items:center;
-
     gap:8px;
-
-    text-decoration:none;
-
-    color:#eeeaf1;
-
-    padding:
-        7px 12px;
-
-    border-radius:30px;
-
-    background:
-        rgba(255,255,255,.075);
-
-    border:
-        1px solid
-        rgba(255,255,255,.16);
-
-    backdrop-filter:
-        blur(20px);
-
-    -webkit-backdrop-filter:
-        blur(20px);
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,.18);
-
-    font-size:9px;
-
+    border:1px solid rgba(124,58,237,.14);
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(15px);
+    color:#5b21b6;
+    padding:10px 17px;
+    border-radius:14px;
+    font-family:'Cairo';
+    font-size:13px;
     font-weight:800;
-
-    transition:.25s ease;
+    cursor:pointer;
+    box-shadow:0 8px 25px rgba(76,29,149,.07);
+    transition:.3s;
 }
 
-.admin:hover{
-
+.admin-button:hover{
     transform:translateY(-2px);
-
-    background:
-        rgba(255,255,255,.13);
-
-    border-color:
-        rgba(241,211,127,.55);
+    background:white;
+    box-shadow:0 12px 30px rgba(76,29,149,.14);
 }
 
-.admin-icon{
-
-    width:24px;
-    height:24px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    color:#422e45;
-
-    background:
-        linear-gradient(
-            145deg,
-            var(--gold-light),
-            var(--gold)
-        );
-
-    font-size:12px;
-}
-
-
-/* =========================================================
-   BRAND
-========================================================= */
+/* =========================
+   الهيدر
+========================= */
 
 .header{
-
     text-align:center;
-
-    margin-top:-2px;
-
-    margin-bottom:28px;
+    margin:10px auto 30px;
 }
-
-
-/* logo */
 
 .logo{
-
-    position:relative;
-
-    width:91px;
-    height:91px;
-
+    width:78px;
+    height:78px;
     margin:auto;
-
+    border-radius:25px;
     display:flex;
-
     align-items:center;
     justify-content:center;
 
-    border-radius:50%;
-
     background:
+        linear-gradient(145deg,#7c3aed,#9333ea);
 
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.19),
-            rgba(255,255,255,.045)
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.24);
-
-    backdrop-filter:
-        blur(25px);
+    color:white;
+    font-size:40px;
 
     box-shadow:
-
-        0 25px 55px
-        rgba(0,0,0,.3),
-
-        inset
-        0 1px 0
-        rgba(255,255,255,.4);
+        0 18px 40px rgba(124,58,237,.30),
+        inset 0 1px 2px rgba(255,255,255,.5);
 }
 
-.logo::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:8px;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(238,207,119,.65);
-}
-
-
-/* heart */
-
-.heart{
-
-    position:relative;
-
-    width:36px;
-    height:33px;
-
-    transform:rotate(-45deg);
-
-    background:
-        linear-gradient(
-            145deg,
-            #f5da8b,
-            #9b7027
-        );
-
-    border-radius:7px;
-
-    box-shadow:
-        0 10px 25px
-        rgba(0,0,0,.35);
-
-    z-index:2;
-}
-
-.heart::before,
-.heart::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:36px;
-    height:36px;
-
-    border-radius:50%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #f5da8b,
-            #9b7027
-        );
-}
-
-.heart::before{
-
-    top:-18px;
-
-    left:0;
-}
-
-.heart::after{
-
-    top:0;
-
-    left:18px;
-}
-
-
-/* ECG */
-
-.logo-ecg{
-
-    position:absolute;
-
-    width:70px;
-
-    height:30px;
-
-    z-index:8;
-}
-
-.logo-ecg path{
-
-    fill:none;
-
-    stroke:#fff;
-
-    stroke-width:3.5;
-
-    stroke-linecap:round;
-
-    stroke-linejoin:round;
-}
-
-
-.brand{
-
-    margin-top:9px;
-
-    font-size:
-        clamp(43px,7vw,62px);
-
+.logo-title{
+    margin-top:12px;
+    font-size:29px;
     line-height:1;
-
     font-weight:900;
-
-    letter-spacing:-2px;
-
-    text-shadow:
-        0 8px 28px
-        rgba(0,0,0,.35);
+    color:#4c1d95;
 }
 
-.brand-en{
-
+.logo-subtitle{
     margin-top:8px;
-
-    color:#e6cbea;
-
-    font-size:11px;
-
-    font-weight:900;
-
-    letter-spacing:9px;
-
-    padding-left:9px;
-}
-
-.subtitle{
-
-    margin-top:5px;
-
-    color:#cfc3d5;
-
-    font-size:10px;
-
-    font-weight:600;
-}
-
-
-/* =========================================================
-   LOGIN AREA
-========================================================= */
-
-.login-area{
-
-    width:100%;
-
-    max-width:850px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:20px;
-}
-
-
-/* =========================================================
-   GLASS CARD
-========================================================= */
-
-.login-card{
-
-    position:relative;
-
-    height:455px;
-
-    overflow:hidden;
-
-    border-radius:34px;
-
-    text-decoration:none;
-
-    color:white;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.22),
-            rgba(255,255,255,.075)
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.25);
-
-    backdrop-filter:
-        blur(28px);
-
-    -webkit-backdrop-filter:
-        blur(28px);
-
-    box-shadow:
-
-        0 35px 90px
-        rgba(0,0,0,.38),
-
-        inset
-        0 1px 0
-        rgba(255,255,255,.36),
-
-        inset
-        0 -1px 0
-        rgba(255,255,255,.05);
-
-    transition:
-        transform .35s ease,
-        box-shadow .35s ease,
-        border-color .35s ease;
-}
-
-.login-card:hover{
-
-    transform:
-        translateY(-8px);
-
-    border-color:
-        rgba(241,211,127,.52);
-
-    box-shadow:
-
-        0 48px 110px
-        rgba(0,0,0,.48),
-
-        inset
-        0 1px 0
-        rgba(255,255,255,.42);
-}
-
-
-/* top gold line */
-
-.login-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    left:15%;
-    right:15%;
-
-    height:2px;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--gold-light),
-            var(--gold),
-            transparent
-        );
-
-    box-shadow:
-        0 0 18px
-        rgba(218,180,83,.45);
-}
-
-
-/* bottom purple glow */
-
-.login-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:280px;
-    height:150px;
-
-    bottom:-90px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    border-radius:50%;
-
-    background:
-        rgba(112,52,144,.30);
-
-    filter:blur(30px);
-}
-
-
-/* =========================================================
-   CARD TOP
-========================================================= */
-
-.label{
-
-    position:absolute;
-
-    right:17px;
-    top:16px;
-
-    z-index:30;
-
-    padding:
-        5px 11px;
-
-    border-radius:20px;
-
-    color:#eee5f1;
-
-    background:
-        rgba(255,255,255,.08);
-
-    border:
-        1px solid
-        rgba(255,255,255,.15);
-
-    backdrop-filter:blur(10px);
-
-    font-size:7px;
-
-    font-weight:800;
-}
-
-.number{
-
-    position:absolute;
-
-    left:18px;
-    top:12px;
-
-    color:
-        rgba(255,255,255,.12);
-
-    font-size:31px;
-
-    font-weight:900;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status{
-
-    position:absolute;
-
-    left:18px;
-    top:18px;
-
-    z-index:30;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:5px;
-
-    color:#d9cedd;
-
-    font-size:6px;
-}
-
-.status-dot{
-
-    width:6px;
-    height:6px;
-
-    border-radius:50%;
-
-    background:#72d18e;
-
-    box-shadow:
-        0 0 10px
-        rgba(114,209,142,.75);
-}
-
-
-/* =========================================================
-   PERSON AREA
-========================================================= */
-
-.person-area{
-
-    position:absolute;
-
-    left:0;
-    right:0;
-
-    top:35px;
-
-    height:275px;
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:center;
-}
-
-
-/* silver glass orb */
-
-.person-orb{
-
-    position:absolute;
-
-    width:235px;
-    height:235px;
-
-    bottom:0;
-
-    border-radius:50%;
-
-    background:
-
-        radial-gradient(
-            circle at 32% 23%,
-            rgba(255,255,255,.34),
-            rgba(255,255,255,.11) 43%,
-            rgba(255,255,255,.035) 68%,
-            transparent 72%
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.21);
-
-    box-shadow:
-
-        inset
-        0 0 45px
-        rgba(255,255,255,.11),
-
-        0 25px 60px
-        rgba(0,0,0,.18);
-}
-
-.person-orb::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:12px;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(237,207,121,.32);
-}
-
-
-/* =========================================================
-   BUILT-IN SVG PEOPLE
-========================================================= */
-
-.person-svg{
-
-    position:relative;
-
-    z-index:10;
-
-    width:255px;
-
-    height:275px;
-
-    filter:
-        drop-shadow(
-            0 25px 18px
-            rgba(0,0,0,.30)
-        );
-
-    transition:
-        transform .35s ease;
-}
-
-.login-card:hover .person-svg{
-
-    transform:
-        translateY(-5px)
-        scale(1.025);
-}
-
-
-/* =========================================================
-   CARD CONTENT
-========================================================= */
-
-.card-content{
-
-    position:absolute;
-
-    left:16px;
-    right:16px;
-
-    bottom:17px;
-
-    z-index:25;
-
-    text-align:center;
-}
-
-.card-title{
-
-    font-size:25px;
-
-    font-weight:900;
-
-    color:white;
-
-    text-shadow:
-        0 4px 16px
-        rgba(0,0,0,.3);
-}
-
-.card-subtitle{
-
-    margin-top:-1px;
-
-    color:#d8c2e1;
-
-    font-size:8px;
-
-    font-weight:800;
-
-    letter-spacing:2px;
-}
-
-.card-description{
-
-    margin:
-        5px auto
-        12px;
-
-    color:#d6cbd9;
-
-    font-size:8px;
-
-    line-height:1.8;
-}
-
-
-/* =========================================================
-   BUTTON
-========================================================= */
-
-.login-button{
-
-    width:100%;
-
-    height:55px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:9px;
-
-    border-radius:30px;
-
-    background:
-
-        linear-gradient(
-            100deg,
-            rgba(91,39,116,.96),
-            rgba(135,72,166,.96)
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.19);
-
-    box-shadow:
-
-        0 14px 30px
-        rgba(0,0,0,.23),
-
-        inset
-        0 1px 0
-        rgba(255,255,255,.28);
-
-    color:white;
-
-    font-size:11px;
-
-    font-weight:900;
-
-    transition:.25s ease;
-}
-
-.login-card:hover .login-button{
-
-    background:
-
-        linear-gradient(
-            100deg,
-            #66317e,
-            #9958b8
-        );
-
-    box-shadow:
-        0 17px 38px
-        rgba(0,0,0,.32);
-}
-
-.arrow{
-
-    width:27px;
-    height:27px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    color:#453048;
-
-    background:
-        linear-gradient(
-            145deg,
-            var(--gold-light),
-            var(--gold)
-        );
-
+    color:#806e94;
     font-size:13px;
 }
 
+/* =========================
+   البطاقات
+========================= */
 
-/* =========================================================
-   FEATURES
-========================================================= */
+.cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+    max-width:920px;
+    margin:auto;
+}
 
-.features{
+.card{
+    position:relative;
+    min-height:465px;
+    overflow:hidden;
 
-    max-width:760px;
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(20px);
 
-    margin:
-        24px auto 0;
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:32px;
 
-    padding:
-        11px 5px;
+    padding:24px;
 
+    box-shadow:
+        0 22px 55px rgba(76,29,149,.10),
+        inset 0 1px 0 rgba(255,255,255,.9);
+
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 28px 65px rgba(76,29,149,.16),
+        inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+/* =========================
+   صورة الشخصية
+========================= */
+
+.person-image{
+    position:relative;
+    height:205px;
+    border-radius:25px;
+    overflow:hidden;
     display:flex;
-
-    border-radius:22px;
+    align-items:flex-end;
+    justify-content:center;
+    margin-bottom:20px;
 
     background:
-        rgba(255,255,255,.055);
+        linear-gradient(
+            145deg,
+            #ede9fe,
+            #ddd6fe
+        );
+}
 
-    border:
-        1px solid
-        rgba(255,255,255,.10);
+.doctor-image{
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            #ffffff 0,
+            #f3edff 45%,
+            #e5dcff 100%
+        );
+}
 
-    backdrop-filter:
-        blur(18px);
+.patient-image{
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            #ffffff 0,
+            #f4edff 45%,
+            #e4d9ff 100%
+        );
+}
+
+/* دوائر زخرفية */
+
+.person-image::before{
+    content:"";
+    position:absolute;
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    background:rgba(124,58,237,.12);
+    top:-75px;
+    left:-55px;
+}
+
+.person-image::after{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:rgba(147,51,234,.09);
+    bottom:-65px;
+    right:-35px;
+}
+
+/* =========================
+   SVG الأشخاص
+========================= */
+
+.person-svg{
+    position:relative;
+    z-index:2;
+    width:180px;
+    height:205px;
+}
+
+/* =========================
+   العنوان
+========================= */
+
+.card-content{
+    text-align:right;
+}
+
+.card-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:7px;
+}
+
+.card-title-icon{
+    width:35px;
+    height:35px;
+    border-radius:11px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#f0e9ff;
+    color:#7c3aed;
+    font-size:18px;
+}
+
+.card h2{
+    font-size:22px;
+    font-weight:900;
+    color:#35145e;
+}
+
+.card-description{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.9;
+    margin-bottom:17px;
+}
+
+/* =========================
+   المميزات
+========================= */
+
+.features{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
 }
 
 .feature{
-
-    flex:1;
-
     display:flex;
-
     align-items:center;
+    gap:5px;
 
-    justify-content:center;
+    padding:6px 9px;
 
-    gap:6px;
+    background:#faf8ff;
+    border:1px solid #eee7fb;
 
-    color:#cec3d3;
+    border-radius:9px;
 
-    font-size:8px;
+    color:#665477;
+    font-size:10px;
+    font-weight:600;
 }
 
-.feature + .feature{
-
-    border-right:
-        1px solid
-        rgba(255,255,255,.12);
+.check{
+    color:#7c3aed;
+    font-weight:900;
 }
 
-.feature-icon{
+/* =========================
+   زر الدخول
+========================= */
 
-    color:
-        var(--gold-light);
+.login-button{
+    width:100%;
+    border:none;
 
-    font-size:12px;
+    padding:13px;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #9333ea
+        );
+
+    color:white;
+
+    font-family:'Cairo';
+    font-size:13px;
+    font-weight:800;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 12px 25px rgba(109,40,217,.22);
+
+    transition:.3s;
 }
 
+.login-button:hover{
+    transform:translateY(-2px);
 
-/* =========================================================
-   FOOTER
-========================================================= */
+    box-shadow:
+        0 16px 30px rgba(109,40,217,.30);
+}
+
+.login-button:active{
+    transform:scale(.98);
+}
+
+/* =========================
+   شريط سفلي
+========================= */
 
 .footer{
-
     text-align:center;
-
-    margin-top:17px;
+    margin-top:25px;
+    color:#9686a5;
+    font-size:11px;
 }
 
 .footer strong{
-
-    color:#d9c3e1;
-
-    font-size:8px;
-
-    letter-spacing:5px;
+    color:#6d28d9;
 }
 
-.footer p{
+/* =========================
+   MODAL
+========================= */
 
-    margin-top:3px;
+.modal{
+    position:fixed;
+    inset:0;
 
-    color:#93869b;
+    display:none;
+    align-items:center;
+    justify-content:center;
 
-    font-size:7px;
+    padding:20px;
+
+    background:rgba(39,18,65,.45);
+    backdrop-filter:blur(8px);
+
+    z-index:1000;
 }
 
+.modal.active{
+    display:flex;
+}
 
-/* =========================================================
-   TABLET / MOBILE
-========================================================= */
+.modal-box{
+    width:100%;
+    max-width:410px;
+
+    background:#fff;
+
+    border-radius:28px;
+
+    padding:28px;
+
+    box-shadow:
+        0 30px 80px rgba(39,18,65,.25);
+
+    animation:modalIn .3s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.96);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:22px;
+}
+
+.modal-title{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#3b1765;
+    font-size:19px;
+    font-weight:900;
+}
+
+.close{
+    width:34px;
+    height:34px;
+
+    border:none;
+    border-radius:10px;
+
+    background:#f2edfa;
+    color:#6d28d9;
+
+    font-size:20px;
+
+    cursor:pointer;
+}
+
+.input{
+    width:100%;
+
+    border:1px solid #e5dcef;
+    background:#faf9fd;
+
+    padding:13px 14px;
+
+    border-radius:13px;
+
+    margin-bottom:12px;
+
+    outline:none;
+
+    font-family:'Cairo';
+    font-size:13px;
+
+    color:#32194d;
+
+    transition:.2s;
+}
+
+.input:focus{
+    border-color:#8b5cf6;
+    background:#fff;
+
+    box-shadow:
+        0 0 0 4px rgba(139,92,246,.08);
+}
+
+.modal-login{
+    width:100%;
+
+    border:none;
+
+    padding:13px;
+
+    margin-top:4px;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #9333ea
+        );
+
+    color:white;
+
+    font-family:'Cairo';
+    font-size:13px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+/* =========================
+   Toast
+========================= */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+    bottom:25px;
+
+    transform:
+        translate(-50%,30px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    background:#32194d;
+    color:white;
+
+    padding:11px 20px;
+
+    border-radius:13px;
+
+    font-size:12px;
+
+    transition:.3s;
+
+    z-index:2000;
+}
+
+.toast.show{
+    opacity:1;
+    transform:
+        translate(-50%,0);
+}
+
+/* =========================
+   الهاتف
+========================= */
 
 @media(max-width:700px){
 
-    .page{
+    .container{
+        padding:14px;
+    }
 
-        padding:
-            11px 9px
-            24px;
+    .admin-button{
+        font-size:11px;
+        padding:8px 12px;
     }
 
     .header{
-
-        margin-bottom:16px;
+        margin-top:8px;
+        margin-bottom:18px;
     }
 
     .logo{
-
-        width:76px;
-        height:76px;
+        width:65px;
+        height:65px;
+        border-radius:20px;
+        font-size:32px;
     }
 
-    .brand{
-
-        font-size:36px;
+    .logo-title{
+        font-size:24px;
     }
 
-    .brand-en{
-
-        font-size:8px;
-
-        letter-spacing:6px;
+    .logo-subtitle{
+        font-size:10px;
+        margin-top:5px;
     }
 
-    .subtitle{
-
-        font-size:8px;
+    .cards{
+        grid-template-columns:1fr 1fr;
+        gap:9px;
     }
 
-    .login-area{
-
-        gap:7px;
+    .card{
+        min-height:405px;
+        padding:12px;
+        border-radius:22px;
     }
 
-    .login-card{
-
-        height:365px;
-
-        border-radius:24px;
-    }
-
-    .person-area{
-
-        top:25px;
-
-        height:220px;
-    }
-
-    .person-orb{
-
-        width:180px;
-        height:180px;
+    .person-image{
+        height:145px;
+        border-radius:18px;
+        margin-bottom:13px;
     }
 
     .person-svg{
-
-        width:190px;
-        height:215px;
-    }
-
-    .card-content{
-
-        left:8px;
-        right:8px;
-
-        bottom:10px;
+        width:125px;
+        height:145px;
     }
 
     .card-title{
-
-        font-size:18px;
+        gap:5px;
+        margin-bottom:5px;
     }
 
-    .card-subtitle{
+    .card-title-icon{
+        width:27px;
+        height:27px;
+        border-radius:8px;
+        font-size:13px;
+    }
 
-        font-size:6px;
+    .card h2{
+        font-size:15px;
     }
 
     .card-description{
-
-        font-size:6.5px;
-
-        margin-bottom:7px;
-    }
-
-    .login-button{
-
-        height:46px;
-
-        font-size:8px;
-    }
-
-    .arrow{
-
-        width:22px;
-        height:22px;
-
-        font-size:10px;
-    }
-
-    .features{
-
-        margin-top:14px;
-    }
-
-    .feature{
-
-        font-size:6px;
-    }
-}
-
-
-/* =========================================================
-   SMALL PHONES
-========================================================= */
-
-@media(max-width:420px){
-
-    .page{
-
-        padding:
-            7px 5px
-            18px;
-    }
-
-    .admin{
-
-        padding:
-            6px 9px;
-
-        font-size:7px;
-    }
-
-    .admin-icon{
-
-        width:21px;
-        height:21px;
-
-        font-size:10px;
-    }
-
-    .header{
-
+        font-size:9px;
+        line-height:1.75;
         margin-bottom:11px;
     }
 
-    .logo{
-
-        width:66px;
-        height:66px;
-    }
-
-    .heart,
-    .heart::before,
-    .heart::after{
-
-        width:27px;
-        height:27px;
-    }
-
-    .heart::before{
-
-        top:-13px;
-    }
-
-    .heart::after{
-
-        left:13px;
-    }
-
-    .logo-ecg{
-
-        width:51px;
-    }
-
-    .brand{
-
-        font-size:30px;
-    }
-
-    .brand-en{
-
-        margin-top:4px;
-
-        font-size:7px;
-
-        letter-spacing:5px;
-    }
-
-    .subtitle{
-
-        margin-top:3px;
-
-        font-size:6.5px;
-    }
-
-    .login-area{
-
-        gap:5px;
-    }
-
-    .login-card{
-
-        height:335px;
-
-        border-radius:19px;
-    }
-
-    .label{
-
-        top:8px;
-        right:8px;
-
-        padding:
-            3px 6px;
-
-        font-size:5px;
-    }
-
-    .number{
-
-        top:7px;
-        left:8px;
-
-        font-size:18px;
-    }
-
-    .status{
-
-        top:10px;
-        left:9px;
-
-        font-size:4px;
-    }
-
-    .status-dot{
-
-        width:5px;
-        height:5px;
-    }
-
-    .person-area{
-
-        top:23px;
-
-        height:190px;
-    }
-
-    .person-orb{
-
-        width:150px;
-        height:150px;
-    }
-
-    .person-svg{
-
-        width:155px;
-        height:180px;
-    }
-
-    .card-content{
-
-        bottom:9px;
-    }
-
-    .card-title{
-
-        font-size:14px;
-    }
-
-    .card-subtitle{
-
-        font-size:5px;
-    }
-
-    .card-description{
-
-        font-size:5px;
-
-        line-height:1.65;
-
-        margin:
-            3px auto
-            6px;
-    }
-
-    .login-button{
-
-        height:40px;
-
-        border-radius:21px;
-
-        font-size:6px;
-    }
-
-    .arrow{
-
-        width:19px;
-        height:19px;
-
-        font-size:8px;
-    }
-
     .features{
-
-        padding:7px 2px;
-
-        border-radius:16px;
+        gap:5px;
+        margin-bottom:12px;
     }
 
     .feature{
-
-        font-size:4.8px;
-
-        gap:3px;
-    }
-
-    .feature-icon{
-
+        padding:5px 6px;
         font-size:8px;
-    }
-
-    .footer{
-
-        margin-top:11px;
-    }
-
-    .footer strong{
-
-        font-size:6px;
-    }
-
-    .footer p{
-
-        font-size:5px;
-    }
-}
-
-
-/* =========================================================
-   VERY SMALL
-========================================================= */
-
-@media(max-width:350px){
-
-    .login-card{
-
-        height:315px;
-    }
-
-    .person-area{
-
-        height:175px;
-    }
-
-    .person-orb{
-
-        width:135px;
-        height:135px;
-    }
-
-    .person-svg{
-
-        width:140px;
-        height:165px;
-    }
-
-    .card-title{
-
-        font-size:12px;
+        border-radius:7px;
     }
 
     .login-button{
+        padding:10px 4px;
+        font-size:10px;
+        border-radius:10px;
+    }
 
-        height:37px;
+    .footer{
+        margin-top:16px;
+        font-size:9px;
+    }
+}
+
+/* =========================
+   هاتف صغير جداً
+========================= */
+
+@media(max-width:360px){
+
+    .cards{
+        gap:7px;
+    }
+
+    .card{
+        padding:9px;
+    }
+
+    .person-image{
+        height:125px;
+    }
+
+    .person-svg{
+        width:108px;
+        height:125px;
+    }
+
+    .card h2{
+        font-size:13px;
+    }
+
+    .card-description{
+        font-size:8px;
+    }
+
+    .feature{
+        font-size:7px;
+        padding:4px 5px;
+    }
+
+    .login-button{
+        font-size:9px;
     }
 }
 
 </style>
-
 </head>
 
 
 <body>
 
+<div class="background-shape shape-one"></div>
+<div class="background-shape shape-two"></div>
 
-<!-- =====================================================
-     BACKGROUND
-===================================================== -->
 
-<div class="bg">
+<div class="container">
 
-    <div class="grid"></div>
+    <!-- =========================
+         الإدارة
+    ========================== -->
 
-    <div class="ring ring-one"></div>
+    <div class="admin-row">
 
-    <div class="ring ring-two"></div>
+        <button class="admin-button"
+                onclick="openModal('admin')">
 
-    <div class="shape shape-one"></div>
+            🔐
+            دخول الإدارة
 
-    <div class="shape shape-two"></div>
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         الشعار
+    ========================== -->
+
+    <header class="header">
+
+        <div class="logo">
+            ⚕
+        </div>
+
+        <div class="logo-title">
+            TABIBK
+        </div>
+
+        <div class="logo-subtitle">
+            طبيبك معك أينما كنت
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         البطاقات
+    ========================== -->
+
+    <section class="cards">
+
+
+        <!-- =====================
+             الطبيب
+        ====================== -->
+
+        <div class="card">
+
+            <div class="person-image doctor-image">
+
+                <!-- صورة طبيب SVG مدمجة -->
+                <svg class="person-svg"
+                     viewBox="0 0 200 230"
+                     xmlns="http://www.w3.org/2000/svg">
+
+                    <!-- جسم -->
+                    <path
+                        d="M42 230
+                           C45 185 58 160 76 151
+                           L124 151
+                           C142 160 155 185 158 230Z"
+                        fill="#ffffff"/>
+
+                    <!-- القميص -->
+                    <path
+                        d="M65 160
+                           L87 151
+                           L100 174
+                           L113 151
+                           L136 160
+                           L151 230
+                           L49 230Z"
+                        fill="#f8f7ff"/>
+
+                    <!-- الرقبة -->
+                    <path
+                        d="M83 142
+                           L117 142
+                           L114 165
+                           L100 177
+                           L86 165Z"
+                        fill="#d9a27c"/>
+
+                    <!-- الرأس -->
+                    <ellipse
+                        cx="100"
+                        cy="92"
+                        rx="42"
+                        ry="52"
+                        fill="#e2ad87"/>
+
+                    <!-- الشعر -->
+                    <path
+                        d="M59 88
+                           C57 48 73 30 101 31
+                           C130 30 145 53 140 88
+                           C132 70 120 64 103 62
+                           C86 61 70 70 59 88Z"
+                        fill="#392a46"/>
+
+                    <!-- الأذن -->
+                    <ellipse
+                        cx="59"
+                        cy="101"
+                        rx="7"
+                        ry="12"
+                        fill="#d39b76"/>
+
+                    <ellipse
+                        cx="141"
+                        cy="101"
+                        rx="7"
+                        ry="12"
+                        fill="#d39b76"/>
+
+                    <!-- العين -->
+                    <ellipse
+                        cx="84"
+                        cy="96"
+                        rx="4"
+                        ry="3"
+                        fill="#36213e"/>
+
+                    <ellipse
+                        cx="116"
+                        cy="96"
+                        rx="4"
+                        ry="3"
+                        fill="#36213e"/>
+
+                    <!-- الأنف -->
+                    <path
+                        d="M98 97 L94 113 L102 113"
+                        fill="none"
+                        stroke="#b77b5e"
+                        stroke-width="2"/>
+
+                    <!-- الابتسامة -->
+                    <path
+                        d="M90 123 Q100 130 110 123"
+                        fill="none"
+                        stroke="#9e5f58"
+                        stroke-width="2.5"
+                        stroke-linecap="round"/>
+
+                    <!-- سماعة الطبيب -->
+                    <path
+                        d="M73 158
+                           C67 182 76 194 91 194
+                           C106 194 111 181 111 169"
+                        fill="none"
+                        stroke="#7c3aed"
+                        stroke-width="4"
+                        stroke-linecap="round"/>
+
+                    <circle
+                        cx="111"
+                        cy="170"
+                        r="7"
+                        fill="#7c3aed"/>
+
+                    <!-- جيب -->
+                    <path
+                        d="M113 177 L134 177 L134 207 L113 207Z"
+                        fill="#ffffff"
+                        stroke="#ddd6fe"
+                        stroke-width="2"/>
+
+                    <!-- قلم -->
+                    <rect
+                        x="122"
+                        y="180"
+                        width="4"
+                        height="20"
+                        rx="2"
+                        fill="#7c3aed"/>
+
+                    <!-- علامة طبية -->
+                    <circle
+                        cx="72"
+                        cy="190"
+                        r="13"
+                        fill="#ede9fe"/>
+
+                    <path
+                        d="M72 183 V197 M65 190 H79"
+                        stroke="#7c3aed"
+                        stroke-width="3"
+                        stroke-linecap="round"/>
+
+                </svg>
+
+            </div>
+
+
+            <div class="card-content">
+
+                <div class="card-title">
+
+                    <div class="card-title-icon">
+                        🩺
+                    </div>
+
+                    <h2>
+                        دخول الطبيب
+                    </h2>
+
+                </div>
+
+                <p class="card-description">
+                    مساحة خاصة بالطبيب لإدارة المرضى
+                    والمواعيد والاستشارات الطبية بسهولة.
+                </p>
+
+
+                <div class="features">
+
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        المواعيد
+                    </div>
+
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        المرضى
+                    </div>
+
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        الاستشارات
+                    </div>
+
+                </div>
+
+
+                <button class="login-button"
+                        onclick="openModal('doctor')">
+
+                    دخول الطبيب
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================
+             المريض
+        ====================== -->
+
+        <div class="card">
+
+            <div class="person-image patient-image">
+
+                <!-- صورة مريض SVG مدمجة -->
+                <svg class="person-svg"
+                     viewBox="0 0 200 230"
+                     xmlns="http://www.w3.org/2000/svg">
+
+                    <!-- الجسم -->
+                    <path
+                        d="M42 230
+                           C46 184 61 159 78 151
+                           L122 151
+                           C139 159 154 184 158 230Z"
+                        fill="#ffffff"/>
+
+                    <!-- الملابس -->
+                    <path
+                        d="M70 158
+                           L88 151
+                           L100 174
+                           L112 151
+                           L130 158
+                           L150 230
+                           L50 230Z"
+                        fill="#eee9ff"/>
+
+                    <!-- الرقبة -->
+                    <path
+                        d="M84 141
+                           L116 141
+                           L114 163
+                           L100 175
+                           L86 163Z"
+                        fill="#dba47f"/>
+
+                    <!-- الرأس -->
+                    <ellipse
+                        cx="100"
+                        cy="91"
+                        rx="42"
+                        ry="52"
+                        fill="#e5b18b"/>
+
+                    <!-- شعر -->
+                    <path
+                        d="M59 88
+                           C59 52 74 31 101 31
+                           C128 31 143 51 141 88
+                           C131 67 118 59 100 60
+                           C81 60 69 70 59 88Z"
+                        fill="#4b3150"/>
+
+                    <!-- أذن -->
+                    <ellipse
+                        cx="59"
+                        cy="101"
+                        rx="7"
+                        ry="12"
+                        fill="#d49c78"/>
+
+                    <ellipse
+                        cx="141"
+                        cy="101"
+                        rx="7"
+                        ry="12"
+                        fill="#d49c78"/>
+
+                    <!-- عين -->
+                    <ellipse
+                        cx="84"
+                        cy="96"
+                        rx="4"
+                        ry="3"
+                        fill="#36213e"/>
+
+                    <ellipse
+                        cx="116"
+                        cy="96"
+                        rx="4"
+                        ry="3"
+                        fill="#36213e"/>
+
+                    <!-- أنف -->
+                    <path
+                        d="M98 97 L94 113 L102 113"
+                        fill="none"
+                        stroke="#b77b5e"
+                        stroke-width="2"/>
+
+                    <!-- ابتسامة -->
+                    <path
+                        d="M90 123 Q100 130 110 123"
+                        fill="none"
+                        stroke="#9e5f58"
+                        stroke-width="2.5"
+                        stroke-linecap="round"/>
+
+                    <!-- رمز صحي -->
+                    <circle
+                        cx="100"
+                        cy="180"
+                        r="17"
+                        fill="#ffffff"
+                        stroke="#ddd6fe"
+                        stroke-width="2"/>
+
+                    <path
+                        d="M100 169 V191 M89 180 H111"
+                        stroke="#7c3aed"
+                        stroke-width="4"
+                        stroke-linecap="round"/>
+
+                    <!-- حقيبة صغيرة -->
+                    <rect
+                        x="125"
+                        y="195"
+                        width="27"
+                        height="21"
+                        rx="5"
+                        fill="#7c3aed"/>
+
+                    <path
+                        d="M133 195 V190 Q139 184 145 190 V195"
+                        fill="none"
+                        stroke="#7c3aed"
+                        stroke-width="4"/>
+
+                </svg>
+
+            </div>
+
+
+            <div class="card-content">
+
+                <div class="card-title">
+
+                    <div class="card-title-icon">
+                        👤
+                    </div>
+
+                    <h2>
+                        دخول المريض
+                    </h2>
+
+                </div>
+
+                <p class="card-description">
+                    احجز موعدك مع طبيبك وتابع مواعيدك
+                    واستشاراتك الطبية بكل سهولة.
+                </p>
+
+
+                <div class="features">
+
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        حجز موعد
+                    </div>
+
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        المواعيد
+                    </div>
+
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        الاستشارات
+                    </div>
+
+                </div>
+
+
+                <button class="login-button"
+                        onclick="openModal('patient')">
+
+                    دخول المريض
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer class="footer">
+
+        © 2026
+        <strong>TABIBK</strong>
+        — طبيبك معك أينما كنت
+
+    </footer>
 
 </div>
 
 
-<main class="page">
 
+<!-- =========================
+     نافذة الطبيب
+========================= -->
 
-<!-- =====================================================
-     ADMIN
-===================================================== -->
+<div class="modal" id="doctorModal">
 
-<div class="admin-area">
+    <div class="modal-box">
 
-    <a
-        href="/admin.html"
-        class="admin"
-    >
+        <div class="modal-header">
 
-        <span class="admin-icon">
-            ⚙
-        </span>
+            <div class="modal-title">
+                🩺 دخول الطبيب
+            </div>
 
-        <span>
-            الإدارة
-        </span>
+            <button class="close"
+                    onclick="closeModal('doctor')">
+                ×
+            </button>
 
-        <span>
-            ←
-        </span>
+        </div>
 
-    </a>
+        <input
+            class="input"
+            type="text"
+            placeholder="رقم الهاتف أو البريد الإلكتروني"
+        >
+
+        <input
+            class="input"
+            type="password"
+            placeholder="كلمة المرور"
+        >
+
+        <button
+            class="modal-login"
+            onclick="login('doctor')">
+
+            تسجيل الدخول
+
+        </button>
+
+    </div>
 
 </div>
 
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
-<header class="header">
+<!-- =========================
+     نافذة المريض
+========================= -->
 
+<div class="modal" id="patientModal">
 
-    <div class="logo">
+    <div class="modal-box">
 
-        <div class="heart"></div>
+        <div class="modal-header">
 
-        <svg
-            class="logo-ecg"
-            viewBox="0 0 150 60"
+            <div class="modal-title">
+                👤 دخول المريض
+            </div>
+
+            <button class="close"
+                    onclick="closeModal('patient')">
+                ×
+            </button>
+
+        </div>
+
+        <input
+            class="input"
+            type="text"
+            placeholder="رقم الهاتف أو البريد الإلكتروني"
         >
 
-            <path
-                d="
-                    M3 31
-                    H32
-                    L45 31
-                    L57 8
-                    L69 52
-                    L82 31
-                    H105
-                    L116 31
-                    L126 20
-                    L137 42
-                    L147 31
-                "
-            />
-
-        </svg>
-
-    </div>
-
-
-    <div class="brand">
-        طبيبك
-    </div>
-
-
-    <div class="brand-en">
-        TABIBK
-    </div>
-
-
-    <div class="subtitle">
-        رعايتك الصحية تبدأ من هنا
-    </div>
-
-</header>
-
-
-<!-- =====================================================
-     LOGIN CARDS
-===================================================== -->
-
-<section class="login-area">
-
-
-<!-- =====================================================
-     PATIENT
-===================================================== -->
-
-<a
-    href="/patient.html"
-    class="login-card"
->
-
-    <div class="label">
-        للرعاية الصحية
-    </div>
-
-    <div class="number">
-        01
-    </div>
-
-    <div class="status">
-
-        <span class="status-dot"></span>
-
-        دخول آمن
-
-    </div>
-
-
-    <div class="person-area">
-
-        <div class="person-orb"></div>
-
-
-        <!-- =============================================
-             PATIENT SVG
-        ============================================== -->
-
-        <svg
-            class="person-svg"
-            viewBox="0 0 300 330"
-            xmlns="http://www.w3.org/2000/svg"
+        <input
+            class="input"
+            type="password"
+            placeholder="كلمة المرور"
         >
 
-            <!-- shadow -->
+        <button
+            class="modal-login"
+            onclick="login('patient')">
 
-            <ellipse
-                cx="150"
-                cy="313"
-                rx="70"
-                ry="10"
-                fill="rgba(0,0,0,.18)"
-            />
+            تسجيل الدخول
 
-
-            <!-- body -->
-
-            <path
-                d="
-                    M72 306
-                    C73 250 87 216 111 202
-                    C122 196 132 193 150 193
-                    C168 193 178 196 189 202
-                    C213 216 227 250 228 306
-                    Z
-                "
-                fill="#f4f5f7"
-            />
-
-            <!-- shirt shadow -->
-
-            <path
-                d="
-                    M74 305
-                    C78 250 90 220 112 207
-                    C117 229 130 240 150 240
-                    C170 240 183 229 188 207
-                    C210 220 222 250 226 305
-                    Z
-                "
-                fill="#d8dce2"
-            />
-
-            <!-- shirt purple -->
-
-            <path
-                d="
-                    M74 305
-                    C78 252 91 220 112 207
-                    L130 239
-                    L150 257
-                    L170 239
-                    L188 207
-                    C209 220 222 252 226 305
-                    Z
-                "
-                fill="#6f3c90"
-            />
-
-            <!-- neck -->
-
-            <path
-                d="
-                    M127 181
-                    L127 211
-                    C134 222 142 228 150 228
-                    C158 228 166 222 173 211
-                    L173 181
-                    Z
-                "
-                fill="#dba987"
-            />
-
-            <!-- neck shadow -->
-
-            <path
-                d="
-                    M127 181
-                    L127 202
-                    C143 211 158 211 173 202
-                    L173 181
-                    Z
-                "
-                fill="#c68d6f"
-                opacity=".45"
-            />
-
-            <!-- hair -->
-
-            <path
-                d="
-                    M105 117
-                    C105 82 124 57 151 57
-                    C180 57 198 81 198 117
-                    L190 166
-                    L110 166
-                    Z
-                "
-                fill="#3b2939"
-            />
-
-            <!-- ears -->
-
-            <ellipse
-                cx="109"
-                cy="139"
-                rx="10"
-                ry="15"
-                fill="#dca987"
-            />
-
-            <ellipse
-                cx="191"
-                cy="139"
-                rx="10"
-                ry="15"
-                fill="#dca987"
-            />
-
-            <!-- face -->
-
-            <path
-                d="
-                    M115 111
-                    C115 83 130 69 150 69
-                    C171 69 186 83 186 111
-                    L183 153
-                    C177 175 164 187 150 187
-                    C136 187 123 175 117 153
-                    Z
-                "
-                fill="#e2b08e"
-            />
-
-            <!-- hair front -->
-
-            <path
-                d="
-                    M106 116
-                    C106 79 126 58 153 58
-                    C176 59 195 76 198 107
-                    C185 91 176 88 164 90
-                    C151 93 139 89 130 81
-                    C126 95 118 108 106 116
-                    Z
-                "
-                fill="#362536"
-            />
-
-            <!-- eyebrows -->
-
-            <path
-                d="M126 119 Q136 113 143 118"
-                stroke="#4b3030"
-                stroke-width="4"
-                fill="none"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M157 118 Q166 113 175 119"
-                stroke="#4b3030"
-                stroke-width="4"
-                fill="none"
-                stroke-linecap="round"
-            />
-
-            <!-- eyes -->
-
-            <ellipse
-                cx="135"
-                cy="126"
-                rx="4"
-                ry="3"
-                fill="#352532"
-            />
-
-            <ellipse
-                cx="166"
-                cy="126"
-                rx="4"
-                ry="3"
-                fill="#352532"
-            />
-
-            <!-- nose -->
-
-            <path
-                d="M151 126 L147 144 L153 145"
-                stroke="#b87e64"
-                stroke-width="2"
-                fill="none"
-                stroke-linecap="round"
-            />
-
-            <!-- smile -->
-
-            <path
-                d="M138 154 Q150 163 163 154"
-                stroke="#8e4f50"
-                stroke-width="3"
-                fill="none"
-                stroke-linecap="round"
-            />
-
-            <!-- gold necklace -->
-
-            <circle
-                cx="150"
-                cy="211"
-                r="4"
-                fill="#d8b257"
-            />
-
-            <path
-                d="M127 203 Q150 227 173 203"
-                stroke="#d8b257"
-                stroke-width="2"
-                fill="none"
-            />
-
-        </svg>
+        </button>
 
     </div>
 
+</div>
 
-    <div class="card-content">
 
-        <div class="card-title">
-            دخول المريض
-        </div>
 
-        <div class="card-subtitle">
-            PATIENT
-        </div>
+<!-- =========================
+     نافذة الإدارة
+========================= -->
 
-        <div class="card-description">
+<div class="modal" id="adminModal">
 
-            احجز موعدك مع طبيبك
-            <br>
-            وتابع رحلتك الصحية بسهولة.
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                🔐 دخول الإدارة
+            </div>
+
+            <button class="close"
+                    onclick="closeModal('admin')">
+                ×
+            </button>
 
         </div>
 
-
-        <div class="login-button">
-
-            <span class="arrow">
-                ←
-            </span>
-
-            الدخول كمريض
-
-        </div>
-
-    </div>
-
-</a>
-
-
-<!-- =====================================================
-     DOCTOR
-===================================================== -->
-
-<a
-    href="/doctor.html"
-    class="login-card"
->
-
-    <div class="label">
-        للأطباء
-    </div>
-
-    <div class="number">
-        02
-    </div>
-
-    <div class="status">
-
-        <span class="status-dot"></span>
-
-        دخول آمن
-
-    </div>
-
-
-    <div class="person-area">
-
-        <div class="person-orb"></div>
-
-
-        <!-- =============================================
-             DOCTOR SVG
-        ============================================== -->
-
-        <svg
-            class="person-svg"
-            viewBox="0 0 300 330"
-            xmlns="http://www.w3.org/2000/svg"
+        <input
+            class="input"
+            type="text"
+            placeholder="اسم المستخدم"
         >
 
-            <!-- shadow -->
+        <input
+            class="input"
+            type="password"
+            placeholder="كلمة مرور الإدارة"
+        >
 
-            <ellipse
-                cx="150"
-                cy="313"
-                rx="72"
-                ry="10"
-                fill="rgba(0,0,0,.18)"
-            />
+        <button
+            class="modal-login"
+            onclick="login('admin')">
 
+            دخول لوحة الإدارة
 
-            <!-- white coat -->
-
-            <path
-                d="
-                    M68 305
-                    C71 250 87 214 112 202
-                    L132 235
-                    L150 255
-                    L168 235
-                    L188 202
-                    C213 214 229 250 232 305
-                    Z
-                "
-                fill="#f7f8fa"
-            />
-
-            <!-- coat shadow -->
-
-            <path
-                d="
-                    M69 305
-                    C75 253 89 222 110 209
-                    L125 305
-                    Z
-                "
-                fill="#d7dbe1"
-            />
-
-            <!-- shirt -->
-
-            <path
-                d="
-                    M126 202
-                    L150 250
-                    L174 202
-                    L174 305
-                    L126 305
-                    Z
-                "
-                fill="#6f3c90"
-            />
-
-            <!-- neck -->
-
-            <path
-                d="
-                    M128 179
-                    L128 209
-                    C135 220 143 226 150 226
-                    C157 226 165 220 172 209
-                    L172 179
-                    Z
-                "
-                fill="#d7a17e"
-            />
-
-            <!-- ears -->
-
-            <ellipse
-                cx="108"
-                cy="137"
-                rx="10"
-                ry="15"
-                fill="#d7a17e"
-            />
-
-            <ellipse
-                cx="192"
-                cy="137"
-                rx="10"
-                ry="15"
-                fill="#d7a17e"
-            />
-
-            <!-- face -->
-
-            <path
-                d="
-                    M114 108
-                    C114 80 129 66 150 66
-                    C171 66 186 80 186 108
-                    L183 153
-                    C177 176 164 188 150 188
-                    C136 188 123 176 117 153
-                    Z
-                "
-                fill="#dfa985"
-            />
-
-            <!-- hair -->
-
-            <path
-                d="
-                    M105 111
-                    C106 75 125 54 151 54
-                    C179 54 196 74 198 108
-                    C187 94 178 88 165 90
-                    C151 91 139 87 130 78
-                    C125 95 117 106 105 111
-                    Z
-                "
-                fill="#24202a"
-            />
-
-            <!-- eyebrows -->
-
-            <path
-                d="M126 119 Q136 113 143 118"
-                stroke="#30252a"
-                stroke-width="4"
-                fill="none"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M157 118 Q166 113 175 119"
-                stroke="#30252a"
-                stroke-width="4"
-                fill="none"
-                stroke-linecap="round"
-            />
-
-            <!-- eyes -->
-
-            <ellipse
-                cx="135"
-                cy="126"
-                rx="4"
-                ry="3"
-                fill="#29202a"
-            />
-
-            <ellipse
-                cx="166"
-                cy="126"
-                rx="4"
-                ry="3"
-                fill="#29202a"
-            />
-
-            <!-- nose -->
-
-            <path
-                d="M151 126 L147 144 L153 145"
-                stroke="#b47760"
-                stroke-width="2"
-                fill="none"
-                stroke-linecap="round"
-            />
-
-            <!-- smile -->
-
-            <path
-                d="M138 154 Q150 162 163 154"
-                stroke="#874b4a"
-                stroke-width="3"
-                fill="none"
-                stroke-linecap="round"
-            />
-
-            <!-- glasses -->
-
-            <rect
-                x="121"
-                y="117"
-                width="25"
-                height="17"
-                rx="6"
-                fill="none"
-                stroke="#b9bec6"
-                stroke-width="2"
-            />
-
-            <rect
-                x="154"
-                y="117"
-                width="25"
-                height="17"
-                rx="6"
-                fill="none"
-                stroke="#b9bec6"
-                stroke-width="2"
-            />
-
-            <path
-                d="M146 123 H154"
-                stroke="#b9bec6"
-                stroke-width="2"
-            />
-
-            <!-- stethoscope -->
-
-            <path
-                d="
-                    M119 207
-                    C119 235 135 248 150 248
-                    C165 248 181 235 181 207
-                "
-                fill="none"
-                stroke="#c5cbd1"
-                stroke-width="4"
-                stroke-linecap="round"
-            />
-
-            <circle
-                cx="150"
-                cy="251"
-                r="8"
-                fill="#d7b052"
-            />
-
-            <!-- coat pocket -->
-
-            <path
-                d="
-                    M181 257
-                    L214 257
-                    L214 288
-                    L181 288
-                    Z
-                "
-                fill="none"
-                stroke="#c2c7ce"
-                stroke-width="2"
-            />
-
-            <!-- gold badge -->
-
-            <circle
-                cx="198"
-                cy="232"
-                r="9"
-                fill="#d7b052"
-            />
-
-            <path
-                d="
-                    M198 227
-                    V237
-                    M193 232
-                    H203
-                "
-                stroke="#fff"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-
-        </svg>
+        </button>
 
     </div>
 
-
-    <div class="card-content">
-
-        <div class="card-title">
-            دخول الطبيب
-        </div>
-
-        <div class="card-subtitle">
-            DOCTOR
-        </div>
-
-        <div class="card-description">
-
-            أدر مواعيدك ومرضاك
-            <br>
-            ونظّم استشاراتك من مكان واحد.
-
-        </div>
+</div>
 
 
-        <div class="login-button">
 
-            <span class="arrow">
-                ←
-            </span>
+<!-- Toast -->
 
-            الدخول كطبيب
-
-        </div>
-
-    </div>
-
-</a>
+<div class="toast" id="toast">
+    تم الضغط على الزر
+</div>
 
 
-</section>
+
+<script>
+
+/* =========================
+   فتح النوافذ
+========================= */
+
+function openModal(type){
+
+    const modal =
+        document.getElementById(type + 'Modal');
+
+    if(modal){
+        modal.classList.add('active');
+    }
+
+}
 
 
-<!-- =====================================================
-     FEATURES
-===================================================== -->
+/* =========================
+   إغلاق النوافذ
+========================= */
 
-<section class="features">
+function closeModal(type){
 
-    <div class="feature">
+    const modal =
+        document.getElementById(type + 'Modal');
 
-        <span class="feature-icon">
-            ✓
-        </span>
+    if(modal){
+        modal.classList.remove('active');
+    }
 
-        حجز سريع
-
-    </div>
-
-
-    <div class="feature">
-
-        <span class="feature-icon">
-            ◷
-        </span>
-
-        متابعة مباشرة
-
-    </div>
+}
 
 
-    <div class="feature">
+/* =========================
+   تسجيل الدخول التجريبي
+========================= */
 
-        <span class="feature-icon">
-            ♥
-        </span>
+function login(type){
 
-        رعاية موثوقة
+    let message = '';
 
-    </div>
+    if(type === 'doctor'){
+        message = 'تم تسجيل الدخول كطبيب';
+    }
 
-</section>
+    else if(type === 'patient'){
+        message = 'تم تسجيل الدخول كمريض';
+    }
 
+    else if(type === 'admin'){
+        message = 'تم الدخول إلى الإدارة';
+    }
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+    closeModal(type);
 
-<footer class="footer">
+    showToast(message);
 
-    <strong>
-        TABIBK
-    </strong>
-
-    <p>
-        طبيبك ... دائمًا معك
-    </p>
-
-</footer>
+}
 
 
-</main>
+/* =========================
+   Toast
+========================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById('toast');
+
+    toast.textContent = message;
+
+    toast.classList.add('show');
+
+    setTimeout(function(){
+
+        toast.classList.remove('show');
+
+    },2500);
+
+}
+
+
+/* =========================
+   الضغط خارج النافذة
+========================= */
+
+document.querySelectorAll('.modal')
+.forEach(function(modal){
+
+    modal.addEventListener('click',function(event){
+
+        if(event.target === modal){
+
+            modal.classList.remove('active');
+
+        }
+
+    });
+
+});
+
+
+/* =========================
+   زر ESC
+========================= */
+
+document.addEventListener('keydown',function(event){
+
+    if(event.key === 'Escape'){
+
+        document.querySelectorAll('.modal')
+        .forEach(function(modal){
+
+            modal.classList.remove('active');
+
+        });
+
+    }
+
+});
+
+</script>
 
 </body>
-
 </html>
+```

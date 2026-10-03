@@ -3076,7 +3076,15 @@ function selectDoctorCard(doctor, card){
 
         }
 
+const inlineReviews =
+    document.getElementById(
+        "inlineDoctorReviews"
+    );
 
+if(inlineReviews){
+    inlineReviews.innerHTML =
+        reviewsHtml;
+}
         const box =
             document.createElement("div");
 

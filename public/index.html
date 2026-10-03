@@ -1,34 +1,35 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <meta name="theme-color" content="#2b0b3d">
+<meta name="theme-color" content="#18051f">
 
-    <title>طبيبك | TABIBK</title>
+<title>طبيبك | TABIBK</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 
 <style>
 
 /* =========================================================
-   TABIBK — PREMIUM LOGIN
+   TABIBK — PREMIUM ENTRY
 ========================================================= */
 
 :root{
@@ -37,19 +38,14 @@
     --purple:#2b0b3d;
     --purple-soft:#4a155f;
     --purple-light:#6d238b;
-    --purple3:#8d4baa;
 
     --gold:#c79a32;
     --gold-light:#efd477;
-    --gold-bright:#fff3ad;
 
     --white:#ffffff;
-    --white-dark:#f4f1f5;
-    --white-soft:#e5dfe8;
 
     --patient:#27a98a;
     --doctor:#7445c7;
-    --admin:#c79a32;
 }
 
 
@@ -63,11 +59,9 @@
     padding:0;
 }
 
-
 html{
     scroll-behavior:smooth;
 }
-
 
 body{
 
@@ -75,30 +69,30 @@ body{
 
     min-height:100vh;
 
-    color:var(--white);
-
     overflow-x:hidden;
+
+    color:#fff;
 
     background:
 
         radial-gradient(
-            circle at 50% 5%,
+            circle at 50% 0%,
             rgba(239,212,119,.18),
-            transparent 23%
+            transparent 25%
         ),
 
         radial-gradient(
-            circle at 12% 25%,
+            circle at 10% 35%,
             rgba(141,75,170,.20),
             transparent 30%
         ),
 
         linear-gradient(
             180deg,
-            #25082f 0%,
-            #431253 24%,
-            #6b2487 42%,
-            #b7aeba 69%,
+            #18051f 0%,
+            #2b0b3d 25%,
+            #542064 50%,
+            #a999ae 72%,
             #eeeaf0 100%
         );
 }
@@ -111,7 +105,6 @@ body{
 .background{
 
     position:fixed;
-
     inset:0;
 
     overflow:hidden;
@@ -121,16 +114,15 @@ body{
     z-index:0;
 }
 
-
 .bg-purple{
 
     position:absolute;
 
-    width:450px;
-    height:450px;
+    width:470px;
+    height:470px;
 
-    top:-240px;
-    right:-170px;
+    top:-250px;
+    right:-180px;
 
     border-radius:50%;
 
@@ -138,13 +130,12 @@ body{
 
         radial-gradient(
             circle,
-            rgba(156,81,188,.28),
+            rgba(156,81,188,.30),
             transparent 68%
         );
 
     filter:blur(18px);
 }
-
 
 .bg-purple-bottom{
 
@@ -153,7 +144,7 @@ body{
     width:520px;
     height:520px;
 
-    bottom:-330px;
+    bottom:-340px;
     left:-250px;
 
     border-radius:50%;
@@ -162,22 +153,21 @@ body{
 
         radial-gradient(
             circle,
-            rgba(74,21,95,.15),
+            rgba(74,21,95,.18),
             transparent 70%
         );
 
     filter:blur(30px);
 }
 
-
 .bg-gold{
 
     position:absolute;
 
-    width:330px;
-    height:330px;
+    width:350px;
+    height:350px;
 
-    top:29%;
+    top:30%;
     left:50%;
 
     transform:translate(-50%,-50%);
@@ -188,7 +178,7 @@ body{
 
         radial-gradient(
             circle,
-            rgba(199,154,50,.10),
+            rgba(199,154,50,.11),
             transparent 70%
         );
 
@@ -216,18 +206,14 @@ body{
 
     align-items:flex-start;
 
-    padding:
-        15px
-        18px
-        16px;
+    padding:18px 18px 16px;
 }
-
 
 .container{
 
     width:100%;
 
-    max-width:1080px;
+    max-width:1000px;
 
     margin:auto;
 
@@ -240,7 +226,85 @@ body{
 
 
 /* =========================================================
-   LOGO AREA
+   ADMIN TOP
+========================================================= */
+
+.admin-top{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-bottom:2px;
+}
+
+.admin-link{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 14px;
+
+    border-radius:14px;
+
+    text-decoration:none;
+
+    color:#f7e8a7;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(239,212,119,.28);
+
+    box-shadow:
+        0 8px 22px rgba(0,0,0,.14),
+
+        inset 0 1px 0
+        rgba(255,255,255,.08);
+
+    backdrop-filter:blur(12px);
+
+    -webkit-backdrop-filter:blur(12px);
+
+    transition:
+        .25s ease;
+}
+
+.admin-link i{
+
+    font-size:13px;
+
+    color:#efd477;
+}
+
+.admin-link:hover{
+
+    transform:translateY(-2px);
+
+    background:
+        rgba(199,154,50,.13);
+
+    border-color:
+        rgba(239,212,119,.48);
+
+    box-shadow:
+        0 12px 26px rgba(0,0,0,.20);
+}
+
+
+/* =========================================================
+   LOGO
 ========================================================= */
 
 .logo-area{
@@ -257,9 +321,8 @@ body{
 
     margin-top:-8px;
 
-    margin-bottom:-2px;
+    margin-bottom:-3px;
 }
-
 
 .logo-glow{
 
@@ -282,12 +345,8 @@ body{
     filter:blur(8px);
 
     animation:
-        logoGlow
-        2.4s
-        ease-in-out
-        infinite;
+        logoGlow 2.4s ease-in-out infinite;
 }
-
 
 .logo-ring{
 
@@ -319,15 +378,12 @@ body{
         rgba(255,255,255,.07);
 
     animation:
-        ringPulse
-        3s
-        ease-in-out
-        infinite;
+        ringPulse 3s ease-in-out infinite;
 }
 
 
 /* =========================================================
-   NEW GOLD HEART
+   HEART
 ========================================================= */
 
 .heart{
@@ -337,8 +393,7 @@ body{
     width:86px;
     height:78px;
 
-    transform:
-        rotate(-45deg);
+    transform:rotate(-45deg);
 
     background:
 
@@ -352,10 +407,7 @@ body{
         );
 
     border-radius:
-        10px
-        4px
-        17px
-        8px;
+        10px 4px 17px 8px;
 
     box-shadow:
 
@@ -369,16 +421,10 @@ body{
         rgba(40,10,50,.35);
 
     animation:
-        heartBeat
-        1.55s
-        ease-in-out
-        infinite;
+        heartBeat 1.55s ease-in-out infinite;
 
     z-index:5;
 }
-
-
-/* upper heart lobes */
 
 .heart::before,
 .heart::after{
@@ -404,25 +450,21 @@ body{
     border-radius:50%;
 }
 
-
 .heart::before{
 
     top:-39px;
-
     left:0;
 }
-
 
 .heart::after{
 
     top:0;
-
     left:39px;
 }
 
 
 /* =========================================================
-   HEART INNER HIGHLIGHT
+   HEART HIGHLIGHT
 ========================================================= */
 
 .heart-highlight{
@@ -437,8 +479,7 @@ body{
     top:12px;
     left:18px;
 
-    transform:
-        rotate(45deg);
+    transform:rotate(45deg);
 
     border-radius:50%;
 
@@ -472,14 +513,12 @@ body{
     top:17px;
     left:-10px;
 
-    transform:
-        rotate(45deg);
+    transform:rotate(45deg);
 
     overflow:hidden;
 
     pointer-events:none;
 }
-
 
 .ecg svg{
 
@@ -487,12 +526,11 @@ body{
     height:100%;
 }
 
-
 .ecg-line{
 
     fill:none;
 
-    stroke:#ffffff;
+    stroke:#fff;
 
     stroke-width:3.5;
 
@@ -505,17 +543,13 @@ body{
     stroke-dashoffset:170;
 
     filter:
-
         drop-shadow(
             0 0 5px
             rgba(255,255,255,.95)
         );
 
     animation:
-        ecgMove
-        1.8s
-        linear
-        infinite;
+        ecgMove 1.8s linear infinite;
 }
 
 
@@ -527,11 +561,8 @@ body{
 
     text-align:center;
 
-    margin-top:0;
-
-    margin-bottom:10px;
+    margin-bottom:8px;
 }
-
 
 .brand-ar{
 
@@ -552,7 +583,6 @@ body{
         rgba(239,212,119,.18);
 }
 
-
 .brand-en{
 
     margin-top:4px;
@@ -567,7 +597,6 @@ body{
 
     direction:ltr;
 }
-
 
 .tagline{
 
@@ -585,7 +614,7 @@ body{
 
     opacity:.94;
 
-    margin-bottom:17px;
+    margin-bottom:20px;
 
     text-shadow:
         0 1px 5px rgba(0,0,0,.25);
@@ -600,11 +629,10 @@ body{
 
     text-align:center;
 
-    margin-bottom:18px;
-
     width:100%;
-}
 
+    margin-bottom:18px;
+}
 
 .welcome h1{
 
@@ -620,7 +648,6 @@ body{
         0 2px 8px rgba(0,0,0,.25);
 }
 
-
 .welcome p{
 
     font-size:12px;
@@ -632,24 +659,26 @@ body{
 
 
 /* =========================================================
-   LOGIN GRID
+   MAIN LOGIN AREA
 ========================================================= */
 
-.login-grid{
+.main-login{
 
     width:100%;
 
     display:grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(2,1fr);
 
-    gap:17px;
+    gap:20px;
+
+    max-width:760px;
 }
 
 
 /* =========================================================
-   PREMIUM CARDS
+   MAIN CARDS
 ========================================================= */
 
 .login-card{
@@ -658,14 +687,11 @@ body{
 
     overflow:hidden;
 
-    min-height:208px;
+    min-height:235px;
 
-    padding:
-        22px
-        19px
-        20px;
+    padding:28px 25px 25px;
 
-    border-radius:24px;
+    border-radius:28px;
 
     display:flex;
 
@@ -685,29 +711,26 @@ body{
 
         linear-gradient(
             145deg,
-            rgba(255,255,255,.72),
-            rgba(249,246,250,.47) 55%,
-            rgba(255,255,255,.30)
+            rgba(255,255,255,.82),
+            rgba(249,246,250,.55) 55%,
+            rgba(255,255,255,.34)
         );
 
     border:
         1px solid
-        rgba(255,255,255,.72);
+        rgba(255,255,255,.80);
 
     box-shadow:
 
-        0 16px 35px
-        rgba(43,11,61,.20),
+        0 20px 42px
+        rgba(43,11,61,.23),
 
         inset 0 1px 0
-        rgba(255,255,255,.90),
+        rgba(255,255,255,.95);
 
-        inset 0 -1px 0
-        rgba(74,21,95,.08);
+    backdrop-filter:blur(18px);
 
-    backdrop-filter:blur(17px);
-
-    -webkit-backdrop-filter:blur(17px);
+    -webkit-backdrop-filter:blur(18px);
 
     transition:
         transform .28s ease,
@@ -715,18 +738,17 @@ body{
         border-color .28s ease;
 }
 
-
 .login-card::before{
 
     content:"";
 
     position:absolute;
 
-    width:180px;
-    height:180px;
+    width:220px;
+    height:220px;
 
-    top:-115px;
-    right:-90px;
+    top:-145px;
+    right:-110px;
 
     border-radius:50%;
 
@@ -734,13 +756,12 @@ body{
 
         radial-gradient(
             circle,
-            rgba(255,255,255,.75),
+            rgba(255,255,255,.80),
             transparent 70%
         );
 
     pointer-events:none;
 }
-
 
 .login-card::after{
 
@@ -752,32 +773,30 @@ body{
 
     height:4px;
 
-    opacity:.75;
+    opacity:.8;
 
     background:
+
         linear-gradient(
             90deg,
             transparent,
-            rgba(199,154,50,.65),
+            rgba(199,154,50,.70),
             transparent
         );
 }
 
-
 .login-card:hover{
 
-    transform:
-        translateY(-6px);
+    transform:translateY(-7px);
 
     box-shadow:
 
-        0 23px 45px
-        rgba(43,11,61,.28),
+        0 27px 50px
+        rgba(43,11,61,.30),
 
         inset 0 1px 0
-        rgba(255,255,255,.95);
+        rgba(255,255,255,.98);
 }
-
 
 .login-card:active{
 
@@ -793,24 +812,23 @@ body{
 
 .card-icon{
 
-    width:68px;
-    height:68px;
+    width:78px;
+    height:78px;
 
-    border-radius:20px;
+    border-radius:23px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    margin-bottom:13px;
+    margin-bottom:15px;
 
-    font-size:27px;
+    font-size:31px;
 
     transition:
         transform .3s ease;
 }
-
 
 .login-card:hover .card-icon{
 
@@ -820,36 +838,37 @@ body{
 }
 
 
-/* PATIENT */
+/* =========================================================
+   PATIENT
+========================================================= */
 
 .patient{
 
     border-top:
-        3px solid
-        rgba(39,169,138,.75);
+        4px solid
+        rgba(39,169,138,.82);
 }
-
 
 .patient .card-icon{
 
     color:#16866e;
 
     background:
+
         linear-gradient(
             145deg,
-            rgba(39,169,138,.18),
+            rgba(39,169,138,.20),
             rgba(39,169,138,.07)
         );
 
     border:
         1px solid
-        rgba(39,169,138,.35);
+        rgba(39,169,138,.38);
 
     box-shadow:
-        0 7px 18px
+        0 8px 20px
         rgba(39,169,138,.18);
 }
-
 
 .patient h2{
 
@@ -857,77 +876,41 @@ body{
 }
 
 
-/* DOCTOR */
+/* =========================================================
+   DOCTOR
+========================================================= */
 
 .doctor{
 
     border-top:
-        3px solid
-        rgba(116,69,199,.78);
+        4px solid
+        rgba(116,69,199,.82);
 }
-
 
 .doctor .card-icon{
 
     color:#6233ad;
 
     background:
+
         linear-gradient(
             145deg,
-            rgba(116,69,199,.18),
+            rgba(116,69,199,.20),
             rgba(116,69,199,.07)
         );
 
     border:
         1px solid
-        rgba(116,69,199,.35);
+        rgba(116,69,199,.38);
 
     box-shadow:
-        0 7px 18px
+        0 8px 20px
         rgba(116,69,199,.18);
 }
-
 
 .doctor h2{
 
     color:#51228e;
-}
-
-
-/* ADMIN */
-
-.admin{
-
-    border-top:
-        3px solid
-        rgba(199,154,50,.85);
-}
-
-
-.admin .card-icon{
-
-    color:#a27618;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(199,154,50,.20),
-            rgba(199,154,50,.07)
-        );
-
-    border:
-        1px solid
-        rgba(199,154,50,.40);
-
-    box-shadow:
-        0 7px 18px
-        rgba(199,154,50,.20);
-}
-
-
-.admin h2{
-
-    color:#86620e;
 }
 
 
@@ -937,38 +920,36 @@ body{
 
 .login-card h2{
 
-    font-size:19px;
+    font-size:21px;
 
     font-weight:900;
 
-    margin-bottom:5px;
+    margin-bottom:6px;
 }
-
 
 .login-card p{
 
-    font-size:11.5px;
+    font-size:12px;
 
-    line-height:1.8;
+    line-height:1.9;
 
     color:#554d58;
 
-    max-width:240px;
+    max-width:260px;
 
     font-weight:500;
 }
-
 
 .card-arrow{
 
     position:absolute;
 
-    bottom:13px;
+    bottom:14px;
 
-    left:14px;
+    left:15px;
 
-    width:28px;
-    height:28px;
+    width:30px;
+    height:30px;
 
     border-radius:50%;
 
@@ -989,14 +970,219 @@ body{
         background .25s ease;
 }
 
-
 .login-card:hover .card-arrow{
 
-    transform:
-        translateX(-3px);
+    transform:translateX(-3px);
 
     background:
         rgba(74,21,95,.13);
+}
+
+
+/* =========================================================
+   ADMIN SEPARATOR
+========================================================= */
+
+.admin-section{
+
+    width:100%;
+
+    max-width:760px;
+
+    margin-top:22px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+}
+
+.admin-line{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:10px;
+}
+
+.admin-line::before,
+.admin-line::after{
+
+    content:"";
+
+    flex:1;
+
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(74,21,95,.20),
+            transparent
+        );
+}
+
+.admin-line span{
+
+    font-size:10px;
+
+    color:#65556a;
+
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   ADMIN BUTTON
+========================================================= */
+
+.admin-card{
+
+    width:100%;
+
+    min-height:72px;
+
+    padding:12px 18px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    text-decoration:none;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.68),
+            rgba(255,255,255,.40)
+        );
+
+    border:
+        1px solid
+        rgba(199,154,50,.32);
+
+    box-shadow:
+
+        0 10px 24px
+        rgba(43,11,61,.13),
+
+        inset 0 1px 0
+        rgba(255,255,255,.85);
+
+    backdrop-filter:blur(14px);
+
+    -webkit-backdrop-filter:blur(14px);
+
+    transition:
+        .25s ease;
+}
+
+.admin-card:hover{
+
+    transform:translateY(-3px);
+
+    border-color:
+        rgba(199,154,50,.55);
+
+    box-shadow:
+        0 15px 30px
+        rgba(43,11,61,.18);
+}
+
+.admin-icon{
+
+    width:48px;
+    height:48px;
+
+    flex-shrink:0;
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#a27618;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(199,154,50,.20),
+            rgba(199,154,50,.07)
+        );
+
+    border:
+        1px solid
+        rgba(199,154,50,.38);
+
+    font-size:19px;
+}
+
+.admin-text{
+
+    flex:1;
+
+    text-align:right;
+}
+
+.admin-text strong{
+
+    display:block;
+
+    color:#75570f;
+
+    font-size:14px;
+
+    font-weight:900;
+
+    margin-bottom:1px;
+}
+
+.admin-text span{
+
+    display:block;
+
+    color:#675d68;
+
+    font-size:10.5px;
+
+    font-weight:500;
+}
+
+.admin-arrow{
+
+    width:29px;
+    height:29px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#8d6b18;
+
+    background:
+        rgba(199,154,50,.09);
+
+    font-size:10px;
 }
 
 
@@ -1006,7 +1192,7 @@ body{
 
 .security{
 
-    margin-top:15px;
+    margin-top:14px;
 
     display:flex;
 
@@ -1018,13 +1204,12 @@ body{
 
     color:#4b4050;
 
-    font-size:11.5px;
+    font-size:11px;
 
     font-weight:600;
 
     text-align:center;
 }
-
 
 .security i{
 
@@ -1044,9 +1229,9 @@ footer{
 
     text-align:center;
 
-    margin-top:12px;
+    margin-top:11px;
 
-    padding-top:11px;
+    padding-top:10px;
 
     padding-bottom:3px;
 
@@ -1055,10 +1240,9 @@ footer{
         rgba(74,21,95,.16);
 }
 
-
 .footer-main{
 
-    font-size:11px;
+    font-size:10.5px;
 
     color:#514655;
 
@@ -1067,10 +1251,9 @@ footer{
     margin-bottom:3px;
 }
 
-
 .footer-version{
 
-    font-size:9px;
+    font-size:8.5px;
 
     color:#786b7d;
 
@@ -1087,103 +1270,70 @@ footer{
 @keyframes heartBeat{
 
     0%,100%{
-
-        transform:
-            rotate(-45deg)
-            scale(1);
+        transform:rotate(-45deg) scale(1);
     }
 
     8%{
-
-        transform:
-            rotate(-45deg)
-            scale(1.11);
+        transform:rotate(-45deg) scale(1.11);
     }
 
     16%{
-
-        transform:
-            rotate(-45deg)
-            scale(.98);
+        transform:rotate(-45deg) scale(.98);
     }
 
     24%{
-
-        transform:
-            rotate(-45deg)
-            scale(1.065);
+        transform:rotate(-45deg) scale(1.065);
     }
 
     38%{
-
-        transform:
-            rotate(-45deg)
-            scale(1);
+        transform:rotate(-45deg) scale(1);
     }
 }
-
 
 @keyframes ecgMove{
 
     0%{
-
         stroke-dashoffset:170;
-
         opacity:.35;
     }
 
     15%{
-
         opacity:1;
     }
 
     70%{
-
         stroke-dashoffset:0;
-
         opacity:1;
     }
 
     100%{
-
         stroke-dashoffset:-170;
-
         opacity:.35;
     }
 }
 
-
 @keyframes ringPulse{
 
     0%,100%{
-
         transform:scale(1);
-
         opacity:.65;
     }
 
     50%{
-
         transform:scale(1.045);
-
         opacity:1;
     }
 }
 
-
 @keyframes logoGlow{
 
     0%,100%{
-
         transform:scale(.94);
-
         opacity:.65;
     }
 
     50%{
-
         transform:scale(1.08);
-
         opacity:1;
     }
 }
@@ -1198,46 +1348,20 @@ footer{
     .page{
 
         padding:
-            10px
+            12px
             14px
             12px;
     }
 
+    .main-login,
+    .admin-section{
 
-    .login-grid{
-
-        gap:12px;
+        max-width:700px;
     }
-
 
     .login-card{
 
-        min-height:205px;
-
-        padding:
-            20px
-            12px;
-    }
-
-
-    .card-icon{
-
-        width:61px;
-        height:61px;
-
-        font-size:24px;
-    }
-
-
-    .login-card h2{
-
-        font-size:17px;
-    }
-
-
-    .login-card p{
-
-        font-size:10.8px;
+        min-height:220px;
     }
 }
 
@@ -1251,11 +1375,22 @@ footer{
     .page{
 
         padding:
-            5px
+            6px
             12px
             8px;
     }
 
+    .admin-top{
+
+        margin-bottom:-2px;
+    }
+
+    .admin-link{
+
+        padding:7px 11px;
+
+        font-size:9.5px;
+    }
 
     .logo-area{
 
@@ -1266,20 +1401,17 @@ footer{
         margin-bottom:-4px;
     }
 
-
     .logo-ring{
 
         width:124px;
         height:124px;
     }
 
-
     .heart{
 
         width:76px;
         height:69px;
     }
-
 
     .heart::before,
     .heart::after{
@@ -1288,18 +1420,15 @@ footer{
         height:69px;
     }
 
-
     .heart::before{
 
         top:-35px;
     }
 
-
     .heart::after{
 
         left:35px;
     }
-
 
     .ecg{
 
@@ -1310,18 +1439,15 @@ footer{
         left:-10px;
     }
 
-
     .brand{
 
-        margin-bottom:7px;
+        margin-bottom:6px;
     }
-
 
     .brand-ar{
 
         font-size:29px;
     }
-
 
     .brand-en{
 
@@ -1329,7 +1455,6 @@ footer{
 
         letter-spacing:5px;
     }
-
 
     .tagline{
 
@@ -1342,12 +1467,10 @@ footer{
         max-width:350px;
     }
 
-
     .welcome{
 
-        margin-bottom:13px;
+        margin-bottom:12px;
     }
-
 
     .welcome h1{
 
@@ -1356,14 +1479,12 @@ footer{
         margin-bottom:2px;
     }
 
-
     .welcome p{
 
         font-size:10.5px;
     }
 
-
-    .login-grid{
+    .main-login{
 
         grid-template-columns:1fr;
 
@@ -1371,7 +1492,6 @@ footer{
 
         max-width:450px;
     }
-
 
     .login-card{
 
@@ -1399,11 +1519,9 @@ footer{
         border-radius:20px;
     }
 
-
     .card-icon{
 
-        grid-row:
-            1 / 3;
+        grid-row:1 / 3;
 
         width:57px;
         height:57px;
@@ -1415,14 +1533,12 @@ footer{
         font-size:22px;
     }
 
-
     .login-card h2{
 
         font-size:16px;
 
         margin-bottom:2px;
     }
-
 
     .login-card p{
 
@@ -1432,7 +1548,6 @@ footer{
 
         max-width:none;
     }
-
 
     .card-arrow{
 
@@ -1446,14 +1561,68 @@ footer{
         font-size:10px;
     }
 
+    .admin-section{
+
+        margin-top:14px;
+
+        max-width:450px;
+    }
+
+    .admin-line{
+
+        margin-bottom:8px;
+    }
+
+    .admin-line span{
+
+        font-size:9px;
+    }
+
+    .admin-card{
+
+        min-height:62px;
+
+        padding:9px 12px;
+
+        gap:10px;
+
+        border-radius:17px;
+    }
+
+    .admin-icon{
+
+        width:42px;
+        height:42px;
+
+        border-radius:13px;
+
+        font-size:16px;
+    }
+
+    .admin-text strong{
+
+        font-size:12px;
+    }
+
+    .admin-text span{
+
+        font-size:9px;
+    }
+
+    .admin-arrow{
+
+        width:25px;
+        height:25px;
+
+        font-size:9px;
+    }
 
     .security{
 
-        margin-top:9px;
+        margin-top:8px;
 
-        font-size:10px;
+        font-size:9.5px;
     }
-
 
     footer{
 
@@ -1462,12 +1631,10 @@ footer{
         padding-top:8px;
     }
 
-
     .footer-main{
 
-        font-size:9.8px;
+        font-size:9.5px;
     }
-
 
     .footer-version{
 
@@ -1487,7 +1654,6 @@ footer{
         padding-top:2px;
     }
 
-
     .logo-area{
 
         transform:scale(.88);
@@ -1495,42 +1661,35 @@ footer{
         margin-bottom:-9px;
     }
 
-
     .brand-ar{
 
         font-size:27px;
     }
 
-
     .tagline{
 
         font-size:10.5px;
 
-        margin-bottom:9px;
+        margin-bottom:8px;
     }
-
 
     .welcome h1{
 
         font-size:18px;
     }
 
-
     .login-card{
 
         min-height:112px;
 
         grid-template-columns:
-            55px
-            1fr;
+            55px 1fr;
 
         column-gap:10px;
 
         padding:
-            11px
-            14px;
+            11px 14px;
     }
-
 
     .card-icon{
 
@@ -1540,18 +1699,26 @@ footer{
         font-size:20px;
     }
 
-
     .login-card h2{
 
         font-size:15px;
     }
-
 
     .login-card p{
 
         font-size:9.8px;
     }
 
+    .admin-card{
+
+        min-height:57px;
+    }
+
+    .admin-icon{
+
+        width:38px;
+        height:38px;
+    }
 
     .security{
 
@@ -1559,31 +1726,6 @@ footer{
     }
 }
 
-    /* =========================================================
-   DOCTOR IMAGE SIZE
-========================================================= */
-
-.doctor-avatar {
-    width: 72px;
-    height: 72px;
-    min-width: 72px;
-    min-height: 72px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.doctor-avatar img {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-    display: block;
-}
-    
 </style>
 
 </head>
@@ -1607,14 +1749,30 @@ footer{
 </div>
 
 
-
-<!-- =========================================================
-     PAGE
-========================================================= -->
-
 <main class="page">
 
 <div class="container">
+
+
+    <!-- =====================================================
+         ADMIN TOP
+    ====================================================== -->
+
+    <div class="admin-top">
+
+        <a
+            href="/admin.html"
+            class="admin-link">
+
+            <i class="fa-solid fa-lock"></i>
+
+            <span>
+                دخول الإدارة
+            </span>
+
+        </a>
+
+    </div>
 
 
     <!-- =====================================================
@@ -1668,7 +1826,6 @@ footer{
     </div>
 
 
-
     <!-- =====================================================
          BRAND
     ====================================================== -->
@@ -1686,13 +1843,11 @@ footer{
     </div>
 
 
-
     <div class="tagline">
 
         طبيبك... لأن موعدك يستحق أن يكون أسهل. ❤️
 
     </div>
-
 
 
     <!-- =====================================================
@@ -1706,18 +1861,17 @@ footer{
         </h1>
 
         <p>
-            ابحث عن طبيبك واحجز موعدك بسهولة
+            اختر طريقة الدخول للبدء
         </p>
 
     </section>
 
 
-
     <!-- =====================================================
-         LOGIN CARDS
+         PATIENT + DOCTOR
     ====================================================== -->
 
-    <section class="login-grid">
+    <section class="main-login">
 
 
         <!-- PATIENT -->
@@ -1732,17 +1886,14 @@ footer{
 
             </div>
 
-
             <h2>
                 المريض
             </h2>
-
 
             <p>
                 احجز موعدك مع الطبيب
                 وتابع حالة حجزك بسهولة.
             </p>
-
 
             <span class="card-arrow">
 
@@ -1751,7 +1902,6 @@ footer{
             </span>
 
         </a>
-
 
 
         <!-- DOCTOR -->
@@ -1766,51 +1916,14 @@ footer{
 
             </div>
 
-
             <h2>
                 الطبيب
             </h2>
-
 
             <p>
                 إدارة المواعيد والمرضى
                 وتنظيم الاستشارات.
             </p>
-
-
-            <span class="card-arrow">
-
-                <i class="fa-solid fa-arrow-left"></i>
-
-            </span>
-
-        </a>
-
-
-
-        <!-- ADMIN -->
-
-        <a
-            href="/admin.html"
-            class="login-card admin">
-
-            <div class="card-icon">
-
-                <i class="fa-solid fa-shield-halved"></i>
-
-            </div>
-
-
-            <h2>
-                الإدارة
-            </h2>
-
-
-            <p>
-                إدارة المنصة والأطباء
-                والمواعيد والخدمات.
-            </p>
-
 
             <span class="card-arrow">
 
@@ -1823,6 +1936,55 @@ footer{
 
     </section>
 
+
+    <!-- =====================================================
+         ADMIN
+    ====================================================== -->
+
+    <section class="admin-section">
+
+        <div class="admin-line">
+
+            <span>
+                منطقة الإدارة
+            </span>
+
+        </div>
+
+
+        <a
+            href="/admin.html"
+            class="admin-card">
+
+            <div class="admin-icon">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+            </div>
+
+
+            <div class="admin-text">
+
+                <strong>
+                    دخول الإدارة
+                </strong>
+
+                <span>
+                    إدارة الأطباء والمواعيد والخدمات
+                </span>
+
+            </div>
+
+
+            <div class="admin-arrow">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+            </div>
+
+        </a>
+
+    </section>
 
 
     <!-- =====================================================
@@ -1840,7 +2002,6 @@ footer{
     </div>
 
 
-
     <!-- =====================================================
          FOOTER
     ====================================================== -->
@@ -1853,7 +2014,6 @@ footer{
             رعاية أقرب، مواعيد أسهل
 
         </div>
-
 
         <div class="footer-version">
 
@@ -1870,4 +2030,6 @@ footer{
 
 
 </body>
+
 </html>
+```

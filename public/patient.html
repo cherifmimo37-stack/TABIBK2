@@ -2368,13 +2368,14 @@ if(ratingCount > 0){
        if(doctor.online === true){
     meta += `<span class="doctor-online-status"><i class="fa-solid fa-circle"></i> متصل</span>`;
 }
-          const appointmentDate =
-    new Date(
-        String(nextAppointment.date) +
-        "T" +
-        String(nextAppointment.time || "00:00") +
-        ":00+01:00"
-    );
+if(nextAppointment){
+    const appointmentDate =
+        new Date(
+            String(nextAppointment.date) +
+            "T" +
+            String(nextAppointment.time || "00:00") +
+            ":00+01:00"
+        );
 
     if(!Number.isNaN(appointmentDate.getTime())){
         const dateText =
@@ -2403,16 +2404,6 @@ if(ratingCount > 0){
         `;
     }
 }
-
-          if(queueCount > 0){
-    meta += `
-        <span class="doctor-queue">
-            <i class="fa-solid fa-users"></i>
-            ${queueCount} مرضى في الانتظار
-        </span>
-    `;
-}
-
         card.innerHTML = `
             <span class="doctor-avatar">
     <img

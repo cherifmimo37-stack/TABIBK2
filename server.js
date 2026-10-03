@@ -4149,6 +4149,27 @@ app.delete(
                             return false;
                         }
 
+                        // ------------------------------------------------
+                        // الموعد الذي تم تقييمه لا نحذفه
+                        // لأنه يحتوي على التقييم والتعليق
+                        // ------------------------------------------------
+
+                        if (
+                            Number.isInteger(
+                                Number(
+                                    appointment.doctorRating
+                                )
+                            ) &&
+                            Number(
+                                appointment.doctorRating
+                            ) >= 1 &&
+                            Number(
+                                appointment.doctorRating
+                            ) <= 5
+                        ) {
+                            return false;
+                        }
+
                         if (
                             !appointment.date ||
                             !appointment.time
@@ -4192,6 +4213,7 @@ app.delete(
                 oldAppointments.length;
 
             // حذف المواعيد القديمة فقط
+            // مع الحفاظ على المواعيد التي تحتوي على تقييم
             database.appointments =
                 database.appointments.filter(
                     appointment => {
@@ -4200,6 +4222,26 @@ app.delete(
                             Number(
                                 appointment.doctorId
                             ) !== doctorId
+                        ) {
+                            return true;
+                        }
+
+                        // ------------------------------------------------
+                        // الحفاظ على الموعد الذي تم تقييمه
+                        // ------------------------------------------------
+
+                        if (
+                            Number.isInteger(
+                                Number(
+                                    appointment.doctorRating
+                                )
+                            ) &&
+                            Number(
+                                appointment.doctorRating
+                            ) >= 1 &&
+                            Number(
+                                appointment.doctorRating
+                            ) <= 5
                         ) {
                             return true;
                         }
@@ -4276,10 +4318,11 @@ app.delete(
                     "حدث خطأ أثناء حذف المواعيد القديمة"
 
             });
+
         }
+
     }
 );
-
 // ============================================================
 // ADMIN LOGIN
 // ============================================================

@@ -3771,28 +3771,31 @@ function renderAppointment(
     // =====================================================
 
     const doctorRatingCard =
-        document.getElementById(
-            "doctorRatingCard"
+    document.getElementById(
+        "doctorRatingCard"
+    );
+
+if(doctorRatingCard){
+
+    if(status === "completed"){
+
+        doctorRatingCard.classList.remove(
+            "hidden"
         );
 
+        loadDoctorReviews(
+            appointment.doctorId
+        );
 
-    if(doctorRatingCard){
+    }else{
 
-        if(status === "completed"){
-
-            doctorRatingCard.classList.remove(
-                "hidden"
-            );
-
-        }else{
-
-            doctorRatingCard.classList.add(
-                "hidden"
-            );
-
-        }
+        doctorRatingCard.classList.add(
+            "hidden"
+        );
 
     }
+
+}
       
     const statusData =
         getStatusData(status);

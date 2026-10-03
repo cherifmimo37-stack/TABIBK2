@@ -4,892 +4,1236 @@
 <head>
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
->
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
 <title>طبيبك | TABIBK</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
 
 <style>
 
 /* =========================================================
-   TABIBK PREMIUM LOGIN
-   ========================================================= */
+   RESET
+========================================================= */
 
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+html{
     width:100%;
     min-height:100%;
 }
 
 body{
-    font-family:"Cairo",sans-serif;
-    background:
-        radial-gradient(
-            circle at 15% 10%,
-            rgba(151,91,220,.25),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 90% 85%,
-            rgba(220,174,67,.12),
-            transparent 30%
-        ),
-        linear-gradient(
-            145deg,
-            #16091f 0%,
-            #241039 38%,
-            #321450 68%,
-            #16091f 100%
-        );
-    color:#fff;
+    width:100%;
     min-height:100vh;
+    font-family:"Cairo",sans-serif;
     overflow-x:hidden;
+    color:#35145f;
+    background:#f9f6f8;
 }
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
 
 /* =========================================================
-   MEDICAL BACKGROUND
-   ========================================================= */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:.13;
-
-    background-image:
-        linear-gradient(
-            rgba(255,255,255,.04) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.04) 1px,
-            transparent 1px
-        );
-
-    background-size:42px 42px;
-
-    mask-image:linear-gradient(
-        to bottom,
-        black,
-        transparent 90%
-    );
-}
-
-.medical-glow{
-    position:fixed;
-    width:420px;
-    height:420px;
-    border-radius:50%;
-    background:rgba(153,82,220,.13);
-    filter:blur(70px);
-    pointer-events:none;
-}
-
-.glow-one{
-    top:-160px;
-    right:-120px;
-}
-
-.glow-two{
-    bottom:-180px;
-    left:-140px;
-    background:rgba(215,169,67,.10);
-}
-
-/* =========================================================
-   MAIN
-   ========================================================= */
+   MAIN BACKGROUND
+========================================================= */
 
 .page{
     position:relative;
-    z-index:2;
-    width:100%;
     min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:22px 16px 28px;
-}
-
-.container{
-    width:100%;
-    max-width:1040px;
-    margin:auto;
-}
-
-/* =========================================================
-   ADMIN
-   ========================================================= */
-
-.admin-row{
-    display:flex;
-    justify-content:flex-start;
-    margin-bottom:18px;
-}
-
-.admin-button{
-    display:flex;
-    align-items:center;
-    gap:9px;
-
-    text-decoration:none;
-    color:#f5e8c4;
-
-    padding:9px 15px;
-    border-radius:13px;
-
-    background:rgba(255,255,255,.055);
-    border:1px solid rgba(232,200,111,.25);
-
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.15);
-
-    font-size:12px;
-    font-weight:700;
-
-    transition:.25s ease;
-}
-
-.admin-button:hover{
-    background:rgba(232,200,111,.12);
-    border-color:rgba(232,200,111,.5);
-    transform:translateY(-2px);
-}
-
-.admin-icon{
-    width:27px;
-    height:27px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:9px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #dcb85e,
-            #9f7418
-        );
-
-    color:#291437;
-    font-size:13px;
-}
-
-/* =========================================================
-   BRAND
-   ========================================================= */
-
-.brand{
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.logo{
-    width:76px;
-    height:76px;
-    margin:0 auto 12px;
-
-    border-radius:24px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    position:relative;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #eee6f8
-        );
-
-    border:2px solid rgba(230,194,92,.85);
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.32),
-        0 0 0 7px rgba(214,166,62,.07);
-}
-
-.logo::before{
-    content:"";
-    position:absolute;
-    inset:6px;
-    border-radius:18px;
-    border:1px solid rgba(92,42,145,.18);
-}
-
-.logo svg{
-    width:48px;
-    height:48px;
-}
-
-.brand-title{
-    font-size:31px;
-    line-height:1;
-    font-weight:900;
-    letter-spacing:-1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ffffff,
-            #e7c76d,
-            #ffffff
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-}
-
-.brand-subtitle{
-    margin-top:8px;
-    color:rgba(255,255,255,.68);
-    font-size:12px;
-    font-weight:600;
-    letter-spacing:.2px;
-}
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
-.hero{
-    position:relative;
     overflow:hidden;
 
-    border-radius:28px;
+    background:
+        linear-gradient(
+            rgba(255,255,255,.38),
+            rgba(255,255,255,.48)
+        ),
+        url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=2200&q=90");
 
-    padding:25px 27px;
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
 
-    margin-bottom:20px;
+
+/* soft white medical overlay */
+
+.page::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(255,255,255,.94) 0%,
+            rgba(255,255,255,.75) 34%,
+            rgba(255,255,255,.34) 72%,
+            rgba(255,255,255,.18) 100%
+        );
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   DECORATION
+========================================================= */
+
+.bg-light{
+    position:absolute;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.9),
+            rgba(255,255,255,0)
+        );
+
+    filter:blur(5px);
+    pointer-events:none;
+}
+
+.bg-light.one{
+    top:-180px;
+    left:-150px;
+}
+
+.bg-light.two{
+    bottom:-200px;
+    right:-150px;
+}
+
+
+/* =========================================================
+   ADMIN TOP BUTTON
+========================================================= */
+
+.admin-top{
+    position:absolute;
+    top:30px;
+    right:4.5%;
+    z-index:20;
+}
+
+.admin-top a{
+    min-width:190px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+
+    padding:13px 23px;
+
+    border-radius:35px;
+
+    color:white;
 
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,.10),
-            rgba(255,255,255,.035)
+            #54218b,
+            #32115e
         );
 
-    border:1px solid rgba(255,255,255,.11);
+    border:2px solid #d7a62f;
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,.28);
+        0 9px 24px rgba(59,20,99,.22);
 
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+    font-size:15px;
+    font-weight:800;
+
+    transition:.25s ease;
 }
 
-.hero::before{
-    content:"";
-    position:absolute;
+.admin-top a:hover{
+    transform:translateY(-3px);
 
-    width:260px;
-    height:260px;
-
-    right:-110px;
-    top:-150px;
-
-    border-radius:50%;
-
-    border:1px solid rgba(229,195,102,.18);
+    box-shadow:
+        0 14px 30px rgba(59,20,99,.30);
 }
 
-.hero::after{
-    content:"";
-    position:absolute;
-
-    width:180px;
-    height:180px;
-
-    left:-90px;
-    bottom:-110px;
-
-    border-radius:50%;
-
-    border:1px solid rgba(171,114,225,.18);
+.admin-lock{
+    font-size:21px;
 }
 
-.hero-content{
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content{
     position:relative;
-    z-index:2;
+    z-index:5;
+
+    width:100%;
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:
+        55px
+        20px
+        210px;
+
     text-align:center;
 }
 
-.hero-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-
-    padding:6px 12px;
-
-    border-radius:30px;
-
-    background:rgba(220,184,94,.10);
-    border:1px solid rgba(220,184,94,.24);
-
-    color:#e7ca78;
-
-    font-size:10px;
-    font-weight:800;
-
-    margin-bottom:11px;
-}
-
-.live-dot{
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:#59db91;
-    box-shadow:0 0 10px #59db91;
-}
-
-.hero h1{
-    font-size:25px;
-    line-height:1.45;
-    font-weight:900;
-}
-
-.hero h1 span{
-    color:#e6c36a;
-}
-
-.hero p{
-    margin-top:7px;
-    color:rgba(255,255,255,.66);
-    font-size:12px;
-    font-weight:500;
-}
 
 /* =========================================================
-   LOGIN CARDS
-   ========================================================= */
+   LOGO
+========================================================= */
 
-.roles{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-}
-
-.role-card{
-    position:relative;
-    overflow:hidden;
-
-    min-height:310px;
-
-    border-radius:27px;
-
-    text-decoration:none;
-    color:#fff;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.105),
-            rgba(255,255,255,.035)
-        );
-
-    border:1px solid rgba(255,255,255,.13);
-
-    box-shadow:
-        0 22px 60px rgba(0,0,0,.27);
-
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-
-    transition:
-        transform .3s ease,
-        border-color .3s ease,
-        box-shadow .3s ease;
-}
-
-.role-card:hover{
-    transform:translateY(-6px);
-    border-color:rgba(225,190,93,.45);
-
-    box-shadow:
-        0 30px 75px rgba(0,0,0,.35),
-        0 0 30px rgba(192,143,51,.07);
-}
-
-.role-card::before{
-    content:"";
-    position:absolute;
-
-    width:230px;
-    height:230px;
-
-    border-radius:50%;
-
-    top:-125px;
-    left:-90px;
-
-    background:rgba(255,255,255,.035);
-}
-
-.role-card::after{
-    content:"";
-    position:absolute;
-
-    inset:auto -60px -110px auto;
-
-    width:220px;
-    height:220px;
-
-    border-radius:50%;
-
-    border:1px solid rgba(255,255,255,.05);
-}
-
-.role-inner{
-    position:relative;
-    z-index:3;
-
-    height:100%;
-
+.logo-area{
     display:flex;
     flex-direction:column;
     align-items:center;
 
-    padding:22px 20px 20px;
+    margin-bottom:22px;
 }
 
-/* =========================================================
-   PHOTO
-   ========================================================= */
+.logo{
+    width:330px;
+    max-width:70vw;
+    height:auto;
 
-.photo-wrap{
+    filter:
+        drop-shadow(
+            0 8px 8px
+            rgba(62,20,99,.10)
+        );
+}
+
+
+/* SVG LOGO */
+
+.logo-symbol{
+    width:175px;
+    height:145px;
+
+    margin-bottom:-13px;
+}
+
+.heart-left{
+    fill:none;
+    stroke:#47207c;
+    stroke-width:8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.heart-right{
+    fill:none;
+    stroke:#d39d2c;
+    stroke-width:8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.pulse{
+    fill:none;
+    stroke:#54218b;
+    stroke-width:7;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+
+/* TABIBK */
+
+.brand-name{
+    direction:ltr;
+
+    font-size:62px;
+    line-height:.95;
+
+    font-weight:900;
+    letter-spacing:-3px;
+
+    color:#3b176b;
+}
+
+.brand-name span{
+    color:#bd8620;
+}
+
+
+/* Arabic brand */
+
+.brand-ar{
+    margin-top:4px;
+
+    font-size:39px;
+    line-height:1;
+
+    font-weight:900;
+
+    color:#431877;
+
     position:relative;
 
-    width:126px;
-    height:126px;
-
-    margin-bottom:16px;
+    display:inline-flex;
+    align-items:center;
+    gap:20px;
 }
 
-.photo-ring{
+.brand-ar::before,
+.brand-ar::after{
+    content:"";
+
+    width:72px;
+    height:3px;
+
+    background:#c8952b;
+}
+
+
+/* slogan */
+
+.slogan{
+    margin-top:17px;
+
+    font-size:19px;
+
+    color:#6b5880;
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+}
+
+
+/* =========================================================
+   LOGIN CARDS
+========================================================= */
+
+.login-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap:24px;
+
+    width:100%;
+
+    max-width:730px;
+
+    margin:45px auto 0;
+}
+
+
+/* Card */
+
+.login-card{
+    position:relative;
+
+    min-height:400px;
+
+    padding:25px 25px 20px;
+
+    border-radius:30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.97),
+            rgba(255,255,255,.88)
+        );
+
+    border:1px solid rgba(255,255,255,.9);
+
+    box-shadow:
+        0 18px 40px
+        rgba(57,23,89,.16),
+
+        0 2px 5px
+        rgba(0,0,0,.06);
+
+    backdrop-filter:blur(10px);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.login-card:hover{
+    transform:translateY(-7px);
+
+    box-shadow:
+        0 25px 50px
+        rgba(57,23,89,.23);
+}
+
+
+/* =========================================================
+   PERSON IMAGE
+========================================================= */
+
+.person-image{
+    position:relative;
+
+    width:135px;
+    height:135px;
+
+    margin:0 auto 17px;
+}
+
+
+/* golden circle */
+
+.person-image::before{
+    content:"";
+
     position:absolute;
+
     inset:-5px;
 
     border-radius:50%;
 
     background:
         linear-gradient(
-            145deg,
-            #e9cc76,
-            #8f6214,
-            #dcb85c
+            135deg,
+            #fff6d8,
+            #edce8a,
+            #f8e9bf
         );
 
-    padding:3px;
-
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.32);
+    z-index:0;
 }
 
-.photo{
+
+/* image */
+
+.person-image img{
+    position:relative;
+    z-index:2;
+
     width:100%;
     height:100%;
 
-    border-radius:50%;
+    display:block;
 
     object-fit:cover;
 
-    display:block;
+    border-radius:50%;
 
-    border:4px solid #321450;
+    border:5px solid white;
 
     background:#eee;
+
+    box-shadow:
+        0 8px 20px
+        rgba(69,27,104,.12);
 }
 
-.status{
+
+/* little heart badge */
+
+.person-badge{
     position:absolute;
 
-    bottom:4px;
-    right:5px;
+    z-index:4;
 
-    width:20px;
-    height:20px;
+    left:-5px;
+    bottom:1px;
+
+    width:43px;
+    height:43px;
 
     border-radius:50%;
 
-    background:#54d68b;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    border:4px solid #2a123f;
+    color:white;
+
+    font-size:21px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e3b94f,
+            #b87d16
+        );
+
+    border:3px solid white;
 
     box-shadow:
-        0 0 14px rgba(84,214,139,.6);
+        0 5px 13px
+        rgba(90,50,10,.2);
 }
 
+
 /* =========================================================
-   ROLE CONTENT
-   ========================================================= */
+   CARD TEXT
+========================================================= */
 
-.role-label{
-    color:#dfbd65;
+.card-small{
+    color:#a47726;
 
-    font-size:10px;
+    font-size:12px;
+
     font-weight:800;
 
     margin-bottom:4px;
 }
 
-.role-title{
-    font-size:21px;
+.card-title{
+    color:#421776;
+
+    font-size:27px;
+
     font-weight:900;
 
-    margin-bottom:5px;
+    margin-bottom:9px;
 }
 
-.role-description{
-    text-align:center;
+.card-text{
+    color:#75627f;
 
-    color:rgba(255,255,255,.62);
+    font-size:13px;
 
-    font-size:11px;
-    line-height:1.8;
+    line-height:1.9;
+
+    min-height:52px;
 
     max-width:270px;
+
+    margin:0 auto;
 }
 
-.enter{
-    margin-top:auto;
 
-    width:100%;
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-button{
+    position:absolute;
+
+    left:25px;
+    right:25px;
+    bottom:21px;
+
+    height:57px;
 
     display:flex;
-    justify-content:center;
     align-items:center;
-    gap:8px;
+    justify-content:center;
 
-    padding:11px 15px;
+    border-radius:18px;
 
-    border-radius:14px;
-
-    font-size:12px;
-    font-weight:800;
-
-    color:#301440;
+    color:white;
 
     background:
         linear-gradient(
             135deg,
-            #f0d785,
-            #c59a36
+            #54208b,
+            #39116b
         );
 
+    border:2px solid #d7a62f;
+
     box-shadow:
-        0 9px 25px rgba(193,150,55,.20);
+        0 7px 18px
+        rgba(71,24,116,.20);
+
+    font-size:16px;
+
+    font-weight:800;
 
     transition:.25s ease;
 }
 
-.role-card:hover .enter{
-    transform:translateY(-1px);
+.login-button:hover{
+    background:
+        linear-gradient(
+            135deg,
+            #64299c,
+            #421476
+        );
+
     box-shadow:
-        0 12px 30px rgba(193,150,55,.32);
+        0 10px 25px
+        rgba(71,24,116,.30);
 }
 
-.enter-arrow{
-    font-size:15px;
-    line-height:1;
+
+/* arrow circle */
+
+.arrow{
+    position:absolute;
+
+    left:9px;
+
+    width:39px;
+    height:39px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+
+    background:
+        rgba(255,255,255,.08);
+
+    font-size:24px;
+
+    direction:ltr;
 }
+
 
 /* =========================================================
-   TRUST
-   ========================================================= */
+   ADMIN CENTER
+========================================================= */
 
-.trust{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-
-    margin-top:17px;
-}
-
-.trust-item{
-    min-height:62px;
+.admin-center{
+    margin:30px auto 0;
 
     display:flex;
     flex-direction:column;
     align-items:center;
+}
+
+
+/* decorative lines */
+
+.admin-line{
+    display:flex;
+    align-items:center;
     justify-content:center;
 
-    gap:3px;
+    width:100%;
+    max-width:470px;
 
-    border-radius:15px;
-
-    background:rgba(255,255,255,.045);
-    border:1px solid rgba(255,255,255,.07);
-
-    color:rgba(255,255,255,.70);
-
-    font-size:9px;
-    font-weight:700;
+    gap:24px;
 }
 
-.trust-icon{
-    font-size:17px;
+.admin-line::before,
+.admin-line::after{
+    content:"";
+
+    height:2px;
+
+    flex:1;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #d5a12e
+        );
 }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
+.admin-line::after{
+    background:
+        linear-gradient(
+            90deg,
+            #d5a12e,
+            transparent
+        );
+}
 
-.footer{
-    text-align:center;
 
-    margin-top:20px;
+/* center button */
 
-    color:rgba(255,255,255,.40);
+.admin-center-button{
+    min-width:275px;
 
-    font-size:9px;
+    height:64px;
+
+    padding:0 28px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:13px;
+
+    border-radius:40px;
+
+    color:#482075;
+
+    background:
+        rgba(255,255,255,.74);
+
+    border:2px solid #d8a331;
+
+    box-shadow:
+        0 8px 22px
+        rgba(70,35,100,.10);
+
+    font-size:19px;
+
+    font-weight:900;
+}
+
+.admin-center-button .lock{
+    font-size:22px;
+}
+
+.admin-sub{
+    margin-top:9px;
+
+    color:#796682;
+
+    font-size:13px;
+
     font-weight:600;
 }
 
-.footer strong{
-    color:#d9b85d;
-}
 
 /* =========================================================
-   MOBILE
-   ========================================================= */
+   FEATURES
+========================================================= */
 
-@media(max-width:650px){
+.features{
+    width:100%;
 
-    .page{
+    max-width:780px;
+
+    margin:38px auto 0;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:0;
+}
+
+.feature{
+    position:relative;
+
+    min-height:75px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    color:#685379;
+}
+
+.feature:not(:last-child)::after{
+    content:"";
+
+    position:absolute;
+
+    right:0;
+
+    top:8px;
+
+    width:1px;
+
+    height:60px;
+
+    background:
+        rgba(89,54,111,.16);
+}
+
+.feature-icon{
+    width:39px;
+    height:39px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#4a217a;
+
+    font-size:27px;
+}
+
+.feature-title{
+    font-size:12px;
+    font-weight:700;
+}
+
+
+/* =========================================================
+   BOTTOM PURPLE AREA
+========================================================= */
+
+.bottom-wave{
+    position:absolute;
+
+    z-index:3;
+
+    left:-5%;
+    right:-5%;
+    bottom:-130px;
+
+    height:270px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #3d1768,
+            #241044
+        );
+
+    border-top:
+        4px solid
+        #d3a032;
+
+    border-radius:
+        50% 50% 0 0 /
+        18% 18% 0 0;
+
+    box-shadow:
+        0 -12px 30px
+        rgba(49,16,79,.12);
+}
+
+
+/* second golden curve */
+
+.bottom-wave::before{
+    content:"";
+
+    position:absolute;
+
+    left:10%;
+    right:10%;
+    top:-7px;
+
+    height:15px;
+
+    border-top:2px solid #e1bc59;
+
+    border-radius:50%;
+}
+
+
+/* footer */
+
+.footer{
+    position:absolute;
+
+    z-index:10;
+
+    bottom:20px;
+
+    left:0;
+    right:0;
+
+    text-align:center;
+
+    color:#d7b45c;
+
+    font-size:13px;
+
+    font-weight:700;
+}
+
+.footer span{
+    color:#ead18a;
+}
+
+
+/* =========================================================
+   DESKTOP LARGE
+========================================================= */
+
+@media(min-width:1200px){
+
+    .content{
+        padding-top:55px;
+    }
+
+    .login-grid{
+        margin-top:45px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:800px){
+
+    .content{
         padding:
-            14px
-            12px
-            20px;
+            70px
+            18px
+            170px;
     }
 
-    .admin-row{
-        margin-bottom:13px;
+    .admin-top{
+        top:18px;
+        right:18px;
     }
 
-    .admin-button{
-        padding:8px 11px;
-        font-size:10px;
+    .admin-top a{
+        min-width:auto;
+        padding:9px 15px;
+        font-size:12px;
     }
 
-    .admin-icon{
-        width:24px;
-        height:24px;
-        font-size:11px;
+    .logo-symbol{
+        width:130px;
+        height:110px;
     }
 
-    .brand{
-        margin-bottom:18px;
+    .brand-name{
+        font-size:49px;
     }
 
-    .logo{
-        width:64px;
-        height:64px;
-        border-radius:20px;
+    .brand-ar{
+        font-size:31px;
     }
 
-    .logo svg{
-        width:41px;
-        height:41px;
+    .brand-ar::before,
+    .brand-ar::after{
+        width:50px;
     }
 
-    .brand-title{
-        font-size:26px;
-    }
-
-    .brand-subtitle{
-        font-size:10px;
-        margin-top:6px;
-    }
-
-    .hero{
-        border-radius:22px;
-        padding:18px 15px;
-        margin-bottom:13px;
-    }
-
-    .hero h1{
-        font-size:20px;
-    }
-
-    .hero p{
-        font-size:10px;
-    }
-
-    .roles{
-        gap:10px;
-    }
-
-    .role-card{
-        min-height:270px;
-        border-radius:21px;
-    }
-
-    .role-inner{
-        padding:17px 11px 13px;
-    }
-
-    .photo-wrap{
-        width:95px;
-        height:95px;
-        margin-bottom:12px;
-    }
-
-    .photo{
-        border-width:3px;
-    }
-
-    .status{
-        width:17px;
-        height:17px;
-        border-width:3px;
-    }
-
-    .role-label{
-        font-size:8px;
-    }
-
-    .role-title{
-        font-size:17px;
-    }
-
-    .role-description{
-        font-size:9px;
-        line-height:1.65;
-    }
-
-    .enter{
-        padding:9px 8px;
-        border-radius:11px;
-        font-size:9px;
-    }
-
-    .trust{
-        margin-top:11px;
-        gap:6px;
-    }
-
-    .trust-item{
-        min-height:54px;
-        font-size:7px;
-        border-radius:11px;
-    }
-
-    .trust-icon{
-        font-size:14px;
-    }
-
-    .footer{
-        margin-top:13px;
-        font-size:8px;
-    }
-}
-
-/* =========================================================
-   VERY SMALL PHONES
-   ========================================================= */
-
-@media(max-width:360px){
-
-    .page{
-        padding-left:9px;
-        padding-right:9px;
-    }
-
-    .hero{
-        padding:15px 10px;
-    }
-
-    .hero h1{
-        font-size:18px;
-    }
-
-    .roles{
-        gap:7px;
-    }
-
-    .role-card{
-        min-height:250px;
-    }
-
-    .role-inner{
-        padding:14px 8px 10px;
-    }
-
-    .photo-wrap{
-        width:82px;
-        height:82px;
-    }
-
-    .role-title{
+    .slogan{
         font-size:15px;
     }
 
-    .role-description{
-        font-size:8px;
+    .login-grid{
+        max-width:650px;
+        gap:15px;
     }
 
-    .enter{
-        font-size:8px;
-        padding:8px 5px;
+    .login-card{
+        min-height:370px;
+        padding:21px 17px;
     }
 
-    .trust-item{
-        font-size:6px;
+    .person-image{
+        width:112px;
+        height:112px;
+    }
+
+    .card-title{
+        font-size:23px;
+    }
+
+    .card-text{
+        font-size:11px;
+    }
+
+    .login-button{
+        left:17px;
+        right:17px;
+        font-size:13px;
     }
 }
 
-/* =========================================================
-   DESKTOP
-   ========================================================= */
 
-@media(min-width:900px){
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
 
     .page{
-        padding-top:35px;
-        padding-bottom:35px;
+        background-attachment:scroll;
+
+        background-position:
+            50% 50%;
     }
 
-    .brand{
-        margin-bottom:28px;
+    .content{
+        padding:
+            65px
+            11px
+            155px;
     }
 
-    .hero{
-        padding:29px 35px;
+    .admin-top{
+        top:13px;
+        right:12px;
     }
 
-    .role-card{
-        min-height:335px;
+    .admin-top a{
+        padding:7px 12px;
+
+        border-width:1px;
+
+        font-size:10px;
     }
 
-    .photo-wrap{
-        width:138px;
-        height:138px;
+    .admin-lock{
+        font-size:15px;
+    }
+
+
+    /* logo */
+
+    .logo-area{
+        margin-bottom:10px;
+    }
+
+    .logo-symbol{
+        width:105px;
+        height:88px;
+
+        margin-bottom:-8px;
+    }
+
+    .brand-name{
+        font-size:38px;
+        letter-spacing:-2px;
+    }
+
+    .brand-ar{
+        font-size:25px;
+        gap:12px;
+    }
+
+    .brand-ar::before,
+    .brand-ar::after{
+        width:37px;
+        height:2px;
+    }
+
+    .slogan{
+        margin-top:9px;
+        font-size:11px;
+    }
+
+
+    /* cards */
+
+    .login-grid{
+        margin-top:27px;
+
+        gap:9px;
+
+        max-width:100%;
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+
+    .login-card{
+        min-height:315px;
+
+        border-radius:20px;
+
+        padding:
+            15px
+            8px
+            12px;
+    }
+
+    .person-image{
+        width:82px;
+        height:82px;
+
+        margin-bottom:11px;
+    }
+
+    .person-image img{
+        border-width:3px;
+    }
+
+    .person-badge{
+        width:30px;
+        height:30px;
+
+        left:-3px;
+        bottom:-1px;
+
+        font-size:15px;
+
+        border-width:2px;
+    }
+
+    .card-small{
+        font-size:8px;
+    }
+
+    .card-title{
+        font-size:16px;
+        margin-bottom:5px;
+    }
+
+    .card-text{
+        font-size:8px;
+        line-height:1.7;
+        min-height:48px;
+    }
+
+    .login-button{
+        left:8px;
+        right:8px;
+        bottom:11px;
+
+        height:42px;
+
+        border-radius:12px;
+
+        font-size:8px;
+
+        border-width:1px;
+    }
+
+    .arrow{
+        left:5px;
+
+        width:29px;
+        height:29px;
+
+        font-size:18px;
+    }
+
+
+    /* admin */
+
+    .admin-center{
+        margin-top:21px;
+    }
+
+    .admin-line{
+        gap:8px;
+    }
+
+    .admin-center-button{
+        min-width:190px;
+
+        height:48px;
+
+        padding:0 15px;
+
+        font-size:13px;
+
+        border-width:1px;
+    }
+
+    .admin-center-button .lock{
+        font-size:16px;
+    }
+
+    .admin-sub{
+        margin-top:5px;
+        font-size:9px;
+    }
+
+
+    /* features */
+
+    .features{
+        margin-top:23px;
+
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .feature{
+        min-height:55px;
+        gap:2px;
+    }
+
+    .feature:not(:last-child)::after{
+        height:42px;
+        top:6px;
+    }
+
+    .feature-icon{
+        width:27px;
+        height:27px;
+        font-size:19px;
+    }
+
+    .feature-title{
+        font-size:7px;
+    }
+
+
+    /* bottom */
+
+    .bottom-wave{
+        bottom:-110px;
+        height:190px;
+    }
+
+    .footer{
+        bottom:10px;
+        font-size:9px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:360px){
+
+    .content{
+        padding-left:8px;
+        padding-right:8px;
+    }
+
+    .login-grid{
+        gap:7px;
+    }
+
+    .login-card{
+        min-height:295px;
+    }
+
+    .person-image{
+        width:73px;
+        height:73px;
+    }
+
+    .card-title{
+        font-size:14px;
+    }
+
+    .card-text{
+        font-size:7px;
+    }
+
+    .login-button{
+        font-size:7px;
+    }
+
+    .admin-center-button{
+        min-width:170px;
+        font-size:12px;
+    }
+
+    .feature-title{
+        font-size:6px;
     }
 }
 
@@ -899,32 +1243,24 @@ body::before{
 
 <body>
 
-<div class="medical-glow glow-one"></div>
-<div class="medical-glow glow-two"></div>
+<div class="page">
 
-
-<main class="page">
-
-<div class="container">
+    <div class="bg-light one"></div>
+    <div class="bg-light two"></div>
 
 
     <!-- =====================================================
-         ADMIN ACCESS
-         ===================================================== -->
+         ADMIN TOP
+    ====================================================== -->
 
-    <div class="admin-row">
+    <div class="admin-top">
 
-        <a
-            href="/admin.html"
-            class="admin-button"
-        >
+        <a href="/admin.html">
 
-            <span class="admin-icon">
-                ⚙
-            </span>
+            <span class="admin-lock">🔒</span>
 
             <span>
-                دخول الإدارة
+                لوحة الإدارة
             </span>
 
         </a>
@@ -933,289 +1269,365 @@ body::before{
 
 
     <!-- =====================================================
-         BRAND
-         ===================================================== -->
+         MAIN CONTENT
+    ====================================================== -->
 
-    <section class="brand">
+    <main class="content">
 
-        <div class="logo">
+
+        <!-- =================================================
+             BRAND
+        ================================================== -->
+
+        <section class="logo-area">
+
+
+            <!-- Medical Logo -->
 
             <svg
-                viewBox="0 0 100 100"
-                fill="none"
+                class="logo-symbol"
+                viewBox="0 0 180 150"
                 xmlns="http://www.w3.org/2000/svg"
             >
 
-                <path
-                    d="M50 78
-                       C45 73 20 57 20 38
-                       C20 25 29 17 40 17
-                       C46 17 50 20 50 20
-                       C50 20 54 17 60 17
-                       C71 17 80 25 80 38
-                       C80 57 55 73 50 78Z"
-                    stroke="#54227F"
-                    stroke-width="7"
-                    stroke-linejoin="round"
-                />
+                <!-- left heart -->
 
                 <path
-                    d="M26 47
-                       H39
-                       L44 37
-                       L50 56
-                       L57 29
-                       L63 47
-                       H75"
-                    stroke="#D2A33D"
-                    stroke-width="5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    class="heart-left"
+                    d="
+                    M90 125
+                    C78 114
+                    23 82
+                    23 48
+                    C23 23
+                    42 10
+                    61 10
+                    C76 10
+                    86 18
+                    90 29
+                    "
+                />
+
+                <!-- right heart -->
+
+                <path
+                    class="heart-right"
+                    d="
+                    M90 125
+                    C102 114
+                    157 82
+                    157 48
+                    C157 23
+                    138 10
+                    119 10
+                    C104 10
+                    94 18
+                    90 29
+                    "
+                />
+
+                <!-- heartbeat -->
+
+                <path
+                    class="pulse"
+                    d="
+                    M42 72
+                    H67
+                    L75 55
+                    L84 91
+                    L94 38
+                    L104 72
+                    H137
+                    "
                 />
 
             </svg>
 
-        </div>
 
-        <div class="brand-title">
-            طبيبك
-        </div>
+            <!-- TABIBK -->
 
-        <div class="brand-subtitle">
-            TABIBK · منصة الرعاية الصحية الرقمية
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         HERO
-         ===================================================== -->
-
-    <section class="hero">
-
-        <div class="hero-content">
-
-            <div class="hero-badge">
-
-                <span class="live-dot"></span>
-
-                خدمة صحية رقمية متاحة
-
+            <div class="brand-name">
+                TABIB<span>K</span>
             </div>
 
-            <h1>
-                صحتك تستحق
-                <span>عناية أفضل</span>
-            </h1>
 
-            <p>
-                اختر طريقة الدخول للمتابعة إلى منصة طبيبك
-            </p>
+            <!-- Arabic -->
 
-        </div>
-
-    </section>
+            <div class="brand-ar">
+                طبيبك
+            </div>
 
 
-    <!-- =====================================================
-         PATIENT / DOCTOR
-         ===================================================== -->
+            <!-- slogan -->
 
-    <section class="roles">
+            <div class="slogan">
+                صحتك ... أولويتنا
+            </div>
+
+        </section>
+
 
 
         <!-- =================================================
-             PATIENT
-             ================================================= -->
+             LOGIN CARDS
+        ================================================== -->
 
-        <a
-            href="/patient.html"
-            class="role-card"
-        >
+        <section class="login-grid">
 
-            <div class="role-inner">
 
-                <div class="photo-wrap">
+            <!-- =================================================
+                 PATIENT
+            ================================================== -->
 
-                    <div class="photo-ring"></div>
+            <a
+                href="/patient.html"
+                class="login-card"
+            >
+
+                <div class="person-image">
 
                     <img
                         src="/images/patient.jpg"
-                        class="photo"
                         alt="المريض"
+
                         onerror="
-                            this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=500&q=85'
+                            this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=500&q=85';
                         "
                     >
 
-                    <span class="status"></span>
+                    <div class="person-badge">
+                        ♥
+                    </div>
 
                 </div>
 
 
-                <div class="role-label">
-                    للمراجعين والمرضى
+                <div class="card-small">
+                    للمرضى والمراجعين
                 </div>
 
-                <div class="role-title">
+
+                <h2 class="card-title">
                     دخول المريض
-                </div>
-
-                <div class="role-description">
-                    احجز موعدك، تابع دورك،
-                    واطّلع على معلومات مواعيدك
-                    بسهولة وأمان.
-                </div>
+                </h2>
 
 
-                <div class="enter">
+                <p class="card-text">
+                    احجز موعدك، تابع حالتك،
+                    واستفد من خدماتنا بكل سهولة.
+                </p>
+
+
+                <div class="login-button">
 
                     <span>
-                        الدخول كـ مريض
+                        تسجيل دخول المريض
                     </span>
 
-                    <span class="enter-arrow">
-                        ←
+                    <span class="arrow">
+                        →
                     </span>
 
                 </div>
 
-            </div>
-
-        </a>
+            </a>
 
 
-        <!-- =================================================
-             DOCTOR
-             ================================================= -->
 
-        <a
-            href="/doctor.html"
-            class="role-card"
-        >
+            <!-- =================================================
+                 DOCTOR
+            ================================================== -->
 
-            <div class="role-inner">
+            <a
+                href="/doctor.html"
+                class="login-card"
+            >
 
-                <div class="photo-wrap">
-
-                    <div class="photo-ring"></div>
+                <div class="person-image">
 
                     <img
                         src="/images/doctor.jpg"
-                        class="photo"
                         alt="الطبيب"
+
                         onerror="
-                            this.src='https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=500&q=85'
+                            this.src='https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=500&q=85';
                         "
                     >
 
-                    <span class="status"></span>
+                    <div class="person-badge">
+                        ♥
+                    </div>
 
                 </div>
 
 
-                <div class="role-label">
+                <div class="card-small">
                     للأطباء والممارسين
                 </div>
 
-                <div class="role-title">
+
+                <h2 class="card-title">
                     دخول الطبيب
-                </div>
-
-                <div class="role-description">
-                    إدارة المواعيد، متابعة المرضى،
-                    وتنظيم الاستشارات من
-                    لوحة واحدة.
-                </div>
+                </h2>
 
 
-                <div class="enter">
+                <p class="card-text">
+                    تابع مواعيدك، أدر مرضاك،
+                    ونظم جدولك بكل سهولة.
+                </p>
+
+
+                <div class="login-button">
 
                     <span>
-                        الدخول كـ طبيب
+                        تسجيل دخول الطبيب
                     </span>
 
-                    <span class="enter-arrow">
-                        ←
+                    <span class="arrow">
+                        →
                     </span>
 
+                </div>
+
+            </a>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ADMIN CENTER
+        ================================================== -->
+
+        <section class="admin-center">
+
+            <div class="admin-line">
+
+                <a
+                    href="/admin.html"
+                    class="admin-center-button"
+                >
+
+                    <span>
+                        لوحة الإدارة
+                    </span>
+
+                    <span class="lock">
+                        🔒
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <div class="admin-sub">
+                إدارة شاملة ... نجاح أكبر
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FEATURES
+        ================================================== -->
+
+        <section class="features">
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    👥
+                </div>
+
+                <div class="feature-title">
+                    لجميع أفراد المجتمع
                 </div>
 
             </div>
 
-        </a>
 
 
-    </section>
+            <div class="feature">
+
+                <div class="feature-icon">
+                    💜
+                </div>
+
+                <div class="feature-title">
+                    رعاية صحية أفضل
+                </div>
+
+            </div>
+
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ◷
+                </div>
+
+                <div class="feature-title">
+                    سهولة في الاستخدام
+                </div>
+
+            </div>
+
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ♢
+                </div>
+
+                <div class="feature-title">
+                    أمان عالي
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
 
 
     <!-- =====================================================
-         TRUST
-         ===================================================== -->
+         BOTTOM PURPLE WAVE
+    ====================================================== -->
 
-    <section class="trust">
-
-        <div class="trust-item">
-
-            <div class="trust-icon">
-                🩺
-            </div>
-
-            <span>
-                رعاية منظمة
-            </span>
-
-        </div>
-
-
-        <div class="trust-item">
-
-            <div class="trust-icon">
-                📅
-            </div>
-
-            <span>
-                حجز سريع
-            </span>
-
-        </div>
-
-
-        <div class="trust-item">
-
-            <div class="trust-icon">
-                🔒
-            </div>
-
-            <span>
-                خصوصية وأمان
-            </span>
-
-        </div>
-
-    </section>
+    <div class="bottom-wave"></div>
 
 
     <!-- =====================================================
          FOOTER
-         ===================================================== -->
+    ====================================================== -->
 
     <footer class="footer">
 
-        <strong>TABIBK</strong>
-        · طبيبك
+        <span>
+            ──
+        </span>
 
-        <br>
+        &nbsp;
 
-        منصتك الرقمية لتنظيم الرعاية الصحية
+        TABIBK 2025
+
+        &nbsp;
+
+        <span>
+            ──
+        </span>
 
     </footer>
 
-
 </div>
 
-</main>
 
 </body>
 </html>

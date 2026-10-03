@@ -789,6 +789,418 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .doctor-next-appointment i{
     color:#c79a32 !important;
 }
+      /* ============================================================
+   TABIBK — PREMIUM DOCTOR RATING EXPERIENCE
+============================================================ */
+
+.doctor-rating-premium{
+    margin-top:15px !important;
+    padding:20px !important;
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(199,154,50,.10),
+            transparent 28%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #fffdf8 52%,
+            #f7eefb 100%
+        ) !important;
+    border:1px solid rgba(199,154,50,.25) !important;
+    border-radius:24px !important;
+    box-shadow:
+        0 14px 38px rgba(50,15,70,.10),
+        inset 0 1px 0 rgba(255,255,255,.95) !important;
+}
+
+/* HEADER */
+
+.doctor-rating-header{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding-bottom:15px;
+    margin-bottom:16px;
+    border-bottom:1px solid rgba(199,154,50,.14);
+}
+
+.doctor-rating-header-icon{
+    width:52px;
+    height:52px;
+    flex:0 0 52px;
+    display:grid;
+    place-items:center;
+    border-radius:17px;
+    background:linear-gradient(145deg,#fff0ae,#fff9df);
+    color:#c79a32;
+    border:1px solid rgba(199,154,50,.30);
+    box-shadow:0 9px 22px rgba(199,154,50,.16);
+    font-size:21px;
+}
+
+.doctor-rating-header-text{
+    min-width:0;
+}
+
+.doctor-rating-header-text h2{
+    margin:0;
+    color:var(--purple);
+    font-size:17px;
+    font-weight:900;
+}
+
+.doctor-rating-header-text p{
+    margin-top:4px;
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.6;
+}
+
+/* PATIENT PROFILE */
+
+.rating-patient-profile{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:12px;
+    margin-bottom:17px;
+    border-radius:17px;
+    background:rgba(255,255,255,.72);
+    border:1px solid rgba(91,58,181,.10);
+}
+
+.rating-patient-avatar{
+    width:44px;
+    height:44px;
+    flex:0 0 44px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:linear-gradient(145deg,var(--purple),#70288e);
+    color:var(--gold-2);
+    box-shadow:0 8px 18px rgba(53,16,68,.17);
+    font-size:17px;
+}
+
+.rating-patient-info{
+    min-width:0;
+    flex:1;
+}
+
+.rating-patient-info label{
+    display:block;
+    margin-bottom:4px;
+    color:#5b4a62;
+    font-size:10px;
+    font-weight:900;
+}
+
+.rating-patient-info input{
+    width:100%;
+    min-height:40px;
+    padding:8px 11px;
+    border:1px solid #e4dce7;
+    border-radius:11px;
+    background:#fff;
+    color:var(--text);
+    font-family:inherit;
+    font-size:12px;
+    outline:none;
+    transition:.2s;
+}
+
+.rating-patient-info input:focus{
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(199,154,50,.08);
+}
+
+/* RATING QUESTION */
+
+.rating-question{
+    text-align:center;
+    margin-bottom:9px;
+}
+
+.rating-question span{
+    display:block;
+    color:var(--purple);
+    font-size:13px;
+    font-weight:900;
+}
+
+.rating-question small{
+    display:block;
+    margin-top:3px;
+    color:var(--muted);
+    font-size:9px;
+}
+
+/* STARS */
+
+.rating-stars-premium{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin:12px 0 7px;
+    direction:ltr;
+}
+
+.rating-stars-premium .rating-star{
+    width:43px;
+    height:43px;
+    padding:0;
+    border:1px solid rgba(199,154,50,.20);
+    border-radius:13px;
+    background:#fffaf0;
+    color:#d8cfc0;
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    font-size:19px;
+    transition:.2s ease;
+}
+
+.rating-stars-premium .rating-star:hover{
+    transform:translateY(-2px) scale(1.04);
+    border-color:rgba(199,154,50,.55);
+    color:#e0aa18;
+    background:#fff8dc;
+}
+
+.rating-stars-premium .rating-star.selected{
+    color:#e0aa18;
+    background:#fff5d0;
+    border-color:rgba(199,154,50,.45);
+    box-shadow:0 7px 16px rgba(199,154,50,.15);
+}
+
+.rating-stars-premium .rating-star:disabled{
+    cursor:default;
+}
+
+/* RATING TEXT */
+
+.rating-text-premium{
+    text-align:center;
+    min-height:22px;
+    color:#806d89;
+    font-size:10px;
+    font-weight:800;
+}
+
+/* COMMENT */
+
+.rating-comment-box{
+    margin-top:14px;
+    padding:13px;
+    border-radius:17px;
+    background:#fff;
+    border:1px solid rgba(91,58,181,.10);
+}
+
+.rating-comment-label{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-bottom:8px;
+}
+
+.rating-comment-label i{
+    color:var(--gold);
+    font-size:14px;
+}
+
+.rating-comment-label span{
+    color:var(--purple);
+    font-size:11px;
+    font-weight:900;
+}
+
+.rating-comment-label small{
+    margin-right:auto;
+    color:#a294aa;
+    font-size:8px;
+}
+
+.rating-comment-box textarea{
+    width:100%;
+    min-height:92px;
+    resize:vertical;
+    padding:11px 12px;
+    border:1px solid #e5dce7;
+    border-radius:13px;
+    background:#fffdfb;
+    color:var(--text);
+    font-family:inherit;
+    font-size:12px;
+    line-height:1.7;
+    outline:none;
+    transition:.2s;
+}
+
+.rating-comment-box textarea:focus{
+    border-color:var(--gold);
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(199,154,50,.08);
+}
+
+.rating-comment-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:7px;
+    color:#9a8da0;
+    font-size:8px;
+}
+
+/* SUBMIT */
+
+.doctor-rating-submit{
+    margin-top:13px;
+    color:#fff !important;
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple-dark),
+            var(--purple),
+            var(--purple-3)
+        ) !important;
+    box-shadow:
+        0 12px 28px rgba(53,16,68,.22) !important;
+}
+
+.doctor-rating-submit i{
+    color:var(--gold-2);
+}
+
+.rating-message-premium{
+    min-height:20px;
+    margin-top:9px;
+    text-align:center;
+    color:#198754;
+    font-size:10px;
+    font-weight:900;
+}
+
+/* COMMUNITY */
+
+.rating-community-box{
+    margin-top:17px;
+    padding-top:15px;
+    border-top:1px solid rgba(199,154,50,.14);
+}
+
+.rating-community-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:10px;
+}
+
+.rating-community-title > div{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:var(--purple);
+    font-size:12px;
+    font-weight:900;
+}
+
+.rating-community-title i{
+    color:var(--gold);
+}
+
+.rating-community-badge{
+    padding:5px 8px;
+    border-radius:9px;
+    background:#f3edf8;
+    color:#765b82;
+    font-size:8px;
+    font-weight:800;
+}
+
+.inline-doctor-reviews{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.inline-reviews-empty{
+    min-height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    border-radius:14px;
+    background:#faf8fb;
+    border:1px dashed rgba(199,154,50,.20);
+    color:#9b8da0;
+    font-size:9px;
+}
+
+.inline-reviews-empty i{
+    color:var(--gold);
+    font-size:16px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .doctor-rating-premium{
+        padding:16px !important;
+        border-radius:21px !important;
+    }
+
+    .doctor-rating-header-icon{
+        width:47px;
+        height:47px;
+        flex-basis:47px;
+        border-radius:15px;
+        font-size:19px;
+    }
+
+    .doctor-rating-header-text h2{
+        font-size:15px;
+    }
+
+    .doctor-rating-header-text p{
+        font-size:9px;
+    }
+
+    .rating-patient-profile{
+        padding:10px;
+    }
+
+    .rating-patient-avatar{
+        width:40px;
+        height:40px;
+        flex-basis:40px;
+        font-size:15px;
+    }
+
+    .rating-stars-premium{
+        gap:6px;
+    }
+
+    .rating-stars-premium .rating-star{
+        width:40px;
+        height:40px;
+        border-radius:12px;
+        font-size:17px;
+    }
+
+    .rating-comment-footer{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+      
       /* =========================================================
    SELECTED DOCTOR IMAGE
 ========================================================= */
@@ -1739,162 +2151,242 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
 
         <!-- =================================================
-             DOCTOR RATING
-             ================================================= -->
+     DOCTOR RATING — PREMIUM PATIENT EXPERIENCE
+     ================================================= -->
 
-        <div
-            id="doctorRatingCard"
-            class="card hidden"
-            style="margin-top:15px;margin-bottom:0;padding:17px;"
-        >
+<div
+    id="doctorRatingCard"
+    class="card hidden doctor-rating-premium"
+>
 
-            <div
-                class="card-title"
-                style="margin-bottom:12px;"
-            >
+    <div class="doctor-rating-header">
 
-                <div
-                    class="icon"
-                    style="background:#fff7df;color:#d39b00;"
-                >
+        <div class="doctor-rating-header-icon">
+            <i class="fa-solid fa-heart-circle-check"></i>
+        </div>
 
-                    <i class="fa-solid fa-star"></i>
+        <div class="doctor-rating-header-text">
 
-                </div>
+            <h2>
+                كيف كانت تجربتك؟ 💜
+            </h2>
 
-                <div>
-
-                    <h2>
-                        قيّم الطبيب
-                    </h2>
-
-                    <p>
-                        كيف كانت تجربتك مع الطبيب؟
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- STARS -->
-
-            <div
-                id="ratingStars"
-                style="
-                    display:flex;
-                    justify-content:center;
-                    gap:10px;
-                    margin:15px 0;
-                    direction:rtl;
-                "
-            >
-
-                <button
-                    type="button"
-                    class="rating-star"
-                    data-rating="5"
-                >
-                    <i class="fa-solid fa-star"></i>
-                </button>
-
-                <button
-                    type="button"
-                    class="rating-star"
-                    data-rating="4"
-                >
-                    <i class="fa-solid fa-star"></i>
-                </button>
-
-                <button
-                    type="button"
-                    class="rating-star"
-                    data-rating="3"
-                >
-                    <i class="fa-solid fa-star"></i>
-                </button>
-
-                <button
-                    type="button"
-                    class="rating-star"
-                    data-rating="2"
-                >
-                    <i class="fa-solid fa-star"></i>
-                </button>
-
-                <button
-                    type="button"
-                    class="rating-star"
-                    data-rating="1"
-                >
-                    <i class="fa-solid fa-star"></i>
-                </button>
-
-            </div>
-
-
-            <div
-                id="ratingText"
-                style="
-                    text-align:center;
-                    font-weight:700;
-                    margin-bottom:12px;
-                    color:#555;
-                "
-            >
-                اختر تقييمك من 1 إلى 5
-            </div>
-
-
-            <!-- COMMENT -->
-
-            <textarea
-                id="doctorReview"
-                placeholder="اكتب تعليقك عن تجربتك مع الطبيب (اختياري)..."
-                maxlength="500"
-                style="
-                    width:100%;
-                    min-height:100px;
-                    resize:vertical;
-                    padding:12px;
-                    border:1px solid #ddd;
-                    border-radius:12px;
-                    font-family:inherit;
-                    box-sizing:border-box;
-                    outline:none;
-                "
-            ></textarea>
-
-
-            <button
-                type="button"
-                id="submitDoctorRating"
-                class="btn primary"
-                style="
-                    width:100%;
-                    margin-top:12px;
-                "
-            >
-
-                <i class="fa-solid fa-paper-plane"></i>
-
-                إرسال التقييم
-
-            </button>
-
-
-            <div
-                id="ratingMessage"
-                style="
-                    margin-top:10px;
-                    text-align:center;
-                    font-weight:700;
-                "
-            ></div>
+            <p>
+                انتهى الكشف بنجاح، شاركنا رأيك عن الطبيب
+            </p>
 
         </div>
 
+    </div>
 
+
+    <!-- PATIENT PROFILE -->
+
+    <div class="rating-patient-profile">
+
+        <div class="rating-patient-avatar">
+
+            <i class="fa-solid fa-user"></i>
+
+        </div>
+
+        <div class="rating-patient-info">
+
+            <label>
+                اسمك
+            </label>
+
+            <input
+                type="text"
+                id="ratingPatientName"
+                placeholder="اكتب اسمك"
+                maxlength="80"
+                autocomplete="name"
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- RATING -->
+
+    <div class="rating-question">
+
+        <span>
+            كيف تقيّم الطبيب؟
+        </span>
+
+        <small>
+            اختر عدد النجوم
+        </small>
+
+    </div>
+
+
+    <div
+        id="ratingStars"
+        class="rating-stars-premium"
+    >
+
+        <button
+            type="button"
+            class="rating-star"
+            data-rating="1"
+            aria-label="نجمة واحدة"
+        >
+            <i class="fa-solid fa-star"></i>
+        </button>
+
+        <button
+            type="button"
+            class="rating-star"
+            data-rating="2"
+            aria-label="نجمتان"
+        >
+            <i class="fa-solid fa-star"></i>
+        </button>
+
+        <button
+            type="button"
+            class="rating-star"
+            data-rating="3"
+            aria-label="ثلاث نجوم"
+        >
+            <i class="fa-solid fa-star"></i>
+        </button>
+
+        <button
+            type="button"
+            class="rating-star"
+            data-rating="4"
+            aria-label="أربع نجوم"
+        >
+            <i class="fa-solid fa-star"></i>
+        </button>
+
+        <button
+            type="button"
+            class="rating-star"
+            data-rating="5"
+            aria-label="خمس نجوم"
+        >
+            <i class="fa-solid fa-star"></i>
+        </button>
+
+    </div>
+
+
+    <div
+        id="ratingText"
+        class="rating-text-premium"
+    >
+        اختر تقييمك من 1 إلى 5
+    </div>
+
+
+    <!-- COMMENT -->
+
+    <div class="rating-comment-box">
+
+        <div class="rating-comment-label">
+
+            <i class="fa-regular fa-comment-dots"></i>
+
+            <span>
+                اكتب تعليقك
+            </span>
+
+            <small>
+                اختياري
+            </small>
+
+        </div>
+
+        <textarea
+            id="doctorReview"
+            placeholder="شاركنا تجربتك مع الطبيب..."
+            maxlength="500"
+        ></textarea>
+
+        <div class="rating-comment-footer">
+
+            <span>
+                رأيك يساعد المرضى الآخرين 💜
+            </span>
+
+            <span>
+                500 حرف كحد أقصى
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUBMIT -->
+
+    <button
+        type="button"
+        id="submitDoctorRating"
+        class="btn primary doctor-rating-submit"
+    >
+
+        <i class="fa-solid fa-paper-plane"></i>
+
+        <span>
+            إرسال التقييم
+        </span>
+
+    </button>
+
+
+    <div
+        id="ratingMessage"
+        class="rating-message-premium"
+    ></div>
+
+
+    <!-- PREVIOUS REVIEWS -->
+
+    <div class="rating-community-box">
+
+        <div class="rating-community-title">
+
+            <div>
+
+                <i class="fa-solid fa-comments"></i>
+
+                <span>
+                    آراء المرضى
+                </span>
+
+            </div>
+
+            <span class="rating-community-badge">
+                تقييمات حقيقية
+            </span>
+
+        </div>
+
+        <div
+            id="inlineDoctorReviews"
+            class="inline-doctor-reviews"
+        >
+
+            <div class="inline-reviews-empty">
+                <i class="fa-regular fa-comments"></i>
+
+                <span>
+                    ستظهر آراء المرضى هنا
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
     </section>
 
 </main>
@@ -3557,11 +4049,29 @@ async function submitDoctorRating(){
     }
 
 
-    const review =
-        reviewInput.value.trim();
+    const patientNameInput =
+    document.getElementById("ratingPatientName");
 
+const patientName =
+    patientNameInput
+        ? patientNameInput.value.trim()
+        : "";
 
-    button.disabled = true;
+const review =
+    reviewInput.value.trim();
+
+if(!patientName){
+    message.textContent="اكتب اسمك أولاً ✍️";
+    message.style.color="#c92e42";
+
+    if(patientNameInput){
+        patientNameInput.focus();
+    }
+
+    return;
+}
+
+button.disabled=true;
 
     button.innerHTML = `
         <i class="fa-solid fa-spinner fa-spin"></i>
@@ -3587,16 +4097,11 @@ async function submitDoctorRating(){
                             "application/json"
                     },
 
-                    body:
-                        JSON.stringify({
-
-                            rating:
-                                selectedDoctorRating,
-
-                            review:
-                                review
-
-                        })
+                    body:JSON.stringify({
+    rating:selectedDoctorRating,
+    review:review,
+    reviewerName:patientName
+})
                 }
             );
 

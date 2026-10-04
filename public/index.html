@@ -6,6 +6,7 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 <title>طبيبك | TABIBK</title><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -20,512 +21,1428 @@ body{
 }
 
 body{
+
     font-family:"Cairo",sans-serif;
-    background:
-        radial-gradient(circle at 20% 10%,rgba(139,92,246,.20),transparent 30%),
-        radial-gradient(circle at 85% 80%,rgba(212,175,55,.12),transparent 28%),
-        linear-gradient(145deg,#080612,#120b24 45%,#080610);
+
     color:#fff;
-    overflow-x:hidden;
-}
 
-/* الخلفية الطبية */
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:.12;
-    background:
-        linear-gradient(90deg,transparent 49.5%,rgba(255,255,255,.12) 50%,transparent 50.5%),
-        linear-gradient(transparent 49.5%,rgba(255,255,255,.08) 50%,transparent 50.5%);
-    background-size:80px 80px;
-    mask-image:linear-gradient(to bottom,black,transparent);
-}
-
-/* الصفحة */
-.page{
     min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:18px 14px 30px;
+
+    overflow-x:hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(150,105,255,.22),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(214,183,76,.13),
+            transparent 27%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(185,185,195,.12),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            145deg,
+            #07050d 0%,
+            #120a22 42%,
+            #0b0813 100%
+        );
+
     position:relative;
-    z-index:1;
 }
 
-/* الإدارة */
-.admin-top{
+
+/* =========================================================
+   خلفية طبية زجاجية
+========================================================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.18;
+
+    background:
+
+        radial-gradient(
+            circle at 30% 35%,
+            rgba(255,255,255,.08) 0 1px,
+            transparent 2px
+        ),
+
+        radial-gradient(
+            circle at 70% 65%,
+            rgba(255,255,255,.06) 0 1px,
+            transparent 2px
+        );
+
+    background-size:
+        75px 75px,
+        95px 95px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 90%
+        );
+}
+
+
+/* خطوط طبية */
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.055;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent 49.7%,
+            rgba(255,255,255,.8) 50%,
+            transparent 50.3%
+        ),
+
+        linear-gradient(
+            transparent 49.7%,
+            rgba(255,255,255,.6) 50%,
+            transparent 50.3%
+        );
+
+    background-size:90px 90px;
+
+}
+
+
+/* =========================================================
+   الصفحة
+========================================================= */
+
+.page{
+
     width:100%;
-    max-width:520px;
+
+    min-height:100vh;
+
     display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    padding:
+        16px
+        14px
+        28px;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+/* =========================================================
+   الإدارة
+========================================================= */
+
+.admin-top{
+
+    width:100%;
+
+    max-width:540px;
+
+    display:flex;
+
     justify-content:flex-start;
-    margin-bottom:8px;
+
+    margin-bottom:2px;
+
 }
 
 .admin-btn{
-    border:1px solid rgba(212,175,55,.45);
-    background:rgba(255,255,255,.06);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-    color:#f4d77b;
-    padding:9px 17px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:1px solid rgba(218,190,103,.48);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.12),
+            rgba(255,255,255,.035)
+        );
+
+    backdrop-filter:blur(20px);
+
+    -webkit-backdrop-filter:blur(20px);
+
+    color:#e7c96a;
+
+    padding:
+        8px
+        16px;
+
     border-radius:14px;
+
     font-family:inherit;
-    font-size:13px;
-    font-weight:700;
+
+    font-size:12px;
+
+    font-weight:800;
+
     cursor:pointer;
-    box-shadow:0 8px 30px rgba(0,0,0,.22);
+
+    box-shadow:
+
+        0 10px 30px rgba(0,0,0,.28),
+
+        inset 0 1px 0 rgba(255,255,255,.16),
+
+        0 0 18px rgba(214,183,76,.06);
+
     transition:.25s;
+
 }
 
-.admin-btn:hover,
+.admin-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent,
+            rgba(255,255,255,.15),
+            transparent
+        );
+
+    transform:translateX(-100%);
+
+    transition:.5s;
+
+}
+
+.admin-btn:hover::before{
+
+    transform:translateX(100%);
+
+}
+
 .admin-btn:active{
-    background:rgba(212,175,55,.12);
-    transform:translateY(-1px);
+
+    transform:scale(.97);
+
 }
 
-/* الشعار */
+
+/* =========================================================
+   الشعار
+========================================================= */
+
 .logo-area{
+
     text-align:center;
-    margin:4px 0 8px;
+
+    margin:
+        2px
+        0
+        9px;
+
 }
+
+
+/* قلب طبي ذهبي */
+.logo{
+
+    width:82px;
+
+    height:82px;
+
+    margin:auto;
+
+    border-radius:27px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    font-size:47px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.18),
+            rgba(255,255,255,.035)
+        );
+
+    border:
+
+        1px solid
+        rgba(230,203,116,.55);
+
+    box-shadow:
+
+        0 20px 55px rgba(0,0,0,.45),
+
+        inset 0 1px 0
+        rgba(255,255,255,.20),
+
+        0 0 35px
+        rgba(214,183,76,.15);
+
+    backdrop-filter:blur(25px);
+
+    -webkit-backdrop-filter:blur(25px);
+
+}
+
+
+/* دائرة ذهبية حول القلب */
+
+.logo::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:62px;
+
+    height:62px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(231,204,111,.45);
+
+    box-shadow:
+        inset 0 0 16px
+        rgba(214,183,76,.10),
+
+        0 0 18px
+        rgba(214,183,76,.10);
+
+}
+
+
+/* نبض القلب */
 
 .logo{
-    width:76px;
-    height:76px;
-    margin:auto;
-    border-radius:25px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:39px;
-    background:
-        linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.035));
-    border:1px solid rgba(255,255,255,.20);
-    box-shadow:
-        0 18px 50px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.18),
-        0 0 35px rgba(139,92,246,.15);
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+
+    animation:
+        logoFloat 4s ease-in-out infinite;
+
 }
 
+@keyframes logoFloat{
+
+    0%,
+    100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-3px);
+    }
+
+}
+
+
+/* القلب نفسه */
+
+.logo-heart{
+
+    position:relative;
+
+    z-index:2;
+
+    color:#e2bd45;
+
+    text-shadow:
+
+        0 0 5px rgba(255,218,91,.65),
+
+        0 0 16px rgba(214,183,76,.45);
+
+    animation:
+        heartBeat 1.25s ease-in-out infinite;
+
+}
+
+@keyframes heartBeat{
+
+    0%,
+    100%{
+        transform:scale(1);
+    }
+
+    15%{
+        transform:scale(1.12);
+    }
+
+    30%{
+        transform:scale(1);
+    }
+
+    45%{
+        transform:scale(1.08);
+    }
+
+    60%{
+        transform:scale(1);
+    }
+
+}
+
+
 .logo-title{
+
     margin-top:8px;
+
     font-size:28px;
+
     font-weight:900;
+
     letter-spacing:.5px;
-    background:linear-gradient(90deg,#fff,#d9c8ff,#e6c768);
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #ddd1f6,
+            #e6c867
+        );
+
     -webkit-background-clip:text;
+
     background-clip:text;
+
     color:transparent;
+
 }
 
 .logo-subtitle{
-    color:#bdb6ce;
-    font-size:12px;
-    margin-top:1px;
+
+    color:#aaa4b9;
+
+    font-size:11px;
+
+    margin-top:0;
+
 }
 
-/* العنوان */
+
+/* =========================================================
+   العنوان
+========================================================= */
+
 .hero{
+
     text-align:center;
+
     max-width:500px;
-    margin:9px auto 17px;
+
+    margin:
+        4px
+        auto
+        15px;
+
 }
 
 .hero h1{
+
     font-size:22px;
-    font-weight:800;
+
+    font-weight:900;
+
     line-height:1.5;
+
     color:#fff;
+
 }
 
 .hero p{
+
     color:#aaa4b8;
-    font-size:12px;
-    line-height:1.8;
-    margin-top:4px;
+
+    font-size:11px;
+
+    line-height:1.7;
+
+    margin-top:2px;
+
 }
 
-/* البطاقات */
+
+/* =========================================================
+   البطاقات
+========================================================= */
+
 .cards{
+
     width:100%;
-    max-width:520px;
+
+    max-width:540px;
+
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
     gap:12px;
+
 }
+
+
+/* =========================================================
+   بطاقة الدخول
+========================================================= */
 
 .login-card{
+
     position:relative;
-    min-height:275px;
-    padding:15px 11px 14px;
-    border-radius:25px;
+
+    min-height:292px;
+
+    padding:
+        14px
+        11px
+        13px;
+
+    border-radius:27px;
+
     overflow:hidden;
+
     cursor:pointer;
 
     background:
+
         linear-gradient(
             145deg,
-            rgba(255,255,255,.13),
-            rgba(255,255,255,.045)
+            rgba(255,255,255,.15),
+            rgba(255,255,255,.055)
         );
 
-    border:1px solid rgba(255,255,255,.14);
+    backdrop-filter:
+        blur(28px)
+        saturate(135%);
+
+    -webkit-backdrop-filter:
+        blur(28px)
+        saturate(135%);
 
     box-shadow:
-        0 20px 55px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.13);
 
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
+        0 25px 65px
+        rgba(0,0,0,.42),
 
-    transition:transform .25s,box-shadow .25s,border-color .25s;
+        inset 0 1px 0
+        rgba(255,255,255,.20),
+
+        inset 0 -1px 0
+        rgba(0,0,0,.30);
+
+    transition:
+        transform .3s,
+        box-shadow .3s;
+
 }
 
+
+/* حافة 3D */
 .login-card::before{
+
     content:"";
+
     position:absolute;
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    top:-65px;
-    right:-50px;
-    background:rgba(255,255,255,.08);
-    filter:blur(4px);
+
+    inset:0;
+
+    border-radius:27px;
+
+    padding:1px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.55),
+            transparent 24%,
+            transparent 58%,
+            rgba(214,183,76,.60)
+        );
+
+    -webkit-mask:
+        linear-gradient(#000 0 0)
+        content-box,
+        linear-gradient(#000 0 0);
+
+    -webkit-mask-composite:xor;
+
+    mask-composite:exclude;
+
+    pointer-events:none;
+
 }
+
+
+/* انعكاس زجاجي */
+
+.login-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    top:-95px;
+
+    right:-70px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.13),
+            transparent 68%
+        );
+
+    pointer-events:none;
+
+}
+
 
 .login-card.doctor{
-    border-color:rgba(160,112,255,.24);
+
+    border:
+        1px solid
+        rgba(160,122,255,.25);
+
 }
 
 .login-card.patient{
-    border-color:rgba(212,175,55,.20);
+
+    border:
+        1px solid
+        rgba(215,185,81,.24);
+
+}
+
+
+.login-card:hover{
+
+    transform:
+        translateY(-5px)
+        scale(1.008);
+
+    box-shadow:
+
+        0 30px 75px
+        rgba(0,0,0,.52),
+
+        0 0 35px
+        rgba(140,100,255,.10),
+
+        inset 0 1px 0
+        rgba(255,255,255,.22);
+
 }
 
 .login-card:active{
-    transform:scale(.985);
+
+    transform:
+        translateY(-1px)
+        scale(.985);
+
 }
 
-.login-card:hover{
-    transform:translateY(-4px);
+
+/* =========================================================
+   الصور 3D
+========================================================= */
+
+.avatar-wrap{
+
+    width:124px;
+
+    height:124px;
+
+    margin:
+        0
+        auto
+        9px;
+
+    border-radius:50%;
+
+    padding:5px;
+
+    position:relative;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #f1f2f4,
+            #8d8c96 28%,
+            #d9b94e 62%,
+            #7256a8
+        );
+
     box-shadow:
-        0 25px 65px rgba(0,0,0,.45),
-        0 0 35px rgba(139,92,246,.08);
+
+        0 16px 35px
+        rgba(0,0,0,.42),
+
+        0 0 24px
+        rgba(214,183,76,.12),
+
+        inset 0 2px 3px
+        rgba(255,255,255,.55),
+
+        inset 0 -4px 8px
+        rgba(0,0,0,.35);
+
 }
+
+
+/* حلقة داخلية */
+
+.avatar-wrap::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:3px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.55);
+
+    pointer-events:none;
+
+    z-index:3;
+
+}
+
 
 /* الصورة */
-.avatar-wrap{
-    width:116px;
-    height:116px;
-    margin:0 auto 9px;
-    border-radius:50%;
-    padding:4px;
-    position:relative;
-    background:linear-gradient(145deg,#9b72ff,#eee,#d6b74c);
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.35),
-        0 0 25px rgba(139,92,246,.14);
-}
 
 .avatar-wrap img{
+
     width:100%;
+
     height:100%;
+
     display:block;
+
     object-fit:cover;
+
+    object-position:center;
+
     border-radius:50%;
+
     background:#191326;
+
+    box-shadow:
+        inset 0 0 15px
+        rgba(0,0,0,.35);
+
 }
+
+
+/* نقطة الحالة */
 
 .status-dot{
+
     position:absolute;
-    width:14px;
-    height:14px;
-    border-radius:50%;
+
+    width:16px;
+
+    height:16px;
+
     right:7px;
+
     bottom:8px;
+
+    border-radius:50%;
+
     background:#42e69b;
-    border:3px solid #171021;
-    box-shadow:0 0 12px rgba(66,230,155,.65);
+
+    border:
+        3px solid
+        #171021;
+
+    box-shadow:
+
+        0 0 10px
+        rgba(66,230,155,.85),
+
+        0 0 20px
+        rgba(66,230,155,.35);
+
+    z-index:5;
+
 }
 
-/* النص */
+
+/* =========================================================
+   نصوص البطاقات
+========================================================= */
+
 .card-title{
+
     text-align:center;
+
     font-size:18px;
-    font-weight:800;
+
+    font-weight:900;
+
     color:#fff;
+
+    text-shadow:
+        0 2px 7px rgba(0,0,0,.3);
+
 }
 
 .card-description{
+
     text-align:center;
+
     color:#aaa4b8;
-    font-size:10px;
+
+    font-size:9px;
+
     line-height:1.7;
+
     min-height:34px;
-    margin:4px 0 11px;
+
+    margin:
+        4px
+        0
+        11px;
+
 }
+
+
+/* =========================================================
+   زر الدخول
+========================================================= */
 
 .enter-btn{
+
     width:100%;
+
     border:0;
-    border-radius:13px;
+
+    border-radius:14px;
+
     padding:10px 6px;
+
     font-family:inherit;
-    font-size:12px;
-    font-weight:800;
+
+    font-size:11px;
+
+    font-weight:900;
+
     color:#fff;
+
     cursor:pointer;
+
+    position:relative;
+
+    overflow:hidden;
+
     transition:.2s;
+
 }
 
-.doctor .enter-btn{
-    background:linear-gradient(135deg,#7651c9,#9b72ff);
-    box-shadow:0 9px 22px rgba(118,81,201,.28);
-}
 
-.patient .enter-btn{
-    background:linear-gradient(135deg,#9a7623,#d6b74c);
-    box-shadow:0 9px 22px rgba(214,183,76,.20);
-}
+.enter-btn::after{
 
-.enter-btn:active{
-    transform:scale(.97);
-}
+    content:"";
 
-/* أسفل الصفحة */
-.footer{
-    width:100%;
-    max-width:520px;
-    text-align:center;
-    margin-top:16px;
-    color:#777184;
-    font-size:10px;
-    line-height:1.8;
-}
+    position:absolute;
 
-.footer strong{
-    color:#a999c1;
-}
+    top:0;
 
-/* نافذة الإدارة */
-.modal{
-    position:fixed;
-    inset:0;
-    z-index:1000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:18px;
+    left:-100%;
 
-    background:rgba(3,2,8,.76);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-}
+    width:60%;
 
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    width:100%;
-    max-width:390px;
-    padding:24px 20px 20px;
-    border-radius:27px;
+    height:100%;
 
     background:
         linear-gradient(
-            145deg,
-            rgba(40,29,65,.96),
-            rgba(15,11,25,.98)
+            90deg,
+            transparent,
+            rgba(255,255,255,.20),
+            transparent
         );
 
-    border:1px solid rgba(255,255,255,.15);
+    transform:skewX(-20deg);
+
+    transition:.5s;
+
+}
+
+.enter-btn:hover::after{
+
+    left:140%;
+
+}
+
+
+.doctor .enter-btn{
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #6544b5,
+            #9770ef
+        );
 
     box-shadow:
-        0 30px 90px rgba(0,0,0,.60),
-        inset 0 1px 0 rgba(255,255,255,.12);
+
+        0 10px 25px
+        rgba(118,81,201,.30),
+
+        inset 0 1px 0
+        rgba(255,255,255,.22);
+
+}
+
+
+.patient .enter-btn{
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #8e6b1e,
+            #d7b84d
+        );
+
+    box-shadow:
+
+        0 10px 25px
+        rgba(214,183,76,.25),
+
+        inset 0 1px 0
+        rgba(255,255,255,.25);
+
+}
+
+
+.enter-btn:active{
+
+    transform:scale(.97);
+
+}
+
+
+/* =========================================================
+   الفوتر
+========================================================= */
+
+.footer{
+
+    width:100%;
+
+    max-width:540px;
+
+    text-align:center;
+
+    margin-top:14px;
+
+    color:#716b7d;
+
+    font-size:9px;
+
+    line-height:1.8;
+
+}
+
+.footer strong{
+
+    color:#a998c0;
+
+}
+
+
+/* =========================================================
+   نافذة الإدارة
+========================================================= */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1000;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:18px;
+
+    background:
+        rgba(3,2,8,.78);
+
+    backdrop-filter:blur(14px);
+
+    -webkit-backdrop-filter:blur(14px);
+
+}
+
+.modal.show{
+
+    display:flex;
+
+}
+
+
+.modal-box{
+
+    width:100%;
+
+    max-width:390px;
+
+    padding:
+        24px
+        20px
+        20px;
+
+    border-radius:27px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(45,32,70,.97),
+            rgba(14,10,24,.98)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.16);
+
+    box-shadow:
+
+        0 35px 100px
+        rgba(0,0,0,.65),
+
+        inset 0 1px 0
+        rgba(255,255,255,.15);
 
     position:relative;
+
 }
+
 
 .close-btn{
+
     position:absolute;
+
     top:12px;
+
     left:12px;
+
     width:34px;
+
     height:34px;
+
     border:0;
+
     border-radius:50%;
-    background:rgba(255,255,255,.08);
+
+    background:
+        rgba(255,255,255,.08);
+
     color:#fff;
+
     font-size:18px;
+
     cursor:pointer;
+
 }
+
 
 .modal-icon{
+
     width:60px;
+
     height:60px;
+
     border-radius:19px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
-    margin:0 auto 11px;
-    background:linear-gradient(145deg,#8060d5,#392657);
-    border:1px solid rgba(255,255,255,.15);
+
+    margin:
+        0
+        auto
+        11px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #8060d5,
+            #392657
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
     font-size:27px;
+
 }
+
 
 .modal-title{
+
     text-align:center;
+
     font-size:19px;
+
     font-weight:800;
+
 }
+
 
 .modal-subtitle{
+
     text-align:center;
+
     color:#9891a5;
+
     font-size:11px;
-    margin:3px 0 18px;
+
+    margin:
+        3px
+        0
+        18px;
+
 }
+
 
 .input-group{
+
     margin-bottom:12px;
+
 }
+
 
 .input-group label{
+
     display:block;
+
     color:#bbb4c6;
+
     font-size:11px;
-    margin:0 4px 5px;
+
+    margin:
+        0
+        4px
+        5px;
+
 }
+
 
 .input{
+
     width:100%;
+
     height:47px;
+
     border-radius:14px;
-    border:1px solid rgba(255,255,255,.11);
+
+    border:
+        1px solid
+        rgba(255,255,255,.11);
+
     outline:none;
-    background:rgba(255,255,255,.055);
+
+    background:
+        rgba(255,255,255,.055);
+
     color:#fff;
-    padding:0 14px;
+
+    padding:
+        0
+        14px;
+
     font-family:inherit;
+
     font-size:13px;
-    direction:rtl;
+
 }
+
 
 .input:focus{
-    border-color:rgba(157,116,255,.65);
-    box-shadow:0 0 0 3px rgba(157,116,255,.09);
+
+    border-color:
+        rgba(157,116,255,.65);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(157,116,255,.09);
+
 }
+
 
 .modal-login{
+
     width:100%;
+
     height:48px;
+
     margin-top:5px;
+
     border:0;
+
     border-radius:14px;
-    background:linear-gradient(135deg,#7b55d0,#b18cff);
+
+    background:
+        linear-gradient(
+            135deg,
+            #7b55d0,
+            #b18cff
+        );
+
     color:#fff;
+
     font-family:inherit;
+
     font-size:13px;
+
     font-weight:800;
+
     cursor:pointer;
-    box-shadow:0 12px 30px rgba(123,85,208,.28);
+
+    box-shadow:
+        0 12px 30px
+        rgba(123,85,208,.28);
+
 }
+
 
 .error{
+
     min-height:18px;
+
     text-align:center;
+
     color:#ff7d96;
+
     font-size:10px;
+
     margin-top:9px;
+
 }
 
-/* موبايل صغير */
+
+/* =========================================================
+   الهواتف الصغيرة
+========================================================= */
+
 @media(max-width:360px){
+
     .page{
-        padding:12px 9px 24px;
+
+        padding:
+            11px
+            8px
+            22px;
+
     }
 
     .logo{
-        width:66px;
-        height:66px;
-        font-size:34px;
+
+        width:70px;
+
+        height:70px;
+
+        font-size:40px;
+
     }
 
     .logo-title{
+
         font-size:24px;
+
     }
 
     .hero{
-        margin-top:6px;
-        margin-bottom:12px;
+
+        margin-bottom:11px;
+
     }
 
     .hero h1{
-        font-size:19px;
+
+        font-size:18px;
+
     }
 
     .cards{
+
         gap:8px;
+
     }
 
     .login-card{
-        min-height:250px;
-        padding:12px 8px;
-        border-radius:21px;
+
+        min-height:270px;
+
+        padding:
+            12px
+            8px;
+
+        border-radius:23px;
+
     }
 
     .avatar-wrap{
-        width:95px;
-        height:95px;
+
+        width:102px;
+
+        height:102px;
+
     }
 
     .card-title{
+
         font-size:16px;
+
     }
 
     .card-description{
-        font-size:9px;
+
+        font-size:8px;
+
         margin-bottom:8px;
+
     }
 
     .enter-btn{
-        font-size:11px;
+
+        font-size:10px;
+
         padding:9px 4px;
+
     }
+
 }
 
-/* شاشات أكبر */
+
+/* =========================================================
+   الشاشات الكبيرة
+========================================================= */
+
 @media(min-width:700px){
+
     .page{
-        padding-top:25px;
+
+        padding-top:24px;
+
     }
 
     .login-card{
-        min-height:300px;
+
+        min-height:320px;
+
     }
 
     .avatar-wrap{
-        width:135px;
-        height:135px;
+
+        width:140px;
+
+        height:140px;
+
     }
+
 }
+
 </style></head><body><div class="page"><!-- الإدارة -->
+
 <div class="admin-top">
-    <button class="admin-btn" onclick="adminLogin()">
+
+    <button
+        class="admin-btn"
+        onclick="adminLogin()"
+        type="button"
+    >
         ⚙️ الإدارة
     </button>
+
 </div>
 
+
 <!-- الشعار -->
+
 <div class="logo-area">
 
     <div class="logo">
-        💜
+
+        <span class="logo-heart">
+            ♥
+        </span>
+
     </div>
 
     <div class="logo-title">
@@ -538,113 +1455,175 @@ body::before{
 
 </div>
 
+
 <!-- العنوان -->
+
 <div class="hero">
 
     <h1>
         مرحباً بك في طبيبك
     </h1>
 
-    <p>
-        اختر طريقة الدخول للمتابعة
-        <br>
-        حجزك ورعايتك الصحية في مكان واحد
-    </p>
-
 </div>
 
-<!-- المداخل -->
+
+<!-- البطاقات -->
+
 <div class="cards">
 
-    <!-- الطبيب -->
-    <div class="login-card doctor" onclick="doctorLogin()">
+
+    <!-- =========================
+         الطبيب
+    ========================== -->
+
+    <div
+        class="login-card doctor"
+        onclick="doctorLogin()"
+    >
 
         <div class="avatar-wrap">
 
             <img
                 src="/images/doctor-ai.png"
-                alt="طبيب"
-                onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-size:55px;display:flex;align-items:center;justify-content:center;width:100%;height:100%\'>👨‍⚕️</span>';"
+                alt="الطبيب"
+                onerror="
+                    this.style.display='none';
+                    this.parentElement.insertAdjacentHTML(
+                        'beforeend',
+                        '<span style=&quot;font-size:52px;display:flex;align-items:center;justify-content:center;width:100%;height:100%;position:absolute;inset:0;&quot;>👨‍⚕️</span>'
+                    );
+                "
             >
 
             <span class="status-dot"></span>
 
         </div>
+
 
         <div class="card-title">
             الطبيب
         </div>
 
+
         <div class="card-description">
-            الدخول إلى لوحة الطبيب
+
+            إدارة المواعيد والمرضى
             <br>
-            ومتابعة المواعيد والمرضى
+            ومتابعة الاستشارات
+
         </div>
 
-        <button class="enter-btn" type="button">
+
+        <button
+            class="enter-btn"
+            type="button"
+        >
             دخول الطبيب
         </button>
 
     </div>
 
-    <!-- المريض -->
-    <div class="login-card patient" onclick="patientLogin()">
+
+    <!-- =========================
+         المريض
+    ========================== -->
+
+    <div
+        class="login-card patient"
+        onclick="patientLogin()"
+    >
 
         <div class="avatar-wrap">
 
             <img
                 src="/images/patient-ai.png"
-                alt="مريض"
-                onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-size:55px;display:flex;align-items:center;justify-content:center;width:100%;height:100%\'>🧑‍💼</span>';"
+                alt="المريض"
+                onerror="
+                    this.style.display='none';
+                    this.parentElement.insertAdjacentHTML(
+                        'beforeend',
+                        '<span style=&quot;font-size:52px;display:flex;align-items:center;justify-content:center;width:100%;height:100%;position:absolute;inset:0;&quot;>🧑‍💼</span>'
+                    );
+                "
             >
 
             <span class="status-dot"></span>
 
         </div>
 
+
         <div class="card-title">
             المريض
         </div>
 
+
         <div class="card-description">
-            احجز موعدك بسهولة
+
+            حجز موعدك بسهولة
             <br>
-            وتابع حجزك وموعدك
+            ومتابعة حجزك
+
         </div>
 
-        <button class="enter-btn" type="button">
+
+        <button
+            class="enter-btn"
+            type="button"
+        >
             دخول المريض
         </button>
 
     </div>
 
+
 </div>
+
 
 <!-- الفوتر -->
+
 <div class="footer">
+
     <strong>TABIBK</strong>
     — طبيبك الرقمي
+
     <br>
+
     جميع الحقوق محفوظة © 2026
+
 </div>
 
-</div><!-- نافذة الإدارة فقط --><div class="modal" id="adminModal" onclick="closeAdminOutside(event)"><div class="modal-box">
+</div><!-- =====================================================
+     الإدارة فقط
+====================================================== --><div
+    class="modal"
+    id="adminModal"
+    onclick="closeAdminOutside(event)"
+><div class="modal-box">
 
-    <button class="close-btn" onclick="closeAdmin()">
+
+    <button
+        class="close-btn"
+        onclick="closeAdmin()"
+        type="button"
+    >
         ×
     </button>
+
 
     <div class="modal-icon">
         🔐
     </div>
 
+
     <div class="modal-title">
         دخول الإدارة
     </div>
 
+
     <div class="modal-subtitle">
         لوحة التحكم الخاصة بإدارة طبيبك
     </div>
+
 
     <div class="input-group">
 
@@ -662,30 +1641,32 @@ body::before{
 
     </div>
 
+
     <button
         class="modal-login"
         onclick="submitAdminLogin()"
+        type="button"
     >
         دخول إلى لوحة الإدارة
     </button>
+
 
     <div
         class="error"
         id="adminError"
     ></div>
 
+
 </div>
 
 </div><script>
 
-/*
-|--------------------------------------------------------------------------
-| الطبيب
-|--------------------------------------------------------------------------
-| مهم:
-| لا توجد نافذة تسجيل دخول للطبيب هنا.
-| doctor.html يحتوي على شاشة تسجيل الدخول الخاصة بالطبيب.
-*/
+
+/* =====================================================
+   الطبيب
+   مهم: لا يوجد Login هنا
+   doctor.html يتكفل بتسجيل دخول الطبيب
+===================================================== */
 
 function doctorLogin(){
 
@@ -694,13 +1675,10 @@ function doctorLogin(){
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| المريض
-|--------------------------------------------------------------------------
-| المريض يدخل مباشرة إلى patient.html.
-| لا اسم مستخدم ولا كلمة مرور هنا.
-*/
+/* =====================================================
+   المريض
+   مهم: لا يوجد Login هنا
+===================================================== */
 
 function patientLogin(){
 
@@ -709,22 +1687,26 @@ function patientLogin(){
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| الإدارة
-|--------------------------------------------------------------------------
-*/
+/* =====================================================
+   الإدارة
+===================================================== */
 
 function adminLogin(){
 
-    document.getElementById("adminModal").classList.add("show");
+    document
+        .getElementById("adminModal")
+        .classList.add("show");
+
 
     setTimeout(function(){
 
-        const input = document.getElementById("adminKey");
+        const input =
+            document.getElementById("adminKey");
 
         if(input){
+
             input.focus();
+
         }
 
     },150);
@@ -734,16 +1716,23 @@ function adminLogin(){
 
 function closeAdmin(){
 
-    document.getElementById("adminModal").classList.remove("show");
+    document
+        .getElementById("adminModal")
+        .classList.remove("show");
 
-    document.getElementById("adminError").textContent = "";
+
+    document
+        .getElementById("adminError")
+        .textContent = "";
 
 }
 
 
 function closeAdminOutside(event){
 
-    if(event.target.id === "adminModal"){
+    if(
+        event.target.id === "adminModal"
+    ){
 
         closeAdmin();
 
@@ -752,75 +1741,88 @@ function closeAdminOutside(event){
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| تسجيل دخول الإدارة
-|--------------------------------------------------------------------------
-*/
+/* =====================================================
+   دخول الإدارة
+===================================================== */
 
 async function submitAdminLogin(){
 
-    const keyInput = document.getElementById("adminKey");
-    const error = document.getElementById("adminError");
+    const keyInput =
+        document.getElementById("adminKey");
 
-    const key = keyInput.value.trim();
+    const error =
+        document.getElementById("adminError");
+
+
+    const key =
+        keyInput.value.trim();
+
 
     error.textContent = "";
 
+
     if(!key){
 
-        error.textContent = "أدخل مفتاح الإدارة";
+        error.textContent =
+            "أدخل مفتاح الإدارة";
 
         keyInput.focus();
 
         return;
+
     }
+
 
     try{
 
-        /*
-         * نحفظ المفتاح مؤقتاً حتى تستعمله لوحة الإدارة.
-         */
-        localStorage.setItem("tabibkAdminKey", key);
+        localStorage.setItem(
+            "tabibkAdminKey",
+            key
+        );
 
-        /*
-         * الدخول مباشرة إلى لوحة الإدارة.
-         */
-        window.location.href = "/admin.html";
+
+        window.location.href =
+            "/admin.html";
+
 
     }catch(e){
 
-        error.textContent = "تعذر فتح لوحة الإدارة";
+        error.textContent =
+            "تعذر فتح لوحة الإدارة";
 
     }
 
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| Enter في خانة الإدارة
-|--------------------------------------------------------------------------
-*/
+/* =====================================================
+   لوحة المفاتيح
+===================================================== */
 
-document.addEventListener("keydown",function(event){
+document.addEventListener(
+    "keydown",
+    function(event){
 
-    if(event.key === "Escape"){
+        if(event.key === "Escape"){
 
-        closeAdmin();
+            closeAdmin();
+
+        }
+
+
+        if(
+            event.key === "Enter" &&
+            document
+                .getElementById("adminModal")
+                .classList.contains("show")
+        ){
+
+            submitAdminLogin();
+
+        }
 
     }
-
-    if(
-        event.key === "Enter" &&
-        document.getElementById("adminModal").classList.contains("show")
-    ){
-
-        submitAdminLogin();
-
-    }
-
-});
+);
 
 </script></body>
 </html>

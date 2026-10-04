@@ -4888,7 +4888,23 @@ select{
 }
 
 
-@media(max-width:800px){
+@media(max-width:800px){  
+    
+    .topbar-inner{
+        flex-direction:row;
+    }
+
+    .topbar-actions:first-child{
+        order:3 !important;
+    }
+
+    .topbar-title{
+        order:2 !important;
+    }
+
+    .topbar-actions:last-child{
+        order:1 !important;
+    }
 
     .content-area{
         padding-left:15px;
@@ -6304,7 +6320,7 @@ select{
 
                     <div
                         class="topbar-actions"
-                        style="order:2"
+                        style="order:3"
                     >
 
                         <button
@@ -6337,9 +6353,9 @@ select{
 
 
                     <div
-                        class="topbar-actions"
-                        style="order:3"
-                    >
+    class="topbar-actions"
+    style="order:2"
+>
 
                         <button
                             class="icon-button"

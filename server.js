@@ -1502,6 +1502,7 @@ app.get(
 app.post(
     "/api/doctor/login",
     (req, res) => {
+        console.log("ADMIN LOGIN REQUEST RECEIVED");
 
         try {
 

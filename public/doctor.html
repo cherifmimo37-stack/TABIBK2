@@ -1310,6 +1310,36 @@ button{
     transition:.2s ease;
 
 }
+    /* =========================================================
+   TABIBK — NOTIFICATION BELL CLICK FIX
+========================================================= */
+
+.topbar{
+    position:sticky;
+    z-index:1800;
+}
+
+.topbar-actions{
+    position:relative;
+    z-index:1900;
+}
+
+.topbar-actions .icon-button{
+    position:relative;
+    z-index:2000;
+    pointer-events:auto !important;
+    cursor:pointer;
+}
+
+.topbar-actions .icon-button i,
+.topbar-actions .icon-button .notification-count{
+    pointer-events:none;
+}
+
+#notificationPanel{
+    z-index:2100 !important;
+}
+    
 
 
 .icon-button:hover{

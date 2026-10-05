@@ -1338,6 +1338,24 @@ button{
 
 #notificationPanel{
     z-index:2100 !important;
+    pointer-events:auto !important;
+}
+
+#notificationPanel.show{
+    display:flex !important;
+    visibility:visible;
+    opacity:1;
+}
+
+#notificationPanel:not(.show){
+    visibility:hidden;
+    pointer-events:none;
+}
+
+#notificationPanel .notification-panel-head,
+#notificationPanel .notification-panel-list,
+#notificationPanel button{
+    pointer-events:auto;
 }
     
 
@@ -5801,6 +5819,10 @@ select{
 
         top:78px;
 
+        max-height:calc(100vh - 92px);
+
+        z-index:2100 !important;
+
     }
 
 
@@ -6402,11 +6424,12 @@ select{
 >
 
                         <button
-    class="icon-button"
-    data-notification-button
-                            
-                           onclick="document.getElementById('notificationPanel').classList.toggle('show')"
+                            type="button"
+                            class="icon-button"
+                            data-notification-button
                             aria-label="الإشعارات"
+                            aria-controls="notificationPanel"
+                            aria-expanded="false"
                         >
 
                             <i class="fa-solid fa-bell"></i>
@@ -6414,8 +6437,8 @@ select{
                             <span
                                 id="notificationCount"
                                 class="notification-count"
-                            >
-                            </span>
+                                aria-hidden="true"
+                            ></span>
 
                         </button>
 
@@ -11071,396 +11094,6 @@ function renderConsultation() {
 
 
 /* =========================================================
-   NOTIFICATIONS
-========================================================= */
-
-async function loadNotifications() {
-
-    const data =
-        await apiFetch(
-            "/api/doctor/notifications"
-        );
-
-
-    const notifications =
-        Array.isArray(data)
-            ? data
-            : (
-                data.notifications ||
-                []
-            );
-
-
-    renderNotifications(
-        notifications
-    );
-
-
-    const unread =
-        notifications.filter(
-            notification =>
-                !notification.read
-        ).length;
-
-
-    if (
-        unread >
-        lastNotificationCount
-    ) {
-
-        playNotificationSound();
-
-    }
-
-
-    lastNotificationCount =
-        unread;
-
-
-    updateNotificationCount(
-        unread
-    );
-
-}
-
-
-/* =========================================================
-   RENDER NOTIFICATIONS
-========================================================= */
-
-function renderNotifications(
-    notifications
-) {
-
-    const popup =
-        $("notificationList");
-
-    const section =
-        $("notificationsSectionList");
-
-
-    if (!notifications.length) {
-
-        const empty =
-            `
-            <div class="empty-notification">
-                <i class="fa-regular fa-bell-slash"></i>
-                <p>
-                    لا توجد إشعارات
-                </p>
-            </div>
-            `;
-
-
-        if (popup) {
-
-            popup.innerHTML =
-                empty;
-
-        }
-
-
-        if (section) {
-
-            section.innerHTML =
-                empty;
-
-        }
-
-        return;
-
-    }
-
-
-    const html =
-        notifications
-            .map(
-                notification => {
-
-                    const id =
-                        notification.id ||
-                        "";
-
-
-                    const title =
-                        notification.title ||
-                        "إشعار جديد";
-
-
-                    const message =
-                        notification.message ||
-                        "";
-
-
-                    const date =
-                        notification.createdAt ||
-                        notification.date ||
-                        "";
-
-
-                    const unread =
-                        !notification.read;
-
-
-                    return `
-                        <div
-                            class="notification-item ${
-                                unread
-                                    ? "unread"
-                                    : ""
-                            }"
-                            onclick="markNotificationRead(
-                                '${escapeJs(id)}'
-                            )"
-                        >
-
-                            <div class="notification-icon">
-                                <i class="fa-solid fa-bell"></i>
-                            </div>
-
-                            <div class="notification-content">
-
-                                <strong>
-                                    ${escapeHtml(title)}
-                                </strong>
-
-                                <p>
-                                    ${escapeHtml(message)}
-                                </p>
-
-                                ${
-                                    date
-                                        ? `
-                                        <small>
-                                            ${escapeHtml(
-                                                formatDateTime(
-                                                    date
-                                                )
-                                            )}
-                                        </small>
-                                        `
-                                        : ""
-                                }
-
-                            </div>
-
-                        </div>
-                    `;
-
-                }
-            )
-            .join("");
-
-
-    if (popup) {
-
-        popup.innerHTML =
-            html;
-
-    }
-
-
-    if (section) {
-
-        section.innerHTML =
-            html;
-
-    }
-
-}
-
-
-/* =========================================================
-   NOTIFICATION COUNT
-========================================================= */
-
-function updateNotificationCount(
-    count
-) {
-
-    const badge =
-        $("notificationCount");
-
-
-    const sidebarBadge =
-        $("sidebarNotificationBadge");
-
-
-    [
-        badge,
-        sidebarBadge
-    ].forEach(
-        element => {
-
-            if (!element) {
-                return;
-            }
-
-
-            if (count <= 0) {
-
-                element.style.display =
-                    "none";
-
-            } else {
-
-                element.style.display =
-                    "inline-flex";
-
-                element.textContent =
-                    count > 99
-                        ? "99+"
-                        : count;
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   MARK NOTIFICATION READ
-========================================================= */
-
-async function markNotificationRead(
-    id
-) {
-
-    if (!id) {
-        return;
-    }
-
-
-    try {
-
-        await apiFetch(
-            `/api/doctor/notifications/${encodeURIComponent(
-                id
-            )}/read`,
-            {
-                method: "POST"
-            }
-        );
-
-
-        await loadNotifications();
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   DELETE ALL NOTIFICATIONS
-========================================================= */
-
-async function deleteAllNotifications(
-    event
-) {
-
-    if (event) {
-
-        event.stopPropagation();
-
-    }
-
-
-    if (!confirm(
-        "هل تريد حذف جميع الإشعارات؟"
-    )) {
-
-        return;
-
-    }
-
-
-    try {
-
-        await apiFetch(
-            "/api/doctor/notifications",
-            {
-                method: "DELETE"
-            }
-        );
-
-
-        lastNotificationCount =
-            0;
-
-
-        updateNotificationCount(
-            0
-        );
-
-
-        showToast(
-            "تم حذف جميع الإشعارات",
-            "success"
-        );
-
-
-        await loadNotifications();
-
-    } catch (error) {
-
-        showToast(
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   NOTIFICATION PANEL
-========================================================= */
-
-function toggleNotifications(
-    force
-) {
-
-    const panel =
-        $("notificationPanel");
-
-
-    if (!panel) {
-        return;
-    }
-
-
-    if (
-        typeof force ===
-        "boolean"
-    ) {
-
-        panel.classList.toggle(
-            "show",
-            force
-        );
-
-        return;
-
-    }
-
-
-    panel.classList.toggle(
-        "show"
-    );
-
-}
-
-
-/* =========================================================
    LOGOUT
 ========================================================= */
 
@@ -11930,8 +11563,11 @@ document.addEventListener(
             !panel.contains(
                 event.target
             ) &&
-            !event.target.closest(
-                "[data-notification-button]"
+            !(
+                event.target instanceof Element &&
+                event.target.closest(
+                    "[data-notification-button]"
+                )
             )
         ) {
 
@@ -13996,28 +13632,32 @@ function toggleNotifications(
     const panel =
         $("notificationPanel");
 
+    const button =
+        document.querySelector(
+            "[data-notification-button]"
+        );
 
     if (!panel) {
         return;
     }
 
+    const shouldShow =
+        typeof force === "boolean"
+            ? force
+            : !panel.classList.contains("show");
 
-    if (
-        typeof force ===
-        "boolean"
-    ) {
+    panel.classList.toggle(
+        "show",
+        shouldShow
+    );
 
-        panel.classList.toggle(
-            "show",
-            force
+    if (button) {
+        button.setAttribute(
+            "aria-expanded",
+            shouldShow
+                ? "true"
+                : "false"
         );
-
-    } else {
-
-        panel.classList.toggle(
-            "show"
-        );
-
     }
 
 }
@@ -14041,7 +13681,7 @@ function openNotificationCenter() {
 
 
 /* =========================================================
-   NOTIFICATION BUTTONS
+   NOTIFICATION BUTTON
 ========================================================= */
 
 document.addEventListener(
@@ -14053,18 +13693,32 @@ document.addEventListener(
                 "[data-notification-button]"
             );
 
-
         if (!button) {
             return;
         }
 
-
         event.preventDefault();
+        event.stopPropagation();
 
+        const panel =
+            $("notificationPanel");
 
-        toggleNotifications();
+        if (!panel) {
+            console.warn(
+                "TABIBK: notificationPanel not found."
+            );
+            return;
+        }
 
-    }
+        const willOpen =
+            !panel.classList.contains("show");
+
+        toggleNotifications(
+            willOpen
+        );
+
+    },
+    true
 );
 
 

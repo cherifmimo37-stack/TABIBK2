@@ -5984,6 +5984,400 @@ select{
 
 </style>
 
+
+<style id="tabibk-final-professional-polish">
+/* =========================================================
+   TABIBK — FINAL PROFESSIONAL POLISH
+   Visual-only refinement: buttons, typography, spacing,
+   login fields, sidebar/footer and topbar.
+========================================================= */
+
+:root{
+    --ui-font-size:1.035;
+    --ui-border:rgba(84,38,105,.14);
+    --ui-purple:#5b2180;
+    --ui-purple-dark:#32104f;
+    --ui-gold:#c99732;
+}
+
+/* ---------- GLOBAL TYPOGRAPHY ---------- */
+body,
+button,
+input,
+textarea,
+select{
+    font-family:"Cairo",sans-serif !important;
+}
+
+body{
+    font-size:15px;
+}
+
+/* ---------- LOGIN: CLEAN INPUTS / NO INNER BROWSER FRAME ---------- */
+.login-card{
+    padding-top:34px;
+}
+
+.input-box{
+    background:#fff !important;
+    border:1px solid #e4d9e9 !important;
+    box-shadow:none !important;
+    outline:none !important;
+}
+
+.input-box:focus-within{
+    border-color:rgba(112,39,160,.45) !important;
+    box-shadow:0 0 0 3px rgba(112,39,160,.07) !important;
+}
+
+.input-box input,
+.input-box input:focus{
+    outline:none !important;
+    box-shadow:none !important;
+    border:0 !important;
+}
+
+.input-box input:-webkit-autofill,
+.input-box input:-webkit-autofill:hover,
+.input-box input:-webkit-autofill:focus,
+.input-box input:-webkit-autofill:active{
+    -webkit-box-shadow:0 0 0 1000px #fff inset !important;
+    -webkit-text-fill-color:var(--text) !important;
+    caret-color:var(--text) !important;
+    border:0 !important;
+    outline:none !important;
+    transition:background-color 9999s ease-out 0s;
+}
+
+.password-toggle{
+    width:34px;
+    height:34px;
+    flex:none;
+    border:1px solid transparent !important;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:transparent !important;
+}
+
+.password-toggle:hover{
+    color:var(--ui-purple) !important;
+    background:var(--purple-soft) !important;
+}
+
+.login-button{
+    letter-spacing:0;
+    font-size:15.5px;
+    min-height:56px;
+}
+
+/* ---------- SIDEBAR: MORE ROOM + CLEARER TEXT ---------- */
+.sidebar{
+    padding-top:5px;
+}
+
+.sidebar-brand{
+    padding:20px 19px 17px;
+}
+
+.sidebar-brand-text strong{
+    font-size:22px !important;
+    color:#fff !important;
+}
+
+.sidebar-brand-text span{
+    color:#eadcf0 !important;
+    opacity:1 !important;
+    font-size:11px !important;
+    font-weight:600 !important;
+}
+
+.sidebar-doctor{
+    margin-top:14px !important;
+    margin-bottom:10px !important;
+    padding:13px !important;
+}
+
+.sidebar-nav{
+    padding-top:2px !important;
+    padding-bottom:8px !important;
+}
+
+.nav-title{
+    color:#d9c7e1 !important;
+    opacity:.9 !important;
+    font-size:10.5px !important;
+    font-weight:800 !important;
+    padding-top:8px !important;
+    padding-bottom:7px !important;
+}
+
+.nav-item{
+    min-height:48px !important;
+    height:48px !important;
+    margin-bottom:4px !important;
+    font-size:13px !important;
+    font-weight:750 !important;
+    border-radius:14px !important;
+}
+
+.nav-item i{
+    font-size:16px !important;
+}
+
+.sidebar-footer{
+    padding:11px 14px 14px !important;
+}
+
+.sidebar-logout{
+    height:46px !important;
+    border-radius:14px !important;
+    font-size:12.5px !important;
+    font-weight:800 !important;
+}
+
+/* ---------- TOPBAR: LOWER / CLEANER / BETTER CONTRAST ---------- */
+.topbar{
+    height:82px !important;
+    background:rgba(255,255,255,.96) !important;
+    border-bottom:1px solid rgba(91,33,128,.10) !important;
+}
+
+.topbar-inner{
+    padding:0 30px !important;
+}
+
+.topbar-title h1{
+    color:#3b145b !important;
+    font-size:21px !important;
+    line-height:1.45 !important;
+    font-weight:900 !important;
+}
+
+.topbar-title h1::after{
+    content:"";
+    display:block;
+    width:34px;
+    height:3px;
+    margin-top:3px;
+    border-radius:10px;
+    background:linear-gradient(90deg,var(--gold),var(--gold-light));
+}
+
+.topbar-title p{
+    color:#77697f !important;
+    font-size:11px !important;
+    margin-top:2px !important;
+    font-weight:600 !important;
+}
+
+.icon-button{
+    width:44px !important;
+    height:44px !important;
+    border-radius:14px !important;
+    border-color:rgba(91,33,128,.13) !important;
+    color:#5b2180 !important;
+    box-shadow:0 4px 13px rgba(50,16,79,.05) !important;
+}
+
+.icon-button:hover{
+    color:#32104f !important;
+    border-color:rgba(201,151,50,.48) !important;
+    background:#fffaf0 !important;
+    box-shadow:0 8px 20px rgba(50,16,79,.10) !important;
+}
+
+/* ---------- CONTENT: GIVE THE PAGE A LITTLE MORE AIR ---------- */
+.content-area{
+    padding-top:34px !important;
+    padding-bottom:54px !important;
+}
+
+.welcome-card{
+    padding:31px !important;
+}
+
+.welcome-kicker{
+    font-size:11px !important;
+    padding:6px 11px !important;
+}
+
+.welcome-card h2{
+    font-size:27px !important;
+    line-height:1.55 !important;
+}
+
+.welcome-card p{
+    font-size:13px !important;
+}
+
+.section-heading h2{
+    font-size:18px !important;
+}
+
+.section-heading p{
+    font-size:11px !important;
+}
+
+/* ---------- ALL ACTION BUTTONS: PROFESSIONAL ---------- */
+.action-button,
+.save-setting,
+.refresh-button,
+.login-button,
+.sidebar-logout,
+.day-button{
+    position:relative;
+    overflow:hidden;
+    font-weight:800 !important;
+    letter-spacing:0 !important;
+    border-width:1px !important;
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease,
+        background .18s ease,
+        filter .18s ease !important;
+}
+
+.action-button::after,
+.save-setting::after,
+.refresh-button::after,
+.login-button::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.16),transparent 70%);
+    transform:translateX(-120%);
+    transition:transform .45s ease;
+    pointer-events:none;
+}
+
+.action-button:hover::after,
+.save-setting:hover::after,
+.refresh-button:hover::after,
+.login-button:hover::after{
+    transform:translateX(120%);
+}
+
+.action-button:not(:disabled):hover,
+.save-setting:not(:disabled):hover,
+.refresh-button:not(:disabled):hover{
+    transform:translateY(-2px) !important;
+}
+
+.action-button:not(:disabled):active,
+.save-setting:not(:disabled):active,
+.refresh-button:not(:disabled):active,
+.login-button:not(:disabled):active{
+    transform:translateY(0) scale(.985) !important;
+}
+
+/* Primary */
+.btn-purple,
+.btn-primary{
+    box-shadow:0 8px 20px rgba(112,39,160,.18) !important;
+}
+
+/* Gold */
+.btn-gold{
+    box-shadow:0 8px 20px rgba(201,151,50,.17) !important;
+}
+
+/* Danger */
+.btn-danger{
+    box-shadow:0 7px 17px rgba(216,61,85,.12) !important;
+}
+
+/* Small controls */
+.action-button i,
+.save-setting i,
+.refresh-button i,
+.sidebar-logout i{
+    margin-left:6px;
+}
+
+/* ---------- FOOTER: CLEARER + LOWER ---------- */
+.dashboard-footer{
+    margin-top:20px !important;
+    padding:34px 10px 12px !important;
+    color:#76677f !important;
+    font-size:11px !important;
+    line-height:2 !important;
+    font-weight:600 !important;
+    border-top:1px solid rgba(91,33,128,.08);
+}
+
+.dashboard-footer::first-line{
+    color:#5b2180 !important;
+    font-weight:800 !important;
+}
+
+/* ---------- MOBILE ---------- */
+@media(max-width:800px){
+    .topbar{
+        height:76px !important;
+    }
+
+    .topbar-inner{
+        padding:0 14px !important;
+        gap:10px !important;
+    }
+
+    .topbar-title h1{
+        font-size:18px !important;
+    }
+
+    .topbar-title p{
+        font-size:10px !important;
+    }
+
+    .content-area{
+        padding-top:24px !important;
+        padding-bottom:42px !important;
+    }
+
+    .welcome-card{
+        padding:22px !important;
+    }
+
+    .welcome-card h2{
+        font-size:22px !important;
+    }
+
+    .nav-item{
+        min-height:49px !important;
+        height:49px !important;
+        font-size:13px !important;
+    }
+
+    .dashboard-footer{
+        padding-top:28px !important;
+        font-size:10.5px !important;
+    }
+}
+
+@media(max-width:520px){
+    .content-area{
+        padding-top:20px !important;
+    }
+
+    .welcome-card h2{
+        font-size:20px !important;
+    }
+
+    .section-heading h2{
+        font-size:16px !important;
+    }
+
+    .action-button,
+    .save-setting,
+    .refresh-button{
+        min-height:42px !important;
+    }
+}
+</style>
+
 </head>
 
 

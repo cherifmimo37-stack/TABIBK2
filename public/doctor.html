@@ -8842,7 +8842,7 @@ function togglePassword() {
 
 
 /* =========================================================
-   API FETCH
+   API FETCH — FINAL
 ========================================================= */
 
 async function apiFetch(
@@ -8868,12 +8868,25 @@ async function apiFetch(
     }
 
 
-    if (doctorToken) {
+    /*
+       Use the in-memory token first.
+       If it is not ready yet, safely fall back
+       to the token saved in localStorage.
+    */
+
+    const token =
+        doctorToken ||
+        localStorage.getItem(
+            TOKEN_KEY
+        );
+
+
+    if (token) {
 
         config.headers[
             "Authorization"
         ] =
-            `Bearer ${doctorToken}`;
+            `Bearer ${token}`;
 
     }
 
@@ -8897,6 +8910,7 @@ async function apiFetch(
 
 
     let data = null;
+
 
     try {
 
@@ -8923,8 +8937,6 @@ async function apiFetch(
     return data;
 
 }
-
-
 /* =========================================================
    UNAUTHORIZED
 ========================================================= */
@@ -9347,6 +9359,10 @@ function renderDoctorProfile() {
         "";
 
 
+    /* -----------------------------------------------------
+       MAIN PROFILE
+    ----------------------------------------------------- */
+
     if ($("doctorName")) {
 
         $("doctorName").textContent =
@@ -9373,27 +9389,31 @@ function renderDoctorProfile() {
 
     if ($("doctorWilaya")) {
 
-        $("doctorWilaya").innerHTML =
-            escapeHtml(wilaya);
+        $("doctorWilaya").textContent =
+            wilaya || "—";
 
     }
 
 
     if ($("doctorMunicipality")) {
 
-        $("doctorMunicipality").innerHTML =
-            escapeHtml(municipality);
+        $("doctorMunicipality").textContent =
+            municipality || "—";
 
     }
 
 
     if ($("doctorPhone")) {
 
-        $("doctorPhone").innerHTML =
-            escapeHtml(phone);
+        $("doctorPhone").textContent =
+            phone || "—";
 
     }
 
+
+    /* -----------------------------------------------------
+       SIDEBAR
+    ----------------------------------------------------- */
 
     if ($("sidebarDoctorName")) {
 
@@ -9411,9 +9431,15 @@ function renderDoctorProfile() {
     }
 
 
+    /* -----------------------------------------------------
+       SETTINGS PROFILE
+       These elements are <strong>, not <input>.
+       Therefore textContent must be used.
+    ----------------------------------------------------- */
+
     if ($("settingsDoctorName")) {
 
-        $("settingsDoctorName").value =
+        $("settingsDoctorName").textContent =
             name;
 
     }
@@ -9421,7 +9447,7 @@ function renderDoctorProfile() {
 
     if ($("settingsDoctorSpecialty")) {
 
-        $("settingsDoctorSpecialty").value =
+        $("settingsDoctorSpecialty").textContent =
             specialty;
 
     }
@@ -9429,30 +9455,28 @@ function renderDoctorProfile() {
 
     if ($("settingsDoctorWilaya")) {
 
-        $("settingsDoctorWilaya").value =
-            wilaya;
+        $("settingsDoctorWilaya").textContent =
+            wilaya || "—";
 
     }
 
 
     if ($("settingsDoctorMunicipality")) {
 
-        $("settingsDoctorMunicipality").value =
-            municipality;
+        $("settingsDoctorMunicipality").textContent =
+            municipality || "—";
 
     }
 
 
     if ($("settingsDoctorPhone")) {
 
-        $("settingsDoctorPhone").value =
-            phone;
+        $("settingsDoctorPhone").textContent =
+            phone || "—";
 
     }
 
 }
-
-
 /* =========================================================
    SECTION NAVIGATION
 ========================================================= */
@@ -15203,7 +15227,7 @@ function setupVacationUI() {
 
 
 /* =========================================================
-   SETTINGS
+   SETTINGS — RENDER DOCTOR INFORMATION
 ========================================================= */
 
 function renderSettings() {
@@ -15211,6 +15235,7 @@ function renderSettings() {
     if (!currentDoctor) {
         return;
     }
+
 
     const fields = {
 
@@ -15228,46 +15253,55 @@ function renderSettings() {
 
         phone:
             $("settingsDoctorPhone")
+
     };
 
 
     if (fields.name) {
 
-        fields.name.value =
+        fields.name.textContent =
             currentDoctor.name ||
-            "";
+            "—";
+
     }
+
 
     if (fields.specialty) {
 
-        fields.specialty.value =
+        fields.specialty.textContent =
             currentDoctor.specialty ||
-            "";
+            "—";
+
     }
+
 
     if (fields.wilaya) {
 
-        fields.wilaya.value =
+        fields.wilaya.textContent =
             currentDoctor.wilaya ||
-            "";
+            "—";
+
     }
+
 
     if (fields.municipality) {
 
-        fields.municipality.value =
+        fields.municipality.textContent =
             currentDoctor.municipality ||
-            "";
+            "—";
+
     }
+
 
     if (fields.phone) {
 
-        fields.phone.value =
+        fields.phone.textContent =
             currentDoctor.phone ||
-            "";
+            "—";
+
     }
+
 }
-
-
 /* =========================================================
    SETTINGS — ACCOUNT SUMMARY
 ========================================================= */

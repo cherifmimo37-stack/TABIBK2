@@ -1848,18 +1848,29 @@ app.post(
                     });
             }
 
-            if (
-                doctor.active === false
-            ) {
+            if (doctor.status === "pending") {
+    return res.status(403).json({
+        success: false,
+        message: "طلب التسجيل في انتظار موافقة الإدارة"
+    });
+}
 
-                return res
-                    .status(403)
-                    .json({
-                        success: false,
-                        message:
-                            "حساب الطبيب غير مفعل"
-                    });
-            }
+if (doctor.status === "rejected") {
+    return res.status(403).json({
+        success: false,
+        message: "تم رفض طلب تسجيل الطبيب من طرف الإدارة"
+    });
+}
+
+if (
+    doctor.status !== "approved" &&
+    doctor.active === false
+) {
+    return res.status(403).json({
+        success: false,
+        message: "حساب الطبيب غير مفعل"
+    });
+}
 
             const doctorPassword =
                 getDoctorPassword(
@@ -5272,6 +5283,47 @@ app.post(
 
         }
 
+    }
+);
+
+// ============================================================
+// ADMIN PENDING DOCTORS
+// ============================================================
+
+app.get(
+    "/api/admin/doctors/pending",
+    checkAdminKey,
+    (req, res) => {
+        try {
+            const database = readDatabase();
+
+            const pendingDoctors =
+                database.doctors
+                    .filter(
+                        doctor =>
+                            doctor.status === "pending"
+                    )
+                    .map(cleanDoctor);
+
+            res.json({
+                success: true,
+                doctors: pendingDoctors,
+                count: pendingDoctors.length
+            });
+
+        } catch (error) {
+
+            console.error(
+                "خطأ في جلب طلبات الأطباء المعلقة:",
+                error
+            );
+
+            res.status(500).json({
+                success: false,
+                message:
+                    "حدث خطأ أثناء جلب طلبات الأطباء"
+            });
+        }
     }
 );
 // ============================================================

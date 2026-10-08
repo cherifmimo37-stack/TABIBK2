@@ -5075,20 +5075,41 @@ function renderDoctors(){
 
                         <td>
 
-                            ${doctor.status === "active"
+                            ```javascript
+${doctor.status === "pending"
 
-                                ? `
-                                    <span class="badge active">
-                                        نشط
-                                    </span>
-                                  `
+    ? `
+        <span class="badge inactive">
+            بانتظار الموافقة
+        </span>
+      `
 
-                                : `
-                                    <span class="badge inactive">
-                                        غير نشط
-                                    </span>
-                                  `
-                            }
+    : doctor.status === "rejected"
+
+        ? `
+            <span class="badge inactive">
+                مرفوض
+            </span>
+          `
+
+        : doctor.active === true ||
+          doctor.status === "active" ||
+          doctor.status === "approved"
+
+            ? `
+                <span class="badge active">
+                    نشط
+                </span>
+              `
+
+            : `
+                <span class="badge inactive">
+                    غير نشط
+                </span>
+              `
+}
+```
+
 
                         </td>
 

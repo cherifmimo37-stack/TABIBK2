@@ -3021,7 +3021,137 @@ tbody tr:hover{
 
         </div>
 
+<!-- =========================================================
+     PENDING DOCTOR REGISTRATIONS
+========================================================= -->
 
+<div
+    id="pendingDoctorsCard"
+    style="
+        margin:0 0 20px;
+        padding:20px;
+        border-radius:18px;
+        border:1px solid rgba(201,151,50,.25);
+        background:
+            linear-gradient(
+                135deg,
+                rgba(255,255,255,.96),
+                rgba(248,243,252,.96)
+            );
+        box-shadow:0 12px 35px rgba(45,20,65,.08);
+    "
+>
+
+    <div
+        style="
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:15px;
+            flex-wrap:wrap;
+            margin-bottom:16px;
+        "
+    >
+
+        <div>
+
+            <div
+                style="
+                    display:flex;
+                    align-items:center;
+                    gap:10px;
+                    margin-bottom:5px;
+                "
+            >
+
+                <span
+                    style="
+                        width:40px;
+                        height:40px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        border-radius:13px;
+                        background:rgba(201,151,50,.12);
+                        color:var(--gold-dark);
+                        font-size:18px;
+                    "
+                >
+                    <i class="fa-solid fa-user-clock"></i>
+                </span>
+
+                <h3
+                    style="
+                        margin:0;
+                        color:var(--purple-900);
+                        font-size:16px;
+                    "
+                >
+                    طلبات تسجيل الأطباء
+                </h3>
+
+            </div>
+
+            <p
+                style="
+                    margin:0;
+                    color:var(--muted);
+                    font-size:11px;
+                "
+            >
+                الأطباء الجدد الذين ينتظرون موافقة الإدارة
+            </p>
+
+        </div>
+
+
+        <span
+            id="pendingDoctorsCount"
+            style="
+                min-width:42px;
+                height:34px;
+                padding:0 12px;
+                display:inline-flex;
+                align-items:center;
+                justify-content:center;
+                border-radius:999px;
+                background:linear-gradient(
+                    135deg,
+                    var(--gold),
+                    var(--gold-dark)
+                );
+                color:#fff;
+                font-size:13px;
+                font-weight:800;
+                box-shadow:0 6px 18px rgba(201,151,50,.22);
+            "
+        >
+            0
+        </span>
+
+    </div>
+
+
+    <div id="pendingDoctorsList">
+
+        <div
+            class="empty"
+            style="
+                padding:25px 15px;
+            "
+        >
+
+            <i class="fa-solid fa-user-clock"></i>
+
+            <p>
+                لا توجد طلبات تسجيل معلقة
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
         <div
             class="table-wrap"
             id="appointmentsTable"
@@ -4472,6 +4602,8 @@ async function loadDoctors(){
 
         fillNotificationDoctors();
 
+        await loadPendingDoctors();
+
     }catch(error){
 
         document.getElementById(
@@ -4487,6 +4619,365 @@ async function loadDoctors(){
     }
 }
 
+      /* ============================================================
+   PENDING DOCTOR REGISTRATIONS
+============================================================ */
+
+async function loadPendingDoctors(){
+
+    const container =
+        document.getElementById(
+            "pendingDoctorsList"
+        );
+
+    const counter =
+        document.getElementById(
+            "pendingDoctorsCount"
+        );
+
+    if(!container)
+        return;
+
+    container.innerHTML =
+        `
+        <div
+            class="loading"
+            style="padding:25px"
+        >
+            <div class="spinner"></div>
+            جاري تحميل طلبات التسجيل...
+        </div>
+        `;
+
+    try{
+
+        const data =
+            await adminFetch(
+                "/api/admin/doctors/pending"
+            );
+
+        const pendingDoctors =
+            Array.isArray(data.doctors)
+                ? data.doctors
+                : [];
+
+        if(counter){
+
+            counter.textContent =
+                pendingDoctors.length;
+
+        }
+
+        if(!pendingDoctors.length){
+
+            container.innerHTML =
+                `
+                <div
+                    class="empty"
+                    style="
+                        padding:25px 15px;
+                    "
+                >
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <p>
+                        لا توجد طلبات تسجيل معلقة حاليًا
+                    </p>
+
+                </div>
+                `;
+
+            return;
+        }
+
+
+        container.innerHTML =
+            pendingDoctors
+                .map(
+                    doctor => {
+
+                        const genderIcon =
+                            doctor.gender === "female"
+                                ? "fa-user-doctor"
+                                : "fa-user-doctor";
+
+                        return `
+                        <div
+                            style="
+                                display:flex;
+                                align-items:center;
+                                justify-content:space-between;
+                                gap:15px;
+                                padding:16px;
+                                margin-bottom:10px;
+                                border-radius:15px;
+                                background:#fff;
+                                border:1px solid rgba(112,39,160,.10);
+                                box-shadow:0 7px 22px rgba(45,20,65,.05);
+                                flex-wrap:wrap;
+                            "
+                        >
+
+                            <div
+                                style="
+                                    display:flex;
+                                    align-items:center;
+                                    gap:12px;
+                                    flex:1;
+                                    min-width:230px;
+                                "
+                            >
+
+                                <div
+                                    style="
+                                        width:48px;
+                                        height:48px;
+                                        min-width:48px;
+                                        display:flex;
+                                        align-items:center;
+                                        justify-content:center;
+                                        border-radius:50%;
+                                        background:
+                                            linear-gradient(
+                                                145deg,
+                                                rgba(112,39,160,.12),
+                                                rgba(201,151,50,.16)
+                                            );
+                                        color:var(--purple);
+                                        font-size:20px;
+                                    "
+                                >
+                                    <i class="fa-solid ${genderIcon}"></i>
+                                </div>
+
+
+                                <div>
+
+                                    <strong
+                                        style="
+                                            display:block;
+                                            color:var(--purple-900);
+                                            font-size:14px;
+                                            margin-bottom:4px;
+                                        "
+                                    >
+                                        ${escapeHtml(
+                                            doctor.name || "طبيب"
+                                        )}
+                                    </strong>
+
+                                    <div
+                                        style="
+                                            color:var(--muted);
+                                            font-size:11px;
+                                            line-height:1.8;
+                                        "
+                                    >
+                                        <span>
+                                            ${escapeHtml(
+                                                doctor.specialty || "-"
+                                            )}
+                                        </span>
+
+                                        <span>
+                                            •
+                                            ${escapeHtml(
+                                                doctor.wilaya || "-"
+                                            )}
+                                        </span>
+
+                                        <span>
+                                            •
+                                            ${escapeHtml(
+                                                doctor.municipality || "-"
+                                            )}
+                                        </span>
+
+                                        <br>
+
+                                        <span dir="ltr">
+                                            ${escapeHtml(
+                                                doctor.phone || "-"
+                                            )}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                style="
+                                    display:flex;
+                                    align-items:center;
+                                    gap:8px;
+                                    flex-wrap:wrap;
+                                "
+                            >
+
+                                <button
+                                    type="button"
+                                    class="btn btn-green"
+                                    onclick="approveDoctorRegistration(${Number(doctor.id)})"
+                                    style="
+                                        min-height:40px;
+                                        border-radius:11px;
+                                        font-weight:800;
+                                    "
+                                >
+
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                    قبول
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="btn btn-red"
+                                    onclick="rejectDoctorRegistration(${Number(doctor.id)})"
+                                    style="
+                                        min-height:40px;
+                                        border-radius:11px;
+                                        font-weight:800;
+                                    "
+                                >
+
+                                    <i class="fa-solid fa-circle-xmark"></i>
+
+                                    رفض
+
+                                </button>
+
+                            </div>
+
+                        </div>
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }catch(error){
+
+        if(counter)
+            counter.textContent = "0";
+
+        container.innerHTML =
+            `
+            <div
+                class="empty"
+                style="padding:25px 15px"
+            >
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <p>
+                    ${escapeHtml(
+                        error.message ||
+                        "تعذر تحميل طلبات التسجيل"
+                    )}
+                </p>
+
+            </div>
+            `;
+
+    }
+}
+
+
+/* ============================================================
+   APPROVE DOCTOR REGISTRATION
+============================================================ */
+
+async function approveDoctorRegistration(id){
+
+    if(
+        !confirm(
+            "هل تريد الموافقة على تسجيل هذا الطبيب؟"
+        )
+    ){
+
+        return;
+
+    }
+
+    try{
+
+        await adminFetch(
+            `/api/admin/doctors/${id}/approve`,
+            {
+                method:"POST"
+            }
+        );
+
+        showToast(
+            "تمت الموافقة على الطبيب بنجاح"
+        );
+
+        await loadDoctors();
+
+        await loadStats();
+
+    }catch(error){
+
+        showToast(
+            error.message ||
+            "تعذر قبول الطبيب",
+            "error"
+        );
+
+    }
+}
+
+
+/* ============================================================
+   REJECT DOCTOR REGISTRATION
+============================================================ */
+
+async function rejectDoctorRegistration(id){
+
+    if(
+        !confirm(
+            "هل تريد رفض طلب تسجيل هذا الطبيب؟"
+        )
+    ){
+
+        return;
+
+    }
+
+    try{
+
+        await adminFetch(
+            `/api/admin/doctors/${id}/reject`,
+            {
+                method:"POST"
+            }
+        );
+
+        showToast(
+            "تم رفض طلب الطبيب"
+        );
+
+        await loadDoctors();
+
+        await loadStats();
+
+    }catch(error){
+
+        showToast(
+            error.message ||
+            "تعذر رفض الطبيب",
+            "error"
+        );
+
+    }
+}
 
 function renderDoctors(){
 

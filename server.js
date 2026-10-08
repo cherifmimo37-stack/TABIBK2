@@ -312,12 +312,17 @@ function normalizeDatabase(database) {
                         ) || 15,
 
                     active:
-                        doctor.active !== false,
+    doctor.active !== false,
 
-                    online:
-                        doctor.online === true,
+status:
+    doctor.status === "pending"
+        ? "pending"
+        : "approved",
 
-                    workingHours: {
+online:
+    doctor.online === true,
+
+workingHours: {
 
                         enabled:
                             workingHours.enabled !== false,
@@ -1495,6 +1500,282 @@ app.get(
     }
 );
 
+// ============================================================
+// DOCTOR SELF REGISTRATION
+// ============================================================
+
+app.post(
+    "/api/doctor/register",
+    (req, res) => {
+
+        try {
+
+            const {
+                name,
+                gender,
+                specialty,
+                wilaya,
+                municipality,
+                phone,
+                whatsapp,
+                duration,
+                password,
+                loginPassword
+            } = req.body;
+
+
+            // ------------------------------------------------
+            // REQUIRED FIELDS
+            // ------------------------------------------------
+
+            if (
+                !name ||
+                !specialty ||
+                !wilaya ||
+                !municipality ||
+                !phone ||
+                !(password || loginPassword)
+            ) {
+
+                return res
+                    .status(400)
+                    .json({
+                        success: false,
+                        message:
+                            "الاسم والتخصص والولاية والبلدية والهاتف وكلمة المرور مطلوبة"
+                    });
+
+            }
+
+
+            const database =
+                readDatabase();
+
+
+            // ------------------------------------------------
+            // NORMALIZE PHONE NUMBERS
+            // ------------------------------------------------
+
+            const normalizedPhone =
+                normalizePhone(
+                    phone
+                );
+
+            const normalizedWhatsapp =
+                normalizePhone(
+                    whatsapp ||
+                    phone
+                );
+
+
+            // ------------------------------------------------
+            // CHECK DUPLICATE PHONE
+            // ------------------------------------------------
+
+            const duplicate =
+                database.doctors.find(
+                    doctor => {
+
+                        const existingPhone =
+                            normalizePhone(
+                                doctor.phone
+                            );
+
+                        const existingWhatsapp =
+                            normalizePhone(
+                                doctor.whatsapp
+                            );
+
+                        return (
+                            existingPhone ===
+                                normalizedPhone ||
+
+                            existingWhatsapp ===
+                                normalizedPhone ||
+
+                            existingPhone ===
+                                normalizedWhatsapp ||
+
+                            existingWhatsapp ===
+                                normalizedWhatsapp
+                        );
+
+                    }
+                );
+
+
+            if (duplicate) {
+
+                return res
+                    .status(409)
+                    .json({
+                        success: false,
+                        message:
+                            "رقم الهاتف موجود مسبقا"
+                    });
+
+            }
+
+
+            // ------------------------------------------------
+            // CREATE PENDING DOCTOR
+            // ------------------------------------------------
+
+            const doctor = {
+
+                id:
+                    generateId(
+                        database.doctors
+                    ),
+
+                name:
+                    String(
+                        name
+                    ).trim(),
+
+                gender:
+                    String(
+                        gender ||
+                        "male"
+                    ).trim(),
+
+                specialty:
+                    String(
+                        specialty
+                    ).trim(),
+
+                wilaya:
+                    String(
+                        wilaya
+                    ).trim(),
+
+                municipality:
+                    String(
+                        municipality
+                    ).trim(),
+
+                phone:
+                    normalizedPhone,
+
+                whatsapp:
+                    normalizedWhatsapp,
+
+                duration:
+                    Number(
+                        duration
+                    ) || 15,
+
+                // الطبيب الجديد ينتظر موافقة الإدارة
+                status:
+                    "pending",
+
+                // لا يمكنه استعمال المنصة قبل الموافقة
+                active:
+                    false,
+
+                online:
+                    false,
+
+                loginPassword:
+                    password ||
+                    loginPassword,
+
+                workingHours: {
+
+                    enabled: true,
+
+                    days: [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+
+                    open:
+                        "08:00",
+
+                    close:
+                        "17:00"
+
+                },
+
+                vacation: {
+
+                    enabled:
+                        false,
+
+                    startDate:
+                        "",
+
+                    endDate:
+                        ""
+
+                },
+
+                createdAt:
+                    new Date().toISOString()
+
+            };
+
+
+            database.doctors.push(
+                doctor
+            );
+
+
+            saveDatabase(
+                database
+            );
+
+
+            // ------------------------------------------------
+            // RESPONSE
+            // ------------------------------------------------
+
+            res
+                .status(201)
+                .json({
+
+                    success: true,
+
+                    message:
+                        "تم إرسال طلب التسجيل بنجاح، الحساب في انتظار موافقة الإدارة",
+
+                    status:
+                        "pending",
+
+                    doctor:
+                        cleanDoctor(
+                            doctor
+                        )
+
+                });
+
+
+        } catch (error) {
+
+            console.error(
+                "خطأ في تسجيل الطبيب:",
+                error
+            );
+
+
+            res
+                .status(500)
+                .json({
+
+                    success: false,
+
+                    message:
+                        "حدث خطأ أثناء إرسال طلب التسجيل"
+
+                });
+
+        }
+
+    }
+);
 // ============================================================
 // DOCTOR LOGIN
 // ============================================================
@@ -4809,7 +5090,190 @@ app.post(
             });
     }
 );
+// ============================================================
+// ADMIN APPROVE DOCTOR
+// ============================================================
 
+app.post(
+    "/api/admin/doctors/:id/approve",
+    checkAdminKey,
+    (req, res) => {
+
+        try {
+
+            const database =
+                readDatabase();
+
+            const doctor =
+                database.doctors.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(req.params.id)
+                );
+
+
+            if (!doctor) {
+
+                return res
+                    .status(404)
+                    .json({
+                        success: false,
+                        message:
+                            "الطبيب غير موجود"
+                    });
+
+            }
+
+
+            doctor.status =
+                "approved";
+
+            doctor.active =
+                true;
+
+            doctor.online =
+                false;
+
+            doctor.approvedAt =
+                new Date().toISOString();
+
+
+            saveDatabase(
+                database
+            );
+
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "تمت الموافقة على الطبيب بنجاح",
+
+                doctor:
+                    cleanDoctor(
+                        doctor
+                    )
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "خطأ في قبول الطبيب:",
+                error
+            );
+
+
+            res
+                .status(500)
+                .json({
+
+                    success: false,
+
+                    message:
+                        "حدث خطأ أثناء قبول الطبيب"
+
+                });
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// ADMIN REJECT DOCTOR
+// ============================================================
+
+app.post(
+    "/api/admin/doctors/:id/reject",
+    checkAdminKey,
+    (req, res) => {
+
+        try {
+
+            const database =
+                readDatabase();
+
+            const doctor =
+                database.doctors.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(req.params.id)
+                );
+
+
+            if (!doctor) {
+
+                return res
+                    .status(404)
+                    .json({
+                        success: false,
+                        message:
+                            "الطبيب غير موجود"
+                    });
+
+            }
+
+
+            doctor.status =
+                "rejected";
+
+            doctor.active =
+                false;
+
+            doctor.online =
+                false;
+
+            doctor.rejectedAt =
+                new Date().toISOString();
+
+
+            saveDatabase(
+                database
+            );
+
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "تم رفض طلب الطبيب",
+
+                doctor:
+                    cleanDoctor(
+                        doctor
+                    )
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "خطأ في رفض الطبيب:",
+                error
+            );
+
+
+            res
+                .status(500)
+                .json({
+
+                    success: false,
+
+                    message:
+                        "حدث خطأ أثناء رفض الطبيب"
+
+                });
+
+        }
+
+    }
+);
 // ============================================================
 // ADMIN UPDATE DOCTOR
 // ============================================================

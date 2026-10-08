@@ -9260,7 +9260,293 @@ async function loginDoctor(event) {
 
 }
 
+/* =========================================================
+   DOCTOR REGISTRATION
+========================================================= */
 
+async function registerDoctor(event){
+
+    if(event){
+        event.preventDefault();
+    }
+
+
+    const name =
+        $("registerDoctorName")?.value.trim();
+
+    const gender =
+        $("registerDoctorGender")?.value;
+
+    const specialty =
+        $("registerDoctorSpecialty")?.value.trim();
+
+    const wilaya =
+        $("registerDoctorWilaya")?.value.trim();
+
+    const municipality =
+        $("registerDoctorMunicipality")?.value.trim();
+
+    const phone =
+        $("registerDoctorPhone")?.value.trim();
+
+    const whatsapp =
+        $("registerDoctorWhatsapp")?.value.trim();
+
+    const duration =
+        Number(
+            $("registerDoctorDuration")?.value
+        ) || 15;
+
+    const password =
+        $("registerDoctorPassword")?.value;
+
+    const passwordConfirm =
+        $("registerDoctorPasswordConfirm")?.value;
+
+
+    const button =
+        $("doctorRegistrationButton");
+
+    const message =
+        $("doctorRegistrationMessage");
+
+
+    if(
+        !name ||
+        !specialty ||
+        !wilaya ||
+        !municipality ||
+        !phone ||
+        !password
+    ){
+
+        if(message){
+
+            message.textContent =
+                "يرجى ملء جميع الحقول المطلوبة";
+
+            message.className =
+                "login-message error";
+
+        }
+
+        return;
+
+    }
+
+
+    if(password !== passwordConfirm){
+
+        if(message){
+
+            message.textContent =
+                "كلمتا المرور غير متطابقتين";
+
+            message.className =
+                "login-message error";
+
+        }
+
+        return;
+
+    }
+
+
+    if(password.length < 4){
+
+        if(message){
+
+            message.textContent =
+                "كلمة المرور يجب أن تحتوي على 4 أحرف أو أرقام على الأقل";
+
+            message.className =
+                "login-message error";
+
+        }
+
+        return;
+
+    }
+
+
+    if(button){
+
+        button.disabled = true;
+
+        button.innerHTML =
+            `
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            جاري إرسال الطلب...
+            `;
+
+    }
+
+
+    if(message){
+
+        message.textContent = "";
+
+        message.className =
+            "login-message";
+
+    }
+
+
+    try{
+
+        const response =
+            await fetch(
+                API +
+                "/api/doctor/register",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            name,
+                            gender,
+                            specialty,
+                            wilaya,
+                            municipality,
+                            phone,
+                            whatsapp,
+                            duration,
+                            password
+
+                        })
+
+                }
+            );
+
+
+        let result = null;
+
+        try{
+
+            result =
+                await response.json();
+
+        }catch{
+
+            result = null;
+
+        }
+
+
+        if(!response.ok){
+
+            throw new Error(
+                result?.message ||
+                "تعذر إرسال طلب التسجيل"
+            );
+
+        }
+
+
+        if(message){
+
+            message.textContent =
+                result?.message ||
+                "تم إرسال طلب التسجيل بنجاح";
+
+            message.className =
+                "login-message success";
+
+        }
+
+
+        if(button){
+
+            button.disabled = true;
+
+        }
+
+
+        setTimeout(
+            () => {
+
+                closeDoctorRegistration();
+
+                const form =
+                    $("doctorRegistrationForm");
+
+                if(form){
+
+                    form.reset();
+
+                }
+
+                if(message){
+
+                    message.textContent = "";
+
+                    message.className =
+                        "login-message";
+
+                }
+
+                if(button){
+
+                    button.disabled = false;
+
+                    button.innerHTML =
+                        `
+                        <i class="fa-solid fa-paper-plane"></i>
+                        إرسال طلب التسجيل
+                        `;
+
+                }
+
+            },
+            1800
+        );
+
+
+    }catch(error){
+
+        if(message){
+
+            message.textContent =
+                error.message ||
+                "حدث خطأ أثناء إرسال طلب التسجيل";
+
+            message.className =
+                "login-message error";
+
+        }
+
+    }finally{
+
+        if(button){
+
+            button.disabled = false;
+
+            if(
+                button.innerHTML.includes(
+                    "جاري إرسال الطلب"
+                )
+            ){
+
+                button.innerHTML =
+                    `
+                    <i class="fa-solid fa-paper-plane"></i>
+                    إرسال طلب التسجيل
+                    `;
+
+            }
+
+        }
+
+    }
+
+}
+        
 /* =========================================================
    CHECK SESSION
 ========================================================= */

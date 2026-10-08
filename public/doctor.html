@@ -9041,7 +9041,42 @@ function showApp() {
 
 }
 
+/* =========================================================
+   DOCTOR REGISTRATION MODAL
+========================================================= */
 
+function openDoctorRegistration(){
+
+    const modal =
+        document.getElementById(
+            "doctorRegistrationModal"
+        );
+
+    if(!modal)
+        return;
+
+    modal.style.display = "block";
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+function closeDoctorRegistration(){
+
+    const modal =
+        document.getElementById(
+            "doctorRegistrationModal"
+        );
+
+    if(!modal)
+        return;
+
+    modal.style.display = "none";
+
+    document.body.style.overflow = "";
+
+}
 /* =========================================================
    LOGIN DOCTOR
 ========================================================= */

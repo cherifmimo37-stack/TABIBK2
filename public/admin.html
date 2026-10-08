@@ -3304,7 +3304,139 @@ tbody tr:hover{
 
         </div>
 
+<!-- =========================================================
+     PENDING DOCTOR REGISTRATIONS
+========================================================= -->
 
+<div
+    id="pendingDoctorsCard"
+    style="
+        margin:0 0 20px;
+        padding:20px;
+        border-radius:18px;
+        border:1px solid rgba(201,151,50,.25);
+        background:
+            linear-gradient(
+                135deg,
+                rgba(255,255,255,.96),
+                rgba(248,243,252,.96)
+            );
+        box-shadow:0 12px 35px rgba(45,20,65,.08);
+    "
+>
+
+    <div
+        style="
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:15px;
+            flex-wrap:wrap;
+            margin-bottom:16px;
+        "
+    >
+
+        <div>
+
+            <div
+                style="
+                    display:flex;
+                    align-items:center;
+                    gap:10px;
+                    margin-bottom:5px;
+                "
+            >
+
+                <span
+                    style="
+                        width:40px;
+                        height:40px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        border-radius:13px;
+                        background:rgba(201,151,50,.12);
+                        color:var(--gold-dark);
+                        font-size:18px;
+                    "
+                >
+                    <i class="fa-solid fa-user-clock"></i>
+                </span>
+
+                <h3
+                    style="
+                        margin:0;
+                        color:var(--purple-900);
+                        font-size:16px;
+                    "
+                >
+                    طلبات تسجيل الأطباء
+                </h3>
+
+            </div>
+
+            <p
+                style="
+                    margin:0;
+                    color:var(--muted);
+                    font-size:11px;
+                "
+            >
+                الأطباء الجدد الذين ينتظرون موافقة الإدارة
+            </p>
+
+        </div>
+
+
+        <span
+            id="pendingDoctorsCount"
+            style="
+                min-width:42px;
+                height:34px;
+                padding:0 12px;
+                display:inline-flex;
+                align-items:center;
+                justify-content:center;
+                border-radius:999px;
+                background:linear-gradient(
+                    135deg,
+                    var(--gold),
+                    var(--gold-dark)
+                );
+                color:#fff;
+                font-size:13px;
+                font-weight:800;
+                box-shadow:0 6px 18px rgba(201,151,50,.22);
+            "
+        >
+            0
+        </span>
+
+    </div>
+
+
+    <div id="pendingDoctorsList">
+
+        <div
+            class="empty"
+            style="
+                padding:25px 15px;
+            "
+        >
+
+            <i class="fa-solid fa-user-clock"></i>
+
+            <p>
+                لا توجد طلبات تسجيل معلقة
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+        <div
+              
         <div
             class="table-wrap"
             id="doctorsTable"

@@ -17862,6 +17862,462 @@ if (
 
 </script>
 
+    <!-- =======================================================
+     DOCTOR REGISTRATION MODAL
+======================================================= -->
+
+<div
+    id="doctorRegistrationModal"
+    style="
+        display:none;
+        position:fixed;
+        inset:0;
+        z-index:5000;
+        padding:20px;
+        background:rgba(24,10,38,.72);
+        backdrop-filter:blur(10px);
+        -webkit-backdrop-filter:blur(10px);
+        overflow-y:auto;
+    "
+>
+
+    <div
+        style="
+            width:min(100%,620px);
+            margin:30px auto;
+            background:#fff;
+            border:1px solid rgba(201,151,50,.25);
+            border-radius:24px;
+            box-shadow:0 25px 70px rgba(0,0,0,.25);
+            overflow:hidden;
+        "
+    >
+
+        <!-- HEADER -->
+
+        <div
+            style="
+                padding:22px 24px;
+                background:
+                    linear-gradient(
+                        135deg,
+                        var(--purple-900),
+                        var(--purple)
+                    );
+                color:#fff;
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:15px;
+            "
+        >
+
+            <div>
+
+                <h2
+                    style="
+                        margin:0 0 6px;
+                        font-size:20px;
+                    "
+                >
+                    تسجيل طبيب جديد
+                </h2>
+
+                <p
+                    style="
+                        margin:0;
+                        font-size:12px;
+                        opacity:.85;
+                    "
+                >
+                    أرسل طلب التسجيل وانتظر موافقة الإدارة
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                onclick="closeDoctorRegistration()"
+                aria-label="إغلاق"
+                style="
+                    width:40px;
+                    height:40px;
+                    border:0;
+                    border-radius:12px;
+                    background:rgba(255,255,255,.12);
+                    color:#fff;
+                    cursor:pointer;
+                    font-size:18px;
+                "
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form
+            id="doctorRegistrationForm"
+            onsubmit="registerDoctor(event)"
+            style="
+                padding:24px;
+            "
+        >
+
+            <div
+                style="
+                    display:grid;
+                    grid-template-columns:repeat(
+                        auto-fit,
+                        minmax(220px,1fr)
+                    );
+                    gap:15px;
+                "
+            >
+
+                <!-- NAME -->
+
+                <div class="input-group">
+
+                    <label>
+                        اسم الطبيب الكامل
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-user-doctor"></i>
+
+                        <input
+                            type="text"
+                            id="registerDoctorName"
+                            placeholder="مثال: د. محمد أحمد"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- GENDER -->
+
+                <div class="input-group">
+
+                    <label>
+                        الجنس
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-venus-mars"></i>
+
+                        <select
+                            id="registerDoctorGender"
+                            required
+                        >
+
+                            <option value="male">
+                                طبيب
+                            </option>
+
+                            <option value="female">
+                                طبيبة
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPECIALTY -->
+
+                <div class="input-group">
+
+                    <label>
+                        التخصص
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-stethoscope"></i>
+
+                        <input
+                            type="text"
+                            id="registerDoctorSpecialty"
+                            placeholder="مثال: طب عام"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- WILAYA -->
+
+                <div class="input-group">
+
+                    <label>
+                        الولاية
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <input
+                            type="text"
+                            id="registerDoctorWilaya"
+                            placeholder="مثال: غليزان"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- MUNICIPALITY -->
+
+                <div class="input-group">
+
+                    <label>
+                        البلدية
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-map-location-dot"></i>
+
+                        <input
+                            type="text"
+                            id="registerDoctorMunicipality"
+                            placeholder="مثال: جديوية"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="input-group">
+
+                    <label>
+                        رقم الهاتف
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        <input
+                            type="tel"
+                            id="registerDoctorPhone"
+                            placeholder="مثال: 0550123456"
+                            autocomplete="tel"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- WHATSAPP -->
+
+                <div class="input-group">
+
+                    <label>
+                        رقم واتساب
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-brands fa-whatsapp"></i>
+
+                        <input
+                            type="tel"
+                            id="registerDoctorWhatsapp"
+                            placeholder="يمكن تركه فارغاً"
+                            autocomplete="tel"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- DURATION -->
+
+                <div class="input-group">
+
+                    <label>
+                        مدة الموعد بالدقائق
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        <input
+                            type="number"
+                            id="registerDoctorDuration"
+                            value="15"
+                            min="5"
+                            max="120"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="input-group">
+
+                    <label>
+                        كلمة المرور
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="registerDoctorPassword"
+                            placeholder="أنشئ كلمة مرور"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="input-group">
+
+                    <label>
+                        تأكيد كلمة المرور
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        <input
+                            type="password"
+                            id="registerDoctorPasswordConfirm"
+                            placeholder="أعد كتابة كلمة المرور"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="doctorRegistrationMessage"
+                class="login-message"
+                style="
+                    margin-top:16px;
+                "
+            ></div>
+
+
+            <!-- ACTIONS -->
+
+            <div
+                style="
+                    display:flex;
+                    gap:10px;
+                    margin-top:18px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="doctorRegistrationButton"
+                    style="
+                        flex:1;
+                        min-width:180px;
+                        background:
+                            linear-gradient(
+                                135deg,
+                                var(--gold),
+                                var(--gold-dark)
+                            );
+                    "
+                >
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    إرسال طلب التسجيل
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="login-button"
+                    onclick="closeDoctorRegistration()"
+                    style="
+                        flex:0 0 auto;
+                        min-width:130px;
+                        background:#eee;
+                        color:var(--purple-900);
+                    "
+                >
+
+                    إلغاء
+
+                </button>
+
+            </div>
+
+
+            <p
+                style="
+                    margin:16px 0 0;
+                    text-align:center;
+                    color:var(--muted);
+                    font-size:11px;
+                    line-height:1.8;
+                "
+            >
+                بعد إرسال الطلب، ستتم مراجعته من طرف إدارة منصة TABIBK.
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+    
 </body>
 
 </html>

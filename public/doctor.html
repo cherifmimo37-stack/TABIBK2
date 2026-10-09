@@ -6807,7 +6807,7 @@ padding: 24px 14px;
 #doctorRegistrationModal form {
     padding: 18px !important;
 }
-```
+
 
 }
 
@@ -6818,15 +6818,142 @@ padding: 24px 14px;
 transition: none;
 }
 
-```
+
 #loginScreen .brand-logo:hover,
 #loginScreen .login-button:hover {
     transform: none;
 }
-```
+
 
 }
 
+    
+/* =========================================================
+   TABIBK — PREMIUM LOGIN LINKS & REGISTRATION BUTTON
+========================================================= */
+
+#loginScreen .forgot-password-row {
+    display: flex;
+    justify-content: flex-start;
+    margin: -5px 0 18px;
+}
+
+#loginScreen .forgot-password-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 0;
+    border: 0;
+    background: transparent;
+    color: var(--purple-800);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: color .2s ease;
+}
+
+#loginScreen .forgot-password-link:hover {
+    color: var(--gold-dark);
+}
+
+#loginScreen .login-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 19px 0 14px;
+}
+
+#loginScreen .login-divider span {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(201, 151, 50, .55),
+        transparent
+    );
+}
+
+#loginScreen .login-divider small {
+    color: #8c7b94;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+#loginScreen .register-doctor-button {
+    width: 100%;
+    min-height: 66px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 13px;
+    border: 1px solid rgba(201, 151, 50, .55);
+    border-radius: 17px;
+    background: linear-gradient(135deg, #fffaf0, #f8edcf);
+    color: var(--purple-900);
+    font-family: inherit;
+    text-align: right;
+    cursor: pointer;
+    box-shadow: 0 7px 20px rgba(112, 79, 24, .08);
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+#loginScreen .register-doctor-button:hover {
+    transform: translateY(-2px);
+    border-color: var(--gold);
+    box-shadow: 0 11px 25px rgba(112, 79, 24, .14);
+}
+
+#loginScreen .register-doctor-icon {
+    width: 43px;
+    height: 43px;
+    flex: 0 0 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: linear-gradient(145deg, #f0d995, #d1a13b);
+    color: #49245e;
+    font-size: 18px;
+}
+
+#loginScreen .register-doctor-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+#loginScreen .register-doctor-text strong {
+    font-size: 13px;
+    font-weight: 900;
+}
+
+#loginScreen .register-doctor-text small {
+    color: #786582;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+#loginScreen .register-doctor-arrow {
+    color: #9b7626;
+    font-size: 13px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #loginScreen .forgot-password-link,
+    #loginScreen .register-doctor-button {
+        transition: none;
+    }
+
+    #loginScreen .register-doctor-button:hover {
+        transform: none;
+    }
+}
     
 </style>
 
@@ -6967,29 +7094,35 @@ transition: none;
                     class="login-message"
                 ></div>
 
-                <!-- =====================================================
-     DOCTOR REGISTRATION
+```html
+<!-- =====================================================
+     DOCTOR REGISTRATION — PREMIUM BUTTON
 ===================================================== -->
+
+<div class="login-divider">
+    <span></span>
+    <small>أو</small>
+    <span></span>
+</div>
 
 <button
     type="button"
-    class="login-button"
+    class="register-doctor-button"
     onclick="openDoctorRegistration()"
-    style="
-        margin-top:12px;
-        background:linear-gradient(
-            135deg,
-            var(--gold),
-            var(--gold-dark)
-        );
-    "
 >
+    <span class="register-doctor-icon">
+        <i class="fa-solid fa-user-doctor"></i>
+    </span>
 
-    <i class="fa-solid fa-user-plus"></i>
+    <span class="register-doctor-text">
+        <strong>تسجيل طبيب جديد</strong>
+        <small>انضم إلى منصة طبيبك</small>
+    </span>
 
-    تسجيل طبيب جديد
-
+    <i class="fa-solid fa-arrow-left register-doctor-arrow"></i>
 </button>
+```
+
 
             </form>
 

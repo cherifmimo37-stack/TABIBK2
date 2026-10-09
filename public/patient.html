@@ -1345,6 +1345,125 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 <main class="container">
 
 
+/* ==========================================
+   TABIBK — AUTO ROTATING PATIENT ADS
+========================================== */
+(() => {
+    const card = document.getElementById("tabibkAdCard");
+    if (!card || card.dataset.initialized === "true") return;
+    card.dataset.initialized = "true";
+
+    const ads = [
+        {
+            tag: "صحتكم تهمنا",
+            title: "خدمات صحية أقرب إليكم",
+            description: "اكتشفوا الخدمات الطبية المتوفرة عبر منصة طبيبك.",
+            image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=700&q=80",
+            alt: "خدمات صحية",
+            link: "#"
+        },
+        {
+            tag: "رعاية صحية",
+            title: "اهتموا بصحتكم كل يوم",
+            description: "اختاروا الخدمة الطبية المناسبة لكم بكل سهولة.",
+            image: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=700&q=80",
+            alt: "رعاية طبية",
+            link: "#"
+        },
+        {
+            tag: "مع طبيبك",
+            title: "رحلتكم الصحية تبدأ هنا",
+            description: "تابعوا جديد الخدمات والعروض الصحية عبر منصتنا.",
+            image: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=700&q=80",
+            alt: "خدمات الرعاية الصحية",
+            link: "#"
+        }
+    ];
+
+    const title = document.getElementById("tabibkAdTitle");
+    const description = document.getElementById("tabibkAdDescription");
+    const tag = document.getElementById("tabibkAdTag");
+    const image = document.getElementById("tabibkAdImage");
+    const link = document.getElementById("tabibkAdLink");
+    const counter = document.getElementById("tabibkAdCounter");
+    const dots = [...document.querySelectorAll("#tabibkAdDots button")];
+    const content = card.querySelector(".tabibk-ad-text");
+
+    if (!title || !description || !tag || !image || !link || !counter) return;
+
+    let current = 0;
+    let timer = null;
+
+    function showAd(index) {
+        current = (index + ads.length) % ads.length;
+        const ad = ads[current];
+
+        title.textContent = ad.title;
+        description.textContent = ad.description;
+        tag.textContent = ad.tag;
+        image.src = ad.image;
+        image.alt = ad.alt;
+        link.href = ad.link;
+        counter.textContent =
+            String(current + 1).padStart(2, "0") +
+            " / " +
+            String(ads.length).padStart(2, "0");
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === current);
+            dot.setAttribute("aria-current", i === current ? "true" : "false");
+        });
+
+        if (content) {
+            content.style.animation = "none";
+            void content.offsetWidth;
+            content.style.animation = "";
+        }
+    }
+
+    function stopTimer() {
+        if (timer) clearInterval(timer);
+        timer = null;
+    }
+
+    function startTimer() {
+        stopTimer();
+        if (!document.hidden) {
+            timer = setInterval(() => showAd(current + 1), 6000);
+        }
+    }
+
+    document.getElementById("tabibkAdPrev")?.addEventListener("click", () => {
+        showAd(current - 1);
+        startTimer();
+    });
+
+    document.getElementById("tabibkAdNext")?.addEventListener("click", () => {
+        showAd(current + 1);
+        startTimer();
+    });
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+            showAd(i);
+            startTimer();
+        });
+    });
+
+    card.addEventListener("mouseenter", stopTimer);
+    card.addEventListener("mouseleave", startTimer);
+    card.addEventListener("focusin", stopTimer);
+    card.addEventListener("focusout", startTimer);
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) stopTimer();
+        else startTimer();
+    });
+
+    showAd(0);
+    startTimer();
+})();
+      
     <!-- =================================================
          TABS
          ================================================= -->

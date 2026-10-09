@@ -5982,6 +5982,19 @@ select{
 
 }
 
+    
+/* إزالة الإطار الداخلي من اختيار الجنس */
+#doctorRegistrationModal select,
+#doctorRegistrationModal select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+#doctorRegistrationModal select:focus-visible {
+    outline: 2px solid rgba(201, 151, 50, .65) !important;
+    outline-offset: 2px;
+}
+    
 </style>
 
 

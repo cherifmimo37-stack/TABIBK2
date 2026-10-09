@@ -6636,6 +6636,198 @@ body{
     }
 }
 
+    /* =========================================================
+TABIBK — PREMIUM DOCTOR LOGIN & REGISTRATION
+Purple + Gold | Visual improvements only
+========================================================= */
+
+/* ---------- LOGIN BACKGROUND ---------- */
+#loginScreen {
+isolation: isolate;
+background:
+radial-gradient(
+ellipse at 50% 8%,
+rgba(232, 199, 107, .16),
+transparent 42%
+),
+radial-gradient(
+ellipse at 8% 90%,
+rgba(141, 79, 192, .24),
+transparent 38%
+),
+linear-gradient(
+135deg,
+#281039 0%,
+#482061 48%,
+#321047 100%
+);
+}
+
+/* ---------- BRAND LOGO ---------- */
+#loginScreen .brand-logo {
+width: 86px;
+height: 86px;
+border-radius: 27px;
+background: linear-gradient(
+145deg,
+#f7e4a5,
+#d4a63f 58%,
+#a87520
+);
+box-shadow:
+0 12px 30px rgba(0, 0, 0, .22),
+0 0 0 7px rgba(255, 255, 255, .045);
+transition: transform .25s ease;
+}
+
+#loginScreen .brand-logo:hover {
+transform: translateY(-3px);
+}
+
+#loginScreen .brand-login h1 {
+margin: 0;
+color: #fff8e8;
+letter-spacing: 2px;
+text-shadow: 0 3px 18px rgba(0, 0, 0, .18);
+}
+
+#loginScreen .brand-login p {
+color: #eee2f5;
+line-height: 1.9;
+}
+
+/* ---------- LOGIN CARD ---------- */
+#loginScreen .login-card {
+border: 1px solid rgba(232, 199, 107, .72);
+box-shadow:
+0 28px 75px rgba(15, 3, 25, .34),
+0 0 0 1px rgba(255, 255, 255, .22) inset;
+}
+
+/* ---------- LOGIN INPUTS ---------- */
+#loginScreen .input-box {
+min-width: 0;
+border-color: #e5dce9;
+background: #fff;
+}
+
+#loginScreen .input-box:focus-within {
+border-color: var(--gold);
+box-shadow: 0 0 0 3px rgba(201, 151, 50, .13);
+}
+
+#loginScreen .input-box input,
+#loginScreen .input-box select {
+min-width: 0;
+}
+
+/* ---------- LOGIN BUTTON ---------- */
+#loginScreen .login-button {
+cursor: pointer;
+background: linear-gradient(
+120deg,
+var(--purple-900),
+var(--purple-700),
+var(--purple)
+);
+box-shadow: 0 10px 24px rgba(74, 29, 105, .23);
+}
+
+#loginScreen .login-button:hover:not(:disabled) {
+filter: brightness(1.06);
+}
+
+#loginScreen .login-button:focus-visible,
+#loginScreen .password-toggle:focus-visible {
+outline: 2px solid var(--gold);
+outline-offset: 3px;
+}
+
+/* ---------- DOCTOR REGISTRATION MODAL ---------- */
+#doctorRegistrationModal {
+backdrop-filter: blur(10px);
+}
+
+#doctorRegistrationModal .input-box {
+border-radius: 14px;
+border-color: #e5dce9;
+background: #fff;
+}
+
+#doctorRegistrationModal .input-box:focus-within {
+border-color: var(--gold);
+box-shadow: 0 0 0 3px rgba(201, 151, 50, .12);
+}
+
+#doctorRegistrationModal .input-box input,
+#doctorRegistrationModal .input-box select {
+width: 100%;
+min-width: 0;
+font-size: 14px;
+}
+
+#doctorRegistrationModal .login-button {
+min-height: 50px;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 480px) {
+#loginScreen {
+padding: 24px 14px;
+}
+
+```
+#loginScreen .brand-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 22px;
+}
+
+#loginScreen .brand-login {
+    margin-bottom: 18px;
+}
+
+#loginScreen .brand-login h1 {
+    font-size: 29px;
+}
+
+#loginScreen .login-card {
+    padding: 25px 19px;
+    border-radius: 24px;
+}
+
+#loginScreen .login-title h2 {
+    font-size: 21px;
+}
+
+#doctorRegistrationModal {
+    padding: 12px !important;
+}
+
+#doctorRegistrationModal form {
+    padding: 18px !important;
+}
+```
+
+}
+
+/* ---------- REDUCED MOTION ---------- */
+@media (prefers-reduced-motion: reduce) {
+#loginScreen .brand-logo,
+#loginScreen .login-button {
+transition: none;
+}
+
+```
+#loginScreen .brand-logo:hover,
+#loginScreen .login-button:hover {
+    transform: none;
+}
+```
+
+}
+
+    
 </style>
 
 </head>

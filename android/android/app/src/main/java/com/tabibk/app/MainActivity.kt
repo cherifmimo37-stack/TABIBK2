@@ -1,4 +1,3 @@
-```kotlin
 package com.tabibk.app
 
 import android.media.AudioManager

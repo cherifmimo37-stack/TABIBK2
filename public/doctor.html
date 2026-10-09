@@ -5982,17 +5982,23 @@ select{
 
 }
 
-    
-/* إزالة الإطار الداخلي من اختيار الجنس */
-#doctorRegistrationModal select,
-#doctorRegistrationModal select:focus {
+   
+/* TABIBK — إزالة الإطار الداخلي لحقل الجنس */
+#doctorRegistrationModal .input-box:has(select:focus),
+#doctorRegistrationModal .input-box:focus-within {
     outline: none !important;
     box-shadow: none !important;
 }
 
-#doctorRegistrationModal select:focus-visible {
-    outline: 2px solid rgba(201, 151, 50, .65) !important;
-    outline-offset: 2px;
+#doctorRegistrationModal .input-box select,
+#doctorRegistrationModal .input-box select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* الحفاظ على حدود الحقل الخارجية */
+#doctorRegistrationModal .input-box {
+    outline: none !important;
 }
     
 </style>

@@ -5483,13 +5483,20 @@ specialty:
                     ) || 15,
 
                 status:
-                    document
-                        .getElementById(
-                            "doctorStatus"
-                        )
-                        .value
+document
+.getElementById(
+"doctorStatus"
+)
+.value,
 
-            };
+active:
+document
+.getElementById(
+"doctorStatus"
+)
+.value === "active"
+
+};
 
             const password =
                 document

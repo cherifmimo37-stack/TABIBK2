@@ -1271,365 +1271,63 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .doctor-info.show{
     display:flex !important;
 }    
-
-    
-/* =========================================================
-   TABIBK — PREMIUM PATIENT ADVERTISEMENT CARD
-   Purple + Gold | Responsive | Patient Interface
-========================================================= */
-
-.tabibk-ad-card {
-    position: relative;
-    width: 100%;
-    margin: 0 auto 26px;
-    overflow: hidden;
-    border-radius: 24px;
-    border: 1px solid rgba(196, 155, 66, 0.32);
-    background:
-        radial-gradient(
-            ellipse at 8% 5%,
-            rgba(218, 185, 103, 0.15),
-            transparent 42%
-        ),
-        linear-gradient(
-            135deg,
-            #ffffff 0%,
-            #faf7fc 52%,
-            #f2eaf8 100%
-        );
-    box-shadow:
-        0 12px 34px rgba(54, 23, 71, 0.09),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    color: #352044;
-    direction: rtl;
-    isolation: isolate;
-}
-
-.tabibk-ad-card,
-.tabibk-ad-card * {
-    box-sizing: border-box;
-}
-
-.tabibk-ad-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 16px 22px 10px;
-}
-
-.tabibk-ad-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #65417b;
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.tabibk-ad-label i {
-    color: #b58a32;
-    font-size: 15px;
-}
-
-.tabibk-ad-counter {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 62px;
-    padding: 6px 10px;
-    border: 1px solid rgba(181, 138, 50, 0.28);
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    color: #795b22;
-    font-size: 11px;
-    font-weight: 800;
-    direction: ltr;
-}
-
-.tabibk-ad-content {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.9fr);
-    align-items: center;
-    gap: 24px;
-    padding: 10px 22px 20px;
-}
-
-.tabibk-ad-text {
-    min-width: 0;
-    animation: tabibkAdTextIn 0.45s ease both;
-}
-
-.tabibk-ad-tag {
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 12px;
-    padding: 7px 12px;
-    border: 1px solid rgba(181, 138, 50, 0.25);
-    border-radius: 30px;
-    background: rgba(218, 185, 103, 0.13);
-    color: #87651f;
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.tabibk-ad-text h3 {
-    margin: 0 0 12px;
-    color: #392048;
-    font-size: clamp(20px, 2.4vw, 29px);
-    font-weight: 900;
-    line-height: 1.55;
-    overflow-wrap: anywhere;
-}
-
-.tabibk-ad-text p {
-    margin: 0 0 20px;
-    color: #706579;
-    font-size: 14px;
-    line-height: 1.9;
-    overflow-wrap: anywhere;
-}
-
-.tabibk-ad-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 44px;
-    padding: 12px 19px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 13px;
-    background: linear-gradient(135deg, #603879, #432353);
-    box-shadow: 0 7px 18px rgba(67, 35, 83, 0.2);
-    color: #ffffff !important;
-    font-size: 13px;
-    font-weight: 800;
-    text-decoration: none !important;
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.tabibk-ad-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 23px rgba(67, 35, 83, 0.28);
-}
-
-.tabibk-ad-button i {
-    color: #e5c778;
-}
-
-.tabibk-ad-image-wrap {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-    border: 1px solid rgba(181, 138, 50, 0.26);
-    border-radius: 19px;
-    background: #eee6f3;
-    box-shadow: 0 10px 25px rgba(53, 16, 68, 0.12);
-}
-
-.tabibk-ad-image-wrap img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: transform 0.6s ease;
-}
-
-.tabibk-ad-card:hover .tabibk-ad-image-wrap img {
-    transform: scale(1.035);
-}
-
-.tabibk-ad-image-overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(
-        135deg,
-        rgba(54, 23, 71, 0.04),
-        rgba(54, 23, 71, 0.22)
-    );
-}
-
-.tabibk-ad-watermark {
-    position: absolute;
-    right: 14px;
-    bottom: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 39px;
-    height: 39px;
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    border-radius: 13px;
-    background: rgba(54, 23, 71, 0.76);
-    color: #e5c778;
-    font-size: 19px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-}
-
-.tabibk-ad-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    min-height: 48px;
-    padding: 10px 18px 15px;
-}
-
-.tabibk-ad-footer > button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    border: 1px solid rgba(181, 138, 50, 0.3);
-    border-radius: 50%;
-    background: #ffffff;
-    color: #57316b;
-    cursor: pointer;
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.tabibk-ad-footer > button:hover {
-    transform: scale(1.06);
-    background: #57316b;
-    color: #ffffff;
-}
-
-.tabibk-ad-dots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-}
-
-.tabibk-ad-dots button {
-    width: 8px;
-    height: 8px;
-    padding: 0;
-    border: 0;
-    border-radius: 20px;
-    background: rgba(87, 49, 107, 0.24);
-    cursor: pointer;
-    transition:
-        width 0.25s ease,
-        background 0.25s ease;
-}
-
-.tabibk-ad-dots button.active {
-    width: 23px;
-    background: #b58a32;
-}
-
-@keyframes tabibkAdTextIn {
-    from {
-        opacity: 0;
-        transform: translateY(7px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ---------- TABLETS ---------- */
-@media (max-width: 760px) {
-    .tabibk-ad-content {
-        grid-template-columns: minmax(0, 1fr) minmax(170px, 0.85fr);
-        gap: 16px;
-        padding-right: 16px;
-        padding-left: 16px;
-    }
-
-    .tabibk-ad-image-wrap {
-        height: 200px;
-    }
-
-    .tabibk-ad-text h3 {
-        font-size: 21px;
-    }
-
-    .tabibk-ad-text p {
-        font-size: 13px;
-    }
-}
-
-/* ---------- MOBILE ---------- */
-@media (max-width: 560px) {
-    .tabibk-ad-card {
-        margin-bottom: 20px;
-        border-radius: 19px;
-    }
-
-    .tabibk-ad-top {
-        padding: 13px 14px 8px;
-    }
-
-    .tabibk-ad-content {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 15px;
-        padding: 8px 14px 14px;
-    }
-
-    .tabibk-ad-text {
-        grid-row: 2;
-    }
-
-    .tabibk-ad-image-wrap {
-        grid-row: 1;
-        height: 175px;
-        border-radius: 15px;
-    }
-
-    .tabibk-ad-tag {
-        margin-bottom: 8px;
-        padding: 6px 10px;
-        font-size: 11px;
-    }
-
-    .tabibk-ad-text h3 {
-        margin-bottom: 8px;
-        font-size: 21px;
-        line-height: 1.5;
-    }
-
-    .tabibk-ad-text p {
-        margin-bottom: 14px;
-        font-size: 13px;
-        line-height: 1.8;
-    }
-
-    .tabibk-ad-button {
-        min-height: 42px;
-        padding: 11px 16px;
-    }
-
-    .tabibk-ad-footer {
-        gap: 15px;
-        min-height: 43px;
-        padding: 4px 14px 13px;
-    }
-}
-
-/* ---------- REDUCED MOTION ---------- */
-@media (prefers-reduced-motion: reduce) {
-    .tabibk-ad-card *,
-    .tabibk-ad-card *::before,
-    .tabibk-ad-card *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-    }
-}
       
+
+
+/* =========================================================
+   TABIBK — PREMIUM PATIENT ADVERTISEMENT SLIDER
+   Isolated styles: does not alter booking or tracking UI
+========================================================= */
+.tabibk-ad-card{
+    position:relative;
+    overflow:hidden;
+    margin:0 0 22px;
+    border:1px solid rgba(199,154,50,.38);
+    border-radius:25px;
+    background:radial-gradient(circle at 8% 8%,rgba(233,196,93,.16),transparent 30%),linear-gradient(135deg,#fffdf8 0%,#fff 48%,#f7eefb 100%);
+    box-shadow:0 16px 38px rgba(42,10,58,.10),inset 0 1px 0 rgba(255,255,255,.95);
+    isolation:isolate;
+}
+.tabibk-ad-card::before{
+    content:"";position:absolute;inset:7px;border:1px solid rgba(199,154,50,.13);border-radius:19px;pointer-events:none;z-index:-1;
+}
+.tabibk-ad-top,.tabibk-ad-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 20px;}
+.tabibk-ad-top{padding-bottom:8px;}
+.tabibk-ad-label{display:inline-flex;align-items:center;gap:8px;color:#5a2870;font-size:11px;font-weight:900;}
+.tabibk-ad-label i{color:#c79a32;font-size:14px;}
+.tabibk-ad-counter{padding:5px 10px;border:1px solid rgba(199,154,50,.25);border-radius:20px;background:#fff8df;color:#85631a;font-size:10px;font-weight:900;direction:ltr;}
+.tabibk-ad-content{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(220px,.95fr);align-items:stretch;gap:20px;padding:8px 20px 14px;}
+.tabibk-ad-text{align-self:center;min-width:0;padding:8px 0;animation:tabibkAdTextIn .35s ease both;}
+.tabibk-ad-tag{display:inline-flex;padding:6px 11px;border-radius:20px;background:#f4eafa;color:#6d2389;font-size:10px;font-weight:900;}
+.tabibk-ad-text h3{margin:12px 0 7px;color:#351044;font-size:clamp(19px,2.5vw,27px);font-weight:900;line-height:1.5;}
+.tabibk-ad-text p{max-width:470px;color:#786b80;font-size:12px;line-height:1.9;}
+.tabibk-ad-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;margin-top:16px;padding:11px 17px;border:1px solid rgba(199,154,50,.48);border-radius:13px;background:linear-gradient(135deg,#f7db79,#c79a32,#b98721);box-shadow:0 8px 20px rgba(199,154,50,.20);color:#2b1037;text-decoration:none;font-family:inherit;font-size:11px;font-weight:900;transition:transform .2s,box-shadow .2s;}
+.tabibk-ad-button:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(199,154,50,.28);}
+.tabibk-ad-image-wrap{position:relative;min-height:205px;overflow:hidden;border:2px solid rgba(199,154,50,.24);border-radius:20px;background:linear-gradient(135deg,#f3e7f8,#fff4cf);box-shadow:0 12px 28px rgba(53,16,68,.12);}
+.tabibk-ad-image-wrap img{display:block;width:100%;height:100%;min-height:205px;max-height:255px;object-fit:cover;}
+.tabibk-ad-image-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(38,10,51,.18),transparent 65%);pointer-events:none;}
+.tabibk-ad-watermark{position:absolute;left:13px;bottom:12px;display:grid;place-items:center;width:37px;height:37px;border:1px solid rgba(255,255,255,.65);border-radius:13px;background:rgba(53,16,68,.78);color:#f5d878;font-size:17px;box-shadow:0 5px 15px rgba(0,0,0,.12);}
+.tabibk-ad-footer{justify-content:center;padding-top:0;}
+.tabibk-ad-footer>button{display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(199,154,50,.32);border-radius:11px;background:#fff;color:#5a2870;cursor:pointer;transition:background .2s,transform .2s;}
+.tabibk-ad-footer>button:hover{background:#fff5d6;transform:translateY(-1px);}
+.tabibk-ad-dots{display:flex;align-items:center;justify-content:center;gap:7px;}
+.tabibk-ad-dots button{width:8px;height:8px;padding:0;border:0;border-radius:20px;background:#d8c9df;cursor:pointer;transition:width .2s,background .2s;}
+.tabibk-ad-dots button.active{width:23px;background:#c79a32;}
+@keyframes tabibkAdTextIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){
+ .tabibk-ad-card{margin-bottom:16px;border-radius:21px;}
+ .tabibk-ad-top,.tabibk-ad-footer{padding-left:14px;padding-right:14px;}
+ .tabibk-ad-content{grid-template-columns:1fr;gap:13px;padding:5px 14px 12px;}
+ .tabibk-ad-text{order:2;padding:0 2px 3px;}
+ .tabibk-ad-image-wrap{order:1;min-height:145px;max-height:175px;}
+ .tabibk-ad-image-wrap img{min-height:145px;max-height:175px;}
+ .tabibk-ad-text h3{margin-top:9px;font-size:20px;}
+ .tabibk-ad-text p{font-size:11px;}
+ .tabibk-ad-button{margin-top:12px;padding:10px 14px;}
+ .tabibk-ad-footer{padding-bottom:13px;}
+}
+@media(prefers-reduced-motion:reduce){.tabibk-ad-card *, .tabibk-ad-card *::before,.tabibk-ad-card *::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+
 </style>
 
 </head>
@@ -1702,63 +1400,39 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
 <main class="container">
 
-      ```html
-<!-- TABIBK — PATIENT ADVERTISEMENT CARD -->
-<section class="tabibk-ad-card" id="tabibkAdCard" aria-label="مساحة إعلانية">
-
+<!-- =====================================================
+     TABIBK — PATIENT ADVERTISEMENT SLIDER
+     ===================================================== -->
+<section class="tabibk-ad-card" id="tabibkAdCard" aria-label="مساحة إعلانية" aria-roledescription="عارض إعلانات">
     <div class="tabibk-ad-top">
-        <span class="tabibk-ad-label">
-            <i class="fa-solid fa-bullhorn"></i>
-            مساحة إعلانية
-        </span>
-        <span class="tabibk-ad-counter" id="tabibkAdCounter">01 / 03</span>
+        <span class="tabibk-ad-label"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i> مساحة إعلانية</span>
+        <span class="tabibk-ad-counter" id="tabibkAdCounter" aria-live="polite">01 / 03</span>
     </div>
-
     <div class="tabibk-ad-content">
         <div class="tabibk-ad-text">
             <span class="tabibk-ad-tag" id="tabibkAdTag">صحتكم تهمنا</span>
             <h3 id="tabibkAdTitle">خدمات صحية أقرب إليكم</h3>
-            <p id="tabibkAdDescription">
-                اكتشفوا الخدمات الطبية المتوفرة عبر منصة طبيبك.
-            </p>
-            <a href="#" class="tabibk-ad-button" id="tabibkAdLink"
-               target="_blank" rel="noopener noreferrer">
-                اكتشف المزيد
-                <i class="fa-solid fa-arrow-left"></i>
-            </a>
+            <p id="tabibkAdDescription">اكتشفوا الخدمات الطبية المتوفرة عبر منصة طبيبك.</p>
+            <a href="#" class="tabibk-ad-button" id="tabibkAdLink">اكتشف المزيد <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a>
         </div>
-
         <div class="tabibk-ad-image-wrap">
-            <img
-                id="tabibkAdImage"
-                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=700&q=80"
-                alt="خدمات صحية"
-                loading="lazy"
-            >
-            <div class="tabibk-ad-image-overlay"></div>
-            <i class="fa-solid fa-heart-pulse tabibk-ad-watermark"></i>
+            <img id="tabibkAdImage" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="خدمات صحية" loading="lazy" decoding="async">
+            <div class="tabibk-ad-image-overlay" aria-hidden="true"></div>
+            <i class="fa-solid fa-heart-pulse tabibk-ad-watermark" aria-hidden="true"></i>
         </div>
     </div>
-
-    <div class="tabibk-ad-footer">
-        <button type="button" id="tabibkAdPrev" aria-label="الإعلان السابق">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-
+    <div class="tabibk-ad-footer" aria-label="التنقل بين الإعلانات">
+        <button type="button" id="tabibkAdPrev" aria-label="الإعلان السابق"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
         <div class="tabibk-ad-dots" id="tabibkAdDots">
-            <button type="button" class="active" aria-label="الإعلان الأول"></button>
-            <button type="button" aria-label="الإعلان الثاني"></button>
-            <button type="button" aria-label="الإعلان الثالث"></button>
+            <button type="button" class="active" aria-label="الإعلان الأول" aria-current="true"></button>
+            <button type="button" aria-label="الإعلان الثاني" aria-current="false"></button>
+            <button type="button" aria-label="الإعلان الثالث" aria-current="false"></button>
         </div>
-
-        <button type="button" id="tabibkAdNext" aria-label="الإعلان التالي">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
+        <button type="button" id="tabibkAdNext" aria-label="الإعلان التالي"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
     </div>
-
 </section>
-<!-- END PATIENT ADVERTISEMENT CARD -->
-```
+<!-- END PATIENT ADVERTISEMENT SLIDER -->
+
 
 
     <!-- =================================================
@@ -5298,21 +4972,21 @@ window.addEventListener(
 );
 
 
-
- 
- // Prime the notification audio after the first user gesture.
+// Prime the notification audio after the first user gesture.
 document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true,passive:true});
 </script>
+
 
 
 <script>
 /* =========================================================
    TABIBK — PATIENT ADVERTISEMENT SLIDER
-   Auto rotation + navigation + dots
+   Isolated from booking and tracking functionality
 ========================================================= */
-
 (function () {
     "use strict";
+    const card = document.getElementById("tabibkAdCard");
+    if (!card || card.dataset.initialized === "true") return;
 
     const image = document.getElementById("tabibkAdImage");
     const tag = document.getElementById("tabibkAdTag");
@@ -5323,142 +4997,60 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
     const dotsContainer = document.getElementById("tabibkAdDots");
     const prevButton = document.getElementById("tabibkAdPrev");
     const nextButton = document.getElementById("tabibkAdNext");
-    const card = document.getElementById("tabibkAdCard");
-
-    if (
-        !image || !tag || !title || !description ||
-        !link || !counter || !dotsContainer ||
-        !prevButton || !nextButton || !card
-    ) {
-        return;
-    }
+    if (!image || !tag || !title || !description || !link || !counter || !dotsContainer || !prevButton || !nextButton) return;
+    card.dataset.initialized = "true";
 
     const ads = [
-        {
-            tag: "صحتكم تهمنا",
-            title: "خدمات صحية أقرب إليكم",
-            description:
-                "اكتشفوا الخدمات الطبية المتوفرة عبر منصة طبيبك.",
-            image:
-                "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=700&q=80",
-            alt: "خدمات صحية",
-            url: "#"
-        },
-        {
-            tag: "رعاية أفضل",
-            title: "اهتم بصحتك ووقتك",
-            description:
-                "تابعوا مواعيدكم الطبية بسهولة من خلال واجهة المريض.",
-            image:
-                "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=700&q=80",
-            alt: "رعاية طبية",
-            url: "#"
-        },
-        {
-            tag: "طبيبك معكم",
-            title: "رحلتك الصحية تبدأ هنا",
-            description:
-                "اكتشفوا تجربة حجز ومتابعة المواعيد عبر منصة طبيبك.",
-            image:
-                "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=700&q=80",
-            alt: "رعاية المرضى",
-            url: "#"
-        }
+        { tag: "صحتكم تهمنا", title: "خدمات صحية أقرب إليكم", description: "اكتشفوا الخدمات الطبية المتوفرة عبر منصة طبيبك.", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80", alt: "خدمات صحية", url: "#" },
+        { tag: "رعاية أفضل", title: "اهتم بصحتك ووقتك", description: "تابعوا مواعيدكم الطبية بسهولة من خلال واجهة المريض.", image: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=900&q=80", alt: "رعاية طبية", url: "#" },
+        { tag: "طبيبك معكم", title: "رحلتك الصحية تبدأ هنا", description: "اكتشفوا تجربة حجز ومتابعة المواعيد عبر منصة طبيبك.", image: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=900&q=80", alt: "رعاية المرضى", url: "#" }
     ];
-
     let currentIndex = 0;
     let timer = null;
-
-    const dots = Array.from(
-        dotsContainer.querySelectorAll("button")
-    );
+    const dots = Array.from(dotsContainer.querySelectorAll("button"));
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function showAd(index) {
         currentIndex = (index + ads.length) % ads.length;
-
         const ad = ads[currentIndex];
-
         tag.textContent = ad.tag;
         title.textContent = ad.title;
         description.textContent = ad.description;
-
         image.src = ad.image;
         image.alt = ad.alt;
-
         link.href = ad.url;
-
-        counter.textContent =
-            String(currentIndex + 1).padStart(2, "0") +
-            " / " +
-            String(ads.length).padStart(2, "0");
-
+        counter.textContent = String(currentIndex + 1).padStart(2, "0") + " / " + String(ads.length).padStart(2, "0");
         dots.forEach(function (dot, i) {
-            dot.classList.toggle(
-                "active",
-                i === currentIndex
-            );
-
-            dot.setAttribute(
-                "aria-current",
-                i === currentIndex ? "true" : "false"
-            );
+            const active = i === currentIndex;
+            dot.classList.toggle("active", active);
+            dot.setAttribute("aria-current", active ? "true" : "false");
         });
-
         const textBlock = card.querySelector(".tabibk-ad-text");
-
-        if (textBlock) {
+        if (textBlock && !reduceMotion) {
             textBlock.style.animation = "none";
             void textBlock.offsetWidth;
             textBlock.style.animation = "";
         }
     }
-
-    function stopAutoPlay() {
-        if (timer !== null) {
-            clearInterval(timer);
-            timer = null;
-        }
-    }
-
+    function stopAutoPlay() { if (timer !== null) { window.clearInterval(timer); timer = null; } }
     function startAutoPlay() {
         stopAutoPlay();
-
-        timer = setInterval(function () {
-            showAd(currentIndex + 1);
-        }, 6000);
+        if (!reduceMotion && !document.hidden) timer = window.setInterval(function () { showAd(currentIndex + 1); }, 6000);
     }
-
-    prevButton.addEventListener("click", function () {
-        showAd(currentIndex - 1);
-        startAutoPlay();
-    });
-
-    nextButton.addEventListener("click", function () {
-        showAd(currentIndex + 1);
-        startAutoPlay();
-    });
-
-    dots.forEach(function (dot, index) {
-        dot.addEventListener("click", function () {
-            showAd(index);
-            startAutoPlay();
-        });
-    });
-
+    prevButton.addEventListener("click", function () { showAd(currentIndex - 1); startAutoPlay(); });
+    nextButton.addEventListener("click", function () { showAd(currentIndex + 1); startAutoPlay(); });
+    dots.forEach(function (dot, index) { dot.addEventListener("click", function () { showAd(index); startAutoPlay(); }); });
     card.addEventListener("mouseenter", stopAutoPlay);
     card.addEventListener("mouseleave", startAutoPlay);
-
     card.addEventListener("focusin", stopAutoPlay);
-    card.addEventListener("focusout", function (event) {
-        if (!card.contains(event.relatedTarget)) {
-            startAutoPlay();
-        }
-    });
-
-        showAd(0);
+    card.addEventListener("focusout", function (event) { if (!card.contains(event.relatedTarget)) startAutoPlay(); });
+    document.addEventListener("visibilitychange", function () { if (document.hidden) stopAutoPlay(); else startAutoPlay(); });
+    image.addEventListener("error", function () { image.alt = "صورة توضيحية للخدمات الصحية"; });
+    showAd(0);
     startAutoPlay();
 })();
 </script>
 
 </body>
+
 </html>

@@ -1058,16 +1058,23 @@ function checkDoctorAuth(
             });
     }
 
+
     if (
-        doctor.active === false
+        doctor.active === false ||
+        doctor.status === "pending" ||
+        doctor.status === "rejected"
     ) {
+
+        doctor.online = false;
+
+        doctorSessions.delete(token);
 
         return res
             .status(403)
             .json({
                 success: false,
                 message:
-                    "حساب الطبيب غير مفعل"
+                    "حساب الطبيب غير مفعل أو لم تتم الموافقة عليه"
             });
     }
 
@@ -5230,13 +5237,23 @@ app.post(
 
 
             doctor.status =
-                "rejected";
+"rejected";
 
-            doctor.active =
-                false;
+doctor.active =
+false;
 
-            doctor.online =
-                false;
+doctor.online =
+false;
+
+// إلغاء جميع جلسات الطبيب عند رفضه
+for (const [token, session] of doctorSessions) {
+if (
+Number(session.doctorId) ===
+Number(doctor.id)
+) {
+doctorSessions.delete(token);
+}
+}
 
             doctor.rejectedAt =
                 new Date().toISOString();

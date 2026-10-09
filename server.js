@@ -5148,12 +5148,21 @@ app.post(
             doctor.active =
                 true;
 
-            doctor.online =
-                false;
+           doctor.online =
+    false;
 
-            doctor.approvedAt =
-                new Date().toISOString();
+// إلغاء الجلسات القديمة قبل تفعيل الحساب
+for (const [token, session] of doctorSessions) {
+    if (
+        Number(session.doctorId) ===
+        Number(doctor.id)
+    ) {
+        doctorSessions.delete(token);
+    }
+}
 
+doctor.approvedAt =
+    new Date().toISOString();
 
             saveDatabase(
                 database

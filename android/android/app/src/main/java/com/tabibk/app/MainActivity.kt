@@ -35,14 +35,57 @@ class MainActivity : AppCompatActivity() {
             visibility = View.INVISIBLE
 
             webViewClient = object : WebViewClient() {
-                override fun onPageFinished(
-                    view: WebView?,
-                    url: String?
-                ) {
-                    super.onPageFinished(view, url)
-                    webView.visibility = View.VISIBLE
-                    loadingScreen.visibility = View.GONE
-                }
+override fun onPageFinished(
+    view: WebView?,
+    url: String?
+) {
+    super.onPageFinished(view, url)
+
+    if (view == null) return
+
+    view.evaluateJavascript(
+        """
+        (function() {
+            return JSON.stringify({
+                title: document.title || '',
+                text: document.body
+                    ? document.body.innerText.substring(0, 4000)
+                    : '',
+                hasApp: !!document.querySelector(
+                    'header, #app, #root, .header, .header-content'
+                )
+            });
+        })();
+        """.trimIndent()
+    ) { result ->
+
+        if (result == null || result == "null") return@evaluateJavascript
+
+        val page = result.lowercase()
+
+        val isRenderWaiting =
+            page.contains("waking up") ||
+            page.contains("service is waking up") ||
+            page.contains("loading your service") ||
+            page.contains("taking longer than expected")
+
+        if (isRenderWaiting) {
+            loadingScreen.visibility = View.VISIBLE
+            webView.visibility = View.INVISIBLE
+
+            android.os.Handler(android.os.Looper.getMainLooper())
+                .postDelayed({
+                    if (!isFinishing) {
+                        webView.reload()
+                    }
+                }, 8000)
+
+        } else {
+            loadingScreen.visibility = View.GONE
+            webView.visibility = View.VISIBLE
+        }
+    }
+}
             }
         }
 

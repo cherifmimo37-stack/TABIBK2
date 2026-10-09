@@ -5359,14 +5359,12 @@ window.addEventListener(
 );
 
 
-// Prime the notification audio after the first user gesture.
+
+ // Prime the notification audio after the first user gesture.
 document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true,passive:true});
-</script>
 
 /* =========================================================
    TABIBK — PATIENT ADVERTISEMENT SLIDER
-   Auto rotation + navigation + dots
-========================================================= */
 
 (function () {
     "use strict";
@@ -5512,9 +5510,10 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
         }
     });
 
-    showAd(0);
+        showAd(0);
     startAutoPlay();
 })();
-</body>
+</script>
 
+</body>
 </html>

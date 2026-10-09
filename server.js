@@ -1855,30 +1855,30 @@ app.post(
                     });
             }
 
+            
             if (doctor.status === "pending") {
-    return res.status(403).json({
-        success: false,
-        message: "طلب التسجيل في انتظار موافقة الإدارة"
-    });
-}
+                return res.status(403).json({
+                    success: false,
+                    message: "طلب التسجيل في انتظار موافقة الإدارة"
+                });
+            }
 
-if (doctor.status === "rejected") {
-    return res.status(403).json({
-        success: false,
-        message: "تم رفض طلب تسجيل الطبيب من طرف الإدارة"
-    });
-}
+            if (doctor.status === "rejected") {
+                return res.status(403).json({
+                    success: false,
+                    message: "تم رفض طلب تسجيل الطبيب من طرف الإدارة"
+                });
+            }
 
-if (
-    doctor.status !== "approved" &&
-    doctor.active === false
-) {
-    return res.status(403).json({
-        success: false,
-        message: "حساب الطبيب غير مفعل"
-    });
-}
-
+            if (
+                doctor.status !== "approved" ||
+                doctor.active === false
+            ) {
+                return res.status(403).json({
+                    success: false,
+                    message: "حساب الطبيب غير مفعل أو لم تتم الموافقة عليه"
+                });
+            }
             const doctorPassword =
                 getDoctorPassword(
                     doctor

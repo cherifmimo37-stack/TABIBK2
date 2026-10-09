@@ -5982,24 +5982,32 @@ select{
 
 }
 
-   
-/* TABIBK — إزالة الإطار الداخلي لحقل الجنس */
-#doctorRegistrationModal .input-box:has(select:focus),
-#doctorRegistrationModal .input-box:focus-within {
-    outline: none !important;
+    
+/* TABIBK — FIX GENDER SELECT BLACK FRAME */
+#doctorRegistrationModal #registerDoctorGender {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    outline: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+}
+
+#doctorRegistrationModal #registerDoctorGender:focus,
+#doctorRegistrationModal #registerDoctorGender:focus-visible,
+#doctorRegistrationModal #registerDoctorGender:active {
+    outline: 0 !important;
+    border: 0 !important;
     box-shadow: none !important;
 }
 
-#doctorRegistrationModal .input-box select,
-#doctorRegistrationModal .input-box select:focus {
+/* منع إطار التركيز من الظهور على الحاوية */
+#doctorRegistrationModal .input-box:has(#registerDoctorGender:focus) {
     outline: none !important;
     box-shadow: none !important;
 }
-
-/* الحفاظ على حدود الحقل الخارجية */
-#doctorRegistrationModal .input-box {
-    outline: none !important;
-}
+    
     
 </style>
 
@@ -18538,7 +18546,7 @@ if (
 
 </script>
 
-    <!-- =======================================================
+<!-- =======================================================
      DOCTOR REGISTRATION MODAL
 ======================================================= -->
 

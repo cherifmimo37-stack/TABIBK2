@@ -15,10 +15,32 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Handler
+import android.os.Looper
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
+    private lateinit var loadingScreen: LinearLayout
+    private lateinit var message: TextView
+    private lateinit var progress: ProgressBar
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val executor = Executors.newSingleThreadExecutor()
+
+    private val websiteUrl = "https://tabibk2.onrender.com"
+    private var checking = false
+    private var openingWebsite = false
+    private var pageOpened = false
+
+    private val checkAgain = object : Runnable {
+        override fun run() {
+            checkServer()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,63 +51,95 @@ class MainActivity : AppCompatActivity() {
         val root = FrameLayout(this)
 
         webView = WebView(this).apply {
+            visibility = View.INVISIBLE
+
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.loadsImagesAutomatically = true
-            visibility = View.INVISIBLE
 
             webViewClient = object : WebViewClient() {
-override fun onPageFinished(
-    view: WebView?,
-    url: String?
-) {
-    super.onPageFinished(view, url)
 
-    if (view == null) return
+                override fun onPageFinished(
+                    view: WebView?,
+                    url: String?
+                ) {
+                    super.onPageFinished(view, url)
 
-    view.evaluateJavascript(
-        """
-        (function() {
-            return JSON.stringify({
-                title: document.title || '',
-                text: document.body
-                    ? document.body.innerText.substring(0, 4000)
-                    : '',
-                hasApp: !!document.querySelector(
-                    'header, #app, #root, .header, .header-content'
-                )
-            });
-        })();
-        """.trimIndent()
-    ) { result ->
-
-        if (result == null || result == "null") return@evaluateJavascript
-
-        val page = result.lowercase()
-
-        val isRenderWaiting =
-            page.contains("waking up") ||
-            page.contains("service is waking up") ||
-            page.contains("loading your service") ||
-            page.contains("taking longer than expected")
-
-        if (isRenderWaiting) {
-            loadingScreen.visibility = View.VISIBLE
-            webView.visibility = View.INVISIBLE
-
-            android.os.Handler(android.os.Looper.getMainLooper())
-                .postDelayed({
-                    if (!isFinishing) {
-                        webView.reload()
+                    if (view == null || pageOpened || isFinishing) {
+                        return
                     }
-                }, 8000)
 
-        } else {
-            loadingScreen.visibility = View.GONE
-            webView.visibility = View.VISIBLE
-        }
-    }
-}
+                    // Check that this is the actual TABIBK website,
+                    // not Render's waiting page.
+                    view.evaluateJavascript(
+                        """
+                        (function() {
+                            var text = (
+                                document.title + ' ' +
+                                (document.body
+                                    ? document.body.innerText
+                                    : '')
+                            ).toLowerCase();
+
+                            var waiting =
+                                text.includes('service waking up') ||
+                                text.includes('service is waking up') ||
+                                text.includes('application loading') ||
+                                text.includes('allocating compute resources') ||
+                                text.includes('preparing instance for initialization');
+
+                            var app =
+                                !!document.querySelector(
+                                    '.header-content, #doctorLogin, #patientLogin'
+                                ) ||
+                                text.includes('tabibk') ||
+                                text.includes('طبيبك');
+
+                            return JSON.stringify({
+                                waiting: waiting,
+                                app: app
+                            });
+                        })();
+                        """.trimIndent()
+                    ) { result ->
+
+                        if (pageOpened || isFinishing) return@evaluateJavascript
+
+                        val isWaiting =
+                            result?.contains("\"waiting\":true") == true
+
+                        val isApp =
+                            result?.contains("\"app\":true") == true
+
+                        if (isWaiting || !isApp) {
+                            webView.visibility = View.INVISIBLE
+                            loadingScreen.visibility = View.VISIBLE
+                            openingWebsite = false
+                            webView.stopLoading()
+                            scheduleCheck()
+                        } else {
+                            pageOpened = true
+                            loadingScreen.visibility = View.GONE
+                            webView.visibility = View.VISIBLE
+                        }
+                    }
+                }
+
+                override fun onReceivedError(
+                    view: WebView?,
+                    request: android.webkit.WebResourceRequest?,
+                    error: android.webkit.WebResourceError?
+                ) {
+                    super.onReceivedError(view, request, error)
+
+                    if (request?.isForMainFrame == true && !pageOpened) {
+                        webView.visibility = View.INVISIBLE
+                        loadingScreen.visibility = View.VISIBLE
+                        openingWebsite = false
+                        message.text = "جاري إعادة الاتصال بخدمات طبيبك..."
+                        scheduleCheck()
+                    }
+                }
             }
         }
 
@@ -98,6 +152,7 @@ override fun onPageFinished(
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
             setPadding(28, 30, 28, 30)
+
             background = GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 intArrayOf(
@@ -145,15 +200,15 @@ override fun onPageFinished(
             setTextColor(Color.rgb(237, 202, 119))
         }
 
-        val message = TextView(this).apply {
-            text = "جاري تحضير خدمات طبيبك..."
+        message = TextView(this).apply {
+            text = "جاري الاتصال بخدمات طبيبك..."
             textSize = 16f
             gravity = Gravity.CENTER
             setTextColor(Color.WHITE)
             setPadding(0, 32, 0, 22)
         }
 
-        val progress = ProgressBar(this).apply {
+        progress = ProgressBar(this).apply {
             isIndeterminate = true
             indeterminateTintList =
                 android.content.res.ColorStateList.valueOf(
@@ -162,7 +217,7 @@ override fun onPageFinished(
         }
 
         val footer = TextView(this).apply {
-            text = "رعايتك تبدأ هنا"
+            text = "نعتني بك، أينما كنت"
             textSize = 13f
             gravity = Gravity.CENTER
             setTextColor(Color.LTGRAY)
@@ -184,14 +239,103 @@ override fun onPageFinished(
 
         setContentView(root)
 
-        webView.loadUrl("https://tabibk2.onrender.com")
+        // Start checking without displaying Render's waiting page.
+        checkServer()
     }
 
-    private lateinit var loadingScreen: LinearLayout
+    private fun checkServer() {
+        if (checking || pageOpened || isFinishing) return
+
+        checking = true
+        message.text = "جاري الاتصال بخدمات طبيبك..."
+
+        executor.execute {
+            var ready = false
+
+            try {
+                val connection =
+                    URL(websiteUrl).openConnection() as HttpURLConnection
+
+                connection.requestMethod = "GET"
+                connection.connectTimeout = 15000
+                connection.readTimeout = 15000
+                connection.instanceFollowRedirects = true
+                connection.setRequestProperty(
+                    "User-Agent",
+                    "TABIBK-Android"
+                )
+
+                try {
+                    val code = connection.responseCode
+
+                    if (code in 200..299) {
+                        val stream = connection.inputStream
+                        val body = stream.bufferedReader().use {
+                            it.readText().take(500000)
+                        }.lowercase()
+
+                        val renderWaiting =
+                            body.contains("service waking up") ||
+                            body.contains("service is waking up") ||
+                            body.contains("application loading") ||
+                            body.contains("allocating compute resources") ||
+                            body.contains("preparing instance for initialization")
+
+                        val tabibkPage =
+                            body.contains("tabibk") ||
+                            body.contains("طبيبك") ||
+                            body.contains("header-content")
+
+                        ready = !renderWaiting && tabibkPage
+                    }
+                } finally {
+                    connection.disconnect()
+                }
+            } catch (_: Exception) {
+                ready = false
+            }
+
+            handler.post {
+                checking = false
+
+                if (isFinishing || pageOpened) return@post
+
+                if (ready) {
+                    if (!openingWebsite) {
+                        openingWebsite = true
+                        message.text = "تم الاتصال، جاري فتح طبيبك..."
+                        webView.loadUrl(websiteUrl)
+                    }
+                } else {
+                    message.text =
+                        "خدمات طبيبك تستعد للعمل، لحظات فقط..."
+
+                    scheduleCheck()
+                }
+            }
+        }
+    }
+
+    private fun scheduleCheck() {
+        handler.removeCallbacks(checkAgain)
+        handler.postDelayed(checkAgain, 8000)
+    }
+
+    override fun onDestroy() {
+        handler.removeCallbacksAndMessages(null)
+        executor.shutdownNow()
+
+        if (::webView.isInitialized) {
+            webView.stopLoading()
+            webView.destroy()
+        }
+
+        super.onDestroy()
+    }
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        if (::webView.isInitialized && webView.canGoBack()) {
+        if (::webView.isInitialized && pageOpened && webView.canGoBack()) {
             webView.goBack()
         } else {
             super.onBackPressed()

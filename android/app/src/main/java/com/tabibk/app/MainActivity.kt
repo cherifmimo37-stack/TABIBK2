@@ -2,14 +2,10 @@
 package com.tabibk.app
 
 import android.Manifest
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.graphics.Typeface
-import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -20,9 +16,8 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.firebase.messaging.FirebaseMessaging
@@ -31,27 +26,22 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
     private lateinit var splashView: View
+    private lateinit var introVideo: VideoView
 
     private var tabibkReady = false
     private var checkingPage = false
-
-    // صوت المقدمة وحركة الشعار
-    private var introPlayer: MediaPlayer? = null
-    private var logoPulseAnimator: AnimatorSet? = null
+    private var introFinished = false
+    private var activityDestroyed = false
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ============================================================
-        // FCM TOKEN
-        // ============================================================
-
+        // Firebase notifications token
         FirebaseMessaging.getInstance().token
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val token = task.result
-                    Log.d("TABIBK_FCM_TOKEN", token)
+                    Log.d("TABIBK_FCM_TOKEN", task.result)
                 } else {
                     Log.w(
                         "TABIBK_FCM_TOKEN",
@@ -61,10 +51,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        // ============================================================
-        // صلاحية الإشعارات Android 13+
-        // ============================================================
-
+        // Android 13+ notification permission
         if (
             android.os.Build.VERSION.SDK_INT >= 33 &&
             checkSelfPermission(
@@ -78,47 +65,18 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        // ============================================================
-        // ألوان TABIBK
-        // ============================================================
-
         window.statusBarColor = Color.rgb(43, 11, 61)
         window.navigationBarColor = Color.rgb(43, 11, 61)
 
-        // ============================================================
-        // ROOT
-        // ============================================================
-
-        val root = FrameLayout(this)
-
-        // ============================================================
-        // WEBVIEW
-        // ============================================================
-
+        // WebView
         webView = WebView(this)
 
-        val webParams = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT
-        )
-
-        webView.layoutParams = webParams
-
-        // لا نظهر الموقع حتى نتأكد من جاهزية طبيبك
         webView.visibility = View.INVISIBLE
 
-        // ============================================================
-        // COOKIES
-        // ============================================================
-
-        val cookieManager = CookieManager.getInstance()
-
-        cookieManager.setAcceptCookie(true)
-        cookieManager.setAcceptThirdPartyCookies(webView, true)
-
-        // ============================================================
-        // WEBVIEW SETTINGS
-        // ============================================================
+        CookieManager.getInstance().apply {
+            setAcceptCookie(true)
+            setAcceptThirdPartyCookies(webView, true)
+        }
 
         with(webView.settings) {
             javaScriptEnabled = true
@@ -136,10 +94,6 @@ class MainActivity : AppCompatActivity() {
 
             userAgentString = "$userAgentString TABIBK-Android"
         }
-
-        // ============================================================
-        // WEBVIEW CLIENT
-        // ============================================================
 
         webView.webViewClient = object : WebViewClient() {
 
@@ -165,12 +119,11 @@ class MainActivity : AppCompatActivity() {
                     failingUrl
                 )
 
-                // نبقى على شاشة البداية ونحاول مجددًا
                 webView.visibility = View.INVISIBLE
                 checkingPage = false
 
                 webView.postDelayed({
-                    if (!tabibkReady) {
+                    if (!activityDestroyed && !tabibkReady) {
                         webView.reload()
                     }
                 }, 2500)
@@ -179,164 +132,103 @@ class MainActivity : AppCompatActivity() {
 
         webView.webChromeClient = WebChromeClient()
 
-        root.addView(webView)
+        // Root and intro video
+        val root = FrameLayout(this)
 
-        // ============================================================
-        // SPLASH
-        // ============================================================
+        root.addView(
+            webView,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+        )
 
         splashView = createSplashScreen()
         root.addView(splashView)
 
         setContentView(root)
 
-        // تشغيل الصوت بعد عرض شاشة البداية
-        startIntroSound()
+        // Start video while the website loads
+        startIntroVideo()
 
-        // ============================================================
-        // تحميل TABIBK
-        // ============================================================
-
+        // Load TABIBK website
         webView.loadUrl("https://tabibk2.onrender.com")
     }
 
-    // ================================================================
-    // تشغيل صوت المقدمة
-    // الملف المطلوب: app/src/main/res/raw/tabibk_intro.wav
-    // ================================================================
+    // ============================================================
+    // INTRO VIDEO
+    // File: app/src/main/res/raw/tabibk_intro.mp4
+    // ============================================================
 
-    private fun startIntroSound() {
-        stopIntroSound()
-
-        val soundId = resources.getIdentifier(
-            "tabibk_intro",
-            "raw",
-            packageName
-        )
-
-        if (soundId == 0) {
-            Log.w(
-                "TABIBK_SPLASH",
-                "لم يتم العثور على res/raw/tabibk_intro.wav"
-            )
-            return
-        }
-
+    private fun startIntroVideo() {
         try {
-            introPlayer = MediaPlayer.create(this, soundId)
+            introVideo.setVideoURI(
+                Uri.parse(
+                    "android.resource://$packageName/${R.raw.tabibk_intro}"
+                )
+            )
 
-            introPlayer?.apply {
-                setOnCompletionListener { player ->
-                    if (introPlayer === player) {
-                        introPlayer = null
-                    }
-
+            introVideo.setOnPreparedListener { player ->
+                if (activityDestroyed) {
                     player.release()
+                    return@setOnPreparedListener
                 }
 
-                setOnErrorListener { player, what, extra ->
-                    Log.e(
-                        "TABIBK_SPLASH",
-                        "خطأ في الصوت: $what / $extra"
-                    )
-
-                    if (introPlayer === player) {
-                        introPlayer = null
-                    }
-
-                    player.release()
-                    true
-                }
-
-                start()
+                // Let the MP4 play its own audio
+                player.isLooping = false
+                player.setVolume(1f, 1f)
+                introVideo.start()
             }
+
+            introVideo.setOnCompletionListener {
+                if (activityDestroyed) return@setOnCompletionListener
+
+                introFinished = true
+
+                if (tabibkReady) {
+                    showTabibk()
+                } else {
+                    // Keep the cinematic intro playing while
+                    // Render is still starting up.
+                    introFinished = false
+                    introVideo.seekTo(0)
+                    introVideo.start()
+                }
+            }
+
+            introVideo.setOnErrorListener { _, what, extra ->
+                Log.e(
+                    "TABIBK_INTRO",
+                    "Video playback error: $what / $extra"
+                )
+
+                // If the video cannot play, continue using
+                // the branded splash and wait for the website.
+                introFinished = true
+                true
+            }
+
         } catch (e: Exception) {
             Log.e(
-                "TABIBK_SPLASH",
-                "تعذر تشغيل صوت المقدمة",
+                "TABIBK_INTRO",
+                "Could not start intro video",
                 e
             )
 
-            stopIntroSound()
+            introFinished = true
         }
     }
 
-    // ================================================================
-    // إيقاف الصوت وتحرير موارده
-    // ================================================================
-
-    private fun stopIntroSound() {
-        val player = introPlayer ?: return
-
-        // نصفر المرجع قبل تحرير المورد
-        introPlayer = null
-
-        try {
-            player.setOnCompletionListener(null)
-            player.setOnErrorListener(null)
-
-            if (player.isPlaying) {
-                player.stop()
-            }
-        } catch (e: IllegalStateException) {
-            Log.w(
-                "TABIBK_SPLASH",
-                "مشغل الصوت توقف مسبقًا",
-                e
-            )
-        } finally {
-            player.release()
-        }
-    }
-
-    // ================================================================
-    // حركة نبض الشعار
-    // ================================================================
-
-    private fun startLogoPulse(logo: ImageView) {
-        stopLogoPulse()
-
-        val pulseX = ObjectAnimator.ofFloat(
-            logo,
-            View.SCALE_X,
-            1f,
-            1.07f,
-            1f
-        ).apply {
-            duration = 900
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.RESTART
-        }
-
-        val pulseY = ObjectAnimator.ofFloat(
-            logo,
-            View.SCALE_Y,
-            1f,
-            1.07f,
-            1f
-        ).apply {
-            duration = 900
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.RESTART
-        }
-
-        logoPulseAnimator = AnimatorSet().apply {
-            playTogether(pulseX, pulseY)
-            start()
-        }
-    }
-
-    private fun stopLogoPulse() {
-        logoPulseAnimator?.cancel()
-        logoPulseAnimator = null
-    }
-
-    // ================================================================
-    // فحص جاهزية TABIBK
-    // ================================================================
+    // ============================================================
+    // CHECK WEBSITE READINESS
+    // ============================================================
 
     private fun checkTabibkReady() {
-        if (tabibkReady || checkingPage) {
+        if (
+            activityDestroyed ||
+            tabibkReady ||
+            checkingPage
+        ) {
             return
         }
 
@@ -344,24 +236,28 @@ class MainActivity : AppCompatActivity() {
 
         webView.postDelayed({
 
+            if (activityDestroyed || tabibkReady) {
+                checkingPage = false
+                return@postDelayed
+            }
+
             webView.evaluateJavascript(
                 """
                 (function() {
-                    var bodyText = document.body
-                        ? document.body.innerText
-                        : "";
-
-                    var title = document.title || "";
-                    var currentUrl = window.location.href || "";
-
                     return JSON.stringify({
-                        body: bodyText,
-                        title: title,
-                        url: currentUrl
+                        body: document.body
+                            ? document.body.innerText : "",
+                        title: document.title || "",
+                        url: window.location.href || ""
                     });
                 })();
                 """.trimIndent()
             ) { result ->
+
+                if (activityDestroyed || tabibkReady) {
+                    checkingPage = false
+                    return@evaluateJavascript
+                }
 
                 checkingPage = false
 
@@ -378,7 +274,6 @@ class MainActivity : AppCompatActivity() {
                     ignoreCase = true
                 )
 
-                // كشف صفحة انتظار Render
                 val renderPage =
                     pageText.contains(
                         "Application loading",
@@ -397,22 +292,13 @@ class MainActivity : AppCompatActivity() {
                         ignoreCase = true
                     )
 
-                // كشف واجهة طبيبك
                 val hasTabibk =
-                    pageText.contains(
-                        "طبيبك",
-                        ignoreCase = true
-                    ) ||
-                    pageText.contains(
-                        "TABIBK",
-                        ignoreCase = true
-                    )
+                    pageText.contains("طبيبك", ignoreCase = true) ||
+                    pageText.contains("TABIBK", ignoreCase = true)
 
                 if (renderPage) {
-                    webView.visibility = View.INVISIBLE
-
                     webView.postDelayed({
-                        if (!tabibkReady) {
+                        if (!activityDestroyed && !tabibkReady) {
                             webView.reload()
                         }
                     }, 2000)
@@ -422,15 +308,18 @@ class MainActivity : AppCompatActivity() {
 
                 if (correctUrl && hasTabibk) {
                     tabibkReady = true
-                    showTabibk()
+
+                    // Wait for the intro to finish before
+                    // revealing the actual application.
+                    if (introFinished) {
+                        showTabibk()
+                    }
+
                     return@evaluateJavascript
                 }
 
-                // لم نتأكد من الجاهزية بعد
-                webView.visibility = View.INVISIBLE
-
                 webView.postDelayed({
-                    if (!tabibkReady) {
+                    if (!activityDestroyed && !tabibkReady) {
                         checkTabibkReady()
                     }
                 }, 1000)
@@ -438,34 +327,41 @@ class MainActivity : AppCompatActivity() {
         }, 500)
     }
 
-    // ================================================================
-    // إظهار واجهة طبيبك الحقيقية
-    // ================================================================
+    // ============================================================
+    // SHOW THE WEBSITE
+    // ============================================================
 
     private fun showTabibk() {
+        if (
+            activityDestroyed ||
+            !tabibkReady ||
+            !introFinished
+        ) {
+            return
+        }
+
         runOnUiThread {
-            if (tabibkReady) {
+            if (activityDestroyed) return@runOnUiThread
 
-                // إيقاف الصوت والنبض قبل الانتقال
-                stopIntroSound()
-                stopLogoPulse()
+            webView.visibility = View.VISIBLE
 
-                webView.visibility = View.VISIBLE
+            splashView.animate()
+                .alpha(0f)
+                .setDuration(400)
+                .withEndAction {
+                    splashView.visibility = View.GONE
 
-                splashView.animate()
-                    .alpha(0f)
-                    .setDuration(350)
-                    .withEndAction {
-                        splashView.visibility = View.GONE
+                    if (::introVideo.isInitialized) {
+                        introVideo.stopPlayback()
                     }
-                    .start()
-            }
+                }
+                .start()
         }
     }
 
-    // ================================================================
-    // إنشاء شاشة البداية
-    // ================================================================
+    // ============================================================
+    // SPLASH SCREEN WITH VIDEO
+    // ============================================================
 
     private fun createSplashScreen(): View {
         val splash = FrameLayout(this)
@@ -474,130 +370,48 @@ class MainActivity : AppCompatActivity() {
             Color.rgb(43, 11, 61)
         )
 
-        val content = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER
+        introVideo = VideoView(this).apply {
+            setBackgroundColor(Color.rgb(43, 11, 61))
         }
 
-        val contentParams = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT
-        )
-
-        content.layoutParams = contentParams
-
-        // ------------------------------------------------------------
-        // شعار طبيبك
-        // ------------------------------------------------------------
-
-        val logo = ImageView(this)
-
-        logo.setImageResource(R.drawable.ic_tabibk)
-        logo.scaleType = ImageView.ScaleType.CENTER_INSIDE
-
-        logo.layoutParams = LinearLayout.LayoutParams(
-            dp(150),
-            dp(150)
-        )
-
-        content.addView(logo)
-
-        // نبض الشعار أثناء الانتظار
-        startLogoPulse(logo)
-
-        // ------------------------------------------------------------
-        // الاسم العربي
-        // ------------------------------------------------------------
-
-        val title = TextView(this).apply {
-            text = "طبيبك"
-            textSize = 42f
-            setTextColor(Color.rgb(233, 196, 93))
-            typeface = Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
+        splash.addView(
+            introVideo,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
             )
-            gravity = Gravity.CENTER
-        }
-
-        val titleParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
         )
 
-        titleParams.topMargin = dp(5)
-        title.layoutParams = titleParams
-
-        content.addView(title)
-
-        // ------------------------------------------------------------
-        // TABIBK
-        // ------------------------------------------------------------
-
-        val tabibk = TextView(this).apply {
-            text = "TABIBK"
-            textSize = 20f
-            setTextColor(Color.WHITE)
-            letterSpacing = 0.25f
-            typeface = Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-            )
-            gravity = Gravity.CENTER
-        }
-
-        content.addView(tabibk)
-
-        // ------------------------------------------------------------
-        // الشعار النصي
-        // ------------------------------------------------------------
-
-        val slogan = TextView(this).apply {
-            text = "مواعيدك .. أسهل"
-            textSize = 18f
-            setTextColor(Color.rgb(233, 196, 93))
-            gravity = Gravity.CENTER
-        }
-
-        val sloganParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-
-        sloganParams.topMargin = dp(20)
-        slogan.layoutParams = sloganParams
-
-        content.addView(slogan)
-
-        // ------------------------------------------------------------
-        // نص التحميل
-        // ------------------------------------------------------------
-
+        // Subtle loading label over the video
         val loading = TextView(this).apply {
             text = "جاري تجهيز طبيبك..."
             textSize = 14f
-            setTextColor(Color.LTGRAY)
+            setTextColor(Color.WHITE)
             gravity = Gravity.CENTER
+            setPadding(
+                dp(18),
+                dp(10),
+                dp(18),
+                dp(10)
+            )
+
+            setBackgroundColor(
+                Color.argb(110, 43, 11, 61)
+            )
         }
 
-        val loadingParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
+        val loadingParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
         )
 
-        loadingParams.topMargin = dp(35)
-        loading.layoutParams = loadingParams
+        loadingParams.bottomMargin = dp(36)
 
-        content.addView(loading)
-
-        splash.addView(content)
+        splash.addView(loading, loadingParams)
 
         return splash
     }
-
-    // ================================================================
-    // تحويل DP
-    // ================================================================
 
     private fun dp(value: Int): Int {
         return (
@@ -605,13 +419,16 @@ class MainActivity : AppCompatActivity() {
         ).toInt()
     }
 
-    // ================================================================
-    // تنظيف الموارد عند إغلاق النشاط
-    // ================================================================
+    // ============================================================
+    // CLEANUP
+    // ============================================================
 
     override fun onDestroy() {
-        stopIntroSound()
-        stopLogoPulse()
+        activityDestroyed = true
+
+        if (::introVideo.isInitialized) {
+            introVideo.stopPlayback()
+        }
 
         if (::webView.isInitialized) {
             webView.stopLoading()
@@ -621,13 +438,16 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    // ================================================================
-    // زر الرجوع
-    // ================================================================
+    // ============================================================
+    // BACK BUTTON
+    // ============================================================
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        if (::webView.isInitialized && webView.canGoBack()) {
+        if (
+            ::webView.isInitialized &&
+            webView.canGoBack()
+        ) {
             webView.goBack()
         } else {
             super.onBackPressed()

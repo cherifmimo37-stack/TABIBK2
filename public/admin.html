@@ -7222,6 +7222,172 @@ document
 
 
 /* ============================================================
+   PATIENT ADS - ADMIN
+============================================================ */
+
+let patientAdImageData = "";
+
+const patientAdImageInput =
+    document.getElementById("patientAdImage");
+
+if (patientAdImageInput) {
+    patientAdImageInput.addEventListener("change", function () {
+        const file = this.files && this.files[0];
+
+        if (!file) return;
+
+        const allowedTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+        if (!allowedTypes.includes(file.type)) {
+            showToast("اختر صورة PNG أو JPG أو WEBP", "error");
+            this.value = "";
+            return;
+        }
+
+        if (file.size > 1.5 * 1024 * 1024) {
+            showToast("حجم الصورة يجب ألا يتجاوز 1.5 ميغابايت", "error");
+            this.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            patientAdImageData = reader.result;
+
+            const preview =
+                document.getElementById("patientAdPreview");
+
+            const previewBox =
+                document.getElementById("patientAdPreviewBox");
+
+            preview.src = patientAdImageData;
+            previewBox.style.display = "block";
+        };
+
+        reader.onerror = function () {
+            showToast("تعذرت قراءة الصورة", "error");
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+
+/* LOAD PATIENT AD */
+
+async function loadPatientAd() {
+    const status = document.getElementById("patientAdStatus");
+
+    try {
+        status.textContent = "جاري تحميل إعدادات الإعلان...";
+
+        const data = await adminFetch(
+            "/api/admin/patient-ad"
+        );
+
+        const ad = data.patientAd || {};
+
+        document.getElementById("patientAdTitle").value =
+            ad.title || "";
+
+        document.getElementById("patientAdUrl").value =
+            ad.targetUrl || "";
+
+        document.getElementById("patientAdEnabled").checked =
+            ad.enabled === true;
+
+        patientAdImageData = ad.imageData || "";
+
+        const preview =
+            document.getElementById("patientAdPreview");
+
+        const previewBox =
+            document.getElementById("patientAdPreviewBox");
+
+        if (patientAdImageData) {
+            preview.src = patientAdImageData;
+            previewBox.style.display = "block";
+        } else {
+            preview.removeAttribute("src");
+            previewBox.style.display = "none";
+        }
+
+        status.textContent = "تم تحميل إعدادات الإعلان.";
+    } catch (error) {
+        status.textContent =
+            error.message || "تعذر تحميل إعدادات الإعلان.";
+
+        showToast(status.textContent, "error");
+    }
+}
+
+
+/* SAVE PATIENT AD */
+
+async function savePatientAd() {
+    const status = document.getElementById("patientAdStatus");
+
+    const title =
+        document.getElementById("patientAdTitle").value.trim();
+
+    const targetUrl =
+        document.getElementById("patientAdUrl").value.trim();
+
+    const enabled =
+        document.getElementById("patientAdEnabled").checked;
+
+    if (enabled && !patientAdImageData) {
+        showToast("اختر صورة للإعلان أولاً", "error");
+        return;
+    }
+
+    if (targetUrl) {
+        try {
+            const parsedUrl = new URL(targetUrl);
+
+            if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+                throw new Error("invalid");
+            }
+        } catch {
+            showToast("أدخل رابطاً صحيحاً يبدأ بـ https:// أو http://", "error");
+            return;
+        }
+    }
+
+    if (enabled && !targetUrl) {
+        showToast("أدخل رابط الإعلان قبل تفعيله", "error");
+        return;
+    }
+
+    try {
+        status.textContent = "جاري حفظ إعدادات الإعلان...";
+
+        await adminFetch("/api/admin/patient-ad", {
+            method: "POST",
+            body: {
+                title: title,
+                targetUrl: targetUrl,
+                imageData: patientAdImageData,
+                enabled: enabled
+            }
+        });
+
+        status.textContent = "تم حفظ إعدادات الإعلان بنجاح.";
+        showToast("تم حفظ إعدادات الإعلان بنجاح");
+    } catch (error) {
+        status.textContent =
+            error.message || "تعذر حفظ إعدادات الإعلان.";
+
+        showToast(status.textContent, "error");
+    }
+}
+
+/* ============================================================
    INITIALIZE
 ============================================================ */
 

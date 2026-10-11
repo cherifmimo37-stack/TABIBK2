@@ -214,6 +214,34 @@ function normalizeDatabase(database) {
         database.notifications = [];
     }
 
+    if (
+        !database.patientAd ||
+        typeof database.patientAd !== "object" ||
+        Array.isArray(database.patientAd)
+    ) {
+        database.patientAd = {};
+    }
+
+    database.patientAd = {
+        enabled: database.patientAd.enabled === true,
+        imageData:
+            typeof database.patientAd.imageData === "string"
+                ? database.patientAd.imageData
+                : "",
+        targetUrl:
+            typeof database.patientAd.targetUrl === "string"
+                ? database.patientAd.targetUrl
+                : "",
+        title:
+            typeof database.patientAd.title === "string"
+                ? database.patientAd.title.slice(0, 120)
+                : "",
+        updatedAt:
+            typeof database.patientAd.updatedAt === "string"
+                ? database.patientAd.updatedAt
+                : ""
+    };
+
     // --------------------------------------------------------
     // Wilayas
     // --------------------------------------------------------

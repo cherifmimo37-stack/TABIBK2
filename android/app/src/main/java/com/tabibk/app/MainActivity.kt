@@ -164,7 +164,7 @@ class MainActivity : AppCompatActivity() {
         try {
             introVideo.setVideoURI(
                 Uri.parse(
-                    "android.resource://$packageName/${R.raw.tabibk_intro}"
+                    "android.resource://$packageName/${R.raw.tabibk_intro_final_treatment_20s}"
                 )
             )
 

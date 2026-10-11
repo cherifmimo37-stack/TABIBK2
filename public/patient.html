@@ -4934,9 +4934,9 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
         
 image.style.cssText =
     "display:block;width:100%;height:auto;" +
-    "max-height:none;object-fit:contain;" +
+    "max-width:100%;max-height:none;" +
+    "object-fit:contain;object-position:center;" +
     "border-radius:12px;";
-
 
         image.onerror = () => box.remove();
 
@@ -4952,7 +4952,12 @@ image.style.cssText =
             link.appendChild(title);
         }
 
-        main.insertBefore(box, main.firstChild);
+        const bookingTitle = main.querySelector("h1");
+if (bookingTitle) {
+    bookingTitle.insertAdjacentElement("afterend", box);
+} else {
+    main.appendChild(box);
+}
     } catch (error) {
         console.warn("TABIBK patient ad:", error);
     }

@@ -213,7 +213,6 @@ function normalizeDatabase(database) {
     ) {
         database.notifications = [];
     }
-
     if (
         !database.patientAd ||
         typeof database.patientAd !== "object" ||

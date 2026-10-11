@@ -6066,6 +6066,132 @@ app.post(
     }
 );
 
+/* ============================================================
+   PATIENT ADVERTISEMENT - PUBLIC + ADMIN
+   ============================================================ */
+
+// الإعلان الذي يظهر للمرضى
+app.get("/api/ads/patient", (req, res) => {
+    const database = readDatabase();
+    const ad = database.patientAd;
+
+    if (!ad || ad.enabled !== true || !ad.imageData) {
+        return res.json({
+            success: true,
+            ad: null
+        });
+    }
+
+    res.json({
+        success: true,
+        ad: {
+            imageData: ad.imageData,
+            targetUrl: ad.targetUrl,
+            title: ad.title
+        }
+    });
+});
+
+// قراءة إعدادات الإعلان من لوحة الإدارة
+app.get(
+    "/api/admin/ads/patient",
+    checkAdminKey,
+    (req, res) => {
+        const database = readDatabase();
+
+        res.json({
+            success: true,
+            ad: database.patientAd
+        });
+    }
+);
+
+// حفظ إعدادات الإعلان من لوحة الإدارة
+app.put(
+    "/api/admin/ads/patient",
+    checkAdminKey,
+    async (req, res) => {
+        try {
+            const {
+                enabled,
+                imageData,
+                targetUrl,
+                title
+            } = req.body || {};
+
+            if (
+                typeof enabled !== "boolean" ||
+                typeof imageData !== "string" ||
+                imageData.length > 1800000
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "بيانات الإعلان غير صالحة أو الصورة كبيرة"
+                });
+            }
+
+            if (
+                imageData &&
+                !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(imageData)
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "صيغة الصورة غير مدعومة"
+                });
+            }
+
+            const safeUrl = typeof targetUrl === "string"
+                ? targetUrl.trim()
+                : "";
+
+            if (safeUrl) {
+                try {
+                    const parsedUrl = new URL(safeUrl);
+
+                    if (
+                        parsedUrl.protocol !== "https:" &&
+                        parsedUrl.protocol !== "http:"
+                    ) {
+                        throw new Error("Invalid protocol");
+                    }
+                } catch {
+                    return res.status(400).json({
+                        success: false,
+                        message: "رابط الإعلان غير صالح"
+                    });
+                }
+            }
+
+            const database = readDatabase();
+
+            database.patientAd = {
+                enabled,
+                imageData,
+                targetUrl: safeUrl,
+                title: typeof title === "string"
+                    ? title.trim().slice(0, 120)
+                    : "",
+                updatedAt: new Date().toISOString()
+            };
+
+            await saveDatabase(database);
+
+            return res.json({
+                success: true,
+                message: "تم حفظ إعدادات الإعلان",
+                ad: database.patientAd
+            });
+        } catch (error) {
+            console.error("Patient ad save error:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "تعذر حفظ الإعلان"
+            });
+        }
+    }
+);
+
 // ============================================================
 // HEALTH CHECK
 // ============================================================

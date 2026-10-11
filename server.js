@@ -50,7 +50,7 @@ const DOCTOR_SESSION_DAYS = 7;
 
 app.use(
     express.json({
-        limit: "2mb"
+        limit: "3mb"
     })
 );
 
@@ -5941,7 +5941,143 @@ app.post(
         });
     }
 );
+// ============================================================
+// PATIENT ADS - ADMIN API
+// ============================================================
 
+app.get(
+    "/api/admin/patient-ad",
+    checkAdminKey,
+    (req, res) => {
+        const database = readDatabase();
+
+        res.json({
+            success: true,
+            patientAd: database.patientAd || {
+                enabled: false,
+                imageData: "",
+                targetUrl: "",
+                title: "",
+                updatedAt: ""
+            }
+        });
+    }
+);
+
+
+app.post(
+    "/api/admin/patient-ad",
+    checkAdminKey,
+    async (req, res) => {
+        try {
+            const database = readDatabase();
+            const body = req.body || {};
+
+            const title =
+                typeof body.title === "string"
+                    ? body.title.trim().slice(0, 120)
+                    : "";
+
+            const targetUrl =
+                typeof body.targetUrl === "string"
+                    ? body.targetUrl.trim()
+                    : "";
+
+            const imageData =
+                typeof body.imageData === "string"
+                    ? body.imageData
+                    : "";
+
+            const enabled = body.enabled === true;
+
+            if (imageData.length > 2.2 * 1024 * 1024) {
+                return res.status(413).json({
+                    success: false,
+                    message: "حجم صورة الإعلان كبير جدًا."
+                });
+            }
+
+            if (imageData) {
+                const validImage =
+                    /^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(
+                        imageData
+                    );
+
+                if (!validImage) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "صيغة صورة الإعلان غير صالحة."
+                    });
+                }
+            }
+
+            if (targetUrl) {
+                let parsedUrl;
+
+                try {
+                    parsedUrl = new URL(targetUrl);
+                } catch {
+                    return res.status(400).json({
+                        success: false,
+                        message: "رابط الإعلان غير صالح."
+                    });
+                }
+
+                if (
+                    !["http:", "https:"].includes(
+                        parsedUrl.protocol
+                    )
+                ) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "استعمل رابطًا يبدأ بـ http:// أو https://."
+                    });
+                }
+            }
+
+            if (enabled && !imageData) {
+                return res.status(400).json({
+                    success: false,
+                    message: "اختر صورة للإعلان قبل تفعيله."
+                });
+            }
+
+            if (enabled && !targetUrl) {
+                return res.status(400).json({
+                    success: false,
+                    message: "أدخل رابط الإعلان قبل تفعيله."
+                });
+            }
+
+            database.patientAd = {
+                enabled,
+                imageData,
+                targetUrl,
+                title,
+                updatedAt: new Date().toISOString()
+            };
+
+            await saveDatabase(database);
+
+            return res.json({
+                success: true,
+                message: "تم حفظ إعدادات الإعلان بنجاح.",
+                patientAd: database.patientAd
+            });
+
+        } catch (error) {
+            console.error(
+                "PATIENT AD SAVE ERROR:",
+                error
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "حدث خطأ أثناء حفظ إعدادات الإعلان."
+            });
+        }
+    }
+);
 // ============================================================
 // ADMIN NOTIFICATIONS - GET
 // ============================================================

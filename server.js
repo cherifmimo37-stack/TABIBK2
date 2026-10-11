@@ -155,7 +155,15 @@ function createEmptyDatabase() {
 
         appointments: [],
 
-        notifications: []
+                notifications: [],
+
+        patientAd: {
+            enabled: false,
+            imageData: "",
+            targetUrl: "",
+            title: "",
+            updatedAt: ""
+        }
 
     };
 }

@@ -3390,6 +3390,109 @@ tbody tr:hover{
 </section>
 
 
+<!-- =========================================================
+     PATIENT ADS
+========================================================= -->
+
+<section
+    class="section"
+    id="section-patient-ads"
+>
+    <div class="card">
+        <div class="card-head">
+            <div>
+                <h3>إعلانات المرضى</h3>
+                <p>إدارة الإعلان الذي يظهر داخل تطبيق طبيبك</p>
+            </div>
+        </div>
+
+        <div style="padding:20px 0;">
+
+            <label for="patientAdTitle">
+                عنوان الإعلان
+            </label>
+
+            <input
+                id="patientAdTitle"
+                type="text"
+                maxlength="120"
+                placeholder="مثال: عرض خاص على الخدمات الطبية"
+                style="width:100%; margin:10px 0 20px;"
+            >
+
+            <label for="patientAdUrl">
+                رابط الإعلان عند الضغط على الصورة
+            </label>
+
+            <input
+                id="patientAdUrl"
+                type="url"
+                placeholder="https://example.com"
+                style="width:100%; margin:10px 0 20px;"
+            >
+
+            <label for="patientAdImage">
+                صورة الإعلان
+            </label>
+
+            <input
+                id="patientAdImage"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                style="display:block; width:100%; margin:10px 0 20px;"
+            >
+
+            <div
+                id="patientAdPreviewBox"
+                style="display:none; margin:15px 0;"
+            >
+                <p style="margin-bottom:10px;">
+                    معاينة الإعلان
+                </p>
+
+                <img
+                    id="patientAdPreview"
+                    alt="معاينة صورة الإعلان"
+                    style="display:block; width:100%; max-width:650px; max-height:260px; object-fit:contain; border-radius:16px; border:1px solid #b99a56; background:#1c0e2b;"
+                >
+            </div>
+
+            <label style="display:flex; align-items:center; gap:10px; margin:20px 0;">
+                <input
+                    id="patientAdEnabled"
+                    type="checkbox"
+                    style="width:18px; height:18px;"
+                >
+                تفعيل الإعلان للمرضى
+            </label>
+
+            <button
+                type="button"
+                class="btn btn-gold"
+                onclick="savePatientAd()"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+                حفظ إعدادات الإعلان
+            </button>
+
+            <button
+                type="button"
+                class="btn"
+                onclick="loadPatientAd()"
+                style="margin-right:8px;"
+            >
+                إعادة تحميل الإعدادات
+            </button>
+
+            <p
+                id="patientAdStatus"
+                style="margin-top:15px;"
+            ></p>
+
+        </div>
+    </div>
+</section>
+
         </div>
 
     </main>

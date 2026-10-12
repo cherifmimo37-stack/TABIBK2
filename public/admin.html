@@ -3491,6 +3491,90 @@ tbody tr:hover{
 
         </div>
     </div>
+              <!-- MULTIPLE PATIENT ADS MANAGER -->
+        <div class="card" id="patientAdsManagerCard" style="margin-top:22px;">
+            <div class="card-head">
+                <div>
+                    <h3>إدارة الإعلانات المتعددة</h3>
+                    <p>أضف عدة إعلانات وتحكم في عرضها للمرضى.</p>
+                </div>
+            </div>
+
+            <div style="padding:16px 0;">
+                <button type="button"
+                        class="btn btn-gold"
+                        onclick="openMultiPatientAdEditor()">
+                    + إضافة إعلان جديد
+                </button>
+
+                <div id="patientAdsEditor"
+                     style="display:none;border:1px solid #b99a56;border-radius:14px;padding:16px;margin-top:18px;">
+
+                    <h4 id="multiPatientAdHeading">إضافة إعلان جديد</h4>
+
+                    <label for="multiPatientAdTitle">عنوان الإعلان</label>
+                    <input id="multiPatientAdTitle"
+                           type="text"
+                           maxlength="120"
+                           style="width:100%;margin:8px 0 16px;">
+
+                    <label for="multiPatientAdUrl">رابط الإعلان</label>
+                    <input id="multiPatientAdUrl"
+                           type="url"
+                           placeholder="https://example.com"
+                           style="width:100%;margin:8px 0 16px;">
+
+                    <label for="multiPatientAdImage">صورة الإعلان</label>
+                    <input id="multiPatientAdImage"
+                           type="file"
+                           accept="image/png,image/jpeg,image/webp"
+                           style="display:block;width:100%;margin:8px 0 16px;">
+
+                    <div id="multiPatientAdPreviewBox" style="display:none;margin:12px 0;">
+                        <img id="multiPatientAdPreview"
+                             alt="معاينة الإعلان"
+                             style="max-width:100%;max-height:220px;object-fit:contain;border-radius:12px;">
+                    </div>
+
+                    <label style="display:flex;align-items:center;gap:10px;margin:16px 0;">
+                        <input id="multiPatientAdEnabled" type="checkbox" checked>
+                        تفعيل الإعلان للمرضى
+                    </label>
+
+                    <button type="button"
+                            class="btn btn-gold"
+                            onclick="saveMultiplePatientAd()">
+                        حفظ الإعلان
+                    </button>
+
+                    <button type="button"
+                            class="btn"
+                            onclick="closeMultiPatientAdEditor()">
+                        إلغاء
+                    </button>
+
+                    <p id="multiPatientAdStatus" style="margin-top:12px;"></p>
+                </div>
+
+                <hr style="margin:22px 0;">
+
+                <h4>الإعلانات المحفوظة</h4>
+
+                <div id="patientAdsList" style="margin-top:14px;">
+                    جاري تحميل الإعلانات...
+                </div>
+
+                <button type="button"
+                        class="btn"
+                        style="margin-top:14px;"
+                        onclick="loadMultiplePatientAds()">
+                    تحديث قائمة الإعلانات
+                </button>
+
+                <p id="patientAdsListStatus" style="margin-top:12px;"></p>
+            </div>
+        </div>
+        <!-- END MULTIPLE PATIENT ADS MANAGER -->
 </section>
 
         </div>
@@ -7386,7 +7470,295 @@ async function savePatientAd() {
         showToast(status.textContent, "error");
     }
 }
+```javascript
+/* ============================================================
+   TABIBK - MULTIPLE PATIENT ADS MANAGER
+============================================================ */
 
+let multiPatientAds = [];
+let multiPatientAdEditingId = null;
+let multiPatientAdImageData = "";
+let multiPatientAdExistingImageData = "";
+
+function escapePatientAdHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+function openMultiPatientAdEditor(adId = null) {
+    const editor = document.getElementById("patientAdsEditor");
+    const heading = document.getElementById("multiPatientAdHeading");
+    const title = document.getElementById("multiPatientAdTitle");
+    const url = document.getElementById("multiPatientAdUrl");
+    const image = document.getElementById("multiPatientAdImage");
+    const enabled = document.getElementById("multiPatientAdEnabled");
+    const previewBox = document.getElementById("multiPatientAdPreviewBox");
+    const preview = document.getElementById("multiPatientAdPreview");
+    const status = document.getElementById("multiPatientAdStatus");
+
+    if (!editor || !title || !url || !image || !enabled) return;
+
+    const ad = adId
+        ? multiPatientAds.find(item => item.id === adId)
+        : null;
+
+    if (adId && !ad) {
+        showToast("الإعلان المطلوب غير موجود.", "error");
+        return;
+    }
+
+    multiPatientAdEditingId = ad ? ad.id : null;
+    multiPatientAdImageData = "";
+    multiPatientAdExistingImageData = ad ? ad.imageData : "";
+
+    heading.textContent = ad ? "تعديل الإعلان" : "إضافة إعلان جديد";
+    title.value = ad ? (ad.title || "") : "";
+    url.value = ad ? (ad.targetUrl || "") : "";
+    image.value = "";
+    enabled.checked = ad ? ad.enabled === true : true;
+    status.textContent = "";
+
+    if (ad && ad.imageData) {
+        preview.src = ad.imageData;
+        previewBox.style.display = "block";
+    } else {
+        preview.removeAttribute("src");
+        previewBox.style.display = "none";
+    }
+
+    editor.style.display = "block";
+    editor.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function closeMultiPatientAdEditor() {
+    const editor = document.getElementById("patientAdsEditor");
+    if (editor) editor.style.display = "none";
+
+    multiPatientAdEditingId = null;
+    multiPatientAdImageData = "";
+    multiPatientAdExistingImageData = "";
+}
+
+document.getElementById("multiPatientAdImage")?.addEventListener("change", function () {
+    const file = this.files && this.files[0];
+    const status = document.getElementById("multiPatientAdStatus");
+    const previewBox = document.getElementById("multiPatientAdPreviewBox");
+    const preview = document.getElementById("multiPatientAdPreview");
+
+    multiPatientAdImageData = "";
+
+    if (!file) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+    if (!allowedTypes.includes(file.type)) {
+        status.textContent = "اختر صورة بصيغة JPG أو PNG أو WEBP.";
+        this.value = "";
+        return;
+    }
+
+    if (file.size > 1300000) {
+        status.textContent = "حجم الصورة كبير. اختر صورة أقل من 1.3 ميغابايت.";
+        this.value = "";
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function () {
+        if (typeof reader.result !== "string") {
+            status.textContent = "تعذرت قراءة الصورة.";
+            return;
+        }
+
+        multiPatientAdImageData = reader.result;
+        preview.src = reader.result;
+        previewBox.style.display = "block";
+        status.textContent = "تم تحميل الصورة، احفظ الإعلان لإتمام العملية.";
+    };
+
+    reader.onerror = function () {
+        status.textContent = "تعذرت قراءة الصورة.";
+    };
+
+    reader.readAsDataURL(file);
+});
+
+async function loadMultiplePatientAds() {
+    const list = document.getElementById("patientAdsList");
+    const status = document.getElementById("patientAdsListStatus");
+
+    if (!list) return;
+
+    list.textContent = "جاري تحميل الإعلانات...";
+
+    try {
+        const result = await adminFetch("/api/admin/patient-ads");
+        multiPatientAds = Array.isArray(result.ads) ? result.ads : [];
+
+        if (!multiPatientAds.length) {
+            list.innerHTML = '<p style="padding:14px;border-radius:10px;background:#f5f1fa;">لا توجد إعلانات محفوظة بعد. اضغط «إضافة إعلان جديد» للبدء.</p>';
+            if (status) status.textContent = "";
+            return;
+        }
+
+        list.innerHTML = multiPatientAds.map(ad => {
+            const id = escapePatientAdHTML(ad.id);
+            const title = escapePatientAdHTML(ad.title || "إعلان بدون عنوان");
+            const targetUrl = escapePatientAdHTML(ad.targetUrl || "");
+            const imageData = typeof ad.imageData === "string" ? ad.imageData : "";
+            const enabled = ad.enabled === true;
+
+            return `
+                <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding:15px;margin:12px 0;border:1px solid #e4d9ef;border-radius:14px;background:#fff;">
+                    <img src="${imageData}" alt="${title}" style="width:150px;height:90px;object-fit:contain;background:#f8f6fb;border-radius:10px;">
+                    <div style="flex:1;min-width:180px;">
+                        <h4 style="margin:0 0 8px;">${title}</h4>
+                        <p style="margin:0 0 8px;overflow-wrap:anywhere;font-size:13px;">${targetUrl || "بدون رابط"}</p>
+                        <span style="display:inline-block;padding:5px 10px;border-radius:20px;background:${enabled ? "#e1f7e9" : "#f3e7e7"};color:${enabled ? "#176b38" : "#8a3030"};">
+                            ${enabled ? "مفعّل" : "معطّل"}
+                        </span>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                        <button type="button" class="btn" data-patient-ad-action="edit" data-patient-ad-id="${id}">تعديل</button>
+                        <button type="button" class="btn" data-patient-ad-action="toggle" data-patient-ad-id="${id}">${enabled ? "تعطيل" : "تفعيل"}</button>
+                        <button type="button" class="btn" data-patient-ad-action="delete" data-patient-ad-id="${id}" style="background:#a83232;color:#fff;">حذف</button>
+                    </div>
+                </div>
+            `;
+        }).join("");
+
+        if (status) status.textContent = `عدد الإعلانات: ${multiPatientAds.length}`;
+    } catch (error) {
+        list.textContent = "تعذر تحميل الإعلانات.";
+        if (status) status.textContent = error.message || "تحقق من تسجيل الدخول واتصال الخادم.";
+    }
+}
+
+async function saveMultiplePatientAd() {
+    const title = document.getElementById("multiPatientAdTitle").value.trim();
+    const targetUrl = document.getElementById("multiPatientAdUrl").value.trim();
+    const enabled = document.getElementById("multiPatientAdEnabled").checked;
+    const status = document.getElementById("multiPatientAdStatus");
+    const imageData = multiPatientAdImageData || multiPatientAdExistingImageData;
+
+    if (!imageData) {
+        status.textContent = "اختر صورة للإعلان أولاً.";
+        return;
+    }
+
+    if (enabled && !targetUrl) {
+        status.textContent = "أدخل رابط الإعلان قبل تفعيله.";
+        return;
+    }
+
+    if (targetUrl) {
+        try {
+            const parsed = new URL(targetUrl);
+            if (!["http:", "https:"].includes(parsed.protocol)) {
+                throw new Error();
+            }
+        } catch {
+            status.textContent = "أدخل رابطاً صحيحاً يبدأ بـ https:// أو http://";
+            return;
+        }
+    }
+
+    const payload = { title, targetUrl, imageData, enabled };
+    const editingId = multiPatientAdEditingId;
+
+    status.textContent = "جاري حفظ الإعلان...";
+
+    try {
+        const result = editingId
+            ? await adminFetch("/api/admin/patient-ads/" + encodeURIComponent(editingId), {
+                method: "PUT",
+                body: payload
+            })
+            : await adminFetch("/api/admin/patient-ads", {
+                method: "POST",
+                body: payload
+            });
+
+        status.textContent = result.message || "تم حفظ الإعلان بنجاح.";
+        showToast(result.message || "تم حفظ الإعلان بنجاح.");
+        closeMultiPatientAdEditor();
+        await loadMultiplePatientAds();
+    } catch (error) {
+        status.textContent = error.message || "تعذر حفظ الإعلان.";
+        showToast(status.textContent, "error");
+    }
+}
+
+document.getElementById("patientAdsList")?.addEventListener("click", async function (event) {
+    const button = event.target.closest("[data-patient-ad-action]");
+    if (!button) return;
+
+    const action = button.dataset.patientAdAction;
+    const id = button.dataset.patientAdId;
+    const ad = multiPatientAds.find(item => item.id === id);
+
+    if (!ad) {
+        showToast("الإعلان غير موجود. حدّث القائمة وحاول مجدداً.", "error");
+        return;
+    }
+
+    if (action === "edit") {
+        openMultiPatientAdEditor(id);
+        return;
+    }
+
+    if (action === "toggle") {
+        try {
+            button.disabled = true;
+
+            const result = await adminFetch(
+                "/api/admin/patient-ads/" + encodeURIComponent(id),
+                {
+                    method: "PUT",
+                    body: { enabled: !ad.enabled }
+                }
+            );
+
+            showToast(result.message || "تم تحديث حالة الإعلان.");
+            await loadMultiplePatientAds();
+        } catch (error) {
+            showToast(error.message || "تعذر تغيير حالة الإعلان.", "error");
+            button.disabled = false;
+        }
+
+        return;
+    }
+
+    if (action === "delete") {
+        if (!confirm("هل أنت متأكد من حذف هذا الإعلان نهائياً؟")) return;
+
+        try {
+            button.disabled = true;
+
+            const result = await adminFetch(
+                "/api/admin/patient-ads/" + encodeURIComponent(id),
+                { method: "DELETE" }
+            );
+
+            showToast(result.message || "تم حذف الإعلان.");
+            await loadMultiplePatientAds();
+        } catch (error) {
+            showToast(error.message || "تعذر حذف الإعلان.", "error");
+            button.disabled = false;
+        }
+    }
+});
+
+/* ============================================================
+   END MULTIPLE PATIENT ADS MANAGER
+============================================================ */
+```
 /* ============================================================
    INITIALIZE
 ============================================================ */

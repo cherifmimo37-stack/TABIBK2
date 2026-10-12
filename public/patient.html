@@ -4973,6 +4973,7 @@ viewport.style.cssText =
     "border-radius:14px;background:#f7f3fa;" +
     "box-sizing:border-box;touch-action:pan-y;";
 
+
         const track = document.createElement("div");
         track.style.cssText =
             "display:flex;width:100%;transition:transform .45s ease;" +
@@ -5016,14 +5017,20 @@ image.style.cssText =
 
             link.appendChild(image);
 
-            if (ad.title) {
-                const title = document.createElement("p");
-                title.textContent = ad.title;
-                title.style.cssText =
-                    "margin:10px 4px 4px;color:#351044;" +
-                    "font-size:13px;font-weight:900;text-align:center;";
-                link.appendChild(title);
-            }
+ 
+if (ad.title) {
+    const title = document.createElement("p");
+    title.textContent = ad.title;
+    title.style.cssText =
+        "display:block;margin:10px 4px 6px;padding:10px 12px;" +
+        "color:#351044;font-size:14px;font-weight:900;" +
+        "line-height:1.7;text-align:center;white-space:normal;" +
+        "overflow-wrap:anywhere;box-sizing:border-box;" +
+        "background:#faf7fd;border:1px solid rgba(201,162,77,.45);" +
+        "border-radius:10px;";
+    link.appendChild(title);
+}
+
 
             image.addEventListener("error", () => {
                 slide.style.display = "none";

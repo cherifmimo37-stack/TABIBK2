@@ -6061,6 +6061,29 @@ select{
     cursor: pointer;
 }
 
+    
+/* TABIBK — GENDER DROPDOWN ARROW */
+#doctorRegistrationModal .input-box:has(#registerDoctorGender) {
+    position: relative;
+}
+
+#doctorRegistrationModal .input-box:has(#registerDoctorGender)::after {
+    content: "▾";
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--purple);
+    font-size: 18px;
+    pointer-events: none;
+}
+
+#doctorRegistrationModal #registerDoctorGender {
+    width: 100%;
+    padding-left: 30px !important;
+    cursor: pointer;
+}
+
 </style>
 
 

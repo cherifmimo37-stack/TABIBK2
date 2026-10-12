@@ -4886,8 +4886,11 @@ window.addEventListener(
 document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true,passive:true});
 
       
-/* TABIBK - عرض إعلان المرضى */
-(async function loadTabibkPatientAd() {
+
+/* =====================================================
+   TABIBK - RESPONSIVE PATIENT ADS SLIDER
+   ===================================================== */
+(async function loadTabibkPatientAdsSlider() {
     try {
         const response = await fetch("/api/ads/patient", {
             cache: "no-store"
@@ -4896,70 +4899,214 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
         if (!response.ok) return;
 
         const result = await response.json();
-        const ad = result && result.success ? result.ad : null;
 
-        if (
-            !ad ||
-            typeof ad.imageData !== "string" ||
-            !ad.imageData.startsWith("data:image/")
-        ) return;
+        // يدعم قائمة الإعلانات، مع التوافق مع الإعلان القديم
+        let ads = [];
 
-        const url = new URL(ad.targetUrl, location.origin);
-        if (!["https:", "http:"].includes(url.protocol)) return;
+        if (result && result.success && Array.isArray(result.ads)) {
+            ads = result.ads;
+        } else if (result && result.success && result.ad) {
+            ads = [result.ad];
+        }
+
+        ads = ads.filter(ad => {
+            if (
+                !ad ||
+                ad.enabled !== true ||
+                typeof ad.imageData !== "string" ||
+                !ad.imageData.startsWith("data:image/")
+            ) return false;
+
+            if (typeof ad.targetUrl !== "string" || !ad.targetUrl.trim()) {
+                return false;
+            }
+
+            try {
+                const url = new URL(ad.targetUrl, location.origin);
+                return ["http:", "https:"].includes(url.protocol);
+            } catch {
+                return false;
+            }
+        });
+
+        if (!ads.length) return;
 
         const main = document.querySelector("main.container");
         if (!main) return;
 
-        const box = document.createElement("div");
-        box.style.cssText =
-            "margin:0 auto 20px;padding:10px;background:#fff;" +
-            "border:1px solid #c79a32;border-radius:18px;" +
-            "box-shadow:0 10px 28px #35104418;overflow:hidden;";
+        const box = document.createElement("section");
+        box.setAttribute("aria-label", "إعلانات طبيبك");
+        box.style.cssText = [
+            "position:relative",
+            "width:100%",
+            "max-width:100%",
+            "box-sizing:border-box",
+            "margin:16px auto 22px",
+            "padding:12px",
+            "background:#fff",
+            "border:1px solid #c79a32",
+            "border-radius:18px",
+            "box-shadow:0 8px 26px rgba(53,16,68,.10)",
+            "overflow:hidden"
+        ].join(";");
 
-        const label = document.createElement("div");
-        label.textContent = "📢 إعلان";
-        label.style.cssText =
-            "padding:4px 6px 10px;color:#4d1763;" +
+        const header = document.createElement("div");
+        header.style.cssText =
+            "display:flex;align-items:center;justify-content:space-between;" +
+            "gap:8px;margin-bottom:10px;color:#4d1763;" +
             "font-size:12px;font-weight:900;";
 
-        const link = document.createElement("a");
-        link.href = url.href;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.style.cssText = "display:block;text-decoration:none;";
+        const label = document.createElement("span");
+        label.textContent = "📢 إعلان";
 
-        const image = document.createElement("img");
-        image.src = ad.imageData;
-        image.alt = ad.title || "إعلان طبيبك";
-        
-image.style.cssText =
-    "display:block;width:100%;height:auto;" +
-    "max-width:100%;max-height:none;" +
-    "object-fit:contain;object-position:center;" +
-    "border-radius:12px;";
+        const counter = document.createElement("span");
+        counter.style.cssText = "color:#8b6b24;font-size:11px;";
+        header.append(label, counter);
 
-        image.onerror = () => box.remove();
+        const viewport = document.createElement("div");
+        viewport.style.cssText =
+            "position:relative;width:100%;overflow:hidden;" +
+            "border-radius:12px;touch-action:pan-y;";
 
-        link.appendChild(image);
-        box.append(label, link);
+        const track = document.createElement("div");
+        track.style.cssText =
+            "display:flex;width:100%;transition:transform .45s ease;" +
+            "will-change:transform;";
 
-        if (ad.title) {
-            const title = document.createElement("p");
-            title.textContent = ad.title;
-            title.style.cssText =
-                "margin:10px 4px 4px;color:#351044;" +
-                "font-size:13px;font-weight:900;";
-            link.appendChild(title);
+        const dots = document.createElement("div");
+        dots.style.cssText =
+            "display:flex;justify-content:center;align-items:center;" +
+            "gap:7px;padding-top:12px;";
+
+        const slides = [];
+        const dotButtons = [];
+        let current = 0;
+        let startX = 0;
+        let deltaX = 0;
+        let timer = null;
+
+        ads.forEach((ad, index) => {
+            const slide = document.createElement("div");
+            slide.style.cssText =
+                "flex:0 0 100%;width:100%;min-width:0;box-sizing:border-box;";
+
+            const link = document.createElement("a");
+            link.href = new URL(ad.targetUrl, location.origin).href;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.style.cssText =
+                "display:block;width:100%;text-decoration:none;";
+
+            const image = document.createElement("img");
+            image.src = ad.imageData;
+            image.alt = ad.title || "إعلان طبيبك";
+            image.loading = index === 0 ? "eager" : "lazy";
+            image.style.cssText =
+                "display:block;width:100%;height:auto;max-width:100%;" +
+                "object-fit:contain;object-position:center;border-radius:10px;";
+
+            link.appendChild(image);
+
+            if (ad.title) {
+                const title = document.createElement("p");
+                title.textContent = ad.title;
+                title.style.cssText =
+                    "margin:10px 4px 4px;color:#351044;" +
+                    "font-size:13px;font-weight:900;text-align:center;";
+                link.appendChild(title);
+            }
+
+            image.addEventListener("error", () => {
+                slide.style.display = "none";
+                dotButtons[index].style.display = "none";
+                if (slides.filter(item => item.style.display !== "none").length === 0) {
+                    box.remove();
+                } else {
+                    showSlide(Math.min(current, slides.length - 1));
+                }
+            });
+
+            slide.appendChild(link);
+            track.appendChild(slide);
+            slides.push(slide);
+
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.setAttribute("aria-label", "عرض الإعلان " + (index + 1));
+            dot.style.cssText =
+                "width:8px;height:8px;padding:0;border:0;border-radius:50%;" +
+                "background:#d8c9df;cursor:pointer;";
+
+            dot.addEventListener("click", () => {
+                showSlide(index);
+                restartTimer();
+            });
+
+            dots.appendChild(dot);
+            dotButtons.push(dot);
+        });
+
+        function showSlide(index) {
+            if (!slides.length) return;
+
+            current = (index + slides.length) % slides.length;
+            track.style.transform =
+                "translateX(" + (current * 100) + "%)";
+
+            counter.textContent = (current + 1) + " / " + slides.length;
+
+            dotButtons.forEach((dot, i) => {
+                dot.style.background = i === current ? "#6b3280" : "#d8c9df";
+                dot.style.transform = i === current ? "scale(1.25)" : "scale(1)";
+            });
         }
 
+        function restartTimer() {
+            if (timer) clearInterval(timer);
+            if (ads.length > 1) {
+                timer = setInterval(() => showSlide(current + 1), 5000);
+            }
+        }
+
+        viewport.addEventListener("touchstart", event => {
+            startX = event.changedTouches[0].clientX;
+            deltaX = 0;
+        }, { passive: true });
+
+        viewport.addEventListener("touchmove", event => {
+            deltaX = event.changedTouches[0].clientX - startX;
+        }, { passive: true });
+
+        viewport.addEventListener("touchend", () => {
+            if (Math.abs(deltaX) > 45 && ads.length > 1) {
+                showSlide(current + (deltaX < 0 ? 1 : -1));
+                restartTimer();
+            }
+        }, { passive: true });
+
+        box.addEventListener("mouseenter", () => {
+            if (timer) clearInterval(timer);
+        });
+
+        box.addEventListener("mouseleave", restartTimer);
+
+        viewport.appendChild(track);
+        box.append(header, viewport);
+
+        if (ads.length > 1) box.appendChild(dots);
+
         const bookingTitle = main.querySelector("h1");
-if (bookingTitle) {
-    bookingTitle.insertAdjacentElement("afterend", box);
-} else {
-    main.appendChild(box);
-}
+        if (bookingTitle) {
+            bookingTitle.insertAdjacentElement("afterend", box);
+        } else {
+            main.prepend(box);
+        }
+
+        showSlide(0);
+        restartTimer();
+
     } catch (error) {
-        console.warn("TABIBK patient ad:", error);
+        console.warn("TABIBK patient ads slider:", error);
     }
 })();
 

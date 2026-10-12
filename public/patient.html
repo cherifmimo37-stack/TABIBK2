@@ -5095,12 +5095,25 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
 
         if (ads.length > 1) box.appendChild(dots);
 
-        const bookingTitle = main.querySelector("h1");
-        if (bookingTitle) {
-            bookingTitle.insertAdjacentElement("afterend", box);
-        } else {
-            main.prepend(box);
-        }
+        
+const bookingTitle = main.querySelector("h1");
+
+// نخليو مسافة مريحة بين العنوان والإعلان
+box.style.margin = "28px auto 24px";
+
+// إدراج الإعلان بعد مقدمة الصفحة بدل لصقه بالعنوان
+const intro = bookingTitle
+    ? bookingTitle.closest(".hero, .page-header, .booking-header")
+    : null;
+
+if (intro && main.contains(intro)) {
+    intro.insertAdjacentElement("afterend", box);
+} else if (bookingTitle) {
+    bookingTitle.insertAdjacentElement("afterend", box);
+} else {
+    main.prepend(box);
+}
+
 
         showSlide(0);
         restartTimer();

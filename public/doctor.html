@@ -9563,7 +9563,7 @@ async function loadDoctorRegistrationWilayas() {
 document.getElementById("registerDoctorWilaya")?.addEventListener("change", async function () {
     const municipalitySelect = document.getElementById("registerDoctorMunicipality");
     const selectedOption = this.options[this.selectedIndex];
-    const wilayaId = selectedOption?.dataset.id;
+    const wilayaId = selectedOption?.getAttribute("data-id");
 
     municipalitySelect.innerHTML = '<option value="">اختر البلدية</option>';
     municipalitySelect.disabled = true;

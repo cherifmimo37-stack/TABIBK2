@@ -5096,24 +5096,16 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
         if (ads.length > 1) box.appendChild(dots);
 
         
-const bookingTitle = main.querySelector("h1");
 
-// نخليو مسافة مريحة بين العنوان والإعلان
-box.style.margin = "28px auto 24px";
+const tabs = main.querySelector(".tabs");
 
-// إدراج الإعلان بعد مقدمة الصفحة بدل لصقه بالعنوان
-const intro = bookingTitle
-    ? bookingTitle.closest(".hero, .page-header, .booking-header")
-    : null;
+box.style.margin = "24px auto 28px";
 
-if (intro && main.contains(intro)) {
-    intro.insertAdjacentElement("afterend", box);
-} else if (bookingTitle) {
-    bookingTitle.insertAdjacentElement("afterend", box);
+if (tabs && tabs.parentNode === main) {
+    tabs.insertAdjacentElement("afterend", box);
 } else {
     main.prepend(box);
 }
-
 
         showSlide(0);
         restartTimer();

@@ -9494,7 +9494,9 @@ function openDoctorRegistration(){
         return;
 
     modal.style.display = "block";
-
+    
+    loadDoctorRegistrationWilayas();
+    
     document.body.style.overflow = "hidden";
 
 }
@@ -9515,6 +9517,103 @@ function closeDoctorRegistration(){
     document.body.style.overflow = "";
 
 }
+
+      
+/* =========================================================
+   TABIBK — DOCTOR REGISTRATION WILAYAS & MUNICIPALITIES
+========================================================= */
+
+async function loadDoctorRegistrationWilayas() {
+    const wilayaSelect = document.getElementById("registerDoctorWilaya");
+    const municipalitySelect = document.getElementById("registerDoctorMunicipality");
+
+    if (!wilayaSelect || !municipalitySelect) return;
+
+    try {
+        const response = await fetch(`${API}/api/wilayas`, {
+            cache: "no-store"
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error("تعذر تحميل الولايات");
+        }
+
+        const wilayas = data.wilayas || data.data || [];
+
+        wilayaSelect.innerHTML = '<option value="">اختر الولاية</option>';
+
+        wilayas.forEach(wilaya => {
+            const option = document.createElement("option");
+
+            option.value = wilaya.name;
+            option.textContent = wilaya.name;
+            option.dataset.id = wilaya.id;
+
+            wilayaSelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error("DOCTOR WILAYAS ERROR:", error);
+        wilayaSelect.innerHTML = '<option value="">تعذر تحميل الولايات</option>';
+    }
+}
+
+document.getElementById("registerDoctorWilaya")?.addEventListener("change", async function () {
+    const municipalitySelect = document.getElementById("registerDoctorMunicipality");
+    const selectedOption = this.options[this.selectedIndex];
+    const wilayaId = selectedOption?.dataset.id;
+
+    municipalitySelect.innerHTML = '<option value="">اختر البلدية</option>';
+    municipalitySelect.disabled = true;
+
+    if (!wilayaId) return;
+
+    try {
+        const response = await fetch(
+            `${API}/api/wilayas/${encodeURIComponent(wilayaId)}/municipalities`,
+            { cache: "no-store" }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error("تعذر تحميل البلديات");
+        }
+
+        const municipalities = data.municipalities || data.data || [];
+        const seen = new Set();
+
+        municipalities.forEach(item => {
+            const name = String(
+                typeof item === "string" ? item : item?.name || ""
+            ).trim().replace(/\s+/g, " ");
+
+            if (!name || seen.has(name)) return;
+
+            seen.add(name);
+
+            const option = document.createElement("option");
+            option.value = name;
+            option.textContent = name;
+
+            municipalitySelect.appendChild(option);
+        });
+
+        municipalitySelect.disabled = municipalitySelect.options.length <= 1;
+
+        if (municipalitySelect.options.length <= 1) {
+            municipalitySelect.innerHTML = '<option value="">لا توجد بلديات مسجلة</option>';
+        }
+
+    } catch (error) {
+        console.error("DOCTOR MUNICIPALITIES ERROR:", error);
+        municipalitySelect.innerHTML = '<option value="">تعذر تحميل البلديات</option>';
+        municipalitySelect.disabled = true;
+    }
+});
+  
 /* =========================================================
    LOGIN DOCTOR
 ========================================================= */
@@ -18864,16 +18963,15 @@ if (
 
                         <i class="fa-solid fa-location-dot"></i>
 
-                        <input
-                            type="text"
-                            id="registerDoctorWilaya"
-                            placeholder="مثال: غليزان"
-                            required
-                        >
+                        
+<select id="registerDoctorWilaya" required>
+    <option value="">اختر الولاية</option>
+</select>
 
-                    </div>
+</div>
 
-                </div>
+</div>
+
 
 
                 <!-- MUNICIPALITY -->
@@ -18888,12 +18986,11 @@ if (
 
                         <i class="fa-solid fa-map-location-dot"></i>
 
-                        <input
-                            type="text"
-                            id="registerDoctorMunicipality"
-                            placeholder="مثال: جديوية"
-                            required
-                        >
+                        
+<select id="registerDoctorMunicipality" required disabled>
+    <option value="">اختر الولاية أولًا</option>
+</select>
+
 
                     </div>
 

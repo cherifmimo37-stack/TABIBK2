@@ -6225,7 +6225,60 @@ app.post(
    ============================================================ */
 
 // الإعلان الذي يظهر للمرضى
+
 app.get("/api/ads/patient", (req, res) => {
+    try {
+        const database = readDatabase();
+
+        const validAds = Array.isArray(database.patientAds)
+            ? database.patientAds.filter(ad =>
+                ad &&
+                ad.enabled === true &&
+                typeof ad.imageData === "string" &&
+                ad.imageData.startsWith("data:image/") &&
+                typeof ad.targetUrl === "string"
+            )
+            : [];
+
+        let ads = validAds.map(ad => ({
+            id: ad.id,
+            imageData: ad.imageData,
+            targetUrl: ad.targetUrl,
+            title: ad.title || ""
+        }));
+
+        // التوافق مع الإعلان القديم إذا لم توجد إعلانات جديدة مفعّلة
+        if (
+            ads.length === 0 &&
+            database.patientAd &&
+            database.patientAd.enabled === true &&
+            typeof database.patientAd.imageData === "string" &&
+            database.patientAd.imageData.startsWith("data:image/")
+        ) {
+            ads = [{
+                id: "legacy-patient-ad",
+                imageData: database.patientAd.imageData,
+                targetUrl: database.patientAd.targetUrl || "",
+                title: database.patientAd.title || ""
+            }];
+        }
+
+        return res.json({
+            success: true,
+            ad: ads[0] || null,
+            ads
+        });
+    } catch (error) {
+        console.error("GET PATIENT ADS ERROR:", error);
+
+        return res.status(500).json({
+            success: false,
+            ad: null,
+            ads: []
+        });
+    }
+});
+
     const database = readDatabase();
     const ad = database.patientAd;
 
@@ -6341,6 +6394,259 @@ app.put(
             return res.status(500).json({
                 success: false,
                 message: "تعذر حفظ الإعلان"
+            });
+        }
+    }
+);
+
+/* ============================================================
+   TABIBK - MULTIPLE PATIENT ADS API
+   ============================================================ */
+
+// جلب جميع الإعلانات من لوحة الإدارة
+app.get(
+    "/api/admin/patient-ads",
+    checkAdminKey,
+    (req, res) => {
+        const database = readDatabase();
+
+        res.json({
+            success: true,
+            ads: Array.isArray(database.patientAds)
+                ? database.patientAds
+                : []
+        });
+    }
+);
+
+// إضافة إعلان جديد
+app.post(
+    "/api/admin/patient-ads",
+    checkAdminKey,
+    async (req, res) => {
+        try {
+            const body = req.body || {};
+            const title = typeof body.title === "string"
+                ? body.title.trim().slice(0, 120)
+                : "";
+            const imageData = typeof body.imageData === "string"
+                ? body.imageData
+                : "";
+            const targetUrl = typeof body.targetUrl === "string"
+                ? body.targetUrl.trim()
+                : "";
+            const enabled = body.enabled === true;
+
+            if (
+                !imageData ||
+                imageData.length > 1800000 ||
+                !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(imageData)
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "اختر صورة صالحة للإعلان، وحافظ على حجمها."
+                });
+            }
+
+            if (enabled && !targetUrl) {
+                return res.status(400).json({
+                    success: false,
+                    message: "أدخل رابط الإعلان قبل تفعيله."
+                });
+            }
+
+            if (targetUrl) {
+                try {
+                    const parsed = new URL(targetUrl);
+                    if (!["http:", "https:"].includes(parsed.protocol)) {
+                        throw new Error("Invalid URL protocol");
+                    }
+                } catch {
+                    return res.status(400).json({
+                        success: false,
+                        message: "رابط الإعلان غير صالح."
+                    });
+                }
+            }
+
+            const database = readDatabase();
+
+            if (!Array.isArray(database.patientAds)) {
+                database.patientAds = [];
+            }
+
+            const ad = {
+                id: "ad-" + Date.now() + "-" +
+                    Math.random().toString(36).slice(2, 8),
+                title,
+                imageData,
+                targetUrl,
+                enabled,
+                updatedAt: new Date().toISOString()
+            };
+
+            database.patientAds.push(ad);
+            await saveDatabase(database);
+
+            return res.status(201).json({
+                success: true,
+                message: "تمت إضافة الإعلان.",
+                ad
+            });
+        } catch (error) {
+            console.error("ADD PATIENT AD ERROR:", error);
+            return res.status(500).json({
+                success: false,
+                message: "تعذرت إضافة الإعلان."
+            });
+        }
+    }
+);
+
+// تعديل إعلان أو تفعيله أو إيقافه
+app.put(
+    "/api/admin/patient-ads/:id",
+    checkAdminKey,
+    async (req, res) => {
+        try {
+            const database = readDatabase();
+
+            if (!Array.isArray(database.patientAds)) {
+                database.patientAds = [];
+            }
+
+            const ad = database.patientAds.find(
+                item => item.id === req.params.id
+            );
+
+            if (!ad) {
+                return res.status(404).json({
+                    success: false,
+                    message: "الإعلان غير موجود."
+                });
+            }
+
+            const body = req.body || {};
+
+            const imageData = body.imageData === undefined
+                ? ad.imageData
+                : body.imageData;
+
+            const targetUrl = body.targetUrl === undefined
+                ? ad.targetUrl
+                : body.targetUrl;
+
+            const title = body.title === undefined
+                ? ad.title
+                : body.title;
+
+            const enabled = body.enabled === undefined
+                ? ad.enabled
+                : body.enabled;
+
+            if (
+                typeof imageData !== "string" ||
+                imageData.length > 1800000 ||
+                !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(imageData)
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "صورة الإعلان غير صالحة أو حجمها كبير."
+                });
+            }
+
+            if (
+                typeof enabled !== "boolean" ||
+                typeof title !== "string" ||
+                typeof targetUrl !== "string"
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "بيانات الإعلان غير صالحة."
+                });
+            }
+
+            const safeUrl = targetUrl.trim();
+
+            if (enabled && !safeUrl) {
+                return res.status(400).json({
+                    success: false,
+                    message: "أدخل رابط الإعلان قبل تفعيله."
+                });
+            }
+
+            if (safeUrl) {
+                try {
+                    const parsed = new URL(safeUrl);
+                    if (!["http:", "https:"].includes(parsed.protocol)) {
+                        throw new Error("Invalid URL protocol");
+                    }
+                } catch {
+                    return res.status(400).json({
+                        success: false,
+                        message: "رابط الإعلان غير صالح."
+                    });
+                }
+            }
+
+            ad.title = title.trim().slice(0, 120);
+            ad.imageData = imageData;
+            ad.targetUrl = safeUrl;
+            ad.enabled = enabled;
+            ad.updatedAt = new Date().toISOString();
+
+            await saveDatabase(database);
+
+            return res.json({
+                success: true,
+                message: "تم تحديث الإعلان.",
+                ad
+            });
+        } catch (error) {
+            console.error("UPDATE PATIENT AD ERROR:", error);
+            return res.status(500).json({
+                success: false,
+                message: "تعذر تحديث الإعلان."
+            });
+        }
+    }
+);
+
+// حذف إعلان محدد
+app.delete(
+    "/api/admin/patient-ads/:id",
+    checkAdminKey,
+    async (req, res) => {
+        try {
+            const database = readDatabase();
+
+            if (!Array.isArray(database.patientAds)) {
+                database.patientAds = [];
+            }
+
+            const index = database.patientAds.findIndex(
+                item => item.id === req.params.id
+            );
+
+            if (index === -1) {
+                return res.status(404).json({
+                    success: false,
+                    message: "الإعلان غير موجود."
+                });
+            }
+
+            database.patientAds.splice(index, 1);
+            await saveDatabase(database);
+
+            return res.json({
+                success: true,
+                message: "تم حذف الإعلان."
+            });
+        } catch (error) {
+            console.error("DELETE PATIENT AD ERROR:", error);
+            return res.status(500).json({
+                success: false,
+                message: "تعذر حذف الإعلان."
             });
         }
     }

@@ -7906,9 +7906,9 @@ transition: none;
                     </div>
 
 
-                    <div class="card profile-card">
+                    <div class="card profile-card tabibk-home-profile">
 
-                        <div class="profile-avatar">
+                        <div class="profile-avatar" aria-label="صورة الطبيب الافتراضية">
 
                             <i class="fa-solid fa-user-doctor"></i>
 
@@ -8069,6 +8069,30 @@ transition: none;
 
                             </div>
 
+                        </div>
+
+                    </div>
+
+
+                    <div class="home-insights-grid">
+
+                        <div class="card home-insight-card home-rating-card">
+                            <div class="home-insight-icon"><i class="fa-solid fa-star"></i></div>
+                            <div class="home-insight-copy">
+                                <span>تقييمات المرضى</span>
+                                <strong id="homeRatingAverage">— <small>/ 5</small></strong>
+                                <p id="homeRatingCount">لم تصل تقييمات بعد</p>
+                            </div>
+                            <button type="button" class="home-insight-link" onclick="showSection('ratings')">عرض التقييمات <i class="fa-solid fa-arrow-left"></i></button>
+                        </div>
+
+                        <div class="card home-insight-card home-completed-card">
+                            <div class="home-insight-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <div class="home-insight-copy">
+                                <span>المواعيد المكتملة</span>
+                                <strong id="homeCompletedCount">0</strong>
+                                <p>حصيلة نشاطك الطبي</p>
+                            </div>
                         </div>
 
                     </div>
@@ -10658,11 +10682,18 @@ function syncDoctorAvatarImages() {
         currentDoctor.avatar
     ];
 
-    const imageUrl = candidates.find(value =>
+    const savedImageUrl = candidates.find(value =>
         typeof value === "string" && value.trim()
     );
 
-    if (!imageUrl) return;
+    const gender = String(
+        currentDoctor.gender || currentDoctor.sex || ""
+    ).trim().toLowerCase();
+
+    const isFemale = ["female", "woman", "أنثى", "طبيبة", "f"].includes(gender);
+    const imageUrl = savedImageUrl || (
+        isFemale ? "/images/doctor-female.png" : "/images/doctor.png"
+    );
 
     const targets = [
         $("sidebarDoctorAvatar") || document.querySelector(".sidebar-avatar"),
@@ -11463,6 +11494,34 @@ function showVacationMessage(
    APPOINTMENTS
 ========================================================= */
 
+function renderHomeRatingSummary() {
+
+    const ratings = collectRatings();
+    const summary = buildRatingSummary(ratings);
+    const average = $("homeRatingAverage");
+    const count = $("homeRatingCount");
+    const completed = $("homeCompletedCount");
+
+    if (average) {
+        average.innerHTML = summary.total
+            ? `${summary.average.toFixed(1)} <small>/ 5</small>`
+            : `— <small>/ 5</small>`;
+    }
+
+    if (count) {
+        count.textContent = summary.total
+            ? `${summary.total} تقييم من المرضى`
+            : "لم تصل تقييمات بعد";
+    }
+
+    if (completed) {
+        completed.textContent = Array.isArray(appointments)
+            ? appointments.filter(item => item.status === "completed").length
+            : 0;
+    }
+}
+
+
 async function loadAppointments(
     showMessage = false
 ) {
@@ -11503,6 +11562,8 @@ async function loadAppointments(
 
 
     renderStats();
+
+    renderHomeRatingSummary();
 
     renderTurn();
 
@@ -19638,6 +19699,86 @@ if (
             transition-duration: 0.01ms !important;
         }
     }
+</style>
+
+
+<style id="tabibk-professional-home-v2">
+/* TABIBK — calm, centered doctor home dashboard */
+#section-home { --home-purple:#542078; --home-purple-dark:#281039; --home-gold:#d7a64b; }
+#section-home .welcome-card {
+  position:relative; overflow:hidden; isolation:isolate;
+  min-height:138px; display:flex; align-items:center;
+  border:1px solid rgba(117,72,151,.13); border-radius:24px;
+  background:radial-gradient(circle at 12% 10%,rgba(255,255,255,.98),transparent 38%),linear-gradient(125deg,#f8f1fc 0%,#eee3f8 55%,#fffaf0 100%);
+  box-shadow:0 10px 30px rgba(65,28,87,.07); margin-bottom:20px;
+}
+#section-home .welcome-card:after { content:""; position:absolute; z-index:-1; width:210px;height:210px;left:-65px;bottom:-135px;border:1px solid rgba(215,166,75,.5);border-radius:50%;box-shadow:0 0 0 18px rgba(215,166,75,.05),0 0 0 38px rgba(215,166,75,.035); }
+#section-home .welcome-content { padding:25px 30px; }
+#section-home .welcome-kicker { display:inline-flex;align-items:center;gap:7px;color:#95691d;background:rgba(255,255,255,.72);border:1px solid rgba(215,166,75,.3);border-radius:99px;padding:6px 11px;font-size:11px;font-weight:800; }
+#section-home .welcome-content h2 { margin:12px 0 6px;color:#35144d;font-size:clamp(20px,2.4vw,27px);font-weight:900; }
+#section-home .welcome-content p { margin:0;color:#786586;font-size:13px; }
+#section-home .tabibk-home-profile {
+  position:relative; display:flex; flex-direction:column; align-items:center; text-align:center;
+  gap:12px; padding:28px 22px 24px; margin-bottom:22px; overflow:hidden;
+  border:1px solid rgba(117,72,151,.14); border-radius:24px;
+  background:linear-gradient(145deg,#fff 0%,#fbf7ff 58%,#fffaf1 100%);
+  box-shadow:0 12px 34px rgba(55,25,77,.075);
+}
+#section-home .tabibk-home-profile:before { content:"";position:absolute;top:-78px;right:calc(50% - 125px);width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(224,199,244,.4),rgba(224,199,244,0) 70%);pointer-events:none; }
+#section-home .profile-avatar { position:relative; z-index:1; width:126px;height:126px;min-width:126px; flex:none; border-radius:50%; display:flex;align-items:center;justify-content:center;overflow:hidden; font-size:54px; color:#6b338a; background:linear-gradient(145deg,#f2e4fb,#fff8e8);border:4px solid #fff;outline:2px solid #d7a64b;box-shadow:0 8px 24px rgba(66,30,88,.14); }
+#section-home .profile-avatar i { font-size:53px; }
+#section-home .profile-main { position:relative;z-index:1; width:100%; }
+#section-home .profile-main h2 { margin:0 0 5px;font-size:22px;font-weight:900;color:#35144d; }
+#section-home .profile-specialty { font-size:13px;margin-bottom:11px; }
+#section-home .profile-tags { justify-content:center; gap:8px; }
+#section-home .profile-tag { padding:7px 11px;font-size:11px;border-radius:99px;background:#fff;border-color:#eee3f5; }
+#section-home .profile-status { align-self:auto;justify-content:center;margin-top:3px;padding:7px 13px;border-radius:99px;background:#ecfbf3;color:#188452;border:1px solid #c9f0dc;font-size:11px;font-weight:800; }
+#section-home .profile-status-dot { width:8px;height:8px;border-radius:50%;background:#20b46e;box-shadow:0 0 0 4px rgba(32,180,110,.12); }
+#section-home .section-head { margin-top:24px;margin-bottom:12px; }
+#section-home .stats-grid { gap:13px; }
+#section-home .stat-card { min-height:104px;border-radius:17px;border:1px solid rgba(117,72,151,.12);box-shadow:0 7px 22px rgba(55,25,77,.045);transition:transform .18s ease,box-shadow .18s ease; }
+#section-home .stat-card:hover { transform:translateY(-2px);box-shadow:0 11px 26px rgba(55,25,77,.08); }
+#section-home .home-insights-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:15px 0 23px; }
+#section-home .home-insight-card { min-width:0;display:flex;align-items:center;gap:13px;padding:17px 18px;border-radius:18px;border:1px solid rgba(117,72,151,.13);background:linear-gradient(135deg,#fff,#fbf7ff);box-shadow:0 7px 22px rgba(55,25,77,.045); }
+#section-home .home-rating-card { background:linear-gradient(135deg,#fffaf0,#fff 72%);border-color:rgba(215,166,75,.27); }
+#section-home .home-completed-card { background:linear-gradient(135deg,#effbf5,#fff 72%);border-color:rgba(32,180,110,.18); }
+#section-home .home-insight-icon { flex:none;width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:#f4e9fb;color:#71339a;font-size:20px; }
+#section-home .home-rating-card .home-insight-icon { background:#fff0d1;color:#b98121; }
+#section-home .home-completed-card .home-insight-icon { background:#dff7eb;color:#15945a; }
+#section-home .home-insight-copy { min-width:0;flex:1; }
+#section-home .home-insight-copy span { display:block;color:#766582;font-size:11px;font-weight:700;margin-bottom:4px; }
+#section-home .home-insight-copy strong { display:block;color:#35144d;font-size:24px;font-weight:900;line-height:1.2; }
+#section-home .home-insight-copy strong small { font-size:11px;color:#9a8ba4;font-weight:700; }
+#section-home .home-insight-copy p { margin:5px 0 0;color:#95859f;font-size:10px; }
+#section-home .home-insight-link { flex:none;border:1px solid #e8d9f0;border-radius:10px;padding:8px 10px;background:#fff;color:#67328b;font:inherit;font-size:10px;font-weight:800;cursor:pointer; }
+#section-home .home-insight-link:hover { background:#f6effb; }
+#section-home .turn-grid { gap:13px; }
+#section-home .turn-box,#section-home .appointments-list { border-radius:17px; }
+#section-home .appointments-list { border:1px solid rgba(117,72,151,.12);box-shadow:0 7px 22px rgba(55,25,77,.04); }
+#section-home button:focus-visible { outline:3px solid rgba(215,166,75,.7);outline-offset:3px; }
+@media(max-width:900px) {
+  #section-home .welcome-card { min-height:120px;border-radius:19px;margin-bottom:15px; }
+  #section-home .welcome-content { padding:20px 17px; }
+  #section-home .welcome-content h2 { font-size:20px; }
+  #section-home .tabibk-home-profile { padding:24px 14px 20px;gap:11px;border-radius:20px; }
+  #section-home .profile-avatar { width:112px;height:112px;min-width:112px;font-size:47px; }
+  #section-home .profile-avatar i { font-size:46px; }
+  #section-home .profile-main h2 { font-size:19px; }
+  #section-home .profile-tags { max-width:100%; }
+  #section-home .profile-tag { max-width:100%;overflow-wrap:anywhere; }
+  #section-home .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #section-home .home-insights-grid { grid-template-columns:1fr;gap:10px;margin:12px 0 20px; }
+  #section-home .home-insight-card { padding:14px;gap:11px; }
+  #section-home .home-insight-link { max-width:115px;white-space:normal; }
+  #section-home .turn-grid { grid-template-columns:1fr; }
+}
+@media(max-width:420px) {
+  #section-home .profile-tags { flex-direction:column;align-items:center; }
+  #section-home .profile-tag { width:max-content;max-width:100%; }
+  #section-home .home-insight-icon { width:42px;height:42px;border-radius:13px; }
+  #section-home .home-insight-copy strong { font-size:21px; }
+}
+@media(prefers-reduced-motion:reduce) { #section-home .stat-card { transition:none; } #section-home .stat-card:hover { transform:none; } }
 </style>
 
 </body>

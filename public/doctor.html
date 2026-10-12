@@ -6040,6 +6040,27 @@ select{
 }
 
 
+/* TABIBK — SPECIALTY DROPDOWN ARROW */
+#doctorRegistrationModal .input-box:has(#registerDoctorSpecialty) {
+    position: relative;
+}
+
+#doctorRegistrationModal .input-box:has(#registerDoctorSpecialty)::after {
+    content: "▾";
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--purple);
+    font-size: 18px;
+    pointer-events: none;
+}
+
+#doctorRegistrationModal #registerDoctorSpecialty {
+    padding-left: 30px !important;
+    cursor: pointer;
+}
+
 </style>
 
 

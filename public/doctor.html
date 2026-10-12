@@ -6039,6 +6039,56 @@ select{
     box-shadow: 0 0 0 3px rgba(201,151,50,.10) !important;
 }
 
+    
+/* TABIBK — PREMIUM WILAYA & MUNICIPALITY SELECTS */
+#doctorRegistrationModal #registerDoctorWilaya,
+#doctorRegistrationModal #registerDoctorMunicipality {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    color: var(--text) !important;
+    background: transparent !important;
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    border-radius: 0 !important;
+}
+
+#doctorRegistrationModal #registerDoctorWilaya:focus,
+#doctorRegistrationModal #registerDoctorWilaya:focus-visible,
+#doctorRegistrationModal #registerDoctorMunicipality:focus,
+#doctorRegistrationModal #registerDoctorMunicipality:focus-visible {
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+#doctorRegistrationModal .input-box:has(#registerDoctorWilaya),
+#doctorRegistrationModal .input-box:has(#registerDoctorMunicipality) {
+    position: relative;
+}
+
+#doctorRegistrationModal .input-box:has(#registerDoctorWilaya)::after,
+#doctorRegistrationModal .input-box:has(#registerDoctorMunicipality)::after {
+    content: "▾";
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--purple);
+    font-size: 18px;
+    pointer-events: none;
+}
+
+#doctorRegistrationModal #registerDoctorWilaya,
+#doctorRegistrationModal #registerDoctorMunicipality {
+    padding-left: 30px !important;
+    cursor: pointer;
+}
+
+
 
 /* TABIBK — SPECIALTY DROPDOWN ARROW */
 #doctorRegistrationModal .input-box:has(#registerDoctorSpecialty) {

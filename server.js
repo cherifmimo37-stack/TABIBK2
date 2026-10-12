@@ -6240,14 +6240,9 @@ app.get("/api/ads/patient", (req, res) => {
             )
             : [];
 
-                let ads = validAds.map(ad => ({
-    id: ad.id,
-    enabled: true,
-    imageData: ad.imageData,
-    targetUrl: ad.targetUrl,
-    title: ad.title || ""
-}));ds.map(ad => ({
+                        let ads = validAds.map(ad => ({
             id: ad.id,
+            enabled: true,
             imageData: ad.imageData,
             targetUrl: ad.targetUrl,
             title: ad.title || ""

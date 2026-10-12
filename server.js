@@ -6240,7 +6240,7 @@ app.get("/api/ads/patient", (req, res) => {
             )
             : [];
 
-        let ads = validAlet ads = validAds.map(ad => ({
+                let ads = validAds.map(ad => ({
     id: ad.id,
     enabled: true,
     imageData: ad.imageData,

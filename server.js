@@ -157,14 +157,15 @@ function createEmptyDatabase() {
 
                 notifications: [],
 
-        patientAd: {
+                patientAd: {
             enabled: false,
             imageData: "",
             targetUrl: "",
             title: "",
             updatedAt: ""
-        }
+        },
 
+        patientAds: []
     };
 }
 
@@ -240,7 +241,24 @@ function normalizeDatabase(database) {
                 ? database.patientAd.updatedAt
                 : ""
     };
+    // --------------------------------------------------------
+    // Patient ads list - preserve existing single ad
+    // --------------------------------------------------------
 
+    if (!Array.isArray(database.patientAds)) {
+        database.patientAds = [];
+
+        if (database.patientAd.imageData) {
+            database.patientAds.push({
+                id: "legacy-patient-ad",
+                enabled: database.patientAd.enabled === true,
+                imageData: database.patientAd.imageData,
+                targetUrl: database.patientAd.targetUrl,
+                title: database.patientAd.title,
+                updatedAt: database.patientAd.updatedAt
+            });
+        }
+    }
     // --------------------------------------------------------
     // Wilayas
     // --------------------------------------------------------

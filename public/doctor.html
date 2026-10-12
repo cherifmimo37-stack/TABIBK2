@@ -10638,6 +10638,62 @@ function renderDoctorProfile() {
 
     }
 
+    // تحديث صورة الطبيب في القائمة والملف الشخصي إن كانت محفوظة بالحساب.
+    syncDoctorAvatarImages();
+
+}
+
+function syncDoctorAvatarImages() {
+
+    if (!currentDoctor) return;
+
+    const candidates = [
+        currentDoctor.photoUrl,
+        currentDoctor.imageUrl,
+        currentDoctor.avatarUrl,
+        currentDoctor.profileImage,
+        currentDoctor.profilePicture,
+        currentDoctor.photo,
+        currentDoctor.image,
+        currentDoctor.avatar
+    ];
+
+    const imageUrl = candidates.find(value =>
+        typeof value === "string" && value.trim()
+    );
+
+    if (!imageUrl) return;
+
+    const targets = [
+        $("sidebarDoctorAvatar") || document.querySelector(".sidebar-avatar"),
+        document.querySelector("#section-home .profile-avatar")
+    ].filter(Boolean);
+
+    targets.forEach(container => {
+        if (container.dataset.doctorImageUrl === imageUrl) return;
+
+        const image = document.createElement("img");
+        image.src = imageUrl.trim();
+        image.alt = "صورة الطبيب";
+        image.loading = "lazy";
+        image.decoding = "async";
+        image.referrerPolicy = "no-referrer";
+
+        image.addEventListener("error", () => {
+            container.dataset.doctorImageUrl = "";
+            image.remove();
+            if (!container.querySelector("i")) {
+                const fallback = document.createElement("i");
+                fallback.className = "fa-solid fa-user-doctor";
+                fallback.setAttribute("aria-hidden", "true");
+                container.appendChild(fallback);
+            }
+        }, { once: true });
+
+        container.replaceChildren(image);
+        container.dataset.doctorImageUrl = imageUrl;
+    });
+
 }
 /* =========================================================
    SECTION NAVIGATION
@@ -19486,6 +19542,104 @@ if (
 
 </div>
     
+
+
+<!-- =========================================================
+     TABIBK DOCTOR DASHBOARD — FINAL PERFORMANCE & VISUAL POLISH
+     Scoped UI-only overrides; existing actions and API logic retained.
+========================================================= -->
+<style>
+    #app .sidebar {
+        will-change: transform;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+    #app .sidebar-doctor {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    #app .sidebar-avatar,
+    #app .profile-avatar {
+        overflow: hidden;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    #app .sidebar-avatar img,
+    #app .profile-avatar img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: inherit;
+    }
+
+    #app .content-area {
+        min-width: 0;
+        scroll-behavior: auto;
+    }
+
+    #app .card {
+        border-color: rgba(112, 39, 160, 0.11);
+    }
+
+    #app .section-head {
+        gap: 12px;
+    }
+
+    #app .nav-item,
+    #app .sidebar-logout,
+    #app .mobile-menu-button,
+    #app .icon-button {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    #app button:focus-visible,
+    #app a:focus-visible {
+        outline: 3px solid rgba(201, 151, 50, 0.75);
+        outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+        #app .sidebar {
+            transition: transform 0.16s cubic-bezier(0.2, 0.7, 0.2, 1) !important;
+            box-shadow: -12px 0 30px rgba(24, 8, 36, 0.18) !important;
+        }
+
+        #app .sidebar-overlay {
+            -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+            transition: opacity 0.14s ease !important;
+        }
+
+        #app .sidebar-doctor {
+            -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+        }
+
+        #app .content-area {
+            padding-left: 13px;
+            padding-right: 13px;
+        }
+
+        #app .profile-card {
+            min-width: 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        #app .sidebar,
+        #app .sidebar-overlay {
+            transition-duration: 0.01ms !important;
+        }
+    }
+</style>
+
 </body>
 
 </html>

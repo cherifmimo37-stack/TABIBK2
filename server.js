@@ -6279,26 +6279,6 @@ app.get("/api/ads/patient", (req, res) => {
     }
 });
 
-    const database = readDatabase();
-    const ad = database.patientAd;
-
-    if (!ad || ad.enabled !== true || !ad.imageData) {
-        return res.json({
-            success: true,
-            ad: null
-        });
-    }
-
-    res.json({
-        success: true,
-        ad: {
-            imageData: ad.imageData,
-            targetUrl: ad.targetUrl,
-            title: ad.title
-        }
-    });
-});
-
 // قراءة إعدادات الإعلان من لوحة الإدارة
 app.get(
     "/api/admin/ads/patient",

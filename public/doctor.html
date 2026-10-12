@@ -9560,15 +9560,25 @@ async function loadDoctorRegistrationWilayas() {
     }
 }
 
-document.getElementById("registerDoctorWilaya")?.addEventListener("change", async function () {
-    const municipalitySelect = document.getElementById("registerDoctorMunicipality");
-    const selectedOption = this.options[this.selectedIndex];
-    const wilayaId = selectedOption?.getAttribute("data-id");
 
-    municipalitySelect.innerHTML = '<option value="">اختر البلدية</option>';
+document.addEventListener("change", async function (event) {
+    if (event.target.id !== "registerDoctorWilaya") return;
+
+    const wilayaSelect = event.target;
+    const municipalitySelect = document.getElementById("registerDoctorMunicipality");
+
+    if (!municipalitySelect) return;
+
+    const selectedOption = wilayaSelect.options[wilayaSelect.selectedIndex];
+    const wilayaId = selectedOption?.dataset.id;
+
+    municipalitySelect.innerHTML = '<option value="">جاري تحميل البلديات...</option>';
     municipalitySelect.disabled = true;
 
-    if (!wilayaId) return;
+    if (!wilayaId) {
+        municipalitySelect.innerHTML = '<option value="">اختر الولاية أولًا</option>';
+        return;
+    }
 
     try {
         const response = await fetch(
@@ -9578,26 +9588,23 @@ document.getElementById("registerDoctorWilaya")?.addEventListener("change", asyn
 
         const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error("تعذر تحميل البلديات");
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || "تعذر تحميل البلديات");
         }
 
         const municipalities = data.municipalities || data.data || [];
-        const seen = new Set();
+        municipalitySelect.innerHTML = '<option value="">اختر البلدية</option>';
 
         municipalities.forEach(item => {
             const name = String(
                 typeof item === "string" ? item : item?.name || ""
             ).trim().replace(/\s+/g, " ");
 
-            if (!name || seen.has(name)) return;
-
-            seen.add(name);
+            if (!name) return;
 
             const option = document.createElement("option");
             option.value = name;
             option.textContent = name;
-
             municipalitySelect.appendChild(option);
         });
 
@@ -9613,6 +9620,7 @@ document.getElementById("registerDoctorWilaya")?.addEventListener("change", asyn
         municipalitySelect.disabled = true;
     }
 });
+
   
 /* =========================================================
    LOGIN DOCTOR

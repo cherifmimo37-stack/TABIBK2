@@ -6009,25 +6009,36 @@ select{
 }
     
     
-/* TABIBK — FIX SPECIALTY SELECT BLACK FRAME */
+
+/* TABIBK — PREMIUM SPECIALTY SELECT */
 #doctorRegistrationModal #registerDoctorSpecialty {
-    appearance: none !important;
-    -webkit-appearance: none !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    color: var(--text) !important;
+    background: transparent !important;
+    border: 0 !important;
     outline: none !important;
     box-shadow: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    border-radius: 0 !important;
 }
 
 #doctorRegistrationModal #registerDoctorSpecialty:focus,
 #doctorRegistrationModal #registerDoctorSpecialty:focus-visible,
 #doctorRegistrationModal #registerDoctorSpecialty:active {
+    border: 0 !important;
     outline: none !important;
     box-shadow: none !important;
 }
 
 #doctorRegistrationModal .input-box:has(#registerDoctorSpecialty:focus) {
+    border-color: var(--gold) !important;
     outline: none !important;
-    box-shadow: none !important;
+    box-shadow: 0 0 0 3px rgba(201,151,50,.10) !important;
 }
+
 
 </style>
 

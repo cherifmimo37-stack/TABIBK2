@@ -20055,6 +20055,77 @@ if (
     }
 </style>
 
+  
+<!-- TABIBK PRO MAX - PREMIUM DESIGN -->
+<style id="tabibk-pro-max">
+
+:root {
+    --pro-purple: #51216f;
+    --pro-purple-dark: #2c123e;
+    --pro-purple-soft: #f4edf9;
+    --pro-gold: #d6b064;
+    --pro-border: rgba(81, 33, 111, 0.13);
+    --pro-shadow: 0 12px 32px rgba(44, 18, 62, 0.08);
+    --pro-shadow-hover: 0 18px 38px rgba(44, 18, 62, 0.14);
+}
+
+/* بطاقات فاخرة */
+#app .card,
+#app .stat-card,
+#app .profile-card,
+#app .welcome-card,
+#app .ratings-card {
+    border-color: var(--pro-border);
+    box-shadow: var(--pro-shadow);
+    transition: box-shadow .2s ease, border-color .2s ease;
+}
+
+/* تفاعل أنيق */
+#app .card:hover,
+#app .stat-card:hover {
+    box-shadow: var(--pro-shadow-hover);
+    border-color: rgba(214, 176, 100, .6);
+}
+
+/* الحقول */
+#app input:focus,
+#app select:focus,
+#app textarea:focus {
+    outline: none;
+    border-color: var(--pro-gold) !important;
+    box-shadow: 0 0 0 3px rgba(214, 176, 100, .17);
+}
+
+/* تركيز واضح للأزرار */
+#app button:focus-visible {
+    outline: 3px solid rgba(214, 176, 100, .65);
+    outline-offset: 3px;
+}
+
+/* تحسين الشاشات الصغيرة */
+@media (max-width: 768px) {
+    #app .card,
+    #app .stat-card,
+    #app .profile-card,
+    #app .welcome-card,
+    #app .ratings-card {
+        border-radius: 16px;
+    }
+}
+
+/* احترام تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    #app *,
+    #app *::before,
+    #app *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+</style>
+
+    
 </body>
 
 </html>

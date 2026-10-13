@@ -7340,7 +7340,99 @@ transition: none;
  #section-home .section-head:has(+ .turn-grid) {
     display: none !important;
 }
-    
+    /* =========================================
+   TABIBK PRO — PREMIUM VISUAL FOUNDATION
+========================================= */
+
+:root {
+    --pro-purple: #4b216b;
+    --pro-purple-dark: #281438;
+    --pro-purple-light: #f4edf9;
+    --pro-gold: #d6ad62;
+    --pro-gold-light: #f5e5bd;
+    --pro-surface: #ffffff;
+    --pro-background: #f8f6fb;
+    --pro-text: #30243b;
+    --pro-muted: #82758d;
+    --pro-border: rgba(89, 54, 111, 0.12);
+    --pro-shadow: 0 10px 30px rgba(48, 26, 68, 0.07);
+}
+
+/* خلفية الأقسام */
+#section-home.dashboard-section {
+    color: var(--pro-text);
+}
+
+/* البطاقات والإحصائيات */
+#section-home .stat-card,
+#section-home .card {
+    border: 1px solid var(--pro-border);
+    border-radius: 20px;
+    box-shadow: var(--pro-shadow);
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+}
+
+/* حركة خفيفة وراقية */
+#section-home .stat-card:hover,
+#section-home .card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(214, 173, 98, 0.5);
+    box-shadow: 0 15px 34px rgba(48, 26, 68, 0.11);
+}
+
+/* عناوين الأقسام */
+#section-home .section-head {
+    margin-bottom: 22px;
+}
+
+#section-home .section-heading h2 {
+    color: var(--pro-purple-dark);
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+
+#section-home .section-heading p {
+    color: var(--pro-muted);
+    line-height: 1.8;
+}
+
+/* أيقونات العناوين */
+#section-home .section-icon {
+    border-radius: 15px;
+    border: 1px solid rgba(214, 173, 98, 0.35);
+    box-shadow: 0 5px 14px rgba(48, 26, 68, 0.07);
+}
+
+/* أزرار الرئيسية */
+#section-home .refresh-button {
+    border-radius: 12px;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#section-home .refresh-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 16px rgba(48, 26, 68, 0.12);
+}
+
+/* احترام إعدادات تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    #section-home .stat-card,
+    #section-home .card,
+    #section-home .refresh-button {
+        transition: none;
+    }
+
+    #section-home .stat-card:hover,
+    #section-home .card:hover,
+    #section-home .refresh-button:hover {
+        transform: none;
+    }
+}
 </style>
 
 </head>

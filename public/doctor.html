@@ -7537,6 +7537,213 @@ transition: none;
         left: 12px !important;
     }
 }
+    
+/* =========================================
+   TABIBK PRO — DOCTOR PROFILE CARD
+========================================= */
+
+#section-home .profile-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 26px;
+    margin: 18px 0 28px;
+    overflow: hidden;
+    isolation: isolate;
+    direction: rtl;
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #fbf8ff 55%,
+        #f7f1e4 100%
+    );
+    border: 1px solid rgba(164, 125, 65, 0.3);
+    border-radius: 24px;
+    box-shadow:
+        0 12px 32px rgba(49, 25, 72, 0.09),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    transition:
+        box-shadow 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+#section-home .profile-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        #d8b56d,
+        #8a55b0,
+        #4b286b
+    );
+    z-index: -1;
+}
+
+#section-home .profile-card::after {
+    content: "";
+    position: absolute;
+    left: -45px;
+    top: -55px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(191, 157, 218, 0.16),
+        transparent 70%
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+
+#section-home .profile-avatar {
+    position: relative;
+    flex: 0 0 100px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    background: linear-gradient(
+        145deg,
+        #eee2fa,
+        #ffffff,
+        #f4e8c9
+    );
+    border: 3px solid #d5b36e;
+    box-shadow:
+        0 0 0 5px rgba(213, 179, 110, 0.13),
+        0 8px 20px rgba(57, 30, 79, 0.13);
+}
+
+#section-home .profile-avatar img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#section-home .profile-avatar i {
+    color: #68418a;
+    font-size: 38px;
+}
+
+#section-home .profile-main {
+    flex: 1 1 180px;
+    min-width: 0;
+}
+
+#section-home .profile-main h2 {
+    margin: 0 0 8px;
+    color: #38204f;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+#section-home .profile-specialty {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 14px;
+    color: #75528d;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#section-home .profile-specialty::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    border-radius: 50%;
+    background: #c5a052;
+    box-shadow: 0 0 0 4px rgba(197, 160, 82, 0.13);
+}
+
+#section-home .profile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+#section-home .profile-tag {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 7px 12px;
+    color: #59436b;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(115, 79, 143, 0.14);
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+#section-home .profile-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 9px 13px;
+    color: #24764d;
+    background: #edf8f1;
+    border: 1px solid #ccebd8;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+#section-home .profile-status-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    border-radius: 50%;
+    background: #2fa66a;
+    box-shadow: 0 0 0 4px rgba(47, 166, 106, 0.12);
+}
+
+@media (max-width: 600px) {
+    #section-home .profile-card {
+        gap: 16px;
+        padding: 20px 16px;
+        border-radius: 20px;
+    }
+
+    #section-home .profile-avatar {
+        flex-basis: 78px;
+        width: 78px;
+        height: 78px;
+    }
+
+    #section-home .profile-avatar i {
+        font-size: 30px;
+    }
+
+    #section-home .profile-main h2 {
+        font-size: 19px;
+    }
+
+    #section-home .profile-status {
+        margin-right: auto;
+    }
+}
+
+    
 </style>
 
 </head>

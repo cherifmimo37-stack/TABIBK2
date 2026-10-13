@@ -15838,13 +15838,12 @@ document.addEventListener(
    RATINGS — HELPERS
 ========================================================= */
 
+
 function getRatingValue(item) {
+    if (!item) return 0;
 
-    if (!item) {
-        return 0;
-    }
-
-    const possibleValues = [
+    const values = [
+        item.doctorRating,
         item.rating,
         item.patientRating,
         item.stars,
@@ -15852,10 +15851,8 @@ function getRatingValue(item) {
         item.evaluation
     ];
 
-    for (const value of possibleValues) {
-
-        const number =
-            Number(value);
+    for (const value of values) {
+        const number = Number(value);
 
         if (
             Number.isFinite(number) &&
@@ -15871,12 +15868,10 @@ function getRatingValue(item) {
 
 
 function getRatingComment(item) {
+    if (!item) return "";
 
-    if (!item) {
-        return "";
-    }
-
-    const possibleComments = [
+    const comments = [
+        item.doctorReview,
         item.comment,
         item.review,
         item.patientComment,
@@ -15885,14 +15880,12 @@ function getRatingComment(item) {
         item.feedback
     ];
 
-    for (const value of possibleComments) {
-
+    for (const value of comments) {
         if (
             value !== undefined &&
             value !== null &&
             String(value).trim() !== ""
         ) {
-
             return String(value).trim();
         }
     }
@@ -15902,12 +15895,10 @@ function getRatingComment(item) {
 
 
 function getRatingDate(item) {
+    if (!item) return "";
 
-    if (!item) {
-        return "";
-    }
-
-    const possibleDates = [
+    const dates = [
+        item.ratedAt,
         item.ratingDate,
         item.reviewDate,
         item.evaluationDate,
@@ -15917,11 +15908,8 @@ function getRatingDate(item) {
         item.date
     ];
 
-    for (const value of possibleDates) {
-
-        if (value) {
-            return value;
-        }
+    for (const value of dates) {
+        if (value) return value;
     }
 
     return "";
@@ -15929,19 +15917,20 @@ function getRatingDate(item) {
 
 
 function getRatingPatientName(item) {
-
-    if (!item) {
-        return "مريض";
-    }
+    if (!item) return "مريض";
 
     return (
         item.patientName ||
+        item.patient?.name ||
         item.name ||
-        item.patient ||
+        (
+            typeof item.patient === "string"
+                ? item.patient
+                : ""
+        ) ||
         "مريض"
     );
 }
-
 
 /* =========================================================
    BUILD RATING STARS

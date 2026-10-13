@@ -20316,7 +20316,142 @@ if (
 }
 
 </style>
-```
+```html
+<!-- TABIBK PRO MAX - LUXURY SIDEBAR V5 -->
+<style id="tabibk-sidebar-luxury-v5">
+
+/* الإطار الفاخر */
+#app .sidebar {
+    background:
+        radial-gradient(
+            circle at 10% 5%,
+            rgba(214, 176, 100, .13),
+            transparent 28%
+        ),
+        linear-gradient(180deg, #321344 0%, #24102f 100%) !important;
+    border-left: 1px solid rgba(224, 190, 112, .55);
+    box-shadow: -12px 0 40px rgba(25, 8, 36, .25);
+}
+
+/* بطاقة الطبيب */
+#app .sidebar-doctor {
+    position: relative;
+    margin: 14px 12px 20px;
+    padding: 14px;
+    border: 1px solid rgba(224, 190, 112, .48);
+    border-radius: 19px;
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,.10),
+        rgba(214,176,100,.07)
+    );
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.13),
+        inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+/* إطار الصورة */
+#app .sidebar-avatar {
+    border: 2px solid #e5c477;
+    box-shadow:
+        0 0 0 4px rgba(214,176,100,.10),
+        0 0 20px rgba(214,176,100,.20);
+}
+
+/* أسماء الأقسام */
+#app .nav-item {
+    position: relative;
+    margin: 5px 10px;
+    padding: 12px 14px;
+    border: 1px solid transparent;
+    border-radius: 13px;
+    color: #f4eaf9;
+    transition: all .22s ease;
+}
+
+/* زخرفة ذهبية عند مرور المؤشر */
+#app .nav-item:hover {
+    background: linear-gradient(
+        100deg,
+        rgba(214,176,100,.17),
+        rgba(255,255,255,.04)
+    );
+    border-color: rgba(214,176,100,.38);
+    color: #ffe3a0;
+    box-shadow: 0 5px 16px rgba(0,0,0,.12);
+}
+
+/* القسم المختار */
+#app .nav-item.active {
+    color: #fff3cf !important;
+    background: linear-gradient(
+        110deg,
+        rgba(214,176,100,.25),
+        rgba(124,76,151,.30)
+    ) !important;
+    border: 1px solid rgba(231,196,119,.65);
+    box-shadow:
+        inset -3px 0 0 #e5c477,
+        0 5px 18px rgba(0,0,0,.14);
+}
+
+/* الأيقونات */
+#app .nav-item i {
+    color: #e5c477;
+    transition: transform .22s ease, color .22s ease;
+}
+
+#app .nav-item:hover i {
+    transform: scale(1.12);
+    color: #ffe6a3;
+}
+
+#app .nav-item.active i {
+    color: #ffe4a0;
+}
+
+/* فواصل أنيقة */
+#app .sidebar .nav-section-title {
+    color: #d9bd82;
+    letter-spacing: .5px;
+}
+
+/* زر تسجيل الخروج */
+#app .sidebar-logout {
+    margin: 10px;
+    border: 1px solid rgba(230,140,150,.35);
+    border-radius: 13px;
+    background: rgba(180,60,75,.10);
+    transition: all .22s ease;
+}
+
+#app .sidebar-logout:hover {
+    background: rgba(180,60,75,.22);
+    border-color: rgba(255,160,170,.60);
+}
+
+/* تحسين الهاتف */
+@media (max-width: 900px) {
+    #app .sidebar {
+        box-shadow: -14px 0 38px rgba(15,5,24,.35);
+    }
+
+    #app .nav-item {
+        min-height: 45px;
+    }
+}
+
+/* احترام إعدادات تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    #app .nav-item,
+    #app .nav-item i,
+    #app .sidebar-logout {
+        transition: none !important;
+    }
+}
+
+</style>
+
 </body>
 
 </html>

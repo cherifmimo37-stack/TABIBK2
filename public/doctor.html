@@ -7448,6 +7448,95 @@ transition: none;
     content: "";
     margin-bottom: 3px;
 }
+    /* =========================================
+   TABIBK PRO — PREMIUM WELCOME CARD
+========================================= */
+
+.welcome-card {
+    isolation: isolate;
+    min-height: 190px;
+    padding: 30px !important;
+    border-radius: 26px !important;
+    background:
+        radial-gradient(
+            ellipse at 90% 0%,
+            rgba(235, 204, 128, 0.28),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 0% 100%,
+            rgba(160, 102, 203, 0.22),
+            transparent 42%
+        ),
+        linear-gradient(
+            125deg,
+            #24102f 0%,
+            #482064 52%,
+            #67368a 100%
+        ) !important;
+    border: 1px solid rgba(225, 190, 115, 0.55) !important;
+    box-shadow:
+        0 18px 42px rgba(48, 20, 65, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+.welcome-card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: -95px;
+    right: -55px;
+    border: 1px solid rgba(245, 222, 170, 0.24);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 18px rgba(255, 255, 255, 0.025),
+        0 0 0 38px rgba(255, 255, 255, 0.02);
+    pointer-events: none;
+}
+
+.welcome-card::after {
+    font-size: 145px !important;
+    color: rgba(255, 255, 255, 0.055) !important;
+    left: 24px !important;
+    bottom: -35px !important;
+    pointer-events: none;
+}
+
+.welcome-kicker {
+    padding: 7px 12px !important;
+    border-radius: 30px !important;
+    background: rgba(255, 255, 255, 0.09) !important;
+    border: 1px solid rgba(240, 211, 145, 0.32) !important;
+    color: #f5dda0 !important;
+    letter-spacing: 0.2px;
+}
+
+.welcome-card h2 {
+    color: #fff !important;
+    font-size: clamp(23px, 3vw, 30px) !important;
+    line-height: 1.6;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+}
+
+.welcome-card p {
+    color: rgba(255, 255, 255, 0.82) !important;
+    font-size: 13px !important;
+    line-height: 1.9;
+}
+
+@media (max-width: 600px) {
+    .welcome-card {
+        min-height: 165px;
+        padding: 22px !important;
+        border-radius: 21px !important;
+    }
+
+    .welcome-card::after {
+        font-size: 110px !important;
+        left: 12px !important;
+    }
+}
 </style>
 
 </head>

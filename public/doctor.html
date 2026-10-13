@@ -7328,8 +7328,11 @@ transition: none;
     }
 }
 
-   /* إخفاء الدور وآخر المواعيد من الرئيسية فقط */
-#section-home .turn-grid,
+  /* إخفاء الدور وآخر المواعيد من الصفحة الرئيسية */
+#section-home .turn-grid {
+    display: none !important;
+}
+
 #section-home .appointments-list,
 #section-home .section-head:has(.fa-calendar-check) {
     display: none !important;

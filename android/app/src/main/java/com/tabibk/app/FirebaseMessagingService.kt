@@ -1,3 +1,4 @@
+```kotlin
 package com.tabibk.app
 
 import android.app.NotificationChannel
@@ -5,6 +6,8 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.AudioAttributes
+import android.net.Uri
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -13,7 +16,7 @@ import com.google.firebase.messaging.RemoteMessage
 class FirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
-        private const val CHANNEL_ID = "tabibk_notifications"
+        private const val CHANNEL_ID = "tabibk_notifications_v2"
         private const val CHANNEL_NAME = "إشعارات طبيبك"
     }
 
@@ -25,7 +28,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
 
-        // نحتفظ بالـ FCM Token مؤقتًا
         getSharedPreferences("TABIBK_FCM", Context.MODE_PRIVATE)
             .edit()
             .putString("fcm_token", token)
@@ -61,6 +63,10 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                     PendingIntent.FLAG_IMMUTABLE
         )
 
+        val soundUri = Uri.parse(
+            "android.resource://$packageName/${R.raw.tabibk_notification}"
+        )
+
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_tabibk)
             .setContentTitle(title)
@@ -75,6 +81,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setContentIntent(pendingIntent)
             .setVibrate(longArrayOf(0, 300, 200, 300))
+            .setSound(soundUri)
             .build()
 
         val manager =
@@ -90,15 +97,29 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
+            val soundUri = Uri.parse(
+                "android.resource://$packageName/${R.raw.tabibk_notification}"
+            )
+
+            val audioAttributes = AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build()
+
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
 
-                description = "إشعارات المواعيد والتنبيهات في تطبيق طبيبك"
+                description =
+                    "إشعارات المواعيد والتنبيهات في تطبيق طبيبك"
+
                 enableVibration(true)
                 vibrationPattern = longArrayOf(0, 300, 200, 300)
+
+                setSound(soundUri, audioAttributes)
+
                 lockscreenVisibility =
                     NotificationCompat.VISIBILITY_PUBLIC
             }
@@ -111,3 +132,4 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 }
+```

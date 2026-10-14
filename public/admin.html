@@ -5384,9 +5384,11 @@ ${doctor.status === "pending"
             </span>
           `
 
-        : doctor.active === true ||
-          doctor.status === "active" ||
-          doctor.status === "approved"
+        : doctor.active !== false &&
+          (
+              doctor.status === "active" ||
+              doctor.status === "approved"
+          )
 
             ? `
                 <span class="badge active">
@@ -5662,7 +5664,7 @@ function openDoctorModal(
             "doctorStatus"
         )
         .value =
-        doctor.status || "active";
+        doctor.active === false ? "inactive" : "active";
 }
 
 

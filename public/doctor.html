@@ -2635,7 +2635,8 @@ button{
 }
 
 
-/* =========================================================
+
+    ==================================
    WORKING HOURS
 ========================================================= */
 
@@ -18942,6 +18943,23 @@ if (
         .field input:focus{
             border-color:var(--tabibk-gold) !important;
             box-shadow:0 0 0 3px rgba(201,151,50,.10) !important;
+        }
+
+        /* ---------- VACATION ARABIC DISPLAY FIX ---------- */
+
+        #section-hours .setting-card:last-child {
+            direction: rtl;
+            text-align: right;
+            font-family: "Cairo", sans-serif;
+        }
+
+        #section-hours .setting-card:last-child h3,
+        #section-hours .setting-card:last-child p,
+        #section-hours .setting-card:last-child label,
+        #section-hours .setting-card:last-child .toggle-text,
+        #section-hours .setting-card:last-child .save-setting {
+            direction: rtl;
+            font-family: "Cairo", sans-serif;
         }
 
         /* ---------- NOTIFICATIONS ---------- */

@@ -3027,7 +3027,7 @@ specialtySelect.addEventListener("change", function(){
     selectSpecialty(this.value);
 });
 
-function formatTabibkDate(value, timeValue = null) {
+function formatTabibkDate(value, timeValue = null, includeTime = false) {
     if (value === null || value === undefined || value === "") return "";
     const raw = String(value).trim();
     let date = null;
@@ -3064,7 +3064,7 @@ function formatTabibkDate(value, timeValue = null) {
         const match = String(timeValue).trim().match(/^(\d{1,2}):(\d{2})/);
         if (match) return datePart + " · " + String(match[1]).padStart(2, "0") + ":" + match[2];
     }
-    if (/T\d{1,2}:\d{2}/.test(raw)) {
+    if (includeTime && /T\d{1,2}:\d{2}/.test(raw)) {
         return datePart + " · " + String(date.getHours()).padStart(2, "0") + ":" + String(date.getMinutes()).padStart(2, "0");
     }
     return datePart;
@@ -3126,7 +3126,8 @@ if(ratingCount > 0){
 if(nextAppointment){
     const dateText = formatTabibkDate(
         nextAppointment.date,
-        nextAppointment.time || "00:00"
+        nextAppointment.time || "00:00",
+        true
     );
 
     if(dateText){

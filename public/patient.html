@@ -1272,6 +1272,127 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
     display:flex !important;
 }    
       
+
+
+/* Clear, consistent appointment date and time controls */
+.field input[type="date"],
+.field input[type="time"]{
+  direction:ltr;
+  text-align:left;
+  font-variant-numeric:tabular-nums;
+  min-height:54px;
+  border-color:rgba(109,35,137,.20);
+  background:linear-gradient(180deg,#fff 0%,#fffcf7 100%);
+}
+.date-preview{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:39px;
+  margin-top:1px;
+  padding:9px 12px;
+  border:1px dashed rgba(199,154,50,.42);
+  border-radius:12px;
+  color:#76677d;
+  background:#fbf7fd;
+  font-size:11px;
+  font-weight:700;
+  line-height:1.8;
+}
+.date-preview i{color:var(--gold);font-size:14px;flex:0 0 auto}
+.date-preview.has-date{
+  color:var(--purple);
+  border-style:solid;
+  border-color:rgba(199,154,50,.5);
+  background:linear-gradient(100deg,#fff8df,#f7eefb);
+  font-size:12px;
+  font-weight:900;
+  box-shadow:inset 0 0 0 1px rgba(199,154,50,.06);
+}
+@media(max-width:700px){
+  .card{padding:20px 15px;border-radius:22px}
+  .form-grid{gap:13px}
+  .field input[type="date"],.field input[type="time"]{font-size:14px}
+  .date-preview{font-size:10px;padding:9px 10px}
+}
+
+
+
+/* =====================================================
+   PREMIUM BOOKING CONTROLS — visual-only enhancement
+===================================================== */
+.field{gap:9px}
+.field label{letter-spacing:.1px}
+.field input:not([type="checkbox"]),.field select,.field textarea{
+  border:1px solid rgba(82,43,100,.16);
+  border-radius:16px;
+  background:linear-gradient(145deg,#fff 0%,#fdfaff 100%);
+  box-shadow:0 5px 15px rgba(43,12,58,.035);
+  transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease;
+}
+.field input:not([type="checkbox"]):focus,.field select:focus,.field textarea:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 4px rgba(199,154,50,.12),0 12px 28px rgba(53,16,68,.09);
+  transform:translateY(-1px);
+}
+.field input[type="date"],.field input[type="time"]{
+  min-height:58px;
+  padding:13px 15px;
+  border:1px solid rgba(199,154,50,.42);
+  border-radius:17px;
+  color:var(--purple);
+  font-weight:800;
+  background:linear-gradient(135deg,#fff 0%,#fffaf0 58%,#f9f1fc 100%);
+  box-shadow:inset 0 1px 0 #fff,0 8px 20px rgba(53,16,68,.055);
+}
+.field input[type="date"]:focus,.field input[type="time"]:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 4px rgba(199,154,50,.14),0 12px 28px rgba(53,16,68,.09);
+}
+.gender-native-select{
+  position:absolute!important;width:1px!important;height:1px!important;padding:0!important;
+  margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;border:0!important;opacity:0!important;pointer-events:none!important;
+}
+.gender-selector{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.gender-option{
+  position:relative;display:grid;place-items:center;min-height:58px;
+  border:1px solid rgba(82,43,100,.15);border-radius:16px;
+  background:linear-gradient(145deg,#fff,#faf6fc);color:#806e89;
+  font-family:inherit;cursor:pointer;overflow:hidden;
+  box-shadow:0 6px 16px rgba(43,12,58,.045);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.gender-option::after{content:"";position:absolute;inset:5px;border:1px solid rgba(199,154,50,0);border-radius:11px;transition:border-color .2s ease}
+.gender-option:hover{transform:translateY(-2px);border-color:rgba(199,154,50,.55)}
+.gender-option:focus-visible{outline:3px solid rgba(199,154,50,.45);outline-offset:2px}
+.gender-symbol{font-family:Arial,sans-serif;font-size:29px;line-height:1;font-weight:700}
+.gender-option[data-gender="ذكر"] .gender-symbol{color:#5c4aa1}
+.gender-option[data-gender="أنثى"] .gender-symbol{color:#b15a9a}
+.gender-option.active{
+  border-color:var(--gold);color:var(--purple);
+  background:linear-gradient(145deg,#fff8dc 0%,#fff 52%,#f5eafa 100%);
+  box-shadow:0 10px 24px rgba(53,16,68,.11),inset 0 0 0 1px rgba(199,154,50,.17);
+}
+.gender-option.active::after{border-color:rgba(199,154,50,.35)}
+.gender-option.active .gender-symbol{transform:scale(1.08)}
+.date-preview{
+  min-height:48px;display:flex;align-items:center;justify-content:flex-start;gap:10px;
+  padding:11px 13px;border:1px solid rgba(199,154,50,.26);border-radius:15px;
+  color:#76677d;background:linear-gradient(110deg,#fffaf0,#f8f1fb);
+  font-size:10px;font-weight:800;letter-spacing:.7px;line-height:1.4;
+}
+.date-preview i{font-size:16px;color:var(--gold)}
+.date-preview.has-date{border-color:rgba(199,154,50,.52);box-shadow:0 8px 18px rgba(53,16,68,.055);color:var(--purple)}
+.date-preview-day{font-size:10px;letter-spacing:1.5px;color:#8b6c20;font-weight:900}
+.date-preview-divider{height:21px;width:1px;background:rgba(199,154,50,.45)}
+.date-preview strong{font-size:13px;letter-spacing:1px;font-weight:900;color:var(--purple)}
+@media(max-width:700px){
+  .field input[type="date"],.field input[type="time"]{min-height:56px;font-size:14px}
+  .gender-option{min-height:55px}
+  .date-preview{min-height:45px}
+}
+
 </style>
 
 </head>
@@ -1603,22 +1724,19 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
                     </label>
 
-                    <select
-                        id="patientGender">
-
-                        <option value="">
-                            اختر الجنس
-                        </option>
-
-                        <option value="ذكر">
-                            ذكر
-                        </option>
-
-                        <option value="أنثى">
-                            أنثى
-                        </option>
-
+                    <select id="patientGender" class="gender-native-select" aria-hidden="true" tabindex="-1">
+                        <option value="">اختر الجنس</option>
+                        <option value="ذكر">ذكر</option>
+                        <option value="أنثى">أنثى</option>
                     </select>
+                    <div class="gender-selector" role="group" aria-label="Gender">
+                        <button type="button" class="gender-option" data-gender="ذكر" aria-label="Male" aria-pressed="false">
+                            <span class="gender-symbol" aria-hidden="true">♂</span>
+                        </button>
+                        <button type="button" class="gender-option" data-gender="أنثى" aria-label="Female" aria-pressed="false">
+                            <span class="gender-symbol" aria-hidden="true">♀</span>
+                        </button>
+                    </div>
 
                 </div>
 
@@ -1637,7 +1755,12 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
                     <input
                         type="date"
-                        id="date">
+                        id="date"
+                        aria-describedby="selectedDatePreview">
+                    <p class="date-preview" id="selectedDatePreview" aria-live="polite">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        اختر تاريخًا لعرضه هنا بوضوح
+                    </p>
 
                 </div>
 
@@ -2540,6 +2663,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     setMinimumDate();
 
+    const appointmentDateInput = document.getElementById("date");
+    if (appointmentDateInput) {
+        appointmentDateInput.addEventListener("change", updateAppointmentDatePreview);
+        updateAppointmentDatePreview();
+    }
+
+    initPremiumGenderSelector();
+
     // عرض قائمة الاختصاصات مباشرة عند فتح الصفحة
     renderSpecialties();
 
@@ -2584,6 +2715,63 @@ function setMinimumDate(){
     dateInput.min =
         `${year}-${month}-${day}`;
 
+}
+
+
+/* =====================================================
+   PREMIUM DATE PREVIEW — locale-independent and readable
+===================================================== */
+function updateAppointmentDatePreview() {
+    const input = document.getElementById("date");
+    const preview = document.getElementById("selectedDatePreview");
+    if (!input || !preview) return;
+
+    const value = input.value;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        preview.innerHTML = '<i class="fa-regular fa-calendar-check"></i><span>SELECT APPOINTMENT DATE</span>';
+        preview.classList.remove("has-date");
+        return;
+    }
+
+    const [year, month, day] = value.split("-").map(Number);
+    const date = new Date(year, month - 1, day);
+    if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+        preview.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i><span>INVALID DATE</span>';
+        preview.classList.remove("has-date");
+        return;
+    }
+
+    const weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    preview.innerHTML = '<i class="fa-solid fa-calendar-check"></i><span class="date-preview-day">' +
+        weekdays[date.getDay()] + '</span><span class="date-preview-divider"></span><strong>' +
+        String(day).padStart(2, "0") + " " + months[month - 1] + " " + year + "</strong>";
+    preview.classList.add("has-date");
+}
+
+function initPremiumGenderSelector() {
+    const select = document.getElementById("patientGender");
+    const options = document.querySelectorAll(".gender-option");
+    if (!select || !options.length) return;
+
+    const sync = () => {
+        options.forEach(button => {
+            const active = button.dataset.gender === select.value;
+            button.classList.toggle("active", active);
+            button.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+    };
+
+    options.forEach(button => {
+        button.addEventListener("click", () => {
+            select.value = button.dataset.gender || "";
+            select.dispatchEvent(new Event("change", { bubbles: true }));
+            sync();
+        });
+    });
+
+    select.addEventListener("change", sync);
+    sync();
 }
 
 

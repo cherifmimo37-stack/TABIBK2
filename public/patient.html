@@ -2695,11 +2695,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 /* =====================================================
    DATE
    ===================================================== */
-
-function setMinimumDate(){
+function setMinimumDate() {
 
     const dateInput =
         document.getElementById("date");
+
+    if (!dateInput) {
+        return;
+    }
 
     const now = new Date();
 
@@ -2707,16 +2710,14 @@ function setMinimumDate(){
         now.getFullYear();
 
     const month =
-        String(now.getMonth()+1).padStart(2,"0");
+        String(now.getMonth() + 1).padStart(2, "0");
 
     const day =
-        String(now.getDate()).padStart(2,"0");
+        String(now.getDate()).padStart(2, "0");
 
     dateInput.min =
         `${year}-${month}-${day}`;
-
 }
-
 
 /* =====================================================
    PREMIUM DATE PREVIEW — locale-independent and readable

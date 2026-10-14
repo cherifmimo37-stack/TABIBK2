@@ -3027,6 +3027,49 @@ specialtySelect.addEventListener("change", function(){
     selectSpecialty(this.value);
 });
 
+function formatTabibkDate(value, timeValue = null, includeTime = false) {
+    if (value === null || value === undefined || value === "") return "";
+    const raw = String(value).trim();
+    let date = null;
+
+    // Calendar dates are parsed as local dates to prevent timezone day shifts.
+    const isoDate = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    const slashDate = raw.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
+
+    if (isoDate) {
+        const year = Number(isoDate[1]);
+        const month = Number(isoDate[2]);
+        const day = Number(isoDate[3]);
+        date = new Date(year, month - 1, day);
+        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return "";
+    } else if (slashDate) {
+        const first = Number(slashDate[1]);
+        const second = Number(slashDate[2]);
+        const year = Number(slashDate[3]);
+        const day = first > 12 ? first : second > 12 ? second : first;
+        const month = first > 12 ? second : second > 12 ? first : second;
+        date = new Date(year, month - 1, day);
+        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return "";
+    } else {
+        date = new Date(raw);
+    }
+
+    if (!date || Number.isNaN(date.getTime())) return "";
+    const dd = String(date.getDate()).padStart(2, "0");
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const yyyy = date.getFullYear();
+    const datePart = dd + "/" + mm + "/" + yyyy;
+
+    if (timeValue !== null && timeValue !== undefined && String(timeValue).trim()) {
+        const match = String(timeValue).trim().match(/^(\d{1,2}):(\d{2})/);
+        if (match) return datePart + " · " + String(match[1]).padStart(2, "0") + ":" + match[2];
+    }
+    if (includeTime && /T\d{1,2}:\d{2}/.test(raw)) {
+        return datePart + " · " + String(date.getHours()).padStart(2, "0") + ":" + String(date.getMinutes()).padStart(2, "0");
+    }
+    return datePart;
+}
+
 function renderDoctors(list){
     doctorsGrid.innerHTML = "";
     doctorsPicker.classList.add("show");
@@ -3081,37 +3124,17 @@ if(ratingCount > 0){
     meta += `<span class="doctor-online-status"><i class="fa-solid fa-circle"></i> متصل</span>`;
 }
 if(nextAppointment){
-    const appointmentDate =
-        new Date(
-            String(nextAppointment.date) +
-            "T" +
-            String(nextAppointment.time || "00:00") +
-            ":00+01:00"
-        );
+    const dateText = formatTabibkDate(
+        nextAppointment.date,
+        nextAppointment.time || "00:00",
+        true
+    );
 
-    if(!Number.isNaN(appointmentDate.getTime())){
-        const dateText =
-            appointmentDate.toLocaleDateString(
-                "ar-DZ",
-                {
-                    day: "2-digit",
-                    month: "2-digit"
-                }
-            );
-
-        const timeText =
-            appointmentDate.toLocaleTimeString(
-                "ar-DZ",
-                {
-                    hour: "2-digit",
-                    minute: "2-digit"
-                }
-            );
-
+    if(dateText){
         meta += `
-            <span class="doctor-next-appointment">
+            <span class="doctor-next-appointment" dir="ltr">
                 <i class="fa-regular fa-calendar-check"></i>
-                أقرب موعد ${dateText} ${timeText}
+                أقرب موعد ${dateText}
             </span>
         `;
     }
@@ -3243,9 +3266,7 @@ function selectDoctorCard(doctor, card){
 
         <span class="doctor-review-date">
             ${item.ratedAt
-                ? new Date(
-                    item.ratedAt
-                  ).toLocaleDateString("ar-DZ")
+                ? formatTabibkDate(item.ratedAt)
                 : ""
             }
         </span>

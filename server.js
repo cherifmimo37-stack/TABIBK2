@@ -5564,9 +5564,7 @@ app.put(
         ) {
 
             doctor.active =
-                Boolean(
-                    body.active
-                );
+                body.active === true;
 
             if (
                 doctor.active === false
@@ -5599,6 +5597,48 @@ app.put(
                     }
                 }
             }
+        }
+
+        // Keep the saved status consistent with the admin form.
+        if (body.status !== undefined) {
+            const requestedStatus =
+                String(body.status).trim().toLowerCase();
+
+            const allowedStatuses = [
+                "active",
+                "approved",
+                "inactive",
+                "pending",
+                "rejected"
+            ];
+
+            if (!allowedStatuses.includes(requestedStatus)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "حالة الطبيب غير صالحة"
+                });
+            }
+
+            doctor.status =
+                requestedStatus === "active"
+                    ? "approved"
+                    : requestedStatus;
+
+            if (doctor.status !== "approved") {
+                doctor.active = false;
+                doctor.online = false;
+
+                // Revoke any existing sessions for a non-approved doctor.
+                for (const [token, session] of doctorSessions) {
+                    if (Number(session.doctorId) === Number(doctor.id)) {
+                        doctorSessions.delete(token);
+                    }
+                }
+            } else if (body.active === undefined) {
+                doctor.active = true;
+            }
+        } else if (body.active !== undefined) {
+            doctor.status = doctor.active ? "approved" : "inactive";
         }
 
         if (

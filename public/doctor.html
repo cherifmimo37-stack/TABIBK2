@@ -10589,12 +10589,12 @@ async function registerDoctor(event){
     }
 
 
-    if(password.length < 4){
+    if(password.length < 8){
 
         if(message){
 
             message.textContent =
-                "كلمة المرور يجب أن تحتوي على 4 أحرف أو أرقام على الأقل";
+                "كلمة المرور يجب أن تحتوي على 8 أحرف أو أرقام على الأقل";
 
             message.className =
                 "login-message error";

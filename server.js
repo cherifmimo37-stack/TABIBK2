@@ -5060,7 +5060,7 @@ app.get(
 app.post(
     "/api/admin/doctors",
     checkAdminKey,
-    (req, res) => {
+    async (req, res) => {
 
         const {
     name,

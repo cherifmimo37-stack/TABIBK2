@@ -42,9 +42,11 @@ const DATABASE_FILE = path.join(
     "database.json"
 );
 
+// Never fall back to a public, hard-coded administrator key.
 const ADMIN_KEY =
-    process.env.ADMIN_KEY ||
-    "TABIBK_ADMIN_2026";
+    typeof process.env.ADMIN_KEY === "string"
+        ? process.env.ADMIN_KEY.trim()
+        : "";
 
 const DOCTOR_SESSION_DAYS = 7;
 
@@ -365,12 +367,18 @@ function normalizeDatabase(database) {
                         ) || 15,
 
                     active:
-    doctor.active !== false,
+                        doctor.status === "pending" ||
+                        doctor.status === "rejected" ||
+                        doctor.status === "inactive"
+                            ? false
+                            : doctor.active !== false,
 
-status:
-    doctor.status === "pending"
-        ? "pending"
-        : "approved",
+                    status:
+                        doctor.status === "pending" ||
+                        doctor.status === "rejected" ||
+                        doctor.status === "inactive"
+                            ? doctor.status
+                            : "approved",
 
 online:
     doctor.online === true,
@@ -866,13 +874,57 @@ function cleanDoctors(doctors) {
 
 // ------------------------------------------------------------
 
-function getDoctorPassword(doctor) {
+const PASSWORD_HASH_PREFIX = "scrypt";
 
-    return (
-        doctor.password ||
-        doctor.loginPassword ||
-        "123456"
-    );
+function hashDoctorPassword(password) {
+    return new Promise((resolve, reject) => {
+        const salt = crypto.randomBytes(16).toString("hex");
+        crypto.scrypt(String(password), salt, 64, (error, derivedKey) => {
+            if (error) return reject(error);
+            resolve(
+                PASSWORD_HASH_PREFIX + "$" +
+                salt + "$" +
+                derivedKey.toString("hex")
+            );
+        });
+    });
+}
+
+function verifyDoctorPassword(password, storedValue) {
+    const stored = String(storedValue || "");
+
+    if (!stored.startsWith(PASSWORD_HASH_PREFIX + "$")) {
+        // Backward-compatible verification for existing legacy accounts.
+        // The password is upgraded to scrypt after a successful login.
+        const providedBuffer = Buffer.from(String(password));
+        const storedBuffer = Buffer.from(stored);
+        return Promise.resolve(
+            storedBuffer.length > 0 &&
+            providedBuffer.length === storedBuffer.length &&
+            crypto.timingSafeEqual(providedBuffer, storedBuffer)
+        );
+    }
+
+    const parts = stored.split("$");
+    if (parts.length !== 3 || !/^[a-f0-9]{32}$/i.test(parts[1]) ||
+        !/^[a-f0-9]{128}$/i.test(parts[2])) {
+        return Promise.resolve(false);
+    }
+
+    return new Promise((resolve, reject) => {
+        crypto.scrypt(String(password), parts[1], 64, (error, derivedKey) => {
+            if (error) return reject(error);
+            const expected = Buffer.from(parts[2], "hex");
+            resolve(
+                expected.length === derivedKey.length &&
+                crypto.timingSafeEqual(expected, derivedKey)
+            );
+        });
+    });
+}
+
+function getDoctorPassword(doctor) {
+    return doctor.password || doctor.loginPassword || "";
 }
 
 // ------------------------------------------------------------
@@ -995,11 +1047,28 @@ const doctorSessions =
 // ADMIN AUTH
 // ============================================================
 
+function safeStringEqual(left, right) {
+    const leftBuffer = Buffer.from(String(left ?? ""));
+    const rightBuffer = Buffer.from(String(right ?? ""));
+    return (
+        leftBuffer.length > 0 &&
+        leftBuffer.length === rightBuffer.length &&
+        crypto.timingSafeEqual(leftBuffer, rightBuffer)
+    );
+}
+
 function checkAdminKey(
     req,
     res,
     next
 ) {
+
+    if (!ADMIN_KEY) {
+        return res.status(503).json({
+            success: false,
+            message: "إعداد مفتاح الإدارة غير مكتمل على الخادم"
+        });
+    }
 
     const headerKey =
         req.headers["x-admin-key"];
@@ -1013,7 +1082,7 @@ function checkAdminKey(
 
     if (
         !providedKey ||
-        providedKey !== ADMIN_KEY
+        !safeStringEqual(providedKey, ADMIN_KEY)
     ) {
 
         return res
@@ -1566,7 +1635,7 @@ app.get(
 
 app.post(
     "/api/doctor/register",
-    (req, res) => {
+    async (req, res) => {
 
         try {
 
@@ -1588,13 +1657,15 @@ app.post(
             // REQUIRED FIELDS
             // ------------------------------------------------
 
+            const submittedPassword = password || loginPassword;
+
             if (
                 !name ||
                 !specialty ||
                 !wilaya ||
                 !municipality ||
                 !phone ||
-                !(password || loginPassword)
+                !submittedPassword
             ) {
 
                 return res
@@ -1607,6 +1678,16 @@ app.post(
 
             }
 
+
+            if (
+                String(submittedPassword).length < 8 ||
+                !String(submittedPassword).trim()
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل"
+                });
+            }
 
             const database =
                 readDatabase();
@@ -1681,6 +1762,8 @@ app.post(
             // CREATE PENDING DOCTOR
             // ------------------------------------------------
 
+            const hashedPassword = await hashDoctorPassword(submittedPassword);
+
             const doctor = {
 
                 id:
@@ -1737,8 +1820,7 @@ app.post(
                     false,
 
                 loginPassword:
-                    password ||
-                    loginPassword,
+                    hashedPassword,
 
                 workingHours: {
 
@@ -1842,7 +1924,7 @@ app.post(
 
 app.post(
     "/api/doctor/login",
-    (req, res) => {
+    async (req, res) => {
       
         try {
 
@@ -1936,14 +2018,12 @@ app.post(
                     doctor
                 );
 
-            if (
-                String(
-                    password
-                ) !==
-                String(
-                    doctorPassword
-                )
-            ) {
+            const passwordIsValid = await verifyDoctorPassword(
+                password,
+                doctorPassword
+            );
+
+            if (!passwordIsValid) {
 
                 return res
                     .status(401)
@@ -1952,6 +2032,12 @@ app.post(
                         message:
                             "بيانات الدخول غير صحيحة"
                     });
+            }
+
+            // Upgrade legacy plaintext passwords after a successful login.
+            if (!String(doctorPassword).startsWith(PASSWORD_HASH_PREFIX + "$")) {
+                doctor.loginPassword = await hashDoctorPassword(password);
+                delete doctor.password;
             }
 
             const token =
@@ -4692,6 +4778,13 @@ app.post(
     "/api/admin/login",
     (req, res) => {
 
+        if (!ADMIN_KEY) {
+            return res.status(503).json({
+                success: false,
+                message: "إعداد مفتاح الإدارة غير مكتمل على الخادم"
+            });
+        }
+
         const providedKey =
             req.body.key ||
             req.body.adminKey ||
@@ -4699,7 +4792,7 @@ app.post(
 
         if (
             !providedKey ||
-            providedKey !== ADMIN_KEY
+            !safeStringEqual(providedKey, ADMIN_KEY)
         ) {
 
             return res
@@ -4939,7 +5032,7 @@ app.get(
 app.get(
     "/api/admin/doctors",
     checkAdminKey,
-    (req, res) => {
+    async (req, res) => {
 
         const database =
             readDatabase();
@@ -4967,7 +5060,7 @@ app.get(
 app.post(
     "/api/admin/doctors",
     checkAdminKey,
-    (req, res) => {
+    async (req, res) => {
 
         const {
     name,
@@ -4987,7 +5080,8 @@ app.post(
             !specialty ||
             !wilaya ||
             !municipality ||
-            !phone
+            !phone ||
+            !String(password || loginPassword || "").trim()
         ) {
 
             return res
@@ -4995,7 +5089,7 @@ app.post(
                 .json({
                     success: false,
                     message:
-                        "الاسم والتخصص والولاية والبلدية والهاتف مطلوبة"
+                        "الاسم والتخصص والولاية والبلدية والهاتف وكلمة مرور من 8 أحرف على الأقل مطلوبة"
                 });
         }
 
@@ -5054,6 +5148,15 @@ app.post(
                 });
         }
 
+        const submittedPassword = String(password || loginPassword).trim();
+        if (submittedPassword.length < 8) {
+            return res.status(400).json({
+                success: false,
+                message: "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل"
+            });
+        }
+        const hashedPassword = await hashDoctorPassword(submittedPassword);
+
         const doctor = {
 
             id:
@@ -5098,9 +5201,7 @@ app.post(
             online: false,
 
             loginPassword:
-                password ||
-                loginPassword ||
-                "123456",
+                hashedPassword,
 
             workingHours: {
 
@@ -5411,7 +5512,7 @@ app.get(
 app.put(
     "/api/admin/doctors/:id",
     checkAdminKey,
-    (req, res) => {
+    async (req, res) => {
 
         const database =
             readDatabase();
@@ -5558,9 +5659,7 @@ app.put(
         ) {
 
             doctor.active =
-                Boolean(
-                    body.active
-                );
+                body.active === true;
 
             if (
                 doctor.active === false
@@ -5595,14 +5694,66 @@ app.put(
             }
         }
 
-        if (
-            body.password ||
-            body.loginPassword
-        ) {
+        // Keep the saved status consistent with the admin form.
+        if (body.status !== undefined) {
+            const requestedStatus =
+                String(body.status).trim().toLowerCase();
 
-            doctor.loginPassword =
-                body.password ||
-                body.loginPassword;
+            const allowedStatuses = [
+                "active",
+                "approved",
+                "inactive",
+                "pending",
+                "rejected"
+            ];
+
+            if (!allowedStatuses.includes(requestedStatus)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "حالة الطبيب غير صالحة"
+                });
+            }
+
+            doctor.status =
+                requestedStatus === "active"
+                    ? "approved"
+                    : requestedStatus;
+
+            if (doctor.status !== "approved") {
+                doctor.active = false;
+                doctor.online = false;
+
+                // Revoke any existing sessions for a non-approved doctor.
+                for (const [token, session] of doctorSessions) {
+                    if (Number(session.doctorId) === Number(doctor.id)) {
+                        doctorSessions.delete(token);
+                    }
+                }
+            } else if (body.active === undefined) {
+                doctor.active = true;
+            }
+        } else if (body.active !== undefined) {
+            doctor.status = doctor.active ? "approved" : "inactive";
+        }
+
+        if (body.password || body.loginPassword) {
+            const newPassword = String(body.password || body.loginPassword);
+            if (newPassword.length < 8) {
+                return res.status(400).json({
+                    success: false,
+                    message: "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل"
+                });
+            }
+            doctor.loginPassword = await hashDoctorPassword(newPassword);
+            delete doctor.password;
+
+            // Invalidate existing sessions when an administrator resets a password.
+            doctor.online = false;
+            for (const [token, session] of doctorSessions) {
+                if (Number(session.doctorId) === Number(doctor.id)) {
+                    doctorSessions.delete(token);
+                }
+            }
         }
 
         if (

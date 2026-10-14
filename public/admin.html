@@ -3860,6 +3860,14 @@ tbody tr:hover{
                             غير نشط
                         </option>
 
+                        <option value="pending">
+                            بانتظار موافقة الإدارة
+                        </option>
+
+                        <option value="rejected">
+                            مرفوض
+                        </option>
+
                     </select>
 
                 </div>
@@ -5367,7 +5375,6 @@ function renderDoctors(){
 
                         <td>
 
-                            javascript
 ${doctor.status === "pending"
 
     ? `
@@ -5384,9 +5391,11 @@ ${doctor.status === "pending"
             </span>
           `
 
-        : doctor.active === true ||
-          doctor.status === "active" ||
-          doctor.status === "approved"
+        : doctor.active !== false &&
+          (
+              doctor.status === "active" ||
+              doctor.status === "approved"
+          )
 
             ? `
                 <span class="badge active">
@@ -5662,7 +5671,11 @@ function openDoctorModal(
             "doctorStatus"
         )
         .value =
-        doctor.status || "active";
+        doctor.status === "pending" || doctor.status === "rejected"
+            ? doctor.status
+            : doctor.active === false
+                ? "inactive"
+                : "active";
 }
 
 
@@ -5798,6 +5811,22 @@ document
                     )
                     .value
                     .trim();
+
+            if (!id && !password) {
+                showToast(
+                    "أدخل كلمة مرور لا تقل عن 8 أحرف للطبيب الجديد",
+                    "error"
+                );
+                return;
+            }
+
+            if (password && password.length < 8) {
+                showToast(
+                    "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل",
+                    "error"
+                );
+                return;
+            }
 
             if(password)
                 body.password =

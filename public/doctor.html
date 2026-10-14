@@ -6928,7 +6928,6 @@ min-height: 50px;
 padding: 24px 14px;
 }
 
-```
 #loginScreen .brand-logo {
     width: 72px;
     height: 72px;
@@ -7909,7 +7908,6 @@ transition: none;
 
     <i class="fa-solid fa-arrow-left register-doctor-arrow"></i>
 </button>
-```
 
 
             </form>
@@ -13471,11 +13469,11 @@ function formatReadableDate(
 
     const raw = String(value).trim();
     let date = null;
-    let hasTime = /[T ]\\d{1,2}:\\d{2}/.test(raw);
+    const hasTime = /[T ]\d{1,2}:\d{2}/.test(raw);
 
     // Parse ISO date-only values as local calendar dates to avoid timezone day shifts.
-    const isoDate = raw.match(/^(\\d{4})-(\\d{2})-(\\d{2})(?:$|[T ].*)/);
-    const slashDate = raw.match(/^(\\d{1,2})[\\/.-](\\d{1,2})[\\/.-](\\d{4})$/);
+    const isoDate = raw.match(/^(\d{4})-(\d{2})-(\d{2})(?:$|[T ].*)/);
+    const slashDate = raw.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
 
     if (isoDate) {
         const year = Number(isoDate[1]);
@@ -20250,7 +20248,6 @@ if (
         }
     }
 </style>
- ```html
 <!-- TABIBK PRO MAX - PREMIUM HOME V3 -->
 <style id="tabibk-pro-max-v3">
 
@@ -20338,7 +20335,6 @@ if (
 }
 
 </style>
-```html
 <!-- TABIBK PRO MAX - LUXURY SIDEBAR V5 -->
 <style id="tabibk-sidebar-luxury-v5">
 
@@ -20473,7 +20469,6 @@ if (
 }
 
 </style>
-```html
 <!-- TABIBK PRO MAX - WORKING HOURS LUXURY V7 -->
 <style id="tabibk-working-hours-v7">
 
@@ -20596,7 +20591,6 @@ if (
 }
 
 </style>
-```html
 <!-- TABIBK PRO MAX - REAL WORKING HOURS V8 -->
 <style id="tabibk-working-hours-v8">
 
@@ -20762,7 +20756,6 @@ if (
 }
 
 </style>
-```
 
 <!-- TABIBK DOCTOR PRO — DATE CLARITY & PREMIUM UI -->
 <style id="tabibk-doctor-pro-ui">

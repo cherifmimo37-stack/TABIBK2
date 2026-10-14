@@ -368,8 +368,10 @@ function normalizeDatabase(database) {
     doctor.active !== false,
 
 status:
-    doctor.status === "pending"
-        ? "pending"
+    doctor.status === "pending" ||
+    doctor.status === "rejected" ||
+    doctor.status === "inactive"
+        ? doctor.status
         : "approved",
 
 online:

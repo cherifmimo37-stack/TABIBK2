@@ -13507,11 +13507,10 @@ function formatReadableDate(
         return raw;
     }
 
-    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
     const day = String(date.getDate()).padStart(2, "0");
-    const month = months[date.getMonth()];
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
-    const datePart = day + " " + month + " " + year;
+    const datePart = day + "/" + month + "/" + year;
 
     if (!includeTime || !hasTime) {
         return datePart;

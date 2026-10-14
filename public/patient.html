@@ -1393,6 +1393,24 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
   .date-preview{min-height:45px}
 }
 
+
+/* FIX: keep native date segments in left-to-right order in Android WebView */
+.field input[type="date"] {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: isolate !important;
+    writing-mode: horizontal-tb !important;
+    -webkit-locale: "en-GB";
+}
+.field input[type="date"]::-webkit-datetime-edit,
+.field input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+.field input[type="date"]::-webkit-datetime-edit-day-field,
+.field input[type="date"]::-webkit-datetime-edit-month-field,
+.field input[type="date"]::-webkit-datetime-edit-year-field {
+    direction: ltr !important;
+    unicode-bidi: isolate !important;
+}
+
 </style>
 
 </head>

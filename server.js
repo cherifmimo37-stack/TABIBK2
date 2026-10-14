@@ -42,9 +42,11 @@ const DATABASE_FILE = path.join(
     "database.json"
 );
 
+// Never fall back to a public, hard-coded administrator key.
 const ADMIN_KEY =
-    process.env.ADMIN_KEY ||
-    "TABIBK_ADMIN_2026";
+    typeof process.env.ADMIN_KEY === "string"
+        ? process.env.ADMIN_KEY.trim()
+        : "";
 
 const DOCTOR_SESSION_DAYS = 7;
 
@@ -1006,6 +1008,13 @@ function checkAdminKey(
     res,
     next
 ) {
+
+    if (!ADMIN_KEY) {
+        return res.status(503).json({
+            success: false,
+            message: "إعداد مفتاح الإدارة غير مكتمل على الخادم"
+        });
+    }
 
     const headerKey =
         req.headers["x-admin-key"];
@@ -4697,6 +4706,13 @@ app.delete(
 app.post(
     "/api/admin/login",
     (req, res) => {
+
+        if (!ADMIN_KEY) {
+            return res.status(503).json({
+                success: false,
+                message: "إعداد مفتاح الإدارة غير مكتمل على الخادم"
+            });
+        }
 
         const providedKey =
             req.body.key ||

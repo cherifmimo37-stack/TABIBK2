@@ -874,13 +874,57 @@ function cleanDoctors(doctors) {
 
 // ------------------------------------------------------------
 
-function getDoctorPassword(doctor) {
+const PASSWORD_HASH_PREFIX = "scrypt";
 
-    return (
-        doctor.password ||
-        doctor.loginPassword ||
-        "123456"
-    );
+function hashDoctorPassword(password) {
+    return new Promise((resolve, reject) => {
+        const salt = crypto.randomBytes(16).toString("hex");
+        crypto.scrypt(String(password), salt, 64, (error, derivedKey) => {
+            if (error) return reject(error);
+            resolve(
+                PASSWORD_HASH_PREFIX + "$" +
+                salt + "$" +
+                derivedKey.toString("hex")
+            );
+        });
+    });
+}
+
+function verifyDoctorPassword(password, storedValue) {
+    const stored = String(storedValue || "");
+
+    if (!stored.startsWith(PASSWORD_HASH_PREFIX + "$")) {
+        // Backward-compatible verification for existing legacy accounts.
+        // The password is upgraded to scrypt after a successful login.
+        return Promise.resolve(
+            stored.length > 0 &&
+            crypto.timingSafeEqual(
+                Buffer.from(String(password)),
+                Buffer.from(stored)
+            )
+        );
+    }
+
+    const parts = stored.split("$");
+    if (parts.length !== 3 || !/^[a-f0-9]{32}$/i.test(parts[1]) ||
+        !/^[a-f0-9]{128}$/i.test(parts[2])) {
+        return Promise.resolve(false);
+    }
+
+    return new Promise((resolve, reject) => {
+        crypto.scrypt(String(password), parts[1], 64, (error, derivedKey) => {
+            if (error) return reject(error);
+            const expected = Buffer.from(parts[2], "hex");
+            resolve(
+                expected.length === derivedKey.length &&
+                crypto.timingSafeEqual(expected, derivedKey)
+            );
+        });
+    });
+}
+
+function getDoctorPassword(doctor) {
+    return doctor.password || doctor.loginPassword || "";
 }
 
 // ------------------------------------------------------------

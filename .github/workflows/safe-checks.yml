@@ -106,7 +106,7 @@ jobs:
     env:
       PORT: 10000
       ADMIN_KEY: tabibk-ci-test-admin-key
-      DATABASE_URL: postgres://tabibk_test:postgres@127.0.0.1:5432/tabibk_test
+      DATABASE_URL: postgres://tabibk_test:postgres@127.0.0.1:5432/tabibk_test?sslmode=disable
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

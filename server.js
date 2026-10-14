@@ -5733,6 +5733,14 @@ app.put(
             }
             doctor.loginPassword = await hashDoctorPassword(newPassword);
             delete doctor.password;
+
+            // Invalidate existing sessions when an administrator resets a password.
+            doctor.online = false;
+            for (const [token, session] of doctorSessions) {
+                if (Number(session.doctorId) === Number(doctor.id)) {
+                    doctorSessions.delete(token);
+                }
+            }
         }
 
         if (

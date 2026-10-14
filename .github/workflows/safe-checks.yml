@@ -119,6 +119,9 @@ jobs:
       - name: Install server dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Seed legacy doctor in isolated test database
+        run: node tests/seed-legacy-doctor.mjs
+
       - name: Start server against isolated test database
         run: |
           node server.js > /tmp/tabibk-server.log 2>&1 &

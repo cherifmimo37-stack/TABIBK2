@@ -5019,7 +5019,7 @@ app.get(
 app.get(
     "/api/admin/doctors",
     checkAdminKey,
-    (req, res) => {
+    async (req, res) => {
 
         const database =
             readDatabase();
@@ -5067,7 +5067,8 @@ app.post(
             !specialty ||
             !wilaya ||
             !municipality ||
-            !phone
+            !phone ||
+            !String(password || loginPassword || "").trim()
         ) {
 
             return res
@@ -5134,6 +5135,15 @@ app.post(
                 });
         }
 
+        const submittedPassword = String(password || loginPassword).trim();
+        if (submittedPassword.length < 8) {
+            return res.status(400).json({
+                success: false,
+                message: "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل"
+            });
+        }
+        const hashedPassword = await hashDoctorPassword(submittedPassword);
+
         const doctor = {
 
             id:
@@ -5178,9 +5188,7 @@ app.post(
             online: false,
 
             loginPassword:
-                password ||
-                loginPassword ||
-                "123456",
+                hashedPassword,
 
             workingHours: {
 
@@ -5491,7 +5499,7 @@ app.get(
 app.put(
     "/api/admin/doctors/:id",
     checkAdminKey,
-    (req, res) => {
+    async (req, res) => {
 
         const database =
             readDatabase();
@@ -5715,14 +5723,16 @@ app.put(
             doctor.status = doctor.active ? "approved" : "inactive";
         }
 
-        if (
-            body.password ||
-            body.loginPassword
-        ) {
-
-            doctor.loginPassword =
-                body.password ||
-                body.loginPassword;
+        if (body.password || body.loginPassword) {
+            const newPassword = String(body.password || body.loginPassword);
+            if (newPassword.length < 8) {
+                return res.status(400).json({
+                    success: false,
+                    message: "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل"
+                });
+            }
+            doctor.loginPassword = await hashDoctorPassword(newPassword);
+            delete doctor.password;
         }
 
         if (

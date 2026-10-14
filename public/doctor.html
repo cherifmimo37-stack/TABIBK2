@@ -2905,6 +2905,29 @@ button{
 
 }
 
+.vacation-date-readable {
+    display: block;
+    width: 100%;
+    min-height: 24px;
+    margin-top: 8px;
+    padding: 4px 8px;
+
+    color: var(--purple-700, #51266f);
+    background: rgba(81, 38, 111, 0.06);
+    border: 1px solid rgba(81, 38, 111, 0.12);
+    border-radius: 8px;
+
+    font-family: Arial, Tahoma, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.5;
+    text-align: center;
+
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
+}
+
 
 .field input:focus{
 
@@ -9480,7 +9503,10 @@ transition: none;
                                     <input
                                         type="date"
                                         id="vacationStartDate"
+                                        onchange="updateVacationDatePreviews()"
                                     >
+
+                                    <small class="vacation-date-readable" id="vacationStartDateReadable" dir="ltr"></small>
 
                                 </div>
 
@@ -9494,7 +9520,10 @@ transition: none;
                                     <input
                                         type="date"
                                         id="vacationEndDate"
+                                        onchange="updateVacationDatePreviews()"
                                     >
+
+                                    <small class="vacation-date-readable" id="vacationEndDateReadable" dir="ltr"></small>
 
                                 </div>
 
@@ -11678,6 +11707,22 @@ async function loadVacation() {
 }
 
 
+function updateVacationDatePreviews() {
+    [
+        ["vacationStartDate", "vacationStartDateReadable"],
+        ["vacationEndDate", "vacationEndDateReadable"]
+    ].forEach(([inputId, previewId]) => {
+        const input = $(inputId);
+        const preview = $(previewId);
+        if (!input || !preview) return;
+
+        const match = String(input.value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        preview.textContent = match
+            ? match[3] + "/" + match[2] + "/" + match[1]
+            : "";
+    });
+}
+
 function renderVacation() {
 
     const vacation =
@@ -11710,6 +11755,8 @@ function renderVacation() {
 
     }
 
+
+    updateVacationDatePreviews();
 
     if ($("vacationStatusText")) {
 

@@ -1,0 +1,50 @@
+name: Patient Page Syntax Check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "public/patient.html"
+      - ".github/workflows/patient-date-check.yml"
+  push:
+    branches: [fix/mobile-date-display]
+    paths:
+      - "public/patient.html"
+      - ".github/workflows/patient-date-check.yml"
+
+jobs:
+  patient-inline-js:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check inline JavaScript in patient.html
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          html = Path("public/patient.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script\b(.*?)>(.*?)</script\s*>", html, flags=re.I | re.S)
+          inline_scripts = [
+              body for attrs, body in scripts
+              if not re.search(r"\bsrc\s*=", attrs, flags=re.I) and body.strip()
+          ]
+          if not inline_scripts:
+              raise SystemExit("No inline JavaScript blocks found in public/patient.html")
+          out = Path("/tmp/tabibk-patient-inline")
+          out.mkdir(exist_ok=True)
+          for i, body in enumerate(inline_scripts, 1):
+              path = out / f"script-{i}.js"
+              path.write_text(body, encoding="utf-8")
+              print(f"Prepared inline script {i}: {len(body)} characters")
+          print(f"Found {len(inline_scripts)} inline JavaScript blocks.")
+          PY
+          for file in /tmp/tabibk-patient-inline/*.js; do
+            node --check "$file"
+          done

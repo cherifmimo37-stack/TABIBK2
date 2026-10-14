@@ -2695,11 +2695,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 /* =====================================================
    DATE
    ===================================================== */
-
-function setMinimumDate(){
+function setMinimumDate() {
 
     const dateInput =
         document.getElementById("date");
+
+    if (!dateInput) {
+        return;
+    }
 
     const now = new Date();
 
@@ -2707,16 +2710,14 @@ function setMinimumDate(){
         now.getFullYear();
 
     const month =
-        String(now.getMonth()+1).padStart(2,"0");
+        String(now.getMonth() + 1).padStart(2, "0");
 
     const day =
-        String(now.getDate()).padStart(2,"0");
+        String(now.getDate()).padStart(2, "0");
 
     dateInput.min =
         `${year}-${month}-${day}`;
-
 }
-
 
 /* =====================================================
    PREMIUM DATE PREVIEW — locale-independent and readable
@@ -2728,7 +2729,7 @@ function updateAppointmentDatePreview() {
 
     const value = input.value;
     if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-        preview.innerHTML = '<i class="fa-regular fa-calendar-check"></i><span>SELECT APPOINTMENT DATE</span>';
+        preview.innerHTML = '<i class="fa-regular fa-calendar-check"></i><span>اختر تاريخ الموعد</span>';
         preview.classList.remove("has-date");
         return;
     }
@@ -2736,19 +2737,17 @@ function updateAppointmentDatePreview() {
     const [year, month, day] = value.split("-").map(Number);
     const date = new Date(year, month - 1, day);
     if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
-        preview.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i><span>INVALID DATE</span>';
+        preview.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i><span>تاريخ غير صالح</span>';
         preview.classList.remove("has-date");
         return;
     }
 
-    const weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-    preview.innerHTML = '<i class="fa-solid fa-calendar-check"></i><span class="date-preview-day">' +
-        weekdays[date.getDay()] + '</span><span class="date-preview-divider"></span><strong>' +
-        String(day).padStart(2, "0") + " " + months[month - 1] + " " + year + "</strong>";
+    const readableDate = String(day).padStart(2, "0") + "/" +
+        String(month).padStart(2, "0") + "/" + year;
+    preview.innerHTML = '<i class="fa-solid fa-calendar-check"></i><span class="date-preview-day">تاريخ الموعد</span><span class="date-preview-divider"></span><strong dir="ltr">' +
+        readableDate + "</strong>";
     preview.classList.add("has-date");
 }
-
 function initPremiumGenderSelector() {
     const select = document.getElementById("patientGender");
     const options = document.querySelectorAll(".gender-option");

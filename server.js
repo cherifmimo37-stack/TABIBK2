@@ -365,14 +365,18 @@ function normalizeDatabase(database) {
                         ) || 15,
 
                     active:
-    doctor.active !== false,
+                        doctor.status === "pending" ||
+                        doctor.status === "rejected" ||
+                        doctor.status === "inactive"
+                            ? false
+                            : doctor.active !== false,
 
-status:
-    doctor.status === "pending" ||
-    doctor.status === "rejected" ||
-    doctor.status === "inactive"
-        ? doctor.status
-        : "approved",
+                    status:
+                        doctor.status === "pending" ||
+                        doctor.status === "rejected" ||
+                        doctor.status === "inactive"
+                            ? doctor.status
+                            : "approved",
 
 online:
     doctor.online === true,

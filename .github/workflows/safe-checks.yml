@@ -41,3 +41,47 @@ jobs:
 
       - name: Check changed lines for whitespace errors
         run: git diff --check origin/main...HEAD
+
+      - name: Check inline JavaScript in admin and doctor pages
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import subprocess
+
+          class ScriptExtractor(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=False)
+                  self.scripts = []
+                  self.current = None
+
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() != "script":
+                      return
+                  attrs = dict(attrs)
+                  script_type = (attrs.get("type") or "").lower().split(";")[0].strip()
+                  if attrs.get("src") or script_type in ("application/json", "application/ld+json", "importmap"):
+                      self.current = None
+                      return
+                  self.current = []
+                  self.scripts.append(self.current)
+
+              def handle_data(self, data):
+                  if self.current is not None:
+                      self.current.append(data)
+
+              def handle_endtag(self, tag):
+                  if tag.lower() == "script":
+                      self.current = None
+
+          for html_file in ("public/admin.html", "public/doctor.html"):
+              parser = ScriptExtractor()
+              parser.feed(Path(html_file).read_text(encoding="utf-8"))
+              scripts = ["".join(parts) for parts in parser.scripts]
+              scripts = [script for script in scripts if script.strip()]
+              for index, script in enumerate(scripts, start=1):
+                  js_file = Path("/tmp") / f"{Path(html_file).stem}-inline-{index}.js"
+                  js_file.write_text(script, encoding="utf-8")
+                  subprocess.run(["node", "--check", str(js_file)], check=True)
+              print(f"{html_file}: checked {len(scripts)} inline script(s)")
+          PY

@@ -1625,7 +1625,7 @@ app.get(
 
 app.post(
     "/api/doctor/register",
-    (req, res) => {
+    async (req, res) => {
 
         try {
 
@@ -1647,13 +1647,15 @@ app.post(
             // REQUIRED FIELDS
             // ------------------------------------------------
 
+            const submittedPassword = password || loginPassword;
+
             if (
                 !name ||
                 !specialty ||
                 !wilaya ||
                 !municipality ||
                 !phone ||
-                !(password || loginPassword)
+                !submittedPassword
             ) {
 
                 return res
@@ -1666,6 +1668,13 @@ app.post(
 
             }
 
+
+            if (String(submittedPassword).length < 8) {
+                return res.status(400).json({
+                    success: false,
+                    message: "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل"
+                });
+            }
 
             const database =
                 readDatabase();
@@ -1740,6 +1749,8 @@ app.post(
             // CREATE PENDING DOCTOR
             // ------------------------------------------------
 
+            const hashedPassword = await hashDoctorPassword(submittedPassword);
+
             const doctor = {
 
                 id:
@@ -1796,8 +1807,7 @@ app.post(
                     false,
 
                 loginPassword:
-                    password ||
-                    loginPassword,
+                    hashedPassword,
 
                 workingHours: {
 
@@ -1901,7 +1911,7 @@ app.post(
 
 app.post(
     "/api/doctor/login",
-    (req, res) => {
+    async (req, res) => {
       
         try {
 
@@ -1995,14 +2005,12 @@ app.post(
                     doctor
                 );
 
-            if (
-                String(
-                    password
-                ) !==
-                String(
-                    doctorPassword
-                )
-            ) {
+            const passwordIsValid = await verifyDoctorPassword(
+                password,
+                doctorPassword
+            );
+
+            if (!passwordIsValid) {
 
                 return res
                     .status(401)
@@ -2011,6 +2019,12 @@ app.post(
                         message:
                             "بيانات الدخول غير صحيحة"
                     });
+            }
+
+            // Upgrade legacy plaintext passwords after a successful login.
+            if (!String(doctorPassword).startsWith(PASSWORD_HASH_PREFIX + "$")) {
+                doctor.loginPassword = await hashDoctorPassword(password);
+                delete doctor.password;
             }
 
             const token =

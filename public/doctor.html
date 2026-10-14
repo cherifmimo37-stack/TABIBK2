@@ -2906,17 +2906,30 @@ button{
 }
 
 
-.vacation-date-readable{
-    display:block;
-    min-height:16px;
-    margin-top:6px;
-    color:var(--purple-700, #51266f);
-    font-size:12px;
-    font-weight:800;
-    text-align:center;
-    direction:ltr;
-    unicode-bidi:isolate;
+```css
+.vacation-date-readable {
+    display: block;
+    width: 100%;
+    min-height: 24px;
+    margin-top: 8px;
+    padding: 4px 8px;
+
+    color: var(--purple-700, #51266f);
+    background: rgba(81, 38, 111, 0.06);
+    border: 1px solid rgba(81, 38, 111, 0.12);
+    border-radius: 8px;
+
+    font-family: Arial, Tahoma, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.5;
+    text-align: center;
+
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
 }
+```
 
 .field input:focus{
 

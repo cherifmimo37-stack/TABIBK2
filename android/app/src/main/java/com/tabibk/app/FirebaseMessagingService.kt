@@ -1,4 +1,4 @@
-```kotlin
+
 package com.tabibk.app
 
 import android.app.NotificationChannel
@@ -132,4 +132,4 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 }
-```
+

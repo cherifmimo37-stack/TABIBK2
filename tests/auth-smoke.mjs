@@ -111,6 +111,13 @@ async function main() {
     const doctorId = result.data.doctor.id;
     assert(!("password" in result.data.doctor) && !("loginPassword" in result.data.doctor), "Doctor response must not expose password fields");
 
+    result = await request(`/api/admin/doctors/${doctorId}`, {
+        method: "PUT",
+        key: ADMIN_KEY,
+        body: { name: "CI Test Doctor Edited", status: "pending", active: false }
+    });
+    assert(result.status === 200 && result.data.doctor.status === "pending", "Editing a pending doctor should preserve pending status");
+
     result = await request("/api/doctor/login", { method: "POST", body: { phone: "0555000001", password: PASSWORD } });
     assert(result.status === 403, "Pending doctor should not be allowed to log in");
 
@@ -188,7 +195,10 @@ async function main() {
     assert(result.status === 201 && result.data.success === true, "Admin should be able to create a doctor without async-handler errors");
     assert(!("password" in result.data.doctor) && !("loginPassword" in result.data.doctor), "Admin-created doctor response must not expose password fields");
 
-    console.log("PASS: admin key, registration, password hashing/login, approval/rejection, deactivation/reactivation, password reset, and admin doctor creation");
+    result = await request("/api/doctor/login", { method: "POST", body: { phone: "0555000003", password: PASSWORD } });
+    assert(result.status === 200 && result.data.success === true, "Admin-created doctor should be able to log in with the configured password");
+
+    console.log("PASS: admin key, legacy password migration, registration, password hashing/login, approval/rejection, status preservation, deactivation/reactivation, password reset, and admin doctor creation");
 }
 
 main().catch(error => {

@@ -1,0 +1,43 @@
+name: TABIBK Safe Checks
+
+on:
+  push:
+    branches:
+      - codex/audit-fixes-2026-10-14
+    paths:
+      - 'server.js'
+      - 'public/admin.html'
+      - 'public/doctor.html'
+      - '.github/workflows/safe-checks.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'server.js'
+      - 'public/admin.html'
+      - 'public/doctor.html'
+      - '.github/workflows/safe-checks.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    name: JavaScript syntax and whitespace checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check server JavaScript syntax
+        run: node --check server.js
+
+      - name: Check changed lines for whitespace errors
+        run: git diff --check origin/main...HEAD

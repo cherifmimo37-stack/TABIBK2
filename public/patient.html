@@ -1411,6 +1411,14 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
     unicode-bidi: isolate !important;
 }
 
+
+/* TABIBK custom date display: YY/MM/DD while retaining native picker/value */
+.tabibk-date-control{position:relative;width:100%;}
+.tabibk-date-control input[type="date"]{color:transparent!important;-webkit-text-fill-color:transparent!important;position:relative;z-index:1;background:transparent!important;}
+.tabibk-date-control input[type="date"]::-webkit-calendar-picker-indicator{opacity:1;cursor:pointer;}
+.tabibk-date-value{position:absolute;inset-inline-start:15px;top:50%;transform:translateY(-50%);z-index:2;pointer-events:none;color:var(--purple,#522b64);font-weight:800;letter-spacing:.5px;font-variant-numeric:tabular-nums;}
+.tabibk-date-control input[type="date"]:focus{color:transparent!important;-webkit-text-fill-color:transparent!important;}
+
 </style>
 
 </head>
@@ -1771,10 +1779,13 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
                     </label>
 
-                    <input
-                        type="date"
-                        id="date"
-                        aria-describedby="selectedDatePreview" lang="en-GB" dir="ltr">
+                    <div class="tabibk-date-control" dir="ltr">
+                        <span class="tabibk-date-value" id="dateInputDisplay">YY/MM/DD</span>
+                        <input
+                            type="date"
+                            id="date"
+                            aria-describedby="selectedDatePreview" lang="en-GB" dir="ltr">
+                    </div>
                     <p class="date-preview" id="selectedDatePreview" aria-live="polite">
                         <i class="fa-regular fa-calendar-check"></i>
                         اختر تاريخًا لعرضه هنا بوضوح
@@ -2743,29 +2754,34 @@ function setMinimumDate() {
 function updateAppointmentDatePreview() {
     const input = document.getElementById("date");
     const preview = document.getElementById("selectedDatePreview");
+    const display = document.getElementById("dateInputDisplay");
     if (!input || !preview) return;
 
     const value = input.value;
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    const match = String(value || "").match(/^(\\d{4})-(\\d{2})-(\\d{2})$/);
+    if (!match) {
+        if (display) display.textContent = "YY/MM/DD";
         preview.innerHTML = '<i class="fa-regular fa-calendar-check"></i><span>اختر تاريخ الموعد</span>';
         preview.classList.remove("has-date");
         return;
     }
 
-    const [year, month, day] = value.split("-").map(Number);
+    const year = Number(match[1]), month = Number(match[2]), day = Number(match[3]);
     const date = new Date(year, month - 1, day);
     if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+        if (display) display.textContent = "YY/MM/DD";
         preview.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i><span>تاريخ غير صالح</span>';
         preview.classList.remove("has-date");
         return;
     }
 
-    const readableDate = String(day).padStart(2, "0") + "/" +
-        String(month).padStart(2, "0") + "/" + year;
+    const readableDate = match[1].slice(-2) + "/" + match[2] + "/" + match[3];
+    if (display) display.textContent = readableDate;
     preview.innerHTML = '<i class="fa-solid fa-calendar-check"></i><span class="date-preview-day">تاريخ الموعد</span><span class="date-preview-divider"></span><strong dir="ltr">' +
         readableDate + "</strong>";
     preview.classList.add("has-date");
 }
+
 function initPremiumGenderSelector() {
     const select = document.getElementById("patientGender");
     const options = document.querySelectorAll(".gender-option");

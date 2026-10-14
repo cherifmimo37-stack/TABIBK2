@@ -3860,6 +3860,14 @@ tbody tr:hover{
                             غير نشط
                         </option>
 
+                        <option value="pending">
+                            بانتظار موافقة الإدارة
+                        </option>
+
+                        <option value="rejected">
+                            مرفوض
+                        </option>
+
                     </select>
 
                 </div>
@@ -5663,7 +5671,11 @@ function openDoctorModal(
             "doctorStatus"
         )
         .value =
-        doctor.active === false ? "inactive" : "active";
+        doctor.status === "pending" || doctor.status === "rejected"
+            ? doctor.status
+            : doctor.active === false
+                ? "inactive"
+                : "active";
 }
 
 

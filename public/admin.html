@@ -5800,6 +5800,22 @@ document
                     .value
                     .trim();
 
+            if (!id && !password) {
+                showToast(
+                    "أدخل كلمة مرور لا تقل عن 8 أحرف للطبيب الجديد",
+                    "error"
+                );
+                return;
+            }
+
+            if (password && password.length < 8) {
+                showToast(
+                    "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل",
+                    "error"
+                );
+                return;
+            }
+
             if(password)
                 body.password =
                     password;

@@ -6159,6 +6159,24 @@ select{
     cursor: pointer;
 }
 
+
+/* FIX: keep native date segments in left-to-right order in Android WebView */
+#app input[type="date"] {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: isolate !important;
+    writing-mode: horizontal-tb !important;
+    -webkit-locale: "en-GB";
+}
+#app input[type="date"]::-webkit-datetime-edit,
+#app input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+#app input[type="date"]::-webkit-datetime-edit-day-field,
+#app input[type="date"]::-webkit-datetime-edit-month-field,
+#app input[type="date"]::-webkit-datetime-edit-year-field {
+    direction: ltr !important;
+    unicode-bidi: isolate !important;
+}
+
 </style>
 
 

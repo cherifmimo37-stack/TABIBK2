@@ -1,3 +1,6 @@
+import pg from "pg";
+
+const { Pool } = pg;
 const BASE_URL = process.env.TABIBK_TEST_URL || "http://127.0.0.1:10000";
 const ADMIN_KEY = process.env.ADMIN_KEY || "tabibk-ci-test-admin-key";
 const PASSWORD = "StrongPass!2026";
@@ -41,7 +44,29 @@ async function waitForServer() {
 async function main() {
     await waitForServer();
 
-    let result = await request("/api/admin/login", { method: "POST", body: { key: "wrong-key" } });
+    let result = await request("/api/doctor/login", {
+        method: "POST",
+        body: { phone: "0555000000", password: "LegacyPass123" }
+    });
+    assert(result.status === 200 && result.data.success === true, "Legacy plaintext-password doctor should still be able to log in");
+
+    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    let migrated = false;
+    for (let attempt = 0; attempt < 20; attempt++) {
+        const dbResult = await pool.query("SELECT data FROM tabibk_data WHERE id = 1");
+        const legacyDoctor = dbResult.rows[0]?.data?.doctors?.find(doctor => Number(doctor.id) === 9001);
+        if (legacyDoctor && !legacyDoctor.password &&
+            typeof legacyDoctor.loginPassword === "string" &&
+            legacyDoctor.loginPassword.startsWith("scrypt$")) {
+            migrated = true;
+            break;
+        }
+        await new Promise(resolve => setTimeout(resolve, 250));
+    }
+    await pool.end();
+    assert(migrated, "Successful legacy login should upgrade plaintext password to a scrypt hash and remove the old field");
+
+    result = await request("/api/admin/login", { method: "POST", body: { key: "wrong-key" } });
     assert(result.status === 401, "Wrong admin key should return 401");
 
     result = await request("/api/admin/login", { method: "POST", body: { key: ADMIN_KEY } });

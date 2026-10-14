@@ -30,10 +30,10 @@ jobs:
           from pathlib import Path
 
           html = Path("public/patient.html").read_text(encoding="utf-8")
-          scripts = re.findall(r"<script\\b(.*?)>(.*?)</script\\s*>", html, flags=re.I | re.S)
+          scripts = re.findall(r"<script\b(.*?)>(.*?)</script\s*>", html, flags=re.I | re.S)
           inline_scripts = [
               body for attrs, body in scripts
-              if not re.search(r"\\bsrc\\s*=", attrs, flags=re.I) and body.strip()
+              if not re.search(r"\bsrc\s*=", attrs, flags=re.I) and body.strip()
           ]
           if not inline_scripts:
               raise SystemExit("No inline JavaScript blocks found in public/patient.html")

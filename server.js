@@ -1047,6 +1047,16 @@ const doctorSessions =
 // ADMIN AUTH
 // ============================================================
 
+function safeStringEqual(left, right) {
+    const leftBuffer = Buffer.from(String(left ?? ""));
+    const rightBuffer = Buffer.from(String(right ?? ""));
+    return (
+        leftBuffer.length > 0 &&
+        leftBuffer.length === rightBuffer.length &&
+        crypto.timingSafeEqual(leftBuffer, rightBuffer)
+    );
+}
+
 function checkAdminKey(
     req,
     res,
@@ -1072,7 +1082,7 @@ function checkAdminKey(
 
     if (
         !providedKey ||
-        providedKey !== ADMIN_KEY
+        !safeStringEqual(providedKey, ADMIN_KEY)
     ) {
 
         return res
@@ -1669,7 +1679,10 @@ app.post(
             }
 
 
-            if (String(submittedPassword).length < 8) {
+            if (
+                String(submittedPassword).length < 8 ||
+                !String(submittedPassword).trim()
+            ) {
                 return res.status(400).json({
                     success: false,
                     message: "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل"
@@ -4779,7 +4792,7 @@ app.post(
 
         if (
             !providedKey ||
-            providedKey !== ADMIN_KEY
+            !safeStringEqual(providedKey, ADMIN_KEY)
         ) {
 
             return res

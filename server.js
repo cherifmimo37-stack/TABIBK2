@@ -896,12 +896,12 @@ function verifyDoctorPassword(password, storedValue) {
     if (!stored.startsWith(PASSWORD_HASH_PREFIX + "$")) {
         // Backward-compatible verification for existing legacy accounts.
         // The password is upgraded to scrypt after a successful login.
+        const providedBuffer = Buffer.from(String(password));
+        const storedBuffer = Buffer.from(stored);
         return Promise.resolve(
-            stored.length > 0 &&
-            crypto.timingSafeEqual(
-                Buffer.from(String(password)),
-                Buffer.from(stored)
-            )
+            storedBuffer.length > 0 &&
+            providedBuffer.length === storedBuffer.length &&
+            crypto.timingSafeEqual(providedBuffer, storedBuffer)
         );
     }
 

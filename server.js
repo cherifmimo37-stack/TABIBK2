@@ -206,6 +206,7 @@ function normalizeDatabase(database) {
         database.appointments = [];
     }
 
+    
     if (
         !Array.isArray(
             database.notifications
@@ -213,6 +214,19 @@ function normalizeDatabase(database) {
     ) {
         database.notifications = [];
     }
+
+    // --------------------------------------------------------
+    // Doctor - Admin Support Messages
+    // --------------------------------------------------------
+    if (
+        !Array.isArray(
+            database.supportMessages
+        )
+    ) {
+        database.supportMessages = [];
+    }
+
+    
     if (
         !database.patientAd ||
         typeof database.patientAd !== "object" ||

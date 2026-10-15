@@ -7749,6 +7749,56 @@ transition: none;
 #app input[type="date"] { direction:ltr!important; text-align:left!important; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
 .vacation-date-readable { display:block; min-height:24px; margin-top:7px; padding:6px 10px; border:1px solid rgba(201,151,50,.32); border-radius:10px; background:#fbf7fd; color:#6b5877; text-align:center; direction:ltr; unicode-bidi:isolate; font:800 13px/1.5 Arial,Tahoma,sans-serif; font-variant-numeric:tabular-nums; }
 </style>
+<style id="tabibk-professional-buttons-v1">
+/* TABIBK premium button system */
+#app button, #loginScreen button, #doctorRegistrationModal button {
+  font-family:"Cairo",sans-serif;
+  font-weight:800;
+  letter-spacing:0;
+  border-radius:14px;
+  transition:transform .18s ease, box-shadow .18s ease, filter .18s ease, border-color .18s ease;
+}
+#app button:not(:disabled):hover, #loginScreen button:not(:disabled):hover,
+#doctorRegistrationModal button:not(:disabled):hover {
+  filter:brightness(1.035);
+}
+#app button:not(:disabled):active, #loginScreen button:not(:disabled):active,
+#doctorRegistrationModal button:not(:disabled):active { transform:translateY(1px) scale(.99); }
+#app button:focus-visible, #loginScreen button:focus-visible,
+#doctorRegistrationModal button:focus-visible {
+  outline:3px solid rgba(201,151,50,.48); outline-offset:3px;
+}
+#app button:disabled, #loginScreen button:disabled,
+#doctorRegistrationModal button:disabled { opacity:.68; cursor:wait; box-shadow:none; transform:none; }
+#app .save-setting {
+  min-height:48px; padding:12px 20px; border:1px solid rgba(255,255,255,.16);
+  color:#fff; background:linear-gradient(135deg,#54206f,#7027a0);
+  box-shadow:0 8px 18px rgba(68,24,94,.16);
+}
+#app .save-setting:hover:not(:disabled) { box-shadow:0 12px 24px rgba(68,24,94,.23); }
+#app .btn, #app .nav-item { min-height:42px; }
+#app .btn-secondary {
+  border:1px solid #e3d5ed; background:#fff; color:#51216f;
+  box-shadow:0 4px 12px rgba(68,24,94,.06);
+}
+#app .btn-danger { box-shadow:0 6px 16px rgba(216,61,85,.14); }
+#loginScreen .login-button, #doctorRegistrationModal .login-button {
+  min-height:54px; border:1px solid rgba(255,255,255,.14);
+}
+#loginScreen .forgot-password-link {
+  border:0; background:transparent; color:#6a2b89; text-decoration:underline;
+  text-underline-offset:3px; padding:8px 4px;
+}
+#app .date-readable, #app .vacation-date-readable { font-variant-numeric:tabular-nums; }
+@media (max-width:600px) {
+  #app .save-setting { width:100%; justify-content:center; }
+  #app .account-summary-actions { display:flex; flex-wrap:wrap; gap:10px; }
+  #app .account-summary-actions button { flex:1 1 145px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  #app button, #loginScreen button, #doctorRegistrationModal button { transition:none!important; }
+}
+</style>
 </head>
 
 

@@ -8200,6 +8200,19 @@ transition: none;
 
                 </button>
 
+
+                ```html
+<button
+    class="nav-item"
+    data-section="support"
+    onclick="showSection('support')"
+>
+    <i class="fa-solid fa-headset"></i>
+    <span>الدعم والمساعدة</span>
+</button>
+```
+
+                
             </nav>
 
 
@@ -9594,7 +9607,110 @@ transition: none;
 
                 </section>
 
+```html
+<!-- =========================================
+     DOCTOR SUPPORT
+========================================== -->
 
+<section
+    class="dashboard-section"
+    id="section-support"
+>
+
+    <div class="section-head">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                <i class="fa-solid fa-headset"></i>
+            </div>
+
+            <div>
+                <h2>الدعم والمساعدة</h2>
+                <p>
+                    تواصل مباشرة مع إدارة منصة طبيبك
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                <i class="fa-solid fa-comments"></i>
+            </div>
+
+            <div>
+                <h2>محادثة الإدارة</h2>
+                <p>
+                    أرسل استفسارك وتابع رد الإدارة هنا
+                </p>
+            </div>
+
+        </div>
+
+        <div
+            id="doctorSupportMessages"
+            style="
+                min-height:220px;
+                max-height:420px;
+                overflow-y:auto;
+                padding:16px 0;
+            "
+        >
+            <div class="empty-state">
+                اضغط على تحديث الرسائل لعرض المحادثة
+            </div>
+        </div>
+
+        <button
+            type="button"
+            class="action-button"
+            onclick="loadSupportMessages()"
+            style="margin-bottom:16px"
+        >
+            <i class="fa-solid fa-arrows-rotate"></i>
+            تحديث الرسائل
+        </button>
+
+        <form
+            id="doctorSupportForm"
+            onsubmit="sendSupportMessage(event)"
+        >
+
+            <label for="doctorSupportInput">
+                رسالتك إلى الإدارة
+            </label>
+
+            <textarea
+                id="doctorSupportInput"
+                rows="4"
+                maxlength="3000"
+                placeholder="اكتب استفسارك أو طلب المساعدة..."
+                required
+                style="width:100%;margin:10px 0 16px"
+            ></textarea>
+
+            <button
+                type="submit"
+                class="action-button"
+                id="doctorSupportSendButton"
+            >
+                <i class="fa-solid fa-paper-plane"></i>
+                إرسال الرسالة
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+```
+                
                 <!-- =========================================
                      SETTINGS
                 ========================================== -->
@@ -10160,6 +10276,148 @@ async function apiFetch(
     return data;
 
 }
+
+        ```js
+/* =========================================================
+   DOCTOR SUPPORT MESSAGES
+========================================================= */
+
+async function loadSupportMessages() {
+
+    const container = document.getElementById(
+        "doctorSupportMessages"
+    );
+
+    if (!container) return;
+
+    container.textContent = "جاري تحميل الرسائل...";
+
+    try {
+
+        const data = await apiFetch(
+            "/api/doctor/support-messages"
+        );
+
+        const messages = Array.isArray(data.messages)
+            ? data.messages
+            : [];
+
+        container.replaceChildren();
+
+        if (!messages.length) {
+
+            container.textContent =
+                "لا توجد رسائل بعد. يمكنك إرسال استفسارك للإدارة.";
+
+            return;
+        }
+
+        messages.forEach(item => {
+
+            const bubble = document.createElement("div");
+
+            bubble.style.cssText =
+                "padding:12px;margin:8px 0;border-radius:12px;" +
+                "white-space:pre-wrap;overflow-wrap:anywhere;" +
+                "background:" +
+                (item.sender === "admin" ? "#eee5f5" : "#f5f1e8") +
+                ";";
+
+            const sender = document.createElement("strong");
+
+            sender.textContent =
+                item.sender === "admin"
+                    ? "إدارة طبيبك"
+                    : "أنت";
+
+            const body = document.createElement("p");
+
+            body.textContent = String(item.message || "");
+
+            body.style.margin = "6px 0";
+
+            const time = document.createElement("small");
+
+            const timestamp = Date.parse(item.createdAt || "");
+
+            time.textContent = Number.isNaN(timestamp)
+                ? ""
+                : new Date(timestamp).toLocaleString("ar-DZ");
+
+            bubble.append(sender, body, time);
+
+            container.appendChild(bubble);
+
+        });
+
+        container.scrollTop = container.scrollHeight;
+
+    } catch (error) {
+
+        container.textContent =
+            error.message || "تعذر تحميل الرسائل.";
+
+    }
+
+}
+
+
+async function sendSupportMessage(event) {
+
+    event.preventDefault();
+
+    const input = document.getElementById(
+        "doctorSupportInput"
+    );
+
+    const button = document.getElementById(
+        "doctorSupportSendButton"
+    );
+
+    const message = input.value.trim();
+
+    if (!message) {
+
+        alert("اكتب رسالتك أولاً.");
+
+        return;
+    }
+
+    button.disabled = true;
+
+    try {
+
+        await apiFetch(
+            "/api/doctor/support-messages",
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    message
+                })
+            }
+        );
+
+        input.value = "";
+
+        alert("تم إرسال رسالتك للإدارة.");
+
+        await loadSupportMessages();
+
+    } catch (error) {
+
+        alert(
+            error.message || "تعذر إرسال الرسالة."
+        );
+
+    } finally {
+
+        button.disabled = false;
+
+    }
+
+}
+```
+        
 /* =========================================================
    UNAUTHORIZED
 ========================================================= */
@@ -11226,6 +11484,13 @@ const sectionInfo = {
             "إشعارات المواعيد والنظام"
     },
 
+    support: {
+        title: "الدعم والمساعدة",
+        subtitle:
+            "التواصل مع إدارة منصة طبيبك"
+    },
+
+
     ratings: {
         title: "التقييمات",
         subtitle:
@@ -11389,6 +11654,13 @@ function showSection(sectionName) {
     }
 
 }
+        
+    if (
+        sectionName === "support"
+    ) {
+        loadSupportMessages();
+    }
+
 
 
 /* =========================================================

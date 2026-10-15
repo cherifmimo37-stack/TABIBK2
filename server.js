@@ -223,9 +223,8 @@ function normalizeDatabase(database) {
     ) {
         database.supportMessages = [];
     }
-    
-    if (
-        !database.patientAd ||
+ if (
+ !database.patientAd ||
  typeof database.patientAd !== "object"||
         Array.isArray(database.patientAd)
     ) {
@@ -5056,12 +5055,9 @@ app.get(
                 cleanDoctors(
                     database.doctors
                 )
-
         });
     }
 );
-
-
 /* ============================================================
    DOCTOR SUPPORT MESSAGES
 ============================================================ */

@@ -7330,7 +7330,226 @@ document
         }
     );
 
+/* ============================================================
+   ADMIN SUPPORT CHAT
+============================================================ */
 
+let selectedSupportDoctorIdForChat = null;
+
+
+/* LOAD SUPPORT INBOX */
+
+async function loadSupportInbox() {
+
+    const list = document.getElementById("supportDoctorsList");
+    const conversation = document.getElementById("supportConversation");
+
+    if (!list || !conversation) return;
+
+    list.textContent = "جاري تحميل الرسائل...";
+
+    try {
+        const data = await adminFetch("/api/admin/support-messages");
+        const messages = Array.isArray(data.messages) ? data.messages : [];
+
+        const grouped = new Map();
+
+        messages.forEach(message => {
+            const doctorId = Number(message.doctorId);
+
+            if (!Number.isFinite(doctorId)) return;
+
+            if (!grouped.has(doctorId)) {
+                grouped.set(doctorId, []);
+            }
+
+            grouped.get(doctorId).push(message);
+        });
+
+        list.replaceChildren();
+
+        if (grouped.size === 0) {
+            const empty = document.createElement("p");
+            empty.textContent = "لا توجد رسائل من الأطباء حتى الآن.";
+            list.appendChild(empty);
+            return;
+        }
+
+        grouped.forEach((doctorMessages, doctorId) => {
+            const doctor = doctors.find(
+                item => Number(item.id) === doctorId
+            );
+
+            const button = document.createElement("button");
+            button.type = "button";
+            button.style.cssText =
+                "display:block;width:100%;text-align:right;padding:14px;margin:8px 0;border:1px solid #e4d8ef;border-radius:12px;background:#fff;cursor:pointer";
+
+            const name = document.createElement("strong");
+            name.textContent = doctor
+                ? doctor.name
+                : "طبيب رقم " + doctorId;
+
+            const latest = doctorMessages[doctorMessages.length - 1];
+
+            const preview = document.createElement("div");
+            preview.style.cssText = "margin-top:6px;color:#777;overflow-wrap:anywhere";
+            preview.textContent = latest.message || "";
+
+            const count = document.createElement("small");
+            count.style.cssText = "display:block;margin-top:5px;color:#7040a0";
+            count.textContent = doctorMessages.length + " رسالة";
+
+            button.append(name, preview, count);
+
+            button.addEventListener("click", () => {
+                loadAdminSupportConversation(doctorId);
+            });
+
+            list.appendChild(button);
+        });
+
+        if (selectedSupportDoctorIdForChat !== null) {
+            await loadAdminSupportConversation(
+                selectedSupportDoctorIdForChat
+            );
+        }
+
+    } catch (error) {
+        list.textContent = error.message || "تعذر تحميل رسائل الأطباء.";
+        showToast(list.textContent, "error");
+    }
+}
+
+
+/* LOAD ONE DOCTOR CONVERSATION */
+
+async function loadAdminSupportConversation(doctorId) {
+
+    const conversation = document.getElementById("supportConversation");
+
+    if (!conversation) return;
+
+    selectedSupportDoctorIdForChat = Number(doctorId);
+    conversation.textContent = "جاري تحميل المحادثة...";
+
+    try {
+        const data = await adminFetch(
+            "/api/admin/support-messages?doctorId=" +
+            encodeURIComponent(selectedSupportDoctorIdForChat)
+        );
+
+        const messages = Array.isArray(data.messages)
+            ? data.messages
+            : [];
+
+        const doctor = doctors.find(
+            item => Number(item.id) === selectedSupportDoctorIdForChat
+        );
+
+        conversation.replaceChildren();
+
+        const heading = document.createElement("h3");
+        heading.textContent = doctor
+            ? "المحادثة مع " + doctor.name
+            : "محادثة الطبيب رقم " + selectedSupportDoctorIdForChat;
+
+        conversation.appendChild(heading);
+
+        if (messages.length === 0) {
+            const empty = document.createElement("p");
+            empty.textContent = "لا توجد رسائل في هذه المحادثة.";
+            conversation.appendChild(empty);
+            return;
+        }
+
+        messages.forEach(message => {
+            const bubble = document.createElement("div");
+            bubble.style.cssText =
+                "padding:12px;margin:10px 0;border-radius:12px;background:" +
+                (message.sender === "admin" ? "#f3eafa" : "#f5f5f5");
+
+            const sender = document.createElement("strong");
+            sender.textContent =
+                message.sender === "admin" ? "الإدارة" : "الطبيب";
+
+            const content = document.createElement("p");
+            content.style.cssText = "white-space:pre-wrap;overflow-wrap:anywhere";
+            content.textContent = message.message || "";
+
+            const date = document.createElement("small");
+            date.style.color = "#777";
+
+            const timestamp = message.createdAt || message.sentAt;
+            if (timestamp) {
+                const parsedDate = new Date(timestamp);
+                date.textContent = Number.isNaN(parsedDate.getTime())
+                    ? ""
+                    : parsedDate.toLocaleString("ar-DZ");
+            }
+
+            bubble.append(sender, content, date);
+            conversation.appendChild(bubble);
+        });
+
+        conversation.scrollTop = conversation.scrollHeight;
+
+    } catch (error) {
+        conversation.textContent =
+            error.message || "تعذر تحميل المحادثة.";
+        showToast(conversation.textContent, "error");
+    }
+}
+
+
+/* SEND ADMIN REPLY */
+
+async function sendAdminSupportReply(event) {
+
+    event.preventDefault();
+
+    if (selectedSupportDoctorIdForChat === null) {
+        showToast("اختر محادثة طبيب أولاً.", "error");
+        return;
+    }
+
+    const input = document.getElementById("adminSupportReply");
+    const button = document.getElementById("adminSupportReplyButton");
+    const message = input.value.trim();
+
+    if (!message) {
+        showToast("اكتب الرد قبل الإرسال.", "error");
+        return;
+    }
+
+    button.disabled = true;
+
+    try {
+        await adminFetch("/api/admin/support-messages", {
+            method: "POST",
+            body: {
+                doctorId: selectedSupportDoctorIdForChat,
+                message: message
+            }
+        });
+
+        input.value = "";
+
+        await loadAdminSupportConversation(
+            selectedSupportDoctorIdForChat
+        );
+
+        await loadSupportInbox();
+
+        showToast("تم إرسال الرد بنجاح.");
+
+    } catch (error) {
+        showToast(error.message || "تعذر إرسال الرد.", "error");
+    } finally {
+        button.disabled = false;
+    }
+}
+      
 /* ============================================================
    PATIENT ADS - ADMIN
 ============================================================ */

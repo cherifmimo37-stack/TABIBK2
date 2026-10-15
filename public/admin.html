@@ -2423,6 +2423,21 @@ tbody tr:hover{
 
         </button>
 
+          
+        <button
+            class="nav-item"
+            data-section="support-messages"
+        >
+
+            <i class="fa-solid fa-headset"></i>
+
+            <span>
+                رسائل الأطباء
+            </span>
+
+        </button>
+
+
         <button
             class="nav-item"
             data-section="notifications"
@@ -3389,6 +3404,112 @@ tbody tr:hover{
 
 </section>
 
+
+<!-- =========================================================
+     DOCTOR SUPPORT MESSAGES
+========================================================= -->
+
+<section
+    class="section"
+    id="section-support-messages"
+>
+
+    <div class="card">
+
+        <div class="card-head">
+
+            <div>
+                <h3>رسائل الأطباء</h3>
+
+                <p>
+                    استقبال استفسارات الأطباء والرد عليها
+                </p>
+            </div>
+
+            <button
+                class="btn btn-light"
+                type="button"
+                onclick="loadSupportInbox()"
+            >
+                <i class="fa-solid fa-arrows-rotate"></i>
+                تحديث الرسائل
+            </button>
+
+        </div>
+
+        <div
+            style="
+                display:grid;
+                grid-template-columns:minmax(220px, 0.8fr) minmax(0, 1.5fr);
+                gap:18px;
+            "
+        >
+
+            <div class="card">
+                <h3>الأطباء</h3>
+
+                <div id="supportDoctorsList">
+                    <div class="loading">
+                        اختر تحديث الرسائل لعرض المحادثات
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+
+                <h3 id="supportConversationTitle">
+                    المحادثة
+                </h3>
+
+                <div
+                    id="supportConversation"
+                    style="
+                        min-height:220px;
+                        max-height:420px;
+                        overflow-y:auto;
+                        padding:12px 0;
+                    "
+                >
+                    <div class="empty">
+                        اختر طبيبًا لعرض الرسائل
+                    </div>
+                </div>
+
+                <form
+                    id="adminSupportReplyForm"
+                    onsubmit="sendAdminSupportReply(event)"
+                >
+
+                    <label for="adminSupportReply">
+                        كتابة الرد
+                    </label>
+
+                    <textarea
+                        id="adminSupportReply"
+                        rows="3"
+                        maxlength="3000"
+                        placeholder="اكتب ردك للطبيب..."
+                        required
+                    ></textarea>
+
+                    <button
+                        class="btn btn-gold"
+                        type="submit"
+                        id="adminSupportReplyButton"
+                    >
+                        <i class="fa-solid fa-paper-plane"></i>
+                        إرسال الرد
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 <!-- =========================================================
      PATIENT ADS
@@ -4513,12 +4634,19 @@ const sectionTitles = {
         "إضافة وتعديل وحذف الأطباء"
     ],
 
+    
     notifications:[
         "الإشعارات",
         "إدارة إشعارات النظام والأطباء"
+    ],
+
+    "support-messages":[
+        "رسائل الأطباء",
+        "استقبال رسائل الأطباء والرد عليها"
     ]
 
 };
+
 
 
 function showSection(
@@ -4590,8 +4718,11 @@ function showSection(
     if(name === "doctors")
         loadDoctors();
 
-    if(name === "notifications")
+        if(name === "notifications")
         loadNotifications();
+
+    if(name === "support-messages")
+        loadSupportInbox();
 }
 
 
@@ -7593,6 +7724,203 @@ async function savePatientAd() {
         showToast(status.textContent, "error");
     }
 }
+
+
+/* ============================================================
+   DOCTOR SUPPORT INBOX - ADMIN
+============================================================ */
+
+let selectedSupportDoctorIdForChat = null;
+
+async function loadSupportInbox() {
+    const list = document.getElementById("supportDoctorsList");
+
+          if (!doctors.length) {
+        await loadDoctors();
+    }
+
+    list.textContent = "جاري تحميل رسائل الأطباء...";
+
+    try {
+        const data = await adminFetch("/api/admin/support-messages");
+        const messages = Array.isArray(data.messages) ? data.messages : [];
+
+        if (!messages.length) {
+            list.textContent = "لا توجد رسائل حتى الآن.";
+            document.getElementById("supportConversation").textContent =
+                "لا توجد محادثة لعرضها.";
+            return;
+        }
+
+        const doctorIds = [...new Set(
+            messages.map(item => Number(item.doctorId))
+                .filter(id => Number.isSafeInteger(id) && id > 0)
+        )];
+
+        const doctorsById = new Map(
+            doctors.map(doctor => [Number(doctor.id), doctor])
+        );
+
+        list.replaceChildren();
+
+        doctorIds.forEach(doctorId => {
+            const doctor = doctorsById.get(doctorId);
+            const doctorMessages = messages.filter(
+                item => Number(item.doctorId) === doctorId
+            );
+
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "btn btn-light";
+            button.style.cssText =
+                "display:block;width:100%;margin:8px 0;text-align:right;";
+
+            const name = document.createElement("strong");
+            name.textContent = doctor
+                ? doctor.name
+                : `الطبيب رقم ${doctorId}`;
+
+            const preview = document.createElement("div");
+            preview.style.cssText =
+                "font-size:12px;margin-top:5px;opacity:.8;";
+
+            const latest = doctorMessages[doctorMessages.length - 1];
+            preview.textContent = latest
+                ? String(latest.message || "").slice(0, 90)
+                : "لا توجد رسائل";
+
+            button.append(name, preview);
+            button.addEventListener("click", () => {
+                loadAdminSupportConversation(doctorId);
+            });
+
+            list.appendChild(button);
+        });
+
+        if (selectedSupportDoctorIdForChat !== null &&
+            doctorIds.includes(selectedSupportDoctorIdForChat)) {
+            await loadAdminSupportConversation(
+                selectedSupportDoctorIdForChat
+            );
+        }
+    } catch (error) {
+        list.textContent = error.message || "تعذر تحميل الرسائل.";
+    }
+}
+
+
+async function loadAdminSupportConversation(doctorId) {
+    const conversation =
+        document.getElementById("supportConversation");
+
+    const title =
+        document.getElementById("supportConversationTitle");
+
+    selectedSupportDoctorIdForChat = Number(doctorId);
+
+    conversation.textContent = "جاري تحميل المحادثة...";
+    title.textContent = `محادثة الطبيب رقم ${doctorId}`;
+
+    try {
+        const data = await adminFetch(
+            "/api/admin/support-messages?doctorId=" +
+            encodeURIComponent(doctorId)
+        );
+
+        const messages = Array.isArray(data.messages)
+            ? data.messages
+            : [];
+
+        conversation.replaceChildren();
+
+        if (!messages.length) {
+            conversation.textContent = "لا توجد رسائل في هذه المحادثة.";
+        }
+
+        messages.forEach(item => {
+            const bubble = document.createElement("div");
+
+            bubble.style.cssText =
+                "padding:12px;margin:8px 0;border-radius:12px;" +
+                "background:" +
+                (item.sender === "admin" ? "#eee5f5" : "#f5f1e8") +
+                ";white-space:pre-wrap;overflow-wrap:anywhere;";
+
+            const sender = document.createElement("strong");
+            sender.textContent =
+                item.sender === "admin" ? "الإدارة" : "الطبيب";
+
+            const body = document.createElement("p");
+            body.textContent = String(item.message || "");
+            body.style.margin = "6px 0";
+
+            const time = document.createElement("small");
+            const parsed = Date.parse(item.createdAt || "");
+            time.textContent = Number.isNaN(parsed)
+                ? ""
+                : new Date(parsed).toLocaleString("ar-DZ");
+
+            bubble.append(sender, body, time);
+            conversation.appendChild(bubble);
+        });
+
+        const doctor = doctors.find(
+            item => Number(item.id) === Number(doctorId)
+        );
+
+        title.textContent = doctor
+            ? `محادثة: ${doctor.name}`
+            : `محادثة الطبيب رقم ${doctorId}`;
+
+        conversation.scrollTop = conversation.scrollHeight;
+    } catch (error) {
+        conversation.textContent =
+            error.message || "تعذر تحميل المحادثة.";
+    }
+}
+
+
+async function sendAdminSupportReply(event) {
+    event.preventDefault();
+
+    if (!selectedSupportDoctorIdForChat) {
+        showToast("اختر طبيبًا أولاً", "error");
+        return;
+    }
+
+    const input = document.getElementById("adminSupportReply");
+    const button = document.getElementById("adminSupportReplyButton");
+    const message = input.value.trim();
+
+    if (!message) {
+        showToast("اكتب الرد أولاً", "error");
+        return;
+    }
+
+    button.disabled = true;
+
+    try {
+        await adminFetch("/api/admin/support-messages", {
+            method: "POST",
+            body: {
+                doctorId: selectedSupportDoctorIdForChat,
+                message
+            }
+        });
+
+        input.value = "";
+        showToast("تم إرسال الرد");
+        await loadSupportInbox();
+        await loadAdminSupportConversation(
+            selectedSupportDoctorIdForChat
+        );
+    } catch (error) {
+        showToast(error.message || "تعذر إرسال الرد", "error");
+    } finally {
+        button.disabled = false;
+    }
+}
+
 /* ============================================================
    TABIBK - MULTIPLE PATIENT ADS MANAGER
 ============================================================ */

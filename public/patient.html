@@ -1412,11 +1412,11 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 }
 
 
-/* TABIBK custom date display: YY/MM/DD while retaining native picker/value */
+/* TABIBK custom date display: --/--/-- while retaining native picker/value */
 .tabibk-date-control{position:relative;width:100%;}
 .tabibk-date-control input[type="date"]{color:transparent!important;-webkit-text-fill-color:transparent!important;position:relative;z-index:1;background:transparent!important;}
 .tabibk-date-control input[type="date"]::-webkit-calendar-picker-indicator{opacity:1;cursor:pointer;}
-.tabibk-date-value{position:absolute;inset-inline-start:15px;top:50%;transform:translateY(-50%);z-index:2;pointer-events:none;color:var(--purple,#522b64);font-weight:800;letter-spacing:.5px;font-variant-numeric:tabular-nums;}
+.tabibk-date-value{position:absolute;inset-inline-start:15px;top:50%;transform:translateY(-50%);z-index:2;pointer-events:none;color:var(--purple,#522b64);font-family:Arial,sans-serif;font-size:15px;font-weight:500;letter-spacing:0;font-variant-numeric:tabular-nums;}
 .tabibk-date-control input[type="date"]:focus{color:transparent!important;-webkit-text-fill-color:transparent!important;}
 
 </style>
@@ -1780,7 +1780,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
                     </label>
 
                     <div class="tabibk-date-control" dir="ltr">
-                        <span class="tabibk-date-value" id="dateInputDisplay">YY/MM/DD</span>
+                        <span class="tabibk-date-value" id="dateInputDisplay">--/--/--</span>
                         <input
                             type="date"
                             id="date"
@@ -2758,9 +2758,9 @@ function updateAppointmentDatePreview() {
     if (!input || !preview) return;
 
     const value = input.value;
-    const match = String(value || "").match(/^(\\d{4})-(\\d{2})-(\\d{2})$/);
+    const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
     if (!match) {
-        if (display) display.textContent = "YY/MM/DD";
+        if (display) display.textContent = "--/--/--";
         preview.innerHTML = '<i class="fa-regular fa-calendar-check"></i><span>اختر تاريخ الموعد</span>';
         preview.classList.remove("has-date");
         return;
@@ -2769,7 +2769,7 @@ function updateAppointmentDatePreview() {
     const year = Number(match[1]), month = Number(match[2]), day = Number(match[3]);
     const date = new Date(year, month - 1, day);
     if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
-        if (display) display.textContent = "YY/MM/DD";
+        if (display) display.textContent = "--/--/--";
         preview.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i><span>تاريخ غير صالح</span>';
         preview.classList.remove("has-date");
         return;

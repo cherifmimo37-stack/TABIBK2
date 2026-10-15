@@ -6178,11 +6178,11 @@ select{
 }
 
 
-/* TABIBK custom date display: YY/MM/DD while retaining native picker/value */
+/* TABIBK custom date display: --/--/-- while retaining native picker/value */
 .tabibk-date-control{position:relative;width:100%;}
 .tabibk-date-control input[type="date"]{color:transparent!important;-webkit-text-fill-color:transparent!important;position:relative;z-index:1;background:transparent!important;}
 .tabibk-date-control input[type="date"]::-webkit-calendar-picker-indicator{opacity:1;cursor:pointer;}
-.tabibk-date-value{position:absolute;inset-inline-start:15px;top:50%;transform:translateY(-50%);z-index:2;pointer-events:none;color:var(--purple,#522b64);font-weight:800;letter-spacing:.5px;font-variant-numeric:tabular-nums;}
+.tabibk-date-value{position:absolute;inset-inline-start:15px;top:50%;transform:translateY(-50%);z-index:2;pointer-events:none;color:var(--purple,#522b64);font-family:Arial,sans-serif;font-size:15px;font-weight:500;letter-spacing:0;font-variant-numeric:tabular-nums;}
 .tabibk-date-control input[type="date"]:focus{color:transparent!important;-webkit-text-fill-color:transparent!important;}
 
 </style>
@@ -9527,7 +9527,7 @@ transition: none;
                                     </label>
 
                                     <div class="tabibk-date-control" dir="ltr">
-                                        <span class="tabibk-date-value" id="vacationStartDateDisplay">YY/MM/DD</span>
+                                        <span class="tabibk-date-value" id="vacationStartDateDisplay">--/--/--</span>
                                         <input
                                             type="date"
                                             id="vacationStartDate"
@@ -9547,7 +9547,7 @@ transition: none;
                                     </label>
 
                                     <div class="tabibk-date-control" dir="ltr">
-                                        <span class="tabibk-date-value" id="vacationEndDateDisplay">YY/MM/DD</span>
+                                        <span class="tabibk-date-value" id="vacationEndDateDisplay">--/--/--</span>
                                         <input
                                             type="date"
                                             id="vacationEndDate"
@@ -11747,9 +11747,9 @@ function updateVacationDatePreviews() {
         const input = $(inputId);
         const preview = $(previewId);
         const display = $(displayId);
-        const match = String(input?.value || "").match(/^(\\d{4})-(\\d{2})-(\\d{2})$/);
+        const match = String(input?.value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
         const readable = match ? match[1].slice(-2) + "/" + match[2] + "/" + match[3] : "";
-        if (display) display.textContent = readable || "YY/MM/DD";
+        if (display) display.textContent = readable || "--/--/--";
         if (preview) preview.textContent = readable;
     });
 }

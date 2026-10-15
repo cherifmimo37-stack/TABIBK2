@@ -216,6 +216,17 @@ function normalizeDatabase(database) {
     ) {
         database.notifications = [];
     }
+
+    
+    if (
+        !Array.isArray(
+            database.supportMessages
+        )
+    ) {
+        database.supportMessages = [];
+    }
+
+    
     if (
         !database.patientAd ||
         typeof database.patientAd !== "object" ||
@@ -5052,6 +5063,218 @@ app.get(
         });
     }
 );
+
+
+/* ============================================================
+   DOCTOR SUPPORT MESSAGES
+============================================================ */
+
+// Doctor: get own support messages
+app.get(
+    "/api/doctor/support-messages",
+    checkDoctorAuth,
+    (req, res) => {
+        const database = readDatabase();
+
+        const doctorId = Number(req.doctor.id);
+
+        const messages = (
+            database.supportMessages || []
+        ).filter(
+            item => Number(item.doctorId) === doctorId
+        );
+
+        res.json({
+            success: true,
+            messages
+        });
+    }
+);
+
+
+// Doctor: send a support message
+app.post(
+    "/api/doctor/support-messages",
+    checkDoctorAuth,
+    async (req, res) => {
+        try {
+            const message = String(
+                req.body?.message || ""
+            ).trim();
+
+            if (!message) {
+                return res.status(400).json({
+                    success: false,
+                    message: "اكتب الرسالة أولاً"
+                });
+            }
+
+            if (message.length > 3000) {
+                return res.status(400).json({
+                    success: false,
+                    message: "الرسالة طويلة جدًا"
+                });
+            }
+
+            const database = readDatabase();
+
+            if (!Array.isArray(database.supportMessages)) {
+                database.supportMessages = [];
+            }
+
+            const entry = {
+                id: Date.now().toString() + "-" +
+                    Math.random().toString(36).slice(2, 8),
+                doctorId: Number(req.doctor.id),
+                sender: "doctor",
+                message,
+                createdAt: new Date().toISOString()
+            };
+
+            database.supportMessages.push(entry);
+
+            const saveResult =
+                await saveDatabase(database);
+
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ الرسالة. حاول مرة أخرى."
+                });
+            }
+
+            return res.json({
+                success: true,
+                message: "تم إرسال رسالتك",
+                item: entry
+            });
+
+        } catch (error) {
+            console.error("Doctor support message error:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "تعذر إرسال الرسالة"
+            });
+        }
+    }
+);
+
+
+// Admin: get all support messages, or one doctor's conversation
+app.get(
+    "/api/admin/support-messages",
+    checkAdminKey,
+    (req, res) => {
+        const database = readDatabase();
+
+        const messages = database.supportMessages || [];
+        const requestedDoctorId = req.query.doctorId;
+
+        const filtered = requestedDoctorId
+            ? messages.filter(
+                item => Number(item.doctorId) === Number(requestedDoctorId)
+            )
+            : messages;
+
+        res.json({
+            success: true,
+            messages: filtered
+        });
+    }
+);
+
+
+// Admin: reply to a doctor
+app.post(
+    "/api/admin/support-messages",
+    checkAdminKey,
+    async (req, res) => {
+        try {
+            const doctorId = Number(req.body?.doctorId);
+            const message = String(
+                req.body?.message || ""
+            ).trim();
+
+            if (
+                !Number.isSafeInteger(doctorId) ||
+                doctorId <= 0
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "معرّف الطبيب غير صحيح"
+                });
+            }
+
+            if (!message) {
+                return res.status(400).json({
+                    success: false,
+                    message: "اكتب الرد أولاً"
+                });
+            }
+
+            if (message.length > 3000) {
+                return res.status(400).json({
+                    success: false,
+                    message: "الرد طويل جدًا"
+                });
+            }
+
+            const database = readDatabase();
+
+            const doctorExists = database.doctors.some(
+                doctor => Number(doctor.id) === doctorId
+            );
+
+            if (!doctorExists) {
+                return res.status(404).json({
+                    success: false,
+                    message: "الطبيب غير موجود"
+                });
+            }
+
+            if (!Array.isArray(database.supportMessages)) {
+                database.supportMessages = [];
+            }
+
+            const entry = {
+                id: Date.now().toString() + "-" +
+                    Math.random().toString(36).slice(2, 8),
+                doctorId,
+                sender: "admin",
+                message,
+                createdAt: new Date().toISOString()
+            };
+
+            database.supportMessages.push(entry);
+
+            const saveResult =
+                await saveDatabase(database);
+
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ الرد. حاول مرة أخرى."
+                });
+            }
+
+            return res.json({
+                success: true,
+                message: "تم إرسال الرد",
+                item: entry
+            });
+
+        } catch (error) {
+            console.error("Admin support reply error:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "تعذر إرسال الرد"
+            });
+        }
+    }
+);
+
 
 // ============================================================
 // ADMIN ADD DOCTOR

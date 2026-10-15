@@ -8353,6 +8353,74 @@ transition: none;
 
 
                 <!-- =========================================
+                     DOCTOR - ADMIN SUPPORT CHAT
+                ========================================== -->
+
+                <section
+                    class="dashboard-section"
+                    id="section-support"
+                >
+
+                    <div class="section-head">
+
+                        <div class="section-heading">
+
+                            <div class="section-icon">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+
+                            <div>
+                                <h2>اتصل بالإدارة</h2>
+                                <p>تواصل مباشرة مع إدارة طبيبك</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div
+                                id="supportChatMessages"
+                                aria-live="polite"
+                            >
+                                <p>
+                                    مرحبًا بك! يمكنك التواصل مع إدارة طبيبك من هنا.
+                                </p>
+                            </div>
+
+                            <form
+                                id="supportChatForm"
+                                onsubmit="sendSupportMessage(event)"
+                            >
+
+                                <label for="supportChatInput">
+                                    رسالتك إلى الإدارة
+                                </label>
+
+                                <textarea
+                                    id="supportChatInput"
+                                    rows="4"
+                                    maxlength="2000"
+                                    placeholder="اكتب رسالتك هنا..."
+                                    required
+                                ></textarea>
+
+                                <button type="submit">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    إرسال الرسالة
+                                </button>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </section>
+
+                
+                <!-- =========================================
                      RATINGS
                 ========================================== -->
 

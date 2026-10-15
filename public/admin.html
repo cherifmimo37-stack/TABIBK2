@@ -3350,6 +3350,89 @@ tbody tr:hover{
 
 
 <!-- =========================================================
+     DOCTOR SUPPORT MESSAGES
+========================================================= -->
+
+<section
+    class="section"
+    id="section-support-messages"
+>
+
+    <div class="card">
+
+        <div class="card-head">
+            <div>
+                <h3>رسائل الأطباء</h3>
+                <p>استقبال رسائل الأطباء والرد عليها مباشرة</p>
+            </div>
+
+            <button
+                type="button"
+                class="btn btn-gold"
+                onclick="loadSupportInbox()"
+            >
+                <i class="fa-solid fa-arrows-rotate"></i>
+                تحديث الرسائل
+            </button>
+        </div>
+
+        <div
+            id="supportDoctorsList"
+            style="margin-bottom:20px"
+        >
+            <div class="loading">
+                جاري تحميل المحادثات...
+            </div>
+        </div>
+
+        <div
+            id="supportConversation"
+            style="
+                padding:16px;
+                border:1px solid rgba(112,39,160,.12);
+                border-radius:15px;
+                background:#fff;
+            "
+        >
+            <p style="color:var(--muted)">
+                اختر طبيبًا لعرض المحادثة والرد عليه.
+            </p>
+        </div>
+
+        <form
+            id="adminSupportReplyForm"
+            onsubmit="sendAdminSupportReply(event)"
+            style="margin-top:16px"
+        >
+            <label for="adminSupportReply">
+                الرد على الطبيب
+            </label>
+
+            <textarea
+                id="adminSupportReply"
+                rows="4"
+                maxlength="2000"
+                placeholder="اكتب ردك هنا..."
+                required
+                style="width:100%;margin:10px 0"
+            ></textarea>
+
+            <button
+                type="submit"
+                class="btn btn-gold"
+                id="adminSupportReplyButton"
+            >
+                <i class="fa-solid fa-paper-plane"></i>
+                إرسال الرد
+            </button>
+        </form>
+
+    </div>
+
+</section>
+
+              
+<!-- =========================================================
      NOTIFICATIONS
 ========================================================= -->
 

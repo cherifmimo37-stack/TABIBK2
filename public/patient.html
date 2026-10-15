@@ -1274,6 +1274,17 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
       
 </style>
 
+<style id="tabibk-date-display">
+.date-readable {
+  display:block; min-height:24px; margin-top:7px; padding:6px 10px;
+  border:1px solid rgba(201,151,50,.32); border-radius:10px;
+  background:#fbf7fd; color:#6b5877; text-align:center;
+  direction:ltr; unicode-bidi:isolate; font:800 13px/1.5 Arial,Tahoma,sans-serif;
+  font-variant-numeric:tabular-nums;
+}
+.date-readable.has-date { color:#51216f; background:#fff8e6; border-color:#c99732; }
+#date { direction:ltr!important; text-align:left!important; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+</style>
 </head>
 
 
@@ -1637,7 +1648,12 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
                     <input
                         type="date"
-                        id="date">
+                        id="date"
+                        lang="en-GB"
+                        dir="ltr"
+                        aria-describedby="dateReadable"
+                        onchange="updatePatientDatePreview()">
+                    <small id="dateReadable" class="date-readable" dir="ltr" aria-live="polite">اختر تاريخ الموعد</small>
 
                 </div>
 
@@ -5133,6 +5149,27 @@ if (tabs && tabs.parentNode === main) {
 
 </script>
 
+<script id="tabibk-date-preview-script">
+(function () {
+  function formatISODate(value) {
+    const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) return "";
+    const year = Number(match[1]), month = Number(match[2]), day = Number(match[3]);
+    const date = new Date(year, month - 1, day);
+    if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return "تاريخ غير صالح";
+    return match[3] + "/" + match[2] + "/" + match[1];
+  }
+  window.updatePatientDatePreview = function () {
+    const input = document.getElementById("date");
+    const preview = document.getElementById("dateReadable");
+    if (!input || !preview) return;
+    const formatted = formatISODate(input.value);
+    preview.textContent = formatted || "اختر تاريخ الموعد";
+    preview.classList.toggle("has-date", Boolean(formatted && formatted !== "تاريخ غير صالح"));
+  };
+  document.addEventListener("DOMContentLoaded", window.updatePatientDatePreview);
+})();
+</script>
 </body>
 
 </html>

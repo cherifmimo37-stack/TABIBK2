@@ -2374,6 +2374,189 @@ app.put(
     }
 );
 
+
+/* ============================================================
+   TABIBK - DOCTOR / ADMIN SUPPORT CHAT
+============================================================ */
+
+// الطبيب: قراءة رسائله فقط
+app.get(
+    "/api/doctor/support-messages",
+    checkDoctorAuth,
+    (req, res) => {
+        const database = readDatabase();
+        const doctorId = Number(req.doctor.id);
+
+        const messages = database.supportMessages
+            .filter(item =>
+                Number(item.doctorId) === doctorId
+            )
+            .sort((a, b) =>
+                new Date(a.createdAt) -
+                new Date(b.createdAt)
+            )
+            .slice(-500);
+
+        res.json({
+            success: true,
+            messages
+        });
+    }
+);
+
+
+// الطبيب: إرسال رسالة إلى الإدارة
+app.post(
+    "/api/doctor/support-messages",
+    checkDoctorAuth,
+    (req, res) => {
+        const message = String(
+            req.body?.message || ""
+        ).trim();
+
+        if (!message || message.length > 2000) {
+            return res.status(400).json({
+                success: false,
+                message: "الرسالة مطلوبة وبحد أقصى 2000 حرف"
+            });
+        }
+
+        const database = readDatabase();
+
+        if (!Array.isArray(database.supportMessages)) {
+            database.supportMessages = [];
+        }
+
+        const supportMessage = {
+            id: Date.now().toString() + "-" +
+                Math.random().toString(36).slice(2, 8),
+            doctorId: Number(req.doctor.id),
+            sender: "doctor",
+            message,
+            createdAt: new Date().toISOString(),
+            readByDoctor: true,
+            readByAdmin: false
+        };
+
+        database.supportMessages.push(supportMessage);
+        saveDatabase(database);
+
+        res.status(201).json({
+            success: true,
+            message: "تم إرسال رسالتك إلى الإدارة",
+            supportMessage
+        });
+    }
+);
+
+
+// الإدارة: قراءة الرسائل أو محادثة طبيب محدد
+app.get(
+    "/api/admin/support-messages",
+    checkAdminKey,
+    (req, res) => {
+        const database = readDatabase();
+        const requestedDoctorId = req.query.doctorId;
+
+        let messages = database.supportMessages;
+
+        if (
+            requestedDoctorId !== undefined &&
+            requestedDoctorId !== ""
+        ) {
+            const doctorId = Number(requestedDoctorId);
+
+            if (!Number.isFinite(doctorId)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "معرّف الطبيب غير صحيح"
+                });
+            }
+
+            messages = messages.filter(item =>
+                Number(item.doctorId) === doctorId
+            );
+        }
+
+        messages = messages
+            .slice()
+            .sort((a, b) =>
+                new Date(a.createdAt) -
+                new Date(b.createdAt)
+            )
+            .slice(-1000);
+
+        res.json({
+            success: true,
+            messages
+        });
+    }
+);
+
+
+// الإدارة: الرد على طبيب
+app.post(
+    "/api/admin/support-messages",
+    checkAdminKey,
+    (req, res) => {
+        const doctorId = Number(req.body?.doctorId);
+        const message = String(
+            req.body?.message || ""
+        ).trim();
+
+        if (
+            !Number.isFinite(doctorId) ||
+            !message ||
+            message.length > 2000
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "معرّف الطبيب والرسالة مطلوبان"
+            });
+        }
+
+        const database = readDatabase();
+
+        if (!Array.isArray(database.supportMessages)) {
+            database.supportMessages = [];
+        }
+
+        const doctorExists = database.doctors.some(
+            doctor => Number(doctor.id) === doctorId
+        );
+
+        if (!doctorExists) {
+            return res.status(404).json({
+                success: false,
+                message: "الطبيب غير موجود"
+            });
+        }
+
+        const supportMessage = {
+            id: Date.now().toString() + "-" +
+                Math.random().toString(36).slice(2, 8),
+            doctorId,
+            sender: "admin",
+            message,
+            createdAt: new Date().toISOString(),
+            readByDoctor: false,
+            readByAdmin: true
+        };
+
+        database.supportMessages.push(supportMessage);
+        saveDatabase(database);
+
+        res.status(201).json({
+            success: true,
+            message: "تم إرسال الرد إلى الطبيب",
+            supportMessage
+        });
+    }
+);
+
+// END TABIBK SUPPORT CHAT
+
+
 // ============================================================
 // DOCTOR NOTIFICATIONS - GET
 // ============================================================

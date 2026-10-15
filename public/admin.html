@@ -4426,6 +4426,13 @@ const sectionTitles = {
         "إضافة وتعديل وحذف الأطباء"
     ],
 
+      
+    "support-messages":[
+        "رسائل الأطباء",
+        "استقبال رسائل الأطباء والرد عليها"
+    ],
+
+
     notifications:[
         "الإشعارات",
         "إدارة إشعارات النظام والأطباء"
@@ -4505,6 +4512,10 @@ function showSection(
 
     if(name === "notifications")
         loadNotifications();
+      
+    if(name === "support-messages")
+        loadSupportInbox();
+
 }
 
 

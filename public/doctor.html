@@ -14639,6 +14639,188 @@ async function loadNotifications() {
 
 
 /* =========================================================
+   TABIBK - DOCTOR SUPPORT CHAT
+========================================================= */
+
+async function loadSupportMessages() {
+
+    const container =
+        document.getElementById(
+            "supportChatMessages"
+        );
+
+    if (!container) return;
+
+    container.replaceChildren();
+
+    const loading = document.createElement("p");
+    loading.textContent = "جاري تحميل الرسائل...";
+    container.appendChild(loading);
+
+    try {
+
+        const data = await apiFetch(
+            "/api/doctor/support-messages"
+        );
+
+        const messages =
+            Array.isArray(data?.messages)
+                ? data.messages
+                : [];
+
+        container.replaceChildren();
+
+        if (messages.length === 0) {
+            const empty = document.createElement("p");
+            empty.textContent =
+                "لا توجد رسائل بعد. يمكنك إرسال رسالة إلى الإدارة.";
+            container.appendChild(empty);
+            return;
+        }
+
+        messages.forEach(item => {
+
+            const bubble =
+                document.createElement("div");
+
+            bubble.style.padding = "12px";
+            bubble.style.margin = "10px 0";
+            bubble.style.borderRadius = "12px";
+            bubble.style.background =
+                item.sender === "admin"
+                    ? "#f1eaff"
+                    : "#f5f5f5";
+
+            const sender =
+                document.createElement("strong");
+
+            sender.textContent =
+                item.sender === "admin"
+                    ? "إدارة طبيبك"
+                    : "أنت";
+
+            const message =
+                document.createElement("p");
+
+            message.style.whiteSpace = "pre-wrap";
+            message.style.overflowWrap = "anywhere";
+            message.textContent =
+                String(item.message || "");
+
+            const date =
+                document.createElement("small");
+
+            const parsedDate =
+                new Date(item.createdAt);
+
+            date.textContent =
+                Number.isNaN(parsedDate.getTime())
+                    ? ""
+                    : parsedDate.toLocaleString("ar-DZ");
+
+            bubble.append(
+                sender,
+                message,
+                date
+            );
+
+            container.appendChild(bubble);
+
+        });
+
+        container.scrollTop =
+            container.scrollHeight;
+
+    } catch (error) {
+
+        container.replaceChildren();
+
+        const errorMessage =
+            document.createElement("p");
+
+        errorMessage.textContent =
+            error.message ||
+            "تعذر تحميل الرسائل. حاول مجددًا.";
+
+        container.appendChild(errorMessage);
+
+    }
+
+}
+
+
+async function sendSupportMessage(event) {
+
+    event.preventDefault();
+
+    const input =
+        document.getElementById(
+            "supportChatInput"
+        );
+
+    const button =
+        event.currentTarget.querySelector(
+            'button[type="submit"]'
+        );
+
+    if (!input) return;
+
+    const message = input.value.trim();
+
+    if (!message) {
+        input.focus();
+        return;
+    }
+
+    if (message.length > 2000) {
+        alert("الرسالة يجب ألا تتجاوز 2000 حرف.");
+        return;
+    }
+
+    if (button) button.disabled = true;
+
+    try {
+
+        await apiFetch(
+            "/api/doctor/support-messages",
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    message: message
+                })
+            }
+        );
+
+        input.value = "";
+
+        await loadSupportMessages();
+
+        if (typeof showToast === "function") {
+            showToast(
+                "تم إرسال رسالتك إلى الإدارة",
+                "success"
+            );
+        } else {
+            alert("تم إرسال رسالتك إلى الإدارة.");
+        }
+
+    } catch (error) {
+
+        alert(
+            error.message ||
+            "تعذر إرسال الرسالة. حاول مجددًا."
+        );
+
+    } finally {
+
+        if (button) button.disabled = false;
+
+    }
+
+}
+
+        
+/* =========================================================
    NOTIFICATION BADGE
 ========================================================= */
 

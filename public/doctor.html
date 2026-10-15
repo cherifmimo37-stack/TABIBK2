@@ -2868,13 +2868,14 @@ button{
 }
 
 
-/* Fix date display in doctor interface */
-input[type="date"] {
-    direction: ltr !important;
-    text-align: center !important;
-    font-family: Arial, sans-serif !important;
-    font-variant-numeric: tabular-nums;
-}
+/* Android WebView: show a stable numeric date over the native date picker */
+.date-control{position:relative;width:100%}
+.date-control input[type="date"]{position:relative;z-index:1;color:transparent!important;background:transparent!important;direction:ltr!important;text-align:center!important;font-family:Arial,sans-serif!important}
+.date-control input[type="date"]::-webkit-datetime-edit{color:transparent}
+.date-control input[type="date"]::-webkit-calendar-picker-indicator{opacity:0}
+.date-display{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none;color:var(--text);font-family:Arial,sans-serif;font-size:11px;font-variant-numeric:tabular-nums;direction:ltr;text-align:center}
+
+/* Keep native date values in ISO format; only change their visible presentation */
 
     
 .field label{
@@ -9531,12 +9532,17 @@ transition: none;
                                         بداية العطلة
                                     </label>
 
-                                    <input
-                                        type="date"
-                                        id="vacationStartDate"
-                                        lang="en-GB"
-                                        dir="ltr"
-                                    >
+                                    <div class="date-control">
+                                        <input
+                                            type="date"
+                                            id="vacationStartDate"
+                                            lang="en-GB"
+                                            dir="ltr"
+                                            oninput="syncNumericDateDisplay(this)"
+                                            onchange="syncNumericDateDisplay(this)"
+                                        >
+                                        <span class="date-display" id="vacationStartDateDisplay" aria-hidden="true">اختر التاريخ</span>
+                                    </div>
 
                                 </div>
 
@@ -9547,12 +9553,17 @@ transition: none;
                                         نهاية العطلة
                                     </label>
 
-                                    <input
-                                        type="date"
-                                        id="vacationEndDate"
-                                        lang="en-GB"
-                                        dir="ltr"
-                                    >
+                                    <div class="date-control">
+                                        <input
+                                            type="date"
+                                            id="vacationEndDate"
+                                            lang="en-GB"
+                                            dir="ltr"
+                                            oninput="syncNumericDateDisplay(this)"
+                                            onchange="syncNumericDateDisplay(this)"
+                                        >
+                                        <span class="date-display" id="vacationEndDateDisplay" aria-hidden="true">اختر التاريخ</span>
+                                    </div>
 
                                 </div>
 
@@ -11736,6 +11747,16 @@ async function loadVacation() {
 }
 
 
+function syncNumericDateDisplay(input){
+    if(!input) return;
+    const display = $(input.id + "Display");
+    if(!display) return;
+    const value = input.value || "";
+    const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    display.textContent = match ? match[3] + "/" + match[2] + "/" + match[1] : "اختر التاريخ";
+}
+
+
 function renderVacation() {
 
     const vacation =
@@ -11768,6 +11789,9 @@ function renderVacation() {
 
     }
 
+
+    syncNumericDateDisplay($("vacationStartDate"));
+    syncNumericDateDisplay($("vacationEndDate"));
 
     if ($("vacationStatusText")) {
 

@@ -7745,6 +7745,60 @@ transition: none;
     
 </style>
 
+<style id="tabibk-date-display-fix">
+#app input[type="date"] { direction:ltr!important; text-align:left!important; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+.vacation-date-readable { display:block; min-height:24px; margin-top:7px; padding:6px 10px; border:1px solid rgba(201,151,50,.32); border-radius:10px; background:#fbf7fd; color:#6b5877; text-align:center; direction:ltr; unicode-bidi:isolate; font:800 13px/1.5 Arial,Tahoma,sans-serif; font-variant-numeric:tabular-nums; }
+</style>
+<style id="tabibk-professional-buttons-v1">
+/* TABIBK premium button system */
+#app button, #loginScreen button, #doctorRegistrationModal button {
+  font-family:"Cairo",sans-serif;
+  font-weight:800;
+  letter-spacing:0;
+  border-radius:14px;
+  transition:transform .18s ease, box-shadow .18s ease, filter .18s ease, border-color .18s ease;
+}
+#app button:not(:disabled):hover, #loginScreen button:not(:disabled):hover,
+#doctorRegistrationModal button:not(:disabled):hover {
+  filter:brightness(1.035);
+}
+#app button:not(:disabled):active, #loginScreen button:not(:disabled):active,
+#doctorRegistrationModal button:not(:disabled):active { transform:translateY(1px) scale(.99); }
+#app button:focus-visible, #loginScreen button:focus-visible,
+#doctorRegistrationModal button:focus-visible {
+  outline:3px solid rgba(201,151,50,.48); outline-offset:3px;
+}
+#app button:disabled, #loginScreen button:disabled,
+#doctorRegistrationModal button:disabled { opacity:.68; cursor:wait; box-shadow:none; transform:none; }
+#app .save-setting {
+  min-height:48px; padding:12px 20px; border:1px solid rgba(255,255,255,.16);
+  color:#fff; background:linear-gradient(135deg,#54206f,#7027a0);
+  box-shadow:0 8px 18px rgba(68,24,94,.16);
+}
+#app .save-setting:hover:not(:disabled) { box-shadow:0 12px 24px rgba(68,24,94,.23); }
+#app .btn, #app .nav-item { min-height:42px; }
+#app .btn-secondary {
+  border:1px solid #e3d5ed; background:#fff; color:#51216f;
+  box-shadow:0 4px 12px rgba(68,24,94,.06);
+}
+#app .btn-danger { box-shadow:0 6px 16px rgba(216,61,85,.14); }
+#loginScreen .login-button, #doctorRegistrationModal .login-button {
+  min-height:54px; border:1px solid rgba(255,255,255,.14);
+}
+#loginScreen .forgot-password-link {
+  border:0; background:transparent; color:#6a2b89; text-decoration:underline;
+  text-underline-offset:3px; padding:8px 4px;
+}
+#app .date-readable, #app .vacation-date-readable { font-variant-numeric:tabular-nums; }
+@media (max-width:600px) {
+  #app .save-setting { width:100%; justify-content:center; }
+  #app .account-summary-actions { display:flex; flex-wrap:wrap; gap:10px; }
+  #app .account-summary-actions button { flex:1 1 145px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  #app button, #loginScreen button, #doctorRegistrationModal button { transition:none!important; }
+}
+</style>
 </head>
 
 
@@ -9473,10 +9527,8 @@ transition: none;
                                         بداية العطلة
                                     </label>
 
-                                    <input
-                                        type="date"
-                                        id="vacationStartDate"
-                                    >
+                                    <input type="date" id="vacationStartDate" lang="en-GB" dir="ltr" aria-describedby="vacationStartDateReadable" onchange="updateVacationDatePreviews()">
+                                    <small class="vacation-date-readable" id="vacationStartDateReadable" dir="ltr" aria-live="polite">اختر تاريخ البداية</small>
 
                                 </div>
 
@@ -9487,10 +9539,8 @@ transition: none;
                                         نهاية العطلة
                                     </label>
 
-                                    <input
-                                        type="date"
-                                        id="vacationEndDate"
-                                    >
+                                    <input type="date" id="vacationEndDate" lang="en-GB" dir="ltr" aria-describedby="vacationEndDateReadable" onchange="updateVacationDatePreviews()">
+                                    <small class="vacation-date-readable" id="vacationEndDateReadable" dir="ltr" aria-live="polite">اختر تاريخ النهاية</small>
 
                                 </div>
 
@@ -10590,7 +10640,7 @@ async function registerDoctor(event){
         if(message){
 
             message.textContent =
-                "كلمة المرور يجب أن تحتوي على 4 أحرف أو أرقام على الأقل";
+                "كلمة المرور يجب أن تحتوي على 8 أحرف أو أرقام على الأقل";
 
             message.className =
                 "login-message error";
@@ -12404,7 +12454,7 @@ function renderAppointment(
                         التاريخ
                     </span>
                     <strong>
-                        ${escapeHtml(date || "—")}
+                        ${escapeHtml(formatAppointmentDate(date))}
                     </strong>
                 </div>
 
@@ -13457,42 +13507,44 @@ function requestNotificationPermission() {
    DATE FORMAT
 ========================================================= */
 
-function formatDateTime(
-    value
-) {
-
-    if (!value) {
-
-        return "";
-
+function parseTabibkDate(value) {
+    if (value === null || value === undefined || value === "") return null;
+    const raw = String(value).trim();
+    const iso = raw.match(/^(\d{4})-(\d{2})-(\d{2})(?:$|[T ].*)/);
+    if (iso) {
+        const year = Number(iso[1]), month = Number(iso[2]), day = Number(iso[3]);
+        const date = new Date(year, month - 1, day);
+        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return null;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return {date, hasTime:false};
+        const timed = new Date(raw);
+        return Number.isNaN(timed.getTime()) ? null : {date:timed, hasTime:true};
     }
-
-
-    const date =
-        new Date(value);
-
-
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-
-        return String(value);
-
+    const slash = raw.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
+    if (slash) {
+        const day = Number(slash[1]), month = Number(slash[2]), year = Number(slash[3]);
+        const date = new Date(year, month - 1, day);
+        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return null;
+        return {date, hasTime:false};
     }
-
-
-    return date.toLocaleString(
-        "ar-DZ",
-        {
-            dateStyle:
-                "short",
-            timeStyle:
-                "short"
-        }
-    );
-
+    const date = new Date(raw);
+    return Number.isNaN(date.getTime()) ? null : {date, hasTime:/[T ]\d{1,2}:\d{2}/.test(raw)};
+}
+function formatAppointmentDate(value) {
+    if (value === null || value === undefined || value === "") return "—";
+    const parsed = parseTabibkDate(value);
+    if (!parsed) return "تاريخ غير صالح";
+    const d = parsed.date;
+    return String(d.getDate()).padStart(2,"0") + "/" +
+        String(d.getMonth()+1).padStart(2,"0") + "/" + d.getFullYear();
+}
+function formatDateTime(value) {
+    if (value === null || value === undefined || value === "") return "";
+    const parsed = parseTabibkDate(value);
+    if (!parsed) return "تاريخ غير صالح";
+    const d = parsed.date;
+    const date = formatAppointmentDate(d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"));
+    if (!parsed.hasTime) return date;
+    return date + " · " + String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
 }
 
 
@@ -14659,9 +14711,7 @@ function renderPatients() {
                                             ></i>
 
                                             آخر موعد:
-                                            ${escapeHtml(
-                                                lastDate
-                                            )}
+                                            ${escapeHtml(formatAppointmentDate(lastDate))}
                                         </span>
                                         `
                                         : ""
@@ -20213,7 +20263,6 @@ if (
         }
     }
 </style>
- ```html
 <!-- TABIBK PRO MAX - PREMIUM HOME V3 -->
 <style id="tabibk-pro-max-v3">
 
@@ -20722,6 +20771,16 @@ if (
 }
 
 </style>
+<script id="tabibk-vacation-date-preview-script">
+function updateVacationDatePreviews() {
+  [["vacationStartDate","vacationStartDateReadable","اختر تاريخ البداية"],["vacationEndDate","vacationEndDateReadable","اختر تاريخ النهاية"]].forEach(([inputId,previewId,placeholder])=>{
+    const input=document.getElementById(inputId), preview=document.getElementById(previewId);
+    if(!input||!preview)return;
+    preview.textContent=input.value ? formatAppointmentDate(input.value) : placeholder;
+  });
+}
+document.addEventListener("DOMContentLoaded", updateVacationDatePreviews);
+</script>
 </body>
 
 </html>

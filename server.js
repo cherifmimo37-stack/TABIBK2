@@ -216,20 +216,17 @@ function normalizeDatabase(database) {
     ) {
         database.notifications = [];
     }
-
-    
     if (
-        !Array.isArray(
-            database.supportMessages
+!Array.isArray(
+ database.supportMessages
         )
     ) {
         database.supportMessages = [];
     }
-
     
     if (
         !database.patientAd ||
-        typeof database.patientAd !== "object" ||
+ typeof database.patientAd !== "object"||
         Array.isArray(database.patientAd)
     ) {
         database.patientAd = {};

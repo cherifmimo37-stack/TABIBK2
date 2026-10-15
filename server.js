@@ -42,17 +42,15 @@ const DATABASE_FILE = path.join(
     "database.json"
 );
 
-// Never fall back to a public, hard-coded administrator key.
 const ADMIN_KEY =
-    typeof process.env.ADMIN_KEY === "string"
-        ? process.env.ADMIN_KEY.trim()
-        : "";
+    process.env.ADMIN_KEY ||
+    "TABIBK_ADMIN_2026";
 
 const DOCTOR_SESSION_DAYS = 7;
 
 app.use(
     express.json({
-        limit: "3mb"
+        limit: "2mb"
     })
 );
 
@@ -157,17 +155,8 @@ function createEmptyDatabase() {
 
         appointments: [],
 
-                notifications: [],
+        notifications: []
 
-                patientAd: {
-            enabled: false,
-            imageData: "",
-            targetUrl: "",
-            title: "",
-            updatedAt: ""
-        },
-
-        patientAds: []
     };
 }
 
@@ -216,51 +205,7 @@ function normalizeDatabase(database) {
     ) {
         database.notifications = [];
     }
-    if (
-        !database.patientAd ||
-        typeof database.patientAd !== "object" ||
-        Array.isArray(database.patientAd)
-    ) {
-        database.patientAd = {};
-    }
 
-    database.patientAd = {
-        enabled: database.patientAd.enabled === true,
-        imageData:
-            typeof database.patientAd.imageData === "string"
-                ? database.patientAd.imageData
-                : "",
-        targetUrl:
-            typeof database.patientAd.targetUrl === "string"
-                ? database.patientAd.targetUrl
-                : "",
-        title:
-            typeof database.patientAd.title === "string"
-                ? database.patientAd.title.slice(0, 120)
-                : "",
-        updatedAt:
-            typeof database.patientAd.updatedAt === "string"
-                ? database.patientAd.updatedAt
-                : ""
-    };
-    // --------------------------------------------------------
-    // Patient ads list - preserve existing single ad
-    // --------------------------------------------------------
-
-    if (!Array.isArray(database.patientAds)) {
-        database.patientAds = [];
-
-        if (database.patientAd.imageData) {
-            database.patientAds.push({
-                id: "legacy-patient-ad",
-                enabled: database.patientAd.enabled === true,
-                imageData: database.patientAd.imageData,
-                targetUrl: database.patientAd.targetUrl,
-                title: database.patientAd.title,
-                updatedAt: database.patientAd.updatedAt
-            });
-        }
-    }
     // --------------------------------------------------------
     // Wilayas
     // --------------------------------------------------------
@@ -367,18 +312,12 @@ function normalizeDatabase(database) {
                         ) || 15,
 
                     active:
-                        doctor.status === "pending" ||
-                        doctor.status === "rejected" ||
-                        doctor.status === "inactive"
-                            ? false
-                            : doctor.active !== false,
+    doctor.active !== false,
 
-                    status:
-                        doctor.status === "pending" ||
-                        doctor.status === "rejected" ||
-                        doctor.status === "inactive"
-                            ? doctor.status
-                            : "approved",
+status:
+    doctor.status === "pending"
+        ? "pending"
+        : "approved",
 
 online:
     doctor.online === true,
@@ -874,57 +813,13 @@ function cleanDoctors(doctors) {
 
 // ------------------------------------------------------------
 
-const PASSWORD_HASH_PREFIX = "scrypt";
-
-function hashDoctorPassword(password) {
-    return new Promise((resolve, reject) => {
-        const salt = crypto.randomBytes(16).toString("hex");
-        crypto.scrypt(String(password), salt, 64, (error, derivedKey) => {
-            if (error) return reject(error);
-            resolve(
-                PASSWORD_HASH_PREFIX + "$" +
-                salt + "$" +
-                derivedKey.toString("hex")
-            );
-        });
-    });
-}
-
-function verifyDoctorPassword(password, storedValue) {
-    const stored = String(storedValue || "");
-
-    if (!stored.startsWith(PASSWORD_HASH_PREFIX + "$")) {
-        // Backward-compatible verification for existing legacy accounts.
-        // The password is upgraded to scrypt after a successful login.
-        const providedBuffer = Buffer.from(String(password));
-        const storedBuffer = Buffer.from(stored);
-        return Promise.resolve(
-            storedBuffer.length > 0 &&
-            providedBuffer.length === storedBuffer.length &&
-            crypto.timingSafeEqual(providedBuffer, storedBuffer)
-        );
-    }
-
-    const parts = stored.split("$");
-    if (parts.length !== 3 || !/^[a-f0-9]{32}$/i.test(parts[1]) ||
-        !/^[a-f0-9]{128}$/i.test(parts[2])) {
-        return Promise.resolve(false);
-    }
-
-    return new Promise((resolve, reject) => {
-        crypto.scrypt(String(password), parts[1], 64, (error, derivedKey) => {
-            if (error) return reject(error);
-            const expected = Buffer.from(parts[2], "hex");
-            resolve(
-                expected.length === derivedKey.length &&
-                crypto.timingSafeEqual(expected, derivedKey)
-            );
-        });
-    });
-}
-
 function getDoctorPassword(doctor) {
-    return doctor.password || doctor.loginPassword || "";
+
+    return (
+        doctor.password ||
+        doctor.loginPassword ||
+        "123456"
+    );
 }
 
 // ------------------------------------------------------------
@@ -1047,28 +942,11 @@ const doctorSessions =
 // ADMIN AUTH
 // ============================================================
 
-function safeStringEqual(left, right) {
-    const leftBuffer = Buffer.from(String(left ?? ""));
-    const rightBuffer = Buffer.from(String(right ?? ""));
-    return (
-        leftBuffer.length > 0 &&
-        leftBuffer.length === rightBuffer.length &&
-        crypto.timingSafeEqual(leftBuffer, rightBuffer)
-    );
-}
-
 function checkAdminKey(
     req,
     res,
     next
 ) {
-
-    if (!ADMIN_KEY) {
-        return res.status(503).json({
-            success: false,
-            message: "إعداد مفتاح الإدارة غير مكتمل على الخادم"
-        });
-    }
 
     const headerKey =
         req.headers["x-admin-key"];
@@ -1082,7 +960,7 @@ function checkAdminKey(
 
     if (
         !providedKey ||
-        !safeStringEqual(providedKey, ADMIN_KEY)
+        providedKey !== ADMIN_KEY
     ) {
 
         return res
@@ -1635,7 +1513,7 @@ app.get(
 
 app.post(
     "/api/doctor/register",
-    async (req, res) => {
+    (req, res) => {
 
         try {
 
@@ -1657,15 +1535,13 @@ app.post(
             // REQUIRED FIELDS
             // ------------------------------------------------
 
-            const submittedPassword = password || loginPassword;
-
             if (
                 !name ||
                 !specialty ||
                 !wilaya ||
                 !municipality ||
                 !phone ||
-                !submittedPassword
+                !(password || loginPassword)
             ) {
 
                 return res
@@ -1678,16 +1554,6 @@ app.post(
 
             }
 
-
-            if (
-                String(submittedPassword).length < 8 ||
-                !String(submittedPassword).trim()
-            ) {
-                return res.status(400).json({
-                    success: false,
-                    message: "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل"
-                });
-            }
 
             const database =
                 readDatabase();
@@ -1762,8 +1628,6 @@ app.post(
             // CREATE PENDING DOCTOR
             // ------------------------------------------------
 
-            const hashedPassword = await hashDoctorPassword(submittedPassword);
-
             const doctor = {
 
                 id:
@@ -1820,7 +1684,8 @@ app.post(
                     false,
 
                 loginPassword:
-                    hashedPassword,
+                    password ||
+                    loginPassword,
 
                 workingHours: {
 
@@ -1924,7 +1789,7 @@ app.post(
 
 app.post(
     "/api/doctor/login",
-    async (req, res) => {
+    (req, res) => {
       
         try {
 
@@ -2018,12 +1883,14 @@ app.post(
                     doctor
                 );
 
-            const passwordIsValid = await verifyDoctorPassword(
-                password,
-                doctorPassword
-            );
-
-            if (!passwordIsValid) {
+            if (
+                String(
+                    password
+                ) !==
+                String(
+                    doctorPassword
+                )
+            ) {
 
                 return res
                     .status(401)
@@ -2032,12 +1899,6 @@ app.post(
                         message:
                             "بيانات الدخول غير صحيحة"
                     });
-            }
-
-            // Upgrade legacy plaintext passwords after a successful login.
-            if (!String(doctorPassword).startsWith(PASSWORD_HASH_PREFIX + "$")) {
-                doctor.loginPassword = await hashDoctorPassword(password);
-                delete doctor.password;
             }
 
             const token =
@@ -4778,13 +4639,6 @@ app.post(
     "/api/admin/login",
     (req, res) => {
 
-        if (!ADMIN_KEY) {
-            return res.status(503).json({
-                success: false,
-                message: "إعداد مفتاح الإدارة غير مكتمل على الخادم"
-            });
-        }
-
         const providedKey =
             req.body.key ||
             req.body.adminKey ||
@@ -4792,7 +4646,7 @@ app.post(
 
         if (
             !providedKey ||
-            !safeStringEqual(providedKey, ADMIN_KEY)
+            providedKey !== ADMIN_KEY
         ) {
 
             return res
@@ -5032,7 +4886,7 @@ app.get(
 app.get(
     "/api/admin/doctors",
     checkAdminKey,
-    async (req, res) => {
+    (req, res) => {
 
         const database =
             readDatabase();
@@ -5060,7 +4914,7 @@ app.get(
 app.post(
     "/api/admin/doctors",
     checkAdminKey,
-    async (req, res) => {
+    (req, res) => {
 
         const {
     name,
@@ -5080,8 +4934,7 @@ app.post(
             !specialty ||
             !wilaya ||
             !municipality ||
-            !phone ||
-            !String(password || loginPassword || "").trim()
+            !phone
         ) {
 
             return res
@@ -5089,7 +4942,7 @@ app.post(
                 .json({
                     success: false,
                     message:
-                        "الاسم والتخصص والولاية والبلدية والهاتف وكلمة مرور من 8 أحرف على الأقل مطلوبة"
+                        "الاسم والتخصص والولاية والبلدية والهاتف مطلوبة"
                 });
         }
 
@@ -5148,15 +5001,6 @@ app.post(
                 });
         }
 
-        const submittedPassword = String(password || loginPassword).trim();
-        if (submittedPassword.length < 8) {
-            return res.status(400).json({
-                success: false,
-                message: "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل"
-            });
-        }
-        const hashedPassword = await hashDoctorPassword(submittedPassword);
-
         const doctor = {
 
             id:
@@ -5201,7 +5045,9 @@ app.post(
             online: false,
 
             loginPassword:
-                hashedPassword,
+                password ||
+                loginPassword ||
+                "123456",
 
             workingHours: {
 
@@ -5512,7 +5358,7 @@ app.get(
 app.put(
     "/api/admin/doctors/:id",
     checkAdminKey,
-    async (req, res) => {
+    (req, res) => {
 
         const database =
             readDatabase();
@@ -5659,7 +5505,9 @@ app.put(
         ) {
 
             doctor.active =
-                body.active === true;
+                Boolean(
+                    body.active
+                );
 
             if (
                 doctor.active === false
@@ -5694,66 +5542,14 @@ app.put(
             }
         }
 
-        // Keep the saved status consistent with the admin form.
-        if (body.status !== undefined) {
-            const requestedStatus =
-                String(body.status).trim().toLowerCase();
+        if (
+            body.password ||
+            body.loginPassword
+        ) {
 
-            const allowedStatuses = [
-                "active",
-                "approved",
-                "inactive",
-                "pending",
-                "rejected"
-            ];
-
-            if (!allowedStatuses.includes(requestedStatus)) {
-                return res.status(400).json({
-                    success: false,
-                    message: "حالة الطبيب غير صالحة"
-                });
-            }
-
-            doctor.status =
-                requestedStatus === "active"
-                    ? "approved"
-                    : requestedStatus;
-
-            if (doctor.status !== "approved") {
-                doctor.active = false;
-                doctor.online = false;
-
-                // Revoke any existing sessions for a non-approved doctor.
-                for (const [token, session] of doctorSessions) {
-                    if (Number(session.doctorId) === Number(doctor.id)) {
-                        doctorSessions.delete(token);
-                    }
-                }
-            } else if (body.active === undefined) {
-                doctor.active = true;
-            }
-        } else if (body.active !== undefined) {
-            doctor.status = doctor.active ? "approved" : "inactive";
-        }
-
-        if (body.password || body.loginPassword) {
-            const newPassword = String(body.password || body.loginPassword);
-            if (newPassword.length < 8) {
-                return res.status(400).json({
-                    success: false,
-                    message: "كلمة المرور يجب أن تتكون من 8 أحرف على الأقل"
-                });
-            }
-            doctor.loginPassword = await hashDoctorPassword(newPassword);
-            delete doctor.password;
-
-            // Invalidate existing sessions when an administrator resets a password.
-            doctor.online = false;
-            for (const [token, session] of doctorSessions) {
-                if (Number(session.doctorId) === Number(doctor.id)) {
-                    doctorSessions.delete(token);
-                }
-            }
+            doctor.loginPassword =
+                body.password ||
+                body.loginPassword;
         }
 
         if (
@@ -6110,143 +5906,7 @@ app.post(
         });
     }
 );
-// ============================================================
-// PATIENT ADS - ADMIN API
-// ============================================================
 
-app.get(
-    "/api/admin/patient-ad",
-    checkAdminKey,
-    (req, res) => {
-        const database = readDatabase();
-
-        res.json({
-            success: true,
-            patientAd: database.patientAd || {
-                enabled: false,
-                imageData: "",
-                targetUrl: "",
-                title: "",
-                updatedAt: ""
-            }
-        });
-    }
-);
-
-
-app.post(
-    "/api/admin/patient-ad",
-    checkAdminKey,
-    async (req, res) => {
-        try {
-            const database = readDatabase();
-            const body = req.body || {};
-
-            const title =
-                typeof body.title === "string"
-                    ? body.title.trim().slice(0, 120)
-                    : "";
-
-            const targetUrl =
-                typeof body.targetUrl === "string"
-                    ? body.targetUrl.trim()
-                    : "";
-
-            const imageData =
-                typeof body.imageData === "string"
-                    ? body.imageData
-                    : "";
-
-            const enabled = body.enabled === true;
-
-            if (imageData.length > 2.2 * 1024 * 1024) {
-                return res.status(413).json({
-                    success: false,
-                    message: "حجم صورة الإعلان كبير جدًا."
-                });
-            }
-
-            if (imageData) {
-                const validImage =
-                    /^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(
-                        imageData
-                    );
-
-                if (!validImage) {
-                    return res.status(400).json({
-                        success: false,
-                        message: "صيغة صورة الإعلان غير صالحة."
-                    });
-                }
-            }
-
-            if (targetUrl) {
-                let parsedUrl;
-
-                try {
-                    parsedUrl = new URL(targetUrl);
-                } catch {
-                    return res.status(400).json({
-                        success: false,
-                        message: "رابط الإعلان غير صالح."
-                    });
-                }
-
-                if (
-                    !["http:", "https:"].includes(
-                        parsedUrl.protocol
-                    )
-                ) {
-                    return res.status(400).json({
-                        success: false,
-                        message: "استعمل رابطًا يبدأ بـ http:// أو https://."
-                    });
-                }
-            }
-
-            if (enabled && !imageData) {
-                return res.status(400).json({
-                    success: false,
-                    message: "اختر صورة للإعلان قبل تفعيله."
-                });
-            }
-
-            if (enabled && !targetUrl) {
-                return res.status(400).json({
-                    success: false,
-                    message: "أدخل رابط الإعلان قبل تفعيله."
-                });
-            }
-
-            database.patientAd = {
-                enabled,
-                imageData,
-                targetUrl,
-                title,
-                updatedAt: new Date().toISOString()
-            };
-
-            await saveDatabase(database);
-
-            return res.json({
-                success: true,
-                message: "تم حفظ إعدادات الإعلان بنجاح.",
-                patientAd: database.patientAd
-            });
-
-        } catch (error) {
-            console.error(
-                "PATIENT AD SAVE ERROR:",
-                error
-            );
-
-            return res.status(500).json({
-                success: false,
-                message: "حدث خطأ أثناء حفظ إعدادات الإعلان."
-            });
-        }
-    }
-);
 // ============================================================
 // ADMIN NOTIFICATIONS - GET
 // ============================================================
@@ -6368,420 +6028,6 @@ app.post(
                 notification
 
             });
-    }
-);
-
-/* ============================================================
-   PATIENT ADVERTISEMENT - PUBLIC + ADMIN
-   ============================================================ */
-
-// الإعلان الذي يظهر للمرضى
-
-app.get("/api/ads/patient", (req, res) => {
-    try {
-        const database = readDatabase();
-
-        const validAds = Array.isArray(database.patientAds)
-            ? database.patientAds.filter(ad =>
-                ad &&
-                ad.enabled === true &&
-                typeof ad.imageData === "string" &&
-                ad.imageData.startsWith("data:image/") &&
-                typeof ad.targetUrl === "string"
-            )
-            : [];
-
-                        let ads = validAds.map(ad => ({
-            id: ad.id,
-            enabled: true,
-            imageData: ad.imageData,
-            targetUrl: ad.targetUrl,
-            title: ad.title || ""
-        }));
-
-        // التوافق مع الإعلان القديم إذا لم توجد إعلانات جديدة مفعّلة
-        if (
-            ads.length === 0 &&
-            database.patientAd &&
-            database.patientAd.enabled === true &&
-            typeof database.patientAd.imageData === "string" &&
-            database.patientAd.imageData.startsWith("data:image/")
-        ) {
-            ads = [{
-                id: "legacy-patient-ad",
-                enabled: true,
-                imageData: database.patientAd.imageData,
-                targetUrl: database.patientAd.targetUrl || "",
-                title: database.patientAd.title || ""
-            }];
-        }
-
-        return res.json({
-            success: true,
-            ad: ads[0] || null,
-            ads
-        });
-    } catch (error) {
-        console.error("GET PATIENT ADS ERROR:", error);
-
-        return res.status(500).json({
-            success: false,
-            ad: null,
-            ads: []
-        });
-    }
-});
-
-// قراءة إعدادات الإعلان من لوحة الإدارة
-app.get(
-    "/api/admin/ads/patient",
-    checkAdminKey,
-    (req, res) => {
-        const database = readDatabase();
-
-        res.json({
-            success: true,
-            ad: database.patientAd
-        });
-    }
-);
-
-// حفظ إعدادات الإعلان من لوحة الإدارة
-app.put(
-    "/api/admin/ads/patient",
-    checkAdminKey,
-    async (req, res) => {
-        try {
-            const {
-                enabled,
-                imageData,
-                targetUrl,
-                title
-            } = req.body || {};
-
-            if (
-                typeof enabled !== "boolean" ||
-                typeof imageData !== "string" ||
-                imageData.length > 1800000
-            ) {
-                return res.status(400).json({
-                    success: false,
-                    message: "بيانات الإعلان غير صالحة أو الصورة كبيرة"
-                });
-            }
-
-            if (
-                imageData &&
-                !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(imageData)
-            ) {
-                return res.status(400).json({
-                    success: false,
-                    message: "صيغة الصورة غير مدعومة"
-                });
-            }
-
-            const safeUrl = typeof targetUrl === "string"
-                ? targetUrl.trim()
-                : "";
-
-            if (safeUrl) {
-                try {
-                    const parsedUrl = new URL(safeUrl);
-
-                    if (
-                        parsedUrl.protocol !== "https:" &&
-                        parsedUrl.protocol !== "http:"
-                    ) {
-                        throw new Error("Invalid protocol");
-                    }
-                } catch {
-                    return res.status(400).json({
-                        success: false,
-                        message: "رابط الإعلان غير صالح"
-                    });
-                }
-            }
-
-            const database = readDatabase();
-
-            database.patientAd = {
-                enabled,
-                imageData,
-                targetUrl: safeUrl,
-                title: typeof title === "string"
-                    ? title.trim().slice(0, 120)
-                    : "",
-                updatedAt: new Date().toISOString()
-            };
-
-            await saveDatabase(database);
-
-            return res.json({
-                success: true,
-                message: "تم حفظ إعدادات الإعلان",
-                ad: database.patientAd
-            });
-        } catch (error) {
-            console.error("Patient ad save error:", error);
-
-            return res.status(500).json({
-                success: false,
-                message: "تعذر حفظ الإعلان"
-            });
-        }
-    }
-);
-
-/* ============================================================
-   TABIBK - MULTIPLE PATIENT ADS API
-   ============================================================ */
-
-// جلب جميع الإعلانات من لوحة الإدارة
-app.get(
-    "/api/admin/patient-ads",
-    checkAdminKey,
-    (req, res) => {
-        const database = readDatabase();
-
-        res.json({
-            success: true,
-            ads: Array.isArray(database.patientAds)
-                ? database.patientAds
-                : []
-        });
-    }
-);
-
-// إضافة إعلان جديد
-app.post(
-    "/api/admin/patient-ads",
-    checkAdminKey,
-    async (req, res) => {
-        try {
-            const body = req.body || {};
-            const title = typeof body.title === "string"
-                ? body.title.trim().slice(0, 120)
-                : "";
-            const imageData = typeof body.imageData === "string"
-                ? body.imageData
-                : "";
-            const targetUrl = typeof body.targetUrl === "string"
-                ? body.targetUrl.trim()
-                : "";
-            const enabled = body.enabled === true;
-
-            if (
-                !imageData ||
-                imageData.length > 1800000 ||
-                !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(imageData)
-            ) {
-                return res.status(400).json({
-                    success: false,
-                    message: "اختر صورة صالحة للإعلان، وحافظ على حجمها."
-                });
-            }
-
-            if (enabled && !targetUrl) {
-                return res.status(400).json({
-                    success: false,
-                    message: "أدخل رابط الإعلان قبل تفعيله."
-                });
-            }
-
-            if (targetUrl) {
-                try {
-                    const parsed = new URL(targetUrl);
-                    if (!["http:", "https:"].includes(parsed.protocol)) {
-                        throw new Error("Invalid URL protocol");
-                    }
-                } catch {
-                    return res.status(400).json({
-                        success: false,
-                        message: "رابط الإعلان غير صالح."
-                    });
-                }
-            }
-
-            const database = readDatabase();
-
-            if (!Array.isArray(database.patientAds)) {
-                database.patientAds = [];
-            }
-
-            const ad = {
-                id: "ad-" + Date.now() + "-" +
-                    Math.random().toString(36).slice(2, 8),
-                title,
-                imageData,
-                targetUrl,
-                enabled,
-                updatedAt: new Date().toISOString()
-            };
-
-            database.patientAds.push(ad);
-            await saveDatabase(database);
-
-            return res.status(201).json({
-                success: true,
-                message: "تمت إضافة الإعلان.",
-                ad
-            });
-        } catch (error) {
-            console.error("ADD PATIENT AD ERROR:", error);
-            return res.status(500).json({
-                success: false,
-                message: "تعذرت إضافة الإعلان."
-            });
-        }
-    }
-);
-
-// تعديل إعلان أو تفعيله أو إيقافه
-app.put(
-    "/api/admin/patient-ads/:id",
-    checkAdminKey,
-    async (req, res) => {
-        try {
-            const database = readDatabase();
-
-            if (!Array.isArray(database.patientAds)) {
-                database.patientAds = [];
-            }
-
-            const ad = database.patientAds.find(
-                item => item.id === req.params.id
-            );
-
-            if (!ad) {
-                return res.status(404).json({
-                    success: false,
-                    message: "الإعلان غير موجود."
-                });
-            }
-
-            const body = req.body || {};
-
-            const imageData = body.imageData === undefined
-                ? ad.imageData
-                : body.imageData;
-
-            const targetUrl = body.targetUrl === undefined
-                ? ad.targetUrl
-                : body.targetUrl;
-
-            const title = body.title === undefined
-                ? ad.title
-                : body.title;
-
-            const enabled = body.enabled === undefined
-                ? ad.enabled
-                : body.enabled;
-
-            if (
-                typeof imageData !== "string" ||
-                imageData.length > 1800000 ||
-                !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(imageData)
-            ) {
-                return res.status(400).json({
-                    success: false,
-                    message: "صورة الإعلان غير صالحة أو حجمها كبير."
-                });
-            }
-
-            if (
-                typeof enabled !== "boolean" ||
-                typeof title !== "string" ||
-                typeof targetUrl !== "string"
-            ) {
-                return res.status(400).json({
-                    success: false,
-                    message: "بيانات الإعلان غير صالحة."
-                });
-            }
-
-            const safeUrl = targetUrl.trim();
-
-            if (enabled && !safeUrl) {
-                return res.status(400).json({
-                    success: false,
-                    message: "أدخل رابط الإعلان قبل تفعيله."
-                });
-            }
-
-            if (safeUrl) {
-                try {
-                    const parsed = new URL(safeUrl);
-                    if (!["http:", "https:"].includes(parsed.protocol)) {
-                        throw new Error("Invalid URL protocol");
-                    }
-                } catch {
-                    return res.status(400).json({
-                        success: false,
-                        message: "رابط الإعلان غير صالح."
-                    });
-                }
-            }
-
-            ad.title = title.trim().slice(0, 120);
-            ad.imageData = imageData;
-            ad.targetUrl = safeUrl;
-            ad.enabled = enabled;
-            ad.updatedAt = new Date().toISOString();
-
-            await saveDatabase(database);
-
-            return res.json({
-                success: true,
-                message: "تم تحديث الإعلان.",
-                ad
-            });
-        } catch (error) {
-            console.error("UPDATE PATIENT AD ERROR:", error);
-            return res.status(500).json({
-                success: false,
-                message: "تعذر تحديث الإعلان."
-            });
-        }
-    }
-);
-
-// حذف إعلان محدد
-app.delete(
-    "/api/admin/patient-ads/:id",
-    checkAdminKey,
-    async (req, res) => {
-        try {
-            const database = readDatabase();
-
-            if (!Array.isArray(database.patientAds)) {
-                database.patientAds = [];
-            }
-
-            const index = database.patientAds.findIndex(
-                item => item.id === req.params.id
-            );
-
-            if (index === -1) {
-                return res.status(404).json({
-                    success: false,
-                    message: "الإعلان غير موجود."
-                });
-            }
-
-            database.patientAds.splice(index, 1);
-            await saveDatabase(database);
-
-            return res.json({
-                success: true,
-                message: "تم حذف الإعلان."
-            });
-        } catch (error) {
-            console.error("DELETE PATIENT AD ERROR:", error);
-            return res.status(500).json({
-                success: false,
-                message: "تعذر حذف الإعلان."
-            });
-        }
     }
 );
 

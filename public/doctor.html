@@ -6009,131 +6009,6 @@ select{
 }
     
     
-
-/* TABIBK — PREMIUM SPECIALTY SELECT */
-#doctorRegistrationModal #registerDoctorSpecialty {
-    width: 100% !important;
-    min-width: 0 !important;
-    height: 100% !important;
-    color: var(--text) !important;
-    background: transparent !important;
-    border: 0 !important;
-    outline: none !important;
-    box-shadow: none !important;
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    border-radius: 0 !important;
-}
-
-#doctorRegistrationModal #registerDoctorSpecialty:focus,
-#doctorRegistrationModal #registerDoctorSpecialty:focus-visible,
-#doctorRegistrationModal #registerDoctorSpecialty:active {
-    border: 0 !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-#doctorRegistrationModal .input-box:has(#registerDoctorSpecialty:focus) {
-    border-color: var(--gold) !important;
-    outline: none !important;
-    box-shadow: 0 0 0 3px rgba(201,151,50,.10) !important;
-}
-
-    
-/* TABIBK — PREMIUM WILAYA & MUNICIPALITY SELECTS */
-#doctorRegistrationModal #registerDoctorWilaya,
-#doctorRegistrationModal #registerDoctorMunicipality {
-    width: 100% !important;
-    min-width: 0 !important;
-    height: 100% !important;
-    color: var(--text) !important;
-    background: transparent !important;
-    border: 0 !important;
-    outline: none !important;
-    box-shadow: none !important;
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    border-radius: 0 !important;
-}
-
-#doctorRegistrationModal #registerDoctorWilaya:focus,
-#doctorRegistrationModal #registerDoctorWilaya:focus-visible,
-#doctorRegistrationModal #registerDoctorMunicipality:focus,
-#doctorRegistrationModal #registerDoctorMunicipality:focus-visible {
-    border: 0 !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-#doctorRegistrationModal .input-box:has(#registerDoctorWilaya),
-#doctorRegistrationModal .input-box:has(#registerDoctorMunicipality) {
-    position: relative;
-}
-
-#doctorRegistrationModal .input-box:has(#registerDoctorWilaya)::after,
-#doctorRegistrationModal .input-box:has(#registerDoctorMunicipality)::after {
-    content: "▾";
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--purple);
-    font-size: 18px;
-    pointer-events: none;
-}
-
-#doctorRegistrationModal #registerDoctorWilaya,
-#doctorRegistrationModal #registerDoctorMunicipality {
-    padding-left: 30px !important;
-    cursor: pointer;
-}
-
-
-
-/* TABIBK — SPECIALTY DROPDOWN ARROW */
-#doctorRegistrationModal .input-box:has(#registerDoctorSpecialty) {
-    position: relative;
-}
-
-#doctorRegistrationModal .input-box:has(#registerDoctorSpecialty)::after {
-    content: "▾";
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--purple);
-    font-size: 18px;
-    pointer-events: none;
-}
-
-#doctorRegistrationModal #registerDoctorSpecialty {
-    padding-left: 30px !important;
-    cursor: pointer;
-}
-
-    
-/* TABIBK — GENDER DROPDOWN ARROW */
-#doctorRegistrationModal .input-box:has(#registerDoctorGender) {
-    position: relative;
-}
-
-#doctorRegistrationModal .input-box:has(#registerDoctorGender)::after {
-    content: "▾";
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--purple);
-    font-size: 18px;
-    pointer-events: none;
-}
-
-#doctorRegistrationModal #registerDoctorGender {
-    width: 100%;
-    padding-left: 30px !important;
-    cursor: pointer;
-}
-
 </style>
 
 
@@ -6928,6 +6803,7 @@ min-height: 50px;
 padding: 24px 14px;
 }
 
+```
 #loginScreen .brand-logo {
     width: 72px;
     height: 72px;
@@ -7105,700 +6981,9 @@ transition: none;
         transform: none;
     }
 }
-
-    /* =========================================
-   TABIBK — DOCTOR DASHBOARD POLISH
-   تحسين بصري فقط — دون تغيير الوظائف
-========================================= */
-
-#section-home .welcome-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 22px;
-    box-shadow: 0 10px 28px rgba(48, 25, 69, 0.10);
-}
-
-#section-home .section-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 28px;
-    margin-bottom: 14px;
-}
-
-#section-home .section-heading {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 0;
-}
-
-#section-home .section-icon {
-    flex: 0 0 44px;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 14px;
-    background: linear-gradient(145deg, #f4eafa, #e9dcf5);
-    color: #704397;
-}
-
-#section-home .section-heading h2 {
-    margin: 0 0 5px;
-    font-size: 17px;
-    font-weight: 900;
-}
-
-#section-home .section-heading p {
-    margin: 0;
-    color: #81748b;
-    font-size: 12px;
-    line-height: 1.7;
-}
-
-#section-home .profile-card {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 18px;
-    padding: 22px;
-    border: 1px solid rgba(112, 67, 151, 0.12);
-    border-radius: 20px;
-    box-shadow: 0 7px 24px rgba(48, 25, 69, 0.06);
-}
-
-#section-home .profile-avatar {
-    flex: 0 0 64px;
-    width: 64px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    background: linear-gradient(145deg, #eee1f8, #d9c3ed);
-    color: #603681;
-    font-size: 27px;
-}
-
-#section-home .profile-main {
-    flex: 1;
-    min-width: 160px;
-}
-
-#section-home .profile-main h2 {
-    margin: 0 0 6px;
-    font-size: 19px;
-    font-weight: 900;
-}
-
-#section-home .profile-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-#section-home .profile-tag {
-    max-width: 100%;
-    padding: 6px 10px;
-    border-radius: 9px;
-    background: #f7f3fa;
-    color: #665271;
-    font-size: 11px;
-    overflow-wrap: anywhere;
-}
-
-#section-home .profile-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 8px 12px;
-    border-radius: 20px;
-    background: #eaf8ef;
-    color: #247747;
-    font-size: 12px;
-    font-weight: 800;
-}
-
-#section-home .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 14px;
-}
-
-#section-home .stat-card {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    min-width: 0;
-    padding: 18px;
-    border: 1px solid rgba(112, 67, 151, 0.10);
-    border-radius: 18px;
-    box-shadow: 0 6px 20px rgba(48, 25, 69, 0.05);
-    transition: transform .2s ease, box-shadow .2s ease;
-}
-
-#section-home .stat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 11px 25px rgba(48, 25, 69, 0.09);
-}
-
-#section-home .stat-info {
-    min-width: 0;
-}
-
-#section-home .stat-info span {
-    display: block;
-    line-height: 1.7;
-    overflow-wrap: anywhere;
-}
-
-#section-home .stat-info strong {
-    display: block;
-    margin-top: 5px;
-    font-size: 25px;
-    font-weight: 900;
-    font-variant-numeric: tabular-nums;
-}
-
-#section-home .refresh-button {
-    border-radius: 12px;
-    font-family: inherit;
-    font-weight: 800;
-}
-
-@media (max-width: 1000px) {
-    #section-home .stats-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 560px) {
-    #section-home .profile-card {
-        gap: 12px;
-        padding: 16px;
-    }
-
-    #section-home .profile-avatar {
-        width: 52px;
-        height: 52px;
-        flex-basis: 52px;
-        border-radius: 16px;
-        font-size: 22px;
-    }
-
-    #section-home .profile-main h2 {
-        font-size: 16px;
-    }
-
-    #section-home .profile-status {
-        margin-right: auto;
-    }
-
-    #section-home .stats-grid {
-        gap: 10px;
-    }
-
-    #section-home .stat-card {
-        gap: 9px;
-        padding: 12px;
-    }
-
-    #section-home .stat-info strong {
-        font-size: 21px;
-    }
-
-    #section-home .section-heading h2 {
-        font-size: 15px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    #section-home .stat-card {
-        transition: none;
-    }
-
-    #section-home .stat-card:hover {
-        transform: none;
-    }
-}
-
-  /* إخفاء الدور وآخر المواعيد من الصفحة الرئيسية */
-#section-home .turn-grid {
-    display: none !important;
-}
-
-#section-home .appointments-list,
-#section-home .section-head:has(.fa-calendar-check) {
-    display: none !important;
-}
- #section-home .section-head:has(+ .turn-grid) {
-    display: none !important;
-}
-    /* =========================================
-   TABIBK PRO — PREMIUM VISUAL FOUNDATION
-========================================= */
-
-:root {
-    --pro-purple: #4b216b;
-    --pro-purple-dark: #281438;
-    --pro-purple-light: #f4edf9;
-    --pro-gold: #d6ad62;
-    --pro-gold-light: #f5e5bd;
-    --pro-surface: #ffffff;
-    --pro-background: #f8f6fb;
-    --pro-text: #30243b;
-    --pro-muted: #82758d;
-    --pro-border: rgba(89, 54, 111, 0.12);
-    --pro-shadow: 0 10px 30px rgba(48, 26, 68, 0.07);
-}
-
-/* خلفية الأقسام */
-#section-home.dashboard-section {
-    color: var(--pro-text);
-}
-
-/* البطاقات والإحصائيات */
-#section-home .stat-card,
-#section-home .card {
-    border: 1px solid var(--pro-border);
-    border-radius: 20px;
-    box-shadow: var(--pro-shadow);
-    transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease,
-        border-color 0.22s ease;
-}
-
-/* حركة خفيفة وراقية */
-#section-home .stat-card:hover,
-#section-home .card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(214, 173, 98, 0.5);
-    box-shadow: 0 15px 34px rgba(48, 26, 68, 0.11);
-}
-
-/* عناوين الأقسام */
-#section-home .section-head {
-    margin-bottom: 22px;
-}
-
-#section-home .section-heading h2 {
-    color: var(--pro-purple-dark);
-    font-weight: 800;
-    letter-spacing: -0.3px;
-}
-
-#section-home .section-heading p {
-    color: var(--pro-muted);
-    line-height: 1.8;
-}
-
-/* أيقونات العناوين */
-#section-home .section-icon {
-    border-radius: 15px;
-    border: 1px solid rgba(214, 173, 98, 0.35);
-    box-shadow: 0 5px 14px rgba(48, 26, 68, 0.07);
-}
-
-/* أزرار الرئيسية */
-#section-home .refresh-button {
-    border-radius: 12px;
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-#section-home .refresh-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 7px 16px rgba(48, 26, 68, 0.12);
-}
-
-/* احترام إعدادات تقليل الحركة */
-@media (prefers-reduced-motion: reduce) {
-    #section-home .stat-card,
-    #section-home .card,
-    #section-home .refresh-button {
-        transition: none;
-    }
-
-    #section-home .stat-card:hover,
-    #section-home .card:hover,
-    #section-home .refresh-button:hover {
-        transform: none;
-    }
-}
-    /* TABIBK PRO — Footer alignment */
-.dashboard-footer {
-    margin-top: 24px !important;
-    padding: 18px 16px !important;
-    text-align: center;
-    line-height: 1.8;
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.dashboard-footer br {
-    display: block;
-    content: "";
-    margin-bottom: 3px;
-}
-    /* =========================================
-   TABIBK PRO — PREMIUM WELCOME CARD
-========================================= */
-
-#section-home .welcome-card {
-    isolation: isolate;
-    min-height: 190px;
-    padding: 30px !important;
-    border-radius: 26px !important;
-    background:
-        radial-gradient(
-            ellipse at 90% 0%,
-            rgba(235, 204, 128, 0.28),
-            transparent 38%
-        ),
-        radial-gradient(
-            circle at 0% 100%,
-            rgba(160, 102, 203, 0.22),
-            transparent 42%
-        ),
-        linear-gradient(
-            125deg,
-            #24102f 0%,
-            #482064 52%,
-            #67368a 100%
-        ) !important;
-    border: 1px solid rgba(225, 190, 115, 0.55) !important;
-    box-shadow:
-        0 18px 42px rgba(48, 20, 65, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
-}
-
-.welcome-card::before {
-    content: "";
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    top: -95px;
-    right: -55px;
-    border: 1px solid rgba(245, 222, 170, 0.24);
-    border-radius: 50%;
-    box-shadow:
-        0 0 0 18px rgba(255, 255, 255, 0.025),
-        0 0 0 38px rgba(255, 255, 255, 0.02);
-    pointer-events: none;
-}
-
-.welcome-card::after {
-    font-size: 145px !important;
-    color: rgba(255, 255, 255, 0.055) !important;
-    left: 24px !important;
-    bottom: -35px !important;
-    pointer-events: none;
-}
-
-.welcome-kicker {
-    padding: 7px 12px !important;
-    border-radius: 30px !important;
-    background: rgba(255, 255, 255, 0.09) !important;
-    border: 1px solid rgba(240, 211, 145, 0.32) !important;
-    color: #f5dda0 !important;
-    letter-spacing: 0.2px;
-}
-
-.welcome-card h2 {
-    color: #fff !important;
-    font-size: clamp(23px, 3vw, 30px) !important;
-    line-height: 1.6;
-    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-}
-
-.welcome-card p {
-    color: rgba(255, 255, 255, 0.82) !important;
-    font-size: 13px !important;
-    line-height: 1.9;
-}
-
-@media (max-width: 600px) {
-    .welcome-card {
-        min-height: 165px;
-        padding: 22px !important;
-        border-radius: 21px !important;
-    }
-
-    .welcome-card::after {
-        font-size: 110px !important;
-        left: 12px !important;
-    }
-}
-    
-/* =========================================
-   TABIBK PRO — DOCTOR PROFILE CARD
-========================================= */
-
-#section-home .profile-card {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    padding: 26px;
-    margin: 18px 0 28px;
-    overflow: hidden;
-    isolation: isolate;
-    direction: rtl;
-    background: linear-gradient(
-        135deg,
-        #ffffff 0%,
-        #fbf8ff 55%,
-        #f7f1e4 100%
-    );
-    border: 1px solid rgba(164, 125, 65, 0.3);
-    border-radius: 24px;
-    box-shadow:
-        0 12px 32px rgba(49, 25, 72, 0.09),
-        inset 0 1px 0 rgba(255, 255, 255, 0.95);
-    transition:
-        box-shadow 0.25s ease,
-        border-color 0.25s ease,
-        transform 0.25s ease;
-}
-
-#section-home .profile-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 5px;
-    height: 100%;
-    background: linear-gradient(
-        180deg,
-        #d8b56d,
-        #8a55b0,
-        #4b286b
-    );
-    z-index: -1;
-}
-
-#section-home .profile-card::after {
-    content: "";
-    position: absolute;
-    left: -45px;
-    top: -55px;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        rgba(191, 157, 218, 0.16),
-        transparent 70%
-    );
-    pointer-events: none;
-    z-index: -1;
-}
-
-#section-home .profile-avatar {
-    position: relative;
-    flex: 0 0 100px;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 50%;
-    background: linear-gradient(
-        145deg,
-        #eee2fa,
-        #ffffff,
-        #f4e8c9
-    );
-    border: 3px solid #d5b36e;
-    box-shadow:
-        0 0 0 5px rgba(213, 179, 110, 0.13),
-        0 8px 20px rgba(57, 30, 79, 0.13);
-}
-
-#section-home .profile-avatar img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-#section-home .profile-avatar i {
-    color: #68418a;
-    font-size: 38px;
-}
-
-#section-home .profile-main {
-    flex: 1 1 180px;
-    min-width: 0;
-}
-
-#section-home .profile-main h2 {
-    margin: 0 0 8px;
-    color: #38204f;
-    font-size: 22px;
-    font-weight: 800;
-    line-height: 1.6;
-    overflow-wrap: anywhere;
-}
-
-#section-home .profile-specialty {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    margin-bottom: 14px;
-    color: #75528d;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-#section-home .profile-specialty::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-    flex: 0 0 7px;
-    border-radius: 50%;
-    background: #c5a052;
-    box-shadow: 0 0 0 4px rgba(197, 160, 82, 0.13);
-}
-
-#section-home .profile-tags {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-}
-
-#section-home .profile-tag {
-    display: inline-flex;
-    align-items: center;
-    max-width: 100%;
-    padding: 7px 12px;
-    color: #59436b;
-    background: rgba(255, 255, 255, 0.82);
-    border: 1px solid rgba(115, 79, 143, 0.14);
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 600;
-    overflow-wrap: anywhere;
-}
-
-#section-home .profile-status {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 9px 13px;
-    color: #24764d;
-    background: #edf8f1;
-    border: 1px solid #ccebd8;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 800;
-    white-space: nowrap;
-}
-
-#section-home .profile-status-dot {
-    width: 8px;
-    height: 8px;
-    flex: 0 0 8px;
-    border-radius: 50%;
-    background: #2fa66a;
-    box-shadow: 0 0 0 4px rgba(47, 166, 106, 0.12);
-}
-
-@media (max-width: 600px) {
-    #section-home .profile-card {
-        gap: 16px;
-        padding: 20px 16px;
-        border-radius: 20px;
-    }
-
-    #section-home .profile-avatar {
-        flex-basis: 78px;
-        width: 78px;
-        height: 78px;
-    }
-
-    #section-home .profile-avatar i {
-        font-size: 30px;
-    }
-
-    #section-home .profile-main h2 {
-        font-size: 19px;
-    }
-
-    #section-home .profile-status {
-        margin-right: auto;
-    }
-}
-
     
 </style>
 
-<style id="tabibk-date-display-fix">
-#app input[type="date"] { direction:ltr!important; text-align:left!important; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
-.vacation-date-readable { display:block; min-height:24px; margin-top:7px; padding:6px 10px; border:1px solid rgba(201,151,50,.32); border-radius:10px; background:#fbf7fd; color:#6b5877; text-align:center; direction:ltr; unicode-bidi:isolate; font:800 13px/1.5 Arial,Tahoma,sans-serif; font-variant-numeric:tabular-nums; }
-</style>
-<style id="tabibk-professional-buttons-v1">
-/* TABIBK premium button system */
-#app button, #loginScreen button, #doctorRegistrationModal button {
-  font-family:"Cairo",sans-serif;
-  font-weight:800;
-  letter-spacing:0;
-  border-radius:14px;
-  transition:transform .18s ease, box-shadow .18s ease, filter .18s ease, border-color .18s ease;
-}
-#app button:not(:disabled):hover, #loginScreen button:not(:disabled):hover,
-#doctorRegistrationModal button:not(:disabled):hover {
-  filter:brightness(1.035);
-}
-#app button:not(:disabled):active, #loginScreen button:not(:disabled):active,
-#doctorRegistrationModal button:not(:disabled):active { transform:translateY(1px) scale(.99); }
-#app button:focus-visible, #loginScreen button:focus-visible,
-#doctorRegistrationModal button:focus-visible {
-  outline:3px solid rgba(201,151,50,.48); outline-offset:3px;
-}
-#app button:disabled, #loginScreen button:disabled,
-#doctorRegistrationModal button:disabled { opacity:.68; cursor:wait; box-shadow:none; transform:none; }
-#app .save-setting {
-  min-height:48px; padding:12px 20px; border:1px solid rgba(255,255,255,.16);
-  color:#fff; background:linear-gradient(135deg,#54206f,#7027a0);
-  box-shadow:0 8px 18px rgba(68,24,94,.16);
-}
-#app .save-setting:hover:not(:disabled) { box-shadow:0 12px 24px rgba(68,24,94,.23); }
-#app .btn, #app .nav-item { min-height:42px; }
-#app .btn-secondary {
-  border:1px solid #e3d5ed; background:#fff; color:#51216f;
-  box-shadow:0 4px 12px rgba(68,24,94,.06);
-}
-#app .btn-danger { box-shadow:0 6px 16px rgba(216,61,85,.14); }
-#loginScreen .login-button, #doctorRegistrationModal .login-button {
-  min-height:54px; border:1px solid rgba(255,255,255,.14);
-}
-#loginScreen .forgot-password-link {
-  border:0; background:transparent; color:#6a2b89; text-decoration:underline;
-  text-underline-offset:3px; padding:8px 4px;
-}
-#app .date-readable, #app .vacation-date-readable { font-variant-numeric:tabular-nums; }
-@media (max-width:600px) {
-  #app .save-setting { width:100%; justify-content:center; }
-  #app .account-summary-actions { display:flex; flex-wrap:wrap; gap:10px; }
-  #app .account-summary-actions button { flex:1 1 145px; }
-}
-@media (prefers-reduced-motion:reduce) {
-  #app button, #loginScreen button, #doctorRegistrationModal button { transition:none!important; }
-}
-</style>
 </head>
 
 
@@ -7962,6 +7147,9 @@ transition: none;
 
     <i class="fa-solid fa-arrow-left register-doctor-arrow"></i>
 </button>
+```
+
+
             </form>
 
 
@@ -8373,16 +7561,11 @@ transition: none;
 
                     <div class="card profile-card">
 
-                        
-<div class="profile-avatar">
+                        <div class="profile-avatar">
 
-    <img
-        src="/images/doctor.png"
-        alt="صورة الطبيب"
-    >
+                            <i class="fa-solid fa-user-doctor"></i>
 
-</div>
-
+                        </div>
 
 
                         <div class="profile-main">
@@ -9527,8 +8710,10 @@ transition: none;
                                         بداية العطلة
                                     </label>
 
-                                    <input type="date" id="vacationStartDate" lang="en-GB" dir="ltr" aria-describedby="vacationStartDateReadable" onchange="updateVacationDatePreviews()">
-                                    <small class="vacation-date-readable" id="vacationStartDateReadable" dir="ltr" aria-live="polite">اختر تاريخ البداية</small>
+                                    <input
+                                        type="date"
+                                        id="vacationStartDate"
+                                    >
 
                                 </div>
 
@@ -9539,8 +8724,10 @@ transition: none;
                                         نهاية العطلة
                                     </label>
 
-                                    <input type="date" id="vacationEndDate" lang="en-GB" dir="ltr" aria-describedby="vacationEndDateReadable" onchange="updateVacationDatePreviews()">
-                                    <small class="vacation-date-readable" id="vacationEndDateReadable" dir="ltr" aria-live="polite">اختر تاريخ النهاية</small>
+                                    <input
+                                        type="date"
+                                        id="vacationEndDate"
+                                    >
 
                                 </div>
 
@@ -10232,9 +9419,7 @@ function openDoctorRegistration(){
         return;
 
     modal.style.display = "block";
-    
-    loadDoctorRegistrationWilayas();
-    
+
     document.body.style.overflow = "hidden";
 
 }
@@ -10255,111 +9440,6 @@ function closeDoctorRegistration(){
     document.body.style.overflow = "";
 
 }
-
-      
-/* =========================================================
-   TABIBK — DOCTOR REGISTRATION WILAYAS & MUNICIPALITIES
-========================================================= */
-
-async function loadDoctorRegistrationWilayas() {
-    const wilayaSelect = document.getElementById("registerDoctorWilaya");
-    const municipalitySelect = document.getElementById("registerDoctorMunicipality");
-
-    if (!wilayaSelect || !municipalitySelect) return;
-
-    try {
-        const response = await fetch(`${API}/api/wilayas`, {
-            cache: "no-store"
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error("تعذر تحميل الولايات");
-        }
-
-        const wilayas = data.wilayas || data.data || [];
-
-        wilayaSelect.innerHTML = '<option value="">اختر الولاية</option>';
-
-        wilayas.forEach(wilaya => {
-            const option = document.createElement("option");
-
-            option.value = wilaya.name;
-            option.textContent = wilaya.name;
-            option.dataset.id = wilaya.id;
-
-            wilayaSelect.appendChild(option);
-        });
-
-    } catch (error) {
-        console.error("DOCTOR WILAYAS ERROR:", error);
-        wilayaSelect.innerHTML = '<option value="">تعذر تحميل الولايات</option>';
-    }
-}
-
-
-document.addEventListener("change", async function (event) {
-    if (event.target.id !== "registerDoctorWilaya") return;
-
-    const wilayaSelect = event.target;
-    const municipalitySelect = document.getElementById("registerDoctorMunicipality");
-
-    if (!municipalitySelect) return;
-
-    const selectedOption = wilayaSelect.options[wilayaSelect.selectedIndex];
-    const wilayaId = selectedOption?.dataset.id;
-
-    municipalitySelect.innerHTML = '<option value="">جاري تحميل البلديات...</option>';
-    municipalitySelect.disabled = true;
-
-    if (!wilayaId) {
-        municipalitySelect.innerHTML = '<option value="">اختر الولاية أولًا</option>';
-        return;
-    }
-
-    try {
-        const response = await fetch(
-            `${API}/api/wilayas/${encodeURIComponent(wilayaId)}/municipalities`,
-            { cache: "no-store" }
-        );
-
-        const data = await response.json();
-
-        if (!response.ok || !data.success) {
-            throw new Error(data.message || "تعذر تحميل البلديات");
-        }
-
-        const municipalities = data.municipalities || data.data || [];
-        municipalitySelect.innerHTML = '<option value="">اختر البلدية</option>';
-
-        municipalities.forEach(item => {
-            const name = String(
-                typeof item === "string" ? item : item?.name || ""
-            ).trim().replace(/\s+/g, " ");
-
-            if (!name) return;
-
-            const option = document.createElement("option");
-            option.value = name;
-            option.textContent = name;
-            municipalitySelect.appendChild(option);
-        });
-
-        municipalitySelect.disabled = municipalitySelect.options.length <= 1;
-
-        if (municipalitySelect.options.length <= 1) {
-            municipalitySelect.innerHTML = '<option value="">لا توجد بلديات مسجلة</option>';
-        }
-
-    } catch (error) {
-        console.error("DOCTOR MUNICIPALITIES ERROR:", error);
-        municipalitySelect.innerHTML = '<option value="">تعذر تحميل البلديات</option>';
-        municipalitySelect.disabled = true;
-    }
-});
-
-  
 /* =========================================================
    LOGIN DOCTOR
 ========================================================= */
@@ -10635,12 +9715,12 @@ async function registerDoctor(event){
     }
 
 
-    if(password.length < 8){
+    if(password.length < 4){
 
         if(message){
 
             message.textContent =
-                "كلمة المرور يجب أن تحتوي على 8 أحرف أو أرقام على الأقل";
+                "كلمة المرور يجب أن تحتوي على 4 أحرف أو أرقام على الأقل";
 
             message.className =
                 "login-message error";
@@ -11103,62 +10183,6 @@ function renderDoctorProfile() {
             phone || "—";
 
     }
-
-    // تحديث صورة الطبيب في القائمة والملف الشخصي إن كانت محفوظة بالحساب.
-    syncDoctorAvatarImages();
-
-}
-
-function syncDoctorAvatarImages() {
-
-    if (!currentDoctor) return;
-
-    const candidates = [
-        currentDoctor.photoUrl,
-        currentDoctor.imageUrl,
-        currentDoctor.avatarUrl,
-        currentDoctor.profileImage,
-        currentDoctor.profilePicture,
-        currentDoctor.photo,
-        currentDoctor.image,
-        currentDoctor.avatar
-    ];
-
-    const imageUrl = candidates.find(value =>
-        typeof value === "string" && value.trim()
-    );
-
-    if (!imageUrl) return;
-
-    const targets = [
-        $("sidebarDoctorAvatar") || document.querySelector(".sidebar-avatar"),
-        document.querySelector("#section-home .profile-avatar")
-    ].filter(Boolean);
-
-    targets.forEach(container => {
-        if (container.dataset.doctorImageUrl === imageUrl) return;
-
-        const image = document.createElement("img");
-        image.src = imageUrl.trim();
-        image.alt = "صورة الطبيب";
-        image.loading = "lazy";
-        image.decoding = "async";
-        image.referrerPolicy = "no-referrer";
-
-        image.addEventListener("error", () => {
-            container.dataset.doctorImageUrl = "";
-            image.remove();
-            if (!container.querySelector("i")) {
-                const fallback = document.createElement("i");
-                fallback.className = "fa-solid fa-user-doctor";
-                fallback.setAttribute("aria-hidden", "true");
-                container.appendChild(fallback);
-            }
-        }, { once: true });
-
-        container.replaceChildren(image);
-        container.dataset.doctorImageUrl = imageUrl;
-    });
 
 }
 /* =========================================================
@@ -12454,7 +11478,7 @@ function renderAppointment(
                         التاريخ
                     </span>
                     <strong>
-                        ${escapeHtml(formatAppointmentDate(date))}
+                        ${escapeHtml(date || "—")}
                     </strong>
                 </div>
 
@@ -13507,44 +12531,42 @@ function requestNotificationPermission() {
    DATE FORMAT
 ========================================================= */
 
-function parseTabibkDate(value) {
-    if (value === null || value === undefined || value === "") return null;
-    const raw = String(value).trim();
-    const iso = raw.match(/^(\d{4})-(\d{2})-(\d{2})(?:$|[T ].*)/);
-    if (iso) {
-        const year = Number(iso[1]), month = Number(iso[2]), day = Number(iso[3]);
-        const date = new Date(year, month - 1, day);
-        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return null;
-        if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return {date, hasTime:false};
-        const timed = new Date(raw);
-        return Number.isNaN(timed.getTime()) ? null : {date:timed, hasTime:true};
+function formatDateTime(
+    value
+) {
+
+    if (!value) {
+
+        return "";
+
     }
-    const slash = raw.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
-    if (slash) {
-        const day = Number(slash[1]), month = Number(slash[2]), year = Number(slash[3]);
-        const date = new Date(year, month - 1, day);
-        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return null;
-        return {date, hasTime:false};
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(value);
+
     }
-    const date = new Date(raw);
-    return Number.isNaN(date.getTime()) ? null : {date, hasTime:/[T ]\d{1,2}:\d{2}/.test(raw)};
-}
-function formatAppointmentDate(value) {
-    if (value === null || value === undefined || value === "") return "—";
-    const parsed = parseTabibkDate(value);
-    if (!parsed) return "تاريخ غير صالح";
-    const d = parsed.date;
-    return String(d.getDate()).padStart(2,"0") + "/" +
-        String(d.getMonth()+1).padStart(2,"0") + "/" + d.getFullYear();
-}
-function formatDateTime(value) {
-    if (value === null || value === undefined || value === "") return "";
-    const parsed = parseTabibkDate(value);
-    if (!parsed) return "تاريخ غير صالح";
-    const d = parsed.date;
-    const date = formatAppointmentDate(d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"));
-    if (!parsed.hasTime) return date;
-    return date + " · " + String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
+
+
+    return date.toLocaleString(
+        "ar-DZ",
+        {
+            dateStyle:
+                "short",
+            timeStyle:
+                "short"
+        }
+    );
+
 }
 
 
@@ -14711,7 +13733,9 @@ function renderPatients() {
                                             ></i>
 
                                             آخر موعد:
-                                            ${escapeHtml(formatAppointmentDate(lastDate))}
+                                            ${escapeHtml(
+                                                lastDate
+                                            )}
                                         </span>
                                         `
                                         : ""
@@ -15884,12 +14908,13 @@ document.addEventListener(
    RATINGS — HELPERS
 ========================================================= */
 
-
 function getRatingValue(item) {
-    if (!item) return 0;
 
-    const values = [
-        item.doctorRating,
+    if (!item) {
+        return 0;
+    }
+
+    const possibleValues = [
         item.rating,
         item.patientRating,
         item.stars,
@@ -15897,8 +14922,10 @@ function getRatingValue(item) {
         item.evaluation
     ];
 
-    for (const value of values) {
-        const number = Number(value);
+    for (const value of possibleValues) {
+
+        const number =
+            Number(value);
 
         if (
             Number.isFinite(number) &&
@@ -15914,10 +14941,12 @@ function getRatingValue(item) {
 
 
 function getRatingComment(item) {
-    if (!item) return "";
 
-    const comments = [
-        item.doctorReview,
+    if (!item) {
+        return "";
+    }
+
+    const possibleComments = [
         item.comment,
         item.review,
         item.patientComment,
@@ -15926,12 +14955,14 @@ function getRatingComment(item) {
         item.feedback
     ];
 
-    for (const value of comments) {
+    for (const value of possibleComments) {
+
         if (
             value !== undefined &&
             value !== null &&
             String(value).trim() !== ""
         ) {
+
             return String(value).trim();
         }
     }
@@ -15941,10 +14972,12 @@ function getRatingComment(item) {
 
 
 function getRatingDate(item) {
-    if (!item) return "";
 
-    const dates = [
-        item.ratedAt,
+    if (!item) {
+        return "";
+    }
+
+    const possibleDates = [
         item.ratingDate,
         item.reviewDate,
         item.evaluationDate,
@@ -15954,8 +14987,11 @@ function getRatingDate(item) {
         item.date
     ];
 
-    for (const value of dates) {
-        if (value) return value;
+    for (const value of possibleDates) {
+
+        if (value) {
+            return value;
+        }
     }
 
     return "";
@@ -15963,20 +14999,19 @@ function getRatingDate(item) {
 
 
 function getRatingPatientName(item) {
-    if (!item) return "مريض";
+
+    if (!item) {
+        return "مريض";
+    }
 
     return (
         item.patientName ||
-        item.patient?.name ||
         item.name ||
-        (
-            typeof item.patient === "string"
-                ? item.patient
-                : ""
-        ) ||
+        item.patient ||
         "مريض"
     );
 }
+
 
 /* =========================================================
    BUILD RATING STARS
@@ -19698,44 +18733,12 @@ if (
 
                         <i class="fa-solid fa-stethoscope"></i>
 
-                        <select id="registerDoctorSpecialty" required>
-    <option value="">اختر التخصص الطبي</option>
-    <option value="طب عام">طب عام</option>
-    <option value="طب الأسرة">طب الأسرة</option>
-    <option value="أمراض القلب والشرايين">أمراض القلب والشرايين</option>
-    <option value="طب الأطفال">طب الأطفال</option>
-    <option value="طب العيون">طب العيون</option>
-    <option value="طب الأسنان">طب الأسنان</option>
-    <option value="الأمراض الجلدية">الأمراض الجلدية</option>
-    <option value="طب الأعصاب">طب الأعصاب</option>
-    <option value="جراحة العظام والمفاصل">جراحة العظام والمفاصل</option>
-    <option value="أمراض النساء والتوليد">أمراض النساء والتوليد</option>
-    <option value="الأنف والأذن والحنجرة">الأنف والأذن والحنجرة</option>
-    <option value="الأمراض الباطنية">الأمراض الباطنية</option>
-    <option value="أمراض الجهاز الهضمي والكبد">أمراض الجهاز الهضمي والكبد</option>
-    <option value="أمراض الكلى">أمراض الكلى</option>
-    <option value="أمراض المسالك البولية">أمراض المسالك البولية</option>
-    <option value="أمراض الغدد والسكري">أمراض الغدد والسكري</option>
-    <option value="أمراض الرئة والصدر">أمراض الرئة والصدر</option>
-    <option value="أمراض الدم">أمراض الدم</option>
-    <option value="أمراض الروماتيزم">أمراض الروماتيزم</option>
-    <option value="الأمراض المعدية">الأمراض المعدية</option>
-    <option value="الأورام">الأورام</option>
-    <option value="الجراحة العامة">الجراحة العامة</option>
-    <option value="جراحة القلب والشرايين">جراحة القلب والشرايين</option>
-    <option value="جراحة الأعصاب">جراحة الأعصاب</option>
-    <option value="جراحة الأوعية الدموية">جراحة الأوعية الدموية</option>
-    <option value="جراحة الأطفال">جراحة الأطفال</option>
-    <option value="جراحة التجميل">جراحة التجميل</option>
-    <option value="طب نفسي">طب نفسي</option>
-    <option value="طب التأهيل والعلاج الطبيعي">طب التأهيل والعلاج الطبيعي</option>
-    <option value="طب الطوارئ">طب الطوارئ</option>
-    <option value="التخدير والإنعاش">التخدير والإنعاش</option>
-    <option value="طب المسنين">طب المسنين</option>
-    <option value="طب الرياضة">طب الرياضة</option>
-    <option value="طب العمل">طب العمل</option>
-    <option value="طب الأطفال حديثي الولادة">طب الأطفال حديثي الولادة</option>
-</select>
+                        <input
+                            type="text"
+                            id="registerDoctorSpecialty"
+                            placeholder="مثال: طب عام"
+                            required
+                        >
 
                     </div>
 
@@ -19754,15 +18757,16 @@ if (
 
                         <i class="fa-solid fa-location-dot"></i>
 
-                        
-<select id="registerDoctorWilaya" required>
-    <option value="">اختر الولاية</option>
-</select>
+                        <input
+                            type="text"
+                            id="registerDoctorWilaya"
+                            placeholder="مثال: غليزان"
+                            required
+                        >
 
-</div>
+                    </div>
 
-</div>
-
+                </div>
 
 
                 <!-- MUNICIPALITY -->
@@ -19777,11 +18781,12 @@ if (
 
                         <i class="fa-solid fa-map-location-dot"></i>
 
-                        
-<select id="registerDoctorMunicipality" required disabled>
-    <option value="">اختر الولاية أولًا</option>
-</select>
-
+                        <input
+                            type="text"
+                            id="registerDoctorMunicipality"
+                            placeholder="مثال: جديوية"
+                            required
+                        >
 
                     </div>
 
@@ -19997,790 +19002,6 @@ if (
 
 </div>
     
-
-
-<!-- =========================================================
-     TABIBK DOCTOR DASHBOARD — FINAL PERFORMANCE & VISUAL POLISH
-     Scoped UI-only overrides; existing actions and API logic retained.
-========================================================= -->
-<style>
-    #app .sidebar {
-        will-change: transform;
-        transform: translateZ(0);
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-    }
-
-    #app .sidebar-doctor {
-        -webkit-backdrop-filter: none;
-        backdrop-filter: none;
-    }
-
-    #app .sidebar-avatar,
-    #app .profile-avatar {
-        overflow: hidden;
-        position: relative;
-        flex-shrink: 0;
-    }
-
-    #app .sidebar-avatar img,
-    #app .profile-avatar img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        border-radius: inherit;
-    }
-
-    #app .content-area {
-        min-width: 0;
-        scroll-behavior: auto;
-    }
-
-    #app .card {
-        border-color: rgba(112, 39, 160, 0.11);
-    }
-
-    #app .section-head {
-        gap: 12px;
-    }
-
-    #app .nav-item,
-    #app .sidebar-logout,
-    #app .mobile-menu-button,
-    #app .icon-button {
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-    }
-
-    #app button:focus-visible,
-    #app a:focus-visible {
-        outline: 3px solid rgba(201, 151, 50, 0.75);
-        outline-offset: 3px;
-    }
-
-    @media (max-width: 900px) {
-        #app .sidebar {
-            transition: transform 0.16s cubic-bezier(0.2, 0.7, 0.2, 1) !important;
-            box-shadow: -12px 0 30px rgba(24, 8, 36, 0.18) !important;
-        }
-
-        #app .sidebar-overlay {
-            -webkit-backdrop-filter: none !important;
-            backdrop-filter: none !important;
-            transition: opacity 0.14s ease !important;
-        }
-
-        #app .sidebar-doctor {
-            -webkit-backdrop-filter: none !important;
-            backdrop-filter: none !important;
-        }
-
-        #app .content-area {
-            padding-left: 13px;
-            padding-right: 13px;
-        }
-
-        #app .profile-card {
-            min-width: 0;
-        }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        #app .sidebar,
-        #app .sidebar-overlay {
-            transition-duration: 0.01ms !important;
-        }
-    }
-</style>
-
-  
-<!-- TABIBK PRO MAX - PREMIUM DESIGN -->
-<style id="tabibk-pro-max">
-
-:root {
-    --pro-purple: #51216f;
-    --pro-purple-dark: #2c123e;
-    --pro-purple-soft: #f4edf9;
-    --pro-gold: #d6b064;
-    --pro-border: rgba(81, 33, 111, 0.13);
-    --pro-shadow: 0 12px 32px rgba(44, 18, 62, 0.08);
-    --pro-shadow-hover: 0 18px 38px rgba(44, 18, 62, 0.14);
-}
-
-/* بطاقات فاخرة */
-#app .card,
-#app .stat-card,
-#app .profile-card,
-#app .welcome-card,
-#app .ratings-card {
-    border-color: var(--pro-border);
-    box-shadow: var(--pro-shadow);
-    transition: box-shadow .2s ease, border-color .2s ease;
-}
-
-/* تفاعل أنيق */
-#app .card:hover,
-#app .stat-card:hover {
-    box-shadow: var(--pro-shadow-hover);
-    border-color: rgba(214, 176, 100, .6);
-}
-
-/* الحقول */
-#app input:focus,
-#app select:focus,
-#app textarea:focus {
-    outline: none;
-    border-color: var(--pro-gold) !important;
-    box-shadow: 0 0 0 3px rgba(214, 176, 100, .17);
-}
-
-/* تركيز واضح للأزرار */
-#app button:focus-visible {
-    outline: 3px solid rgba(214, 176, 100, .65);
-    outline-offset: 3px;
-}
-
-/* تحسين الشاشات الصغيرة */
-@media (max-width: 768px) {
-    #app .card,
-    #app .stat-card,
-    #app .profile-card,
-    #app .welcome-card,
-    #app .ratings-card {
-        border-radius: 16px;
-    }
-}
-
-/* احترام تقليل الحركة */
-@media (prefers-reduced-motion: reduce) {
-    #app *,
-    #app *::before,
-    #app *::after {
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-    }
-}
-
-</style>
-
-   
-<!-- TABIBK PRO MAX - HOME UPGRADE V2 -->
-<style id="tabibk-pro-max-v2">
-    /* بطاقة الطبيب */
-    #app .profile-card {
-        position: relative;
-        gap: 20px;
-        padding: 24px;
-        border: 1px solid rgba(214, 176, 100, .38);
-        border-radius: 24px;
-        background: linear-gradient(135deg, #ffffff 0%, #fbf7ff 100%);
-        box-shadow: 0 12px 32px rgba(44, 18, 62, .09);
-    }
-
-    #app .profile-avatar {
-        border: 3px solid #fff;
-        outline: 2px solid #d6b064;
-        box-shadow: 0 7px 20px rgba(81, 33, 111, .18);
-        overflow: hidden;
-    }
-
-    #app .profile-main h2 {
-        font-size: 21px;
-        line-height: 1.6;
-        font-weight: 900;
-        color: #351449;
-    }
-
-    #app .profile-specialty {
-        font-size: 13px;
-        line-height: 1.8;
-    }
-
-    /* واجهة الترحيب */
-    #app .welcome-card {
-        border-radius: 26px;
-        border: 1px solid rgba(232, 199, 107, .42);
-        box-shadow: 0 16px 38px rgba(48, 18, 67, .16);
-    }
-
-    /* بطاقات الإحصائيات */
-    #app .stat-card {
-        border-radius: 20px;
-        border: 1px solid rgba(81, 33, 111, .12);
-        background: linear-gradient(145deg, #fff, #fcf9ff);
-        box-shadow: 0 8px 22px rgba(44, 18, 62, .06);
-        transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    #app .stat-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 14px 28px rgba(44, 18, 62, .12);
-    }
-
-    /* صورة الطبيب داخل القائمة */
-    #app .sidebar-avatar {
-        overflow: hidden;
-        border: 1px solid rgba(232, 199, 107, .7);
-        box-shadow: 0 4px 14px rgba(0, 0, 0, .16);
-    }
-
-    #app .sidebar-avatar img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: inherit;
-    }
-
-    /* توافق مع الهاتف */
-    @media (max-width: 768px) {
-        #app .profile-card {
-            gap: 15px;
-            padding: 18px;
-            border-radius: 19px;
-        }
-
-        #app .profile-main h2 {
-            font-size: 18px;
-        }
-
-        #app .welcome-card {
-            padding: 22px 18px;
-            border-radius: 21px;
-        }
-
-        #app .stat-card {
-            min-width: 0;
-            border-radius: 16px;
-        }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        #app .stat-card {
-            transition: none;
-        }
-    }
-</style>
-<!-- TABIBK PRO MAX - PREMIUM HOME V3 -->
-<style id="tabibk-pro-max-v3">
-
-/* تحسين بطاقات لوحة الطبيب */
-#app .profile-card,
-#app .welcome-card,
-#app .stat-card,
-#app .ratings-card {
-    isolation: isolate;
-    overflow: hidden;
-}
-
-/* لمسة ذهبية عصرية لبطاقة الطبيب */
-#app .profile-card {
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(214, 176, 100, .12),
-            transparent 45%
-        ),
-        linear-gradient(135deg, #ffffff, #faf6ff);
-    border: 1px solid rgba(214, 176, 100, .45);
-}
-
-/* صورة الطبيب */
-#app .profile-avatar img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: inherit;
-}
-
-/* تحسين العناوين */
-#app .section-head h2,
-#app .section-head h3 {
-    color: #351449;
-    font-weight: 900;
-    letter-spacing: -.25px;
-}
-
-/* أزرار أكثر احترافية */
-#app button,
-#app .nav-item {
-    transition:
-        box-shadow .2s ease,
-        border-color .2s ease,
-        background-color .2s ease;
-}
-
-/* تمييز العناصر النشطة في القائمة */
-#app .nav-item.active {
-    border-color: rgba(214, 176, 100, .45);
-}
-
-/* وضوح الحقول */
-#app input,
-#app select,
-#app textarea {
-    max-width: 100%;
-}
-
-/* تحسين العرض على الهاتف */
-@media (max-width: 768px) {
-    #app .profile-card {
-        max-width: 100%;
-    }
-
-    #app .profile-avatar img {
-        object-fit: cover;
-    }
-
-    #app button {
-        -webkit-tap-highlight-color: transparent;
-    }
-}
-
-/* احترام إعدادات تقليل الحركة */
-@media (prefers-reduced-motion: reduce) {
-    #app button,
-    #app .nav-item {
-        transition: none !important;
-    }
-}
-
-</style>
-<!-- TABIBK PRO MAX - LUXURY SIDEBAR V5 -->
-<style id="tabibk-sidebar-luxury-v5">
-
-/* الإطار الفاخر */
-#app .sidebar {
-    background:
-        radial-gradient(
-            circle at 10% 5%,
-            rgba(214, 176, 100, .13),
-            transparent 28%
-        ),
-        linear-gradient(180deg, #321344 0%, #24102f 100%) !important;
-    border-left: 1px solid rgba(224, 190, 112, .55);
-    box-shadow: -12px 0 40px rgba(25, 8, 36, .25);
-}
-
-/* بطاقة الطبيب */
-#app .sidebar-doctor {
-    position: relative;
-    margin: 14px 12px 20px;
-    padding: 14px;
-    border: 1px solid rgba(224, 190, 112, .48);
-    border-radius: 19px;
-    background: linear-gradient(
-        135deg,
-        rgba(255,255,255,.10),
-        rgba(214,176,100,.07)
-    );
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.13),
-        inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-/* إطار الصورة */
-#app .sidebar-avatar {
-    border: 2px solid #e5c477;
-    box-shadow:
-        0 0 0 4px rgba(214,176,100,.10),
-        0 0 20px rgba(214,176,100,.20);
-}
-
-/* أسماء الأقسام */
-#app .nav-item {
-    position: relative;
-    margin: 5px 10px;
-    padding: 12px 14px;
-    border: 1px solid transparent;
-    border-radius: 13px;
-    color: #f4eaf9;
-    transition: all .22s ease;
-}
-
-/* زخرفة ذهبية عند مرور المؤشر */
-#app .nav-item:hover {
-    background: linear-gradient(
-        100deg,
-        rgba(214,176,100,.17),
-        rgba(255,255,255,.04)
-    );
-    border-color: rgba(214,176,100,.38);
-    color: #ffe3a0;
-    box-shadow: 0 5px 16px rgba(0,0,0,.12);
-}
-
-/* القسم المختار */
-#app .nav-item.active {
-    color: #fff3cf !important;
-    background: linear-gradient(
-        110deg,
-        rgba(214,176,100,.25),
-        rgba(124,76,151,.30)
-    ) !important;
-    border: 1px solid rgba(231,196,119,.65);
-    box-shadow:
-        inset -3px 0 0 #e5c477,
-        0 5px 18px rgba(0,0,0,.14);
-}
-
-/* الأيقونات */
-#app .nav-item i {
-    color: #e5c477;
-    transition: transform .22s ease, color .22s ease;
-}
-
-#app .nav-item:hover i {
-    transform: scale(1.12);
-    color: #ffe6a3;
-}
-
-#app .nav-item.active i {
-    color: #ffe4a0;
-}
-
-/* فواصل أنيقة */
-#app .sidebar .nav-section-title {
-    color: #d9bd82;
-    letter-spacing: .5px;
-}
-
-/* زر تسجيل الخروج */
-#app .sidebar-logout {
-    margin: 10px;
-    border: 1px solid rgba(230,140,150,.35);
-    border-radius: 13px;
-    background: rgba(180,60,75,.10);
-    transition: all .22s ease;
-}
-
-#app .sidebar-logout:hover {
-    background: rgba(180,60,75,.22);
-    border-color: rgba(255,160,170,.60);
-}
-
-/* تحسين الهاتف */
-@media (max-width: 900px) {
-    #app .sidebar {
-        box-shadow: -14px 0 38px rgba(15,5,24,.35);
-    }
-
-    #app .nav-item {
-        min-height: 45px;
-    }
-}
-
-/* احترام إعدادات تقليل الحركة */
-@media (prefers-reduced-motion: reduce) {
-    #app .nav-item,
-    #app .nav-item i,
-    #app .sidebar-logout {
-        transition: none !important;
-    }
-}
-
-</style>
-<!-- TABIBK PRO MAX - WORKING HOURS LUXURY V7 -->
-<style id="tabibk-working-hours-v7">
-
-/* الحاويات والبطاقات */
-#app #section-hours .card,
-#app #section-hours .hours-card,
-#app #section-hours .working-hours-card {
-    position: relative;
-    border: 1px solid rgba(214,176,100,.42);
-    border-radius: 22px;
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(214,176,100,.10),
-            transparent 38%
-        ),
-        linear-gradient(145deg,#fff 0%,#faf6ff 100%);
-    box-shadow: 0 12px 30px rgba(44,18,62,.08);
-}
-
-/* عنوان القسم */
-#app #section-hours h2,
-#app #section-hours h3 {
-    color: #351449;
-    font-weight: 900;
-}
-
-/* كل صف من صفوف الأيام */
-#app #section-hours .day-row,
-#app #section-hours .hours-row,
-#app #section-hours .working-day,
-#app #section-hours .schedule-row {
-    border: 1px solid rgba(81,33,111,.10);
-    border-radius: 15px;
-    margin-bottom: 10px;
-    padding: 13px;
-    background: rgba(255,255,255,.88);
-    transition: border-color .2s ease, box-shadow .2s ease;
-}
-
-#app #section-hours .day-row:hover,
-#app #section-hours .hours-row:hover,
-#app #section-hours .working-day:hover,
-#app #section-hours .schedule-row:hover {
-    border-color: rgba(214,176,100,.65);
-    box-shadow: 0 5px 15px rgba(44,18,62,.06);
-}
-
-/* حقول الساعات */
-#app #section-hours input[type="time"],
-#app #section-hours input[type="text"],
-#app #section-hours select {
-    min-height: 43px;
-    border: 1px solid rgba(81,33,111,.18);
-    border-radius: 11px;
-    background: #fff;
-    color: #351449;
-    padding: 9px 12px;
-    font-weight: 700;
-    transition: border-color .2s ease, box-shadow .2s ease;
-}
-
-#app #section-hours input:focus,
-#app #section-hours select:focus {
-    outline: none;
-    border-color: #d6b064 !important;
-    box-shadow: 0 0 0 3px rgba(214,176,100,.17);
-}
-
-/* مربعات الاختيار */
-#app #section-hours input[type="checkbox"] {
-    accent-color: #70409a;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
-
-/* أزرار الحفظ */
-#app #section-hours button {
-    border-radius: 12px;
-    transition: box-shadow .2s ease, transform .2s ease;
-}
-
-#app #section-hours button:hover {
-    box-shadow: 0 6px 16px rgba(44,18,62,.13);
-}
-
-#app #section-hours button:active {
-    transform: scale(.98);
-}
-
-/* الهاتف */
-@media (max-width:768px) {
-    #app #section-hours .card,
-    #app #section-hours .hours-card,
-    #app #section-hours .working-hours-card {
-        border-radius: 17px;
-    }
-
-    #app #section-hours .day-row,
-    #app #section-hours .hours-row,
-    #app #section-hours .working-day,
-    #app #section-hours .schedule-row {
-        padding: 10px;
-        border-radius: 12px;
-    }
-
-    #app #section-hours input,
-    #app #section-hours select {
-        max-width: 100%;
-        min-width: 0;
-    }
-}
-
-/* تقليل الحركة */
-@media (prefers-reduced-motion:reduce) {
-    #app #section-hours * {
-        transition: none !important;
-    }
-}
-
-</style>
-<!-- TABIBK PRO MAX - REAL WORKING HOURS V8 -->
-<style id="tabibk-working-hours-v8">
-
-/* البطاقة الرئيسية */
-#app #section-hours .setting-card {
-    position: relative;
-    overflow: hidden;
-    padding: 26px;
-    border: 1px solid rgba(214,176,100,.58) !important;
-    border-radius: 24px !important;
-    background:
-        radial-gradient(
-            circle at 100% 0%,
-            rgba(214,176,100,.19),
-            transparent 35%
-        ),
-        linear-gradient(145deg,#ffffff,#f8f2ff) !important;
-    box-shadow:
-        0 15px 38px rgba(44,18,62,.10),
-        inset 0 1px 0 #fff !important;
-}
-
-/* رأس البطاقة */
-#app #section-hours .setting-title {
-    padding-bottom: 17px;
-    border-bottom: 1px solid rgba(214,176,100,.28);
-}
-
-#app #section-hours .setting-title h3 {
-    font-size: 17px;
-    font-weight: 900;
-    color: #351449;
-}
-
-#app #section-hours .setting-title p {
-    font-size: 12px;
-    line-height: 1.9;
-}
-
-/* مفتاح تفعيل أوقات العمل */
-#app #section-hours .work-switch .work-slider {
-    background: #c8bfd0;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,.12);
-}
-
-#app #section-hours .work-switch input:checked + .work-slider {
-    background: linear-gradient(135deg,#51216f,#8750a5);
-    box-shadow: 0 0 0 3px rgba(81,33,111,.10);
-}
-
-/* أيام الأسبوع */
-#app #section-hours .days-grid {
-    gap: 8px;
-    margin-top: 20px;
-}
-
-#app #section-hours .day-button label {
-    height: 48px;
-    border: 1px solid rgba(81,33,111,.16);
-    border-radius: 13px;
-    background: linear-gradient(145deg,#fff,#faf7fd);
-    color: #594663;
-    font-size: 11px;
-    font-weight: 800;
-    box-shadow: 0 3px 9px rgba(44,18,62,.04);
-    transition: background .2s ease,
-                border-color .2s ease,
-                box-shadow .2s ease,
-                transform .2s ease;
-}
-
-/* اليوم المحدد */
-#app #section-hours .day-button input:checked + label {
-    color: #fff;
-    background: linear-gradient(145deg,#754094,#351449);
-    border-color: #d6b064;
-    box-shadow:
-        0 5px 14px rgba(81,33,111,.20),
-        inset 0 0 0 1px rgba(255,220,145,.25);
-    transform: translateY(-2px);
-}
-
-/* حقول الساعات */
-#app #section-hours .time-fields {
-    gap: 14px;
-    margin-top: 22px;
-}
-
-#app #section-hours .field label {
-    color: #563969;
-    font-size: 12px;
-    font-weight: 800;
-    margin-bottom: 8px;
-}
-
-#app #section-hours .field input {
-    height: 49px;
-    border: 1px solid rgba(81,33,111,.19);
-    border-radius: 13px;
-    background: #fff;
-    color: #351449;
-    font-size: 14px;
-    font-weight: 700;
-    box-shadow: 0 3px 10px rgba(44,18,62,.04);
-}
-
-#app #section-hours .field input:focus {
-    border-color: #d6b064;
-    box-shadow: 0 0 0 4px rgba(214,176,100,.16);
-}
-
-/* زر الحفظ */
-#app #section-hours .save-setting {
-    min-height: 48px;
-    margin-top: 20px;
-    border: 1px solid rgba(255,224,157,.40);
-    border-radius: 14px;
-    background: linear-gradient(120deg,#351449,#704091);
-    color: #fff;
-    font-size: 13px;
-    font-weight: 900;
-    box-shadow: 0 7px 18px rgba(53,20,73,.18);
-    transition: box-shadow .2s ease, filter .2s ease;
-}
-
-#app #section-hours .save-setting:hover {
-    filter: brightness(1.09);
-    box-shadow: 0 10px 24px rgba(53,20,73,.23);
-}
-
-/* رسائل الحالة */
-#app #section-hours .setting-message {
-    border: 1px solid rgba(214,176,100,.42);
-    border-radius: 12px;
-    line-height: 1.9;
-}
-
-/* الهاتف */
-@media (max-width: 768px) {
-    #app #section-hours .setting-card {
-        padding: 17px;
-        border-radius: 19px !important;
-    }
-
-    #app #section-hours .days-grid {
-        grid-template-columns: repeat(4,minmax(0,1fr));
-        gap: 8px;
-    }
-
-    #app #section-hours .day-button label {
-        height: 44px;
-    }
-
-    #app #section-hours .time-fields {
-        gap: 9px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    #app #section-hours * {
-        transition: none !important;
-    }
-}
-
-</style>
-<script id="tabibk-vacation-date-preview-script">
-function updateVacationDatePreviews() {
-  [["vacationStartDate","vacationStartDateReadable","اختر تاريخ البداية"],["vacationEndDate","vacationEndDateReadable","اختر تاريخ النهاية"]].forEach(([inputId,previewId,placeholder])=>{
-    const input=document.getElementById(inputId), preview=document.getElementById(previewId);
-    if(!input||!preview)return;
-    preview.textContent=input.value ? formatAppointmentDate(input.value) : placeholder;
-  });
-}
-document.addEventListener("DOMContentLoaded", updateVacationDatePreviews);
-</script>
 </body>
 
 </html>

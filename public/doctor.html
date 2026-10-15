@@ -7745,10 +7745,6 @@ transition: none;
     
 </style>
 
-<style id="tabibk-date-display-fix">
-#app input[type="date"] { direction:ltr!important; text-align:left!important; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
-.vacation-date-readable { display:block; min-height:24px; margin-top:7px; padding:6px 10px; border:1px solid rgba(201,151,50,.32); border-radius:10px; background:#fbf7fd; color:#6b5877; text-align:center; direction:ltr; unicode-bidi:isolate; font:800 13px/1.5 Arial,Tahoma,sans-serif; font-variant-numeric:tabular-nums; }
-</style>
 <style id="tabibk-professional-buttons-v1">
 /* TABIBK premium button system */
 #app button, #loginScreen button, #doctorRegistrationModal button {
@@ -7789,7 +7785,6 @@ transition: none;
   border:0; background:transparent; color:#6a2b89; text-decoration:underline;
   text-underline-offset:3px; padding:8px 4px;
 }
-#app .date-readable, #app .vacation-date-readable { font-variant-numeric:tabular-nums; }
 @media (max-width:600px) {
   #app .save-setting { width:100%; justify-content:center; }
   #app .account-summary-actions { display:flex; flex-wrap:wrap; gap:10px; }
@@ -9527,8 +9522,10 @@ transition: none;
                                         بداية العطلة
                                     </label>
 
-                                    <input type="date" id="vacationStartDate" lang="en-GB" dir="ltr" aria-describedby="vacationStartDateReadable" onchange="updateVacationDatePreviews()">
-                                    <small class="vacation-date-readable" id="vacationStartDateReadable" dir="ltr" aria-live="polite">اختر تاريخ البداية</small>
+                                    <input
+                                        type="date"
+                                        id="vacationStartDate"
+                                    >
 
                                 </div>
 
@@ -9539,8 +9536,10 @@ transition: none;
                                         نهاية العطلة
                                     </label>
 
-                                    <input type="date" id="vacationEndDate" lang="en-GB" dir="ltr" aria-describedby="vacationEndDateReadable" onchange="updateVacationDatePreviews()">
-                                    <small class="vacation-date-readable" id="vacationEndDateReadable" dir="ltr" aria-live="polite">اختر تاريخ النهاية</small>
+                                    <input
+                                        type="date"
+                                        id="vacationEndDate"
+                                    >
 
                                 </div>
 
@@ -20771,16 +20770,6 @@ if (
 }
 
 </style>
-<script id="tabibk-vacation-date-preview-script">
-function updateVacationDatePreviews() {
-  [["vacationStartDate","vacationStartDateReadable","اختر تاريخ البداية"],["vacationEndDate","vacationEndDateReadable","اختر تاريخ النهاية"]].forEach(([inputId,previewId,placeholder])=>{
-    const input=document.getElementById(inputId), preview=document.getElementById(previewId);
-    if(!input||!preview)return;
-    preview.textContent=input.value ? formatAppointmentDate(input.value) : placeholder;
-  });
-}
-document.addEventListener("DOMContentLoaded", updateVacationDatePreviews);
-</script>
 </body>
 
 </html>

@@ -5,7 +5,6 @@
 
 <meta charset="UTF-8">
 
-    
 <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -2636,8 +2635,7 @@ button{
 }
 
 
-
-    ==================================
+/* =========================================================
    WORKING HOURS
 ========================================================= */
 
@@ -2903,29 +2901,6 @@ button{
 
     font-size:11px;
 
-}
-
-.vacation-date-readable {
-    display: block;
-    width: 100%;
-    min-height: 24px;
-    margin-top: 8px;
-    padding: 4px 8px;
-
-    color: var(--purple-700, #51266f);
-    background: rgba(81, 38, 111, 0.06);
-    border: 1px solid rgba(81, 38, 111, 0.12);
-    border-radius: 8px;
-
-    font-family: Arial, Tahoma, sans-serif;
-    font-size: 13px;
-    font-weight: 800;
-    line-height: 1.5;
-    text-align: center;
-
-    direction: ltr;
-    unicode-bidi: isolate;
-    font-variant-numeric: tabular-nums;
 }
 
 
@@ -6159,25 +6134,6 @@ select{
     cursor: pointer;
 }
 
-
-/* FIX: keep native date segments in left-to-right order in Android WebView */
-#app input[type="date"] {
-    direction: ltr !important;
-    text-align: left !important;
-    unicode-bidi: isolate !important;
-    writing-mode: horizontal-tb !important;
-    -webkit-locale: "en-GB";
-}
-#app input[type="date"]::-webkit-datetime-edit,
-#app input[type="date"]::-webkit-datetime-edit-fields-wrapper,
-#app input[type="date"]::-webkit-datetime-edit-day-field,
-#app input[type="date"]::-webkit-datetime-edit-month-field,
-#app input[type="date"]::-webkit-datetime-edit-year-field {
-    direction: ltr !important;
-    unicode-bidi: isolate !important;
-}
-
-
 </style>
 
 
@@ -7952,8 +7908,6 @@ transition: none;
 
     <i class="fa-solid fa-arrow-left register-doctor-arrow"></i>
 </button>
-
-
             </form>
 
 
@@ -9520,12 +9474,9 @@ transition: none;
                                     </label>
 
                                     <input
-                                            type="date"
-                                            id="vacationStartDate"
-                                            onchange="updateVacationDatePreviews()"
-                                         lang="en-GB" dir="ltr">
-
-                                    <small class="vacation-date-readable" id="vacationStartDateReadable" dir="ltr"></small>
+                                        type="date"
+                                        id="vacationStartDate"
+                                    >
 
                                 </div>
 
@@ -9537,12 +9488,9 @@ transition: none;
                                     </label>
 
                                     <input
-                                            type="date"
-                                            id="vacationEndDate"
-                                            onchange="updateVacationDatePreviews()"
-                                         lang="en-GB" dir="ltr">
-
-                                    <small class="vacation-date-readable" id="vacationEndDateReadable" dir="ltr"></small>
+                                        type="date"
+                                        id="vacationEndDate"
+                                    >
 
                                 </div>
 
@@ -10642,7 +10590,7 @@ async function registerDoctor(event){
         if(message){
 
             message.textContent =
-                "كلمة المرور يجب أن تحتوي على 8 أحرف أو أرقام على الأقل";
+                "كلمة المرور يجب أن تحتوي على 4 أحرف أو أرقام على الأقل";
 
             message.className =
                 "login-message error";
@@ -11726,22 +11674,6 @@ async function loadVacation() {
 }
 
 
-function updateVacationDatePreviews() {
-    [
-        ["vacationStartDate", "vacationStartDateReadable"],
-        ["vacationEndDate", "vacationEndDateReadable"]
-    ].forEach(([inputId, previewId]) => {
-        const input = $(inputId);
-        const preview = $(previewId);
-        if (!input || !preview) return;
-
-        const match = String(input.value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
-        preview.textContent = match
-            ? match[3] + "/" + match[2] + "/" + match[1]
-            : "";
-    });
-}
-
 function renderVacation() {
 
     const vacation =
@@ -11774,8 +11706,6 @@ function renderVacation() {
 
     }
 
-
-    updateVacationDatePreviews();
 
     if ($("vacationStatusText")) {
 
@@ -12474,7 +12404,7 @@ function renderAppointment(
                         التاريخ
                     </span>
                     <strong>
-                        ${escapeHtml(formatAppointmentDate(date) || "—")}
+                        ${escapeHtml(date || "—")}
                     </strong>
                 </div>
 
@@ -13527,74 +13457,42 @@ function requestNotificationPermission() {
    DATE FORMAT
 ========================================================= */
 
-function formatReadableDate(
-    value,
-    includeTime = true
+function formatDateTime(
+    value
 ) {
-    if (value === null || value === undefined || value === "") {
+
+    if (!value) {
+
         return "";
+
     }
 
-    const raw = String(value).trim();
-    let date = null;
-    const hasTime = /[T ]\d{1,2}:\d{2}/.test(raw);
 
-    // Parse ISO date-only values as local calendar dates to avoid timezone day shifts.
-    const isoDate = raw.match(/^(\d{4})-(\d{2})-(\d{2})(?:$|[T ].*)/);
-    const slashDate = raw.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
+    const date =
+        new Date(value);
 
-    if (isoDate) {
-        const year = Number(isoDate[1]);
-        const month = Number(isoDate[2]);
-        const day = Number(isoDate[3]);
 
-        if (!hasTime) {
-            date = new Date(year, month - 1, day);
-            if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
-                date = null;
-            }
-        } else {
-            date = new Date(raw);
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(value);
+
+    }
+
+
+    return date.toLocaleString(
+        "ar-DZ",
+        {
+            dateStyle:
+                "short",
+            timeStyle:
+                "short"
         }
-    } else if (slashDate) {
-        // Accept legacy DD/MM/YYYY and DD-MM-YYYY values consistently.
-        const first = Number(slashDate[1]);
-        const second = Number(slashDate[2]);
-        const year = Number(slashDate[3]);
-        const day = first > 12 ? first : second > 12 ? second : first;
-        const month = first > 12 ? second : second > 12 ? first : second;
-        date = new Date(year, month - 1, day);
-        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
-            date = null;
-        }
-    } else {
-        date = new Date(raw);
-    }
+    );
 
-    if (!date || Number.isNaN(date.getTime())) {
-        return raw;
-    }
-
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-    const datePart = day + "/" + month + "/" + year;
-
-    if (!includeTime || !hasTime) {
-        return datePart;
-    }
-
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    return datePart + " · " + hours + ":" + minutes;
-}
-
-function formatDateTime(value) {
-    return formatReadableDate(value, true);
-}
-
-function formatAppointmentDate(value) {
-    return formatReadableDate(value, false);
 }
 
 
@@ -14762,7 +14660,7 @@ function renderPatients() {
 
                                             آخر موعد:
                                             ${escapeHtml(
-                                                formatAppointmentDate(lastDate)
+                                                lastDate
                                             )}
                                         </span>
                                         `
@@ -19012,23 +18910,6 @@ if (
             box-shadow:0 0 0 3px rgba(201,151,50,.10) !important;
         }
 
-        /* ---------- VACATION ARABIC DISPLAY FIX ---------- */
-
-        #section-hours .setting-card:last-child {
-            direction: rtl;
-            text-align: right;
-            font-family: "Cairo", sans-serif;
-        }
-
-        #section-hours .setting-card:last-child h3,
-        #section-hours .setting-card:last-child p,
-        #section-hours .setting-card:last-child label,
-        #section-hours .setting-card:last-child .toggle-text,
-        #section-hours .setting-card:last-child .save-setting {
-            direction: rtl;
-            font-family: "Cairo", sans-serif;
-        }
-
         /* ---------- NOTIFICATIONS ---------- */
 
         #notificationPanel{
@@ -20332,6 +20213,7 @@ if (
         }
     }
 </style>
+ ```html
 <!-- TABIBK PRO MAX - PREMIUM HOME V3 -->
 <style id="tabibk-pro-max-v3">
 
@@ -20840,208 +20722,6 @@ if (
 }
 
 </style>
-
-<!-- TABIBK DOCTOR PRO — DATE CLARITY & PREMIUM UI -->
-<style id="tabibk-doctor-pro-ui">
-    :root {
-        --doctor-pro-ink: #30213b;
-        --doctor-pro-purple: #51216f;
-        --doctor-pro-purple-deep: #2c123e;
-        --doctor-pro-gold: #d6b064;
-        --doctor-pro-line: rgba(81, 33, 111, .14);
-        --doctor-pro-soft-shadow: 0 10px 28px rgba(44, 18, 62, .075);
-    }
-
-    html { -webkit-text-size-adjust: 100%; }
-    #app .content-area { min-width: 0; }
-    #app .card,
-    #app .stat-card,
-    #app .profile-card,
-    #app .ratings-card,
-    #app .consultation-card,
-    #app .appointment-card,
-    #app .patient-card,
-    #app .setting-card,
-    #app .rating-review-card {
-        border: 1px solid var(--doctor-pro-line);
-        box-shadow: var(--doctor-pro-soft-shadow);
-        background-color: rgba(255,255,255,.96);
-        border-radius: 20px;
-        transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
-    }
-
-    #app .appointment-card,
-    #app .patient-card,
-    #app .rating-review-card { overflow: hidden; }
-
-    #app .card:hover,
-    #app .stat-card:hover,
-    #app .appointment-card:hover,
-    #app .patient-card:hover,
-    #app .rating-review-card:hover {
-        border-color: rgba(214,176,100,.58);
-        box-shadow: 0 14px 34px rgba(44,18,62,.11);
-    }
-
-    #app .section-head {
-        padding-bottom: 12px;
-        border-bottom: 1px solid rgba(81,33,111,.09);
-    }
-
-    #app .section-heading i,
-    #app .section-heading > span:first-child {
-        filter: drop-shadow(0 4px 8px rgba(81,33,111,.10));
-    }
-
-    #app input:not([type="checkbox"]):not([type="radio"]),
-    #app select,
-    #app textarea {
-        max-width: 100%;
-        border-radius: 13px;
-        border-color: rgba(81,33,111,.18);
-        background-color: #fff;
-        color: var(--doctor-pro-ink);
-        transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
-    }
-
-    #app input:focus,
-    #app select:focus,
-    #app textarea:focus {
-        outline: none;
-        border-color: var(--doctor-pro-gold) !important;
-        box-shadow: 0 0 0 4px rgba(214,176,100,.16);
-    }
-
-    #app input[type="date"],
-    #app input[type="time"],
-    #app .appointment-info-grid > div:nth-child(2) strong,
-    #app .appointment-info-grid > div:nth-child(3) strong,
-    #app .booking-number,
-    #app .notification-message small {
-        direction: ltr;
-        text-align: left;
-        unicode-bidi: isolate;
-        font-variant-numeric: tabular-nums;
-    }
-
-    #app .appointment-info-grid > div:nth-child(2) strong {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        max-width: 100%;
-        padding: 6px 10px;
-        border: 1px solid rgba(214,176,100,.42);
-        border-radius: 10px;
-        background: linear-gradient(120deg,#fff9e9,#f8f0fc);
-        color: #51216f;
-        font-size: 12px;
-        font-weight: 900;
-        letter-spacing: .35px;
-        white-space: nowrap;
-    }
-
-    #app .appointment-info-grid > div:nth-child(3) strong {
-        color: #51216f;
-        font-weight: 900;
-        letter-spacing: .4px;
-    }
-
-    #app .appointment-info-grid > div {
-        min-width: 0;
-        border: 1px solid rgba(81,33,111,.08);
-        border-radius: 14px;
-        background: linear-gradient(145deg,#fff,#fcf9ff);
-        padding: 12px;
-    }
-
-    #app button:not(.nav-item):not(.icon-button):not(.mobile-menu-button) {
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-    }
-
-    #app .btn,
-    #app .btn-icon,
-    #app .save-setting,
-    #app .sidebar-logout,
-    #app .login-button,
-    #app .register-doctor-button {
-        border-radius: 13px;
-        font-weight: 800;
-        transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-    }
-
-    #app .btn:hover,
-    #app .save-setting:hover,
-    #app .login-button:hover {
-        filter: brightness(1.035);
-        box-shadow: 0 8px 20px rgba(44,18,62,.14);
-    }
-
-    #app .btn:active,
-    #app .btn-icon:active { transform: scale(.98); }
-
-    #app .status-badge {
-        border: 1px solid rgba(81,33,111,.08);
-        border-radius: 999px;
-        font-weight: 900;
-        letter-spacing: .1px;
-    }
-
-    #app table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        overflow: hidden;
-        border-radius: 14px;
-    }
-
-    #app th {
-        background: linear-gradient(120deg,#351449,#51216f);
-        color: #fff;
-        font-weight: 800;
-    }
-
-    #app td, #app th {
-        padding: 12px 14px;
-        border-bottom: 1px solid rgba(81,33,111,.08);
-        vertical-align: middle;
-    }
-
-    #app tbody tr:nth-child(even) { background: #fcf9ff; }
-    #app tbody tr:hover { background: #fff9e9; }
-
-    #app button:focus-visible,
-    #app a:focus-visible {
-        outline: 3px solid rgba(214,176,100,.8);
-        outline-offset: 3px;
-    }
-
-    @media (max-width: 768px) {
-        #app .content-area { padding: 16px 12px 30px; }
-        #app .card,
-        #app .stat-card,
-        #app .profile-card,
-        #app .ratings-card,
-        #app .consultation-card,
-        #app .appointment-card,
-        #app .patient-card,
-        #app .setting-card,
-        #app .rating-review-card { border-radius: 16px; }
-        #app .appointment-info-grid > div { padding: 9px; }
-        #app .appointment-info-grid > div:nth-child(2) strong { font-size: 11px; }
-        #app .btn { min-height: 40px; }
-        #app td, #app th { padding: 10px 9px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        #app *, #app *::before, #app *::after {
-            animation-duration: .01ms !important;
-            transition-duration: .01ms !important;
-            scroll-behavior: auto !important;
-        }
-    }
-</style>
-
 </body>
 
 </html>

@@ -6178,13 +6178,6 @@ select{
 }
 
 
-/* TABIBK custom date display: --/--/-- while retaining native picker/value */
-.tabibk-date-control{position:relative;width:100%;}
-.tabibk-date-control input[type="date"]{color:transparent!important;-webkit-text-fill-color:transparent!important;position:relative;z-index:1;background:transparent!important;}
-.tabibk-date-control input[type="date"]::-webkit-calendar-picker-indicator{opacity:1;cursor:pointer;}
-.tabibk-date-value{position:absolute;inset-inline-start:15px;top:50%;transform:translateY(-50%);z-index:2;pointer-events:none;color:var(--purple,#522b64);font-family:Arial,sans-serif;font-size:15px;font-weight:500;letter-spacing:0;font-variant-numeric:tabular-nums;}
-.tabibk-date-control input[type="date"]:focus{color:transparent!important;-webkit-text-fill-color:transparent!important;}
-
 </style>
 
 
@@ -9526,14 +9519,11 @@ transition: none;
                                         بداية العطلة
                                     </label>
 
-                                    <div class="tabibk-date-control" dir="ltr">
-                                        <span class="tabibk-date-value" id="vacationStartDateDisplay">--/--/--</span>
-                                        <input
+                                    <input
                                             type="date"
                                             id="vacationStartDate"
                                             onchange="updateVacationDatePreviews()"
                                          lang="en-GB" dir="ltr">
-                                    </div>
 
                                     <small class="vacation-date-readable" id="vacationStartDateReadable" dir="ltr"></small>
 
@@ -9546,14 +9536,11 @@ transition: none;
                                         نهاية العطلة
                                     </label>
 
-                                    <div class="tabibk-date-control" dir="ltr">
-                                        <span class="tabibk-date-value" id="vacationEndDateDisplay">--/--/--</span>
-                                        <input
+                                    <input
                                             type="date"
                                             id="vacationEndDate"
                                             onchange="updateVacationDatePreviews()"
                                          lang="en-GB" dir="ltr">
-                                    </div>
 
                                     <small class="vacation-date-readable" id="vacationEndDateReadable" dir="ltr"></small>
 
@@ -11741,16 +11728,17 @@ async function loadVacation() {
 
 function updateVacationDatePreviews() {
     [
-        ["vacationStartDate", "vacationStartDateReadable", "vacationStartDateDisplay"],
-        ["vacationEndDate", "vacationEndDateReadable", "vacationEndDateDisplay"]
-    ].forEach(([inputId, previewId, displayId]) => {
+        ["vacationStartDate", "vacationStartDateReadable"],
+        ["vacationEndDate", "vacationEndDateReadable"]
+    ].forEach(([inputId, previewId]) => {
         const input = $(inputId);
         const preview = $(previewId);
-        const display = $(displayId);
-        const match = String(input?.value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
-        const readable = match ? match[1].slice(-2) + "/" + match[2] + "/" + match[3] : "";
-        if (display) display.textContent = readable || "--/--/--";
-        if (preview) preview.textContent = readable;
+        if (!input || !preview) return;
+
+        const match = String(input.value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        preview.textContent = match
+            ? match[3] + "/" + match[2] + "/" + match[1]
+            : "";
     });
 }
 

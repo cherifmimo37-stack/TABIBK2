@@ -10504,10 +10504,8 @@ async function sendSupportMessage(event) {
         container.appendChild(row);
         container.scrollTop = container.scrollHeight;
 
-        // تحديث المحادثة دون إزالة الرسالة التي ظهرت مباشرة
-loadSupportMessages().catch(error => {
-    console.error("تعذر تحديث المحادثة:", error);
-});
+       
+        // الاحتفاظ بالرسالة الظاهرة وعدم إعادة تحميل المحادثة فورًا
 
     } catch (error) {
         showDoctorSupportFeedback(

@@ -7599,70 +7599,133 @@ async function savePatientAd() {
     }
 }
 
+
 /* ============================================================
    DOCTOR SUPPORT INBOX - ADMIN
 ============================================================ */
 
 let selectedSupportDoctorIdForChat = null;
+let supportInboxRequestId = 0;
+let supportConversationRequestId = 0;
 
 async function loadSupportInbox() {
+    const requestId = ++supportInboxRequestId;
     const list = document.getElementById("supportDoctorsList");
+    const conversation = document.getElementById("supportConversation");
+    const title = document.getElementById("supportConversationTitle");
 
-          if (!doctors.length) {
-        await loadDoctors();
-    }
+    if (!list || !conversation || !title) return;
 
     list.textContent = "جاري تحميل رسائل الأطباء...";
 
     try {
-        const data = await adminFetch("/api/admin/support-messages");
-        const messages = Array.isArray(data.messages) ? data.messages : [];
-
-        if (!messages.length) {
-            list.textContent = "لا توجد رسائل حتى الآن.";
-            document.getElementById("supportConversation").textContent =
-                "لا توجد محادثة لعرضها.";
-            return;
+        if (!Array.isArray(doctors) || !doctors.length) {
+            await loadDoctors();
         }
 
-        const doctorIds = [...new Set(
-            messages.map(item => Number(item.doctorId))
-                .filter(id => Number.isSafeInteger(id) && id > 0)
-        )];
+        const data = await adminFetch("/api/admin/support-messages");
+        if (requestId !== supportInboxRequestId) return;
 
-        const doctorsById = new Map(
-            doctors.map(doctor => [Number(doctor.id), doctor])
-        );
+        const messages = Array.isArray(data.messages)
+            ? data.messages
+            : [];
 
         list.replaceChildren();
 
+        if (!messages.length) {
+            list.textContent = "لا توجد رسائل حتى الآن.";
+            conversation.textContent = "لا توجد محادثة لعرضها.";
+            title.textContent = "المحادثة";
+            selectedSupportDoctorIdForChat = null;
+            return;
+        }
+
+        const doctorsById = new Map(
+            (Array.isArray(doctors) ? doctors : []).map(doctor => [
+                Number(doctor.id),
+                doctor
+            ])
+        );
+
+        const groups = new Map();
+
+        messages.forEach(item => {
+            const doctorId = Number(item.doctorId);
+            if (!Number.isSafeInteger(doctorId) || doctorId <= 0) return;
+
+            if (!groups.has(doctorId)) groups.set(doctorId, []);
+            groups.get(doctorId).push(item);
+        });
+
+        const doctorIds = [...groups.keys()].sort((a, b) => {
+            const latestA = Math.max(
+                ...groups.get(a).map(item => {
+                    const t = Date.parse(item.createdAt || "");
+                    return Number.isNaN(t) ? 0 : t;
+                })
+            );
+            const latestB = Math.max(
+                ...groups.get(b).map(item => {
+                    const t = Date.parse(item.createdAt || "");
+                    return Number.isNaN(t) ? 0 : t;
+                })
+            );
+            return latestB - latestA;
+        });
+
         doctorIds.forEach(doctorId => {
             const doctor = doctorsById.get(doctorId);
-            const doctorMessages = messages.filter(
-                item => Number(item.doctorId) === doctorId
-            );
+            const doctorMessages = groups.get(doctorId);
+            const latest = doctorMessages.reduce((best, item) => {
+                const t = Date.parse(item.createdAt || "");
+                const bt = Date.parse(best?.createdAt || "");
+                return (Number.isNaN(t) ? 0 : t) >=
+                    (Number.isNaN(bt) ? 0 : bt) ? item : best;
+            }, null);
 
             const button = document.createElement("button");
             button.type = "button";
             button.className = "btn btn-light";
-            button.style.cssText =
-                "display:block;width:100%;margin:8px 0;text-align:right;";
+            button.style.cssText = [
+                "display:block",
+                "width:100%",
+                "margin:8px 0",
+                "padding:12px",
+                "text-align:right",
+                "border:1px solid #e5dced",
+                "border-radius:12px",
+                "white-space:normal"
+            ].join(";");
 
             const name = document.createElement("strong");
-            name.textContent = doctor
-                ? doctor.name
-                : `الطبيب رقم ${doctorId}`;
+            name.textContent = doctor?.name || `الطبيب رقم ${doctorId}`;
+            name.style.display = "block";
+
+            const specialty = document.createElement("div");
+            specialty.style.cssText = "font-size:12px;opacity:.75;margin-top:4px;";
+            specialty.textContent = doctor
+                ? (doctor.specialty || doctor.speciality || "طبيب مسجل")
+                : `المعرّف: ${doctorId}`;
 
             const preview = document.createElement("div");
-            preview.style.cssText =
-                "font-size:12px;margin-top:5px;opacity:.8;";
-
-            const latest = doctorMessages[doctorMessages.length - 1];
+            preview.style.cssText = "font-size:13px;margin-top:7px;overflow-wrap:anywhere;";
             preview.textContent = latest
-                ? String(latest.message || "").slice(0, 90)
+                ? `${latest.sender === "admin" ? "الإدارة: " : "الطبيب: "}${String(latest.message || "").slice(0, 90)}`
                 : "لا توجد رسائل";
 
-            button.append(name, preview);
+            const time = document.createElement("small");
+            const parsed = Date.parse(latest?.createdAt || "");
+            time.style.cssText = "display:block;font-size:11px;opacity:.7;margin-top:5px;";
+            time.textContent = Number.isNaN(parsed)
+                ? ""
+                : new Date(parsed).toLocaleString("ar-DZ");
+
+            if (Number(selectedSupportDoctorIdForChat) === doctorId) {
+                button.style.border = "2px solid #8b5bb5";
+                button.style.background = "#f4edf9";
+            }
+
+            button.append(name, specialty, preview, time);
             button.addEventListener("click", () => {
                 loadAdminSupportConversation(doctorId);
             });
@@ -7670,48 +7733,74 @@ async function loadSupportInbox() {
             list.appendChild(button);
         });
 
-        if (selectedSupportDoctorIdForChat !== null &&
-            doctorIds.includes(selectedSupportDoctorIdForChat)) {
-            await loadAdminSupportConversation(
-                selectedSupportDoctorIdForChat
-            );
+        if (
+            selectedSupportDoctorIdForChat !== null &&
+            groups.has(Number(selectedSupportDoctorIdForChat))
+        ) {
+            await loadAdminSupportConversation(selectedSupportDoctorIdForChat);
+        } else {
+            selectedSupportDoctorIdForChat = null;
+            title.textContent = "اختر طبيبًا لعرض المحادثة";
+            conversation.textContent = "اختر طبيبًا من القائمة.";
         }
     } catch (error) {
-        list.textContent = error.message || "تعذر تحميل الرسائل.";
+        if (requestId === supportInboxRequestId) {
+            list.textContent = error.message || "تعذر تحميل الرسائل.";
+        }
     }
 }
 
 async function loadAdminSupportConversation(doctorId) {
-    const conversation =
-        document.getElementById("supportConversation");
+    const id = Number(doctorId);
 
-    const title =
-        document.getElementById("supportConversationTitle");
+    if (!Number.isSafeInteger(id) || id <= 0) return;
 
-    selectedSupportDoctorIdForChat = Number(doctorId);
+    selectedSupportDoctorIdForChat = id;
+    const requestId = ++supportConversationRequestId;
+
+    const conversation = document.getElementById("supportConversation");
+    const title = document.getElementById("supportConversationTitle");
 
     conversation.textContent = "جاري تحميل المحادثة...";
-    title.textContent = `محادثة الطبيب رقم ${doctorId}`;
+    const doctor = (Array.isArray(doctors) ? doctors : []).find(
+        item => Number(item.id) === id
+    );
+
+    title.textContent = doctor?.name
+        ? `محادثة: ${doctor.name}`
+        : `محادثة الطبيب رقم ${id}`;
 
     try {
         const data = await adminFetch(
             "/api/admin/support-messages?doctorId=" +
-            encodeURIComponent(doctorId)
+            encodeURIComponent(id)
         );
+
+        if (
+            requestId !== supportConversationRequestId ||
+            Number(selectedSupportDoctorIdForChat) !== id
+        ) return;
 
         const messages = Array.isArray(data.messages)
             ? data.messages
             : [];
 
+        messages.sort((a, b) => {
+            const ta = Date.parse(a.createdAt || "");
+            const tb = Date.parse(b.createdAt || "");
+            return (Number.isNaN(ta) ? 0 : ta) -
+                   (Number.isNaN(tb) ? 0 : tb);
+        });
+
         conversation.replaceChildren();
 
         if (!messages.length) {
             conversation.textContent = "لا توجد رسائل في هذه المحادثة.";
+            return;
         }
 
         messages.forEach(item => {
             const bubble = document.createElement("div");
-
             bubble.style.cssText =
                 "padding:12px;margin:8px 0;border-radius:12px;" +
                 "background:" +
@@ -7736,27 +7825,19 @@ async function loadAdminSupportConversation(doctorId) {
             conversation.appendChild(bubble);
         });
 
-        const doctor = doctors.find(
-            item => Number(item.id) === Number(doctorId)
-        );
-
-        title.textContent = doctor
-            ? `محادثة: ${doctor.name}`
-            : `محادثة الطبيب رقم ${doctorId}`;
-
         conversation.scrollTop = conversation.scrollHeight;
     } catch (error) {
-        conversation.textContent =
-            error.message || "تعذر تحميل المحادثة.";
+        if (requestId === supportConversationRequestId) {
+            conversation.textContent =
+                error.message || "تعذر تحميل المحادثة.";
+        }
     }
 }
-
 
 async function sendAdminSupportReply(event) {
     event.preventDefault();
 
     const doctorId = Number(selectedSupportDoctorIdForChat);
-
     if (!Number.isSafeInteger(doctorId) || doctorId <= 0) {
         showToast("اختر طبيبًا أولاً", "error");
         return;
@@ -7772,64 +7853,19 @@ async function sendAdminSupportReply(event) {
     }
 
     if (button.disabled) return;
-
     button.disabled = true;
 
     try {
         await adminFetch("/api/admin/support-messages", {
             method: "POST",
-            body: {
-                doctorId,
-                message
-            }
+            body: { doctorId, message }
         });
 
         input.value = "";
         showToast("تم إرسال الرد");
 
-        // تحديث قائمة المحادثات؛ الدالة نفسها تحدّث المحادثة المختارة.
+        // لا نغيّر الطبيب المختار ولا نحمّل المحادثة مرتين.
         await loadSupportInbox();
-
-    } catch (error) {
-        showToast(error.message || "تعذر إرسال الرد", "error");
-    } finally {
-        button.disabled = false;
-    }
-}
- {
-    event.preventDefault();
-
-    if (!selectedSupportDoctorIdForChat) {
-        showToast("اختر طبيبًا أولاً", "error");
-        return;
-    }
-
-    const input = document.getElementById("adminSupportReply");
-    const button = document.getElementById("adminSupportReplyButton");
-    const message = input.value.trim();
-
-    if (!message) {
-        showToast("اكتب الرد أولاً", "error");
-        return;
-    }
-
-    button.disabled = true;
-
-    try {
-        await adminFetch("/api/admin/support-messages", {
-            method: "POST",
-            body: {
-                doctorId: selectedSupportDoctorIdForChat,
-                message
-            }
-        });
-
-        input.value = "";
-        showToast("تم إرسال الرد");
-        await loadSupportInbox();
-        await loadAdminSupportConversation(
-            selectedSupportDoctorIdForChat
-        );
     } catch (error) {
         showToast(error.message || "تعذر إرسال الرد", "error");
     } finally {

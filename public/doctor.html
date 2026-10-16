@@ -10501,12 +10501,11 @@ async function sendSupportMessage(event) {
         const emptyState = container.querySelector(".empty-state");
         if (emptyState) container.replaceChildren();
 
-        container.appendChild(row);
+                container.appendChild(row);
         container.scrollTop = container.scrollHeight;
 
-       
-        // الاحتفاظ بالرسالة الظاهرة وعدم إعادة تحميل المحادثة فورًا
-
+        // إعادة تحميل المحادثة من الخادم بعد نجاح الإرسال
+        await loadSupportMessages();
     } catch (error) {
         showDoctorSupportFeedback(
             error.message || "تعذر إرسال الرسالة.",

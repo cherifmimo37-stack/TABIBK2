@@ -2920,6 +2920,61 @@ tbody tr:hover{
     }
 }
 
+/* TABIBK — CLEAN SUPPORT MESSAGE BUBBLES */
+
+#section-support-messages .support-message-bubble {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: 86%;
+    min-width: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+#section-support-messages .support-message-body {
+    padding: 11px 15px;
+    border: 1px solid #e1d5ee;
+    border-radius: 15px 15px 15px 5px;
+    background: #f3edf9;
+    color: #351044;
+    font-size: 14px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+#section-support-messages .support-message-row.is-admin
+.support-message-body {
+    border-color: #d8bd78;
+    border-radius: 15px 15px 5px 15px;
+    background: linear-gradient(135deg, #4b205e, #351044);
+    color: #fff;
+}
+
+#section-support-messages .support-message-time {
+    align-self: flex-start;
+    padding: 0 5px;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    color: #927da0;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+#section-support-messages .support-message-row.is-admin
+.support-message-time {
+    align-self: flex-end;
+    color: #9a7b35;
+}
+
+#section-support-messages .support-message-avatar {
+    margin-bottom: 18px;
+}
+
 </style>
 
 </head>
@@ -8572,16 +8627,14 @@ const bubble = document.createElement("div");
                 bubble.className = "support-message-bubble " +
                     (isAdmin ? "is-admin" : "is-doctor");
 
-                const sender = document.createElement("div");
-                sender.className = "support-message-sender";
-                sender.textContent = isAdmin ? "الإدارة" : "الطبيب";
+                
+const body = document.createElement("div");
+body.className = "support-message-body";
+body.textContent = String(item.message || "");
 
-                const body = document.createElement("div");
-                body.className = "support-message-body";
-                body.textContent = String(item.message || "");
+const time = document.createElement("div");
+time.className = "support-message-time";
 
-                const time = document.createElement("div");
-                time.className = "support-message-time";
 
                 const parsed = Date.parse(item.createdAt || "");
 
@@ -8598,7 +8651,7 @@ const bubble = document.createElement("div");
                     );
                 }
 
-                bubble.append(sender, body, time);
+                bubble.append(body, time);
                 row.appendChild(bubble);
                 fragment.appendChild(row);
             });

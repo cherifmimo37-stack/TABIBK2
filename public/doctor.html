@@ -21112,57 +21112,7 @@ if (
     }
 }
 
-</style>
-    
-<style id="tabibk-sidebar-mobile-fix">
-@media (max-width: 800px) {
-    #app .sidebar {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: min(285px, 86vw);
-        height: 100vh;
-        height: 100dvh;
-        max-height: 100dvh;
-        overflow-x: hidden;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        z-index: 1201;
-        transform: translateX(110%);
-        transition: transform 0.28s ease !important;
-    }
-
-    #app .sidebar.open {
-        transform: translateX(0);
-    }
-
-    #app .sidebar-overlay {
-        display: block;
-        position: fixed;
-        inset: 0;
-        z-index: 1200;
-        background: rgba(20, 8, 30, 0.48);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: opacity 0.2s ease, visibility 0.2s ease;
-    }
-
-    #app .sidebar-overlay.show {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-    }
-
-    #app .main-area {
-        margin-right: 0;
-        min-width: 0;
-    }
-}
-</style>
-
-/* =========================================================
+    /* =========================================================
    TABIBK — DOCTOR SUPPORT CHAT
    Matching the Admin Support Messages design
    UI only — preserve existing message logic
@@ -21318,6 +21268,55 @@ if (
         max-width: 100%;
     }
 }
+</style>
+    
+<style id="tabibk-sidebar-mobile-fix">
+@media (max-width: 800px) {
+    #app .sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(285px, 86vw);
+        height: 100vh;
+        height: 100dvh;
+        max-height: 100dvh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 1201;
+        transform: translateX(110%);
+        transition: transform 0.28s ease !important;
+    }
+
+    #app .sidebar.open {
+        transform: translateX(0);
+    }
+
+    #app .sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1200;
+        background: rgba(20, 8, 30, 0.48);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    #app .sidebar-overlay.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    #app .main-area {
+        margin-right: 0;
+        min-width: 0;
+    }
+}
+</style>
 
 </body>
 

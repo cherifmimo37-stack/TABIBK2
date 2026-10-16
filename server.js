@@ -5153,8 +5153,6 @@ app.post(
     }
 );
 
-
-
  // Admin: get all support messages, or one doctor's conversation
 app.get(
     "/api/admin/support-messages",

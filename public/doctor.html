@@ -10387,6 +10387,36 @@ async function loadSupportMessages() {
 
 
 
+function showDoctorSupportFeedback(message, isError = false) {
+    const form = document.getElementById("doctorSupportForm");
+    if (!form) return;
+
+    let feedback = document.getElementById("doctorSupportFeedback");
+
+    if (!feedback) {
+        feedback = document.createElement("div");
+        feedback.id = "doctorSupportFeedback";
+        feedback.setAttribute("role", "status");
+        feedback.style.cssText = `
+            margin: 12px 0;
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.7;
+            text-align: right;
+        `;
+        form.parentNode.insertBefore(feedback, form);
+    }
+
+    feedback.textContent = message;
+    feedback.style.background = isError ? "#fff0f0" : "#f3edf9";
+    feedback.style.color = isError ? "#a12626" : "#351044";
+    feedback.style.border = isError
+        ? "1px solid #e7b2b2"
+        : "1px solid #d8bd78";
+}
+
 async function sendSupportMessage(event) {
 
     event.preventDefault();
@@ -10403,7 +10433,7 @@ async function sendSupportMessage(event) {
 
     if (!message) {
 
-        alert("اكتب رسالتك أولاً.");
+        showDoctorSupportFeedback("اكتب رسالتك أولاً.", true);
 
         return;
     }
@@ -10424,15 +10454,16 @@ async function sendSupportMessage(event) {
 
         input.value = "";
 
-        alert("تم إرسال رسالتك للإدارة.");
+        showDoctorSupportFeedback("✅ تم إرسال رسالتك للإدارة بنجاح.");
 
         await loadSupportMessages();
 
     } catch (error) {
 
-        alert(
-            error.message || "تعذر إرسال الرسالة."
-        );
+        showDoctorSupportFeedback(
+    error.message || "تعذر إرسال الرسالة.",
+    true
+);
 
     } finally {
 

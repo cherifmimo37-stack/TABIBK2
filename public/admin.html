@@ -2311,6 +2311,299 @@ tbody tr:hover{
         max-height: 55vh;
     }
 }
+
+      /* =====================================================
+   TABIBK SUPPORT CHAT — PREMIUM RESPONSIVE UI
+===================================================== */
+
+#section-support-messages,
+#section-support-messages * {
+    box-sizing: border-box;
+}
+
+#section-support-messages {
+    width: 100%;
+    min-width: 0;
+}
+
+#section-support-messages .support-messages-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.6fr);
+    gap: 18px;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+}
+
+#section-support-messages .support-messages-layout > .card {
+    min-width: 0;
+    margin: 0;
+    border: 1px solid rgba(185, 154, 86, 0.3);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 8px 28px rgba(53, 16, 68, 0.07);
+}
+
+#section-support-messages .support-chat-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+}
+
+#section-support-messages .support-chat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 15px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #eee6f2;
+    min-width: 0;
+}
+
+#section-support-messages .support-doctor-avatar {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #f4edf8;
+    border: 2px solid #c9a24d;
+    padding: 2px;
+}
+
+#section-support-messages .support-chat-heading {
+    flex: 1;
+    min-width: 0;
+}
+
+#section-support-messages .support-chat-heading h3 {
+    margin: 0;
+    color: #351044;
+    overflow-wrap: anywhere;
+}
+
+#section-support-messages .support-chat-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+    color: #786b80;
+    font-size: 12px;
+}
+
+#section-support-messages .support-chat-status span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #b99a56;
+}
+
+#section-support-messages .support-back-button {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #e2d5eb;
+    border-radius: 10px;
+    padding: 9px 11px;
+    background: #faf7fd;
+    color: #542b69;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#section-support-messages #supportConversation {
+    flex: 1;
+    min-height: 240px;
+    max-height: 480px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 14px;
+    border-radius: 14px;
+    background:
+        radial-gradient(circle at top right, #f5eef9 0, transparent 48%),
+        #fbfafc;
+    border: 1px solid #eee6f2;
+    scroll-behavior: smooth;
+}
+
+#section-support-messages .support-message-row {
+    display: flex;
+    width: 100%;
+    margin: 12px 0;
+}
+
+#section-support-messages .support-message-row.is-admin {
+    justify-content: flex-start;
+}
+
+#section-support-messages .support-message-row.is-doctor {
+    justify-content: flex-end;
+}
+
+#section-support-messages .support-message-bubble {
+    width: fit-content;
+    max-width: 86%;
+    min-width: 90px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    box-shadow: 0 3px 10px rgba(35, 20, 45, 0.05);
+}
+
+#section-support-messages .is-admin .support-message-bubble {
+    background: #f0e7f7;
+    color: #351044;
+    border: 1px solid #e2d2ed;
+    border-bottom-right-radius: 5px;
+}
+
+#section-support-messages .is-doctor .support-message-bubble {
+    background: #fff;
+    color: #302637;
+    border: 1px solid #e8d9b6;
+    border-bottom-left-radius: 5px;
+}
+
+#section-support-messages .support-message-sender {
+    display: block;
+    margin-bottom: 5px;
+    color: #75458a;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+#section-support-messages .support-message-body {
+    margin: 0;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+#section-support-messages .support-message-time {
+    display: block;
+    margin-top: 7px;
+    color: #82768a;
+    font-size: 10px;
+}
+
+#section-support-messages #adminSupportReplyForm {
+    margin-top: 14px;
+    padding: 12px;
+    border: 1px solid #e6d9ee;
+    border-radius: 16px;
+    background: #fff;
+}
+
+#section-support-messages #adminSupportReplyForm label {
+    display: block;
+    margin-bottom: 8px;
+    color: #351044;
+    font-weight: 800;
+}
+
+#section-support-messages #adminSupportReply {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 95px;
+    resize: vertical;
+    padding: 13px 14px;
+    border: 1px solid #d9c8e5;
+    border-radius: 12px;
+    background: #fcfaff;
+    color: #302637;
+    font: inherit;
+    line-height: 1.8;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+#section-support-messages #adminSupportReply:focus {
+    border-color: #81529a;
+    box-shadow: 0 0 0 3px rgba(129, 82, 154, .12);
+}
+
+#section-support-messages #adminSupportReplyButton {
+    width: 100%;
+    min-height: 47px;
+    margin-top: 10px;
+    border-radius: 12px;
+    font-weight: 800;
+}
+
+#section-support-messages #adminSupportReplyButton:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+#section-support-messages #supportDoctorsList button {
+    text-align: right;
+    transition: border-color .2s, background .2s;
+}
+
+#section-support-messages #supportDoctorsList button:hover {
+    border-color: #b99a56 !important;
+}
+
+@media (max-width: 700px) {
+    #section-support-messages .support-messages-layout {
+        display: block;
+    }
+
+    #section-support-messages .support-messages-layout > .card {
+        margin-bottom: 12px;
+        padding: 12px;
+        border-radius: 15px;
+    }
+
+    #section-support-messages .support-chat-card {
+        display: none;
+        min-height: 0;
+    }
+
+    #section-support-messages.support-chat-open
+    .support-doctors-card {
+        display: none;
+    }
+
+    #section-support-messages.support-chat-open
+    .support-chat-card {
+        display: flex;
+    }
+
+    #section-support-messages .support-back-button {
+        display: inline-flex;
+    }
+
+    #section-support-messages .support-chat-header {
+        gap: 9px;
+        flex-wrap: wrap;
+    }
+
+    #section-support-messages .support-doctor-avatar {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+    }
+
+    #section-support-messages #supportConversation {
+        min-height: 260px;
+        max-height: 52vh;
+        padding: 10px;
+    }
+
+    #section-support-messages .support-message-bubble {
+        max-width: 94%;
+    }
+
+    #section-support-messages #adminSupportReply {
+        min-height: 85px;
+        font-size: 16px;
+    }
+}
       
 </style>
 
@@ -3452,8 +3745,8 @@ tbody tr:hover{
 
         <div class="support-messages-layout">
 
-            <div class="card">
-                <h3>الأطباء</h3>
+            <div class="card support-doctors-card">
+    <h3>الأطباء</h3>
 
                 <div id="supportDoctorsList">
                     <div class="loading">
@@ -3462,11 +3755,36 @@ tbody tr:hover{
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card support-chat-card">
 
-                <h3 id="supportConversationTitle">
-                    المحادثة
-                </h3>
+    <div class="support-chat-header">
+
+        <button
+            type="button"
+            id="supportBackToList"
+            class="support-back-button"
+            onclick="backToSupportDoctors()"
+        >
+            <i class="fa-solid fa-arrow-right"></i>
+            رجوع إلى الأطباء
+        </button>
+
+        <img
+            id="supportDoctorAvatar"
+            src="/images/doctor.png"
+            alt="صورة الطبيب"
+            class="support-doctor-avatar"
+        >
+
+        <div class="support-chat-heading">
+            <h3 id="supportConversationTitle">المحادثة</h3>
+            <span class="support-chat-status">
+                <span></span>
+                التواصل مع الإدارة
+            </span>
+        </div>
+
+    </div>
 
                 <div
                     id="supportConversation"
@@ -4693,8 +5011,14 @@ function showSection(
         if(name === "notifications")
         loadNotifications();
 
-    if(name === "support-messages")
-        loadSupportInbox();
+    
+if (name === "support-messages") {
+    loadSupportInbox();
+    startSupportAutoRefresh();
+} else {
+    stopSupportAutoRefresh();
+}
+
 }
 
 document
@@ -7808,18 +8132,26 @@ async function loadSupportInbox() {
     }
 }
 
+
 async function loadAdminSupportConversation(doctorId) {
     const id = Number(doctorId);
 
     if (!Number.isSafeInteger(id) || id <= 0) return;
 
-    selectedSupportDoctorIdForChat = id;
-    const requestId = ++supportConversationRequestId;
-
     const conversation = document.getElementById("supportConversation");
     const title = document.getElementById("supportConversationTitle");
+    const avatar = document.getElementById("supportDoctorAvatar");
 
-    conversation.textContent = "جاري تحميل المحادثة...";
+    if (!conversation || !title) return;
+
+    selectedSupportDoctorIdForChat = id;
+
+    if (typeof updateSupportChatMobileView === "function") {
+        updateSupportChatMobileView();
+    }
+
+    const requestId = ++supportConversationRequestId;
+
     const doctor = (Array.isArray(doctors) ? doctors : []).find(
         item => Number(item.id) === id
     );
@@ -7827,6 +8159,31 @@ async function loadAdminSupportConversation(doctorId) {
     title.textContent = doctor?.name
         ? `محادثة: ${doctor.name}`
         : `محادثة الطبيب رقم ${id}`;
+
+    if (avatar) {
+        avatar.src = "/images/doctor.png";
+        avatar.alt = doctor?.name
+            ? `صورة ${doctor.name}`
+            : "صورة الطبيب";
+
+        avatar.onerror = function () {
+            this.onerror = null;
+            this.src = "/images/doctor.png";
+        };
+    }
+
+    const replyInput = document.getElementById("adminSupportReply");
+    const hadTypedReply = Boolean(replyInput?.value.trim());
+
+    // نحافظ على موضع القراءة أثناء التحديث التلقائي.
+    const wasNearBottom =
+        conversation.scrollHeight -
+        conversation.scrollTop -
+        conversation.clientHeight < 100;
+
+    if (!conversation.childElementCount) {
+        conversation.textContent = "جاري تحميل المحادثة...";
+    }
 
     try {
         const data = await adminFetch(
@@ -7837,53 +8194,80 @@ async function loadAdminSupportConversation(doctorId) {
         if (
             requestId !== supportConversationRequestId ||
             Number(selectedSupportDoctorIdForChat) !== id
-        ) return;
+        ) {
+            return;
+        }
 
         const messages = Array.isArray(data.messages)
-            ? data.messages
+            ? [...data.messages]
             : [];
 
         messages.sort((a, b) => {
             const ta = Date.parse(a.createdAt || "");
             const tb = Date.parse(b.createdAt || "");
+
             return (Number.isNaN(ta) ? 0 : ta) -
                    (Number.isNaN(tb) ? 0 : tb);
         });
 
-        conversation.replaceChildren();
+        const fragment = document.createDocumentFragment();
 
         if (!messages.length) {
-            conversation.textContent = "لا توجد رسائل في هذه المحادثة.";
-            return;
+            const empty = document.createElement("div");
+            empty.className = "empty";
+            empty.textContent = "لا توجد رسائل في هذه المحادثة بعد.";
+            fragment.appendChild(empty);
+        } else {
+            messages.forEach(item => {
+                const isAdmin = item.sender === "admin";
+
+                const row = document.createElement("div");
+                row.className = "support-message-row " +
+                    (isAdmin ? "is-admin" : "is-doctor");
+
+                const bubble = document.createElement("div");
+                bubble.className = "support-message-bubble " +
+                    (isAdmin ? "is-admin" : "is-doctor");
+
+                const sender = document.createElement("div");
+                sender.className = "support-message-sender";
+                sender.textContent = isAdmin ? "الإدارة" : "الطبيب";
+
+                const body = document.createElement("div");
+                body.className = "support-message-body";
+                body.textContent = String(item.message || "");
+
+                const time = document.createElement("div");
+                time.className = "support-message-time";
+
+                const parsed = Date.parse(item.createdAt || "");
+
+                if (!Number.isNaN(parsed)) {
+                    time.textContent = new Date(parsed).toLocaleString(
+                        "ar-DZ",
+                        {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        }
+                    );
+                }
+
+                bubble.append(sender, body, time);
+                row.appendChild(bubble);
+                fragment.appendChild(row);
+            });
         }
 
-        messages.forEach(item => {
-            const bubble = document.createElement("div");
-            bubble.style.cssText =
-                "padding:12px;margin:8px 0;border-radius:12px;" +
-                "background:" +
-                (item.sender === "admin" ? "#eee5f5" : "#f5f1e8") +
-                ";white-space:pre-wrap;overflow-wrap:anywhere;";
+        conversation.replaceChildren(fragment);
 
-            const sender = document.createElement("strong");
-            sender.textContent =
-                item.sender === "admin" ? "الإدارة" : "الطبيب";
-
-            const body = document.createElement("p");
-            body.textContent = String(item.message || "");
-            body.style.margin = "6px 0";
-
-            const time = document.createElement("small");
-            const parsed = Date.parse(item.createdAt || "");
-            time.textContent = Number.isNaN(parsed)
-                ? ""
-                : new Date(parsed).toLocaleString("ar-DZ");
-
-            bubble.append(sender, body, time);
-            conversation.appendChild(bubble);
-        });
-
-        conversation.scrollTop = conversation.scrollHeight;
+        // ننزل لآخر الرسائل عند فتح المحادثة أول مرة،
+        // أو إذا كان المستخدم يتابع أحدث الرسائل.
+        if (!hadTypedReply || wasNearBottom) {
+            conversation.scrollTop = conversation.scrollHeight;
+        }
     } catch (error) {
         if (requestId === supportConversationRequestId) {
             conversation.textContent =
@@ -7891,6 +8275,7 @@ async function loadAdminSupportConversation(doctorId) {
         }
     }
 }
+
 
 async function sendAdminSupportReply(event) {
     event.preventDefault();
@@ -7931,6 +8316,64 @@ async function sendAdminSupportReply(event) {
     }
 }
 
+      
+
+/* ============================================================
+   TABIBK - SUPPORT CHAT AUTO REFRESH
+============================================================ */
+
+let supportInboxRefreshTimer = null;
+let supportConversationRefreshTimer = null;
+
+function startSupportAutoRefresh() {
+    // منع إنشاء مؤقّتات مكررة.
+    stopSupportAutoRefresh();
+
+    supportInboxRefreshTimer = setInterval(() => {
+        const section = document.getElementById(
+            "section-support-messages"
+        );
+
+        if (!section || !section.classList.contains("active")) {
+            return;
+        }
+
+        loadSupportInbox();
+    }, 15000);
+
+    supportConversationRefreshTimer = setInterval(() => {
+        const section = document.getElementById(
+            "section-support-messages"
+        );
+
+        const doctorId = Number(selectedSupportDoctorIdForChat);
+
+        if (
+            !section ||
+            !section.classList.contains("active") ||
+            !Number.isSafeInteger(doctorId) ||
+            doctorId <= 0
+        ) {
+            return;
+        }
+
+        loadAdminSupportConversation(doctorId);
+    }, 5000);
+}
+
+function stopSupportAutoRefresh() {
+    if (supportInboxRefreshTimer !== null) {
+        clearInterval(supportInboxRefreshTimer);
+        supportInboxRefreshTimer = null;
+    }
+
+    if (supportConversationRefreshTimer !== null) {
+        clearInterval(supportConversationRefreshTimer);
+        supportConversationRefreshTimer = null;
+    }
+}
+
+      
 /* ============================================================
    TABIBK - MULTIPLE PATIENT ADS MANAGER
 ============================================================ */
@@ -8227,6 +8670,22 @@ document.getElementById("patientAdsList")?.addEventListener("click", async funct
     }
 });
 
+      function backToSupportDoctors() {
+    const section = document.getElementById("section-support-messages");
+
+    if (section) {
+        section.classList.remove("support-chat-open");
+    }
+}
+
+function updateSupportChatMobileView() {
+    const section = document.getElementById("section-support-messages");
+
+    if (section && window.matchMedia("(max-width: 700px)").matches) {
+        section.classList.add("support-chat-open");
+    }
+}
+      
 /* ============================================================
    END MULTIPLE PATIENT ADS MANAGER
 ============================================================ */

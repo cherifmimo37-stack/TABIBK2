@@ -2734,6 +2734,45 @@ tbody tr:hover{
     }
 }
   
+/* TABIBK — Doctor avatar beside incoming messages */
+
+#section-support-messages .support-message-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    width: 100%;
+}
+
+#section-support-messages .support-message-row.is-doctor {
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+#section-support-messages .support-message-row.is-admin {
+    justify-content: flex-end;
+}
+
+#section-support-messages .support-message-avatar {
+    display: block;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    border: 1.5px solid #c9a24d;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #f4edf8;
+}
+
+#section-support-messages .support-message-row.is-doctor
+.support-message-bubble {
+    max-width: calc(100% - 42px);
+}
+
+#section-support-messages .support-message-row.is-admin
+.support-message-bubble {
+    max-width: 86%;
+}
+
 </style>
 
 </head>
@@ -8354,11 +8393,27 @@ async function loadAdminSupportConversation(doctorId) {
             messages.forEach(item => {
                 const isAdmin = item.sender === "admin";
 
-                const row = document.createElement("div");
-                row.className = "support-message-row " +
-                    (isAdmin ? "is-admin" : "is-doctor");
+                
+const row = document.createElement("div");
+row.className = "support-message-row " +
+    (isAdmin ? "is-admin" : "is-doctor");
 
-                const bubble = document.createElement("div");
+if (!isAdmin) {
+    const messageAvatar = document.createElement("img");
+    messageAvatar.className = "support-message-avatar";
+    messageAvatar.src = "/images/doctor.png";
+    messageAvatar.alt = "الطبيب";
+    messageAvatar.onerror = function () {
+        this.onerror = null;
+        this.style.display = "none";
+    };
+
+    row.appendChild(messageAvatar);
+}
+
+const bubble = document.createElement("div");
+
+                  
                 bubble.className = "support-message-bubble " +
                     (isAdmin ? "is-admin" : "is-doctor");
 

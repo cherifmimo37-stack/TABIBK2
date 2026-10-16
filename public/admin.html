@@ -2975,6 +2975,65 @@ tbody tr:hover{
     margin-bottom: 18px;
 }
 
+/* TABIBK — ONE SINGLE MESSAGE CARD */
+
+#section-support-messages .support-message-bubble {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    width: fit-content;
+    max-width: 86%;
+    min-width: 0;
+    padding: 10px 13px !important;
+    border: 1px solid #d8c8e5 !important;
+    border-radius: 15px !important;
+    background: #f3edf9 !important;
+    box-shadow: 0 3px 9px rgba(53, 16, 68, 0.07) !important;
+}
+
+#section-support-messages .support-message-body {
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #351044 !important;
+    font-size: 14px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+#section-support-messages .support-message-time {
+    align-self: flex-start !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #927da0 !important;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+#section-support-messages .support-message-row.is-admin
+.support-message-bubble {
+    border-color: #d8bd78 !important;
+    background: linear-gradient(135deg, #4b205e, #351044) !important;
+}
+
+#section-support-messages .support-message-row.is-admin
+.support-message-body {
+    color: #fff !important;
+}
+
+#section-support-messages .support-message-row.is-admin
+.support-message-time {
+    align-self: flex-end !important;
+    color: #f1d78e !important;
+}
+
 </style>
 
 </head>

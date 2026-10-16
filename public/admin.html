@@ -8861,13 +8861,29 @@ document.getElementById("patientAdsList")?.addEventListener("click", async funct
     }
 });
 
-      function backToSupportDoctors() {
+      
+function backToSupportDoctors() {
     const section = document.getElementById("section-support-messages");
 
     if (section) {
         section.classList.remove("support-chat-open");
     }
+
+    selectedSupportDoctorIdForChat = null;
+    supportConversationRequestId++;
+
+    const title = document.getElementById("supportConversationTitle");
+    const conversation = document.getElementById("supportConversation");
+
+    if (title) {
+        title.textContent = "اختر طبيبًا لعرض المحادثة";
+    }
+
+    if (conversation) {
+        conversation.textContent = "اختر طبيبًا من القائمة.";
+    }
 }
+
 
 function updateSupportChatMobileView() {
     const section = document.getElementById("section-support-messages");

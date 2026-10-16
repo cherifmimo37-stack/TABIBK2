@@ -21162,6 +21162,163 @@ if (
 }
 </style>
 
+/* =========================================================
+   TABIBK — DOCTOR SUPPORT CHAT
+   Matching the Admin Support Messages design
+   UI only — preserve existing message logic
+========================================================= */
+
+#section-support > .card {
+    padding: 20px;
+    border: 1px solid #dfca8b;
+    border-radius: 20px;
+    background: linear-gradient(160deg, #ffffff 0%, #faf6ff 100%);
+    box-shadow: 0 8px 24px rgba(53, 16, 68, 0.08);
+}
+
+#section-support > .card > .section-heading {
+    padding-bottom: 15px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #eadbb5;
+}
+
+#section-support > .card > .section-heading h2 {
+    color: #351044;
+    font-weight: 900;
+}
+
+#section-support #doctorSupportMessages {
+    box-sizing: border-box;
+    min-height: 220px;
+    max-height: 420px;
+    overflow-y: auto;
+    padding: 14px !important;
+    margin-bottom: 14px;
+    border: 1px solid #dfca8b;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: inset 0 2px 8px rgba(53, 16, 68, 0.04);
+    scrollbar-width: thin;
+    scrollbar-color: #b99bce #f5eff9;
+}
+
+#section-support #doctorSupportMessages > div {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+#section-support #doctorSupportMessages > div > div {
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+}
+
+#section-support #doctorSupportMessages strong {
+    font-weight: 900;
+}
+
+#section-support #doctorSupportMessages small {
+    display: block;
+}
+
+#section-support #doctorSupportForm {
+    margin-top: 8px;
+    padding: 16px;
+    border: 1px solid #dfca8b;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #ffffff 0%, #fbf8ff 100%);
+}
+
+#section-support #doctorSupportForm label {
+    display: block;
+    margin-bottom: 8px;
+    color: #351044;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+#section-support #doctorSupportInput {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 110px;
+    margin: 10px 0 14px !important;
+    padding: 13px 15px;
+    border: 1px solid #d8bd78;
+    border-radius: 13px;
+    outline: none;
+    background: #ffffff;
+    color: #351044;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.8;
+    direction: rtl;
+    text-align: right;
+    resize: vertical;
+    box-shadow: 0 3px 10px rgba(53, 16, 68, 0.04);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#section-support #doctorSupportInput:focus {
+    border-color: #8b63a4;
+    box-shadow: 0 0 0 3px rgba(139, 99, 164, 0.13);
+}
+
+#section-support #doctorSupportInput::placeholder {
+    color: #9a8aa5;
+}
+
+#section-support .action-button {
+    box-sizing: border-box;
+    min-height: 44px;
+    padding: 11px 18px;
+    border: 1px solid #c5a04b;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4b205e 0%, #351044 100%);
+    color: #ffffff;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(53, 16, 68, 0.13);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#section-support .action-button:hover {
+    box-shadow: 0 6px 16px rgba(53, 16, 68, 0.2);
+}
+
+#section-support .action-button:active {
+    transform: translateY(1px);
+}
+
+#section-support .action-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+#section-support > .card > .action-button {
+    margin-bottom: 16px !important;
+}
+
+@media (max-width: 600px) {
+    #section-support > .card {
+        padding: 12px;
+        border-radius: 16px;
+    }
+
+    #section-support #doctorSupportMessages {
+        min-height: 200px;
+        max-height: 380px;
+        padding: 10px !important;
+        border-radius: 13px;
+    }
+
+    #section-support #doctorSupportForm {
+        padding: 12px;
+    }
+
+    #section-support .action-button {
+        max-width: 100%;
+    }
+}
+
 </body>
 
 </html>

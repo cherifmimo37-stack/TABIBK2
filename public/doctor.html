@@ -10504,12 +10504,10 @@ async function sendSupportMessage(event) {
         container.appendChild(row);
         container.scrollTop = container.scrollHeight;
 
-        // إعادة تحميل النسخة المحفوظة من الخادم
-        try {
-            await loadSupportMessages();
-        } catch (refreshError) {
-            console.error("تعذر تحديث المحادثة:", refreshError);
-        }
+        // تحديث المحادثة دون إزالة الرسالة التي ظهرت مباشرة
+loadSupportMessages().catch(error => {
+    console.error("تعذر تحديث المحادثة:", error);
+});
 
     } catch (error) {
         showDoctorSupportFeedback(

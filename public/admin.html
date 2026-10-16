@@ -2773,6 +2773,153 @@ tbody tr:hover{
     max-width: 86%;
 }
 
+/* TABIBK — PREMIUM DOCTOR SUPPORT LIST */
+
+#section-support-messages .support-doctors-card {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid #dfca8b;
+    border-radius: 20px;
+    background: linear-gradient(160deg, #fff 0%, #faf6ff 100%);
+    box-shadow: 0 8px 24px rgba(53, 16, 68, 0.08);
+}
+
+#section-support-messages .support-doctors-card > h3 {
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    color: #351044;
+    font-size: 19px;
+    font-weight: 900;
+    border-bottom: 1px solid #eadbb5;
+}
+
+#section-support-messages .support-doctor-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 13px;
+    width: 100%;
+    min-width: 0;
+    margin: 0 0 12px;
+    padding: 14px;
+    direction: rtl;
+    text-align: right;
+    white-space: normal;
+    border: 1px solid #d8bd78;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #fff 0%, #fbf8ff 100%);
+    color: #351044;
+    box-shadow: 0 4px 12px rgba(53, 16, 68, 0.06);
+    cursor: pointer;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+}
+
+#section-support-messages .support-doctor-item:hover {
+    border-color: #a77b25;
+    box-shadow: 0 7px 18px rgba(53, 16, 68, 0.12);
+}
+
+#section-support-messages .support-doctor-item.is-selected {
+    border: 2px solid #c5a04b;
+    background: linear-gradient(135deg, #351044, #58316d);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(53, 16, 68, 0.2);
+}
+
+#section-support-messages .support-doctor-list-avatar {
+    display: block;
+    flex: 0 0 62px;
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+    border: 2px solid #d8bd78;
+    border-radius: 50%;
+    background: #f4edf9;
+}
+
+#section-support-messages .support-doctor-list-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    min-width: 0;
+}
+
+#section-support-messages .support-doctor-list-name {
+    display: block;
+    width: 100%;
+    color: #351044;
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+#section-support-messages .support-doctor-list-specialty {
+    display: block;
+    color: #78608b;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+#section-support-messages .support-doctor-list-date {
+    display: block;
+    color: #9a772d;
+    font-size: 11px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+#section-support-messages .support-doctor-item.is-selected
+.support-doctor-list-name {
+    color: #fff;
+}
+
+#section-support-messages .support-doctor-item.is-selected
+.support-doctor-list-specialty {
+    color: #eadcf4;
+}
+
+#section-support-messages .support-doctor-item.is-selected
+.support-doctor-list-date {
+    color: #f1d78e;
+}
+
+@media (max-width: 700px) {
+    #section-support-messages .support-doctors-card {
+        padding: 12px;
+    }
+
+    #section-support-messages .support-doctor-item {
+        gap: 11px;
+        padding: 12px;
+        margin-bottom: 10px;
+        border-radius: 14px;
+    }
+
+    #section-support-messages .support-doctor-list-avatar {
+        flex-basis: 54px;
+        width: 54px;
+        height: 54px;
+    }
+
+    #section-support-messages .support-doctor-list-name {
+        font-size: 14px;
+    }
+
+    #section-support-messages .support-doctor-list-specialty {
+        font-size: 12px;
+    }
+
+    #section-support-messages .support-doctor-list-date {
+        font-size: 10px;
+    }
+}
+
 </style>
 
 </head>
@@ -8230,65 +8377,70 @@ async function loadSupportInbox() {
             return latestB - latestA;
         });
 
-        doctorIds.forEach(doctorId => {
-            const doctor = doctorsById.get(doctorId);
-            const doctorMessages = groups.get(doctorId);
-            const latest = doctorMessages.reduce((best, item) => {
-                const t = Date.parse(item.createdAt || "");
-                const bt = Date.parse(best?.createdAt || "");
-                return (Number.isNaN(t) ? 0 : t) >=
-                    (Number.isNaN(bt) ? 0 : bt) ? item : best;
-            }, null);
+        
+doctorIds.forEach(doctorId => {
+    const doctor = doctorsById.get(doctorId);
+    const doctorMessages = groups.get(doctorId);
 
-            const button = document.createElement("button");
-            button.type = "button";
-            button.className = "btn btn-light";
-            button.style.cssText = [
-                "display:block",
-                "width:100%",
-                "margin:8px 0",
-                "padding:12px",
-                "text-align:right",
-                "border:1px solid #e5dced",
-                "border-radius:12px",
-                "white-space:normal"
-            ].join(";");
+    const latest = doctorMessages.reduce((best, item) => {
+        const t = Date.parse(item.createdAt || "");
+        const bt = Date.parse(best?.createdAt || "");
 
-            const name = document.createElement("strong");
-            name.textContent = doctor?.name || `الطبيب رقم ${doctorId}`;
-            name.style.display = "block";
+        return (Number.isNaN(t) ? 0 : t) >=
+            (Number.isNaN(bt) ? 0 : bt) ? item : best;
+    }, null);
 
-            const specialty = document.createElement("div");
-            specialty.style.cssText = "font-size:12px;opacity:.75;margin-top:4px;";
-            specialty.textContent = doctor
-                ? (doctor.specialty || doctor.speciality || "طبيب مسجل")
-                : `المعرّف: ${doctorId}`;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "support-doctor-item";
 
-            const preview = document.createElement("div");
-            preview.style.cssText = "font-size:13px;margin-top:7px;overflow-wrap:anywhere;";
-            preview.textContent = latest
-                ? `${latest.sender === "admin" ? "الإدارة: " : "الطبيب: "}${String(latest.message || "").slice(0, 90)}`
-                : "لا توجد رسائل";
+    if (Number(selectedSupportDoctorIdForChat) === doctorId) {
+        button.classList.add("is-selected");
+    }
 
-            const time = document.createElement("small");
-            const parsed = Date.parse(latest?.createdAt || "");
-            time.style.cssText = "display:block;font-size:11px;opacity:.7;margin-top:5px;";
-            time.textContent = Number.isNaN(parsed)
-                ? ""
-                : new Date(parsed).toLocaleString("ar-DZ");
+    const avatar = document.createElement("img");
+    avatar.className = "support-doctor-list-avatar";
+    avatar.src = "/images/doctor.png";
+    avatar.alt = "صورة الطبيب";
 
-            if (Number(selectedSupportDoctorIdForChat) === doctorId) {
-                button.style.border = "2px solid #8b5bb5";
-                button.style.background = "#f4edf9";
-            }
+    const details = document.createElement("div");
+    details.className = "support-doctor-list-details";
 
-            button.append(name, specialty, preview, time);
-            button.addEventListener("click", () => {
-                loadAdminSupportConversation(doctorId);
-            });
+    const name = document.createElement("strong");
+    name.className = "support-doctor-list-name";
+    name.textContent = doctor?.name || `الطبيب رقم ${doctorId}`;
 
-            list.appendChild(button);
+    const specialty = document.createElement("span");
+    specialty.className = "support-doctor-list-specialty";
+    specialty.textContent = doctor
+        ? (doctor.specialty || doctor.speciality || "طبيب مسجل")
+        : `المعرّف: ${doctorId}`;
+
+    const date = document.createElement("span");
+    date.className = "support-doctor-list-date";
+
+    const parsed = Date.parse(latest?.createdAt || "");
+
+    date.textContent = Number.isNaN(parsed)
+        ? "تاريخ آخر محادثة غير متوفر"
+        : "آخر محادثة: " + new Date(parsed).toLocaleString("ar-DZ", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit"
         });
+
+    details.append(name, specialty, date);
+    button.append(avatar, details);
+
+    button.addEventListener("click", () => {
+        loadAdminSupportConversation(doctorId);
+    });
+
+    list.appendChild(button);
+});
+
 
         if (
             selectedSupportDoctorIdForChat !== null &&

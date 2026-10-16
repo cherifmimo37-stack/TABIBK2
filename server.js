@@ -5154,26 +5154,66 @@ app.post(
 );
 
 
-// Admin: get all support messages, or one doctor's conversation
+
+ // Admin: get all support messages, or one doctor's conversation
 app.get(
     "/api/admin/support-messages",
     checkAdminKey,
     (req, res) => {
-        const database = readDatabase();
+        try {
+            const database = readDatabase();
 
-        const messages = database.supportMessages || [];
-        const requestedDoctorId = req.query.doctorId;
+            const allMessages = Array.isArray(database.supportMessages)
+                ? database.supportMessages
+                : [];
 
-        const filtered = requestedDoctorId
-            ? messages.filter(
-                item => Number(item.doctorId) === Number(requestedDoctorId)
-            )
-            : messages;
+            const rawDoctorId = req.query.doctorId;
+            let filtered = allMessages;
 
-        res.json({
-            success: true,
-            messages: filtered
-        });
+            if (rawDoctorId !== undefined) {
+                const doctorId = Number(rawDoctorId);
+
+                if (
+                    !Number.isSafeInteger(doctorId) ||
+                    doctorId <= 0
+                ) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "معرّف الطبيب غير صحيح",
+                        messages: []
+                    });
+                }
+
+                filtered = allMessages.filter(
+                    item => Number(item.doctorId) === doctorId
+                );
+            }
+
+            // ترتيب الرسائل من الأقدم إلى الأحدث
+            const messages = [...filtered].sort((a, b) => {
+                const timeA = Date.parse(a.createdAt || "");
+                const timeB = Date.parse(b.createdAt || "");
+
+                const safeA = Number.isNaN(timeA) ? 0 : timeA;
+                const safeB = Number.isNaN(timeB) ? 0 : timeB;
+
+                return safeA - safeB;
+            });
+
+            return res.json({
+                success: true,
+                messages
+            });
+
+        } catch (error) {
+            console.error("Admin support inbox error:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "تعذر تحميل رسائل الأطباء",
+                messages: []
+            });
+        }
     }
 );
 

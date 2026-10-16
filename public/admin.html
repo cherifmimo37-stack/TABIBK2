@@ -2604,7 +2604,136 @@ tbody tr:hover{
         font-size: 16px;
     }
 }
-      
+    
+/* =====================================================
+   TABIBK SUPPORT CHAT — COMPACT PREMIUM FINISH
+===================================================== */
+
+#section-support-messages .support-chat-header {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    flex-wrap: nowrap;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(185, 154, 86, .45);
+    border-radius: 15px;
+    background: linear-gradient(120deg, #351044, #58316d);
+}
+
+#section-support-messages .support-chat-toolbar {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+#section-support-messages .support-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 7px 12px;
+    border: 1px solid #d8bd78;
+    border-radius: 9px;
+    background: #fffaf0;
+    color: #351044;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+#section-support-messages .support-doctor-identity {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 11px;
+    width: 100%;
+    min-width: 0;
+    direction: rtl;
+}
+
+#section-support-messages .support-doctor-avatar {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    border: 2px solid #d8bd78;
+    background: #fff;
+}
+
+#section-support-messages .support-chat-heading {
+    flex: 1;
+    min-width: 0;
+}
+
+#section-support-messages .support-chat-heading h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#section-support-messages .support-chat-status {
+    margin-top: 3px;
+    color: #f1dfb2;
+    font-size: 11px;
+}
+
+#section-support-messages .support-chat-status span {
+    background: #dfbd65;
+}
+
+#section-support-messages #adminSupportReplyForm {
+    padding: 9px;
+}
+
+#section-support-messages #adminSupportReply {
+    min-height: 44px;
+    height: 44px;
+    max-height: 44px;
+    resize: none;
+    overflow-y: auto;
+    padding: 10px 12px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+#section-support-messages #adminSupportReplyButton {
+    min-height: 42px;
+    margin-top: 8px;
+}
+
+@media (max-width: 700px) {
+    #section-support-messages .support-chat-header {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    #section-support-messages .support-doctor-identity {
+        flex-wrap: nowrap;
+    }
+
+    #section-support-messages .support-doctor-avatar {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+    }
+
+    #section-support-messages .support-chat-heading h3 {
+        font-size: 15px;
+    }
+
+    #section-support-messages #adminSupportReply {
+        height: 44px;
+        min-height: 44px;
+        max-height: 44px;
+        resize: none;
+    }
+}
+  
 </style>
 
 </head>
@@ -3757,8 +3886,10 @@ tbody tr:hover{
 
             <div class="card support-chat-card">
 
-    <div class="support-chat-header">
+    
+<div class="support-chat-header">
 
+    <div class="support-chat-toolbar">
         <button
             type="button"
             id="supportBackToList"
@@ -3766,9 +3897,11 @@ tbody tr:hover{
             onclick="backToSupportDoctors()"
         >
             <i class="fa-solid fa-arrow-right"></i>
-            رجوع إلى الأطباء
+            رجوع
         </button>
+    </div>
 
+    <div class="support-doctor-identity">
         <img
             id="supportDoctorAvatar"
             src="/images/doctor.png"
@@ -3777,16 +3910,16 @@ tbody tr:hover{
         >
 
         <div class="support-chat-heading">
-            <h3 id="supportConversationTitle">المحادثة</h3>
+            <h3 id="supportConversationTitle">الطبيب</h3>
             <span class="support-chat-status">
                 <span></span>
                 التواصل مع الإدارة
             </span>
         </div>
-
     </div>
 
-                <div
+</div>
+
                     id="supportConversation"
                     style="
                         min-height:220px;

@@ -7751,7 +7751,52 @@ async function loadAdminSupportConversation(doctorId) {
     }
 }
 
+
 async function sendAdminSupportReply(event) {
+    event.preventDefault();
+
+    const doctorId = Number(selectedSupportDoctorIdForChat);
+
+    if (!Number.isSafeInteger(doctorId) || doctorId <= 0) {
+        showToast("اختر طبيبًا أولاً", "error");
+        return;
+    }
+
+    const input = document.getElementById("adminSupportReply");
+    const button = document.getElementById("adminSupportReplyButton");
+    const message = input.value.trim();
+
+    if (!message) {
+        showToast("اكتب الرد أولاً", "error");
+        return;
+    }
+
+    if (button.disabled) return;
+
+    button.disabled = true;
+
+    try {
+        await adminFetch("/api/admin/support-messages", {
+            method: "POST",
+            body: {
+                doctorId,
+                message
+            }
+        });
+
+        input.value = "";
+        showToast("تم إرسال الرد");
+
+        // تحديث قائمة المحادثات؛ الدالة نفسها تحدّث المحادثة المختارة.
+        await loadSupportInbox();
+
+    } catch (error) {
+        showToast(error.message || "تعذر إرسال الرد", "error");
+    } finally {
+        button.disabled = false;
+    }
+}
+ {
     event.preventDefault();
 
     if (!selectedSupportDoctorIdForChat) {

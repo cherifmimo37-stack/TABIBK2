@@ -10277,21 +10277,20 @@ async function apiFetch(
    DOCTOR SUPPORT MESSAGES
 ========================================================= */
 
-async function loadSupportMessages() {
 
-    const container = document.getElementById(
-        "doctorSupportMessages"
-    );
+/* =========================================================
+   DOCTOR SUPPORT MESSAGES — PREMIUM PURPLE & GOLD
+========================================================= */
+
+async function loadSupportMessages() {
+    const container = document.getElementById("doctorSupportMessages");
 
     if (!container) return;
 
     container.textContent = "جاري تحميل الرسائل...";
 
     try {
-
-        const data = await apiFetch(
-            "/api/doctor/support-messages"
-        );
+        const data = await apiFetch("/api/doctor/support-messages");
 
         const messages = Array.isArray(data.messages)
             ? data.messages
@@ -10300,60 +10299,104 @@ async function loadSupportMessages() {
         container.replaceChildren();
 
         if (!messages.length) {
-
             container.textContent =
                 "لا توجد رسائل بعد. يمكنك إرسال استفسارك للإدارة.";
-
             return;
         }
 
         messages.forEach(item => {
+            const isAdmin = item.sender === "admin";
+
+            const row = document.createElement("div");
+            row.style.cssText = `
+                display:flex;
+                justify-content:${isAdmin ? "flex-start" : "flex-end"};
+                align-items:flex-start;
+                width:100%;
+                margin:12px 0;
+                direction:rtl;
+                box-sizing:border-box;
+            `;
 
             const bubble = document.createElement("div");
-
-            bubble.style.cssText =
-                "padding:12px;margin:8px 0;border-radius:12px;" +
-                "white-space:pre-wrap;overflow-wrap:anywhere;" +
-                "background:" +
-                (item.sender === "admin" ? "#eee5f5" : "#f5f1e8") +
-                ";";
+            bubble.style.cssText = `
+                display:flex;
+                flex-direction:column;
+                gap:5px;
+                width:fit-content;
+                max-width:86%;
+                min-width:0;
+                box-sizing:border-box;
+                padding:10px 13px;
+                border:1px solid ${isAdmin ? "#d8c8e5" : "#d8bd78"};
+                border-radius:15px;
+                background:${isAdmin
+                    ? "linear-gradient(145deg,#fff 0%,#f3edf9 100%)"
+                    : "linear-gradient(135deg,#4b205e,#351044)"};
+                box-shadow:0 3px 9px rgba(53,16,68,.08);
+                color:${isAdmin ? "#351044" : "#fff"};
+            `;
 
             const sender = document.createElement("strong");
+            sender.textContent = isAdmin ? "إدارة طبيبك" : "أنت";
+            sender.style.cssText = `
+                font-size:12px;
+                font-weight:900;
+                color:${isAdmin ? "#58316d" : "#f1d78e"};
+            `;
 
-            sender.textContent =
-                item.sender === "admin"
-                    ? "إدارة طبيبك"
-                    : "أنت";
-
-            const body = document.createElement("p");
-
+            const body = document.createElement("div");
             body.textContent = String(item.message || "");
-
-            body.style.margin = "6px 0";
+            body.style.cssText = `
+                margin:0;
+                padding:0;
+                border:0;
+                background:transparent;
+                box-shadow:none;
+                font-size:14px;
+                line-height:1.8;
+                white-space:pre-wrap;
+                overflow-wrap:anywhere;
+                color:${isAdmin ? "#351044" : "#fff"};
+            `;
 
             const time = document.createElement("small");
-
             const timestamp = Date.parse(item.createdAt || "");
 
             time.textContent = Number.isNaN(timestamp)
                 ? ""
-                : new Date(timestamp).toLocaleString("ar-DZ");
+                : new Date(timestamp).toLocaleString("ar-DZ", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
 
+            time.style.cssText = `
+                align-self:${isAdmin ? "flex-start" : "flex-end"};
+                margin:0;
+                padding:0;
+                border:0;
+                background:transparent;
+                box-shadow:none;
+                font-size:10px;
+                line-height:1.5;
+                color:${isAdmin ? "#927da0" : "#f1d78e"};
+            `;
+
+            /* الرسالة والتاريخ داخل نفس المستطيل */
             bubble.append(sender, body, time);
-
-            container.appendChild(bubble);
-
+            row.appendChild(bubble);
+            container.appendChild(row);
         });
 
         container.scrollTop = container.scrollHeight;
 
     } catch (error) {
-
         container.textContent =
             error.message || "تعذر تحميل الرسائل.";
-
     }
-
 }
 
 

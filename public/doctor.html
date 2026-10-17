@@ -17451,16 +17451,16 @@ function renderAccountCard() {
             </button>
 
 
-            <button
-                type="button"
-                class="btn btn-danger"
-                id="settingsLogoutButton"
-            >
-                <i class="fa-solid fa-right-from-bracket"></i>
+           
+<button
+    type="button"
+    class="btn btn-danger tabibk-logout-premium"
+    id="settingsLogoutButton"
+>
+    <i class="fa-solid fa-right-from-bracket"></i>
+    <span>تسجيل الخروج</span>
+</button>
 
-                تسجيل الخروج
-
-            </button>
 
         </div>
 
@@ -21670,6 +21670,43 @@ if (
         font-size: 13px;
     }
 }
+
+ 
+/* =========================================================
+   TABIBK — PREMIUM LOGOUT BUTTON
+========================================================= */
+
+.tabibk-logout-premium {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 46px;
+    padding: 12px 22px;
+    border: 1px solid rgba(255, 215, 130, 0.65);
+    border-radius: 14px;
+    background: linear-gradient(135deg, #722b45, #a83250);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 5px 16px rgba(100, 25, 55, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tabibk-logout-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(100, 25, 55, 0.26);
+}
+
+.tabibk-logout-premium:active {
+    transform: scale(0.98);
+}
+
+.tabibk-logout-premium i {
+    font-size: 16px;
+}
+       
 </style>
 </body>
 </html>

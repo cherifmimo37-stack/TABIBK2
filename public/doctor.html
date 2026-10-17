@@ -10274,9 +10274,28 @@ async function loadSupportMessages() {
     ? data.messages
     : [];
 
+
 console.log("[TABIBK] Support messages loaded:", messages.length, messages);
 
-        container.replaceChildren();
+// إذا كانت الرسائل المعروضة هي نفسها، ما نعاودوش نبنيو المحادثة
+const currentSignature = container.dataset.messagesSignature || "";
+
+const newSignature = JSON.stringify(
+    messages.map(item => ({
+        id: item.id,
+        sender: item.sender,
+        message: item.message,
+        createdAt: item.createdAt
+    }))
+);
+
+if (currentSignature === newSignature) {
+    return;
+}
+
+container.dataset.messagesSignature = newSignature;
+container.replaceChildren();
+
 
         if (!messages.length) {
             container.textContent =
@@ -10381,7 +10400,16 @@ console.log("[TABIBK] Support messages loaded:", messages.length, messages);
             container.appendChild(row);
         });
 
-        container.scrollTop = container.scrollHeight;
+       
+const distanceFromBottom =
+    container.scrollHeight -
+    container.scrollTop -
+    container.clientHeight;
+
+if (distanceFromBottom < 80) {
+    container.scrollTop = container.scrollHeight;
+}
+
 
     } catch (error) {
         container.textContent =
@@ -13681,26 +13709,6 @@ function startAutoRefresh() {
             },
             5000
         );
-    supportMessagesTimer = setInterval(
-        async () => {
-            const section = document.getElementById("section-support");
-
-            if (
-                section &&
-                section.classList.contains("active")
-            ) {
-                try {
-                    await loadSupportMessages();
-                } catch (error) {
-                    console.warn(
-                        "Support messages refresh:",
-                        error
-                    );
-                }
-            }
-        },
-        5000
-    );
     
 }
 

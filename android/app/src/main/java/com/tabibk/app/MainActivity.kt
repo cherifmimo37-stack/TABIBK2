@@ -199,16 +199,20 @@ class MainActivity : AppCompatActivity() {
             }
 
             introVideo.setOnErrorListener { _, what, extra ->
-                Log.e(
-                    "TABIBK_INTRO",
-                    "Video playback error: $what / $extra"
-                )
+    Log.e(
+        "TABIBK_INTRO",
+        "Video playback error: $what / $extra"
+    )
 
-                // If the video cannot play, continue using
-                // the branded splash and wait for the website.
-                introFinished = true
-                true
-            }
+    android.widget.Toast.makeText(
+        this,
+        "تعذر تشغيل فيديو مقدمة طبيبك ($what/$extra)",
+        android.widget.Toast.LENGTH_LONG
+    ).show()
+
+    introFinished = true
+    true
+}
 
         } catch (e: Exception) {
             Log.e(
@@ -398,8 +402,12 @@ val logoParams = FrameLayout.LayoutParams(
     Gravity.CENTER
 )
 
+// Keep the logo visible above the intro video
+logo.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+logo.elevation = dp(20).toFloat()
+logo.translationZ = dp(20).toFloat()
+
 splash.addView(logo, logoParams)
-logo.bringToFront()
 
         // Subtle loading label over the video
         val loading = TextView(this).apply {

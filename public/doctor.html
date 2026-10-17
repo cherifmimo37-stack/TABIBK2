@@ -10269,8 +10269,10 @@ async function loadSupportMessages() {
         const data = await apiFetch("/api/doctor/support-messages");
 
         const messages = Array.isArray(data.messages)
-            ? data.messages
-            : [];
+    ? data.messages
+    : [];
+
+console.log("[TABIBK] Support messages loaded:", messages.length, messages);
 
         container.replaceChildren();
 

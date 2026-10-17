@@ -21,6 +21,7 @@ import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.firebase.messaging.FirebaseMessaging
+import android.widget.ImageView
 
 class MainActivity : AppCompatActivity() {
 
@@ -381,6 +382,23 @@ class MainActivity : AppCompatActivity() {
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
         )
+
+        // TABIBK logo — visible even if the intro video fails
+val logo = ImageView(this).apply {
+    setImageResource(R.drawable.ic_tabibk)
+    scaleType = ImageView.ScaleType.FIT_CENTER
+    setBackgroundColor(Color.TRANSPARENT)
+    contentDescription = "شعار طبيبك"
+}
+
+val logoParams = FrameLayout.LayoutParams(
+    dp(190),
+    dp(190),
+    Gravity.CENTER
+)
+
+splash.addView(logo, logoParams)
+logo.bringToFront()
 
         // Subtle loading label over the video
         val loading = TextView(this).apply {

@@ -9924,6 +9924,39 @@ transition: none;
 
                         </div>
 
+<div class="card account-info" id="notificationSoundSettings">
+
+    <div class="section-heading">
+        <div class="section-icon">
+            <i class="fa-solid fa-bell"></i>
+        </div>
+
+        <div>
+            <h2>إعدادات الإشعارات</h2>
+            <p>تحكّم في صوت التنبيهات</p>
+        </div>
+    </div>
+
+    <div class="account-row">
+        <span>صوت الإشعارات</span>
+
+        <label class="notification-sound-toggle">
+            <input
+                type="checkbox"
+                id="notificationSoundToggle"
+                checked
+            >
+
+            <span>تشغيل الصوت</span>
+        </label>
+    </div>
+
+    <p id="notificationSoundStatus" role="status">
+        صوت الإشعارات مفعّل
+    </p>
+
+</div>
+
                     </div>
 
                 </section>
@@ -17630,28 +17663,79 @@ function lockSettingsInputs() {
 }
 
 
+
 /* =========================================================
    SETTINGS — INITIALIZE
 ========================================================= */
 
+
+/* =========================================================
+   NOTIFICATION SOUND SETTINGS
+========================================================= */
+  function initializeNotificationSoundSettings() {
+
+    const toggle =
+        $("notificationSoundToggle");
+
+    const status =
+        $("notificationSoundStatus");
+
+    if (!toggle) {
+        return;
+    }
+
+    toggle.checked =
+        isNotificationSoundEnabled();
+
+    const updateStatus = () => {
+
+        const enabled = toggle.checked;
+
+        try {
+            localStorage.setItem(
+                NOTIFICATION_SOUND_KEY,
+                enabled ? "on" : "off"
+            );
+        } catch (error) {
+            console.warn(
+                "Saving notification sound preference:",
+                error
+            );
+        }
+
+        if (status) {
+            status.textContent = enabled
+                ? "صوت الإشعارات مفعّل"
+                : "صوت الإشعارات متوقف";
+        }
+    };
+
+    if (
+        toggle.dataset.soundSettingsBound === "true"
+    ) {
+        updateStatus();
+        return;
+    }
+
+    toggle.addEventListener(
+        "change",
+        updateStatus
+    );
+
+    toggle.dataset.soundSettingsBound = "true";
+
+    updateStatus();
+}      
+
 function initializeSettings() {
+
+    initializeNotificationSoundSettings();
 
     renderSettings();
 
     renderAccountCard();
 
     lockSettingsInputs();
-}
-
-
-/* =========================================================
-   REFRESH RATINGS WHEN OPENED
-========================================================= */
-
-function refreshRatingsSection() {
-
-    renderRatings();
-
 }
 
 
@@ -17721,19 +17805,20 @@ window.showSection =
                 );
         }
 
-        if (
-            sectionName ===
-            "settings"
-        ) {
+        
 
-            renderSettings();
+if (sectionName === "settings") {
 
-            renderAccountCard();
+    renderSettings();
 
-            lockSettingsInputs();
-        }
+    renderAccountCard();
+
+    lockSettingsInputs();
+
+    initializeNotificationSoundSettings();
+}
+
     };
-
 
 /* =========================================================
    PART 5 INITIALIZATION

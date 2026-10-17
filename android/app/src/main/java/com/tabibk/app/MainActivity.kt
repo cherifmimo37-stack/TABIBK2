@@ -162,6 +162,7 @@ class MainActivity : AppCompatActivity() {
     // File: app/src/main/res/raw/tabibk_intro.mp4
     // ============================================================
 
+    
     private fun startIntroVideo() {
         try {
             introVideo.setVideoURI(

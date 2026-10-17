@@ -10506,8 +10506,11 @@ async function sendSupportMessage(event) {
                 container.appendChild(row);
         container.scrollTop = container.scrollHeight;
 
-        // إعادة تحميل المحادثة من الخادم بعد نجاح الإرسال
-        await loadSupportMessages();
+// إعادة تحميل الرسائل دون مسح المحادثة أثناء انتظار الخادم
+loadSupportMessages().catch(error => {
+    console.error("[TABIBK] Support refresh error:", error);
+});
+        
     } catch (error) {
         showDoctorSupportFeedback(
             error.message || "تعذر إرسال الرسالة.",

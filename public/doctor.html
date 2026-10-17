@@ -13650,18 +13650,106 @@ function renderHomePreview() {
 
 
 /* =========================================================
+   TABIBK — CUSTOM LOGOUT CONFIRMATION
+========================================================= */
+
+function showDoctorLogoutConfirmation() {
+    return new Promise((resolve) => {
+        const overlay = document.createElement("div");
+        overlay.className = "tabibk-logout-overlay";
+
+        overlay.innerHTML = `
+            <div
+                class="tabibk-logout-dialog"
+                role="alertdialog"
+                aria-modal="true"
+                aria-labelledby="tabibkLogoutTitle"
+                aria-describedby="tabibkLogoutMessage"
+            >
+                <div class="tabibk-logout-symbol">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </div>
+
+                <h3 id="tabibkLogoutTitle">تسجيل الخروج</h3>
+
+                <p id="tabibkLogoutMessage">
+                    هل تريد تسجيل الخروج من لوحة الطبيب؟
+                </p>
+
+                <div class="tabibk-logout-actions">
+                    <button
+                        type="button"
+                        class="tabibk-logout-cancel"
+                        data-logout-action="cancel"
+                    >
+                        إلغاء
+                    </button>
+
+                    <button
+                        type="button"
+                        class="tabibk-logout-confirm"
+                        data-logout-action="confirm"
+                    >
+                        نعم، تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        `;
+
+        let finished = false;
+
+        function finish(confirmed) {
+            if (finished) return;
+
+            finished = true;
+            document.removeEventListener("keydown", handleKeydown);
+            overlay.remove();
+            resolve(confirmed);
+        }
+
+        function handleKeydown(event) {
+            if (event.key === "Escape") {
+                finish(false);
+            }
+        }
+
+        overlay.addEventListener("click", (event) => {
+            if (event.target === overlay) {
+                finish(false);
+                return;
+            }
+
+            const button = event.target.closest(
+                "[data-logout-action]"
+            );
+
+            if (!button) return;
+
+            finish(
+                button.dataset.logoutAction === "confirm"
+            );
+        });
+
+        document.addEventListener("keydown", handleKeydown);
+        document.body.appendChild(overlay);
+
+        overlay.querySelector(".tabibk-logout-cancel").focus();
+    });
+}
+
+/* =========================================================
    LOGOUT
 ========================================================= */
 
 async function logoutDoctor() {
 
-    if (!confirm(
-        "هل تريد تسجيل الخروج من لوحة الطبيب؟"
-    )) {
+    
+    const confirmed = await showDoctorLogoutConfirmation();
 
+    if (!confirmed) {
         return;
-
     }
+
 
 
     try {
@@ -21811,6 +21899,117 @@ if (
         #563879 55%,
         #705092 100%
     ) !important;
+}
+
+/* =========================================================
+   TABIBK — LOGOUT CONFIRMATION MODAL
+========================================================= */
+
+.tabibk-logout-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(20, 14, 35, 0.68);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    direction: rtl;
+}
+
+.tabibk-logout-dialog {
+    width: 100%;
+    max-width: 370px;
+    padding: 28px 22px 22px;
+    border: 1px solid rgba(210, 174, 110, 0.65);
+    border-radius: 22px;
+    background: linear-gradient(145deg, #ffffff, #f7f3fc);
+    color: #30204f;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(15, 8, 30, 0.3);
+    animation: tabibkLogoutAppear 0.2s ease-out;
+}
+
+.tabibk-logout-symbol {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(210, 174, 110, 0.75);
+    border-radius: 18px;
+    background: linear-gradient(145deg, #eee5fa, #e1d3f4);
+    color: #60458a;
+    font-size: 23px;
+}
+
+.tabibk-logout-dialog h3 {
+    margin: 0 0 10px;
+    color: #49316f;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.tabibk-logout-dialog p {
+    margin: 0 0 24px;
+    color: #625a70;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.tabibk-logout-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.tabibk-logout-actions button {
+    flex: 1;
+    min-height: 46px;
+    padding: 10px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tabibk-logout-cancel {
+    border: 1px solid #d9cde9;
+    background: #ffffff;
+    color: #49316f;
+}
+
+.tabibk-logout-confirm {
+    border: 1px solid #60458a;
+    background: linear-gradient(115deg, #30204f, #60458a);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(73, 49, 111, 0.2);
+}
+
+.tabibk-logout-actions button:focus-visible {
+    outline: 2px solid #b28a4c;
+    outline-offset: 3px;
+}
+
+@keyframes tabibkLogoutAppear {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tabibk-logout-dialog {
+        animation: none;
+    }
 }
 
 </style>

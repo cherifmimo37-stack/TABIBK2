@@ -10058,16 +10058,18 @@ let doctorToken =
 
 let currentDoctor = null;
 
+
 let appointments = [];
 
 let notificationTimer = null;
 
 let appointmentsTimer = null;
 
+let supportMessagesTimer = null;
+
 let rejectBookingNumber = null;
 
 let lastNotificationCount = 0;
-
 
 /* =========================================================
    HELPER
@@ -10505,12 +10507,7 @@ async function sendSupportMessage(event) {
 
                 container.appendChild(row);
         container.scrollTop = container.scrollHeight;
-
-// إعادة تحميل المحادثة من الخادم بعد نجاح الإرسال
-loadSupportMessages().catch(error => {
-    console.error("[TABIBK] Support refresh error:", error);
-});
-        
+   
     } catch (error) {
         showDoctorSupportFeedback(
             error.message || "تعذر إرسال الرسالة.",
@@ -13684,7 +13681,27 @@ function startAutoRefresh() {
             },
             5000
         );
+    supportMessagesTimer = setInterval(
+        async () => {
+            const section = document.getElementById("section-support");
 
+            if (
+                section &&
+                section.classList.contains("active")
+            ) {
+                try {
+                    await loadSupportMessages();
+                } catch (error) {
+                    console.warn(
+                        "Support messages refresh:",
+                        error
+                    );
+                }
+            }
+        },
+        5000
+    );
+    
 }
 
 
@@ -13711,6 +13728,11 @@ function stopAutoRefresh() {
         notificationTimer =
             null;
 
+    }
+
+    if (supportMessagesTimer) {
+        clearInterval(supportMessagesTimer);
+        supportMessagesTimer = null;
     }
 
 }

@@ -8255,20 +8255,24 @@ transition: none;
             </nav>
 
 
-            <div class="sidebar-footer">
+            
+<div class="sidebar-footer">
 
-                <button
-                    class="sidebar-logout"
-                    onclick="logoutDoctor()"
-                >
+    <button
+        class="sidebar-logout tabibk-sidebar-logout"
+        onclick="logoutDoctor()"
+        type="button"
+    >
+        <span class="logout-icon-wrap">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </span>
 
-                    <i class="fa-solid fa-right-from-bracket"></i>
+        <span>تسجيل الخروج</span>
 
-                    تسجيل الخروج
+        <i class="fa-solid fa-arrow-left logout-arrow"></i>
+    </button>
 
-                </button>
-
-            </div>
+</div>
 
         </aside>
 
@@ -21706,7 +21710,84 @@ if (
 .tabibk-logout-premium i {
     font-size: 16px;
 }
-       
+  
+/* =========================================================
+   TABIBK — PREMIUM SIDEBAR LOGOUT
+========================================================= */
+
+.sidebar .tabibk-sidebar-logout {
+    width: calc(100% - 24px);
+    min-height: 52px;
+    margin: 12px;
+    padding: 9px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    border: 1px solid rgba(220, 170, 95, 0.48);
+    border-radius: 14px;
+    background: linear-gradient(
+        115deg,
+        #54213f 0%,
+        #762b50 55%,
+        #913653 100%
+    );
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: right;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(45, 15, 40, 0.16);
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.sidebar .tabibk-sidebar-logout .logout-icon-wrap {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 225, 175, 0.4);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.09);
+    color: #f5d49a;
+    font-size: 15px;
+}
+
+.sidebar .tabibk-sidebar-logout > span:nth-child(2) {
+    flex: 1;
+}
+
+.sidebar .tabibk-sidebar-logout .logout-arrow {
+    color: rgba(255, 231, 194, 0.8);
+    font-size: 12px;
+}
+
+.sidebar .tabibk-sidebar-logout:hover {
+    background: linear-gradient(
+        115deg,
+        #652547 0%,
+        #873052 55%,
+        #a33b5b 100%
+    );
+    border-color: rgba(245, 210, 150, 0.8);
+    box-shadow: 0 6px 18px rgba(45, 15, 40, 0.24);
+}
+
+.sidebar .tabibk-sidebar-logout:active {
+    transform: scale(0.99);
+}
+
+.sidebar .tabibk-sidebar-logout:focus-visible {
+    outline: 2px solid #f5d49a;
+    outline-offset: 3px;
+}
+     
 </style>
 </body>
 </html>

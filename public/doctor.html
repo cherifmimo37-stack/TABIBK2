@@ -17356,47 +17356,59 @@ function getDoctorAccountSummary() {
 }
 
 
+
 /* =========================================================
    SETTINGS — REFRESH PROFILE
 ========================================================= */
 
 async function refreshDoctorProfile() {
+    const button = $("refreshDoctorProfileButton");
+
+    if (button && button.disabled) {
+        return;
+    }
+
+    const originalContent = button
+        ? button.innerHTML
+        : "";
+
+    if (button) {
+        button.disabled = true;
+        button.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <span>جاري تحديث البيانات...</span>
+        `;
+        button.setAttribute("aria-busy", "true");
+    }
 
     try {
+        const response = await apiFetch("/api/doctor/me");
 
-        const response =
-            await apiFetch(
-                "/api/doctor/me"
-            );
-
-        currentDoctor =
-            response.doctor ||
-            response;
+        currentDoctor = response.doctor || response;
 
         renderDoctorProfile();
-
         renderSettings();
+        renderAccountCard();
 
         showToast(
             "تم تحديث بيانات الحساب.",
             "success"
         );
-
     } catch (error) {
-
-        console.error(
-            "refreshDoctorProfile:",
-            error
-        );
+        console.error("refreshDoctorProfile:", error);
 
         showToast(
-            error.message ||
-            "تعذر تحديث بيانات الحساب.",
+            error.message || "تعذر تحديث بيانات الحساب.",
             "error"
         );
+    } finally {
+        if (button && button.isConnected) {
+            button.disabled = false;
+            button.innerHTML = originalContent;
+            button.removeAttribute("aria-busy");
+        }
     }
 }
-
 
 /* =========================================================
    SETTINGS — BUILD ACCOUNT CARD
@@ -22000,6 +22012,191 @@ if (
 @media (prefers-reduced-motion: reduce) {
     .tabibk-logout-dialog {
         animation: none;
+    }
+}
+
+/* =========================================================
+   TABIBK — PREMIUM ACCOUNT SETTINGS
+========================================================= */
+
+#section-settings .account-summary-generated {
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+    padding: 24px;
+    border: 1px solid rgba(196, 161, 91, 0.38);
+    border-radius: 22px;
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #faf7ff 58%,
+        #f3edf9 100%
+    );
+    box-shadow: 0 8px 26px rgba(48, 32, 79, 0.08);
+}
+
+#section-settings .account-summary-generated .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(96, 69, 138, 0.12);
+}
+
+#section-settings .account-summary-generated .card-head h3 {
+    margin: 0 0 7px;
+    color: #382450;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.6;
+}
+
+#section-settings .account-summary-generated .card-head p {
+    margin: 0;
+    color: #786d87;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+#section-settings .account-summary-generated .card-icon {
+    display: flex;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(196, 161, 91, 0.55);
+    border-radius: 15px;
+    background: linear-gradient(145deg, #f1e7fc, #e6d8f6);
+    color: #60458a;
+    font-size: 21px;
+}
+
+#section-settings .account-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+}
+
+#section-settings .account-summary-item {
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid rgba(96, 69, 138, 0.12);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.82);
+}
+
+#section-settings .account-summary-item > span {
+    display: block;
+    margin-bottom: 8px;
+    color: #82758f;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#section-settings .account-summary-item > strong {
+    display: block;
+    min-width: 0;
+    color: #382450;
+    font-size: 14px;
+    font-weight: 750;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+#section-settings .account-summary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+    padding-top: 19px;
+    border-top: 1px solid rgba(96, 69, 138, 0.12);
+}
+
+#section-settings #refreshDoctorProfileButton,
+#section-settings #settingsLogoutButton {
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px 17px;
+    border-radius: 13px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 750;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#section-settings #refreshDoctorProfileButton {
+    border: 1px solid #d7c8e9;
+    background: #ffffff;
+    color: #49316f;
+}
+
+#section-settings #refreshDoctorProfileButton:hover:not(:disabled) {
+    border-color: #a78ac9;
+    background: #f5effc;
+}
+
+#section-settings #refreshDoctorProfileButton:disabled {
+    opacity: 0.72;
+    cursor: wait;
+}
+
+#section-settings #settingsLogoutButton {
+    border: 1px solid rgba(220, 170, 95, 0.65);
+    background: linear-gradient(115deg, #30204f, #60458a);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(48, 32, 79, 0.14);
+}
+
+#section-settings #settingsLogoutButton:hover {
+    background: linear-gradient(115deg, #3b285f, #705092);
+    box-shadow: 0 6px 16px rgba(48, 32, 79, 0.2);
+}
+
+#section-settings #refreshDoctorProfileButton:focus-visible,
+#section-settings #settingsLogoutButton:focus-visible {
+    outline: 2px solid #b28a4c;
+    outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+    #section-settings .account-summary-generated {
+        padding: 17px;
+        border-radius: 18px;
+    }
+
+    #section-settings .account-summary-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    #section-settings .account-summary-item {
+        padding: 12px 14px;
+    }
+
+    #section-settings .account-summary-actions {
+        flex-direction: column;
+    }
+
+    #section-settings #refreshDoctorProfileButton,
+    #section-settings #settingsLogoutButton {
+        width: 100%;
+        min-height: 47px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #section-settings #refreshDoctorProfileButton,
+    #section-settings #settingsLogoutButton {
+        transition: none;
     }
 }
 

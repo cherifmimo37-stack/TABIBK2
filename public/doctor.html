@@ -7845,6 +7845,134 @@ transition: none;
   #app button, #loginScreen button, #doctorRegistrationModal button { transition:none!important; }
 }
 </style>
+    ```html
+<style id="tabibk-luxury-logout-v1">
+
+/* =========================================
+   TABIBK — ROYAL PURPLE & GOLD LOGOUT
+========================================= */
+
+#app #section-settings #accountSecuritySettings button.btn-danger,
+#app #section-settings .tabibk-logout-premium {
+
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+
+    min-height: 49px;
+    padding: 12px 22px;
+
+    border: 1px solid #D8B66A;
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #321044 0%,
+            #4B1768 48%,
+            #291039 100%
+        );
+
+    color: #FFF8E8;
+
+    font-family: "Cairo", sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.5;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 230, 175, 0.18),
+        0 5px 14px rgba(42, 15, 57, 0.24),
+        0 0 0 1px rgba(216, 182, 106, 0.10);
+
+    transition:
+        background 220ms ease,
+        border-color 220ms ease,
+        box-shadow 220ms ease,
+        transform 220ms ease,
+        filter 220ms ease;
+
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* أيقونة الخروج */
+#app #section-settings #accountSecuritySettings button.btn-danger i,
+#app #section-settings .tabibk-logout-premium i {
+
+    color: #F0D18A;
+    font-size: 16px;
+
+    transition:
+        color 220ms ease,
+        transform 220ms ease;
+}
+
+/* تأثير فاخر عند المرور */
+#app #section-settings #accountSecuritySettings button.btn-danger:hover,
+#app #section-settings .tabibk-logout-premium:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #48165F 0%,
+            #61247D 50%,
+            #391149 100%
+        );
+
+    border-color: #F4D58D;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 240, 200, 0.24),
+        0 7px 20px rgba(48, 16, 65, 0.30),
+        0 0 12px rgba(216, 182, 106, 0.15);
+
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+}
+
+#app #section-settings #accountSecuritySettings button.btn-danger:hover i,
+#app #section-settings .tabibk-logout-premium:hover i {
+
+    color: #FFE7A8;
+    transform: translateX(-2px);
+}
+
+/* تأثير الضغط */
+#app #section-settings #accountSecuritySettings button.btn-danger:active,
+#app #section-settings .tabibk-logout-premium:active {
+
+    transform: translateY(1px);
+    box-shadow:
+        inset 0 2px 5px rgba(0, 0, 0, 0.20);
+}
+
+/* إطار واضح عند التنقل بلوحة المفاتيح */
+#app #section-settings #accountSecuritySettings button.btn-danger:focus-visible,
+#app #section-settings .tabibk-logout-premium:focus-visible {
+
+    outline: 2px solid #E8C878;
+    outline-offset: 3px;
+}
+
+/* الهواتف */
+@media (max-width: 600px) {
+
+    #app #section-settings #accountSecuritySettings button.btn-danger {
+
+        min-height: 47px;
+        width: 100%;
+        padding: 11px 16px;
+        border-radius: 13px;
+        font-size: 13px;
+    }
+}
+
+</style>
+```
 </head>
 
 

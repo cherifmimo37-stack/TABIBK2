@@ -12696,160 +12696,161 @@ function renderWorkingHours() {
 }
 
 
+
 /* =========================================================
-   SAVE WORKING HOURS
+   TABIBK — SAVE WORKING HOURS
+   Existing API and payload preserved
 ========================================================= */
 
 async function saveWorkingHours() {
-
-    const enabled =
-        $("workingHoursEnabled")?.checked ||
-        false;
-
-
-    const open =
-        $("workingHoursOpen")?.value;
-
-
-    const close =
-        $("workingHoursClose")?.value;
-
+    const button = $("saveWorkingHoursButton");
+    const enabled = $("workingHoursEnabled")?.checked || false;
+    const open = $("workingHoursOpen")?.value || "";
+    const close = $("workingHoursClose")?.value || "";
 
     const days = [];
 
-
-    for (
-        let i = 0;
-        i <= 6;
-        i++
-    ) {
-
+    for (let i = 0; i <= 6; i++) {
         if ($(`day${i}`)?.checked) {
-
             days.push(i);
+        }
+    }
 
+    // Prevent duplicate submissions.
+    if (button?.disabled) {
+        return;
+    }
+
+    // Validate selected days.
+    if (days.length === 0) {
+        showWorkingHoursMessage(
+            "يرجى اختيار يوم عمل واحد على الأقل.",
+            "error"
+        );
+        return;
+    }
+
+    // Validate working hours.
+    if (!open || !close) {
+        showWorkingHoursMessage(
+            "يرجى تحديد وقت فتح العيادة ووقت إغلاقها.",
+            "error"
+        );
+        return;
+    }
+
+    // Compare HH:mm values in chronological order.
+    const timeToMinutes = (time) => {
+        const parts = time.split(":");
+
+        if (parts.length !== 2) {
+            return NaN;
         }
 
-    }
+        const hours = Number(parts[0]);
+        const minutes = Number(parts[1]);
 
+        if (
+            !Number.isInteger(hours) ||
+            !Number.isInteger(minutes) ||
+            hours < 0 ||
+            hours > 23 ||
+            minutes < 0 ||
+            minutes > 59
+        ) {
+            return NaN;
+        }
 
-    if (days.length === 0) {
+        return hours * 60 + minutes;
+    };
 
+    const openMinutes = timeToMinutes(open);
+    const closeMinutes = timeToMinutes(close);
+
+    if (
+        !Number.isFinite(openMinutes) ||
+        !Number.isFinite(closeMinutes)
+    ) {
         showWorkingHoursMessage(
-            "اختر يوم عمل واحد على الأقل",
+            "صيغة الوقت غير صحيحة. يرجى إعادة تحديد الساعات.",
             "error"
         );
-
         return;
-
     }
 
-
-    if (!open || !close) {
-
+    if (closeMinutes <= openMinutes) {
         showWorkingHoursMessage(
-            "حدد وقت فتح وإغلاق العيادة",
+            "وقت الإغلاق يجب أن يكون بعد وقت الفتح.",
             "error"
         );
-
         return;
-
     }
 
-
-    if (close <= open) {
-
-        showWorkingHoursMessage(
-            "وقت الإغلاق يجب أن يكون بعد وقت الفتح",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const button =
-        $("saveWorkingHoursButton");
-
+    const originalButtonHTML = button?.innerHTML;
 
     if (button) {
-
         button.disabled = true;
+        button.setAttribute("aria-busy", "true");
 
-        button.innerHTML =
-            `
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            جاري الحفظ...
-            `;
-
+        button.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin"
+               aria-hidden="true"></i>
+            جاري حفظ أوقات العمل...
+        `;
     }
 
+    showWorkingHoursMessage(
+        "جاري حفظ التغييرات...",
+        "info"
+    );
 
     try {
-
-        const data =
-            await apiFetch(
-                "/api/doctor/working-hours",
-                {
-                    method: "PUT",
-
-                    body:
-                        JSON.stringify({
-                            enabled,
-                            days,
-                            open,
-                            close
-                        })
-                }
-            );
-
+        const data = await apiFetch(
+            "/api/doctor/working-hours",
+            {
+                method: "PUT",
+                body: JSON.stringify({
+                    enabled,
+                    days,
+                    open,
+                    close
+                })
+            }
+        );
 
         currentDoctor.workingHours =
-            data.workingHours ||
-            data;
-
+            data.workingHours || data;
 
         renderWorkingHours();
 
-
         showWorkingHoursMessage(
-            "تم حفظ أوقات العمل بنجاح",
+            "تم حفظ أوقات العمل بنجاح.",
             "success"
         );
-
 
         showToast(
-            "تم تحديث أوقات العمل",
+            "تم تحديث أوقات العمل بنجاح",
             "success"
         );
 
-
     } catch (error) {
-
         showWorkingHoursMessage(
-            error.message,
+            error?.message ||
+            "تعذر حفظ أوقات العمل. يرجى المحاولة مجددًا.",
             "error"
         );
 
     } finally {
-
         if (button) {
-
             button.disabled = false;
+            button.removeAttribute("aria-busy");
 
             button.innerHTML =
-                `
-                <i class="fa-solid fa-floppy-disk"></i>
-                حفظ أوقات العمل
-                `;
-
+                originalButtonHTML ||
+                '<i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> حفظ أوقات العمل';
         }
-
     }
-
 }
-
 
 function showWorkingHoursMessage(
     text,

@@ -14128,56 +14128,63 @@ async function deleteOldAppointments() {
 }
 
 
+
 /* =========================================================
-   WHATSAPP
+   WHATSAPP — PROFESSIONAL & SAFE
 ========================================================= */
 
 function contactPatient(phone) {
 
     if (!phone) {
-
         showToast(
             "رقم هاتف المريض غير موجود",
             "error"
         );
-
         return;
-
     }
 
+    // تنظيف رقم الهاتف
+    let clean = String(phone).replace(/\D/g, "");
 
-    let clean =
-        String(phone)
-            .replace(/\D/g, "");
-
-
+    // تحويل الرقم الجزائري المحلي إلى الصيغة الدولية
     if (clean.startsWith("0")) {
-
-        clean =
-            "213" +
-            clean.substring(1);
-
+        clean = "213" + clean.substring(1);
+    } else if (clean.startsWith("213")) {
+        // الرقم دولي بالفعل، لا نضيف رمز الدولة مرة أخرى
+    } else if (clean.length === 9) {
+        // رقم جزائري من 9 أرقام دون الصفر الأول
+        clean = "213" + clean;
+    } else {
+        showToast(
+            "تحقق من رقم هاتف المريض قبل فتح واتساب",
+            "error"
+        );
+        return;
     }
 
-
-    if (
-        !clean.startsWith("213")
-    ) {
-
-        clean =
-            "213" +
-            clean;
-
+    // التحقق من طول الرقم الجزائري
+    if (!/^213\d{9}$/.test(clean)) {
+        showToast(
+            "رقم الهاتف غير صحيح، راجع بيانات المريض",
+            "error"
+        );
+        return;
     }
 
+    const whatsappUrl =
+        "https://wa.me/" + clean;
 
-    window.open(
-        `https://wa.me/${clean}`,
+    // فتح واتساب مباشرة عند الضغط على الزر
+    const whatsappWindow = window.open(
+        whatsappUrl,
         "_blank"
     );
 
+    if (!whatsappWindow) {
+        // حل بديل إذا منع المتصفح النافذة الجديدة
+        window.location.href = whatsappUrl;
+    }
 }
-
 
 /* =========================================================
    HOME PREVIEW

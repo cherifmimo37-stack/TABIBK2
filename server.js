@@ -8,6 +8,60 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 
+const admin = require("firebase-admin");
+// ============================================================
+// FIREBASE ADMIN — PUSH NOTIFICATIONS
+// ============================================================
+
+let firebaseMessaging = null;
+
+try {
+    const projectId =
+        process.env.FIREBASE_PROJECT_ID;
+
+    const clientEmail =
+        process.env.FIREBASE_CLIENT_EMAIL;
+
+    const privateKey =
+        String(
+            process.env.FIREBASE_PRIVATE_KEY || ""
+        ).replace(/\\n/g, "\n");
+
+    if (
+        projectId &&
+        clientEmail &&
+        privateKey
+    ) {
+        if (!admin.apps.length) {
+            admin.initializeApp({
+                credential: admin.credential.cert({
+                    projectId,
+                    clientEmail,
+                    privateKey
+                })
+            });
+        }
+
+        firebaseMessaging =
+            admin.messaging();
+
+        console.log(
+            "Firebase Admin initialized."
+        );
+    } else {
+        console.warn(
+            "Firebase credentials missing; push notifications disabled."
+        );
+    }
+} catch (error) {
+    console.error(
+        "Firebase Admin initialization failed:",
+        error.message
+    );
+
+    firebaseMessaging = null;
+}
+
 const app = express();
 
 // ============================================================

@@ -9768,12 +9768,11 @@ transition: none;
 
                                 <div>
 
-                                    <h2>معلومات الطبيب</h2>
+                                    <h2>المعلومات الشخصية</h2>
 
                                     <p>
-                                        البيانات المرتبطة بالحساب
+                                   المعلومات الأساسية لملفك الطبي المهني
                                     </p>
-
                                 </div>
 
                             </div>
@@ -9845,84 +9844,51 @@ transition: none;
 
                         </div>
 
+<div class="card account-info" id="accountSecuritySettings">
 
-                        <div class="card account-info">
+    <div class="section-heading">
 
-                            <div class="section-heading">
+        <div class="section-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
 
-                                <div class="section-icon">
+        <div>
+            <h2>الحساب والأمان</h2>
+            <p>إدارة جلسة الطبيب</p>
+        </div>
 
-                                    <i class="fa-solid fa-shield-halved"></i>
+    </div>
 
-                                </div>
+    <div class="account-row">
+        <span>حالة الحساب</span>
+        <strong>
+            <span style="color:var(--green)">
+                ● نشط
+            </span>
+        </strong>
+    </div>
 
-                                <div>
+    <div class="account-row">
+        <span>الاتصال</span>
+        <strong>آمن</strong>
+    </div>
 
-                                    <h2>الحساب والأمان</h2>
+    <div class="account-row">
+        <span>الجلسة</span>
+        <strong>محمية</strong>
+    </div>
 
-                                    <p>
-                                        إدارة جلسة الطبيب
-                                    </p>
+    <button
+        type="button"
+        class="action-button btn-danger"
+        style="width:100%;margin-top:12px"
+        onclick="logoutDoctor()"
+    >
+        <i class="fa-solid fa-right-from-bracket"></i>
+        تسجيل الخروج
+    </button>
 
-                                </div>
-
-                            </div>
-
-
-                            <div class="account-row">
-
-                                <span>
-                                    حالة الحساب
-                                </span>
-
-                                <strong>
-                                    <span style="color:var(--green)">
-                                        ● نشط
-                                    </span>
-                                </strong>
-
-                            </div>
-
-
-                            <div class="account-row">
-
-                                <span>
-                                    الاتصال
-                                </span>
-
-                                <strong>
-                                    آمن
-                                </strong>
-
-                            </div>
-
-
-                            <div class="account-row">
-
-                                <span>
-                                    الجلسة
-                                </span>
-
-                                <strong>
-                                    محمية
-                                </strong>
-
-                            </div>
-
-
-                            <button
-                                class="action-button btn-danger"
-                                style="width:100%;margin-top:12px"
-                                onclick="logoutDoctor()"
-                            >
-
-                                <i class="fa-solid fa-right-from-bracket"></i>
-
-                                تسجيل الخروج من الحساب
-
-                            </button>
-
-                        </div>
+</div>
 
 <div class="card account-info" id="notificationSoundSettings">
 
@@ -17441,186 +17407,89 @@ async function refreshDoctorProfile() {
 }
 
 /* =========================================================
-   SETTINGS — BUILD ACCOUNT CARD
+   SETTINGS — SAFE PERSONAL ACCOUNT LAYOUT
 ========================================================= */
 
 function renderAccountCard() {
 
-    const section =
-        $("section-settings");
+    const section = $("section-settings");
 
     if (!section) {
         return;
     }
 
-    const existing =
-        section.querySelector(
-            ".account-summary-generated"
-        );
+    const grid = section.querySelector(".account-grid");
 
-    if (existing) {
-        existing.remove();
+    if (!grid) {
+        return;
     }
 
-    const summary =
-        getDoctorAccountSummary();
+    /*
+     * Remove the old generated duplicate card.
+     */
+    const oldGeneratedCard =
+        grid.querySelector(".account-summary-generated") ||
+        section.querySelector(".account-summary-generated");
 
+    if (oldGeneratedCard) {
+        oldGeneratedCard.remove();
+    }
 
-    const card =
-        document.createElement(
-            "div"
+    /*
+     * Find the existing static cards.
+     */
+    const nameElement = $("settingsDoctorName");
+
+    const personalCard = nameElement
+        ? nameElement.closest(".card.account-info")
+        : null;
+
+    const soundCard =
+        grid.querySelector("#notificationSoundSettings");
+
+    const securityCard =
+        grid.querySelector("#accountSecuritySettings") ||
+        Array.from(
+            grid.querySelectorAll(".card.account-info")
+        ).find(card =>
+            card.querySelector("h2")?.textContent
+                .includes("الحساب والأمان")
         );
 
-    card.className =
-        "dashboard-card account-summary-generated";
+    /*
+     * Keep existing cards and move them into the
+     * requested visual order.
+     */
+    if (soundCard) {
+        grid.prepend(soundCard);
+    }
 
+    if (personalCard && soundCard) {
+        soundCard.after(personalCard);
+    }
 
-    card.innerHTML = `
+    if (personalCard && securityCard) {
+        personalCard.after(securityCard);
+    }
 
-        <div class="card-head">
-
-            <div>
-
-                <h3>
-                    معلومات الحساب
-                </h3>
-
-                <p>
-                    البيانات الأساسية لحساب الطبيب.
-                </p>
-
-            </div>
-
-            <div class="card-icon">
-                <i class="fa-solid fa-user-doctor"></i>
-            </div>
-
-        </div>
-
-
-        <div class="account-summary-grid">
-
-            <div class="account-summary-item">
-
-                <span>
-                    الطبيب
-                </span>
-
-                <strong>
-                    ${escapeHtml(
-                        summary.name
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="account-summary-item">
-
-                <span>
-                    التخصص
-                </span>
-
-                <strong>
-                    ${escapeHtml(
-                        summary.specialty
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="account-summary-item">
-
-                <span>
-                    الهاتف
-                </span>
-
-                <strong dir="ltr">
-                    ${escapeHtml(
-                        summary.phone
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="account-summary-item">
-
-                <span>
-                    الموقع
-                </span>
-
-                <strong>
-                    ${escapeHtml(
-                        summary.location
-                    )}
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="account-summary-actions">
-
-            <button
-                type="button"
-                class="btn btn-secondary"
-                id="refreshDoctorProfileButton"
-            >
-                <i class="fa-solid fa-rotate"></i>
-
-                تحديث البيانات
-
-            </button>
-
-
-           
-<button
-    type="button"
-    class="btn btn-danger tabibk-logout-premium"
-    id="settingsLogoutButton"
->
-    <i class="fa-solid fa-right-from-bracket"></i>
-    <span>تسجيل الخروج</span>
-</button>
-
-
-        </div>
-
-    `;
-
-
-    section.appendChild(
-        card
-    );
-
-
+    /*
+     * Bind the refresh button only once.
+     */
     const refreshButton =
         $("refreshDoctorProfileButton");
 
-    if (refreshButton) {
-
+    if (
+        refreshButton &&
+        refreshButton.dataset.refreshBound !== "true"
+    ) {
         refreshButton.addEventListener(
             "click",
             refreshDoctorProfile
         );
-    }
 
-
-    const logoutButton =
-        $("settingsLogoutButton");
-
-    if (logoutButton) {
-
-        logoutButton.addEventListener(
-            "click",
-            logoutDoctor
-        );
+        refreshButton.dataset.refreshBound = "true";
     }
 }
-
 
 /* =========================================================
    SETTINGS — PROTECT INPUTS

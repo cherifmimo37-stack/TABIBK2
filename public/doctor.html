@@ -11706,7 +11706,8 @@ async function loginDoctor(event) {
             doctorToken
         );
 
-
+// Register this Android device for doctor push notifications
+        registerDoctorFcmToken();
         if (message) {
 
             message.textContent =

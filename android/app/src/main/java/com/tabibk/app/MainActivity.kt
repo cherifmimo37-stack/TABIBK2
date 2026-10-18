@@ -5,6 +5,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.content.Intent
+import org.json.JSONObject
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -35,16 +36,26 @@ class MainActivity : AppCompatActivity() {
     private var checkingPage = false
     private var introFinished = false
     private var activityDestroyed = false
+    private var pendingFcmToken: String? = null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        
         // Firebase notifications token
         FirebaseMessaging.getInstance().token
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("TABIBK_FCM_TOKEN", task.result)
+                    val token = task.result
+                    pendingFcmToken = token
+
+                    Log.d(
+                        "TABIBK_FCM_TOKEN",
+                        "FCM token received successfully"
+                    )
+
+                    sendFcmTokenToWebView()
                 } else {
                     Log.w(
                         "TABIBK_FCM_TOKEN",
@@ -53,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
             }
+
 
         // Android 13+ notification permission
         if (
@@ -144,13 +156,17 @@ override fun shouldOverrideUrlLoading(
 }
 
 
-            override fun onPageFinished(
-                view: WebView?,
-                url: String?
-            ) {
-                super.onPageFinished(view, url)
-                checkTabibkReady()
-            }
+            
+override fun onPageFinished(
+    view: WebView?,
+    url: String?
+) {
+    super.onPageFinished(view, url)
+
+    sendFcmTokenToWebView()
+
+    checkTabibkReady()
+}
 
             @Deprecated("Deprecated in Java")
             override fun onReceivedError(
@@ -273,6 +289,29 @@ override fun shouldOverrideUrlLoading(
         }
     }
 
+    // ============================================================
+    // SEND FCM TOKEN TO THE WEBVIEW
+    // ============================================================
+
+    private fun sendFcmTokenToWebView() {
+        val token = pendingFcmToken ?: return
+
+        if (!::webView.isInitialized) {
+            return
+        }
+
+        val safeToken = JSONObject.quote(token)
+
+        webView.post {
+            webView.evaluateJavascript(
+                "if (typeof window.setTabibkAndroidFcmToken === 'function') {" +
+                    "window.setTabibkAndroidFcmToken($safeToken);" +
+                "}",
+                null
+            )
+        }
+    }
+             
     // ============================================================
     // CHECK WEBSITE READINESS
     // ============================================================

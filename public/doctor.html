@@ -13985,22 +13985,12 @@ async function confirmReject() {
 }
 
 
+
 /* =========================================================
-   START APPOINTMENT
+   START APPOINTMENT — DIRECT START
 ========================================================= */
 
-async function startAppointment(
-    bookingNumber
-) {
-
-    if (!confirm(
-        "هل تريد بدء الكشف لهذا المريض؟"
-    )) {
-
-        return;
-
-    }
-
+async function startAppointment(bookingNumber) {
 
     try {
 
@@ -14013,26 +14003,23 @@ async function startAppointment(
             }
         );
 
-
         showToast(
             "تم بدء الكشف",
             "success"
         );
-
 
         await loadAppointments();
 
     } catch (error) {
 
         showToast(
-            error.message,
+            error.message || "تعذر بدء الكشف",
             "error"
         );
 
     }
 
 }
-
 
 /* =========================================================
    COMPLETE APPOINTMENT

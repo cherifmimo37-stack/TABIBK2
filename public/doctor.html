@@ -16308,9 +16308,22 @@ function getNotificationTitle(
 }
 
 
-function getNotificationMessage(
-    notification
-) {
+
+function getNotificationMessage(notification) {
+
+    const type = String(notification?.type || "");
+
+    if (type === "appointment_completed") {
+
+        const patientName =
+            notification?.patientName ||
+            notification?.patient?.name ||
+            notification?.patientNameSnapshot;
+
+        if (patientName) {
+            return `تم إنهاء موعد المريض ${patientName}.`;
+        }
+    }
 
     return (
         notification?.message ||

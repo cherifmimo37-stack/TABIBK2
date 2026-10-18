@@ -1070,6 +1070,82 @@ function createNotification(
 
 // ------------------------------------------------------------
 
+/* ============================================================
+   SEND PUSH NOTIFICATION TO DOCTOR DEVICES
+============================================================ */
+
+async function sendDoctorPushNotification(
+    doctor,
+    notification
+) {
+    if (
+        !firebaseMessaging ||
+        !doctor ||
+        !notification ||
+        notification.type !== "new_appointment"
+    ) {
+        return;
+    }
+
+    const tokens = [
+        ...new Set(
+            (
+                Array.isArray(doctor.fcmTokens)
+                    ? doctor.fcmTokens
+                    : []
+            ).filter(
+                token =>
+                    typeof token === "string" &&
+                    token.trim().length > 0
+            )
+        )
+    ];
+
+    if (tokens.length === 0) {
+        return;
+    }
+
+    const results =
+        await Promise.allSettled(
+            tokens.map(token =>
+                firebaseMessaging.send({
+                    token,
+
+                    notification: {
+                        title: notification.title,
+                        body: notification.message
+                    },
+
+                    data: {
+                        type: notification.type,
+                        bookingNumber:
+                            String(notification.bookingNumber || ""),
+                        appointmentId:
+                            String(notification.appointmentId || "")
+                    },
+
+                    android: {
+                        priority: "high",
+                        notification: {
+                            channelId: "tabibk_notifications_v2",
+                            sound: "tabibk_notification"
+                        }
+                    }
+                })
+            )
+        );
+
+    results.forEach((result, index) => {
+        if (result.status === "rejected") {
+            console.error(
+                "Doctor push notification failed:",
+                result.reason?.message || "Unknown error"
+            );
+        }
+    });
+}
+
+
 function createDoctorToken() {
 
     return crypto
@@ -3610,12 +3686,11 @@ const appointmentDate =
             // Doctor notification
             // ------------------------------------------------
 
-            createNotification(
-                database,
-                {
-
-                    doctorId:
-                        doctor.id,
+            const doctorNotification = createNotification(
+    database,
+    {
+        doctorId:
+            doctor.id,
 
                     appointmentId:
                         appointment.id,
@@ -3670,12 +3745,34 @@ const appointmentDate =
                 }
             );
 
-            saveDatabase(
-                database
-            );
 
-            res
-                .status(201)
+const saveResult = await saveDatabase(database);
+
+if (saveResult === false) {
+    return res.status(500).json({
+        success: false,
+        message: "تعذر حفظ الموعد، يرجى المحاولة مجددًا"
+    });
+}
+
+
+try {
+    await sendDoctorPushNotification(
+        doctor,
+        doctorNotification
+    );
+} catch (error) {
+    console.error(
+        "Doctor push notification error:",
+        error.message
+    );
+}
+
+
+res
+    .status(201)
+
+    
                 .json({
 
                     success: true,

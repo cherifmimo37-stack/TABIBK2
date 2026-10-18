@@ -10816,6 +10816,128 @@ async function sendSupportMessage(event) {
 }
 
 /* =========================================================
+   DOCTOR — CHANGE PASSWORD FORM
+========================================================= */
+
+(function initDoctorChangePasswordForm() {
+
+    const form = document.getElementById(
+        "doctorChangePasswordForm"
+    );
+
+    if (!form || form.dataset.initialized === "true") {
+        return;
+    }
+
+    form.dataset.initialized = "true";
+
+    form.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        const currentInput = document.getElementById(
+            "doctorCurrentPassword"
+        );
+
+        const newInput = document.getElementById(
+            "doctorNewPassword"
+        );
+
+        const confirmInput = document.getElementById(
+            "doctorConfirmPassword"
+        );
+
+        const status = document.getElementById(
+            "doctorChangePasswordStatus"
+        );
+
+        const button = document.getElementById(
+            "doctorChangePasswordButton"
+        );
+
+        if (
+            !currentInput ||
+            !newInput ||
+            !confirmInput ||
+            !status ||
+            !button
+        ) {
+            return;
+        }
+
+        const currentPassword = currentInput.value;
+        const newPassword = newInput.value;
+        const confirmPassword = confirmInput.value;
+
+        status.textContent = "";
+        status.style.color = "#351044";
+
+        if (newPassword.length < 8 || newPassword.length > 128) {
+            status.textContent =
+                "كلمة المرور الجديدة يجب أن تكون بين 8 و128 حرفًا.";
+            status.style.color = "#b42318";
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            status.textContent =
+                "تأكيد كلمة المرور الجديدة غير متطابق.";
+            status.style.color = "#b42318";
+            confirmInput.focus();
+            return;
+        }
+
+        if (newPassword === currentPassword) {
+            status.textContent =
+                "اختر كلمة مرور جديدة مختلفة عن الحالية.";
+            status.style.color = "#b42318";
+            newInput.focus();
+            return;
+        }
+
+        button.disabled = true;
+        status.textContent = "جارٍ التحقق وحفظ كلمة المرور...";
+
+        try {
+
+            const result = await apiFetch(
+                "/api/doctor/change-password",
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        currentPassword,
+                        newPassword,
+                        confirmPassword
+                    })
+                }
+            );
+
+            status.textContent =
+                result.message || "تم تغيير كلمة المرور بنجاح.";
+
+            status.style.color = "#18794e";
+
+            form.reset();
+
+        } catch (error) {
+
+            status.textContent =
+                error.message ||
+                "تعذر تغيير كلمة المرور. حاول مرة أخرى.";
+
+            status.style.color = "#b42318";
+
+        } finally {
+
+            button.disabled = false;
+
+        }
+
+    });
+
+})();
+        
+/* =========================================================
    UNAUTHORIZED
 ========================================================= */
 

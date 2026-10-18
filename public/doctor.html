@@ -12604,98 +12604,63 @@ function closeSidebar() {
 }
 
 
+
 /* =========================================================
-   WORKING HOURS
+   TABIBK — RENDER WORKING HOURS
 ========================================================= */
 
-async function loadWorkingHours() {
-
-    const data =
-        await apiFetch(
-            "/api/doctor/working-hours"
-        );
-
-
-    currentDoctor.workingHours =
-        data.workingHours ||
-        data;
-
-
-    renderWorkingHours();
-
-}
-
-
 function renderWorkingHours() {
+    const hours = currentDoctor?.workingHours || {};
 
-    const hours =
-        currentDoctor?.workingHours ||
-        {};
+    const enabledInput = $("workingHoursEnabled");
+    const openInput = $("workingHoursOpen");
+    const closeInput = $("workingHoursClose");
+    const statusText = $("workingHoursStatusText");
 
+    const enabled = hours.enabled !== false;
 
-    if ($("workingHoursEnabled")) {
-
-        $("workingHoursEnabled").checked =
-            hours.enabled !== false;
-
+    if (enabledInput) {
+        enabledInput.checked = enabled;
     }
 
-
-    if ($("workingHoursOpen")) {
-
-        $("workingHoursOpen").value =
-            hours.open ||
-            "08:00";
-
+    if (openInput) {
+        openInput.value = hours.open || "08:00";
     }
 
-
-    if ($("workingHoursClose")) {
-
-        $("workingHoursClose").value =
-            hours.close ||
-            "17:00";
-
+    if (closeInput) {
+        closeInput.value = hours.close || "17:00";
     }
 
+    const days = Array.isArray(hours.days)
+        ? hours.days.map(Number)
+        : [0, 1, 2, 3, 4];
 
-    const days =
-        Array.isArray(hours.days)
-            ? hours.days
-            : [0, 1, 2, 3, 4];
-
-
-    for (
-        let i = 0;
-        i <= 6;
-        i++
-    ) {
-
-        const checkbox =
-            $(`day${i}`);
+    for (let i = 0; i <= 6; i++) {
+        const checkbox = $(`day${i}`);
 
         if (checkbox) {
-
-            checkbox.checked =
-                days.includes(i);
-
+            checkbox.checked = days.includes(i);
         }
-
     }
 
+    if (statusText) {
+        statusText.textContent = enabled
+            ? "مفعّل"
+            : "متوقف";
 
-    if ($("workingHoursStatusText")) {
-
-        $("workingHoursStatusText").textContent =
-            hours.enabled === false
-                ? "متوقف"
-                : "مفعل";
-
+        statusText.classList.toggle("is-enabled", enabled);
+        statusText.classList.toggle("is-disabled", !enabled);
     }
 
+    if (enabledInput) {
+        enabledInput.setAttribute(
+            "aria-label",
+            enabled
+                ? "أوقات العمل مفعّلة"
+                : "أوقات العمل متوقفة"
+        );
+    }
 }
-
-
 
 /* =========================================================
    TABIBK — SAVE WORKING HOURS
@@ -24028,7 +23993,15 @@ if (
     }
 }
 
-        
+   
+#section-hours .toggle-text.is-enabled {
+    color: #367653;
+}
+
+#section-hours .toggle-text.is-disabled {
+    color: #9a4c4c;
+}
+     
 </style>
 </body>
 </html>

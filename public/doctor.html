@@ -12605,245 +12605,7 @@ function closeSidebar() {
 
 
 
-/* =========================================================
-   TABIBK — RENDER WORKING HOURS
-========================================================= */
-
-function renderWorkingHours() {
-    const hours = currentDoctor?.workingHours || {};
-
-    const enabledInput = $("workingHoursEnabled");
-    const openInput = $("workingHoursOpen");
-    const closeInput = $("workingHoursClose");
-    const statusText = $("workingHoursStatusText");
-
-    const enabled = hours.enabled !== false;
-
-    if (enabledInput) {
-        enabledInput.checked = enabled;
-    }
-
-    if (openInput) {
-        openInput.value = hours.open || "08:00";
-    }
-
-    if (closeInput) {
-        closeInput.value = hours.close || "17:00";
-    }
-
-    const days = Array.isArray(hours.days)
-        ? hours.days.map(Number)
-        : [0, 1, 2, 3, 4];
-
-    for (let i = 0; i <= 6; i++) {
-        const checkbox = $(`day${i}`);
-
-        if (checkbox) {
-            checkbox.checked = days.includes(i);
-        }
-    }
-
-    if (statusText) {
-        statusText.textContent = enabled
-            ? "مفعّل"
-            : "متوقف";
-
-        statusText.classList.toggle("is-enabled", enabled);
-        statusText.classList.toggle("is-disabled", !enabled);
-    }
-
-    if (enabledInput) {
-        enabledInput.setAttribute(
-            "aria-label",
-            enabled
-                ? "أوقات العمل مفعّلة"
-                : "أوقات العمل متوقفة"
-        );
-    }
-}
-
-/* =========================================================
-   TABIBK — SAVE WORKING HOURS
-   Existing API and payload preserved
-========================================================= */
-
-async function saveWorkingHours() {
-    const button = $("saveWorkingHoursButton");
-    const enabled = $("workingHoursEnabled")?.checked || false;
-    const open = $("workingHoursOpen")?.value || "";
-    const close = $("workingHoursClose")?.value || "";
-
-    const days = [];
-
-    for (let i = 0; i <= 6; i++) {
-        if ($(`day${i}`)?.checked) {
-            days.push(i);
-        }
-    }
-
-    // Prevent duplicate submissions.
-    if (button?.disabled) {
-        return;
-    }
-
-    // Validate selected days.
-    if (days.length === 0) {
-        showWorkingHoursMessage(
-            "يرجى اختيار يوم عمل واحد على الأقل.",
-            "error"
-        );
-        return;
-    }
-
-    // Validate working hours.
-    if (!open || !close) {
-        showWorkingHoursMessage(
-            "يرجى تحديد وقت فتح العيادة ووقت إغلاقها.",
-            "error"
-        );
-        return;
-    }
-
-    // Compare HH:mm values in chronological order.
-    const timeToMinutes = (time) => {
-        const parts = time.split(":");
-
-        if (parts.length !== 2) {
-            return NaN;
-        }
-
-        const hours = Number(parts[0]);
-        const minutes = Number(parts[1]);
-
-        if (
-            !Number.isInteger(hours) ||
-            !Number.isInteger(minutes) ||
-            hours < 0 ||
-            hours > 23 ||
-            minutes < 0 ||
-            minutes > 59
-        ) {
-            return NaN;
-        }
-
-        return hours * 60 + minutes;
-    };
-
-    const openMinutes = timeToMinutes(open);
-    const closeMinutes = timeToMinutes(close);
-
-    if (
-        !Number.isFinite(openMinutes) ||
-        !Number.isFinite(closeMinutes)
-    ) {
-        showWorkingHoursMessage(
-            "صيغة الوقت غير صحيحة. يرجى إعادة تحديد الساعات.",
-            "error"
-        );
-        return;
-    }
-
-    if (closeMinutes <= openMinutes) {
-        showWorkingHoursMessage(
-            "وقت الإغلاق يجب أن يكون بعد وقت الفتح.",
-            "error"
-        );
-        return;
-    }
-
-    const originalButtonHTML = button?.innerHTML;
-
-    if (button) {
-        button.disabled = true;
-        button.setAttribute("aria-busy", "true");
-
-        button.innerHTML = `
-            <i class="fa-solid fa-spinner fa-spin"
-               aria-hidden="true"></i>
-            جاري حفظ أوقات العمل...
-        `;
-    }
-
-    showWorkingHoursMessage(
-        "جاري حفظ التغييرات...",
-        "info"
-    );
-
-    try {
-        const data = await apiFetch(
-            "/api/doctor/working-hours",
-            {
-                method: "PUT",
-                body: JSON.stringify({
-                    enabled,
-                    days,
-                    open,
-                    close
-                })
-            }
-        );
-
-        currentDoctor.workingHours =
-            data.workingHours || data;
-
-        renderWorkingHours();
-
-        showWorkingHoursMessage(
-            "تم حفظ أوقات العمل بنجاح.",
-            "success"
-        );
-
-        showToast(
-            "تم تحديث أوقات العمل بنجاح",
-            "success"
-        );
-
-    } catch (error) {
-        showWorkingHoursMessage(
-            error?.message ||
-            "تعذر حفظ أوقات العمل. يرجى المحاولة مجددًا.",
-            "error"
-        );
-
-    } finally {
-        if (button) {
-            button.disabled = false;
-            button.removeAttribute("aria-busy");
-
-            button.innerHTML =
-                originalButtonHTML ||
-                '<i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> حفظ أوقات العمل';
-        }
-    }
-}
-
-function showWorkingHoursMessage(
-    text,
-    type = "info"
-) {
-
-    const element =
-        $("workingHoursMessage");
-
-
-    if (!element) {
-        return;
-    }
-
-
-    element.textContent =
-        text;
-
-
-    element.className =
-        `form-message ${type}`;
-
-}
-
-
-/* =========================================================
-   VACATION
-========================================================= */
+workingHoursEnabled
 
 async function loadVacation() {
 
@@ -17719,43 +17481,37 @@ function renderRatings() {
 }
 
 
+
 /* =========================================================
    WORKING HOURS — STATUS UI
 ========================================================= */
 
 function updateWorkingHoursStatusUI() {
+    const enabled = $("workingHoursEnabled");
+    const status = $("workingHoursStatusText");
 
-    const enabled =
-        $("workingHoursEnabled");
-
-    const status =
-        $("workingHoursStatusText");
-
-    if (
-        !enabled ||
-        !status
-    ) {
+    if (!enabled || !status) {
         return;
     }
 
-    if (enabled.checked) {
+    const isEnabled = enabled.checked;
 
-        status.textContent =
-            "أوقات العمل مفعلة";
+    status.textContent = isEnabled
+        ? "أوقات العمل مفعلة"
+        : "أوقات العمل غير مفعلة";
 
-        status.className =
-            "status-text success";
+    status.classList.remove(
+        "success",
+        "muted",
+        "is-enabled",
+        "is-disabled"
+    );
 
-    } else {
-
-        status.textContent =
-            "أوقات العمل غير مفعلة";
-
-        status.className =
-            "status-text muted";
-    }
+    status.classList.add(
+        "status-text",
+        isEnabled ? "is-enabled" : "is-disabled"
+    );
 }
-
 
 /* =========================================================
    VACATION — STATUS UI

@@ -22282,6 +22282,191 @@ if (
     }
 }
 
+<style id="tabibk-notification-premium">
+/* PREMIUM NOTIFICATION SETTINGS */
+
+#notificationSoundSettings {
+    position: relative;
+    overflow: hidden;
+    padding: 24px !important;
+    border: 1px solid #d7bd83 !important;
+    border-radius: 20px !important;
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #f5efff 100%
+    ) !important;
+    box-shadow:
+        0 8px 24px rgba(57, 29, 89, 0.09),
+        inset 0 1px 0 #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+#notificationSoundSettings .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 22px;
+}
+
+#notificationSoundSettings .section-icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    border: 1px solid #d9bd7c;
+    border-radius: 14px;
+    background: linear-gradient(
+        145deg,
+        #51277f,
+        #7043a0
+    );
+    color: #f5d991;
+    box-shadow: 0 5px 13px rgba(68, 34, 102, 0.18);
+}
+
+#notificationSoundSettings h2 {
+    margin: 0 0 5px;
+    color: #382052;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+#notificationSoundSettings .section-heading p {
+    margin: 0;
+    color: #756582;
+    font-size: 12px;
+    line-height: 1.7;
+    opacity: 1;
+}
+
+#notificationSoundSettings .account-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 15px 0;
+    border-top: 1px solid #e8def1;
+    border-bottom: 1px solid #e8def1;
+    color: #39244e;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#notificationSoundSettings .notification-sound-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: #593583;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+#notificationSoundSettings #notificationSoundToggle {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 23px;
+    margin: 0;
+    border: 1px solid #b9a9ca;
+    border-radius: 20px;
+    background: #d9d2e1;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+}
+
+#notificationSoundSettings #notificationSoundToggle::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgba(30, 15, 45, .22);
+    transition: transform .2s ease;
+}
+
+#notificationSoundSettings #notificationSoundToggle:checked {
+    background: #5b2e88;
+    border-color: #5b2e88;
+}
+
+#notificationSoundSettings #notificationSoundToggle:checked::before {
+    transform: translateX(17px);
+    background: #f8df9c;
+}
+
+#notificationSoundSettings #notificationSoundToggle:focus-visible {
+    outline: 3px solid rgba(184, 143, 63, .35);
+    outline-offset: 3px;
+}
+
+#notificationSoundSettings #notificationSoundStatus {
+    margin: 14px 0 0;
+    color: #28754f;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+#notificationSoundSettings #notificationSoundStatus:empty {
+    display: none;
+}
+
+/* SMALLER, CONSISTENT SETTINGS ACTION BUTTONS */
+#section-settings .account-summary-actions button {
+    min-height: 38px;
+    padding: 9px 15px;
+    border: 1px solid #68418d;
+    border-radius: 11px;
+    background: linear-gradient(
+        135deg,
+        #593181,
+        #70439b
+    );
+    color: #ffffff;
+    box-shadow: 0 3px 9px rgba(70, 37, 100, .12);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+#section-settings .account-summary-actions button:hover {
+    filter: brightness(1.08);
+}
+
+@media (max-width: 480px) {
+    #notificationSoundSettings {
+        padding: 17px !important;
+        border-radius: 16px !important;
+    }
+
+    #notificationSoundSettings .account-row {
+        gap: 8px;
+    }
+
+    #notificationSoundSettings .notification-sound-toggle {
+        gap: 6px;
+        font-size: 11px;
+    }
+
+    #section-settings .account-summary-actions {
+        gap: 8px;
+    }
+
+    #section-settings .account-summary-actions button {
+        min-height: 36px;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}
+</style>
+
+    
 </style>
 </body>
 </html>

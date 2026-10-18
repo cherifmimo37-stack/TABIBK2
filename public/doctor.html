@@ -22755,10 +22755,375 @@ if (
         gap: 7px;
     }
 }
-</style>
-   
-</style>
+   /* =========================================================
+   TABIBK — PREMIUM ACCOUNT SECURITY & PASSWORD FORM
+   Scoped styles only — preserves existing functionality
+========================================================= */
 
+#app #section-settings #accountSecuritySettings {
+    direction: rtl;
+    text-align: right;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 22px;
+    border: 1px solid rgba(196, 164, 91, 0.48);
+    border-radius: 22px;
+    background: linear-gradient(155deg, #ffffff 0%, #faf7fc 65%, #f5eff9 100%);
+    box-shadow: 0 9px 28px rgba(53, 16, 68, 0.075);
+}
+
+#app #section-settings #accountSecuritySettings *,
+#app #section-settings #accountSecuritySettings *::before,
+#app #section-settings #accountSecuritySettings *::after {
+    box-sizing: border-box;
+}
+
+#app #section-settings #accountSecuritySettings .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 20px;
+}
+
+#app #section-settings #accountSecuritySettings .section-icon {
+    display: flex;
+    flex: 0 0 48px;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #d8bd78;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #4b205e, #321044);
+    color: #f0d18a;
+    box-shadow: 0 5px 13px rgba(53, 16, 68, 0.15);
+}
+
+#app #section-settings #accountSecuritySettings .section-heading h2 {
+    margin: 0 0 4px;
+    color: #351044;
+    font-family: "Cairo", sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.6;
+}
+
+#app #section-settings #accountSecuritySettings .section-heading p {
+    margin: 0;
+    color: #786681;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+#app #section-settings #accountSecuritySettings .account-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 13px 15px;
+    border: 1px solid #e9dfef;
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+#app #section-settings #accountSecuritySettings .account-row > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #4a3158;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+#app #section-settings #accountSecuritySettings .security-status-active {
+    color: #18794e;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+#app #section-settings #accountSecuritySettings .security-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding: 14px;
+    border: 1px solid #e5d8ec;
+    border-radius: 16px;
+    background: linear-gradient(120deg, #f8f3fb, #ffffff);
+}
+
+#app #section-settings #accountSecuritySettings .security-summary-icon {
+    display: flex;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    background: #eee3f4;
+    color: #603574;
+    font-size: 18px;
+}
+
+#app #section-settings #accountSecuritySettings .security-summary-info {
+    flex: 1;
+    min-width: 0;
+}
+
+#app #section-settings #accountSecuritySettings .security-summary-info strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #40204f;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+#app #section-settings #accountSecuritySettings .security-summary-info p {
+    margin: 0;
+    color: #81718b;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+#app #section-settings #accountSecuritySettings .security-summary-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    flex: 0 0 auto;
+    padding: 6px 9px;
+    border: 1px solid #e3d1a3;
+    border-radius: 20px;
+    background: #fffaf0;
+    color: #795d20;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+#app #section-settings #accountSecuritySettings .password-settings {
+    min-width: 0;
+    margin-top: 4px;
+    padding: 19px;
+    border: 1px solid #e5d9eb;
+    border-radius: 18px;
+    background: #ffffff;
+}
+
+#app #section-settings #accountSecuritySettings .password-settings-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 20px;
+}
+
+#app #section-settings #accountSecuritySettings .password-settings-icon {
+    display: flex;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #e1d1eb;
+    border-radius: 13px;
+    background: #f3ebf8;
+    color: #603574;
+    font-size: 17px;
+}
+
+#app #section-settings #accountSecuritySettings .password-settings-heading h3 {
+    margin: 0 0 4px;
+    color: #351044;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.7;
+}
+
+#app #section-settings #accountSecuritySettings .password-settings-heading p {
+    margin: 0;
+    color: #81718b;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+#app #section-settings #accountSecuritySettings #doctorChangePasswordForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+#app #section-settings #accountSecuritySettings .password-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+#app #section-settings #accountSecuritySettings .password-field label {
+    display: block;
+    margin: 0;
+    color: #493254;
+    font-family: "Cairo", sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.8;
+}
+
+#app #section-settings #accountSecuritySettings .password-field input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 49px;
+    margin: 0;
+    padding: 12px 14px;
+    border: 1px solid #ded2e6;
+    border-radius: 12px;
+    outline: none;
+    background: #fdfcff;
+    color: #351044;
+    font-family: "Cairo", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.6;
+    direction: ltr;
+    text-align: left;
+    box-shadow: inset 0 1px 2px rgba(53, 16, 68, 0.025);
+    transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+#app #section-settings #accountSecuritySettings .password-field input::placeholder {
+    color: #a294ad;
+    opacity: 1;
+    font-size: 12px;
+}
+
+#app #section-settings #accountSecuritySettings .password-field input:hover {
+    border-color: #bca2cc;
+}
+
+#app #section-settings #accountSecuritySettings .password-field input:focus {
+    border-color: #8b5aa3;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(139, 90, 163, 0.12);
+}
+
+#app #section-settings #accountSecuritySettings .password-form-status {
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-family: "Cairo", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+#app #section-settings #accountSecuritySettings .password-form-status:empty {
+    display: none;
+}
+
+#app #section-settings #accountSecuritySettings .tabibk-save-password-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 50px;
+    margin: 2px 0 0;
+    padding: 12px 16px;
+    border: 1px solid #d8b66a;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #321044, #4b1768 52%, #291039);
+    color: #fff8e8;
+    font-family: "Cairo", sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.7;
+    white-space: normal;
+    box-shadow: 0 5px 13px rgba(53, 16, 68, 0.15);
+    cursor: pointer;
+    transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#app #section-settings #accountSecuritySettings .tabibk-save-password-button i {
+    color: #f0d18a;
+    font-size: 15px;
+}
+
+#app #section-settings #accountSecuritySettings .tabibk-save-password-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #48165f, #61247d 52%, #391149);
+    box-shadow: 0 7px 18px rgba(53, 16, 68, 0.22);
+    transform: translateY(-1px);
+}
+
+#app #section-settings #accountSecuritySettings .tabibk-save-password-button:focus-visible {
+    outline: 2px solid #d8b66a;
+    outline-offset: 3px;
+}
+
+#app #section-settings #accountSecuritySettings .tabibk-save-password-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#app #section-settings #accountSecuritySettings .tabibk-logout-premium {
+    display: flex;
+    width: 100%;
+    min-height: 49px;
+    margin-top: 20px !important;
+}
+
+@media (max-width: 600px) {
+    #app #section-settings #accountSecuritySettings {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    #app #section-settings #accountSecuritySettings .section-heading h2 {
+        font-size: 17px;
+    }
+
+    #app #section-settings #accountSecuritySettings .password-settings {
+        padding: 14px;
+        border-radius: 15px;
+    }
+
+    #app #section-settings #accountSecuritySettings .security-summary {
+        gap: 9px;
+        padding: 11px;
+    }
+
+    #app #section-settings #accountSecuritySettings .security-summary-badge {
+        font-size: 9px;
+        padding: 5px 7px;
+    }
+
+    #app #section-settings #accountSecuritySettings .password-field input {
+        min-height: 48px;
+        font-size: 16px;
+    }
+
+    #app #section-settings #accountSecuritySettings .tabibk-save-password-button {
+        min-height: 49px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #app #section-settings #accountSecuritySettings *,
+    #app #section-settings #accountSecuritySettings *::before,
+    #app #section-settings #accountSecuritySettings *::after {
+        transition: none !important;
+    }
+}
     
 </style>
 </body>

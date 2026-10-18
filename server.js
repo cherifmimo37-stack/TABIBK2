@@ -1267,6 +1267,77 @@ function checkDoctorAuth(
     next();
 }
 
+
+/* ============================================================
+   DOCTOR FCM TOKEN REGISTRATION
+============================================================ */
+
+app.post(
+    "/api/doctor/fcm-token",
+    checkDoctorAuth,
+    async (req, res) => {
+        try {
+            const token =
+                typeof req.body?.token === "string"
+                    ? req.body.token.trim()
+                    : "";
+
+            if (!token || token.length > 4096) {
+                return res.status(400).json({
+                    success: false,
+                    message: "رمز الإشعارات غير صالح"
+                });
+            }
+
+            const database = readDatabase();
+
+            const doctor = database.doctors.find(
+                item =>
+                    Number(item.id) ===
+                    Number(req.doctor.id)
+            );
+
+            if (!doctor) {
+                return res.status(404).json({
+                    success: false,
+                    message: "الطبيب غير موجود"
+                });
+            }
+
+            const tokens = Array.isArray(doctor.fcmTokens)
+                ? doctor.fcmTokens.filter(
+                    item =>
+                        typeof item === "string" &&
+                        item.length > 0
+                )
+                : [];
+
+            // Avoid storing the same device token twice.
+            doctor.fcmTokens = [
+                token,
+                ...tokens.filter(item => item !== token)
+            ].slice(0, 5);
+
+            await saveDatabase(database);
+
+            return res.json({
+                success: true,
+                message: "تم تسجيل جهاز الإشعارات بنجاح"
+            });
+        } catch (error) {
+            console.error(
+                "Doctor FCM token registration failed:",
+                error.message
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "تعذر تسجيل جهاز الإشعارات"
+            });
+        }
+    }
+);
+
 // ============================================================
 // HOME
 // ============================================================

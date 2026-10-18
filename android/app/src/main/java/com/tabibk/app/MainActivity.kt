@@ -4,6 +4,7 @@ package com.tabibk.app
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -98,6 +99,50 @@ class MainActivity : AppCompatActivity() {
         }
 
         webView.webViewClient = object : WebViewClient() {
+
+            
+override fun shouldOverrideUrlLoading(
+    view: WebView?,
+    request: android.webkit.WebResourceRequest?
+): Boolean {
+
+    val url = request?.url ?: return false
+    val scheme = url.scheme?.lowercase() ?: return false
+    val host = url.host?.lowercase() ?: ""
+
+    val isWhatsApp =
+        host == "wa.me" ||
+        host == "api.whatsapp.com" ||
+        host == "web.whatsapp.com" ||
+        scheme == "whatsapp"
+
+    if (isWhatsApp) {
+        try {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                url
+            )
+            startActivity(intent)
+        } catch (e: Exception) {
+            Log.e(
+                "TABIBK_WHATSAPP",
+                "Could not open WhatsApp link",
+                e
+            )
+
+            android.widget.Toast.makeText(
+                this@MainActivity,
+                "تعذر فتح واتساب. تحقق من تثبيته أو جرّب المتصفح.",
+                android.widget.Toast.LENGTH_LONG
+            ).show()
+        }
+
+        return true
+    }
+
+    return false
+}
+
 
             override fun onPageFinished(
                 view: WebView?,

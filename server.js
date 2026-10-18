@@ -3276,7 +3276,7 @@ app.post(
 
 app.post(
     "/api/appointments",
-    (req, res) => {
+    async (req, res) => {
 
         try {
 

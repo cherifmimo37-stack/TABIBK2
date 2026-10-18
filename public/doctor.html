@@ -7845,7 +7845,7 @@ transition: none;
   #app button, #loginScreen button, #doctorRegistrationModal button { transition:none!important; }
 }
 </style>
-    ```html
+
 <style id="tabibk-luxury-logout-v1">
 
 /* =========================================
@@ -7972,10 +7972,7 @@ transition: none;
 }
 
 </style>
-```
 </head>
-
-
 <body>
 
 
@@ -9974,6 +9971,7 @@ transition: none;
 
 <div class="card account-info" id="accountSecuritySettings">
 
+    <!-- HEADER -->
     <div class="section-heading">
 
         <div class="section-icon">
@@ -9982,34 +9980,140 @@ transition: none;
 
         <div>
             <h2>الحساب والأمان</h2>
-            <p>إدارة جلسة الطبيب</p>
+            <p>إدارة حسابك وحماية بياناتك</p>
         </div>
 
     </div>
 
+    <!-- ACCOUNT STATUS -->
     <div class="account-row">
-        <span>حالة الحساب</span>
-        <strong>
-            <span style="color:var(--green)">
-                ● نشط
-            </span>
+
+        <span>
+            <i class="fa-solid fa-circle-check"></i>
+            حالة الحساب
+        </span>
+
+        <strong class="security-status-active">
+            نشط
         </strong>
+
     </div>
 
-    <div class="account-row">
-        <span>الاتصال</span>
-        <strong>آمن</strong>
+    <!-- COMPACT SECURITY SUMMARY -->
+    <div class="security-summary">
+
+        <div class="security-summary-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+
+        <div class="security-summary-info">
+            <strong>حماية الحساب</strong>
+            <p>إعدادات الاتصال والجلسة</p>
+        </div>
+
+        <span class="security-summary-badge">
+            <i class="fa-solid fa-lock"></i>
+            الأمان
+        </span>
+
     </div>
 
-    <div class="account-row">
-        <span>الجلسة</span>
-        <strong>محمية</strong>
+    <!-- CHANGE PASSWORD -->
+    <div class="password-settings">
+
+        <div class="password-settings-heading">
+
+            <div class="password-settings-icon">
+                <i class="fa-solid fa-key"></i>
+            </div>
+
+            <div>
+                <h3>تغيير كلمة المرور</h3>
+                <p>حدّث كلمة المرور لحماية حسابك</p>
+            </div>
+
+        </div>
+
+        <form id="doctorChangePasswordForm">
+
+            <div class="password-field">
+
+                <label for="doctorCurrentPassword">
+                    كلمة المرور الحالية
+                </label>
+
+                <input
+                    type="password"
+                    id="doctorCurrentPassword"
+                    name="currentPassword"
+                    autocomplete="current-password"
+                    required
+                    placeholder="أدخل كلمة المرور الحالية"
+                >
+
+            </div>
+
+            <div class="password-field">
+
+                <label for="doctorNewPassword">
+                    كلمة المرور الجديدة
+                </label>
+
+                <input
+                    type="password"
+                    id="doctorNewPassword"
+                    name="newPassword"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                    placeholder="8 أحرف على الأقل"
+                >
+
+            </div>
+
+            <div class="password-field">
+
+                <label for="doctorConfirmPassword">
+                    تأكيد كلمة المرور الجديدة
+                </label>
+
+                <input
+                    type="password"
+                    id="doctorConfirmPassword"
+                    name="confirmPassword"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                    placeholder="أعد كتابة كلمة المرور الجديدة"
+                >
+
+            </div>
+
+            <p
+                id="doctorChangePasswordStatus"
+                class="password-form-status"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <button
+                type="submit"
+                class="tabibk-save-password-button"
+                id="doctorChangePasswordButton"
+            >
+                <i class="fa-solid fa-lock"></i>
+                حفظ كلمة المرور الجديدة
+            </button>
+
+        </form>
+
     </div>
 
+    <!-- LOGOUT -->
     <button
         type="button"
-        class="action-button btn-danger"
-        style="width:100%;margin-top:12px"
+        class="action-button btn-danger tabibk-logout-premium"
+        style="width:100%;margin-top:18px"
         onclick="logoutDoctor()"
     >
         <i class="fa-solid fa-right-from-bracket"></i>
@@ -10017,6 +10121,7 @@ transition: none;
     </button>
 
 </div>
+
 
 <div class="card account-info" id="notificationSoundSettings">
 

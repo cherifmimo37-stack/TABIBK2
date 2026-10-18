@@ -1394,12 +1394,22 @@ app.post(
                 ...tokens.filter(item => item !== token)
             ].slice(0, 5);
 
-            await saveDatabase(database);
+            
+const saveResult = await saveDatabase(database);
 
-            return res.json({
-                success: true,
-                message: "تم تسجيل جهاز الإشعارات بنجاح"
-            });
+if (saveResult === false) {
+    return res.status(500).json({
+        success: false,
+        message: "تعذر حفظ تسجيل جهاز الإشعارات"
+    });
+}
+
+return res.json({
+    success: true,
+    message: "تم تسجيل جهاز الإشعارات بنجاح"
+});
+
+            
         } catch (error) {
             console.error(
                 "Doctor FCM token registration failed:",

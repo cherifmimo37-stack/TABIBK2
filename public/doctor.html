@@ -10881,6 +10881,61 @@ async function apiFetch(
     return data;
 
 }
+       
+/* =========================================================
+   TABIBK ANDROID — DOCTOR FCM REGISTRATION
+========================================================= */
+
+let tabibkFcmRegistrationInProgress = false;
+
+async function registerDoctorFcmToken() {
+    const token = window.TABIBK_ANDROID_FCM_TOKEN;
+
+    if (
+        !token ||
+        !doctorToken ||
+        tabibkFcmRegistrationInProgress
+    ) {
+        return;
+    }
+
+    tabibkFcmRegistrationInProgress = true;
+
+    try {
+        await apiFetch(
+            "/api/doctor/fcm-token",
+            {
+                method: "POST",
+                body: JSON.stringify({ token })
+            }
+        );
+
+        console.log(
+            "TABIBK Android notification device registered."
+        );
+    } catch (error) {
+        console.warn(
+            "TABIBK FCM registration failed:",
+            error.message
+        );
+    } finally {
+        tabibkFcmRegistrationInProgress = false;
+    }
+}
+
+window.setTabibkAndroidFcmToken = function(token) {
+    if (typeof token !== "string" || !token) {
+        return;
+    }
+
+    window.TABIBK_ANDROID_FCM_TOKEN = token;
+
+    if (doctorToken) {
+        registerDoctorFcmToken();
+    }
+};
+ 
+        
 
 /* =========================================================
    DOCTOR SUPPORT MESSAGES

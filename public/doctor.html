@@ -14021,22 +14021,12 @@ async function startAppointment(bookingNumber) {
 
 }
 
+
 /* =========================================================
-   COMPLETE APPOINTMENT
+   COMPLETE APPOINTMENT — DIRECT COMPLETION
 ========================================================= */
 
-async function completeAppointment(
-    bookingNumber
-) {
-
-    if (!confirm(
-        "هل تريد إنهاء الكشف لهذا المريض؟"
-    )) {
-
-        return;
-
-    }
-
+async function completeAppointment(bookingNumber) {
 
     try {
 
@@ -14049,26 +14039,23 @@ async function completeAppointment(
             }
         );
 
-
         showToast(
             "تم إنهاء الكشف بنجاح",
             "success"
         );
-
 
         await loadAppointments();
 
     } catch (error) {
 
         showToast(
-            error.message,
+            error.message || "تعذر إنهاء الكشف",
             "error"
         );
 
     }
 
 }
-
 
 /* =========================================================
    DELETE OLD APPOINTMENTS

@@ -2111,6 +2111,198 @@ app.post(
     }
 );
 
+```js
+// ============================================================
+// DOCTOR — CHANGE PASSWORD
+// ============================================================
+
+app.post(
+    "/api/doctor/change-password",
+    checkDoctorAuth,
+    async (req, res) => {
+
+        try {
+
+            const {
+                currentPassword,
+                newPassword,
+                confirmPassword
+            } = req.body || {};
+
+            // Validate required fields.
+            if (
+                typeof currentPassword !== "string" ||
+                typeof newPassword !== "string" ||
+                typeof confirmPassword !== "string" ||
+                !currentPassword ||
+                !newPassword ||
+                !confirmPassword
+            ) {
+
+                return res.status(400).json({
+                    success: false,
+                    message: "يرجى ملء جميع حقول كلمة المرور"
+                });
+
+            }
+
+            // Enforce password length.
+            if (
+                newPassword.length < 8 ||
+                newPassword.length > 128
+            ) {
+
+                return res.status(400).json({
+                    success: false,
+                    message: "كلمة المرور الجديدة يجب أن تكون بين 8 و128 حرفًا"
+                });
+
+            }
+
+            // Confirm the new password.
+            if (newPassword !== confirmPassword) {
+
+                return res.status(400).json({
+                    success: false,
+                    message: "تأكيد كلمة المرور الجديدة غير متطابق"
+                });
+
+            }
+
+            // Prevent reusing the current password.
+            if (newPassword === currentPassword) {
+
+                return res.status(400).json({
+                    success: false,
+                    message: "اختر كلمة مرور جديدة مختلفة عن الحالية"
+                });
+
+            }
+
+            const database = readDatabase();
+
+            const doctor = database.doctors.find(
+                item =>
+                    Number(item.id) === Number(req.doctor.id)
+            );
+
+            if (!doctor) {
+
+                return res.status(404).json({
+                    success: false,
+                    message: "حساب الطبيب غير موجود"
+                });
+
+            }
+
+            // Verify the current password using TABIBK's existing helper.
+            const storedPassword = getDoctorPassword(doctor);
+
+            const currentPasswordIsValid =
+                await verifyDoctorPassword(
+                    currentPassword,
+                    storedPassword
+                );
+
+            if (!currentPasswordIsValid) {
+
+                return res.status(401).json({
+                    success: false,
+                    message: "كلمة المرور الحالية غير صحيحة"
+                });
+
+            }
+
+            // Keep the previous values in case persistence fails.
+            const hadPassword =
+                Object.prototype.hasOwnProperty.call(
+                    doctor,
+                    "password"
+                );
+
+            const previousPassword = doctor.password;
+
+            const hadLoginPassword =
+                Object.prototype.hasOwnProperty.call(
+                    doctor,
+                    "loginPassword"
+                );
+
+            const previousLoginPassword =
+                doctor.loginPassword;
+
+            // Use TABIBK's existing scrypt password hashing.
+            doctor.loginPassword =
+                await hashDoctorPassword(newPassword);
+
+            delete doctor.password;
+
+            // Do not report success unless the database write succeeds.
+            const saveResult = await saveDatabase(database);
+
+            if (saveResult === false) {
+
+                if (hadPassword) {
+                    doctor.password = previousPassword;
+                } else {
+                    delete doctor.password;
+                }
+
+                if (hadLoginPassword) {
+                    doctor.loginPassword = previousLoginPassword;
+                } else {
+                    delete doctor.loginPassword;
+                }
+
+                // Restore the in-memory snapshot as well.
+                databaseCache = normalizeDatabase(database);
+
+                // Attempt to persist the restored state.
+                await saveDatabase(database);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ كلمة المرور. حاول مرة أخرى"
+                });
+
+            }
+
+            // Invalidate other sessions for this doctor.
+            // Keep the current session active.
+            for (const [token, session] of doctorSessions.entries()) {
+
+                if (
+                    Number(session.doctorId) === Number(doctor.id) &&
+                    token !== req.token
+                ) {
+                    doctorSessions.delete(token);
+                }
+
+            }
+
+            return res.json({
+                success: true,
+                message: "تم تغيير كلمة المرور بنجاح"
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Doctor change password error:",
+                error
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "حدث خطأ أثناء تغيير كلمة المرور"
+            });
+
+        }
+
+    }
+);
+```
+
 // ============================================================
 // DOCTOR LOGOUT
 // ============================================================

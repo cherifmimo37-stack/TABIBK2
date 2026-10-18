@@ -3769,24 +3769,16 @@ try {
 }
 
 
+
 res
     .status(201)
-
-    
-                .json({
-
-                    success: true,
-
-                    message:
-                        "تم إرسال طلب الحجز بنجاح",
-
-                    bookingNumber,
-
-                    queueNumber,
-
-                    appointment
-
-                });
+    .json({
+        success: true,
+        message: "تم إرسال طلب الحجز بنجاح",
+        bookingNumber,
+        queueNumber,
+        appointment
+    });
 
         } catch (error) {
 

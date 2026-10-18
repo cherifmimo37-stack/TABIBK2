@@ -23362,7 +23362,249 @@ if (
         transition: none !important;
     }
 }
-    
+
+        
+/* =========================================================
+   TABIBK — ROYAL APPOINTMENTS REDESIGN
+   Visual-only: preserve existing appointment actions
+========================================================= */
+
+#section-appointments .card {
+    border: 1px solid #dfc990;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 8px 26px rgba(50, 16, 79, .07);
+    overflow: hidden;
+}
+
+#section-appointments .card-body {
+    padding: 16px;
+}
+
+#section-appointments .appointments-list {
+    display: grid;
+    gap: 13px;
+}
+
+#section-appointments .appointment-card {
+    position: relative;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid #e5d8eb;
+    border-right: 3px solid #c99732;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #fff, #fdfaff);
+    box-shadow: 0 4px 14px rgba(50, 16, 79, .055);
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+#section-appointments .appointment-card:hover {
+    border-color: #c99732;
+    box-shadow: 0 8px 22px rgba(50, 16, 79, .10);
+}
+
+#section-appointments .appointment-top {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    flex-wrap: wrap;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #eee6f2;
+}
+
+#section-appointments .patient-avatar {
+    width: 43px;
+    height: 43px;
+    flex: 0 0 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dfc990;
+    border-radius: 13px;
+    background: linear-gradient(145deg, #f3e9fa, #fff8e6);
+    color: #512772;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+#section-appointments .patient-main {
+    flex: 1;
+    min-width: 100px;
+}
+
+#section-appointments .patient-main h4 {
+    color: #32104f;
+    font-size: 14px;
+    font-weight: 900;
+    overflow-wrap: anywhere;
+}
+
+#section-appointments .booking-number {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 3px 8px;
+    border: 1px solid #e7d9ef;
+    border-radius: 7px;
+    background: #faf6fd;
+    color: #704394;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+#section-appointments .status-badge {
+    max-width: 100%;
+    padding: 5px 9px;
+    border: 1px solid #e6d9ed;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+    white-space: normal;
+}
+
+#section-appointments .appointment-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    margin-top: 13px;
+}
+
+#section-appointments .appointment-info-grid > div {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 17px minmax(0, 1fr);
+    align-items: center;
+    gap: 4px 7px;
+    padding: 10px;
+    border: 1px solid #eee5f3;
+    border-radius: 11px;
+    background: #fcf9fe;
+}
+
+#section-appointments .appointment-info-grid > div > i {
+    grid-row: span 2;
+    color: #9566ae;
+    font-size: 12px;
+    text-align: center;
+}
+
+#section-appointments .appointment-info-grid > div > span {
+    color: #817487;
+    font-size: 10px;
+}
+
+#section-appointments .appointment-info-grid > div > strong {
+    color: #392448;
+    font-size: 11px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+#section-appointments .appointment-reason {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 10px;
+    padding: 11px;
+    border: 1px solid #eadbb7;
+    border-radius: 11px;
+    background: #fffbf0;
+    color: #6f592a;
+    font-size: 11px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+#section-appointments .appointment-reason > i {
+    margin-top: 4px;
+    color: #a77a25;
+}
+
+#section-appointments .appointment-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    margin-top: 13px;
+    padding-top: 12px;
+    border-top: 1px solid #eee6f2;
+}
+
+#section-appointments .appointment-actions .action-button {
+    min-width: 0;
+    min-height: 36px;
+    padding: 7px 11px;
+    border: 1px solid #d9c4e5;
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.4;
+    box-shadow: none;
+}
+
+#section-appointments .appointment-actions .btn-purple {
+    border-color: #5b2180;
+    background: linear-gradient(135deg, #431766, #704394);
+    color: #fff;
+}
+
+#section-appointments .appointment-actions .btn-gold {
+    border-color: #c99732;
+    background: linear-gradient(135deg, #fff8e6, #f1d995);
+    color: #4e3911;
+}
+
+#section-appointments .appointment-actions .btn-danger,
+#section-appointments .appointment-actions .btn-icon.danger {
+    border: 1px solid #edcbd2;
+    background: #fff5f6;
+    color: #bd3048;
+}
+
+#section-appointments .appointment-actions .btn-icon.danger {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: auto;
+    border-radius: 9px;
+}
+
+@media (max-width: 520px) {
+    #section-appointments .card-body {
+        padding: 10px;
+    }
+
+    #section-appointments .appointment-card {
+        padding: 12px;
+        border-radius: 13px;
+    }
+
+    #section-appointments .appointment-info-grid {
+        gap: 7px;
+    }
+
+    #section-appointments .appointment-info-grid > div {
+        padding: 8px;
+    }
+
+    #section-appointments .appointment-actions {
+        display: flex;
+        gap: 7px;
+    }
+
+    #section-appointments .appointment-actions .action-button {
+        flex: 1 1 calc(50% - 7px);
+        min-height: 36px;
+        padding: 7px 8px;
+    }
+
+    #section-appointments .appointment-actions .btn-icon.danger {
+        margin-right: 0;
+    }
+}
+
+        
 </style>
 </body>
 </html>

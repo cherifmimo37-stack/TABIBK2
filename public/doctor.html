@@ -3009,123 +3009,155 @@ button{
 
 
 /* =========================================================
-   PATIENTS
+   TABIBK — PREMIUM PATIENTS LIST
+   Responsive cards — existing classes preserved
 ========================================================= */
 
-.patients-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,minmax(0,1fr));
-
-    gap:13px;
-
+#app .patients-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
 }
 
-
-.patient-card{
-
-    padding:17px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:11px;
-
+#app .patient-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    min-height: 88px;
+    padding: 17px;
+    border: 1px solid rgba(196, 164, 91, 0.32);
+    border-radius: 17px;
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #fcf9fe 100%
+    );
+    box-shadow: 0 4px 13px rgba(53, 16, 68, 0.055);
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
 }
 
-
-.patient-card-avatar{
-
-    width:45px;
-
-    height:45px;
-
-    flex:none;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:14px;
-
-    background:var(--purple-soft);
-
-    color:var(--purple);
-
-    font-weight:900;
-
+#app .patient-card:hover {
+    border-color: rgba(196, 164, 91, 0.72);
+    box-shadow: 0 7px 19px rgba(53, 16, 68, 0.09);
 }
 
-
-.patient-card-info{
-
-    min-width:0;
-
-    flex:1;
-
+#app .patient-card-avatar {
+    display: flex;
+    flex: 0 0 48px;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #e4d4ed;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #f4ecf9, #e9dcf1);
+    color: #512772;
+    font-size: 17px;
+    font-weight: 800;
 }
 
-
-.patient-card-info strong{
-
-    display:block;
-
-    color:var(--purple-900);
-
-    font-size:12px;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
+#app .patient-card-info {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
-
-.patient-card-info span{
-
-    display:block;
-
-    color:var(--muted);
-
-    font-size:9px;
-
-    margin-top:2px;
-
+#app .patient-card-info strong {
+    display: block;
+    margin: 0;
+    color: #351044;
+    font-family: "Cairo", sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.8;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
 }
 
-
-.patient-card-count{
-
-    min-width:30px;
-
-    height:30px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:10px;
-
-    background:var(--gold-pale);
-
-    color:var(--gold-dark);
-
-    font-size:10px;
-
-    font-weight:900;
-
+#app .patient-card-info span {
+    display: block;
+    margin-top: 4px;
+    color: #796b83;
+    font-family: "Cairo", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.8;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
+#app .patient-card-count {
+    display: flex;
+    flex: 0 0 34px;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 4px;
+    border: 1px solid #ead8a9;
+    border-radius: 11px;
+    background: linear-gradient(145deg, #fffaf0, #f7edcf);
+    color: #795d20;
+    font-size: 12px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
 
+/* Tablet */
+@media (max-width: 1024px) {
+    #app .patients-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 13px;
+    }
+
+    #app .patient-card {
+        padding: 15px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    #app .patients-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 11px;
+    }
+
+    #app .patient-card {
+        min-height: 80px;
+        padding: 14px;
+        gap: 12px;
+        border-radius: 15px;
+    }
+
+    #app .patient-card-avatar {
+        flex-basis: 44px;
+        width: 44px;
+        height: 44px;
+        border-radius: 13px;
+    }
+
+    #app .patient-card-info strong {
+        font-size: 14px;
+    }
+
+    #app .patient-card-info span {
+        font-size: 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #app .patient-card {
+        transition: none;
+    }
+}
 /* =========================================================
    CONSULTATION
 ========================================================= */
@@ -4147,7 +4179,7 @@ button{
         0 11px 26px rgba(112,39,160,.20);
 }
 
-    /* =========================================================
+/* =========================================================
    TABIBK — APPOINTMENTS & PATIENTS POLISH
 ========================================================= */
 
@@ -4337,6 +4369,222 @@ button{
     gap:9px;
 }
 
+    ```css
+/* =========================================================
+   TABIBK — PATIENT LIST PROFESSIONAL LAYOUT
+   Matches the actual renderPatients() HTML
+========================================================= */
+
+#app #patientsList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+}
+
+#app #patientsList .patient-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid #e7dced;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #ffffff, #fbf8fd);
+    box-shadow: 0 5px 16px rgba(53, 16, 68, .06);
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+#app #patientsList .patient-card:hover {
+    border-color: #d6bd86;
+    box-shadow: 0 9px 22px rgba(53, 16, 68, .10);
+}
+
+#app #patientsList .patient-avatar {
+    display: flex;
+    flex: 0 0 46px;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border: 1px solid #e0cfe9;
+    border-radius: 14px;
+    background: linear-gradient(145deg, #f4ecf9, #e9ddf1);
+    color: #512772;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+#app #patientsList .patient-details {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+#app #patientsList .patient-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+    min-width: 0;
+}
+
+#app #patientsList .patient-card-head > div {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+#app #patientsList .patient-card-head h4 {
+    margin: 0 0 6px;
+    color: #351044;
+    font-family: "Cairo", sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+#app #patientsList .patient-card-head > strong {
+    flex: 0 0 auto;
+    padding: 5px 9px;
+    border: 1px solid #ead8a9;
+    border-radius: 10px;
+    background: #fff8e8;
+    color: #795d20;
+    font-size: 11px;
+    line-height: 1.8;
+    white-space: nowrap;
+}
+
+#app #patientsList .patient-status {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 4px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.7;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+#app #patientsList .patient-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+    margin-bottom: 16px;
+}
+
+#app #patientsList .patient-meta > span {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    min-width: 0;
+    margin: 0;
+    color: #71627a;
+    font-family: "Cairo", sans-serif;
+    font-size: 12px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+#app #patientsList .patient-meta > span i {
+    flex: 0 0 16px;
+    width: 16px;
+    margin-top: 5px;
+    color: #80539a;
+    text-align: center;
+}
+
+#app #patientsList .patient-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    min-width: 0;
+    margin-top: 5px;
+}
+
+#app #patientsList .patient-actions .btn {
+    display: inline-flex;
+    flex: 1 1 120px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+    min-height: 42px;
+    margin: 0;
+    padding: 9px 12px;
+    border: 1px solid #d9c5e5;
+    border-radius: 11px;
+    font-family: "Cairo", sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.7;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+}
+
+#app #patientsList .patient-actions .btn-secondary {
+    border-color: #d6bd86;
+    background: linear-gradient(135deg, #432052, #603579);
+    color: #ffffff;
+}
+
+#app #patientsList .patient-actions .btn-secondary:hover {
+    background: linear-gradient(135deg, #512772, #704394);
+}
+
+#app #patientsList .patient-actions .btn-whatsapp {
+    border-color: #b9dfc6;
+    background: #eff9f2;
+    color: #176b3a;
+}
+
+#app #patientsList .patient-actions .btn-whatsapp:hover {
+    background: #e0f3e6;
+}
+
+#app #patientsList .patient-actions .btn:focus-visible {
+    outline: 2px solid #d6ad62;
+    outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+    #app #patientsList {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    #app #patientsList .patient-card {
+        gap: 11px;
+        padding: 14px;
+        border-radius: 15px;
+    }
+
+    #app #patientsList .patient-avatar {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+    }
+
+    #app #patientsList .patient-actions {
+        gap: 8px;
+    }
+
+    #app #patientsList .patient-actions .btn {
+        flex-basis: 100%;
+        min-height: 43px;
+    }
+}
+```
+    
     /* =========================================================
    TABIBK — NOTIFICATIONS & SETTINGS POLISH
 ========================================================= */

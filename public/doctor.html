@@ -13425,18 +13425,6 @@ function toggleAppointmentSelection(
         rating >= 1 &&
         rating <= 5;
 
-    if (hasSavedRating) {
-        selectedAppointmentBookings.delete(booking);
-
-        showToast(
-            "لا يمكن تحديد موعد يحتوي على تقييم محفوظ",
-            "error"
-        );
-
-        renderAppointments();
-        return;
-    }
-
     if (checked) {
         selectedAppointmentBookings.add(booking);
     } else {
@@ -13447,55 +13435,25 @@ function toggleAppointmentSelection(
 }
 
 
-function toggleAllAppointments(checked) {console.log(
-    "[TABIBK TEST] تحديد الكل:",
-    checked
-);
+
+function toggleAllAppointments(checked) {
     if (checked) {
         appointments.forEach(appointment => {
             const booking = String(
                 appointment.bookingNumber || ""
             );
 
-            const rating = Number(
-                appointment.doctorRating
-            );
-
-            const hasSavedRating =
-                Number.isInteger(rating) &&
-                rating >= 1 &&
-                rating <= 5;
-
-            if (booking && !hasSavedRating) {
+            if (booking) {
                 selectedAppointmentBookings.add(booking);
             }
         });
     } else {
-        appointments.forEach(appointment => {
-            selectedAppointmentBookings.delete(
-                String(appointment.bookingNumber || "")
-            );
-        });
+        selectedAppointmentBookings.clear();
     }
 
     renderAppointments();
-
-                         console.log(
-    "[TABIBK DEBUG] عدد المواعيد:",
-    appointments.length
-);
-
-console.log(
-    "[TABIBK DEBUG] عدد المحدد:",
-    selectedAppointmentBookings.size
-);
-
-console.log(
-    "[TABIBK DEBUG] أرقام المحدد:",
-    Array.from(selectedAppointmentBookings)
-);
-                                         
 }
+
 
 
 function updateSelectedAppointmentsUI() {
@@ -13528,29 +13486,11 @@ function updateSelectedAppointmentsUI() {
 
     if (selectAllCheckbox) {
         const eligibleAppointments =
-            appointments.filter(appointment => {
-                const rating = Number(
-                    appointment.doctorRating
-                );
-
-                const hasSavedRating =
-                    Number.isInteger(rating) &&
-                    rating >= 1 &&
-                    rating <= 5;
-
-        console.log("[TABIBK DEBUG] فحص الموعد:", {
-    bookingNumber: appointment.bookingNumber,
-    doctorRating: appointment.doctorRating,
-    rating: rating,
-    hasSavedRating: hasSavedRating
-});
-                
-
-                return (
-                    appointment.bookingNumber &&
-                    !hasSavedRating
-                );
-            });
+    appointments.filter(appointment =>
+        String(
+            appointment.bookingNumber || ""
+        ).trim() !== ""
+    );
 
         const selectedEligibleCount =
             eligibleAppointments.filter(appointment =>
@@ -13662,9 +13602,10 @@ const selectionControl =
                     type="checkbox"
                     class="appointment-select-checkbox"
                     data-booking="${escapeHtml(booking)}"
-                    ${isSelected ? "checked" : ""}
-                    ${hasSavedRating ? "disabled" : ""}
-                    onchange="toggleAppointmentSelection(
+                    
+${isSelected ? "checked" : ""}
+onchange="toggleAppointmentSelection(
+
                         '${escapeJs(booking)}',
                         this.checked
                     )"

@@ -13390,111 +13390,59 @@ function renderStats() {
 }
 
 
+
 /* =========================================================
-   TURN
+   TURN — CONSISTENT QUEUE DISPLAY
 ========================================================= */
 
 function renderTurn() {
 
-    const active =
-        appointments.filter(
+    const active = appointments.filter(
+        appointment =>
+            ["started", "in_progress"].includes(
+                appointment.status
+            )
+    );
+
+    const waiting = appointments.filter(
+        appointment =>
+            ["pending", "confirmed", "accepted", "waiting"].includes(
+                appointment.status
+            )
+    );
+
+    // الدور الحالي هو المريض الذي بدأ كشفه فعلياً
+    const current = active[0] || null;
+
+    // إذا يوجد كشف نشط، نبحث عن أول مريض منتظر رقمه أكبر
+    const next = current
+        ? waiting.find(
             appointment =>
-                [
-                    "started",
-                    "in_progress"
-                ].includes(
-                    appointment.status
-                )
-        );
-
-
-    const waiting =
-        appointments.filter(
-            appointment =>
-                [
-                    "pending",
-                    "confirmed",
-                    "accepted",
-                    "waiting"
-                ].includes(
-                    appointment.status
-                )
-        );
-
-
-    const current =
-        active[0] ||
-        waiting[0] ||
-        null;
-
-
-    let next = null;
-
-
-    if (current) {
-
-        next =
-            waiting.find(
-                appointment =>
-                    Number(
-                        appointment.queueNumber ||
-                        0
-                    ) >
-                    Number(
-                        current.queueNumber ||
-                        0
-                    )
-            ) ||
-            null;
-
-    } else {
-
-        next =
-            waiting[0] ||
-            null;
-
-    }
-
+                Number(appointment.queueNumber || 0) >
+                Number(current.queueNumber || 0)
+        ) || null
+        : waiting[0] || null;
 
     const currentNumber =
-        current?.queueNumber ??
-        "—";
-
+        current?.queueNumber ?? "—";
 
     const nextNumber =
-        next?.queueNumber ??
-        "—";
+        next?.queueNumber ?? "—";
 
-
-    const waitingCount =
-        waiting.length;
-
+    const waitingCount = waiting.length;
 
     if ($("currentTurn")) {
-
-        $("currentTurn").textContent =
-            currentNumber;
-
+        $("currentTurn").textContent = currentNumber;
     }
-
 
     if ($("nextTurn")) {
-
-        $("nextTurn").textContent =
-            nextNumber;
-
+        $("nextTurn").textContent = nextNumber;
     }
-
 
     if ($("waitingCount")) {
-
-        $("waitingCount").textContent =
-            waitingCount;
-
+        $("waitingCount").textContent = waitingCount;
     }
-
 }
-
 
 /* =========================================================
    SYNC QUEUE

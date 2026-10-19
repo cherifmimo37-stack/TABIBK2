@@ -14032,36 +14032,56 @@ async function completeAppointment(bookingNumber) {
 async function deleteOldAppointments() {
     openActionConfirm({
         title: "حذف المواعيد القديمة",
-        message:
-            "هل تريد حذف المواعيد القديمة؟ لا يمكن التراجع عن هذه العملية.",
+        message: "هل تريد حذف المواعيد القديمة؟ لا يمكن التراجع عن هذه العملية.",
         confirmText: "تأكيد الحذف",
 
         onConfirm: async () => {
             try {
-                await apiFetch(
+                const result = await apiFetch(
                     "/api/doctor/appointments/old",
-                    {
-                        method: "DELETE"
-                    }
+                    { method: "DELETE" }
                 );
 
+                console.log(
+                    "TABIBK delete old appointments:",
+                    result
+                );
+
+                if (!result || result.success !== true) {
+                    showToast(
+                        result?.message || "الخادم لم يؤكد الحذف",
+                        "error"
+                    );
+                    return;
+                }
+
+                if (Number(result.deletedCount) === 0) {
+                    showToast(
+                        result.message || "ما لقيناش مواعيد قابلة للحذف",
+                        "error"
+                    );
+                    return;
+                }
+
                 showToast(
-                    "تم حذف المواعيد القديمة",
+                    result.message ||
+                    `تم حذف ${result.deletedCount} موعد قديم`,
                     "success"
                 );
 
                 await loadAppointments();
 
             } catch (error) {
+                console.error("Delete old appointments error:", error);
+
                 showToast(
-                    error.message,
+                    error.message || "فشل حذف المواعيد القديمة",
                     "error"
                 );
             }
         }
     });
 }
-
 /* =========================================================
    WHATSAPP — DIRECT OPEN
 ========================================================= */

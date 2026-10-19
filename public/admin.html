@@ -3034,6 +3034,484 @@ tbody tr:hover{
     color: #f1d78e !important;
 }
 
+
+     
+/* =========================================================
+   TABIBK — PREMIUM PATIENT ADS ADMIN
+   Visual enhancement only — preserve existing functionality
+========================================================= */
+
+#section-patient-ads {
+    --ads-purple: #351044;
+    --ads-purple-light: #6b3280;
+    --ads-gold: #c9a24d;
+    --ads-border: #e7dced;
+    --ads-muted: #81758b;
+    --ads-surface: #ffffff;
+    --ads-soft: #faf7fd;
+    direction: rtl;
+}
+
+#section-patient-ads .card {
+    position: relative;
+    overflow: hidden;
+    padding: 22px;
+    margin-bottom: 22px;
+    border: 1px solid var(--ads-border);
+    border-radius: 20px;
+    background: var(--ads-surface);
+    box-shadow: 0 8px 28px rgba(53, 16, 68, .065);
+    transition: box-shadow .22s ease, border-color .22s ease;
+}
+
+#section-patient-ads .card:hover {
+    border-color: rgba(201, 162, 77, .55);
+    box-shadow: 0 12px 32px rgba(53, 16, 68, .09);
+}
+
+#section-patient-ads .card-head {
+    padding-bottom: 17px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #eee6f2;
+}
+
+#section-patient-ads .card-head h3 {
+    margin: 0 0 8px;
+    color: var(--ads-purple);
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.6;
+}
+
+#section-patient-ads .card-head p {
+    margin: 0;
+    color: var(--ads-muted);
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+#section-patient-ads h4 {
+    color: var(--ads-purple);
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1.8;
+}
+
+#section-patient-ads label {
+    color: var(--ads-purple);
+    font-weight: 800;
+    line-height: 1.8;
+}
+
+#section-patient-ads input[type="text"],
+#section-patient-ads input[type="url"] {
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1.5px solid #ded0e7;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--ads-purple);
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+#section-patient-ads input[type="text"]:focus,
+#section-patient-ads input[type="url"]:focus {
+    border-color: var(--ads-purple-light);
+    box-shadow: 0 0 0 4px rgba(107, 50, 128, .09);
+}
+
+#section-patient-ads input[type="url"] {
+    direction: ltr;
+    text-align: left;
+}
+
+#section-patient-ads input[type="file"] {
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+#section-patient-ads input[type="checkbox"] {
+    accent-color: var(--ads-purple-light);
+    cursor: pointer;
+}
+
+#section-patient-ads button {
+    min-height: 44px;
+    border-radius: 12px;
+    font-weight: 800;
+    transition: transform .18s ease, box-shadow .18s ease,
+                filter .18s ease;
+}
+
+#section-patient-ads button:hover {
+    filter: brightness(1.035);
+    box-shadow: 0 5px 14px rgba(53, 16, 68, .10);
+}
+
+#section-patient-ads button:active {
+    transform: scale(.985);
+}
+
+#section-patient-ads button:focus-visible {
+    outline: 3px solid rgba(201, 162, 77, .55);
+    outline-offset: 3px;
+}
+
+#section-patient-ads #patientAdPreviewBox,
+#section-patient-ads #multiPatientAdPreviewBox {
+    padding: 14px;
+    border: 1px solid var(--ads-border);
+    border-radius: 16px;
+    background: linear-gradient(145deg, #fff, var(--ads-soft));
+    box-shadow: 0 5px 18px rgba(53, 16, 68, .05);
+}
+
+#section-patient-ads #patientAdPreview,
+#section-patient-ads #multiPatientAdPreview {
+    max-width: 100%;
+    border-radius: 12px;
+    background: #f6f1f9;
+}
+
+#section-patient-ads #patientAdsEditor {
+    background: linear-gradient(145deg, #fff, var(--ads-soft));
+    box-shadow: 0 7px 22px rgba(53, 16, 68, .055);
+}
+
+#section-patient-ads #patientAdsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+    gap: 16px;
+    align-items: start;
+}
+
+#section-patient-ads #patientAdStatus,
+#section-patient-ads #multiPatientAdStatus,
+#section-patient-ads #patientAdsListStatus {
+    overflow-wrap: anywhere;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+#section-patient-ads hr {
+    border: 0;
+    border-top: 1px solid var(--ads-border);
+}
+
+@media (max-width: 600px) {
+    #section-patient-ads .card {
+        padding: 15px;
+        border-radius: 16px;
+    }
+
+    #section-patient-ads .card-head h3 {
+        font-size: 18px;
+    }
+
+    #section-patient-ads input[type="text"],
+    #section-patient-ads input[type="url"] {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    #section-patient-ads button {
+        max-width: 100%;
+    }
+
+    #section-patient-ads #patientAdsList {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #section-patient-ads *,
+    #section-patient-ads *::before,
+    #section-patient-ads *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+
+/* =========================================================
+   TABIBK — PREMIUM PATIENT ADS ADMIN
+   Scoped styles only — no API or JS changes
+========================================================= */
+
+#section-patient-ads,
+#section-patient-ads * {
+    box-sizing: border-box;
+}
+
+#section-patient-ads {
+    width: 100%;
+    min-width: 0;
+    color: var(--purple-900);
+}
+
+#section-patient-ads > .card {
+    position: relative;
+    min-width: 0;
+    margin-bottom: 20px;
+    padding: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(185, 154, 86, .22);
+    border-radius: 22px;
+    background: linear-gradient(145deg, #fff 0%, #fcf9ff 100%);
+    box-shadow: 0 10px 30px rgba(53, 16, 68, .055);
+}
+
+#section-patient-ads > .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        var(--purple),
+        var(--gold-light),
+        var(--purple-900)
+    );
+}
+
+#section-patient-ads .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #eee5f3;
+}
+
+#section-patient-ads .card-head h3 {
+    margin: 0 0 6px;
+    color: var(--purple-900);
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.7;
+}
+
+#section-patient-ads .card-head p {
+    margin: 0;
+    color: #81758b;
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+#section-patient-ads label {
+    color: var(--purple-900);
+    font-weight: 800;
+    line-height: 1.8;
+}
+
+#section-patient-ads input[type="text"],
+#section-patient-ads input[type="url"] {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 47px;
+    padding: 12px 14px;
+    border: 1px solid #ded1e8;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--purple-950);
+    font: inherit;
+    font-size: 13px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+#section-patient-ads input[type="url"] {
+    direction: ltr;
+    text-align: left;
+}
+
+#section-patient-ads input[type="text"]:focus,
+#section-patient-ads input[type="url"]:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(201, 151, 50, .12);
+}
+
+#section-patient-ads input[type="file"] {
+    max-width: 100%;
+    font: inherit;
+    font-size: 12px;
+}
+
+#section-patient-ads input[type="checkbox"] {
+    accent-color: var(--purple);
+    flex-shrink: 0;
+}
+
+#section-patient-ads button.btn {
+    min-height: 42px;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: normal;
+}
+
+#section-patient-ads button.btn:focus-visible {
+    outline: 3px solid rgba(201, 151, 50, .45);
+    outline-offset: 3px;
+}
+
+#section-patient-ads button.btn:disabled {
+    opacity: .6;
+    cursor: wait;
+    transform: none;
+}
+
+#section-patient-ads #patientAdPreviewBox,
+#section-patient-ads #multiPatientAdPreviewBox {
+    padding: 14px;
+    border: 1px solid #e7dced;
+    border-radius: 15px;
+    background: #faf7fd;
+}
+
+#section-patient-ads #patientAdPreview,
+#section-patient-ads #multiPatientAdPreview {
+    max-width: 100%;
+    border-radius: 11px;
+    background: #f3edf8;
+}
+
+#section-patient-ads #patientAdsEditor {
+    margin-top: 18px;
+    padding: 22px;
+    border: 1px solid rgba(185, 154, 86, .4);
+    border-radius: 18px;
+    background: linear-gradient(145deg, #fff 0%, #faf6fd 100%);
+    box-shadow: 0 8px 24px rgba(53, 16, 68, .06);
+}
+
+#section-patient-ads #multiPatientAdHeading {
+    margin: 0 0 20px;
+    color: var(--purple-900);
+    font-size: 17px;
+    font-weight: 900;
+}
+
+#section-patient-ads #patientAdsList {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    min-width: 0;
+}
+
+#section-patient-ads #patientAdsList > div {
+    min-width: 0;
+    margin: 0 !important;
+    padding: 18px !important;
+    border: 1px solid #e5d9ed !important;
+    border-radius: 17px !important;
+    background: linear-gradient(145deg, #fff 0%, #fcf9ff 100%) !important;
+    box-shadow: 0 5px 18px rgba(53, 16, 68, .045) !important;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+#section-patient-ads #patientAdsList > div:hover {
+    border-color: rgba(185, 154, 86, .7) !important;
+    box-shadow: 0 9px 24px rgba(53, 16, 68, .08) !important;
+}
+
+#section-patient-ads #patientAdsList img {
+    flex: 0 0 150px;
+    width: 150px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #f6f0fa;
+}
+
+#section-patient-ads #patientAdsList h4 {
+    overflow-wrap: anywhere;
+}
+
+#section-patient-ads #patientAdsList button[data-patient-ad-action="edit"] {
+    background: #f0e7f7;
+    color: var(--purple-900);
+}
+
+#section-patient-ads #patientAdsList button[data-patient-ad-action="toggle"] {
+    background: #fff5d9;
+    color: #765513;
+}
+
+#section-patient-ads #patientAdsList button[data-patient-ad-action="delete"] {
+    background: #fff0f0 !important;
+    color: #a52b35 !important;
+    border: 1px solid #f1d1d4;
+}
+
+#section-patient-ads #patientAdStatus,
+#section-patient-ads #multiPatientAdStatus,
+#section-patient-ads #patientAdsListStatus {
+    overflow-wrap: anywhere;
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+@media (max-width: 600px) {
+    #section-patient-ads > .card {
+        padding: 16px;
+        border-radius: 17px;
+    }
+
+    #section-patient-ads .card-head h3 {
+        font-size: 16px;
+    }
+
+    #section-patient-ads #patientAdsEditor {
+        padding: 15px;
+    }
+
+    #section-patient-ads #patientAdsList > div {
+        padding: 13px !important;
+        gap: 12px !important;
+    }
+
+    #section-patient-ads #patientAdsList img {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 165px;
+    }
+
+    #section-patient-ads #patientAdsList > div > div:last-child {
+        display: flex;
+        width: 100%;
+        gap: 7px;
+    }
+
+    #section-patient-ads #patientAdsList button {
+        flex: 1;
+        min-width: 0;
+        padding: 9px 7px;
+    }
+
+    #section-patient-ads button.btn {
+        max-width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #section-patient-ads *,
+    #section-patient-ads *::before,
+    #section-patient-ads *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+      
 </style>
 
 </head>

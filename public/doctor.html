@@ -13397,6 +13397,14 @@ function toggleAppointmentSelection(
     bookingNumber,
     checked
 ) {
+
+    console.log(
+    "[TABIBK TEST] تحديد موعد:",
+    bookingNumber,
+    checked
+);
+
+    
     const booking = String(bookingNumber || "");
 
     const appointment = appointments.find(
@@ -13439,7 +13447,10 @@ function toggleAppointmentSelection(
 }
 
 
-function toggleAllAppointments(checked) {
+function toggleAllAppointments(checked) {console.log(
+    "[TABIBK TEST] تحديد الكل:",
+    checked
+);
     if (checked) {
         appointments.forEach(appointment => {
             const booking = String(

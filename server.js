@@ -4349,6 +4349,181 @@ const dateB =
     }
 );
 
+
+/* ============================================================
+   TABIBK — DELETE SELECTED DOCTOR APPOINTMENTS
+   ============================================================ */
+
+app.delete(
+    "/api/doctor/appointments/selected",
+    checkDoctorAuth,
+    async (req, res) => {
+        try {
+            const database = readDatabase();
+
+            const doctorId = Number(req.doctor.id);
+
+            const rawBookings = req.body?.bookingNumbers;
+
+            if (
+                !Array.isArray(rawBookings) ||
+                rawBookings.length === 0
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "لم يتم تحديد أي موعد"
+                });
+            }
+
+            const bookingNumbers = [
+                ...new Set(
+                    rawBookings
+                        .map(value => String(value || "").trim())
+                        .filter(Boolean)
+                )
+            ];
+
+            if (
+                bookingNumbers.length === 0 ||
+                bookingNumbers.length !== rawBookings.length
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "قائمة المواعيد المحددة غير صالحة"
+                });
+            }
+
+            const doctorAppointments =
+                database.appointments.filter(
+                    appointment =>
+                        Number(appointment.doctorId) === doctorId
+                );
+
+            const selectedAppointments =
+                bookingNumbers.map(bookingNumber =>
+                    doctorAppointments.find(
+                        appointment =>
+                            String(appointment.bookingNumber) ===
+                            bookingNumber
+                    )
+                );
+
+            if (
+                selectedAppointments.some(
+                    appointment => !appointment
+                )
+            ) {
+                return res.status(404).json({
+                    success: false,
+                    message:
+                        "بعض المواعيد غير موجودة أو لا تخص حسابك؛ لم يُحذف أي موعد"
+                });
+            }
+
+            const hasRatedAppointment =
+                selectedAppointments.some(appointment => {
+                    const rating = Number(
+                        appointment.doctorRating
+                    );
+
+                    return (
+                        Number.isInteger(rating) &&
+                        rating >= 1 &&
+                        rating <= 5
+                    );
+                });
+
+            if (hasRatedAppointment) {
+                return res.status(409).json({
+                    success: false,
+                    message:
+                        "تتضمن القائمة موعدًا بتقييم محفوظ؛ أزل هذا الموعد من التحديد ثم أعد المحاولة. لم يُحذف أي موعد"
+                });
+            }
+
+
+const selectedSet = new Set(bookingNumbers);
+
+// التأكد من أن كل رقم حجز يخص موعدًا واحدًا فقط للطبيب
+const selectedCounts = new Map();
+
+for (const appointment of doctorAppointments) {
+    const booking = String(
+        appointment.bookingNumber || ""
+    ).trim();
+
+    if (selectedSet.has(booking)) {
+        selectedCounts.set(
+            booking,
+            (selectedCounts.get(booking) || 0) + 1
+        );
+    }
+}
+
+const hasMissingOrDuplicateBooking =
+    bookingNumbers.some(
+        booking =>
+            selectedCounts.get(booking) !== 1
+    );
+
+if (hasMissingOrDuplicateBooking) {
+    return res.status(409).json({
+        success: false,
+        message:
+            "توجد أرقام حجوزات مفقودة أو مكررة؛ لم يُحذف أي موعد"
+    });
+}
+
+// تجهيز النتيجة دون تعديل قاعدة البيانات الأصلية أولًا
+const remainingAppointments =
+    database.appointments.filter(
+        appointment =>
+            Number(appointment.doctorId) !== doctorId ||
+            !selectedSet.has(
+                String(
+                    appointment.bookingNumber || ""
+                ).trim()
+            )
+    );
+
+const deletedCount =
+    database.appointments.length -
+    remainingAppointments.length;
+
+if (deletedCount !== bookingNumbers.length) {
+    return res.status(409).json({
+        success: false,
+        message:
+            "تعذر التحقق من جميع المواعيد؛ لم يُحذف أي موعد"
+    });
+}
+
+database.appointments = remainingAppointments;
+
+await saveDatabase(database);
+
+
+            return res.json({
+                success: true,
+                message: `تم حذف ${deletedCount} موعد بنجاح`,
+                deletedCount
+            });
+
+        } catch (error) {
+            console.error(
+                "خطأ في الحذف الجماعي للمواعيد:",
+                error
+            );
+
+            return res.status(500).json({
+                success: false,
+                message:
+                    "حدث خطأ أثناء حذف المواعيد المحددة"
+            });
+        }
+    }
+);
+
 // ============================================================
 // DELETE SINGLE DOCTOR APPOINTMENT
 // ============================================================
@@ -4396,6 +4571,33 @@ app.delete(
                             "الموعد غير موجود"
                     });
             }
+
+            
+            const appointmentToDelete =
+                database.appointments[
+                    appointmentIndex
+                ];
+
+            const rating =
+                Number(
+                    appointmentToDelete.doctorRating
+                );
+
+            const hasSavedRating =
+                Number.isInteger(rating) &&
+                rating >= 1 &&
+                rating <= 5;
+
+            if (hasSavedRating) {
+                return res
+                    .status(409)
+                    .json({
+                        success: false,
+                        message:
+                            "لا يمكن حذف موعد يحتوي على تقييم محفوظ"
+                    });
+            }
+
 
             const deletedAppointment =
                 database.appointments[

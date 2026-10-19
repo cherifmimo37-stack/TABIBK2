@@ -2387,6 +2387,34 @@ button{
     }
 }
 
+    
+/* =========================================================
+   CURRENT PATIENT NAME
+========================================================= */
+
+.turn-patient-name {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.turn-box:not(.current) .turn-patient-name {
+    color: #54266f;
+}
+
+@media (max-width: 480px) {
+    .turn-patient-name {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+}
+
 /* =========================================================
    APPOINTMENTS
 ========================================================= */
@@ -9605,16 +9633,26 @@ transition: none;
                                 الدور الحالي
                             </span>
 
-                            <strong
-                                class="turn-number"
-                                id="queueCurrentTurn"
-                            >
-                                —
-                            </strong>
 
-                            <span class="turn-description">
-                                قيد الكشف الآن
-                            </span>
+<strong
+    class="turn-number"
+    id="queueCurrentTurn"
+>
+    —
+</strong>
+
+<!-- اسم المريض الحالي -->
+<span
+    class="turn-patient-name"
+    id="queueCurrentPatient"
+>
+    لا يوجد مريض قيد الكشف
+</span>
+
+<span class="turn-description">
+    قيد الكشف الآن
+</span>
+
 
                         </div>
 

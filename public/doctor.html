@@ -14021,52 +14021,41 @@ async function completeAppointment(bookingNumber) {
 }
 
 /* =========================================================
-   DELETE OLD APPOINTMENTS
+   DELETE OLD APPOINTMENTS — TABIBK CONFIRMATION
 ========================================================= */
 
 async function deleteOldAppointments() {
+    openActionConfirm({
+        title: "حذف المواعيد القديمة",
+        message:
+            "هل تريد حذف المواعيد القديمة؟ لا يمكن التراجع عن هذه العملية.",
+        confirmText: "تأكيد الحذف",
 
-    if (!confirm(
-        "هل تريد حذف المواعيد القديمة؟\n\nلا يمكن التراجع عن هذه العملية."
-    )) {
+        onConfirm: async () => {
+            try {
+                await apiFetch(
+                    "/api/doctor/appointments/old",
+                    {
+                        method: "DELETE"
+                    }
+                );
 
-        return;
+                showToast(
+                    "تم حذف المواعيد القديمة",
+                    "success"
+                );
 
-    }
+                await loadAppointments();
 
-
-    try {
-
-        await apiFetch(
-            "/api/doctor/appointments/old",
-            {
-                method: "DELETE"
+            } catch (error) {
+                showToast(
+                    error.message,
+                    "error"
+                );
             }
-        );
-
-
-        showToast(
-            "تم حذف المواعيد القديمة",
-            "success"
-        );
-
-
-        await loadAppointments();
-
-    } catch (error) {
-
-        showToast(
-            error.message,
-            "error"
-        );
-
-    }
-
+        }
+    });
 }
-
-
-
-
 
 /* =========================================================
    WHATSAPP — DIRECT OPEN

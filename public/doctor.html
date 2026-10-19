@@ -13538,6 +13538,14 @@ function updateSelectedAppointmentsUI() {
                     rating >= 1 &&
                     rating <= 5;
 
+        console.log("[TABIBK DEBUG] فحص الموعد:", {
+    bookingNumber: appointment.bookingNumber,
+    doctorRating: appointment.doctorRating,
+    rating: rating,
+    hasSavedRating: hasSavedRating
+});
+                
+
                 return (
                     appointment.bookingNumber &&
                     !hasSavedRating

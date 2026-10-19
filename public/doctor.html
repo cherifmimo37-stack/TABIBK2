@@ -13584,11 +13584,17 @@ async function deleteSelectedAppointments() {
                     error
                 );
 
-                showToast(
-                    error.message ||
-                    "حدث خطأ أثناء حذف المواعيد المحددة",
-                    "error"
-                );
+                openActionConfirm({
+    title: "تعذر حذف المواعيد",
+
+    message:
+        error.message ||
+        "حدث خطأ أثناء حذف المواعيد المحددة",
+
+    confirmText: "فهمت",
+
+    onConfirm: async function () {}
+});
 
             } finally {
 

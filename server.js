@@ -3494,8 +3494,14 @@ const appointmentDate =
                 workingHours.enabled
             ) {
 
-                const day =
-                    appointmentDate.getDay();
+                // حساب يوم الأسبوع من تاريخ الحجز نفسه،
+// دون التأثر بالتوقيت المحلي لخادم Render.
+const [year, month, dayOfMonth] =
+    String(date).split("-").map(Number);
+
+const day = new Date(
+    Date.UTC(year, month - 1, dayOfMonth)
+).getUTCDay();
 
                 if (
                     !workingHours.days

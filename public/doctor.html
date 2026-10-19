@@ -13509,7 +13509,97 @@ function updateSelectedAppointmentsUI() {
     }
 }
 
-        
+    
+/* =========================================================
+   TABIBK — DELETE SELECTED APPOINTMENTS
+========================================================= */
+
+async function deleteSelectedAppointments() {
+
+    const bookingNumbers = [
+        ...selectedAppointmentBookings
+    ];
+
+    if (bookingNumbers.length === 0) {
+        showToast(
+            "يرجى تحديد موعد واحد على الأقل",
+            "error"
+        );
+        return;
+    }
+
+    const confirmed = confirm(
+        `هل تريد حذف ${bookingNumbers.length} موعد محدد؟\n\n` +
+        "إذا كان أحد المواعيد يحتوي على تقييم محفوظ، " +
+        "سيرفض الخادم حذف القائمة كاملة."
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const deleteButton =
+        $("deleteSelectedAppointmentsButton");
+
+    if (deleteButton) {
+        deleteButton.disabled = true;
+    }
+
+    try {
+
+        const result = await apiFetch(
+            "/api/doctor/appointments/selected",
+            {
+                method: "DELETE",
+                body: JSON.stringify({
+                    bookingNumbers
+                })
+            }
+        );
+
+        if (!result || result.success !== true) {
+            throw new Error(
+                result?.message ||
+                "تعذر حذف المواعيد المحددة"
+            );
+        }
+
+        selectedAppointmentBookings.clear();
+
+        showToast(
+            result.message || "تم حذف المواعيد بنجاح",
+            "success"
+        );
+
+        await loadAppointments(true);
+
+        updateSelectedAppointmentsUI();
+
+    } catch (error) {
+
+        console.error(
+            "خطأ في حذف المواعيد المحددة:",
+            error
+        );
+
+        showToast(
+            error.message ||
+            "حدث خطأ أثناء حذف المواعيد المحددة",
+            "error"
+        );
+
+    } finally {
+
+        if (deleteButton) {
+            deleteButton.disabled =
+                selectedAppointmentBookings.size === 0;
+        }
+
+        updateSelectedAppointmentsUI();
+
+    }
+}
+    
 /* =========================================================
    RENDER APPOINTMENTS
 ========================================================= */

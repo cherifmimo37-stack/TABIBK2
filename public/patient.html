@@ -3292,6 +3292,94 @@ function getSelectedWilayaName(){
 }
 
 /* =====================================================
+   PATIENT FCM TOKEN REGISTRATION
+===================================================== */
+
+window.setTabibkAndroidFcmToken = function(token) {
+    if (
+        typeof token !== "string" ||
+        !token.trim()
+    ) {
+        return;
+    }
+
+    window.tabibkAndroidFcmToken = token.trim();
+
+    try {
+        localStorage.setItem(
+            "tabibkPatientFcmToken",
+            token.trim()
+        );
+    } catch (error) {
+        console.warn(
+            "Could not cache patient FCM token."
+        );
+    }
+
+    registerPatientFcmToken();
+};
+
+async function registerPatientFcmToken() {
+    try {
+        const bookingNumber =
+            localStorage.getItem(
+                "tabibkBookingNumber"
+            );
+
+        const pushKey =
+            localStorage.getItem(
+                "tabibkPatientPushKey"
+            );
+
+        const token =
+            window.tabibkAndroidFcmToken ||
+            localStorage.getItem(
+                "tabibkPatientFcmToken"
+            );
+
+        if (!bookingNumber || !pushKey || !token) {
+            return;
+        }
+
+        const response = await fetch(
+            `${API}/api/patient/fcm-token`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    bookingNumber,
+                    pushKey,
+                    token
+                })
+            }
+        );
+
+        const data = await readJsonResponse(response);
+
+        if (!response.ok || !data.success) {
+            console.warn(
+                "Patient push registration failed:",
+                data.message || response.status
+            );
+            return;
+        }
+
+        console.log(
+            "Patient push registration successful."
+        );
+
+    } catch (error) {
+        console.warn(
+            "Patient push registration error:",
+            error.message
+        );
+    }
+}
+
+/* =====================================================
    CREATE APPOINTMENT
    ===================================================== */
 
@@ -3467,6 +3555,22 @@ async function createAppointment(){
             "tabibkBookingNumber",
             currentBookingNumber
         );
+
+          
+        // Save the secret key for this appointment.
+        if (
+            typeof data.patientPushKey === "string" &&
+            /^[a-f0-9]{64}$/i.test(data.patientPushKey)
+        ) {
+            localStorage.setItem(
+                "tabibkPatientPushKey",
+                data.patientPushKey
+            );
+        }
+
+        // Register the patient's Android device if its token is ready.
+        await registerPatientFcmToken();
+
 
         document.getElementById(
             "newBookingNumber"

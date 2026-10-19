@@ -24108,7 +24108,104 @@ if (
 #section-hours .toggle-text.is-disabled {
     color: #9a4c4c;
 }
-     
+
+
+ 
+/* =========================================================
+   TABIBK — FIX BULK APPOINTMENT TOOLBAR ON MOBILE
+========================================================= */
+
+.appointment-bulk-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px;
+    margin: 14px 0;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.appointment-select-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1 1 180px;
+    min-width: 0;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.appointment-select-all input,
+.appointment-select-checkbox {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+    accent-color: #6d288f;
+    cursor: pointer;
+}
+
+#selectedAppointmentsCount {
+    flex: 0 0 auto;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+#deleteSelectedAppointmentsButton {
+    flex: 1 1 160px;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    justify-content: center;
+}
+
+#deleteSelectedAppointmentsButton:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: grayscale(0.35);
+}
+
+.appointment-select-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.appointment-select-control input:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+@media (max-width: 480px) {
+    .appointment-bulk-toolbar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .appointment-select-all {
+        grid-column: 1 / -1;
+    }
+
+    #selectedAppointmentsCount {
+        justify-self: start;
+    }
+
+    #deleteSelectedAppointmentsButton {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+}
+       
 </style>
 </body>
 </html>

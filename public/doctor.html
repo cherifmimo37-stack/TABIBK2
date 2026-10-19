@@ -3587,6 +3587,107 @@ button{
 
 
 /* =========================================================
+   TABIBK — PREMIUM CONSULTATION OVERRIDES
+   Visual enhancement only
+========================================================= */
+
+.consultation-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(103, 57, 130, 0.14);
+    border-radius: 22px;
+    background: linear-gradient(145deg, #ffffff, #faf7fc);
+    box-shadow: 0 10px 28px rgba(53, 16, 68, 0.07);
+}
+
+.consultation-patient {
+    padding: 20px;
+    border: 1px solid rgba(103, 57, 130, 0.10);
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffffff, #f7f0fb);
+}
+
+.consultation-avatar {
+    flex: 0 0 58px;
+    width: 58px;
+    height: 58px;
+    border: 2px solid #e7d5a0;
+    border-radius: 18px;
+    color: #f1d78e;
+    background: linear-gradient(145deg, #32104f, #66338a);
+    box-shadow: 0 6px 16px rgba(53, 16, 68, 0.15);
+}
+
+.consultation-patient h3 {
+    overflow-wrap: anywhere;
+    line-height: 1.7;
+}
+
+.consultation-patient p {
+    overflow-wrap: anywhere;
+    line-height: 1.8;
+}
+
+.consultation-info {
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.consultation-empty {
+    border: 1px dashed #ddcce8;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #ffffff, #faf6fc);
+}
+
+.consultation-empty i {
+    color: #7650a2;
+}
+
+.consultation-empty p {
+    line-height: 1.9;
+}
+
+.consultation-actions {
+    gap: 10px;
+}
+
+@media (max-width: 600px) {
+    .consultation-card {
+        padding: 14px;
+        border-radius: 17px;
+    }
+
+    .consultation-patient {
+        gap: 12px;
+        padding: 14px 10px;
+        border-radius: 14px;
+    }
+
+    .consultation-avatar {
+        flex-basis: 48px;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        font-size: 21px;
+    }
+
+    .consultation-patient h3 {
+        font-size: 15px;
+    }
+
+    .consultation-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 14px;
+    }
+
+    .consultation-actions {
+        gap: 8px;
+    }
+}
+
+    
+/* =========================================================
    NOTIFICATIONS SECTION
 ========================================================= */
 

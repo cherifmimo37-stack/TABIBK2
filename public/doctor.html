@@ -10667,6 +10667,40 @@ transition: none;
 </div>
 
 
+<!-- TABIBK — PREMIUM CONFIRMATION MODAL -->
+<div class="modal-overlay" id="actionConfirmModal">
+    <div class="modal">
+        <div class="modal-top"></div>
+
+        <div class="modal-body">
+            <h3 id="actionConfirmTitle">تأكيد العملية</h3>
+
+            <p id="actionConfirmMessage">
+                هل تريد متابعة هذه العملية؟
+            </p>
+
+            <div class="modal-actions">
+                <button
+                    type="button"
+                    class="modal-cancel"
+                    onclick="closeActionConfirm()"
+                >
+                    إلغاء
+                </button>
+
+                <button
+                    type="button"
+                    class="modal-confirm"
+                    id="actionConfirmButton"
+                    onclick="executeActionConfirm()"
+                >
+                    تأكيد
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- =======================================================
      TOAST
 ======================================================= -->
@@ -10703,6 +10737,58 @@ let rejectBookingNumber = null;
 
 let lastNotificationCount = 0;
 
+ 
+/* =========================================================
+   TABIBK — INTERNAL ACTION CONFIRMATION
+========================================================= */
+
+let pendingActionConfirm = null;
+
+function openActionConfirm(options = {}) {
+    const modal = $("actionConfirmModal");
+
+    if (!modal) {
+        showToast("تعذر فتح نافذة التأكيد", "error");
+        return;
+    }
+
+    $("actionConfirmTitle").textContent =
+        options.title || "تأكيد العملية";
+
+    $("actionConfirmMessage").textContent =
+        options.message || "هل تريد متابعة هذه العملية؟";
+
+    $("actionConfirmButton").textContent =
+        options.confirmText || "تأكيد";
+
+    pendingActionConfirm = options.onConfirm;
+
+    modal.classList.add("show");
+}
+
+function closeActionConfirm() {
+    const modal = $("actionConfirmModal");
+
+    if (modal) {
+        modal.classList.remove("show");
+    }
+
+    pendingActionConfirm = null;
+}
+
+async function executeActionConfirm() {
+    const action = pendingActionConfirm;
+
+    if (typeof action !== "function") {
+        closeActionConfirm();
+        return;
+    }
+
+    closeActionConfirm();
+
+    await action();
+}
+       
 /* =========================================================
    HELPER
 ========================================================= */
@@ -13731,56 +13817,45 @@ async function deleteAppointment(
 }
 
 
+
 /* =========================================================
-   ACCEPT APPOINTMENT
+   ACCEPT APPOINTMENT — TABIBK CUSTOM CONFIRMATION
 ========================================================= */
 
-async function acceptAppointment(
-    bookingNumber
-) {
-
-    if (!confirm(
-        "هل تريد قبول هذا الموعد؟"
-    )) {
-
+async function acceptAppointment(bookingNumber) {
+    if (!bookingNumber) {
+        showToast("رقم الحجز غير موجود", "error");
         return;
-
     }
 
+    openActionConfirm({
+        title: "قبول الموعد",
+        message: "هل تريد قبول هذا الموعد؟",
+        confirmText: "تأكيد القبول",
 
-    try {
+        onConfirm: async () => {
+            try {
+                await apiFetch(
+                    `/api/appointments/${encodeURIComponent(
+                        bookingNumber
+                    )}/accept`,
+                    {
+                        method: "POST"
+                    }
+                );
 
-        await apiFetch(
-            `/api/appointments/${encodeURIComponent(
-                bookingNumber
-            )}/accept`,
-            {
-                method: "POST"
+                showToast("تم قبول الموعد", "success");
+
+                await loadAppointments();
+
+                playNotificationSound();
+
+            } catch (error) {
+                showToast(error.message, "error");
             }
-        );
-
-
-        showToast(
-            "تم قبول الموعد",
-            "success"
-        );
-
-
-        await loadAppointments();
-
-        playNotificationSound();
-
-    } catch (error) {
-
-        showToast(
-            error.message,
-            "error"
-        );
-
-    }
-
+        }
+    });
 }
-
 
 /* =========================================================
    REJECT MODAL
@@ -13830,63 +13905,49 @@ function closeRejectModal() {
 }
 
 
+
 async function confirmReject() {
-
     if (!rejectBookingNumber) {
-
         return;
-
     }
-
 
     const reason =
-        $("rejectReason")?.value
-            .trim() ||
+        $("rejectReason")?.value.trim() ||
         "لم يتم ذكر سبب";
 
+    const bookingNumber = rejectBookingNumber;
 
-    try {
+    openActionConfirm({
+        title: "تأكيد رفض الموعد",
+        message: "هل أنت متأكد من رفض هذا الموعد؟",
+        confirmText: "تأكيد الرفض",
 
-        await apiFetch(
-            `/api/appointments/${encodeURIComponent(
-                rejectBookingNumber
-            )}/reject`,
-            {
-                method: "POST",
+        onConfirm: async () => {
+            try {
+                await apiFetch(
+                    `/api/appointments/${encodeURIComponent(
+                        bookingNumber
+                    )}/reject`,
+                    {
+                        method: "POST",
+                        body: JSON.stringify({ reason })
+                    }
+                );
 
-                body:
-                    JSON.stringify({
-                        reason
-                    })
+                closeRejectModal();
+
+                showToast("تم رفض الموعد", "success");
+
+                await loadAppointments();
+
+                playNotificationSound();
+
+            } catch (error) {
+                showToast(error.message, "error");
             }
-        );
-
-
-        closeRejectModal();
-
-
-        showToast(
-            "تم رفض الموعد",
-            "success"
-        );
-
-
-        await loadAppointments();
-
-        playNotificationSound();
-
-    } catch (error) {
-
-        showToast(
-            error.message,
-            "error"
-        );
-
-    }
-
+        }
+    });
 }
-
-
 
 /* =========================================================
    START APPOINTMENT — DIRECT START

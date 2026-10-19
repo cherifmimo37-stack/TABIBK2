@@ -4683,166 +4683,125 @@ app.post(
     }
 );
 
-// ============================================================
-// START APPOINTMENT
-// ============================================================
+
+ // ============================================================
+ // START APPOINTMENT
+ // ============================================================
 
 app.post(
     "/api/appointments/:bookingNumber/start",
     checkDoctorAuth,
-    (req, res) => {
+    async (req, res) => {
+        try {
+            const database = readDatabase();
 
-        const database =
-            readDatabase();
-
-        const appointment =
-            database.appointments.find(
+            const appointment = database.appointments.find(
                 item =>
-                    String(
-                        item.bookingNumber
-                    ) ===
-                        String(
-                            req.params.bookingNumber
-                        ) &&
-                    Number(
-                        item.doctorId
-                    ) ===
-                        Number(
-                            req.doctor.id
-                        )
+                    String(item.bookingNumber) ===
+                        String(req.params.bookingNumber) &&
+                    Number(item.doctorId) ===
+                        Number(req.doctor.id)
             );
 
-        if (!appointment) {
-
-            return res
-                .status(404)
-                .json({
+            if (!appointment) {
+                return res.status(404).json({
                     success: false,
-                    message:
-                        "الموعد غير موجود"
+                    message: "الموعد غير موجود"
                 });
-        }
-
-        if (
-            ![
-                "confirmed",
-                "accepted"
-            ].includes(
-                appointment.status
-            )
-        ) {
-
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message:
-                        "لا يمكن بدء هذا الموعد حاليا"
-                });
-        }
-
-        // ----------------------------------------------------
-        // Prevent multiple started patients
-        // ----------------------------------------------------
-
-        const alreadyStarted =
-            database.appointments.find(
-                item =>
-                    Number(
-                        item.doctorId
-                    ) ===
-                        Number(
-                            req.doctor.id
-                        ) &&
-
-                    String(
-                        item.date
-                    ) ===
-                        String(
-                            appointment.date
-                        ) &&
-
-                    item.status ===
-                        "started" &&
-
-                    Number(
-                        item.id
-                    ) !==
-                        Number(
-                            appointment.id
-                        )
-            );
-
-        if (
-            alreadyStarted
-        ) {
-
-            return res
-                .status(409)
-                .json({
-                    success: false,
-                    message:
-                        "يوجد مريض قيد الفحص حاليا"
-                });
-        }
-
-        appointment.status =
-            "started";
-
-        appointment.startedAt =
-            new Date().toISOString();
-
-        appointment.updatedAt =
-            new Date().toISOString();
-
-        createNotification(
-            database,
-            {
-
-                doctorId:
-    null,
-                appointmentId:
-                    appointment.id,
-
-                patientPhone:
-                    appointment.patientPhone,
-
-                bookingNumber:
-                    appointment.bookingNumber,
-
-                type:
-                    "appointment_started",
-
-                title:
-                    "حان دورك الآن 🩺",
-
-               message:
-    "حان دورك مع " +
-    req.doctor.name +
-    "."
             }
-        );
 
-        saveDatabase(
-            database
-        );
+            if (!["confirmed", "accepted"].includes(appointment.status)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "لا يمكن بدء هذا الموعد حاليا"
+                });
+            }
 
-        res.json({
+            // Prevent multiple started patients
+            const alreadyStarted = database.appointments.find(
+                item =>
+                    Number(item.doctorId) ===
+                        Number(req.doctor.id) &&
+                    String(item.date) === String(appointment.date) &&
+                    item.status === "started" &&
+                    Number(item.id) !== Number(appointment.id)
+            );
 
-            success: true,
+            if (alreadyStarted) {
+                return res.status(409).json({
+                    success: false,
+                    message: "يوجد مريض قيد الفحص حاليا"
+                });
+            }
 
-            message:
-                "تم بدء الموعد",
+            appointment.status = "started";
+            appointment.startedAt = new Date().toISOString();
+            appointment.updatedAt = new Date().toISOString();
 
-            appointment
+            const notification = {
+                doctorId: null,
+                appointmentId: appointment.id,
+                patientPhone: appointment.patientPhone,
+                bookingNumber: appointment.bookingNumber,
+                type: "appointment_started",
+                title: "حان دورك الآن 🩺",
+                message: "حان دورك مع " + req.doctor.name + "."
+            };
 
-        });
+            createNotification(database, notification);
+
+            const saveResult = await saveDatabase(database);
+
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ بدء الموعد"
+                });
+            }
+
+            // Send Push to the patient's registered Android device
+            try {
+                await sendPatientPushNotification(
+                    appointment,
+                    notification
+                );
+            } catch (pushError) {
+                console.error(
+                    "Patient turn push failed:",
+                    pushError.message
+                );
+            }
+
+            const {
+                patientPushKeyHash,
+                patientFcmTokens,
+                ...publicAppointment
+            } = appointment;
+
+            return res.json({
+                success: true,
+                message: "تم بدء الموعد",
+                appointment: publicAppointment
+            });
+
+        } catch (error) {
+            console.error(
+                "Start appointment error:",
+                error.message
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "حدث خطأ أثناء بدء الموعد"
+            });
+        }
     }
 );
 
 // ============================================================
 // COMPLETE APPOINTMENT
 // ============================================================
+
 
 app.post(
     "/api/appointments/:bookingNumber/complete",

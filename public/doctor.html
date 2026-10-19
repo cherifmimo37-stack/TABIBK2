@@ -9299,21 +9299,34 @@ transition: none;
 
                             </button>
 
-
-                            <button
-                                class="action-button btn-danger"
-                                onclick="deleteOldAppointments()"
-                            >
-
-                                <i class="fa-solid fa-trash"></i>
-
-                                حذف القديمة
-
-                            </button>
-
                         </div>
 
                     </div>
+
+<!-- TABIBK — BULK APPOINTMENT ACTIONS -->
+<div class="card appointment-bulk-toolbar" id="appointmentBulkToolbar">
+    <label class="appointment-select-all">
+        <input
+            type="checkbox"
+            id="selectAllAppointments"
+            onchange="toggleAllAppointments(this.checked)"
+        >
+        <span>تحديد كل المواعيد</span>
+    </label>
+
+    <span id="selectedAppointmentsCount">تم تحديد 0</span>
+
+    <button
+        type="button"
+        class="action-button btn-danger"
+        id="deleteSelectedAppointmentsButton"
+        onclick="deleteSelectedAppointments()"
+        disabled
+    >
+        <i class="fa-solid fa-trash"></i>
+        حذف المحدّد
+    </button>
+</div>
 
 
                     <div class="card">
@@ -10736,6 +10749,9 @@ let supportMessagesTimer = null;
 let rejectBookingNumber = null;
 
 let lastNotificationCount = 0;
+
+// TABIBK — SELECTED APPOINTMENTS
+const selectedAppointmentBookings = new Set();        
 
  
 /* =========================================================
@@ -13374,6 +13390,152 @@ function getStatusText(status) {
 
 
 /* =========================================================
+   TABIBK — APPOINTMENT SELECTION
+========================================================= */
+
+function toggleAppointmentSelection(
+    bookingNumber,
+    checked
+) {
+    const booking = String(bookingNumber || "");
+
+    const appointment = appointments.find(
+        item =>
+            String(item.bookingNumber || "") === booking
+    );
+
+    if (!appointment || !booking) {
+        selectedAppointmentBookings.delete(booking);
+        updateSelectedAppointmentsUI();
+        return;
+    }
+
+    const rating = Number(appointment.doctorRating);
+
+    const hasSavedRating =
+        Number.isInteger(rating) &&
+        rating >= 1 &&
+        rating <= 5;
+
+    if (hasSavedRating) {
+        selectedAppointmentBookings.delete(booking);
+
+        showToast(
+            "لا يمكن تحديد موعد يحتوي على تقييم محفوظ",
+            "error"
+        );
+
+        renderAppointments();
+        return;
+    }
+
+    if (checked) {
+        selectedAppointmentBookings.add(booking);
+    } else {
+        selectedAppointmentBookings.delete(booking);
+    }
+
+    updateSelectedAppointmentsUI();
+}
+
+
+function toggleAllAppointments(checked) {
+    if (checked) {
+        appointments.forEach(appointment => {
+            const booking = String(
+                appointment.bookingNumber || ""
+            );
+
+            const rating = Number(
+                appointment.doctorRating
+            );
+
+            const hasSavedRating =
+                Number.isInteger(rating) &&
+                rating >= 1 &&
+                rating <= 5;
+
+            if (booking && !hasSavedRating) {
+                selectedAppointmentBookings.add(booking);
+            }
+        });
+    } else {
+        appointments.forEach(appointment => {
+            selectedAppointmentBookings.delete(
+                String(appointment.bookingNumber || "")
+            );
+        });
+    }
+
+    renderAppointments();
+}
+
+
+function updateSelectedAppointmentsUI() {
+    const selectedCount =
+        selectedAppointmentBookings.size;
+
+    const countElement =
+        $("selectedAppointmentsCount");
+
+    const deleteButton =
+        $("deleteSelectedAppointmentsButton");
+
+    const selectAllCheckbox =
+        $("selectAllAppointments");
+
+    if (countElement) {
+        countElement.textContent =
+            `تم تحديد ${selectedCount}`;
+    }
+
+    if (deleteButton) {
+        deleteButton.disabled =
+            selectedCount === 0;
+
+        deleteButton.innerHTML = `
+            <i class="fa-solid fa-trash"></i>
+            حذف المحدّد (${selectedCount})
+        `;
+    }
+
+    if (selectAllCheckbox) {
+        const eligibleAppointments =
+            appointments.filter(appointment => {
+                const rating = Number(
+                    appointment.doctorRating
+                );
+
+                const hasSavedRating =
+                    Number.isInteger(rating) &&
+                    rating >= 1 &&
+                    rating <= 5;
+
+                return (
+                    appointment.bookingNumber &&
+                    !hasSavedRating
+                );
+            });
+
+        const selectedEligibleCount =
+            eligibleAppointments.filter(appointment =>
+                selectedAppointmentBookings.has(
+                    String(appointment.bookingNumber)
+                )
+            ).length;
+
+        selectAllCheckbox.checked =
+            eligibleAppointments.length > 0 &&
+            selectedEligibleCount === eligibleAppointments.length;
+
+        selectAllCheckbox.indeterminate =
+            selectedEligibleCount > 0 &&
+            selectedEligibleCount < eligibleAppointments.length;
+    }
+}
+
+        
+/* =========================================================
    RENDER APPOINTMENTS
 ========================================================= */
 
@@ -13412,15 +13574,18 @@ function renderAppointments() {
     }
 
 
-    container.innerHTML =
-        appointments
-            .map(
-                appointment =>
-                    renderAppointment(
-                        appointment
-                    )
-            )
-            .join("");
+container.innerHTML =
+    appointments
+        .map(
+            appointment =>
+                renderAppointment(
+                    appointment,
+                    true
+                )
+        )
+        .join("");
+
+updateSelectedAppointmentsUI();
 
 }
 
@@ -13430,7 +13595,8 @@ function renderAppointments() {
 ========================================================= */
 
 function renderAppointment(
-    appointment
+    appointment,
+    selectable = false
 ) {
 
     const name =
@@ -13442,6 +13608,37 @@ function renderAppointment(
     const booking =
         appointment.bookingNumber ||
         "";
+
+        const hasSavedRating =
+    Number.isInteger(Number(appointment.doctorRating)) &&
+    Number(appointment.doctorRating) >= 1 &&
+    Number(appointment.doctorRating) <= 5;
+
+const isSelected =
+    selectedAppointmentBookings.has(
+        String(booking)
+    );
+
+const selectionControl =
+    selectable && booking
+        ? `
+            <label class="appointment-select-control">
+                <input
+                    type="checkbox"
+                    class="appointment-select-checkbox"
+                    data-booking="${escapeHtml(booking)}"
+                    ${isSelected ? "checked" : ""}
+                    ${hasSavedRating ? "disabled" : ""}
+                    onchange="toggleAppointmentSelection(
+                        '${escapeJs(booking)}',
+                        this.checked
+                    )"
+                    aria-label="تحديد موعد ${escapeHtml(booking)}"
+                >
+                <span>تحديد</span>
+            </label>
+        `
+        : "";
 
 
     const queue =
@@ -13507,6 +13704,7 @@ function renderAppointment(
 
             <div class="appointment-top">
 
+    ${selectionControl}
                 <div class="patient-avatar">
                     ${escapeHtml(initial)}
                 </div>

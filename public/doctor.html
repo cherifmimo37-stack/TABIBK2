@@ -16194,84 +16194,146 @@ function renderPatients() {
 }
 
 
+
 /* =========================================================
-   SHOW PATIENT APPOINTMENTS
+   SHOW PATIENT APPOINTMENTS — TABIBK
 ========================================================= */
 
-function showPatientAppointments(
-    name,
-    phone
-) {
+function showPatientAppointments(name, phone) {
 
-    const list =
-        appointments.filter(
-            appointment => {
+    const list = appointments.filter(appointment => {
 
-                const appointmentName =
-                    getPatientName(
-                        appointment
-                    );
+        const appointmentName =
+            getPatientName(appointment);
 
+        const appointmentPhone =
+            getPatientPhone(appointment);
 
-                const appointmentPhone =
-                    getPatientPhone(
-                        appointment
-                    );
+        if (phone) {
+            return appointmentPhone === phone;
+        }
 
-
-                if (phone) {
-
-                    return (
-                        appointmentPhone ===
-                        phone
-                    );
-
-                }
-
-
-                return (
-                    appointmentName ===
-                    name
-                );
-
-            }
-        );
-
+        return appointmentName === name;
+    });
 
     if (!list.length) {
-
         showToast(
             "لا توجد مواعيد لهذا المريض",
             "info"
         );
-
         return;
-
     }
 
+    const escape = value =>
+        escapeHtml(String(value ?? "—"));
 
-    const latest =
-        list[list.length - 1];
+    const rows = [...list].reverse().map(appointment => {
 
+        const booking =
+            appointment.bookingNumber || "—";
 
-    const booking =
-        latest.bookingNumber ||
-        "—";
+        const status =
+            getStatusText(appointment.status);
 
+        const date =
+            appointment.date ||
+            appointment.appointmentDate ||
+            "—";
 
-    const status =
-        getStatusText(
-            latest.status
-        );
+        return `
+            <article class="patient-appointment-item">
 
+                <div class="patient-appointment-row">
+                    <span>حالة الموعد</span>
+                    <strong>${escape(status)}</strong>
+                </div>
 
-    showToast(
-        `${name} — ${status} — ${booking}`,
-        "info"
-    );
+                <div class="patient-appointment-row">
+                    <span>كود الحجز</span>
+                    <strong class="patient-booking-code">
+                        ${escape(booking)}
+                    </strong>
+                </div>
 
+                <div class="patient-appointment-row">
+                    <span>تاريخ الموعد</span>
+                    <strong>${escape(date)}</strong>
+                </div>
+
+            </article>
+        `;
+    }).join("");
+
+    let modal =
+        document.getElementById("patientAppointmentsModal");
+
+    if (!modal) {
+
+        modal = document.createElement("div");
+
+        modal.id = "patientAppointmentsModal";
+        modal.className = "modal-overlay";
+
+        modal.innerHTML = `
+            <div class="modal patient-appointments-modal"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="patientAppointmentsTitle">
+
+                <div class="modal-top"></div>
+
+                <div class="modal-body">
+
+                    <h3 id="patientAppointmentsTitle">
+                        مواعيد المريض
+                    </h3>
+
+                    <p id="patientAppointmentsName"></p>
+
+                    <div id="patientAppointmentsList"></div>
+
+                    <div class="modal-actions">
+                        <button type="button"
+                                class="modal-cancel"
+                                onclick="closePatientAppointmentsModal()">
+                            إغلاق
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        modal.addEventListener("click", event => {
+            if (event.target === modal) {
+                closePatientAppointmentsModal();
+            }
+        });
+    }
+
+    document.getElementById(
+        "patientAppointmentsName"
+    ).textContent = name || "المريض";
+
+    document.getElementById(
+        "patientAppointmentsList"
+    ).innerHTML = rows;
+
+    modal.classList.add("show");
 }
 
+function closePatientAppointmentsModal() {
+
+    const modal = document.getElementById(
+        "patientAppointmentsModal"
+    );
+
+    if (modal) {
+        modal.classList.remove("show");
+    }
+}
 
 /* =========================================================
    CURRENT CONSULTATION
@@ -24282,7 +24344,85 @@ if (
         width: 100%;
     }
 }
-       
+
+
+/* TABIBK — Patient Appointments Modal */
+
+.patient-appointments-modal {
+    width: min(92%, 520px);
+    max-height: 85vh;
+    overflow-y: auto;
+    margin: auto;
+    border-radius: 20px;
+}
+
+#patientAppointmentsName {
+    color: #7650b8;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 18px;
+}
+
+#patientAppointmentsList {
+    display: grid;
+    gap: 12px;
+}
+
+.patient-appointment-item {
+    padding: 15px;
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 14px;
+    background: rgba(139, 92, 246, 0.06);
+}
+
+.patient-appointment-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.patient-appointment-row + .patient-appointment-row {
+    border-top: 1px solid rgba(139, 92, 246, 0.12);
+}
+
+.patient-appointment-row span {
+    color: #777;
+    flex-shrink: 0;
+}
+
+.patient-appointment-row strong {
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+.patient-booking-code {
+    direction: ltr;
+    unicode-bidi: isolate;
+}
+
+#patientAppointmentsModal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+    .patient-appointments-modal {
+        width: 100%;
+        max-width: 100%;
+        max-height: 82vh;
+    }
+
+    .patient-appointment-item {
+        padding: 12px;
+    }
+}
+
+        
 </style>
 </body>
 </html>

@@ -10780,15 +10780,20 @@ async function executeActionConfirm() {
     const action = pendingActionConfirm;
 
     if (typeof action !== "function") {
+        showToast("تعذر تنفيذ العملية، عاود المحاولة", "error");
         closeActionConfirm();
         return;
     }
 
     closeActionConfirm();
 
-    await action();
+    try {
+        await action();
+    } catch (error) {
+        console.error("TABIBK confirmation error:", error);
+        showToast("فشل تنفيذ العملية", "error");
+    }
 }
-       
 /* =========================================================
    HELPER
 ========================================================= */

@@ -4256,12 +4256,22 @@ app.get(
             date:
                 appointment.date || null,
 
+            
             time:
                 appointment.time || null,
 
-            appointment
+            appointment: (() => {
+                const {
+                    patientPushKeyHash,
+                    patientFcmTokens,
+                    ...publicAppointment
+                } = appointment;
+
+                return publicAppointment;
+            })()
 
         });
+
     }
 );
 // ============================================================
@@ -4428,244 +4438,248 @@ app.delete(
     }
 );
 
-// ============================================================
-// ACCEPT APPOINTMENT
-// ============================================================
+
+ // ============================================================
+ // ACCEPT APPOINTMENT
+ // ============================================================
 
 app.post(
     "/api/appointments/:bookingNumber/accept",
     checkDoctorAuth,
     async (req, res) => {
+        try {
+            const database = readDatabase();
 
-        const database =
-            readDatabase();
+            const appointment =
+                database.appointments.find(
+                    item =>
+                        String(item.bookingNumber) ===
+                            String(req.params.bookingNumber) &&
+                        Number(item.doctorId) ===
+                            Number(req.doctor.id)
+                );
 
-        const appointment =
-            database.appointments.find(
-                item =>
-                    String(
-                        item.bookingNumber
-                    ) ===
-                        String(
-                            req.params.bookingNumber
-                        ) &&
-                    Number(
-                        item.doctorId
-                    ) ===
-                        Number(
-                            req.doctor.id
-                        )
-            );
-
-        if (!appointment) {
-
-            return res
-                .status(404)
-                .json({
+            if (!appointment) {
+                return res.status(404).json({
                     success: false,
-                    message:
-                        "الموعد غير موجود"
+                    message: "الموعد غير موجود"
                 });
-        }
+            }
 
-        if (
-            appointment.status !==
-            "pending"
-        ) {
-
-            return res
-                .status(400)
-                .json({
+            if (appointment.status !== "pending") {
+                return res.status(400).json({
                     success: false,
                     message:
                         "لا يمكن قبول هذا الموعد في حالته الحالية"
                 });
-        }
-
-        appointment.status =
-            "confirmed";
-
-        appointment.confirmedAt =
-            new Date().toISOString();
-
-        appointment.updatedAt =
-            new Date().toISOString();
-
-        createNotification(
-            database,
-            {
-
-                doctorId:
-    null,
-
-                appointmentId:
-                    appointment.id,
-
-                patientPhone:
-                    appointment.patientPhone,
-
-                bookingNumber:
-                    appointment.bookingNumber,
-
-                type:
-                    "appointment_confirmed",
-
-                title:
-                    "تم تأكيد موعدك ✅",
-
-               message:
-    "تم تأكيد موعدك مع " +
-    req.doctor.name +
-    " بتاريخ " +
-    appointment.date +
-    " على الساعة " +
-    appointment.time +
-    "."
-
             }
-        );
 
-        await saveDatabase(
-    database
-);
+            appointment.status = "confirmed";
+            appointment.confirmedAt =
+                new Date().toISOString();
+            appointment.updatedAt =
+                new Date().toISOString();
 
-res.json({
+            createNotification(database, {
+                doctorId: null,
+                appointmentId: appointment.id,
+                patientPhone: appointment.patientPhone,
+                bookingNumber: appointment.bookingNumber,
+                type: "appointment_confirmed",
+                title: "تم تأكيد موعدك ✅",
+                message:
+                    "تم تأكيد موعدك مع " +
+                    req.doctor.name +
+                    " بتاريخ " +
+                    appointment.date +
+                    " على الساعة " +
+                    appointment.time +
+                    "."
+            });
 
-            success: true,
+            const saveResult =
+                await saveDatabase(database);
 
-            message:
-                "تم قبول الموعد",
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ تأكيد الموعد"
+                });
+            }
 
-            appointment
+            try {
+                await sendPatientPushNotification(
+                    appointment,
+                    {
+                        type: "appointment_confirmed",
+                        title: "تم تأكيد موعدك ✅",
+                        message:
+                            "تم تأكيد موعدك مع " +
+                            req.doctor.name +
+                            " بتاريخ " +
+                            appointment.date +
+                            " على الساعة " +
+                            appointment.time +
+                            "."
+                    }
+                );
+            } catch (error) {
+                console.error(
+                    "Patient confirmation push error:",
+                    error.message
+                );
+            }
 
-        });
+            const {
+                patientPushKeyHash,
+                patientFcmTokens,
+                ...publicAppointment
+            } = appointment;
+
+            return res.json({
+                success: true,
+                message: "تم قبول الموعد",
+                appointment: publicAppointment
+            });
+
+        } catch (error) {
+            console.error(
+                "Accept appointment error:",
+                error.message
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "حدث خطأ أثناء تأكيد الموعد"
+            });
+        }
     }
 );
 
-// ============================================================
-// REJECT APPOINTMENT
-// ============================================================
+
+ // ============================================================
+ // REJECT APPOINTMENT
+ // ============================================================
 
 app.post(
     "/api/appointments/:bookingNumber/reject",
     checkDoctorAuth,
-    (req, res) => {
+    async (req, res) => {
+        try {
+            const database = readDatabase();
 
-        const database =
-            readDatabase();
+            const appointment =
+                database.appointments.find(
+                    item =>
+                        String(item.bookingNumber) ===
+                            String(req.params.bookingNumber) &&
+                        Number(item.doctorId) ===
+                            Number(req.doctor.id)
+                );
 
-        const appointment =
-            database.appointments.find(
-                item =>
-                    String(
-                        item.bookingNumber
-                    ) ===
-                        String(
-                            req.params.bookingNumber
-                        ) &&
-                    Number(
-                        item.doctorId
-                    ) ===
-                        Number(
-                            req.doctor.id
-                        )
-            );
-
-        if (!appointment) {
-
-            return res
-                .status(404)
-                .json({
+            if (!appointment) {
+                return res.status(404).json({
                     success: false,
-                    message:
-                        "الموعد غير موجود"
+                    message: "الموعد غير موجود"
                 });
-        }
+            }
 
-        const allowedStatuses = [
+            const allowedStatuses = [
+                "pending",
+                "confirmed",
+                "accepted"
+            ];
 
-            "pending",
-            "confirmed",
-            "accepted"
-
-        ];
-
-        if (
-            !allowedStatuses.includes(
-                appointment.status
-            )
-        ) {
-
-            return res
-                .status(400)
-                .json({
+            if (
+                !allowedStatuses.includes(
+                    appointment.status
+                )
+            ) {
+                return res.status(400).json({
                     success: false,
                     message:
                         "لا يمكن رفض هذا الموعد في حالته الحالية"
                 });
-        }
-
-        const reason =
-            req.body.reason ||
-            "لم يتم قبول الموعد";
-
-        appointment.status =
-            "rejected";
-
-        appointment.rejectionReason =
-            reason;
-
-        appointment.rejectedAt =
-            new Date().toISOString();
-
-        appointment.updatedAt =
-            new Date().toISOString();
-
-        createNotification(
-            database,
-            {
-
-                doctorId:
-    null,
-
-                appointmentId:
-                    appointment.id,
-
-                patientPhone:
-                    appointment.patientPhone,
-
-                bookingNumber:
-                    appointment.bookingNumber,
-
-                type:
-                    "appointment_rejected",
-
-                title:
-                    "تم رفض الموعد",
-
-                message:
-    "تم رفض موعدك مع " +
-    req.doctor.name +
-    ". السبب: " +
-    reason
-
             }
-        );
 
-        saveDatabase(
-            database
-        );
+            const reason = String(
+                req.body?.reason || "لم يتم قبول الموعد"
+            ).trim();
 
-        res.json({
+            appointment.status = "rejected";
+            appointment.rejectionReason = reason;
+            appointment.rejectedAt =
+                new Date().toISOString();
+            appointment.updatedAt =
+                new Date().toISOString();
 
-            success: true,
+            createNotification(database, {
+                doctorId: null,
+                appointmentId: appointment.id,
+                patientPhone: appointment.patientPhone,
+                bookingNumber: appointment.bookingNumber,
+                type: "appointment_rejected",
+                title: "تم رفض الموعد",
+                message:
+                    "تم رفض موعدك مع " +
+                    req.doctor.name +
+                    ". السبب: " +
+                    reason
+            });
 
-            message:
-                "تم رفض الموعد",
+            const saveResult =
+                await saveDatabase(database);
 
-            appointment
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ رفض الموعد"
+                });
+            }
 
-        });
+            try {
+                await sendPatientPushNotification(
+                    appointment,
+                    {
+                        type: "appointment_rejected",
+                        title: "تم رفض الموعد",
+                        message:
+                            "تم رفض موعدك مع " +
+                            req.doctor.name +
+                            ". السبب: " +
+                            reason
+                    }
+                );
+            } catch (error) {
+                console.error(
+                    "Patient rejection push error:",
+                    error.message
+                );
+            }
+
+            const {
+                patientPushKeyHash,
+                patientFcmTokens,
+                ...publicAppointment
+            } = appointment;
+
+            return res.json({
+                success: true,
+                message: "تم رفض الموعد",
+                appointment: publicAppointment
+            });
+
+        } catch (error) {
+            console.error(
+                "Reject appointment error:",
+                error.message
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "حدث خطأ أثناء رفض الموعد"
+            });
+        }
     }
 );
 

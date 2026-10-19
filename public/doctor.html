@@ -10779,19 +10779,38 @@ function closeActionConfirm() {
 async function executeActionConfirm() {
     const action = pendingActionConfirm;
 
+    console.log(
+        "[TABIBK] Confirm button clicked",
+        typeof action
+    );
+
     if (typeof action !== "function") {
-        showToast("تعذر تنفيذ العملية، عاود المحاولة", "error");
-        closeActionConfirm();
+        showToast(
+            "خطأ: عملية الحذف غير مهيأة",
+            "error"
+        );
         return;
     }
 
     closeActionConfirm();
 
     try {
+        console.log("[TABIBK] Starting confirmed action");
+
         await action();
+
+        console.log("[TABIBK] Confirmed action finished");
+
     } catch (error) {
-        console.error("TABIBK confirmation error:", error);
-        showToast("فشل تنفيذ العملية", "error");
+        console.error(
+            "[TABIBK] Confirmed action failed:",
+            error
+        );
+
+        showToast(
+            error.message || "فشل تنفيذ العملية",
+            "error"
+        );
     }
 }
 /* =========================================================

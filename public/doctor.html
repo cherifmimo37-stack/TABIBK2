@@ -13509,9 +13509,9 @@ function updateSelectedAppointmentsUI() {
     }
 }
 
-    
 /* =========================================================
    TABIBK — DELETE SELECTED APPOINTMENTS
+   PREMIUM CONFIRMATION MODAL
 ========================================================= */
 
 async function deleteSelectedAppointments() {
@@ -13528,77 +13528,82 @@ async function deleteSelectedAppointments() {
         return;
     }
 
-    const confirmed = confirm(
-        `هل تريد حذف ${bookingNumbers.length} موعد محدد؟\n\n` +
-        "إذا كان أحد المواعيد يحتوي على تقييم محفوظ، " +
-        "سيرفض الخادم حذف القائمة كاملة."
-    );
+    openActionConfirm({
+        title: "تأكيد حذف المواعيد",
 
-    if (!confirmed) {
-        return;
-    }
+        message:
+            `هل تريد حذف ${bookingNumbers.length} موعد محدد؟ ` +
+            "إذا تضمنت القائمة موعدًا بتقييم محفوظ، " +
+            "لن يُحذف أي موعد. هل تريد المتابعة؟",
 
-    const deleteButton =
-        $("deleteSelectedAppointmentsButton");
+        confirmText: "تأكيد الحذف",
 
-    if (deleteButton) {
-        deleteButton.disabled = true;
-    }
+        onConfirm: async function () {
 
-    try {
+            const deleteButton =
+                $("deleteSelectedAppointmentsButton");
 
-        const result = await apiFetch(
-            "/api/doctor/appointments/selected",
-            {
-                method: "DELETE",
-                body: JSON.stringify({
-                    bookingNumbers
-                })
+            if (deleteButton) {
+                deleteButton.disabled = true;
             }
-        );
 
-        if (!result || result.success !== true) {
-            throw new Error(
-                result?.message ||
-                "تعذر حذف المواعيد المحددة"
-            );
+            try {
+
+                const result = await apiFetch(
+                    "/api/doctor/appointments/selected",
+                    {
+                        method: "DELETE",
+                        body: JSON.stringify({
+                            bookingNumbers
+                        })
+                    }
+                );
+
+                if (!result || result.success !== true) {
+                    throw new Error(
+                        result?.message ||
+                        "تعذر حذف المواعيد المحددة"
+                    );
+                }
+
+                selectedAppointmentBookings.clear();
+
+                showToast(
+                    result.message || "تم حذف المواعيد بنجاح",
+                    "success"
+                );
+
+                await loadAppointments(true);
+
+                updateSelectedAppointmentsUI();
+
+            } catch (error) {
+
+                console.error(
+                    "خطأ في حذف المواعيد المحددة:",
+                    error
+                );
+
+                showToast(
+                    error.message ||
+                    "حدث خطأ أثناء حذف المواعيد المحددة",
+                    "error"
+                );
+
+            } finally {
+
+                if (deleteButton) {
+                    deleteButton.disabled =
+                        selectedAppointmentBookings.size === 0;
+                }
+
+                updateSelectedAppointmentsUI();
+
+            }
         }
-
-        selectedAppointmentBookings.clear();
-
-        showToast(
-            result.message || "تم حذف المواعيد بنجاح",
-            "success"
-        );
-
-        await loadAppointments(true);
-
-        updateSelectedAppointmentsUI();
-
-    } catch (error) {
-
-        console.error(
-            "خطأ في حذف المواعيد المحددة:",
-            error
-        );
-
-        showToast(
-            error.message ||
-            "حدث خطأ أثناء حذف المواعيد المحددة",
-            "error"
-        );
-
-    } finally {
-
-        if (deleteButton) {
-            deleteButton.disabled =
-                selectedAppointmentBookings.size === 0;
-        }
-
-        updateSelectedAppointmentsUI();
-
-    }
+    });
 }
+
     
 /* =========================================================
    RENDER APPOINTMENTS

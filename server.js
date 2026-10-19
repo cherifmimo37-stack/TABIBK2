@@ -1146,6 +1146,91 @@ async function sendDoctorPushNotification(
 }
 
 
+
+/* ============================================================
+   PATIENT PUSH NOTIFICATIONS
+============================================================ */
+
+async function sendPatientPushNotification(
+    appointment,
+    notification
+) {
+    if (
+        !firebaseMessaging ||
+        !appointment ||
+        !notification
+    ) {
+        return;
+    }
+
+    const tokens = [
+        ...new Set(
+            (
+                Array.isArray(
+                    appointment.patientFcmTokens
+                )
+                    ? appointment.patientFcmTokens
+                    : []
+            ).filter(
+                token =>
+                    typeof token === "string" &&
+                    token.trim().length > 0
+            )
+        )
+    ];
+
+    if (tokens.length === 0) {
+        return;
+    }
+
+    const results = await Promise.allSettled(
+        tokens.map(token =>
+            firebaseMessaging.send({
+                token,
+
+                notification: {
+                    title: String(
+                        notification.title || "طبيبك"
+                    ),
+                    body: String(
+                        notification.message || ""
+                    )
+                },
+
+                data: {
+                    type: String(
+                        notification.type || ""
+                    ),
+                    bookingNumber: String(
+                        appointment.bookingNumber || ""
+                    ),
+                    appointmentId: String(
+                        appointment.id || ""
+                    )
+                },
+
+                android: {
+                    priority: "high",
+                    notification: {
+                        channelId: "tabibk_notifications_v2",
+                        sound: "tabibk_notification"
+                    }
+                }
+            })
+        )
+    );
+
+    results.forEach(result => {
+        if (result.status === "rejected") {
+            console.error(
+                "Patient push notification failed:",
+                result.reason?.message || "Unknown error"
+            );
+        }
+    });
+}
+
+
 function createDoctorToken() {
 
     return crypto
@@ -3628,8 +3713,19 @@ const appointmentDate =
             // Create appointment
             // ------------------------------------------------
 
-            const bookingNumber =
-                generateBookingNumber();
+            
+const bookingNumber =
+    generateBookingNumber();
+
+// مفتاح سري لربط جهاز المريض بهذا الحجز
+const patientPushKey =
+    crypto.randomBytes(32).toString("hex");
+
+const patientPushKeyHash =
+    crypto.createHash("sha256")
+        .update(patientPushKey)
+        .digest("hex");
+
 
             const appointment = {
 
@@ -3639,6 +3735,10 @@ const appointmentDate =
                     ),
 
                 bookingNumber,
+
+                patientPushKeyHash,
+
+patientFcmTokens: [],
 
                 patientName:
                     String(
@@ -3778,7 +3878,11 @@ try {
     );
 }
 
-
+const {
+    patientPushKeyHash: _hiddenPushHash,
+    patientFcmTokens: _hiddenFcmTokens,
+    ...publicAppointment
+} = appointment;
 
 res
     .status(201)
@@ -3787,7 +3891,8 @@ res
         message: "تم إرسال طلب الحجز بنجاح",
         bookingNumber,
         queueNumber,
-        appointment
+        appointment: publicAppointment,
+patientPushKey
     });
 
         } catch (error) {
@@ -3804,6 +3909,133 @@ res
                     message:
                         "حدث خطأ أثناء إنشاء الموعد"
                 });
+        }
+    }
+);
+
+
+/* ============================================================
+   PATIENT FCM TOKEN REGISTRATION
+   Securely associate a device with its appointment
+============================================================ */
+
+app.post(
+    "/api/patient/fcm-token",
+    async (req, res) => {
+        try {
+            const bookingNumber = String(
+                req.body?.bookingNumber || ""
+            ).trim();
+
+            const pushKey = String(
+                req.body?.pushKey || ""
+            ).trim();
+
+            const token = String(
+                req.body?.token || ""
+            ).trim();
+
+            if (
+                !bookingNumber ||
+                !/^[a-f0-9]{64}$/i.test(pushKey) ||
+                !token ||
+                token.length > 4096
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "بيانات تسجيل الجهاز غير صحيحة"
+                });
+            }
+
+            const database = readDatabase();
+
+            const appointment =
+                database.appointments.find(
+                    item =>
+                        String(item.bookingNumber) ===
+                        bookingNumber
+                );
+
+            if (!appointment) {
+                return res.status(404).json({
+                    success: false,
+                    message: "الحجز غير موجود"
+                });
+            }
+
+            const savedHash = String(
+                appointment.patientPushKeyHash || ""
+            );
+
+            if (!/^[a-f0-9]{64}$/i.test(savedHash)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "هذا الحجز لا يدعم تسجيل الجهاز"
+                });
+            }
+
+            const expected = Buffer.from(savedHash, "hex");
+            const received = Buffer.from(
+                crypto.createHash("sha256")
+                    .update(pushKey)
+                    .digest("hex"),
+                "hex"
+            );
+
+            if (
+                expected.length !== received.length ||
+                !crypto.timingSafeEqual(expected, received)
+            ) {
+                return res.status(403).json({
+                    success: false,
+                    message: "مفتاح الحجز غير صحيح"
+                });
+            }
+
+            if (!Array.isArray(appointment.patientFcmTokens)) {
+                appointment.patientFcmTokens = [];
+            }
+
+            appointment.patientFcmTokens =
+                appointment.patientFcmTokens.filter(
+                    item => typeof item === "string"
+                );
+
+            if (
+                !appointment.patientFcmTokens.includes(token)
+            ) {
+                appointment.patientFcmTokens.push(token);
+            }
+
+            // Keep only the latest five device tokens.
+            appointment.patientFcmTokens =
+                appointment.patientFcmTokens.slice(-5);
+
+            const saveResult =
+                await saveDatabase(database);
+
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ تسجيل الجهاز"
+                });
+            }
+
+            return res.json({
+                success: true,
+                message: "تم تسجيل جهاز المريض"
+            });
+
+        } catch (error) {
+            console.error(
+                "Patient FCM registration error:",
+                error.message
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "تعذر تسجيل جهاز المريض"
+            });
         }
     }
 );

@@ -401,6 +401,43 @@ body::after{
         0 0 0 4px rgba(201,151,50,.11);
 }
 
+.input-group .password-toggle{
+    position:absolute;
+    left:12px;
+    right:auto;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:36px;
+    height:36px;
+    padding:0;
+    border:1px solid #e4d7eb;
+    border-radius:10px;
+    background:#fbf7fd;
+    color:#51216f;
+    cursor:pointer;
+    transition:background .18s,border-color .18s,color .18s;
+}
+.input-group .password-toggle:hover{
+    background:#f0e5f7;
+    border-color:#c99732;
+    color:#351044;
+}
+.input-group .password-toggle:focus-visible{
+    outline:2px solid #c99732;
+    outline-offset:2px;
+}
+.input-group input#adminKey{
+    padding-left:58px;
+    padding-right:48px;
+    direction:ltr;
+    text-align:left;
+    letter-spacing:.2px;
+}
+
 .login-btn{
 
     width:100%;
@@ -458,23 +495,7 @@ body::after{
     min-height:20px;
 }
 
-.demo-key{
 
-    margin-top:18px;
-
-    padding:12px;
-
-    border-radius:13px;
-
-    background:var(--purple-pale);
-
-    color:#73677d;
-
-    font-size:12px;
-
-    border:
-        1px solid var(--border);
-}
 
 /* =========================================================
    APP
@@ -3597,10 +3618,23 @@ tbody tr:hover{
                 <input
                     type="password"
                     id="adminKey"
-                    placeholder="مفتاح الإدارة"
+                    placeholder="أدخل كلمة مرور الإدارة"
                     autocomplete="current-password"
+                    autocapitalize="off"
+                    spellcheck="false"
                     required
                 >
+
+                <button
+                    type="button"
+                    class="password-toggle"
+                    id="toggleAdminKey"
+                    aria-label="إظهار كلمة المرور"
+                    aria-pressed="false"
+                    title="إظهار كلمة المرور"
+                >
+                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                </button>
 
             </div>
 
@@ -3621,13 +3655,6 @@ tbody tr:hover{
             class="login-error"
             id="loginError"
         ></div>
-
-        <div class="demo-key">
-
-            مفتاح الإدارة الافتراضي:
-            <strong>TABIBK_ADMIN_2026</strong>
-
-        </div>
 
     </div>
 
@@ -5001,6 +5028,28 @@ async function adminFetch(
 }
 
 /* ============================================================
+   LOGIN - PASSWORD VISIBILITY
+============================================================ */
+
+const adminKeyInput = document.getElementById("adminKey");
+const toggleAdminKey = document.getElementById("toggleAdminKey");
+
+toggleAdminKey.addEventListener("click", () => {
+    const showPassword = adminKeyInput.type === "password";
+    adminKeyInput.type = showPassword ? "text" : "password";
+    toggleAdminKey.innerHTML = showPassword
+        ? '<i class="fa-solid fa-eye-slash" aria-hidden="true"></i>'
+        : '<i class="fa-solid fa-eye" aria-hidden="true"></i>';
+    toggleAdminKey.setAttribute("aria-pressed", String(showPassword));
+    toggleAdminKey.setAttribute(
+        "aria-label",
+        showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"
+    );
+    toggleAdminKey.title = showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور";
+    adminKeyInput.focus();
+});
+
+/* ============================================================
    LOGIN
 ============================================================ */
 
@@ -5029,7 +5078,12 @@ document
                 );
 
             error.textContent =
-                "جاري التحقق...";
+                "جاري التحقق من كلمة المرور...";
+
+            const submitButton = event.currentTarget.querySelector('button[type="submit"]');
+            const originalButtonHtml = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جارٍ التحقق...';
 
             try{
 
@@ -5051,8 +5105,12 @@ document
                         }
                     );
 
-                const data =
-                    await response.json();
+                let data;
+                try {
+                    data = await response.json();
+                } catch {
+                    throw new Error("تعذر قراءة رد الخادم. تحقق من اتصال الخدمة ثم أعد المحاولة.");
+                }
 
                 if(
                     !response.ok ||
@@ -5080,8 +5138,11 @@ document
             }catch(error){
 
                 error.textContent =
-                    error.message;
+                    error.message || "تعذر تسجيل الدخول. تحقق من كلمة المرور واتصال الخادم.";
 
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonHtml;
             }
 
         }

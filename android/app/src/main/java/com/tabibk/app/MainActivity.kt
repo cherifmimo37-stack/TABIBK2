@@ -148,16 +148,23 @@ override fun shouldOverrideUrlLoading(
 
             startActivity(intent)
 
-        } catch (e: Exception) {
+                } catch (e: Exception) {
             Log.e(
-                "TABIBK_WHATSAPP",
-                "Could not open WhatsApp link",
+                "TABIBK_SUPPORT",
+                "Could not open support link: $url",
                 e
             )
 
+            val message =
+                if (isMessenger) {
+                    "تعذر فتح Messenger. جرّب فتح الرابط في المتصفح."
+                } else {
+                    "تعذر فتح واتساب. تحقق من تثبيته أو جرّب المتصفح."
+                }
+
             android.widget.Toast.makeText(
                 this@MainActivity,
-                "تعذر فتح واتساب. تحقق من تثبيته أو جرّب المتصفح.",
+                message,
                 android.widget.Toast.LENGTH_LONG
             ).show()
         }

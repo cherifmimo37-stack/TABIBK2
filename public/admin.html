@@ -4648,126 +4648,6 @@ id="doctorId"
 </div>
 
 <!-- =========================================================
-     NOTIFICATION MODAL
-========================================================= -->
-
-<div
-    class="modal"
-    id="notificationModal"
->
-
-    <div class="modal-box"
-         style="max-width:520px">
-
-        <div class="modal-head">
-
-            <h3>
-                إرسال إشعار
-            </h3>
-
-            <button
-                class="close-btn"
-                onclick="closeNotificationModal()"
-            >
-
-                <i class="fa-solid fa-xmark"></i>
-
-            </button>
-
-        </div>
-
-
-        <form id="notificationForm">
-
-            <div class="form-field"
-                 style="margin-bottom:13px">
-
-                <label>
-                    الطبيب
-                </label>
-
-                <select id="notificationDoctor">
-
-                    <option value="">
-                        جميع الأطباء
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div class="form-field"
-                 style="margin-bottom:13px">
-
-                <label>
-                    عنوان الإشعار *
-                </label>
-
-                <input
-                    id="notificationTitle"
-                    required
-                    placeholder="مثال: تنبيه إداري"
-                >
-
-            </div>
-
-
-            <div class="form-field">
-
-                <label>
-                    الرسالة *
-                </label>
-
-                <textarea
-                    id="notificationMessage"
-                    required
-                    rows="5"
-                    placeholder="اكتب نص الإشعار..."
-                    style="
-                        width:100%;
-                        border:1px solid var(--border);
-                        border-radius:11px;
-                        padding:12px;
-                        font-family:inherit;
-                        resize:vertical;
-                        outline:none;
-                    "
-                ></textarea>
-
-            </div>
-
-            <div class="modal-actions">
-
-                <button
-                    type="button"
-                    class="btn btn-light"
-                    onclick="closeNotificationModal()"
-                >
-
-                    إلغاء
-
-                </button>
-
-                <button
-                    type="submit"
-                    class="btn btn-gold"
-                >
-
-                    <i class="fa-solid fa-paper-plane"></i>
-
-                    إرسال
-
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-<!-- =========================================================
      TOAST
 ========================================================= -->
 
@@ -4791,10 +4671,6 @@ let adminKey =
     ) || "";
 
 let doctors = [];
-
-let appointments = [];
-
-let patients = [];
 
 let wilayas = [];
 
@@ -5380,33 +5256,27 @@ async function loadWilayas(){
 function fillWilayaSelect(){
 
     const select =
-        document.getElementById(
-            "doctorWilaya"
-        );
+        document.getElementById("doctorWilaya");
 
-    select.innerHTML =
-        `
+    if (!select) return;
+
+    select.innerHTML = `
         <option value="">
             اختر الولاية
         </option>
-        `;
+    `;
 
-    wilayas.forEach(
-        wilaya => {
+    wilayas.forEach(wilaya => {
 
-            select.innerHTML +=
-                `
-                <option
-                    value="${escapeHtml(wilaya.name)}"
-                >
-                    ${escapeHtml(wilaya.name)}
-                </option>
-                `;
+        const option = document.createElement("option");
 
-        }
-    );
+        option.value = wilaya.name;
+        option.textContent = wilaya.name;
+
+        select.appendChild(option);
+
+    });
 }
-
 
 document
     .getElementById(
@@ -6450,14 +6320,15 @@ document
         refreshAll
     );
 
-document
-    .getElementById(
-        "topRefresh"
-    )
-    .addEventListener(
+const topRefreshButton =
+    document.getElementById("topRefresh");
+
+if (topRefreshButton) {
+    topRefreshButton.addEventListener(
         "click",
         refreshAll
     );
+}
 
 function startAutoRefresh(){
 
@@ -6549,8 +6420,10 @@ if (patientAdImageInput) {
             const previewBox =
                 document.getElementById("patientAdPreviewBox");
 
-            preview.src = patientAdImageData;
-            previewBox.style.display = "block";
+            if (preview && previewBox) {
+    preview.src = patientAdImageData;
+    previewBox.style.display = "block";
+}
         };
 
         reader.onerror = function () {

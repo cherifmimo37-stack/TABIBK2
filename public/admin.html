@@ -5636,7 +5636,50 @@ function formatDoctorRegistrationDate(doctor){
 }
 
 function filterDoctorsDirectory(){
+    const active = document.activeElement;
+    const activeId = active && active.id;
+    const cursor = activeId === "doctorDirectorySearch" &&
+        typeof active.selectionStart === "number" ? active.selectionStart : null;
+
     renderDoctors();
+
+    if(activeId){
+        const restored = document.getElementById(activeId);
+        if(restored){
+            restored.focus({ preventScroll:true });
+            if(cursor !== null && typeof restored.setSelectionRange === "function"){
+                restored.setSelectionRange(cursor, cursor);
+            }
+        }
+    }
+}
+
+function exportDoctorsDirectoryCsv(){
+    const rows = Array.isArray(doctors) ? doctors : [];
+    const headers = ["معرّف الطبيب","الاسم","التخصص","الولاية","البلدية","الهاتف","الحالة","تاريخ التسجيل"];
+    const values = rows.map(doctor => [
+        doctor.id ?? "",
+        doctor.name || "",
+        doctor.specialty || "",
+        doctor.wilaya || "",
+        doctor.municipality || "",
+        doctor.phone || "",
+        doctor.status === "pending" ? "قيد المراجعة" :
+            doctor.status === "rejected" ? "مرفوض" :
+            doctor.active !== false && (doctor.status === "active" || doctor.status === "approved") ? "نشط" : "غير نشط",
+        formatDoctorRegistrationDate(doctor)
+    ]);
+    const csvCell = value => '"' + String(value ?? "").replace(/"/g, '""') + '"';
+    const csv = "\\uFEFF" + [headers, ...values].map(row => row.map(csvCell).join(",")).join("\\r\\n");
+    const blob = new Blob([csv], { type:"text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "tabibk-doctors-" + new Date().toISOString().slice(0,10) + ".csv";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
 }
 
 function renderDoctors(){
@@ -5646,8 +5689,16 @@ function renderDoctors(){
 
     const queryInput = document.getElementById("doctorDirectorySearch");
     const statusInput = document.getElementById("doctorDirectoryStatus");
+    const specialtyInput = document.getElementById("doctorDirectorySpecialty");
+    const wilayaInput = document.getElementById("doctorDirectoryWilaya");
+    const sortInput = document.getElementById("doctorDirectorySort");
     const query = (queryInput ? queryInput.value : "").trim().toLocaleLowerCase("ar");
     const selectedStatus = statusInput ? statusInput.value : "all";
+    const selectedSpecialty = specialtyInput ? specialtyInput.value : "all";
+    const selectedWilaya = wilayaInput ? wilayaInput.value : "all";
+    const selectedSort = sortInput ? sortInput.value : "newest";
+    const uniqueSorted = key => [...new Set(allDoctors.map(d => String(d[key] || "").trim()).filter(Boolean))]
+        .sort((a,b) => a.localeCompare(b, "ar"));
 
     const allDoctors = Array.isArray(doctors) ? doctors.slice() : [];
     const activeCount = allDoctors.filter(doctor =>
@@ -5660,11 +5711,6 @@ function renderDoctors(){
     ).length;
 
     const filteredDoctors = allDoctors
-        .sort((a,b) => {
-            const dateA = Date.parse(a.createdAt || a.registeredAt || a.registrationDate || a.created_at || "");
-            const dateB = Date.parse(b.createdAt || b.registeredAt || b.registrationDate || b.created_at || "");
-            return (Number.isNaN(dateB) ? 0 : dateB) - (Number.isNaN(dateA) ? 0 : dateA);
-        })
         .filter(doctor => {
             const searchable = [
                 doctor.name, doctor.specialty, doctor.wilaya,
@@ -5681,7 +5727,22 @@ function renderDoctors(){
                     !(doctor.active !== false &&
                       (doctor.status === "active" || doctor.status === "approved")) &&
                     doctor.status !== "pending");
-            return matchesQuery && matchesStatus;
+            const matchesSpecialty = selectedSpecialty === "all" || String(doctor.specialty || "") === selectedSpecialty;
+            const matchesWilaya = selectedWilaya === "all" || String(doctor.wilaya || "") === selectedWilaya;
+            return matchesQuery && matchesStatus && matchesSpecialty && matchesWilaya;
+        })
+        .sort((a,b) => {
+            if(selectedSort === "name"){
+                return String(a.name || "").localeCompare(String(b.name || ""), "ar");
+            }
+            if(selectedSort === "oldest"){
+                const dateA = Date.parse(a.createdAt || a.registeredAt || a.registrationDate || a.created_at || "");
+                const dateB = Date.parse(b.createdAt || b.registeredAt || b.registrationDate || b.created_at || "");
+                return (Number.isNaN(dateA) ? 0 : dateA) - (Number.isNaN(dateB) ? 0 : dateB);
+            }
+            const dateA = Date.parse(a.createdAt || a.registeredAt || a.registrationDate || a.created_at || "");
+            const dateB = Date.parse(b.createdAt || b.registeredAt || b.registrationDate || b.created_at || "");
+            return (Number.isNaN(dateB) ? 0 : dateB) - (Number.isNaN(dateA) ? 0 : dateA);
         });
 
     container.innerHTML = `
@@ -5725,6 +5786,22 @@ function renderDoctors(){
                     <option value="pending" ${selectedStatus==="pending"?"selected":""}>قيد المراجعة</option>
                     <option value="inactive" ${selectedStatus==="inactive"?"selected":""}>غير نشط / مرفوض</option>
                 </select>
+                <select id="doctorDirectorySpecialty" onchange="filterDoctorsDirectory()" style="padding:11px 13px;border:1px solid #e5dbea;border-radius:11px;background:#fff;color:#351044;max-width:190px;">
+                    <option value="all">كل التخصصات</option>
+                    ${uniqueSorted("specialty").map(value => `<option value="${escapeHtml(value)}" ${selectedSpecialty===value?"selected":""}>${escapeHtml(value)}</option>`).join("")}
+                </select>
+                <select id="doctorDirectoryWilaya" onchange="filterDoctorsDirectory()" style="padding:11px 13px;border:1px solid #e5dbea;border-radius:11px;background:#fff;color:#351044;max-width:190px;">
+                    <option value="all">كل الولايات</option>
+                    ${uniqueSorted("wilaya").map(value => `<option value="${escapeHtml(value)}" ${selectedWilaya===value?"selected":""}>${escapeHtml(value)}</option>`).join("")}
+                </select>
+                <select id="doctorDirectorySort" onchange="filterDoctorsDirectory()" aria-label="ترتيب الأطباء" style="padding:11px 13px;border:1px solid #e5dbea;border-radius:11px;background:#fff;color:#351044;">
+                    <option value="newest" ${selectedSort==="newest"?"selected":""}>الأحدث تسجيلًا</option>
+                    <option value="oldest" ${selectedSort==="oldest"?"selected":""}>الأقدم تسجيلًا</option>
+                    <option value="name" ${selectedSort==="name"?"selected":""}>حسب الاسم</option>
+                </select>
+                <button type="button" class="btn btn-gold" onclick="exportDoctorsDirectoryCsv()" title="تصدير قائمة الأطباء إلى CSV">
+                    <i class="fa-solid fa-file-csv"></i> تصدير القائمة
+                </button>
             </div>
         </div>
 

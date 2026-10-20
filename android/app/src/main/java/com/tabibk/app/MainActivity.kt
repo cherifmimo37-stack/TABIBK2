@@ -122,19 +122,32 @@ override fun shouldOverrideUrlLoading(
     val scheme = url.scheme?.lowercase() ?: return false
     val host = url.host?.lowercase() ?: ""
 
+    
     val isWhatsApp =
         host == "wa.me" ||
         host == "api.whatsapp.com" ||
         host == "web.whatsapp.com" ||
         scheme == "whatsapp"
 
-    if (isWhatsApp) {
+    val isMessenger =
+        host == "m.me" ||
+        host == "messenger.com" ||
+        host == "www.messenger.com"
+
+    val isExternalSupportLink =
+        isWhatsApp || isMessenger
+
+    if (isExternalSupportLink) {
+
         try {
+            
             val intent = Intent(
                 Intent.ACTION_VIEW,
                 url
             )
+
             startActivity(intent)
+
         } catch (e: Exception) {
             Log.e(
                 "TABIBK_WHATSAPP",

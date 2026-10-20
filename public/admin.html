@@ -4079,7 +4079,64 @@ tbody tr:hover{
     class="section"
     id="section-patient-ads"
 >
-    <div class="card">
+
+<style>
+#section-patient-ads{--ads-purple:#51216f;--ads-purple-deep:#351044;--ads-gold:#c99732;--ads-border:#e6d8ef;--ads-muted:#786783}
+#section-patient-ads .patient-ads-hero{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:24px;margin-bottom:22px;border-radius:20px;background:linear-gradient(120deg,#351044,#51216f 58%,#7040a0);color:#fff;box-shadow:0 12px 30px rgba(53,16,68,.16)}
+#section-patient-ads .patient-ads-hero:after{content:"";position:absolute;width:190px;height:190px;border:1px solid rgba(255,255,255,.14);border-radius:50%;left:-55px;top:-85px;box-shadow:0 0 0 22px rgba(255,255,255,.035),0 0 0 44px rgba(255,255,255,.025);pointer-events:none}
+#section-patient-ads .patient-ads-hero h2{margin:0 0 7px;font-size:22px;font-weight:900;color:#fff}
+#section-patient-ads .patient-ads-hero p{margin:0;color:rgba(255,255,255,.8);font-size:13px;line-height:1.8}
+#section-patient-ads .patient-ads-hero-icon{width:58px;height:58px;display:flex;align-items:center;justify-content:center;border-radius:17px;background:linear-gradient(145deg,#f7e6b4,#c99732);color:#351044;font-size:25px;box-shadow:0 8px 20px rgba(0,0,0,.15);flex-shrink:0}
+#section-patient-ads .patient-ad-single-card,#section-patient-ads .patient-ads-manager-card{border:1px solid var(--ads-border);border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#fff,#fdfbff);box-shadow:0 8px 25px rgba(53,16,68,.055)}
+#section-patient-ads .card-head{padding:20px 22px;border-bottom:1px solid #f0e7f5;background:linear-gradient(100deg,#fff,#faf5ff)}
+#section-patient-ads .card-head h3{color:var(--ads-purple-deep);font-size:17px;font-weight:900}
+#section-patient-ads .card-head p{margin-top:6px;color:var(--ads-muted);font-size:12px;line-height:1.8}
+#section-patient-ads .patient-ads-content{padding:22px}
+#section-patient-ads .patient-ad-field{margin:0 0 20px}
+#section-patient-ads .patient-ad-field label{display:block;margin-bottom:8px;color:var(--ads-purple-deep);font-size:13px;font-weight:800}
+#section-patient-ads .patient-ad-field input:not([type=file]):not([type=checkbox]){display:block;width:100%;min-height:48px;padding:12px 14px;margin:0;border:1.5px solid #ded0e8;border-radius:12px;background:#fff;color:var(--ads-purple-deep);font-size:14px;box-sizing:border-box;transition:border-color .18s,box-shadow .18s}
+#section-patient-ads .patient-ad-field input:focus{outline:none;border-color:var(--ads-purple);box-shadow:0 0 0 3px rgba(112,39,160,.10)}
+#section-patient-ads .patient-ad-hint{display:block;margin-top:7px;color:#8a7a94;font-size:11px;line-height:1.8}
+#section-patient-ads .patient-ad-upload{padding:16px;border:1.5px dashed #cdb5dc;border-radius:14px;background:linear-gradient(145deg,#fff,#faf6fd)}
+#section-patient-ads input[type=file]{max-width:100%;color:#5c4269;font-size:12px}
+#section-patient-ads .patient-ad-preview{display:block;width:100%;max-width:760px;max-height:300px;object-fit:contain;border:1px solid #e4d5ed;border-radius:14px;background:linear-gradient(145deg,#351044,#51216f);padding:6px;box-sizing:border-box}
+#section-patient-ads .patient-ad-enabled-panel{display:flex;align-items:center;gap:12px;padding:15px 16px;margin:18px 0;border:1px solid #e6d8ef;border-radius:14px;background:linear-gradient(110deg,#fff,#f9f4fd)}
+#section-patient-ads .patient-ad-enabled-panel input{width:19px;height:19px;accent-color:#7027a0;flex-shrink:0}
+#section-patient-ads .patient-ad-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:11px 17px;border:1px solid transparent;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;transition:transform .16s,box-shadow .16s,filter .16s;box-sizing:border-box}
+#section-patient-ads .patient-ad-btn:hover{transform:translateY(-1px);filter:brightness(1.02);box-shadow:0 7px 16px rgba(53,16,68,.12)}
+#section-patient-ads .patient-ad-btn:disabled{opacity:.55;cursor:wait;transform:none;box-shadow:none}
+#section-patient-ads .patient-ad-btn-primary{background:linear-gradient(135deg,#d9b45d,#b98520);color:#351044;box-shadow:0 5px 13px rgba(201,151,50,.18)}
+#section-patient-ads .patient-ad-btn-secondary{background:#fff;color:#51216f;border-color:#d9c6e5}
+#section-patient-ads .patient-ad-btn-purple{background:linear-gradient(135deg,#7027a0,#51216f);color:#fff;box-shadow:0 5px 13px rgba(81,33,111,.17)}
+#section-patient-ads .patient-ad-btn-success{background:#e7f7ed;color:#176b38;border-color:#c4e9d0}
+#section-patient-ads .patient-ad-btn-danger{background:#fff1f1;color:#a12e3a;border-color:#f0caca}
+#section-patient-ads .patient-ad-status{padding:10px 13px;border-radius:10px;background:#f8f4fb;color:#65536f;font-size:12px;line-height:1.8}
+#section-patient-ads .patient-ads-list-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:22px 0 12px;padding-top:20px;border-top:1px solid #eee4f3}
+#section-patient-ads .patient-ads-list-heading h4{margin:0;color:#351044;font-weight:900;font-size:15px}
+#section-patient-ads .patient-ads-count{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid #e5d7ef;border-radius:999px;background:#f8f1fc;color:#51216f;font-size:12px;font-weight:800}
+#section-patient-ads .patient-ad-item{display:grid;grid-template-columns:180px minmax(180px,1fr) auto;gap:18px;align-items:center;padding:17px;margin:13px 0;border:1px solid #e6d8ef;border-radius:17px;background:linear-gradient(115deg,#fff,#fcf9ff 70%,#f9f3fd);box-shadow:0 5px 17px rgba(53,16,68,.05);transition:border-color .18s,box-shadow .18s}
+#section-patient-ads .patient-ad-item:hover{border-color:#cdb2dd;box-shadow:0 9px 22px rgba(53,16,68,.09)}
+#section-patient-ads .patient-ad-item-image{display:block;width:100%;height:118px;object-fit:contain;padding:5px;border:1px solid #eadff1;border-radius:13px;background:#f7f2fa;box-sizing:border-box}
+#section-patient-ads .patient-ad-item-title{margin:0 0 9px;color:#351044;font-size:15px;font-weight:900;line-height:1.7;overflow-wrap:anywhere}
+#section-patient-ads .patient-ad-item-url{padding:9px 11px;margin-bottom:10px;border:1px solid #eadff1;border-radius:10px;background:#fff;color:#71617c;font-size:11px;line-height:1.8;overflow-wrap:anywhere}
+#section-patient-ads .patient-ad-item-actions{display:flex;flex-direction:column;gap:8px;min-width:112px}
+#section-patient-ads .patient-ad-item-actions .patient-ad-btn{width:100%;min-height:38px;padding:8px 11px;font-size:12px}
+#section-patient-ads .patient-ad-state{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900}
+#section-patient-ads .patient-ad-state.is-enabled{background:#e5f7eb;color:#176b38}
+#section-patient-ads .patient-ad-state.is-disabled{background:#f2edf5;color:#76647f}
+#section-patient-ads .patient-ads-empty{padding:27px 18px;border:1px dashed #d8c6e5;border-radius:15px;background:linear-gradient(145deg,#fff,#faf6fd);color:#786783;text-align:center;line-height:1.9}
+#section-patient-ads .patient-ads-empty i{display:block;margin-bottom:9px;color:#b48b37;font-size:25px}
+@media(max-width:760px){#section-patient-ads .patient-ads-content{padding:15px}#section-patient-ads .card-head{padding:17px}#section-patient-ads .patient-ads-hero{padding:19px}#section-patient-ads .patient-ads-hero h2{font-size:19px}#section-patient-ads .patient-ad-item{grid-template-columns:1fr;gap:13px;padding:13px}#section-patient-ads .patient-ad-item-image{height:170px}#section-patient-ads .patient-ad-item-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));min-width:0}#section-patient-ads .patient-ad-item-actions .patient-ad-btn{padding:8px 5px;font-size:11px}#section-patient-ads .patient-ad-btn{width:100%}}
+</style>
+<div class="patient-ads-hero">
+    <div style="display:flex;align-items:center;gap:15px;position:relative;z-index:1;">
+        <div class="patient-ads-hero-icon"><i class="fa-solid fa-rectangle-ad"></i></div>
+        <div><h2>مركز إعلانات المرضى</h2><p>صمّم إعلاناتك، راجع المعاينة، وتحكم في ظهورها داخل تطبيق طبيبك.</p></div>
+    </div>
+    <div style="position:relative;z-index:1;display:flex;align-items:center;gap:8px;font-size:12px;color:#fff3d1;font-weight:800;"><i class="fa-solid fa-shield-heart"></i> إدارة الإعلانات</div>
+</div>
+
+    <div class="card patient-ad-single-card">
         <div class="card-head">
             <div>
                 <h3>إعلانات المرضى</h3>
@@ -4087,9 +4144,9 @@ tbody tr:hover{
             </div>
         </div>
 
-        <div style="padding:20px 0;">
+        <div class="patient-ads-content">
 
-            <label for="patientAdTitle">
+            <div class="patient-ad-field"><label for="patientAdTitle"><i class="fa-solid fa-heading" style="color:#c99732;margin-left:7px;"></i>عنوان الإعلان</label>
                 عنوان الإعلان
             </label>
 
@@ -4098,10 +4155,10 @@ tbody tr:hover{
                 type="text"
                 maxlength="120"
                 placeholder="مثال: عرض خاص على الخدمات الطبية"
-                style="width:100%; margin:10px 0 20px;"
             >
+            <small class="patient-ad-hint">اختر عنوانًا مختصرًا وواضحًا يلفت انتباه المرضى.</small></div>
 
-            <label for="patientAdUrl">
+            <div class="patient-ad-field"><label for="patientAdUrl"><i class="fa-solid fa-link" style="color:#c99732;margin-left:7px;"></i>رابط الإعلان عند الضغط على الصورة</label>
                 رابط الإعلان عند الضغط على الصورة
             </label>
 
@@ -4109,10 +4166,12 @@ tbody tr:hover{
                 id="patientAdUrl"
                 type="url"
                 placeholder="https://example.com"
-                style="width:100%; margin:10px 0 20px;"
+                dir="ltr"
+                style="text-align:left;"
             >
+            <small class="patient-ad-hint">يجب أن يبدأ الرابط بـ https:// أو http://</small></div>
 
-            <label for="patientAdImage">
+            <div class="patient-ad-field"><label for="patientAdImage"><i class="fa-solid fa-image" style="color:#c99732;margin-left:7px;"></i>صورة الإعلان</label><div class="patient-ad-upload">
                 صورة الإعلان
             </label>
 
@@ -4120,25 +4179,24 @@ tbody tr:hover{
                 id="patientAdImage"
                 type="file"
                 accept="image/png,image/jpeg,image/webp"
-                style="display:block; width:100%; margin:10px 0 20px;"
+                style="display:block;width:100%;margin:0;"
             >
+            <small class="patient-ad-hint">الصيغ المدعومة: PNG وJPG وWEBP.</small></div></div>
 
             <div
                 id="patientAdPreviewBox"
                 style="display:none; margin:15px 0;"
             >
-                <p style="margin-bottom:10px;">
-                    معاينة الإعلان
-                </p>
+                <p style="margin-bottom:10px;color:#351044;font-weight:900;"><i class="fa-regular fa-eye" style="color:#c99732;margin-left:7px;"></i>معاينة الإعلان</p>
 
                 <img
                     id="patientAdPreview"
                     alt="معاينة صورة الإعلان"
-                    style="display:block; width:100%; max-width:650px; max-height:260px; object-fit:contain; border-radius:16px; border:1px solid #b99a56; background:#1c0e2b;"
+                    class="patient-ad-preview"
                 >
             </div>
 
-            <label style="display:flex; align-items:center; gap:10px; margin:20px 0;">
+            <div class="patient-ad-enabled-panel"><label style="display:flex;align-items:center;gap:11px;color:#351044;font-weight:800;cursor:pointer;">
                 <input
                     id="patientAdEnabled"
                     type="checkbox"
@@ -4158,22 +4216,21 @@ tbody tr:hover{
 
             <button
                 type="button"
-                class="btn"
+                class="patient-ad-btn patient-ad-btn-secondary"
                 onclick="loadPatientAd()"
-                style="margin-right:8px;"
             >
-                إعادة تحميل الإعدادات
-            </button>
+                <i class="fa-solid fa-rotate"></i> إعادة تحميل الإعدادات
+            </button></div>
 
             <p
                 id="patientAdStatus"
-                style="margin-top:15px;"
+                class="patient-ad-status" style="margin-top:14px;"
             ></p>
 
         </div>
     </div>
               <!-- MULTIPLE PATIENT ADS MANAGER -->
-        <div class="card" id="patientAdsManagerCard" style="margin-top:22px;">
+        <div class="card patient-ads-manager-card" id="patientAdsManagerCard" style="margin-top:22px;">
             <div class="card-head">
                 <div>
                     <h3>إدارة الإعلانات المتعددة</h3>
@@ -4181,15 +4238,13 @@ tbody tr:hover{
                 </div>
             </div>
 
-            <div style="padding:16px 0;">
-                <button type="button"
-                        class="btn btn-gold"
-                        onclick="openMultiPatientAdEditor()">
-                    + إضافة إعلان جديد
+            <div class="patient-ads-content">
+                <button type="button" class="patient-ad-btn patient-ad-btn-purple" onclick="openMultiPatientAdEditor()">
+                    <i class="fa-solid fa-plus"></i> إضافة إعلان جديد
                 </button>
 
                 <div id="patientAdsEditor"
-                     style="display:none;border:1px solid #b99a56;border-radius:14px;padding:16px;margin-top:18px;">
+                     style="display:none;border:1px solid #d9c4e6;border-radius:17px;padding:20px;margin-top:18px;background:linear-gradient(145deg,#fff,#faf6fd);box-shadow:0 7px 20px rgba(53,16,68,.06);">
 
                     <h4 id="multiPatientAdHeading">إضافة إعلان جديد</h4>
 
@@ -4281,14 +4336,14 @@ tbody tr:hover{
 
 <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;">
     <button type="button"
-            class="btn btn-gold"
+            class="patient-ad-btn patient-ad-btn-primary"
             onclick="saveMultiplePatientAd()"
             style="flex:1;min-width:150px;min-height:46px;border-radius:12px;font-weight:800;">
         ✓ حفظ الإعلان
     </button>
 
     <button type="button"
-            class="btn"
+            class="patient-ad-btn patient-ad-btn-secondary"
             onclick="closeMultiPatientAdEditor()"
             style="flex:1;min-width:110px;min-height:46px;border:1px solid #d8c6e5;border-radius:12px;background:#fff;color:#351044;font-weight:700;">
         إلغاء
@@ -4300,17 +4355,14 @@ tbody tr:hover{
 
                 <hr style="margin:22px 0;">
 
-                <h4>الإعلانات المحفوظة</h4>
+                <div class="patient-ads-list-heading"><h4><i class="fa-solid fa-layer-group" style="color:#c99732;margin-left:8px;"></i>الإعلانات المحفوظة</h4><span id="patientAdsCountBadge" class="patient-ads-count"><i class="fa-solid fa-bullhorn"></i> جاري الإحصاء...</span></div>
 
                 <div id="patientAdsList" style="margin-top:14px;">
                     جاري تحميل الإعلانات...
                 </div>
 
-                <button type="button"
-                        class="btn"
-                        style="margin-top:14px;"
-                        onclick="loadMultiplePatientAds()">
-                    تحديث قائمة الإعلانات
+                <button type="button" class="patient-ad-btn patient-ad-btn-secondary" style="margin-top:14px;" onclick="loadMultiplePatientAds()">
+                    <i class="fa-solid fa-rotate"></i> تحديث قائمة الإعلانات
 </button>
 
 <p id="patientAdsListStatus" style="margin-top:12px;"></p>

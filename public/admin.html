@@ -3781,6 +3781,29 @@ tbody tr:hover{
     class="section active"
     id="section-doctors"
 >
+<style>
+#section-doctors .doctor-directory-identity{display:flex;align-items:center;gap:11px;min-width:190px}
+#section-doctors .doctor-directory-avatar{display:flex;align-items:center;justify-content:center;flex:0 0 43px;width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#f5e9fc,#e8d8f4);border:1px solid #ddc5ec;color:#7027a0;font-size:19px;box-shadow:inset 0 1px 0 #fff}
+#section-doctors .doctor-directory-name-wrap{display:flex;flex-direction:column;gap:5px;min-width:0}
+#section-doctors .doctor-directory-name-wrap strong{font-size:13px;font-weight:900;color:#351044;overflow-wrap:anywhere}
+#section-doctors .doctor-directory-name-wrap small{font-size:10px;color:#95869f;display:flex;align-items:center;gap:5px}
+#section-doctors .doctor-directory-specialty{display:inline-flex;align-items:center;gap:7px;color:#51216f;background:#f7f0fb;border:1px solid #eadcf2;border-radius:9px;padding:6px 9px;font-size:12px;font-weight:800}
+#section-doctors .doctor-directory-specialty i{color:#c99732}
+#section-doctors .doctor-directory-location{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:7px;color:#81758a;font-size:11px}
+#section-doctors .doctor-directory-location i{color:#c99732}
+#section-doctors .doctor-directory-phone{padding:15px 14px;text-align:right;color:#51405b;white-space:nowrap;font-size:12px;font-weight:700}
+#section-doctors .doctor-directory-phone i{color:#7027a0;margin-left:7px}
+#section-doctors .doctor-directory-date{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800}
+#section-doctors #doctorsTable>div[style*="overflow-x:auto"]{border-color:#e6d8ef!important;box-shadow:0 8px 22px rgba(53,16,68,.045)}
+#section-doctors #doctorsTable table thead th{font-size:11px;letter-spacing:.1px;border-bottom:1px solid #e9dff0;white-space:nowrap}
+#section-doctors #doctorsTable tbody tr{transition:background .15s}
+#section-doctors #doctorsTable tbody tr:hover{background:#fcf8ff}
+#section-doctors #doctorsTable tbody td{border-bottom:1px solid #f0eaf4}
+#section-doctors #doctorsTable .action-group .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:8px 11px;border-radius:10px;font-size:11px;font-weight:800;white-space:nowrap}
+#section-doctors #doctorsTable .action-group .btn i{font-size:11px}
+@media(max-width:760px){#section-doctors .doctor-directory-identity{min-width:170px}#section-doctors .doctor-directory-avatar{flex-basis:38px;width:38px;height:38px;border-radius:12px}}
+</style>
+
 
     <div class="card">
 
@@ -3960,6 +3983,35 @@ tbody tr:hover{
     class="section"
     id="section-support-messages"
 >
+<style>
+#section-support-messages .card-head{padding:20px 22px;border-bottom:1px solid #eee4f3;background:linear-gradient(105deg,#fff,#faf5ff)}
+#section-support-messages .card-head h3{color:#351044;font-weight:900;letter-spacing:.1px}
+#section-support-messages .card-head p{color:#81708c;font-size:12px;line-height:1.8}
+#section-support-messages .support-messages-layout{gap:18px}
+#section-support-messages .support-doctors-card,#section-support-messages .support-chat-card{border:1px solid #e6d8ef;border-radius:19px;background:linear-gradient(180deg,#fff,#fdfbff);box-shadow:0 8px 25px rgba(53,16,68,.055);overflow:hidden}
+#section-support-messages .support-doctors-card>h3{padding:17px 18px;margin:0;border-bottom:1px solid #eee4f3;background:#faf6fd;color:#351044;font-size:15px;font-weight:900}
+#section-support-messages .support-doctor-item{display:flex;align-items:center;gap:12px;width:100%;padding:14px 13px;margin:0;border:0;border-bottom:1px solid #f0e8f5;border-radius:0;background:transparent;text-align:right;cursor:pointer;transition:background .18s}
+#section-support-messages .support-doctor-item:hover{background:#faf5fd}
+#section-support-messages .support-doctor-item.is-selected{background:linear-gradient(100deg,#f4e9fb,#fff);box-shadow:inset -3px 0 #c99732}
+#section-support-messages .support-doctor-list-avatar{width:46px;height:46px;flex:0 0 46px;border:2px solid #e1c994;border-radius:15px;padding:3px;background:#f7f0fb;object-fit:cover}
+#section-support-messages .support-doctor-list-details{display:flex;flex-direction:column;gap:5px;min-width:0}
+#section-support-messages .support-doctor-list-name{color:#351044;font-size:13px;font-weight:900;overflow-wrap:anywhere}
+#section-support-messages .support-doctor-list-specialty{color:#765f83;font-size:11px}
+#section-support-messages .support-doctor-list-date{color:#9a8ba2;font-size:10px;line-height:1.6}
+#section-support-messages .support-chat-header{padding:16px;margin:0 0 12px;border-bottom:1px solid #eee4f3;background:linear-gradient(100deg,#fff,#faf6fd)}
+#section-support-messages .support-chat-status{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;margin-top:6px;border:1px solid #e4d7ed;border-radius:999px;background:#fff;color:#705b7c;font-size:10px}
+#section-support-messages .support-chat-status>span{width:7px;height:7px;border-radius:50%;background:#35a36a;box-shadow:0 0 0 3px #e3f6ea}
+#section-support-messages #supportConversation{padding:15px!important;border:1px solid #f0e8f5;border-radius:15px;background:linear-gradient(180deg,#fdfaff,#fff);scroll-behavior:smooth}
+#section-support-messages #adminSupportReplyForm{padding:15px;margin-top:14px;border:1px solid #e9def0;border-radius:15px;background:#faf7fd}
+#section-support-messages #adminSupportReplyForm label{display:block;margin-bottom:9px;color:#351044;font-size:13px;font-weight:900}
+#section-support-messages #adminSupportReplyForm textarea{padding:13px;border:1px solid #ddcce8;border-radius:12px;background:#fff;color:#351044;resize:vertical;outline:none;transition:border-color .18s,box-shadow .18s}
+#section-support-messages #adminSupportReplyForm textarea:focus{border-color:#7027a0;box-shadow:0 0 0 3px rgba(112,39,160,.1)}
+#section-support-messages #adminSupportReplyButton{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;margin-top:12px;padding:11px 19px;border-radius:12px;font-weight:900}
+#section-support-messages .card-head .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:10px 16px;border-radius:12px;font-weight:800}
+#section-support-messages .support-message-bubble{padding:12px 15px;border-radius:15px;box-shadow:0 3px 12px rgba(53,16,68,.045);line-height:1.8}
+@media(max-width:700px){#section-support-messages .card-head{padding:16px}#section-support-messages .support-doctor-item{padding:12px 10px}#section-support-messages .support-chat-header{padding:12px}#section-support-messages #adminSupportReplyForm{padding:12px}}
+</style>
+
 
     <div class="card">
 
@@ -4123,6 +4175,12 @@ tbody tr:hover{
 #section-patient-ads .patient-ad-btn-purple{background:linear-gradient(135deg,#7027a0,#51216f);color:#fff;box-shadow:0 5px 13px rgba(81,33,111,.17)}
 #section-patient-ads .patient-ad-btn-success{background:#e7f7ed;color:#176b38;border-color:#c4e9d0}
 #section-patient-ads .patient-ad-btn-danger{background:#fff1f1;color:#a12e3a;border-color:#f0caca}
+#section-patient-ads .patient-ad-single-card .patient-ads-content>div[style*="display:flex"]{align-items:stretch}
+#section-patient-ads .patient-ad-single-card .patient-ad-btn{min-width:190px;min-height:46px;padding:12px 18px;border-radius:13px;line-height:1.25}
+#section-patient-ads .patient-ad-single-card .patient-ad-btn i{font-size:14px}
+#section-patient-ads .patient-ad-single-card .patient-ad-btn-primary{border-color:#c99732}
+#section-patient-ads .patient-ad-single-card .patient-ad-btn-secondary{border-color:#d8c6e5;background:linear-gradient(180deg,#fff,#faf6fd)}
+@media(max-width:600px){#section-patient-ads .patient-ad-single-card .patient-ad-btn{flex:1;min-width:0;width:100%;padding:11px 9px;font-size:12px}}
 #section-patient-ads .patient-ad-status{padding:10px 13px;border-radius:10px;background:#f8f4fb;color:#65536f;font-size:12px;line-height:1.8}
 #section-patient-ads .patient-ads-list-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:22px 0 12px;padding-top:20px;border-top:1px solid #eee4f3}
 #section-patient-ads .patient-ads-list-heading h4{margin:0;color:#351044;font-weight:900;font-size:15px}
@@ -5066,10 +5124,11 @@ function logout(){
 
 document
     .getElementById("logoutBtn")
-    .addEventListener(
-        "click",
-        logout
-    );
+    .addEventListener("click", () => {
+        if (window.confirm("هل تريد تسجيل الخروج من لوحة الإدارة؟")) {
+            logout();
+        }
+    });
 
 /* ============================================================
    NAVIGATION
@@ -5713,34 +5772,6 @@ function filterDoctorsDirectory(){
     }
 }
 
-function exportDoctorsDirectoryCsv(){
-    const rows = Array.isArray(doctors) ? doctors : [];
-    const headers = ["معرّف الطبيب","الاسم","التخصص","الولاية","البلدية","الهاتف","الحالة","تاريخ التسجيل"];
-    const values = rows.map(doctor => [
-        doctor.id ?? "",
-        doctor.name || "",
-        doctor.specialty || "",
-        doctor.wilaya || "",
-        doctor.municipality || "",
-        doctor.phone || "",
-        doctor.status === "pending" ? "قيد المراجعة" :
-            doctor.status === "rejected" ? "مرفوض" :
-            doctor.active !== false && (doctor.status === "active" || doctor.status === "approved") ? "نشط" : "غير نشط",
-        formatDoctorRegistrationDate(doctor)
-    ]);
-    const csvCell = value => '"' + String(value ?? "").replace(/"/g, '""') + '"';
-    const csv = "\\uFEFF" + [headers, ...values].map(row => row.map(csvCell).join(",")).join("\\r\\n");
-    const blob = new Blob([csv], { type:"text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "tabibk-doctors-" + new Date().toISOString().slice(0,10) + ".csv";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-}
-
 function renderDoctors(){
 
     const container = document.getElementById("doctorsTable");
@@ -5858,9 +5889,6 @@ function renderDoctors(){
                     <option value="oldest" ${selectedSort==="oldest"?"selected":""}>الأقدم تسجيلًا</option>
                     <option value="name" ${selectedSort==="name"?"selected":""}>حسب الاسم</option>
                 </select>
-                <button type="button" class="btn btn-gold" onclick="exportDoctorsDirectoryCsv()" title="تصدير قائمة الأطباء إلى CSV">
-                    <i class="fa-solid fa-file-csv"></i> تصدير القائمة
-                </button>
             </div>
         </div>
 
@@ -5906,17 +5934,22 @@ function renderDoctors(){
                                 <tr style="border-bottom:1px solid #f0eaf4;">
                                     <td style="padding:15px 14px;color:#8b7c94;font-weight:700;">#${escapeHtml(String(doctor.id ?? ""))}</td>
                                     <td style="padding:15px 14px;">
-                                        <div style="font-weight:800;color:#351044;">${escapeHtml(doctor.name || "بدون اسم")}</div>
-                                        <div style="font-size:11px;color:#9a8da2;margin-top:5px;">ملف الطبيب</div>
+                                        <div class="doctor-directory-identity">
+                                            <span class="doctor-directory-avatar"><i class="fa-solid fa-user-doctor"></i></span>
+                                            <span class="doctor-directory-name-wrap">
+                                                <strong>${escapeHtml(doctor.name || "بدون اسم")}</strong>
+                                                <small><i class="fa-solid fa-id-badge"></i> ملف الطبيب #${escapeHtml(String(doctor.id ?? ""))}</small>
+                                            </span>
+                                        </div>
                                     </td>
                                     <td style="padding:15px 14px;">
-                                        <div style="font-weight:700;color:#4f3a5a;">${escapeHtml(doctor.specialty || "غير محدد")}</div>
-                                        <div style="font-size:12px;color:#81758a;margin-top:5px;">${escapeHtml(doctor.wilaya || "—")} • ${escapeHtml(doctor.municipality || "—")}</div>
+                                        <div class="doctor-directory-specialty"><i class="fa-solid fa-stethoscope"></i> ${escapeHtml(doctor.specialty || "تخصص غير محدد")}</div>
+                                        <div class="doctor-directory-location"><i class="fa-solid fa-location-dot"></i> ${escapeHtml(doctor.wilaya || "ولاية غير محددة")} <span>•</span> ${escapeHtml(doctor.municipality || "بلدية غير محددة")}</div>
                                     </td>
-                                    <td dir="ltr" style="padding:15px 14px;text-align:right;color:#51405b;white-space:nowrap;">${escapeHtml(doctor.phone || "—")}</td>
+                                    <td dir="ltr" class="doctor-directory-phone"><i class="fa-solid fa-phone"></i> ${escapeHtml(doctor.phone || "—")}</td>
                                     <td style="padding:15px 14px;white-space:nowrap;">
-                                        <div style="display:flex;align-items:center;gap:7px;color:${registered==="غير متوفر"?"#9a8da2":"#5b4269"};font-size:12px;font-weight:700;">
-                                            <i class="fa-regular fa-calendar" style="color:#c99732;"></i>
+                                        <div class="doctor-directory-date" style="color:${registered==="غير متوفر"?"#9a8da2":"#5b4269"};">
+                                            <i class="fa-regular fa-calendar-check"></i>
                                             ${escapeHtml(registered)}
                                         </div>
                                         ${registered!=="غير متوفر" ? '<div style="font-size:10px;color:#a195aa;margin-top:5px;">تاريخ إنشاء الحساب</div>' : '<div style="font-size:10px;color:#a195aa;margin-top:5px;">لم يُحفظ التاريخ لهذا الحساب</div>'}
@@ -6345,9 +6378,7 @@ function startAutoRefresh() {
     autoRefresh = setInterval(() => {
         if (document.visibilityState !== "visible") return;
         const activeSection = document.querySelector(".section.active");
-        if (activeSection?.id === "section-doctors") {
-            loadDoctors();
-        } else if (activeSection?.id === "section-patient-ads") {
+        if (activeSection?.id === "section-patient-ads") {
             loadMultiplePatientAds();
         }
     }, 30000);

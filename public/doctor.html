@@ -8713,7 +8713,7 @@ transition: none;
     <button
         type="button"
         class="forgot-password-link"
-        onclick="alert('لاسترجاع كلمة المرور، يرجى التواصل مع إدارة طبيبك.')"
+        onclick="openPasswordRecovery()"
     >
         <i class="fa-solid fa-key"></i>
         نسيت كلمة المرور؟
@@ -11003,6 +11003,78 @@ transition: none;
     </div>
 </div>
 
+    
+<!-- =======================================================
+     TABIBK — PASSWORD RECOVERY MODAL
+======================================================= -->
+
+<div
+    class="modal-overlay"
+    id="passwordRecoveryModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="passwordRecoveryTitle"
+>
+    <div class="modal">
+
+        <div class="modal-top"></div>
+
+        <div class="modal-body">
+
+            <div style="text-align:center; margin-bottom:16px;">
+                <i
+                    class="fa-solid fa-shield-halved"
+                    style="font-size:34px; color:#7650b8;"
+                    aria-hidden="true"
+                ></i>
+            </div>
+
+            <h3 id="passwordRecoveryTitle">
+                استرجاع كلمة المرور
+            </h3>
+
+            <p>
+                نساعدك على استرجاع حسابك في طبيبك.
+                يرجى التواصل مع إدارة التطبيق للحصول على المساعدة.
+            </p>
+
+            <div
+                id="passwordRecoveryContact"
+                style="
+                    padding:14px;
+                    margin-top:14px;
+                    border:1px solid rgba(139,92,246,.25);
+                    border-radius:12px;
+                    background:rgba(139,92,246,.06);
+                    text-align:center;
+                "
+            >
+                <i
+                    class="fa-solid fa-headset"
+                    aria-hidden="true"
+                ></i>
+                <strong> الدعم الفني لطبيبك</strong>
+                <p style="margin:8px 0 0;">
+                    تواصل مع الإدارة لاستعادة إمكانية الدخول.
+                </p>
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="modal-cancel"
+                    onclick="closePasswordRecovery()"
+                >
+                    العودة للدخول
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-- =======================================================
      TOAST
 ======================================================= -->
@@ -12177,6 +12249,31 @@ async function loginDoctor(event) {
     }
 
 }
+
+    
+/* =========================================================
+   TABIBK — PASSWORD RECOVERY MODAL
+========================================================= */
+
+function openPasswordRecovery() {
+    const modal = document.getElementById("passwordRecoveryModal");
+
+    if (!modal) {
+        alert("تعذر فتح نافذة استرجاع كلمة المرور.");
+        return;
+    }
+
+    modal.classList.add("show");
+}
+
+function closePasswordRecovery() {
+    const modal = document.getElementById("passwordRecoveryModal");
+
+    if (modal) {
+        modal.classList.remove("show");
+    }
+}
+    
 
 /* =========================================================
    DOCTOR REGISTRATION

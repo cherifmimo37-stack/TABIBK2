@@ -3818,576 +3818,7 @@ tbody tr:hover{
         </header>
 
         <div class="content">
-<!-- =========================================================
-     DASHBOARD
-========================================================= -->
 
-<section
-    class="section active"
-    id="section-dashboard"
->
-
-    <div class="stats-grid">
-
-        <div class="stat-card">
-
-            <div class="stat-icon gold">
-                <i class="fa-solid fa-calendar-days"></i>
-            </div>
-
-            <div class="stat-info">
-
-                <span>
-                    إجمالي المواعيد
-                </span>
-
-                <strong id="statTotal">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon orange">
-                <i class="fa-solid fa-hourglass-half"></i>
-            </div>
-
-            <div class="stat-info">
-
-                <span>
-                    قيد الانتظار
-                </span>
-
-                <strong id="statPending">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon blue">
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-
-            <div class="stat-info">
-
-                <span>
-                    مؤكدة
-                </span>
-
-                <strong id="statConfirmed">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon green">
-                <i class="fa-solid fa-check-double"></i>
-            </div>
-
-            <div class="stat-info">
-
-                <span>
-                    مكتملة
-                </span>
-
-                <strong id="statCompleted">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon red">
-                <i class="fa-solid fa-calendar-xmark"></i>
-            </div>
-
-            <div class="stat-info">
-
-                <span>
-                    مرفوضة
-                </span>
-
-                <strong id="statRejected">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon gold">
-                <i class="fa-solid fa-user-doctor"></i>
-            </div>
-
-            <div class="stat-info">
-
-                <span>
-                    إجمالي الأطباء
-                </span>
-
-                <strong id="statDoctors">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon green">
-                <i class="fa-solid fa-user-check"></i>
-            </div>
-
-            <div class="stat-info">
-
-                <span>
-                    أطباء متصلون
-                </span>
-
-                <strong id="statOnline">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon blue">
-                <i class="fa-solid fa-bell"></i>
-            </div>
-
-            <div class="stat-info">
-
-                <span>
-                    الإشعارات
-                </span>
-
-                <strong id="statNotifications">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="dashboard-grid">
-
-        <div class="card">
-
-            <div class="card-head">
-
-                <div>
-
-                    <h3>
-                        آخر المواعيد
-                    </h3>
-
-                    <p>
-                        أحدث طلبات الحجز في النظام
-                    </p>
-
-                </div>
-
-                <button
-                    class="btn btn-light"
-                    onclick="showSection('appointments')"
-                >
-
-                    عرض الكل
-
-                    <i class="fa-solid fa-arrow-left"></i>
-
-                </button>
-
-            </div>
-
-            <div
-                id="recentAppointments"
-            ></div>
-
-        </div>
-
-        <div class="card">
-
-            <div class="card-head">
-
-                <div>
-
-                    <h3>
-                        إجراءات سريعة
-                    </h3>
-
-                    <p>
-                        الوصول السريع لأهم الوظائف
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="quick-grid">
-
-                <button
-                    class="quick-btn"
-                    onclick="openDoctorModal()"
-                >
-
-                    <i class="fa-solid fa-user-doctor"></i>
-
-                    <strong>
-                        إضافة طبيب
-                    </strong>
-
-                    <span>
-                        تسجيل طبيب جديد
-                    </span>
-
-                </button>
-
-                <button
-                    class="quick-btn"
-                    onclick="showSection('appointments')"
-                >
-
-                    <i class="fa-solid fa-calendar-check"></i>
-
-                    <strong>
-                        المواعيد
-                    </strong>
-
-                    <span>
-                        إدارة الحجوزات
-                    </span>
-
-                </button>
-
-                <button
-                    class="quick-btn"
-                    onclick="showSection('patients')"
-                >
-
-                    <i class="fa-solid fa-users"></i>
-
-                    <strong>
-                        المرضى
-                    </strong>
-
-                    <span>
-                        قائمة المرضى
-                    </span>
-
-                </button>
-
-                <button
-                    class="quick-btn"
-                    onclick="openNotificationModal()"
-                >
-
-                    <i class="fa-solid fa-bell"></i>
-
-                    <strong>
-                        إرسال إشعار
-                    </strong>
-
-                    <span>
-                        إرسال للطبيب
-                    </span>
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-<!-- =========================================================
-     APPOINTMENTS
-========================================================= -->
-
-<section
-    class="section"
-    id="section-appointments"
->
-
-    <div class="card">
-
-        <div class="card-head">
-
-            <div>
-
-                <h3>
-                    إدارة المواعيد
-                </h3>
-
-                <p>
-                    متابعة جميع حجوزات المرضى وحالاتها
-                </p>
-
-            </div>
-
-            <button
-                class="btn btn-light"
-                onclick="loadAppointments()"
-            >
-
-                <i class="fa-solid fa-arrows-rotate"></i>
-
-                تحديث
-
-            </button>
-
-        </div>
-
-        <div class="filters">
-
-            <div class="field">
-
-                <label>
-                    بحث
-                </label>
-
-                <input
-                    type="search"
-                    id="appointmentSearch"
-                    placeholder="اسم المريض، الهاتف، رقم الحجز..."
-                >
-
-            </div>
-
-            <div class="field">
-
-                <label>
-                    الحالة
-                </label>
-
-                <select id="appointmentStatus">
-
-                    <option value="">
-                        كل الحالات
-                    </option>
-
-                    <option value="pending">
-                        قيد الانتظار
-                    </option>
-
-                    <option value="confirmed">
-                        مؤكدة
-                    </option>
-
-                    <option value="started">
-                        قيد الكشف
-                    </option>
-
-                    <option value="completed">
-                        مكتملة
-                    </option>
-
-                    <option value="rejected">
-                        مرفوضة
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    الطبيب
-                </label>
-
-                <select id="appointmentDoctor">
-
-                    <option value="">
-                        كل الأطباء
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div class="field">
-
-                <label>
-                    التاريخ
-                </label>
-
-                <input
-                    type="date"
-                    id="appointmentDate"
-                >
-
-            </div>
-
-            <div
-                style="
-                    display:flex;
-                    align-items:end;
-                    gap:7px;
-                "
-            >
-
-                <button
-                    class="btn btn-primary"
-                    onclick="loadAppointments()"
-                    style="height:43px"
-                >
-
-                    <i class="fa-solid fa-filter"></i>
-
-                    بحث
-
-                </button>
-
-                <button
-                    class="btn btn-light"
-                    onclick="clearAppointmentFilters()"
-                    style="height:43px"
-                >
-
-                    <i class="fa-solid fa-rotate-left"></i>
-
-                </button>
-
-            </div>
-
-        </div>
-
-        <div
-            class="table-wrap"
-            id="appointmentsTable"
-        >
-
-            <div class="loading">
-
-                <div class="spinner"></div>
-
-                جاري تحميل المواعيد...
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-<!-- =========================================================
-     PATIENTS
-========================================================= -->
-
-<section
-    class="section"
-    id="section-patients"
->
-
-    <div class="card">
-
-        <div class="card-head">
-
-            <div>
-
-                <h3>
-                    المرضى
-                </h3>
-
-                <p>
-                    قائمة المرضى المستخرجة من سجلات المواعيد
-                </p>
-
-            </div>
-
-            <button
-                class="btn btn-green"
-                onclick="exportPatients()"
-            >
-
-                <i class="fa-solid fa-file-csv"></i>
-
-                تصدير CSV
-
-            </button>
-
-        </div>
-
-        <div class="filters">
-
-            <div class="field">
-
-                <label>
-                    البحث عن مريض
-                </label>
-
-                <input
-                    type="search"
-                    id="patientSearch"
-                    placeholder="الاسم أو الهاتف..."
-                >
-
-            </div>
-
-            <div></div>
-            <div></div>
-            <div></div>
-
-            <button
-                class="btn btn-primary"
-                onclick="loadPatients()"
-                style="height:43px;margin-top:18px"
-            >
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                بحث
-
-            </button>
-
-        </div>
-
-
-        <div
-            class="table-wrap"
-            id="patientsTable"
-        >
-
-            <div class="loading">
-
-                <div class="spinner"></div>
-
-                جاري تحميل المرضى...
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
 <!-- =========================================================
      DOCTORS
 ========================================================= -->
@@ -4567,58 +3998,7 @@ tbody tr:hover{
 </div>
 
 </section>
-<!-- =========================================================
-     NOTIFICATIONS
-========================================================= -->
-<section
-    class="section"
-    id="section-notifications"
->
 
-    <div class="card">
-
-        <div class="card-head">
-
-            <div>
-
-                <h3>
-                    الإشعارات
-                </h3>
-
-                <p>
-                    إشعارات النظام والإشعارات المرسلة للأطباء
-                </p>
-
-            </div>
-
-            <button
-                class="btn btn-gold"
-                onclick="openNotificationModal()"
-            >
-
-                <i class="fa-solid fa-paper-plane"></i>
-
-                إرسال إشعار
-
-            </button>
-
-        </div>
-
-        <div id="notificationsList">
-
-            <div class="loading">
-
-                <div class="spinner"></div>
-
-                جاري تحميل الإشعارات...
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
 <!-- =========================================================
      DOCTOR SUPPORT MESSAGES
 ========================================================= -->
@@ -5819,139 +5199,91 @@ document
    NAVIGATION
 ============================================================ */
 
+
 const sectionTitles = {
 
-    dashboard:[
-        "لوحة التحكم",
-        "نظرة عامة على نظام TABIBK"
-    ],
-
-    appointments:[
-        "إدارة المواعيد",
-        "متابعة حجوزات المرضى وحالاتها"
-    ],
-
-    patients:[
-        "المرضى",
-        "إدارة ومتابعة المرضى"
-    ],
-
-    doctors:[
+    doctors: [
         "إدارة الأطباء",
         "إضافة وتعديل وحذف الأطباء"
-       ],
-
-    notifications:[
-        "الإشعارات",
-        "إدارة إشعارات النظام والأطباء"
     ],
 
-    "support-messages":[
+    "support-messages": [
         "رسائل الأطباء",
         "استقبال رسائل الأطباء والرد عليها"
+    ],
+
+    "patient-ads": [
+        "إعلانات المرضى",
+        "إدارة إعلانات المرضى"
     ]
 
 };
 
-function showSection(
-    name
-){
+
+function showSection(name){
+
+    const allowedSections = [
+        "doctors",
+        "support-messages",
+        "patient-ads"
+    ];
+
+    if(!allowedSections.includes(name))
+        return;
 
     document
-        .querySelectorAll(
-            ".section"
-        )
-        .forEach(
-            section =>
-                section.classList.remove(
-                    "active"
-                )
-        );
+        .querySelectorAll(".section")
+        .forEach(section => {
+            section.classList.remove("active");
+        });
 
-    const target =
-        document.getElementById(
-            `section-${name}`
-        );
+    const target = document.getElementById(
+        `section-${name}`
+    );
 
-    if(target)
-        target.classList.add(
-            "active"
-        );
+    if(!target)
+        return;
+
+    target.classList.add("active");
 
     document
-        .querySelectorAll(
-            ".nav-item[data-section]"
-        )
-        .forEach(
-            item =>
-                item.classList.toggle(
-                    "active",
-                    item.dataset.section ===
-                    name
-                )
-        );
+        .querySelectorAll(".nav-item[data-section]")
+        .forEach(item => {
+            item.classList.toggle(
+                "active",
+                item.dataset.section === name
+            );
+        });
 
-    const info =
-        sectionTitles[name];
+    const info = sectionTitles[name];
 
     if(info){
-
-        document
-            .getElementById(
-                "pageTitle"
-            )
-            .textContent =
+        document.getElementById("pageTitle").textContent =
             info[0];
 
-        document
-            .getElementById(
-                "pageSubtitle"
-            )
-            .textContent =
+        document.getElementById("pageSubtitle").textContent =
             info[1];
     }
 
     closeSidebar();
 
-    if(name === "appointments")
-        loadAppointments();
-
-    if(name === "patients")
-        loadPatients();
-
-    if(name === "doctors")
+    if(name === "doctors"){
         loadDoctors();
+    }
 
-        if(name === "notifications")
-        loadNotifications();
+    if(name === "support-messages"){
+        loadSupportInbox();
+        startSupportAutoRefresh();
+    } else {
+        stopSupportAutoRefresh();
+    }
 
-    
-if (name === "support-messages") {
-    loadSupportInbox();
-    startSupportAutoRefresh();
-} else {
-    stopSupportAutoRefresh();
+    if(name === "patient-ads"){
+        loadPatientAd();
+        loadMultiplePatientAds();
+    }
+
 }
-
-}
-
-document
-    .querySelectorAll(
-        ".nav-item[data-section]"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () =>
-                    showSection(
-                        button.dataset.section
-                    )
-            );
-
-        }
-    );
 
 /* ============================================================
    SIDEBAR MOBILE
@@ -6005,25 +5337,14 @@ function closeSidebar(){
    LOAD ALL
 ============================================================ */
 
+
 async function loadAll(){
 
     await Promise.allSettled([
-
-        loadStats(),
-
         loadDoctors(),
-
-        loadWilayas(),
-
-        loadAppointments(),
-
-        loadNotifications()
-
+        loadWilayas()
     ]);
 
-    buildPatients();
-
-    renderRecentAppointments();
 }
 
 /* ============================================================
@@ -6227,11 +5548,7 @@ async function loadDoctors(){
 
         renderDoctors();
 
-        fillDoctorFilter();
-
-        fillNotificationDoctors();
-
-        await loadPendingDoctors();
+await loadPendingDoctors();
 
     }catch(error){
 
@@ -6546,8 +5863,6 @@ async function approveDoctorRegistration(id){
 
         await loadDoctors();
 
-        await loadStats();
-
     }catch(error){
 
         showToast(
@@ -6589,8 +5904,6 @@ async function rejectDoctorRegistration(id){
         );
 
         await loadDoctors();
-
-        await loadStats();
 
     }catch(error){
 
@@ -6797,77 +6110,6 @@ ${doctor.status === "pending"
 
         </table>
     `;
-}
-
-function fillDoctorFilter(){
-
-    const select =
-        document.getElementById(
-            "appointmentDoctor"
-        );
-
-    const current =
-        select.value;
-
-    select.innerHTML =
-        `
-        <option value="">
-            كل الأطباء
-        </option>
-        `;
-
-    doctors.forEach(
-        doctor => {
-
-            select.innerHTML +=
-                `
-                <option
-                    value="${doctor.id}"
-                >
-                    ${escapeHtml(
-                        doctor.name
-                    )}
-                </option>
-                `;
-
-        }
-    );
-
-    select.value =
-        current;
-}
-
-
-function fillNotificationDoctors(){
-
-    const select =
-        document.getElementById(
-            "notificationDoctor"
-        );
-
-    select.innerHTML =
-        `
-        <option value="">
-            جميع الأطباء
-        </option>
-        `;
-
-    doctors.forEach(
-        doctor => {
-
-            select.innerHTML +=
-                `
-                <option
-                    value="${doctor.id}"
-                >
-                    ${escapeHtml(
-                        doctor.name
-                    )}
-                </option>
-                `;
-
-        }
-    );
 }
 
 /* ============================================================
@@ -8662,31 +7904,28 @@ document
         refreshAll
     );
 
-
 function startAutoRefresh(){
 
-    clearInterval(
-        autoRefresh
-    );
+    clearInterval(autoRefresh);
 
-    autoRefresh =
-        setInterval(
-            () => {
+    autoRefresh = setInterval(() => {
 
-                if(
-                    document.visibilityState ===
-                    "visible"
-                ){
+        if(document.visibilityState !== "visible"){
+            return;
+        }
 
-                    loadStats();
+        const doctorsSection =
+            document.getElementById("section-doctors");
 
-                }
+        if(
+            doctorsSection &&
+            doctorsSection.classList.contains("active")
+        ){
+            loadDoctors();
+        }
 
-            },
-            10000
-        );
+    }, 30000);
 }
-
 /* ============================================================
    CLOSE MODALS BY BACKGROUND
 ============================================================ */
@@ -8705,26 +7944,6 @@ document
             ){
 
                 closeDoctorModal();
-
-            }
-
-        }
-    );
-
-document
-    .getElementById(
-        "notificationModal"
-    )
-    .addEventListener(
-        "click",
-        event => {
-
-            if(
-                event.target.id ===
-                "notificationModal"
-            ){
-
-                closeNotificationModal();
 
             }
 

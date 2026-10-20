@@ -5613,202 +5613,195 @@ async function rejectDoctorRegistration(id){
     }
 }
 
+function formatDoctorRegistrationDate(doctor){
+    const raw =
+        doctor.createdAt ||
+        doctor.registeredAt ||
+        doctor.registrationDate ||
+        doctor.created_at ||
+        "";
+
+    if(!raw) return "غير متوفر";
+
+    const date = new Date(raw);
+    if(Number.isNaN(date.getTime())) return "غير متوفر";
+
+    return date.toLocaleString("ar-DZ", {
+        year:"numeric",
+        month:"short",
+        day:"numeric",
+        hour:"2-digit",
+        minute:"2-digit"
+    });
+}
+
+function filterDoctorsDirectory(){
+    renderDoctors();
+}
+
 function renderDoctors(){
 
-    const container =
-        document.getElementById(
-            "doctorsTable"
-        );
+    const container = document.getElementById("doctorsTable");
+    if(!container) return;
 
-    if(!doctors.length){
+    const queryInput = document.getElementById("doctorDirectorySearch");
+    const statusInput = document.getElementById("doctorDirectoryStatus");
+    const query = (queryInput ? queryInput.value : "").trim().toLocaleLowerCase("ar");
+    const selectedStatus = statusInput ? statusInput.value : "all";
 
-        container.innerHTML =
-            `
-            <div class="empty">
+    const allDoctors = Array.isArray(doctors) ? doctors.slice() : [];
+    const activeCount = allDoctors.filter(doctor =>
+        doctor.active !== false &&
+        (doctor.status === "active" || doctor.status === "approved")
+    ).length;
+    const pendingCount = allDoctors.filter(doctor => doctor.status === "pending").length;
+    const registeredDates = allDoctors.filter(doctor =>
+        doctor.createdAt || doctor.registeredAt || doctor.registrationDate || doctor.created_at
+    ).length;
 
-                <i class="fa-solid fa-user-doctor"></i>
+    const filteredDoctors = allDoctors
+        .sort((a,b) => {
+            const dateA = Date.parse(a.createdAt || a.registeredAt || a.registrationDate || a.created_at || "");
+            const dateB = Date.parse(b.createdAt || b.registeredAt || b.registrationDate || b.created_at || "");
+            return (Number.isNaN(dateB) ? 0 : dateB) - (Number.isNaN(dateA) ? 0 : dateA);
+        })
+        .filter(doctor => {
+            const searchable = [
+                doctor.name, doctor.specialty, doctor.wilaya,
+                doctor.municipality, doctor.phone, String(doctor.id || "")
+            ].join(" ").toLocaleLowerCase("ar");
 
-                <div>
-                    لا يوجد أطباء حالياً
-                </div>
-
-            </div>
-            `;
-
-        return;
-    }
+            const matchesQuery = !query || searchable.includes(query);
+            const matchesStatus = selectedStatus === "all" ||
+                (selectedStatus === "active" &&
+                    doctor.active !== false &&
+                    (doctor.status === "active" || doctor.status === "approved")) ||
+                (selectedStatus === "pending" && doctor.status === "pending") ||
+                (selectedStatus === "inactive" &&
+                    !(doctor.active !== false &&
+                      (doctor.status === "active" || doctor.status === "approved")) &&
+                    doctor.status !== "pending");
+            return matchesQuery && matchesStatus;
+        });
 
     container.innerHTML = `
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:0 0 18px;">
+            <div style="padding:17px;border:1px solid rgba(112,39,160,.12);border-radius:16px;background:linear-gradient(135deg,#fff,#f8f3fc);">
+                <div style="display:flex;align-items:center;gap:10px;color:#7027a0;font-size:12px;font-weight:700;">
+                    <i class="fa-solid fa-user-doctor" style="font-size:18px;"></i> إجمالي الأطباء
+                </div>
+                <div style="font-size:27px;font-weight:800;color:#351044;margin-top:8px;">${allDoctors.length}</div>
+            </div>
+            <div style="padding:17px;border:1px solid rgba(30,140,90,.15);border-radius:16px;background:linear-gradient(135deg,#fff,#f2fbf6);">
+                <div style="display:flex;align-items:center;gap:10px;color:#238454;font-size:12px;font-weight:700;">
+                    <i class="fa-solid fa-circle-check" style="font-size:18px;"></i> الأطباء النشطون
+                </div>
+                <div style="font-size:27px;font-weight:800;color:#17663d;margin-top:8px;">${activeCount}</div>
+            </div>
+            <div style="padding:17px;border:1px solid rgba(201,151,50,.2);border-radius:16px;background:linear-gradient(135deg,#fff,#fffaf0);">
+                <div style="display:flex;align-items:center;gap:10px;color:#a77918;font-size:12px;font-weight:700;">
+                    <i class="fa-solid fa-user-clock" style="font-size:18px;"></i> طلبات قيد المراجعة
+                </div>
+                <div style="font-size:27px;font-weight:800;color:#79550e;margin-top:8px;">${pendingCount}</div>
+            </div>
+            <div style="padding:17px;border:1px solid rgba(112,39,160,.12);border-radius:16px;background:#fff;">
+                <div style="display:flex;align-items:center;gap:10px;color:#7027a0;font-size:12px;font-weight:700;">
+                    <i class="fa-solid fa-calendar-check" style="font-size:18px;"></i> تواريخ تسجيل متوفرة
+                </div>
+                <div style="font-size:27px;font-weight:800;color:#351044;margin-top:8px;">${registeredDates}</div>
+            </div>
+        </div>
 
-        <table>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:15px;margin-bottom:14px;border:1px solid #eee6f3;border-radius:16px;background:#fff;">
+            <div>
+                <div style="font-weight:800;color:#351044;font-size:15px;">دليل الأطباء</div>
+                <div style="font-size:12px;color:#81758a;margin-top:4px;">${filteredDoctors.length} طبيب في نتائج البحث • الأحدث تسجيلًا يظهر أولًا</div>
+            </div>
+            <div style="display:flex;gap:9px;flex-wrap:wrap;flex:1;justify-content:flex-end;">
+                <input id="doctorDirectorySearch" type="search" value="${escapeHtml(query)}" oninput="filterDoctorsDirectory()" placeholder="ابحث بالاسم أو الهاتف أو التخصص..." style="min-width:220px;max-width:360px;width:100%;padding:11px 13px;border:1px solid #e5dbea;border-radius:11px;outline:none;background:#fdfbfe;">
+                <select id="doctorDirectoryStatus" onchange="filterDoctorsDirectory()" style="padding:11px 13px;border:1px solid #e5dbea;border-radius:11px;background:#fff;color:#351044;">
+                    <option value="all" ${selectedStatus==="all"?"selected":""}>كل الحالات</option>
+                    <option value="active" ${selectedStatus==="active"?"selected":""}>نشط</option>
+                    <option value="pending" ${selectedStatus==="pending"?"selected":""}>قيد المراجعة</option>
+                    <option value="inactive" ${selectedStatus==="inactive"?"selected":""}>غير نشط / مرفوض</option>
+                </select>
+            </div>
+        </div>
 
-            <thead>
-
-                <tr>
-
-                    <th>#</th>
-
-                    <th>الطبيب</th>
-
-                    <th>التخصص</th>
-
-                    <th>الموقع</th>
-
-                    <th>الهاتف</th>
-
-                    <th>الحالة</th>
-
-                    <th>الاتصال</th>
-
-                    <th>الإجراءات</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                ${doctors.map(
-                    doctor => `
-
-                    <tr>
-
-                        <td>
-                            ${doctor.id}
-                        </td>
-
-                        <td>
-
-                            <strong>
-                                ${escapeHtml(
-                                    doctor.name
-                                )}
-                            </strong>
-
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                doctor.specialty
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                doctor.wilaya
-                            )}
-                            -
-                            ${escapeHtml(
-                                doctor.municipality
-                            )}
-                        </td>
-
-                        <td dir="ltr">
-                            ${escapeHtml(
-                                doctor.phone
-                            )}
-                        </td>
-
-                        <td>
-
-${doctor.status === "pending"
-
-    ? `
-        <span class="badge inactive">
-            بانتظار الموافقة
-        </span>
-      `
-
-    : doctor.status === "rejected"
-
-        ? `
-            <span class="badge inactive">
-                مرفوض
-            </span>
-          `
-
-        : doctor.active !== false &&
-          (
-              doctor.status === "active" ||
-              doctor.status === "approved"
-          )
-
-            ? `
-                <span class="badge active">
-                    نشط
-                </span>
-              `
-
-            : `
-                <span class="badge inactive">
-                    غير نشط
-                </span>
-              `
-}
-
-                        </td>
-
-                        <td>
-
-                            ${doctor.online
-
-                                ? `
-                                    <span class="badge online">
-                                        <i class="fa-solid fa-circle"></i>
-                                        متصل
-                                    </span>
-                                  `
-
-                                : `
-                                    <span class="badge inactive">
-                                        غير متصل
-                                    </span>
-                                  `
-                            }
-
-                        </td>
-
-                        <td>
-
-                            <div class="action-group">
-
-                                <button
-                                    class="btn btn-blue"
-                                    onclick="editDoctor(${doctor.id})"
-                                >
-
-                                    <i class="fa-solid fa-pen"></i>
-
-                                    تعديل
-
-                                </button>
-
-                                <button
-                                    class="btn btn-red"
-                                    onclick="deleteDoctor(${doctor.id})"
-                                >
-
-                                    <i class="fa-solid fa-trash"></i>
-
-                                    حذف
-
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-                    `
-                ).join("")}
-
-            </tbody>
-
-        </table>
+        ${!allDoctors.length ? `
+            <div class="empty" style="padding:35px 15px;border:1px dashed #e5dbea;border-radius:16px;background:#fff;">
+                <i class="fa-solid fa-user-doctor"></i>
+                <div>لا يوجد أطباء حالياً</div>
+            </div>
+        ` : !filteredDoctors.length ? `
+            <div class="empty" style="padding:30px 15px;border:1px dashed #e5dbea;border-radius:16px;background:#fff;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <div>لا توجد نتائج مطابقة للبحث أو التصفية</div>
+            </div>
+        ` : `
+            <div style="overflow-x:auto;border:1px solid #eee6f3;border-radius:16px;background:#fff;">
+                <table style="width:100%;border-collapse:separate;border-spacing:0;min-width:1000px;">
+                    <thead>
+                        <tr style="background:#f8f4fb;">
+                            <th style="padding:14px;text-align:right;color:#6b5278;">#</th>
+                            <th style="padding:14px;text-align:right;color:#6b5278;">الطبيب</th>
+                            <th style="padding:14px;text-align:right;color:#6b5278;">التخصص والموقع</th>
+                            <th style="padding:14px;text-align:right;color:#6b5278;">الهاتف</th>
+                            <th style="padding:14px;text-align:right;color:#6b5278;">تاريخ التسجيل</th>
+                            <th style="padding:14px;text-align:right;color:#6b5278;">الحالة</th>
+                            <th style="padding:14px;text-align:right;color:#6b5278;">الاتصال</th>
+                            <th style="padding:14px;text-align:right;color:#6b5278;">الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${filteredDoctors.map(doctor => {
+                            const status = doctor.status === "pending"
+                                ? '<span class="badge inactive">قيد المراجعة</span>'
+                                : doctor.status === "rejected"
+                                    ? '<span class="badge inactive">مرفوض</span>'
+                                    : doctor.active !== false && (doctor.status === "active" || doctor.status === "approved")
+                                        ? '<span class="badge active">نشط</span>'
+                                        : '<span class="badge inactive">غير نشط</span>';
+                            const online = doctor.online
+                                ? '<span class="badge online"><i class="fa-solid fa-circle"></i> متصل</span>'
+                                : '<span class="badge inactive">غير متصل</span>';
+                            const registered = formatDoctorRegistrationDate(doctor);
+                            return `
+                                <tr style="border-bottom:1px solid #f0eaf4;">
+                                    <td style="padding:15px 14px;color:#8b7c94;font-weight:700;">#${escapeHtml(String(doctor.id ?? ""))}</td>
+                                    <td style="padding:15px 14px;">
+                                        <div style="font-weight:800;color:#351044;">${escapeHtml(doctor.name || "بدون اسم")}</div>
+                                        <div style="font-size:11px;color:#9a8da2;margin-top:5px;">ملف الطبيب</div>
+                                    </td>
+                                    <td style="padding:15px 14px;">
+                                        <div style="font-weight:700;color:#4f3a5a;">${escapeHtml(doctor.specialty || "غير محدد")}</div>
+                                        <div style="font-size:12px;color:#81758a;margin-top:5px;">${escapeHtml(doctor.wilaya || "—")} • ${escapeHtml(doctor.municipality || "—")}</div>
+                                    </td>
+                                    <td dir="ltr" style="padding:15px 14px;text-align:right;color:#51405b;white-space:nowrap;">${escapeHtml(doctor.phone || "—")}</td>
+                                    <td style="padding:15px 14px;white-space:nowrap;">
+                                        <div style="display:flex;align-items:center;gap:7px;color:${registered==="غير متوفر"?"#9a8da2":"#5b4269"};font-size:12px;font-weight:700;">
+                                            <i class="fa-regular fa-calendar" style="color:#c99732;"></i>
+                                            ${escapeHtml(registered)}
+                                        </div>
+                                        ${registered!=="غير متوفر" ? '<div style="font-size:10px;color:#a195aa;margin-top:5px;">تاريخ إنشاء الحساب</div>' : '<div style="font-size:10px;color:#a195aa;margin-top:5px;">لم يُحفظ التاريخ لهذا الحساب</div>'}
+                                    </td>
+                                    <td style="padding:15px 14px;">${status}</td>
+                                    <td style="padding:15px 14px;">${online}</td>
+                                    <td style="padding:15px 14px;">
+                                        <div class="action-group" style="display:flex;gap:7px;flex-wrap:nowrap;">
+                                            <button class="btn btn-blue" onclick="editDoctor(${Number(doctor.id)})" title="تعديل بيانات الطبيب"><i class="fa-solid fa-pen"></i> تعديل</button>
+                                            <button class="btn btn-red" onclick="deleteDoctor(${Number(doctor.id)})" title="حذف حساب الطبيب"><i class="fa-solid fa-trash"></i> حذف</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join("")}
+                    </tbody>
+                </table>
+            </div>
+        `}
     `;
 }
-
 /* ============================================================
    DOCTOR MODAL
 ============================================================ */

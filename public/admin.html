@@ -3527,6 +3527,34 @@ tbody tr:hover{
 @media(max-width:760px){#section-patient-ads #patientAdsList>div{grid-template-columns:1fr!important;gap:13px!important;padding:13px!important}#section-patient-ads #patientAdsList>div>img{height:170px!important}#section-patient-ads #patientAdsList>div>div:nth-child(3){display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;min-width:0!important}#section-patient-ads #patientAdsList [data-patient-ad-action]{padding:8px 5px!important;font-size:11px!important}}
 </style>
 
+<style>
+/* TABIBK admin navigation refinement */
+.sidebar{
+    background:linear-gradient(165deg,#24102f 0%,#351044 48%,#21102b 100%);
+    border-left:1px solid rgba(201,151,50,.45);
+    box-shadow:8px 0 28px rgba(25,8,34,.12);
+}
+.nav-item{
+    min-height:47px;margin:5px 12px;width:calc(100% - 24px);
+    border:1px solid transparent;border-radius:12px;font-weight:700;
+    transition:background .18s,border-color .18s,transform .18s,box-shadow .18s;
+}
+.nav-item i{font-size:15px;width:22px}
+.nav-item:hover{
+    border-color:rgba(201,151,50,.24);
+    background:linear-gradient(100deg,rgba(201,151,50,.13),rgba(112,39,160,.2));
+}
+.nav-item.active{
+    border-color:rgba(201,151,50,.5);
+    background:linear-gradient(105deg,rgba(201,151,50,.23),rgba(112,39,160,.34));
+    box-shadow:inset -3px 0 #d8bd78,0 7px 18px rgba(0,0,0,.12);
+}
+.nav-item.active i{color:#f0d58b}
+.logout-side{margin-top:18px;border-color:rgba(201,151,50,.16)}
+@media(max-width:760px){
+    .nav-item{min-height:45px;margin:4px 8px;width:calc(100% - 16px)}
+}
+</style>
 </head>
 
 <body>
@@ -3676,18 +3704,6 @@ tbody tr:hover{
             </span>
         </button>
 
-        <button
-            class="nav-item"
-            id="refreshBtn"
-        >
-
-            <i class="fa-solid fa-arrows-rotate"></i>
-
-            <span>
-                تحديث البيانات
-            </span>
-
-        </button>
 
         <button
             class="nav-item"
@@ -3745,15 +3761,6 @@ tbody tr:hover{
 
             <div class="top-actions">
 
-                <button
-                    class="icon-btn"
-                    id="topRefresh"
-                    title="تحديث"
-                >
-
-                    <i class="fa-solid fa-arrows-rotate"></i>
-
-                </button>
 
                 <div class="admin-badge">
 
@@ -3983,34 +3990,7 @@ tbody tr:hover{
     class="section"
     id="section-support-messages"
 >
-<style>
-#section-support-messages .card-head{padding:20px 22px;border-bottom:1px solid #eee4f3;background:linear-gradient(105deg,#fff,#faf5ff)}
-#section-support-messages .card-head h3{color:#351044;font-weight:900;letter-spacing:.1px}
-#section-support-messages .card-head p{color:#81708c;font-size:12px;line-height:1.8}
-#section-support-messages .support-messages-layout{gap:18px}
-#section-support-messages .support-doctors-card,#section-support-messages .support-chat-card{border:1px solid #e6d8ef;border-radius:19px;background:linear-gradient(180deg,#fff,#fdfbff);box-shadow:0 8px 25px rgba(53,16,68,.055);overflow:hidden}
-#section-support-messages .support-doctors-card>h3{padding:17px 18px;margin:0;border-bottom:1px solid #eee4f3;background:#faf6fd;color:#351044;font-size:15px;font-weight:900}
-#section-support-messages .support-doctor-item{display:flex;align-items:center;gap:12px;width:100%;padding:14px 13px;margin:0;border:0;border-bottom:1px solid #f0e8f5;border-radius:0;background:transparent;text-align:right;cursor:pointer;transition:background .18s}
-#section-support-messages .support-doctor-item:hover{background:#faf5fd}
-#section-support-messages .support-doctor-item.is-selected{background:linear-gradient(100deg,#f4e9fb,#fff);box-shadow:inset -3px 0 #c99732}
-#section-support-messages .support-doctor-list-avatar{width:46px;height:46px;flex:0 0 46px;border:2px solid #e1c994;border-radius:15px;padding:3px;background:#f7f0fb;object-fit:cover}
-#section-support-messages .support-doctor-list-details{display:flex;flex-direction:column;gap:5px;min-width:0}
-#section-support-messages .support-doctor-list-name{color:#351044;font-size:13px;font-weight:900;overflow-wrap:anywhere}
-#section-support-messages .support-doctor-list-specialty{color:#765f83;font-size:11px}
-#section-support-messages .support-doctor-list-date{color:#9a8ba2;font-size:10px;line-height:1.6}
-#section-support-messages .support-chat-header{padding:16px;margin:0 0 12px;border-bottom:1px solid #eee4f3;background:linear-gradient(100deg,#fff,#faf6fd)}
-#section-support-messages .support-chat-status{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;margin-top:6px;border:1px solid #e4d7ed;border-radius:999px;background:#fff;color:#705b7c;font-size:10px}
-#section-support-messages .support-chat-status>span{width:7px;height:7px;border-radius:50%;background:#35a36a;box-shadow:0 0 0 3px #e3f6ea}
-#section-support-messages #supportConversation{padding:15px!important;border:1px solid #f0e8f5;border-radius:15px;background:linear-gradient(180deg,#fdfaff,#fff);scroll-behavior:smooth}
-#section-support-messages #adminSupportReplyForm{padding:15px;margin-top:14px;border:1px solid #e9def0;border-radius:15px;background:#faf7fd}
-#section-support-messages #adminSupportReplyForm label{display:block;margin-bottom:9px;color:#351044;font-size:13px;font-weight:900}
-#section-support-messages #adminSupportReplyForm textarea{padding:13px;border:1px solid #ddcce8;border-radius:12px;background:#fff;color:#351044;resize:vertical;outline:none;transition:border-color .18s,box-shadow .18s}
-#section-support-messages #adminSupportReplyForm textarea:focus{border-color:#7027a0;box-shadow:0 0 0 3px rgba(112,39,160,.1)}
-#section-support-messages #adminSupportReplyButton{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;margin-top:12px;padding:11px 19px;border-radius:12px;font-weight:900}
-#section-support-messages .card-head .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:10px 16px;border-radius:12px;font-weight:800}
-#section-support-messages .support-message-bubble{padding:12px 15px;border-radius:15px;box-shadow:0 3px 12px rgba(53,16,68,.045);line-height:1.8}
-@media(max-width:700px){#section-support-messages .card-head{padding:16px}#section-support-messages .support-doctor-item{padding:12px 10px}#section-support-messages .support-chat-header{padding:12px}#section-support-messages #adminSupportReplyForm{padding:12px}}
-</style>
+
 
 
     <div class="card">
@@ -4025,14 +4005,6 @@ tbody tr:hover{
                 </p>
             </div>
 
-            <button
-                class="btn btn-light"
-                type="button"
-                onclick="loadSupportInbox()"
-            >
-                <i class="fa-solid fa-arrows-rotate"></i>
-                تحديث الرسائل
-            </button>
 
         </div>
 
@@ -4043,7 +4015,7 @@ tbody tr:hover{
 
                 <div id="supportDoctorsList">
                     <div class="loading">
-                        اختر تحديث الرسائل لعرض المحادثات
+                        اختر طبيبًا من القائمة لعرض المحادثات
                     </div>
                 </div>
             </div>
@@ -4134,6 +4106,29 @@ tbody tr:hover{
 
     </div>
 
+<style>
+#section-support-messages .support-doctors-card,
+#section-support-messages .support-chat-card{
+    border:1px solid #c99732;
+    background:linear-gradient(145deg,#fbf7ff,#f3eafa);
+}
+#section-support-messages .support-doctors-card>h3{
+    background:linear-gradient(110deg,#351044,#51216f);
+    color:#fff;
+    border-bottom:1px solid #c99732;
+}
+#section-support-messages #supportConversation{
+    background:linear-gradient(180deg,#f7f0fb,#fffaf0);
+    border-color:#d8bd78;
+}
+#section-support-messages #adminSupportReplyForm{
+    background:#f5eef9;
+    border:1px solid #d8bd78;
+}
+#section-support-messages #adminSupportReplyForm textarea{
+    border-color:#cdb5dc;
+}
+</style>
 </section>
 
 <!-- =========================================================
@@ -4198,6 +4193,63 @@ tbody tr:hover{
 #section-patient-ads .patient-ads-empty{padding:27px 18px;border:1px dashed #d8c6e5;border-radius:15px;background:linear-gradient(145deg,#fff,#faf6fd);color:#786783;text-align:center;line-height:1.9}
 #section-patient-ads .patient-ads-empty i{display:block;margin-bottom:9px;color:#b48b37;font-size:25px}
 @media(max-width:760px){#section-patient-ads .patient-ads-content{padding:15px}#section-patient-ads .card-head{padding:17px}#section-patient-ads .patient-ads-hero{padding:19px}#section-patient-ads .patient-ads-hero h2{font-size:19px}#section-patient-ads .patient-ad-item{grid-template-columns:1fr;gap:13px;padding:13px}#section-patient-ads .patient-ad-item-image{height:170px}#section-patient-ads .patient-ad-item-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));min-width:0}#section-patient-ads .patient-ad-item-actions .patient-ad-btn{padding:8px 5px;font-size:11px}#section-patient-ads .patient-ad-btn{width:100%}}
+
+/* Premium purple surfaces with refined gold borders */
+#section-patient-ads .patient-ad-single-card,
+#section-patient-ads .patient-ads-manager-card{
+    border:1.5px solid #c99732;
+    background:linear-gradient(145deg,#f8f1fc,#fffaf0);
+    box-shadow:0 12px 30px rgba(53,16,68,.09);
+}
+#section-patient-ads .card-head{
+    border-bottom:1px solid #d8bd78;
+    background:linear-gradient(110deg,#f2e7f8,#fff8e7);
+}
+#section-patient-ads .patient-ad-field input:not([type=file]):not([type=checkbox]),
+#section-patient-ads .patient-ad-field textarea,
+#section-patient-ads .patient-ad-field select{
+    border-color:#c9a85d;background:#fff;border-radius:12px;
+}
+#section-patient-ads .patient-ad-upload{
+    border:1.5px dashed #c99732;
+    background:linear-gradient(145deg,#f3eafa,#fffaf0);
+}
+#section-patient-ads input[type=file]{
+    display:block;width:100%;max-width:100%;padding:9px;
+    border:1px solid #d8bd78;border-radius:12px;background:#fff;
+    color:#351044;box-sizing:border-box;
+}
+#section-patient-ads input[type=file]::file-selector-button{
+    margin-inline-end:12px;padding:10px 15px;border:1px solid #c99732;
+    border-radius:9px;background:linear-gradient(135deg,#d9b45d,#b98520);
+    color:#351044;font:inherit;font-weight:800;cursor:pointer;
+    transition:filter .18s,transform .18s;
+}
+#section-patient-ads input[type=file]::file-selector-button:hover{
+    filter:brightness(1.04);transform:translateY(-1px);
+}
+#section-patient-ads .patient-ad-enabled-panel{
+    border-color:#d8bd78;background:linear-gradient(110deg,#f3eafa,#fffaf0);
+}
+#section-patient-ads .patient-ad-single-card .patient-ad-btn-primary{
+    min-width:210px;min-height:48px;border:1px solid #b98520;
+    border-radius:13px;background:linear-gradient(135deg,#e6c979,#c99732);
+    box-shadow:0 6px 16px rgba(201,151,50,.2);color:#351044;font-weight:900;
+}
+#section-patient-ads .patient-ad-single-card .patient-ad-btn-primary:hover{
+    box-shadow:0 9px 20px rgba(201,151,50,.26);transform:translateY(-1px);
+}
+#section-patient-ads #patientAdStatus,
+#section-patient-ads #multiPatientAdStatus,
+#section-patient-ads #patientAdsListStatus{border-radius:11px}
+#section-patient-ads #patientAdsEditor{
+    border:1px solid #c99732!important;
+    background:linear-gradient(145deg,#f3eafa,#fffaf0)!important;
+}
+@media(max-width:600px){
+    #section-patient-ads .patient-ad-single-card .patient-ad-btn-primary{width:100%;min-width:0}
+    #section-patient-ads input[type=file]::file-selector-button{margin-inline-end:6px;padding:9px 10px}
+}
 </style>
 <div class="patient-ads-hero">
     <div style="display:flex;align-items:center;gap:15px;position:relative;z-index:1;">
@@ -4279,13 +4331,7 @@ tbody tr:hover{
                 حفظ إعدادات الإعلان
             </button>
 
-            <button
-                type="button"
-                class="patient-ad-btn patient-ad-btn-secondary"
-                onclick="loadPatientAd()"
-            >
-                <i class="fa-solid fa-rotate"></i> إعادة تحميل الإعدادات
-            </button></div>
+</div>
 
             <p
                 id="patientAdStatus"
@@ -4425,10 +4471,6 @@ tbody tr:hover{
                 <div id="patientAdsList" style="margin-top:14px;">
                     جاري تحميل الإعلانات...
                 </div>
-
-                <button type="button" class="patient-ad-btn patient-ad-btn-secondary" style="margin-top:14px;" onclick="loadMultiplePatientAds()">
-                    <i class="fa-solid fa-rotate"></i> تحديث قائمة الإعلانات
-</button>
 
 <p id="patientAdsListStatus" style="margin-top:12px;"></p>
  </div>
@@ -4732,7 +4774,6 @@ let doctors = [];
 
 let wilayas = [];
 
-let autoRefresh;
 
 /* ============================================================
    ELEMENTS
@@ -5092,7 +5133,6 @@ function enterApp(){
 
     loadAll();
 
-    startAutoRefresh();
 }
 
 function logout(){
@@ -5102,10 +5142,6 @@ function logout(){
     );
 
     adminKey = "";
-
-    clearInterval(
-        autoRefresh
-    );
 
     app.classList.remove(
         "visible"
@@ -5124,11 +5160,7 @@ function logout(){
 
 document
     .getElementById("logoutBtn")
-    .addEventListener("click", () => {
-        if (window.confirm("هل تريد تسجيل الخروج من لوحة الإدارة؟")) {
-            logout();
-        }
-    });
+    .addEventListener("click", logout);
 
 /* ============================================================
    NAVIGATION
@@ -5157,9 +5189,6 @@ function showSection(name) {
     if (name === "doctors") loadDoctors();
     if (name === "support-messages") {
         loadSupportInbox();
-        startSupportAutoRefresh();
-    } else {
-        stopSupportAutoRefresh();
     }
     if (name === "patient-ads") {
         loadPatientAd();
@@ -6347,45 +6376,7 @@ async function deleteDoctor(id){
     }
 }
 
-/* ============================================================
-   REFRESH
-============================================================ */
 
-async function refreshAll() {
-    showToast("جاري تحديث البيانات...");
-    const activeSection = document.querySelector(".section.active");
-    const sectionId = activeSection ? activeSection.id : "";
-    try {
-        if (sectionId === "section-doctors") {
-            await Promise.all([loadDoctors(), loadWilayas()]);
-        } else if (sectionId === "section-support-messages") {
-            await loadSupportInbox();
-        } else if (sectionId === "section-patient-ads") {
-            await Promise.all([loadPatientAd(), loadMultiplePatientAds()]);
-        } else {
-            await loadAll();
-        }
-        showToast("تم تحديث البيانات");
-    } catch (error) {
-        showToast(error.message || "تعذر تحديث البيانات", "error");
-    }
-}
-document.getElementById("refreshBtn").addEventListener("click", refreshAll);
-document.getElementById("topRefresh").addEventListener("click", refreshAll);
-
-function startAutoRefresh() {
-    clearInterval(autoRefresh);
-    autoRefresh = setInterval(() => {
-        if (document.visibilityState !== "visible") return;
-        const activeSection = document.querySelector(".section.active");
-        if (activeSection?.id === "section-patient-ads") {
-            loadMultiplePatientAds();
-        }
-    }, 30000);
-}
-
-/* ============================================================
-   CLOSE MODALS BY BACKGROUND
 ============================================================ */
 
 document
@@ -6928,64 +6919,7 @@ async function sendAdminSupportReply(event) {
 
       
 
-/* ============================================================
-   TABIBK - SUPPORT CHAT AUTO REFRESH
-============================================================ */
 
-let supportInboxRefreshTimer = null;
-let supportConversationRefreshTimer = null;
-
-function startSupportAutoRefresh() {
-    // منع إنشاء مؤقّتات مكررة.
-    stopSupportAutoRefresh();
-
-    supportInboxRefreshTimer = setInterval(() => {
-        const section = document.getElementById(
-            "section-support-messages"
-        );
-
-        if (!section || !section.classList.contains("active")) {
-            return;
-        }
-
-        loadSupportInbox();
-    }, 15000);
-
-    supportConversationRefreshTimer = setInterval(() => {
-        const section = document.getElementById(
-            "section-support-messages"
-        );
-
-        const doctorId = Number(selectedSupportDoctorIdForChat);
-
-        if (
-            !section ||
-            !section.classList.contains("active") ||
-            !Number.isSafeInteger(doctorId) ||
-            doctorId <= 0
-        ) {
-            return;
-        }
-
-        loadAdminSupportConversation(doctorId);
-    }, 5000);
-}
-
-function stopSupportAutoRefresh() {
-    if (supportInboxRefreshTimer !== null) {
-        clearInterval(supportInboxRefreshTimer);
-        supportInboxRefreshTimer = null;
-    }
-
-    if (supportConversationRefreshTimer !== null) {
-        clearInterval(supportConversationRefreshTimer);
-        supportConversationRefreshTimer = null;
-    }
-}
-
-      
-/* ============================================================
-   TABIBK - MULTIPLE PATIENT ADS MANAGER
 ============================================================ */
 
 let multiPatientAds = [];

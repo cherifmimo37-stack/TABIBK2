@@ -5652,6 +5652,73 @@ app.post(
     }
 );
 
+
+/* ============================================================
+   ADMIN FCM TOKEN REGISTRATION
+============================================================ */
+
+app.post(
+    "/api/admin/fcm-token",
+    checkAdminKey,
+    async (req, res) => {
+        try {
+            const token =
+                typeof req.body?.token === "string"
+                    ? req.body.token.trim()
+                    : "";
+
+            if (!token || token.length > 4096) {
+                return res.status(400).json({
+                    success: false,
+                    message: "رمز إشعارات الإدارة غير صالح"
+                });
+            }
+
+            const database = readDatabase();
+
+            if (!Array.isArray(database.adminFcmTokens)) {
+                database.adminFcmTokens = [];
+            }
+
+            // منع تكرار رمز الجهاز نفسه.
+            database.adminFcmTokens = [
+                token,
+                ...database.adminFcmTokens.filter(
+                    item =>
+                        typeof item === "string" &&
+                        item !== token
+                )
+            ].slice(0, 5);
+
+            const saveResult = await saveDatabase(database);
+
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ رمز إشعارات الإدارة"
+                });
+            }
+
+            return res.json({
+                success: true,
+                message: "تم تسجيل جهاز إشعارات الإدارة"
+            });
+
+        } catch (error) {
+            console.error(
+                "Admin FCM token registration failed:",
+                error.message
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "تعذر تسجيل جهاز إشعارات الإدارة"
+            });
+        }
+    }
+);
+
+
 // ============================================================
 // ADMIN STATS
 // ============================================================

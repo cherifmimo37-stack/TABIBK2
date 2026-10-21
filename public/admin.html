@@ -6014,28 +6014,302 @@ async function loadPendingDoctors(){
     }
 }
 
+
+/* ============================================================
+   TABIBK — PREMIUM DOCTOR CONFIRMATION MODAL
+============================================================ */
+
+function showDoctorRegistrationConfirm(options) {
+
+    return new Promise(resolve => {
+
+        let modal = document.getElementById(
+            "doctorRegistrationConfirmModal"
+        );
+
+        if (!modal) {
+
+            const style = document.createElement("style");
+
+            style.id = "doctorRegistrationConfirmStyles";
+
+            style.textContent = `
+                #doctorRegistrationConfirmModal {
+                    position: fixed;
+                    inset: 0;
+                    z-index: 10060;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 18px;
+                    background: rgba(31, 13, 41, .58);
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity .2s ease,
+                                visibility .2s ease;
+                    direction: rtl;
+                    font-family: inherit;
+                }
+
+                #doctorRegistrationConfirmModal.open {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                #doctorRegistrationConfirmModal .drc-card {
+                    width: 100%;
+                    max-width: 410px;
+                    padding: 27px 24px 22px;
+                    text-align: center;
+                    border: 1px solid rgba(201,151,50,.4);
+                    border-radius: 23px;
+                    background: linear-gradient(
+                        150deg, #fff, #fcf9fe
+                    );
+                    box-shadow: 0 25px 75px rgba(20,5,30,.3);
+                    transform: translateY(10px) scale(.98);
+                    transition: transform .2s ease;
+                }
+
+                #doctorRegistrationConfirmModal.open .drc-card {
+                    transform: translateY(0) scale(1);
+                }
+
+                #doctorRegistrationConfirmModal .drc-icon {
+                    width: 66px;
+                    height: 66px;
+                    margin: 0 auto 17px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 21px;
+                    background: #f3eaf9;
+                    color: #7027a0;
+                    font-size: 27px;
+                    border: 1px solid #e7d5f1;
+                }
+
+                #doctorRegistrationConfirmModal .drc-title {
+                    margin: 0 0 11px;
+                    color: #351044;
+                    font-size: 20px;
+                    font-weight: 900;
+                }
+
+                #doctorRegistrationConfirmModal .drc-message {
+                    margin: 0 0 24px;
+                    color: #786b80;
+                    font-size: 13px;
+                    line-height: 1.9;
+                }
+
+                #doctorRegistrationConfirmModal .drc-actions {
+                    display: flex;
+                    gap: 10px;
+                }
+
+                #doctorRegistrationConfirmModal .drc-button {
+                    flex: 1;
+                    min-height: 46px;
+                    padding: 10px 12px;
+                    border: 0;
+                    border-radius: 12px;
+                    font-family: inherit;
+                    font-size: 13px;
+                    font-weight: 800;
+                    cursor: pointer;
+                    transition: filter .15s ease,
+                                transform .15s ease;
+                }
+
+                #doctorRegistrationConfirmModal .drc-button:hover {
+                    filter: brightness(1.06);
+                    transform: translateY(-1px);
+                }
+
+                #doctorRegistrationConfirmModal .drc-cancel {
+                    background: #f1edf4;
+                    color: #594664;
+                    border: 1px solid #e6dce9;
+                }
+
+                #doctorRegistrationConfirmModal .drc-approve {
+                    background: linear-gradient(
+                        135deg, #7027a0, #51216f
+                    );
+                    color: #fff;
+                    box-shadow: 0 5px 14px rgba(112,39,160,.18);
+                }
+
+                #doctorRegistrationConfirmModal .drc-reject {
+                    background: linear-gradient(
+                        135deg, #8b315e, #6e2048
+                    );
+                    color: #fff;
+                    box-shadow: 0 5px 14px rgba(110,32,72,.16);
+                }
+
+                #doctorRegistrationConfirmModal .drc-button:focus-visible {
+                    outline: 3px solid rgba(201,151,50,.65);
+                    outline-offset: 3px;
+                }
+
+                @media (max-width: 400px) {
+                    #doctorRegistrationConfirmModal .drc-card {
+                        padding: 24px 17px 18px;
+                    }
+
+                    #doctorRegistrationConfirmModal .drc-title {
+                        font-size: 18px;
+                    }
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                    #doctorRegistrationConfirmModal,
+                    #doctorRegistrationConfirmModal .drc-card,
+                    #doctorRegistrationConfirmModal .drc-button {
+                        transition: none;
+                    }
+                }
+            `;
+
+            document.head.appendChild(style);
+
+            modal = document.createElement("div");
+            modal.id = "doctorRegistrationConfirmModal";
+
+            modal.innerHTML = `
+                <div class="drc-card"
+                     role="dialog"
+                     aria-modal="true"
+                     aria-labelledby="drcTitle"
+                     aria-describedby="drcMessage">
+
+                    <div class="drc-icon" id="drcIcon">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+
+                    <h3 class="drc-title" id="drcTitle"></h3>
+
+                    <p class="drc-message" id="drcMessage"></p>
+
+                    <div class="drc-actions">
+                        <button type="button"
+                                class="drc-button drc-cancel"
+                                id="drcCancel">
+                            إلغاء
+                        </button>
+
+                        <button type="button"
+                                class="drc-button drc-approve"
+                                id="drcConfirm"></button>
+                    </div>
+
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        const title = modal.querySelector("#drcTitle");
+        const message = modal.querySelector("#drcMessage");
+        const icon = modal.querySelector("#drcIcon");
+        const confirmButton = modal.querySelector("#drcConfirm");
+        const cancelButton = modal.querySelector("#drcCancel");
+
+        title.textContent = options.title;
+        message.textContent = options.message;
+        confirmButton.textContent = options.confirmText;
+
+        confirmButton.className =
+            "drc-button " +
+            (options.danger ? "drc-reject" : "drc-approve");
+
+        icon.innerHTML = options.danger
+            ? '<i class="fa-solid fa-user-xmark"></i>'
+            : '<i class="fa-solid fa-user-check"></i>';
+
+        let finished = false;
+
+        const previousFocus = document.activeElement;
+
+        function finish(confirmed) {
+
+            if (finished) return;
+
+            finished = true;
+
+            modal.classList.remove("open");
+            modal.setAttribute("aria-hidden", "true");
+
+            confirmButton.removeEventListener("click", onConfirm);
+            cancelButton.removeEventListener("click", onCancel);
+            modal.removeEventListener("click", onBackdrop);
+            document.removeEventListener("keydown", onKeyDown);
+
+            resolve(confirmed);
+
+            if (previousFocus && typeof previousFocus.focus === "function") {
+                previousFocus.focus();
+            }
+        }
+
+        function onConfirm() {
+            finish(true);
+        }
+
+        function onCancel() {
+            finish(false);
+        }
+
+        function onBackdrop(event) {
+            if (event.target === modal) {
+                finish(false);
+            }
+        }
+
+        function onKeyDown(event) {
+            if (event.key === "Escape") {
+                finish(false);
+            }
+        }
+
+        confirmButton.addEventListener("click", onConfirm);
+        cancelButton.addEventListener("click", onCancel);
+        modal.addEventListener("click", onBackdrop);
+        document.addEventListener("keydown", onKeyDown);
+
+        modal.setAttribute("aria-hidden", "false");
+
+        requestAnimationFrame(() => {
+            modal.classList.add("open");
+            cancelButton.focus();
+        });
+    });
+}
+
+
 /* ============================================================
    APPROVE DOCTOR REGISTRATION
 ============================================================ */
 
-async function approveDoctorRegistration(id){
+async function approveDoctorRegistration(id) {
 
-    if(
-        !confirm(
-            "هل تريد الموافقة على تسجيل هذا الطبيب؟"
-        )
-    ){
+    const confirmed = await showDoctorRegistrationConfirm({
+        title: "تأكيد قبول الطبيب",
+        message: "هل تريد الموافقة على تسجيل هذا الطبيب؟ سيتم اعتماد حسابه بعد نجاح العملية.",
+        confirmText: "تأكيد الموافقة",
+        danger: false
+    });
 
-        return;
+    if (!confirmed) return;
 
-    }
-
-    try{
+    try {
 
         await adminFetch(
             `/api/admin/doctors/${id}/approve`,
             {
-                method:"POST"
+                method: "POST"
             }
         );
 
@@ -6045,39 +6319,37 @@ async function approveDoctorRegistration(id){
 
         await loadDoctors();
 
-    }catch(error){
+    } catch (error) {
 
         showToast(
-            error.message ||
-            "تعذر قبول الطبيب",
+            error.message || "تعذر قبول الطبيب",
             "error"
         );
-
     }
 }
+
 
 /* ============================================================
    REJECT DOCTOR REGISTRATION
 ============================================================ */
 
-async function rejectDoctorRegistration(id){
+async function rejectDoctorRegistration(id) {
 
-    if(
-        !confirm(
-            "هل تريد رفض طلب تسجيل هذا الطبيب؟"
-        )
-    ){
+    const confirmed = await showDoctorRegistrationConfirm({
+        title: "تأكيد رفض التسجيل",
+        message: "هل أنت متأكد من رفض طلب تسجيل هذا الطبيب؟",
+        confirmText: "تأكيد الرفض",
+        danger: true
+    });
 
-        return;
+    if (!confirmed) return;
 
-    }
-
-    try{
+    try {
 
         await adminFetch(
             `/api/admin/doctors/${id}/reject`,
             {
-                method:"POST"
+                method: "POST"
             }
         );
 
@@ -6087,16 +6359,15 @@ async function rejectDoctorRegistration(id){
 
         await loadDoctors();
 
-    }catch(error){
+    } catch (error) {
 
         showToast(
-            error.message ||
-            "تعذر رفض الطبيب",
+            error.message || "تعذر رفض الطبيب",
             "error"
         );
-
     }
 }
+
 
 function formatDoctorRegistrationDate(doctor){
     const raw =

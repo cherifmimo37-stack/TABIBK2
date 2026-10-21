@@ -5248,6 +5248,16 @@ function enterApp(){
 
     loadAll();
 
+    // تسجيل رمز الهاتف إذا وصل قبل تسجيل دخول الإدارة.
+    if (
+        typeof window.pendingAdminFcmToken === "string" &&
+        window.pendingAdminFcmToken
+    ) {
+        window.setTabibkAndroidFcmToken(
+            window.pendingAdminFcmToken
+        );
+    }
+
 }
 
 function logout(){

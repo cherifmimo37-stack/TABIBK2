@@ -211,7 +211,9 @@ function createEmptyDatabase() {
 
         appointments: [],
 
-                notifications: [],
+        notifications: [],
+        adminFcmTokens: [],
+        adminNotifications: [],
 
                 patientAd: {
             enabled: false,
@@ -269,6 +271,18 @@ function normalizeDatabase(database) {
         )
     ) {
         database.notifications = [];
+    }
+
+    if (!Array.isArray(database.adminFcmTokens)) {
+        database.adminFcmTokens = [];
+    }
+
+    if (!Array.isArray(database.adminNotifications)) {
+        database.adminNotifications = [];
+    } else {
+        database.adminNotifications = database.adminNotifications
+            .filter(item => item && typeof item === "object")
+            .slice(0, 100);
     }
     if (
 !Array.isArray(
@@ -1148,6 +1162,52 @@ async function sendDoctorPushNotification(
 
 
 /* ============================================================
+   ADMIN PUSH — NEW DOCTOR REGISTRATION
+============================================================ */
+
+async function sendAdminDoctorRegistrationPush(doctor) {
+    try {
+        if (!firebaseMessaging || !doctor) return;
+
+        const database = readDatabase();
+        const tokens = [...new Set(
+            (Array.isArray(database.adminFcmTokens) ? database.adminFcmTokens : [])
+                .filter(token => typeof token === "string" && token.trim())
+        )];
+        if (!tokens.length) return;
+
+        const results = await Promise.allSettled(tokens.map(token =>
+            firebaseMessaging.send({
+                token,
+                notification: {
+                    title: "طبيب جديد سجّل في طبيبك",
+                    body: `طلب تسجيل جديد: ${String(doctor.name || "طبيب جديد")} — ${String(doctor.specialty || "تخصص غير محدد")}`
+                },
+                data: {
+                    type: "new_doctor_registration",
+                    doctorId: String(doctor.id || "")
+                },
+                android: {
+                    priority: "high",
+                    notification: {
+                        channelId: "tabibk_notifications_v2",
+                        sound: "tabibk_notification"
+                    }
+                }
+            })
+        ));
+
+        results.forEach(result => {
+            if (result.status === "rejected") {
+                console.error("Admin doctor-registration push failed:", result.reason?.message || "Unknown error");
+            }
+        });
+    } catch (error) {
+        console.error("Admin doctor-registration push error:", error?.message || "Unknown error");
+    }
+}
+
+/* ============================================================
    PATIENT PUSH NOTIFICATIONS
 ============================================================ */
 
@@ -1318,6 +1378,54 @@ function checkAdminKey(
 
     next();
 }
+
+/* ============================================================
+   ADMIN NOTIFICATIONS AND FCM TOKEN
+============================================================ */
+
+app.post("/api/admin/fcm-token", checkAdminKey, async (req, res) => {
+    try {
+        const token = typeof req.body?.token === "string" ? req.body.token.trim() : "";
+        if (!token || token.length > 4096) {
+            return res.status(400).json({ success: false, message: "رمز إشعارات الإدارة غير صالح" });
+        }
+
+        const database = readDatabase();
+        const existing = Array.isArray(database.adminFcmTokens)
+            ? database.adminFcmTokens.filter(item => typeof item === "string" && item.trim())
+            : [];
+        database.adminFcmTokens = [...new Set([token, ...existing])].slice(0, 5);
+        await saveDatabase(database);
+        return res.json({ success: true });
+    } catch (error) {
+        console.error("Admin FCM token registration failed:", error?.message || error);
+        return res.status(500).json({ success: false, message: "تعذر تسجيل جهاز الإدارة للإشعارات" });
+    }
+});
+
+app.get("/api/admin/notifications", checkAdminKey, (req, res) => {
+    const database = readDatabase();
+    const notifications = Array.isArray(database.adminNotifications) ? database.adminNotifications : [];
+    return res.json({
+        success: true,
+        notifications,
+        unreadCount: notifications.filter(item => item.read !== true).length
+    });
+});
+
+app.post("/api/admin/notifications/read", checkAdminKey, async (req, res) => {
+    try {
+        const database = readDatabase();
+        database.adminNotifications = (Array.isArray(database.adminNotifications) ? database.adminNotifications : [])
+            .map(item => ({ ...item, read: true }));
+        await saveDatabase(database);
+        return res.json({ success: true });
+    } catch (error) {
+        console.error("Mark admin notifications read failed:", error?.message || error);
+        return res.status(500).json({ success: false, message: "تعذر تحديث حالة الإشعارات" });
+    }
+});
+
 
 // ============================================================
 // DOCTOR AUTH
@@ -2169,9 +2277,27 @@ app.post(
             );
 
 
-            saveDatabase(
-                database
-            );
+            const adminNotification = {
+                id: `doctor-${doctor.id}-${Date.now()}`,
+                type: "new_doctor_registration",
+                doctorId: Number(doctor.id),
+                doctorName: String(doctor.name || ""),
+                specialty: String(doctor.specialty || ""),
+                wilaya: String(doctor.wilaya || ""),
+                municipality: String(doctor.municipality || ""),
+                createdAt: new Date().toISOString(),
+                read: false
+            };
+
+            database.adminNotifications = [
+                adminNotification,
+                ...(Array.isArray(database.adminNotifications) ? database.adminNotifications : [])
+            ].slice(0, 100);
+
+            saveDatabase(database);
+
+            // Push failure must never prevent successful doctor registration.
+            void sendAdminDoctorRegistrationPush(doctor);
 
 
             // ------------------------------------------------

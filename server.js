@@ -1123,7 +1123,7 @@ async function sendDoctorPushNotification(
         !firebaseMessaging ||
         !doctor ||
         !notification ||
-        notification.type !== "new_appointment"
+        !["new_appointment", "admin_announcement"].includes(notification.type)
     ) {
         return;
     }
@@ -7784,6 +7784,131 @@ app.post(
                 notification
 
             });
+    }
+);
+
+// ============================================================
+// ADMIN DOCTOR ANNOUNCEMENTS — INDIVIDUAL OR APPROVED DOCTORS
+// Uses the existing notifications store; no schema changes.
+// ============================================================
+
+app.post(
+    "/api/admin/doctor-announcements",
+    checkAdminKey,
+    async (req, res) => {
+        try {
+            const body = req.body || {};
+            const title = typeof body.title === "string"
+                ? body.title.trim().slice(0, 120)
+                : "";
+            const message = typeof body.message === "string"
+                ? body.message.trim().slice(0, 3000)
+                : "";
+            const requestedDoctorId = body.doctorId;
+
+            if (!title || !message) {
+                return res.status(400).json({
+                    success: false,
+                    message: "عنوان التنبيه ومحتواه مطلوبان"
+                });
+            }
+
+            const database = readDatabase();
+            const allDoctors = Array.isArray(database.doctors)
+                ? database.doctors
+                : [];
+
+            let recipients = [];
+
+            if (requestedDoctorId === "all") {
+                recipients = allDoctors.filter(doctor =>
+                    doctor &&
+                    doctor.status === "approved" &&
+                    doctor.active !== false
+                );
+            } else {
+                const doctorId = Number(requestedDoctorId);
+                if (!Number.isSafeInteger(doctorId) || doctorId <= 0) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "اختر طبيبًا صالحًا أو الإرسال لجميع الأطباء النشطين"
+                    });
+                }
+
+                const doctor = allDoctors.find(item =>
+                    Number(item.id) === doctorId
+                );
+
+                if (!doctor) {
+                    return res.status(404).json({
+                        success: false,
+                        message: "الطبيب المحدد غير موجود"
+                    });
+                }
+
+                if (
+                    doctor.status !== "approved" ||
+                    doctor.active === false
+                ) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "يمكن إرسال التنبيهات إلى الأطباء المعتمدين والنشطين فقط"
+                    });
+                }
+
+                recipients = [doctor];
+            }
+
+            if (!recipients.length) {
+                return res.status(400).json({
+                    success: false,
+                    message: "لا يوجد أطباء معتمدون ونشطون لاستقبال التنبيه"
+                });
+            }
+
+            const notifications = recipients.map(doctor =>
+                createNotification(database, {
+                    doctorId: Number(doctor.id),
+                    type: "admin_announcement",
+                    title,
+                    message
+                })
+            );
+
+            await saveDatabase(database);
+
+            // Attempt push after persistence, so a push issue cannot prevent saving.
+            const pushResults = await Promise.allSettled(
+                recipients.map((doctor, index) =>
+                    sendDoctorPushNotification(doctor, notifications[index])
+                )
+            );
+
+            const pushAttemptCount = recipients.filter(doctor =>
+                Array.isArray(doctor.fcmTokens) &&
+                doctor.fcmTokens.some(token =>
+                    typeof token === "string" && token.trim().length > 0
+                )
+            ).length;
+
+            const pushErrorCount = pushResults.filter(
+                result => result.status === "rejected"
+            ).length;
+
+            return res.status(201).json({
+                success: true,
+                sentCount: recipients.length,
+                pushAttemptCount,
+                pushErrorCount,
+                message: `تم حفظ التنبيه لـ ${recipients.length} طبيب.`
+            });
+        } catch (error) {
+            console.error("ADMIN DOCTOR ANNOUNCEMENT ERROR:", error);
+            return res.status(500).json({
+                success: false,
+                message: "تعذر إرسال التنبيه. لم يتم تأكيد نجاح العملية."
+            });
+        }
     }
 );
 

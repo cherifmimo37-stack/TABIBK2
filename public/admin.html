@@ -3511,6 +3511,153 @@ tbody tr:hover{
     }
 }
 
+
+ /* =========================================================
+   TABIBK — PREMIUM DOCTORS DIRECTORY
+   تحسين بصري فقط، دون تغيير وظائف الإدارة
+========================================================= */
+
+#section-doctors #doctorsTable {
+    direction: rtl;
+    color: #351044;
+}
+
+#section-doctors #doctorsTable > div[style*="display:grid"] > div {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201, 151, 50, .20) !important;
+    border-radius: 17px !important;
+    box-shadow:
+        0 8px 24px rgba(53, 16, 68, .055),
+        inset 0 1px 0 rgba(255, 255, 255, .95);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+#section-doctors #doctorsTable > div[style*="display:grid"] > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(53, 16, 68, .09);
+}
+
+#section-doctors #doctorsTable > div[style*="display:flex"][style*="flex-wrap:wrap"] {
+    border-color: #e4d6ed !important;
+    border-radius: 17px !important;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,.97), rgba(250,246,253,.96)) !important;
+    box-shadow: 0 7px 22px rgba(53, 16, 68, .045);
+}
+
+#section-doctors #doctorsTable input,
+#section-doctors #doctorsTable select {
+    min-height: 42px;
+    font-family: inherit;
+    color: #351044;
+    border: 1px solid #e3d6eb !important;
+    border-radius: 11px !important;
+    background-color: rgba(255,255,255,.94) !important;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+#section-doctors #doctorsTable input:focus,
+#section-doctors #doctorsTable select:focus {
+    border-color: #c99732 !important;
+    box-shadow: 0 0 0 3px rgba(201,151,50,.12);
+    outline: none;
+}
+
+#section-doctors #doctorsTable input::placeholder {
+    color: #a194aa;
+}
+
+#section-doctors #doctorsTable > div[style*="overflow-x:auto"] {
+    overflow-x: auto;
+    border: 1px solid #e3d6eb !important;
+    border-radius: 17px !important;
+    background: rgba(255,255,255,.97);
+    box-shadow: 0 9px 28px rgba(53,16,68,.055) !important;
+}
+
+#section-doctors #doctorsTable table {
+    border-spacing: 0;
+}
+
+#section-doctors #doctorsTable table thead tr {
+    background: linear-gradient(135deg, #f6effa, #fbf8fd) !important;
+}
+
+#section-doctors #doctorsTable table thead th {
+    padding: 16px 14px !important;
+    color: #5a3769 !important;
+    font-weight: 900;
+    border-bottom: 2px solid #d8bd78 !important;
+}
+
+#section-doctors #doctorsTable table tbody tr {
+    transition: background .18s ease;
+}
+
+#section-doctors #doctorsTable table tbody tr:nth-child(even) {
+    background: #fdfbfe;
+}
+
+#section-doctors #doctorsTable table tbody tr:hover {
+    background: #f7f0fb !important;
+}
+
+#section-doctors #doctorsTable table tbody td {
+    vertical-align: middle;
+    border-bottom: 1px solid #eee6f3;
+}
+
+#section-doctors #doctorsTable .doctor-directory-avatar {
+    border: 1px solid #d8bd78;
+    background: linear-gradient(145deg, #fff, #eee2f6);
+    box-shadow: 0 4px 12px rgba(53,16,68,.07);
+}
+
+#section-doctors #doctorsTable .doctor-directory-specialty {
+    border-color: #e4d3ed;
+    background: linear-gradient(135deg, #faf5fd, #f1e7f8);
+}
+
+#section-doctors #doctorsTable .action-group .btn {
+    min-height: 36px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-weight: 800;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+#section-doctors #doctorsTable .action-group .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(53,16,68,.12);
+}
+
+#section-doctors #doctorsTable .action-group .btn:focus-visible {
+    outline: 2px solid #c99732;
+    outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+    #section-doctors #doctorsTable > div[style*="display:grid"] {
+        gap: 10px !important;
+    }
+
+    #section-doctors #doctorsTable > div[style*="display:grid"] > div {
+        padding: 13px !important;
+        border-radius: 14px !important;
+    }
+
+    #section-doctors #doctorsTable > div[style*="display:flex"][style*="flex-wrap:wrap"] {
+        padding: 12px !important;
+    }
+
+    #section-doctors #doctorsTable input,
+    #section-doctors #doctorsTable select {
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
       
 </style>
 

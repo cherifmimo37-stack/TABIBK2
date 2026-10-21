@@ -225,33 +225,76 @@ body::after{
 }
 
 .login-box{
-
     width:100%;
-
-    max-width:440px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fffdfd
-        );
-
-    border-radius:30px;
-
-    padding:38px 35px;
-
-    box-shadow:
-        0 35px 100px rgba(20,5,30,.35);
-
+    max-width:450px;
+    padding:clamp(25px,5vw,40px);
+    background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(250,246,253,.98));
+    border:1px solid rgba(232,199,107,.55);
+    border-radius:28px;
+    box-shadow:0 30px 90px rgba(20,5,30,.34),0 0 0 7px rgba(255,255,255,.035);
     text-align:center;
-
     position:relative;
-
     z-index:2;
-
-    border:
-        1px solid rgba(232,199,107,.45);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+}
+.login-box h1{letter-spacing:-.35px;}
+.login-box p{line-height:1.9;}
+.login-box .logo-icon{flex-shrink:0;}
+.login-box .logo-text{letter-spacing:1.2px;}
+.login-box .input-group input{
+    border:1px solid #e3d8e9;
+    background:linear-gradient(180deg,#fff,#fdfbff);
+    color:var(--purple-950);
+    font-size:15px;
+}
+.login-box .input-group input:focus{
+    border-color:var(--gold);
+    box-shadow:0 0 0 4px rgba(201,151,50,.12),0 5px 16px rgba(53,16,68,.05);
+}
+.password-toggle{
+    position:absolute;
+    left:10px;
+    top:50%;
+    transform:translateY(-50%);
+    display:grid;
+    place-items:center;
+    width:38px;
+    height:38px;
+    padding:0;
+    border:1px solid #eee5f3;
+    border-radius:11px;
+    background:#faf7fc;
+    color:var(--purple);
+    cursor:pointer;
+    z-index:3;
+    transition:background .18s ease,border-color .18s ease,color .18s ease;
+}
+.password-toggle:hover,.password-toggle:focus-visible{
+    background:#f1e7f8;
+    border-color:#c8add8;
+    outline:none;
+}
+.password-toggle:focus-visible{box-shadow:0 0 0 3px rgba(112,39,160,.13);}
+#adminKey{padding-left:58px;}
+.login-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+.login-btn:focus-visible{
+    outline:3px solid rgba(201,151,50,.6);
+    outline-offset:3px;
+}
+.login-error:empty{margin-top:0;min-height:0;}
+@media(max-width:480px){
+    .login-page{padding:14px;}
+    .login-box{border-radius:23px;padding:27px 20px;}
+    .login-box h1{font-size:21px;}
+}
+@media(prefers-reduced-motion:reduce){
+    .password-toggle,.login-btn{transition:none;}
 }
 
 .login-box::before{
@@ -3834,7 +3877,7 @@ tbody tr:hover{
         </h1>
 
         <p>
-            إدارة الأطباء والمواعيد والمرضى والإحصائيات
+            مساحة آمنة لإدارة خدمات طبيبك بكل سهولة
         </p>
 
         <form id="loginForm">
@@ -3846,10 +3889,22 @@ tbody tr:hover{
                 <input
                     type="password"
                     id="adminKey"
-                    placeholder="مفتاح الإدارة"
+                    placeholder="أدخل كلمة مرور الإدارة"
                     autocomplete="current-password"
+                    aria-label="كلمة مرور الإدارة"
                     required
                 >
+
+                <button
+                    type="button"
+                    id="toggleAdminKey"
+                    class="password-toggle"
+                    aria-label="إظهار كلمة المرور"
+                    aria-pressed="false"
+                    title="إظهار كلمة المرور"
+                >
+                    <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                </button>
 
             </div>
 
@@ -3870,13 +3925,6 @@ tbody tr:hover{
             class="login-error"
             id="loginError"
         ></div>
-
-        <div class="demo-key">
-
-            مفتاح الإدارة الافتراضي:
-            <strong>TABIBK_ADMIN_2026</strong>
-
-        </div>
 
     </div>
 
@@ -5026,6 +5074,24 @@ async function adminFetch(
 
     return data;
 }
+
+/* ============================================================
+   LOGIN — PASSWORD VISIBILITY
+============================================================ */
+
+document.getElementById("toggleAdminKey").addEventListener("click", () => {
+    const input = document.getElementById("adminKey");
+    const button = document.getElementById("toggleAdminKey");
+    const icon = button.querySelector("i");
+    const reveal = input.type === "password";
+
+    input.type = reveal ? "text" : "password";
+    button.setAttribute("aria-pressed", String(reveal));
+    button.setAttribute("aria-label", reveal ? "إخفاء كلمة المرور" : "إظهار كلمة المرور");
+    button.title = reveal ? "إخفاء كلمة المرور" : "إظهار كلمة المرور";
+    icon.classList.toggle("fa-eye", !reveal);
+    icon.classList.toggle("fa-eye-slash", reveal);
+});
 
 /* ============================================================
    LOGIN

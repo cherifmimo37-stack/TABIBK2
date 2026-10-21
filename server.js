@@ -270,6 +270,47 @@ function normalizeDatabase(database) {
     ) {
         database.notifications = [];
     }
+
+    // --------------------------------------------------------
+// Admin notifications
+// --------------------------------------------------------
+
+if (!Array.isArray(database.adminNotifications)) {
+    database.adminNotifications = [];
+}
+
+database.adminNotifications =
+    database.adminNotifications.map(
+        (notification, index) => ({
+            ...notification,
+
+            id:
+                Number(notification.id) ||
+                index + 1,
+
+            doctorId:
+                Number(notification.doctorId) || 0,
+
+            title:
+                String(notification.title || "إشعار جديد"),
+
+            message:
+                String(notification.message || ""),
+
+            type:
+                String(notification.type || "general"),
+
+            read:
+                notification.read === true,
+
+            createdAt:
+                String(
+                    notification.createdAt ||
+                    new Date().toISOString()
+                )
+        })
+    );
+    
     if (
 !Array.isArray(
  database.supportMessages
@@ -1145,6 +1186,77 @@ async function sendDoctorPushNotification(
     });
 }
 
+
+/* ============================================================
+   SEND PUSH NOTIFICATION TO ADMIN DEVICES
+============================================================ */
+
+async function sendAdminPushNotification(notification) {
+    if (
+        !firebaseMessaging ||
+        !notification
+    ) {
+        return;
+    }
+
+    const database = readDatabase();
+
+    const tokens = [
+        ...new Set(
+            (
+                Array.isArray(database.adminFcmTokens)
+                    ? database.adminFcmTokens
+                    : []
+            ).filter(
+                token =>
+                    typeof token === "string" &&
+                    token.trim().length > 0
+            )
+        )
+    ];
+
+    if (tokens.length === 0) {
+        console.warn(
+            "Admin push skipped: no registered admin devices."
+        );
+        return;
+    }
+
+    const results = await Promise.allSettled(
+        tokens.map(token =>
+            firebaseMessaging.send({
+                token,
+
+                notification: {
+                    title: notification.title,
+                    body: notification.message
+                },
+
+                data: {
+                    type: String(notification.type || "admin_notification"),
+                    doctorId: String(notification.doctorId || "")
+                },
+
+                android: {
+                    priority: "high",
+                    notification: {
+                        channelId: "tabibk_notifications_v2",
+                        sound: "tabibk_notification"
+                    }
+                }
+            })
+        )
+    );
+
+    results.forEach(result => {
+        if (result.status === "rejected") {
+            console.error(
+                "Admin push notification failed:",
+                result.reason?.message || "Unknown error"
+            );
+        }
+    });
+}
 
 
 /* ============================================================
@@ -2165,18 +2277,71 @@ app.post(
 
 
             database.doctors.push(
-                doctor
-            );
+    doctor
+);
 
+const saveResult = await saveDatabase(database);
 
-            saveDatabase(
-                database
-            );
+if (saveResult === false) {
+    return res.status(500).json({
+        success: false,
+        message: "تعذر حفظ طلب التسجيل، يرجى المحاولة لاحقًا"
+    });
+}
 
+// ------------------------------------------------
+// CREATE ADMIN NOTIFICATION FOR NEW DOCTOR
+// ------------------------------------------------
 
-            // ------------------------------------------------
-            // RESPONSE
-            // ------------------------------------------------
+if (!Array.isArray(database.adminNotifications)) {
+    database.adminNotifications = [];
+}
+
+const adminNotification = {
+    id: Date.now(),
+    doctorId: Number(doctor.id) || 0,
+    title: "طلب تسجيل طبيب جديد",
+    message:
+        `الطبيب ${doctor.name} — ${doctor.specialty}، ${doctor.wilaya}`,
+    type: "new_doctor_registration",
+    read: false,
+    createdAt: new Date().toISOString()
+};
+
+database.adminNotifications.unshift(
+    adminNotification
+);
+
+// Keep the most recent 200 admin notifications.
+database.adminNotifications =
+    database.adminNotifications.slice(0, 200);
+
+const notificationSaveResult =
+    await saveDatabase(database);
+
+if (notificationSaveResult === false) {
+    console.error(
+        "Failed to save new doctor admin notification."
+    );
+} else {
+    try {
+        await sendAdminPushNotification({
+            type: "new_doctor_registration",
+            doctorId: doctor.id,
+            title: adminNotification.title,
+            message: adminNotification.message
+        });
+    } catch (notificationError) {
+        console.error(
+            "Failed to send new doctor admin push:",
+            notificationError.message
+        );
+    }
+}
+            
+// ------------------------------------------------
+// RESPONSE
+// ------------------------------------------------
 
             res
                 .status(201)

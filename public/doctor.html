@@ -14428,36 +14428,37 @@ function renderActions(
 }
 
 
+
 /* =========================================================
-   DELETE APPOINTMENT
+   DELETE APPOINTMENT — TABIBK PREMIUM CONFIRMATION
 ========================================================= */
 
-async function deleteAppointment(
-    bookingNumber
-) {
+async function deleteAppointment(bookingNumber) {
 
     if (!bookingNumber) {
-
-        showToast(
-            "رقم الحجز غير موجود",
-            "error"
-        );
-
+        showToast("رقم الحجز غير موجود", "error");
         return;
-
     }
 
-
-    const confirmed =
-        confirm(
-            "هل أنت متأكد من حذف هذا الموعد؟\n\nلا يمكن التراجع عن عملية الحذف."
+    if (typeof window.tabibkConfirmAction !== "function") {
+        showToast(
+            "واجهة تأكيد الحذف غير متوفرة، لم يتم حذف الموعد",
+            "error"
         );
+        return;
+    }
 
+    const confirmed = await window.tabibkConfirmAction({
+        title: "تأكيد حذف الموعد",
+        message: "هل أنت متأكد من حذف هذا الموعد؟",
+        details: "بعد الحذف، لن تتمكن من استرجاع الموعد من هذه الواجهة.",
+        confirmText: "تأكيد الحذف",
+        cancelText: "الاحتفاظ بالموعد"
+    });
 
     if (!confirmed) {
         return;
     }
-
 
     try {
 
@@ -14470,12 +14471,10 @@ async function deleteAppointment(
             }
         );
 
-
         showToast(
             "تم حذف الموعد بنجاح",
             "success"
         );
-
 
         await loadAppointments();
 
@@ -14487,10 +14486,7 @@ async function deleteAppointment(
         );
 
     }
-
 }
-
-
 
 /* =========================================================
    ACCEPT APPOINTMENT — TABIBK CUSTOM CONFIRMATION

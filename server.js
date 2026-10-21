@@ -5884,6 +5884,109 @@ app.post(
 );
 
 
+/* ============================================================
+   ADMIN NOTIFICATIONS API
+============================================================ */
+
+// Get admin notifications and unread count.
+app.get(
+    "/api/admin/notifications",
+    checkAdminKey,
+    (req, res) => {
+        try {
+            const database = readDatabase();
+
+            const notifications =
+                Array.isArray(database.adminNotifications)
+                    ? database.adminNotifications
+                    : [];
+
+            const unreadCount = notifications.filter(
+                notification => notification.read !== true
+            ).length;
+
+            return res.json({
+                success: true,
+                unreadCount,
+                notifications: notifications.slice(0, 50)
+            });
+        } catch (error) {
+            console.error(
+                "Failed to load admin notifications:",
+                error.message
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "تعذر تحميل إشعارات الإدارة"
+            });
+        }
+    }
+);
+
+
+// Mark one notification as read, or all if no ID is provided.
+app.post(
+    "/api/admin/notifications/read",
+    checkAdminKey,
+    async (req, res) => {
+        try {
+            const database = readDatabase();
+
+            if (!Array.isArray(database.adminNotifications)) {
+                database.adminNotifications = [];
+            }
+
+            const notificationId = req.body?.id;
+
+            if (
+                notificationId !== undefined &&
+                notificationId !== null
+            ) {
+                const target = database.adminNotifications.find(
+                    notification =>
+                        String(notification.id) ===
+                        String(notificationId)
+                );
+
+                if (target) {
+                    target.read = true;
+                }
+            } else {
+                database.adminNotifications.forEach(
+                    notification => {
+                        notification.read = true;
+                    }
+                );
+            }
+
+            const saveResult = await saveDatabase(database);
+
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ حالة الإشعارات"
+                });
+            }
+
+            return res.json({
+                success: true
+            });
+        } catch (error) {
+            console.error(
+                "Failed to update admin notifications:",
+                error.message
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "تعذر تحديث إشعارات الإدارة"
+            });
+        }
+    }
+);
+
+
 // ============================================================
 // ADMIN STATS
 // ============================================================

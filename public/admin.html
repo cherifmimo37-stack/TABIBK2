@@ -4449,6 +4449,82 @@ tbody tr:hover{
     id="section-support-messages"
 >
 
+      
+<!-- ADMIN MESSAGE SENDER -->
+<div class="card" style="margin-bottom:20px;">
+
+    <div class="card-head">
+        <div>
+            <h3>
+                <i class="fa-solid fa-paper-plane"></i>
+                إرسال رسالة للأطباء
+            </h3>
+            <p>
+                إرسال رسالة إدارية لطبيب محدد أو لجميع الأطباء
+            </p>
+        </div>
+    </div>
+
+    <form id="adminDoctorMessageForm">
+
+        <div class="form-field" style="margin-bottom:13px;">
+            <label for="adminDoctorMessageTarget">
+                المستلم
+            </label>
+
+            <select id="adminDoctorMessageTarget" required>
+                <option value="" selected disabled>
+                    اختر الطبيب أو جميع الأطباء
+                </option>
+                <option value="all">
+                    جميع الأطباء المعتمدين والنشطين
+                </option>
+            </select>
+        </div>
+
+        <div class="form-field" style="margin-bottom:13px;">
+            <label for="adminDoctorMessageTitle">
+                عنوان الرسالة *
+            </label>
+
+            <input
+                id="adminDoctorMessageTitle"
+                type="text"
+                maxlength="120"
+                placeholder="اكتب عنوان الرسالة"
+                required
+            >
+        </div>
+
+        <div class="form-field" style="margin-bottom:13px;">
+            <label for="adminDoctorMessageBody">
+                محتوى الرسالة *
+            </label>
+
+            <textarea
+                id="adminDoctorMessageBody"
+                rows="4"
+                maxlength="3000"
+                placeholder="اكتب رسالتك هنا..."
+                required
+                style="width:100%;"
+            ></textarea>
+        </div>
+
+        <button
+            type="submit"
+            id="adminDoctorMessageSubmit"
+            class="btn btn-gold"
+        >
+            <i class="fa-solid fa-paper-plane"></i>
+            إرسال الرسالة
+        </button>
+
+    </form>
+</div>
+<!-- END ADMIN MESSAGE SENDER -->
+
+
     <div class="card">
 
         <div class="card-head">
@@ -5728,6 +5804,12 @@ async function loadDoctors(){
         doctors =
             data.doctors || [];
 
+          if (
+    typeof populateAdminDoctorMessageList === "function"
+) {
+    populateAdminDoctorMessageList();
+}
+
         renderDoctors();
 
         await loadPendingDoctors();
@@ -6982,6 +7064,190 @@ document
 
         }
     );
+
+/* ============================================================
+   ADMIN MESSAGES TO DOCTORS
+============================================================ */
+
+function populateAdminDoctorMessageList() {
+    const select = document.getElementById(
+        "adminDoctorMessageTarget"
+    );
+
+    if (!select) return;
+
+    const previousValue = select.value;
+
+    select.replaceChildren();
+
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.disabled = true;
+    placeholder.textContent = "اختر الطبيب أو جميع الأطباء";
+    select.appendChild(placeholder);
+
+    const allOption = document.createElement("option");
+    allOption.value = "all";
+    allOption.textContent = "جميع الأطباء المعتمدين والنشطين";
+    select.appendChild(allOption);
+
+    const eligibleDoctors = (
+        Array.isArray(doctors) ? doctors : []
+    ).filter(doctor =>
+        doctor &&
+        doctor.status === "approved" &&
+        doctor.active !== false &&
+        Number.isSafeInteger(Number(doctor.id)) &&
+        Number(doctor.id) > 0
+    );
+
+    eligibleDoctors.forEach(doctor => {
+        const option = document.createElement("option");
+        option.value = String(Number(doctor.id));
+        option.textContent =
+            doctor.name || `الطبيب رقم ${doctor.id}`;
+
+        select.appendChild(option);
+    });
+
+    if (
+        [...select.options].some(
+            option => option.value === previousValue
+        )
+    ) {
+        select.value = previousValue;
+    } else {
+        select.value = "";
+    }
+}
+
+document
+    .getElementById("adminDoctorMessageForm")
+    .addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const target = document.getElementById(
+            "adminDoctorMessageTarget"
+        );
+
+        const titleInput = document.getElementById(
+            "adminDoctorMessageTitle"
+        );
+
+        const messageInput = document.getElementById(
+            "adminDoctorMessageBody"
+        );
+
+        const submitButton = document.getElementById(
+            "adminDoctorMessageSubmit"
+        );
+
+        const targetId = target.value;
+        const title = titleInput.value.trim();
+        const message = messageInput.value.trim();
+
+        if (!targetId || !title || !message) {
+            showToast(
+                "اختر المستلم واكتب العنوان والرسالة",
+                "error"
+            );
+            return;
+        }
+
+        const eligibleDoctors = (
+            Array.isArray(doctors) ? doctors : []
+        ).filter(doctor =>
+            doctor &&
+            doctor.status === "approved" &&
+            doctor.active !== false &&
+            Number.isSafeInteger(Number(doctor.id)) &&
+            Number(doctor.id) > 0
+        );
+
+        const recipients = targetId === "all"
+            ? eligibleDoctors
+            : eligibleDoctors.filter(
+                doctor => String(doctor.id) === targetId
+            );
+
+        if (!recipients.length) {
+            showToast(
+                "لم يتم العثور على طبيب مؤهل للإرسال",
+                "error"
+            );
+            return;
+        }
+
+        if (
+            targetId === "all" &&
+            !confirm(
+                `هل تؤكد إرسال الرسالة إلى ${recipients.length} طبيبًا؟`
+            )
+        ) {
+            return;
+        }
+
+        const originalText = submitButton.innerHTML;
+        submitButton.disabled = true;
+        submitButton.textContent = "جاري الإرسال...";
+
+        let sentCount = 0;
+        let failedCount = 0;
+
+        try {
+            for (const doctor of recipients) {
+                try {
+                    const result = await adminFetch(
+                        "/api/admin/notifications",
+                        {
+                            method: "POST",
+                            body: {
+                                doctorId: Number(doctor.id),
+                                title,
+                                message,
+                                type: "admin"
+                            }
+                        }
+                    );
+
+                    if (!result || result.success !== true) {
+                        throw new Error("فشل حفظ الرسالة");
+                    }
+
+                    sentCount++;
+                } catch (error) {
+                    failedCount++;
+                    console.error(
+                        "Doctor message failed:",
+                        doctor.id,
+                        error.message
+                    );
+                }
+            }
+
+            if (failedCount === 0) {
+                showToast(
+                    `تم إرسال الرسالة إلى ${sentCount} طبيب`
+                );
+                document
+                    .getElementById("adminDoctorMessageForm")
+                    .reset();
+            } else {
+                showToast(
+                    `نجح الإرسال إلى ${sentCount} طبيب، وفشل إلى ${failedCount}`,
+                    "error"
+                );
+            }
+        } catch (error) {
+            showToast(
+                error.message || "تعذر إرسال الرسالة",
+                "error"
+            );
+        } finally {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalText;
+        }
+    });
 
 /* ============================================================
    DOCTOR SUPPORT INBOX - ADMIN

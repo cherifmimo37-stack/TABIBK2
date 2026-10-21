@@ -4450,77 +4450,324 @@ tbody tr:hover{
 >
 
       
-<!-- ADMIN MESSAGE SENDER -->
-<div class="card" style="margin-bottom:20px;">
 
-    <div class="card-head">
+<!-- TABIBK — PREMIUM DOCTOR MESSAGING -->
+<style>
+    .tbk-message-card {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 22px;
+        padding: 0;
+        border: 1px solid rgba(201, 151, 50, .75);
+        border-radius: 18px;
+        background: linear-gradient(145deg, #351044 0%, #24102f 100%);
+        box-shadow: 0 10px 28px rgba(36, 16, 47, .16);
+        color: #fff;
+    }
+
+    .tbk-message-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            #c99732,
+            #f0d28a,
+            #c99732,
+            transparent
+        );
+    }
+
+    .tbk-message-head {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 22px;
+        border-bottom: 1px solid rgba(201, 151, 50, .25);
+        background: rgba(255, 255, 255, .025);
+    }
+
+    .tbk-message-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 54px;
+        height: 54px;
+        border: 1px solid #c99732;
+        border-radius: 16px;
+        background: rgba(201, 151, 50, .12);
+        color: #e8c675;
+        font-size: 23px;
+    }
+
+    .tbk-message-head h3 {
+        margin: 0 0 6px;
+        color: #f1d58e;
+        font-size: 19px;
+        font-weight: 800;
+    }
+
+    .tbk-message-head p {
+        margin: 0;
+        color: #d7c8df;
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .tbk-message-body {
+        padding: 22px;
+    }
+
+    .tbk-message-field {
+        margin-bottom: 18px;
+    }
+
+    .tbk-message-field label {
+        display: block;
+        margin-bottom: 9px;
+        color: #f0d28a;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .tbk-message-input-wrap {
+        position: relative;
+    }
+
+    .tbk-message-input-wrap > i {
+        position: absolute;
+        top: 17px;
+        right: 15px;
+        color: #d6b76b;
+        pointer-events: none;
+    }
+
+    .tbk-message-card .tbk-message-input {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 50px;
+        padding: 13px 43px 13px 14px;
+        border: 1px solid rgba(201, 151, 50, .58);
+        border-radius: 11px;
+        outline: none;
+        background: #2b1537;
+        color: #fff;
+        font: inherit;
+        font-size: 14px;
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .tbk-message-card textarea.tbk-message-input {
+        min-height: 135px;
+        resize: vertical;
+        line-height: 1.9;
+    }
+
+    .tbk-message-card .tbk-message-input::placeholder {
+        color: #b9a7c3;
+        opacity: 1;
+    }
+
+    .tbk-message-card .tbk-message-input:focus {
+        border-color: #f0d28a;
+        box-shadow: 0 0 0 3px rgba(201, 151, 50, .13);
+    }
+
+    .tbk-message-card select.tbk-message-input {
+        cursor: pointer;
+        color-scheme: dark;
+    }
+
+    .tbk-message-card select option {
+        background: #351044;
+        color: #fff;
+    }
+
+    .tbk-message-hint {
+        display: block;
+        margin-top: 7px;
+        color: #cbb9d4;
+        font-size: 12px;
+    }
+
+    .tbk-message-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 22px;
+    }
+
+    .tbk-message-secure-note {
+        color: #d7c8df;
+        font-size: 12px;
+    }
+
+    .tbk-message-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 47px;
+        padding: 12px 23px;
+        border: 1px solid #e4c16b;
+        border-radius: 11px;
+        background: linear-gradient(135deg, #d9b35c, #b98525);
+        color: #291332;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: transform .2s, box-shadow .2s;
+    }
+
+    .tbk-message-submit:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(201, 151, 50, .2);
+    }
+
+    .tbk-message-submit:disabled {
+        cursor: wait;
+        opacity: .65;
+        transform: none;
+    }
+
+    @media (max-width: 600px) {
+        .tbk-message-head,
+        .tbk-message-body {
+            padding: 16px;
+        }
+
+        .tbk-message-head h3 {
+            font-size: 17px;
+        }
+
+        .tbk-message-actions {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .tbk-message-submit {
+            width: 100%;
+        }
+    }
+</style>
+
+<!-- ADMIN MESSAGE SENDER -->
+<div class="card tbk-message-card">
+
+    <div class="tbk-message-head">
+        <div class="tbk-message-icon">
+            <i class="fa-solid fa-envelope-open-text"></i>
+        </div>
+
         <div>
-            <h3>
-                <i class="fa-solid fa-paper-plane"></i>
-                إرسال رسالة للأطباء
-            </h3>
+            <h3>مراسلة الأطباء</h3>
             <p>
-                إرسال رسالة إدارية لطبيب محدد أو لجميع الأطباء
+                <i class="fa-solid fa-shield-halved"></i>
+                مساحة التواصل الإداري مع الأطباء
             </p>
         </div>
     </div>
 
-    <form id="adminDoctorMessageForm">
+    <div class="tbk-message-body">
 
-        <div class="form-field" style="margin-bottom:13px;">
-            <label for="adminDoctorMessageTarget">
-                المستلم
-            </label>
+        <form id="adminDoctorMessageForm">
 
-            <select id="adminDoctorMessageTarget" required>
-                <option value="" selected disabled>
-                    اختر الطبيب أو جميع الأطباء
-                </option>
-                <option value="all">
-                    جميع الأطباء المعتمدين والنشطين
-                </option>
-            </select>
-        </div>
+            <div class="tbk-message-field">
+                <label for="adminDoctorMessageTarget">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    المستلم
+                </label>
 
-        <div class="form-field" style="margin-bottom:13px;">
-            <label for="adminDoctorMessageTitle">
-                عنوان الرسالة *
-            </label>
+                <div class="tbk-message-input-wrap">
+                    <i class="fa-solid fa-users"></i>
+                    <select
+                        id="adminDoctorMessageTarget"
+                        class="tbk-message-input"
+                        required
+                    >
+                        <option value="" selected disabled>
+                            اختر الطبيب أو جميع الأطباء
+                        </option>
+                        <option value="all">
+                            👥 جميع الأطباء المعتمدين والنشطين
+                        </option>
+                    </select>
+                </div>
 
-            <input
-                id="adminDoctorMessageTitle"
-                type="text"
-                maxlength="120"
-                placeholder="اكتب عنوان الرسالة"
-                required
-            >
-        </div>
+                <span class="tbk-message-hint">
+                    اختر طبيبًا واحدًا أو الإرسال الجماعي.
+                </span>
+            </div>
 
-        <div class="form-field" style="margin-bottom:13px;">
-            <label for="adminDoctorMessageBody">
-                محتوى الرسالة *
-            </label>
+            <div class="tbk-message-field">
+                <label for="adminDoctorMessageTitle">
+                    <i class="fa-solid fa-heading"></i>
+                    عنوان الرسالة
+                </label>
 
-            <textarea
-                id="adminDoctorMessageBody"
-                rows="4"
-                maxlength="3000"
-                placeholder="اكتب رسالتك هنا..."
-                required
-                style="width:100%;"
-            ></textarea>
-        </div>
+                <div class="tbk-message-input-wrap">
+                    <i class="fa-solid fa-pen"></i>
+                    <input
+                        id="adminDoctorMessageTitle"
+                        class="tbk-message-input"
+                        type="text"
+                        maxlength="120"
+                        placeholder="مثال: إعلان إداري مهم"
+                        required
+                    >
+                </div>
+            </div>
 
-        <button
-            type="submit"
-            id="adminDoctorMessageSubmit"
-            class="btn btn-gold"
-        >
-            <i class="fa-solid fa-paper-plane"></i>
-            إرسال الرسالة
-        </button>
+            <div class="tbk-message-field">
+                <label for="adminDoctorMessageBody">
+                    <i class="fa-solid fa-message"></i>
+                    محتوى الرسالة
+                </label>
 
-    </form>
+                <div class="tbk-message-input-wrap">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                    <textarea
+                        id="adminDoctorMessageBody"
+                        class="tbk-message-input"
+                        rows="5"
+                        maxlength="3000"
+                        placeholder="اكتب الرسالة التي تريد إيصالها للطبيب..."
+                        required
+                    ></textarea>
+                </div>
+
+                <span class="tbk-message-hint">
+                    اكتب رسالة واضحة ومهنية، بحد أقصى 3000 حرف.
+                </span>
+            </div>
+
+            <div class="tbk-message-actions">
+                <span class="tbk-message-secure-note">
+                    <i class="fa-solid fa-circle-info"></i>
+                    راجع المستلم قبل الإرسال.
+                </span>
+
+                <button
+                    type="submit"
+                    id="adminDoctorMessageSubmit"
+                    class="tbk-message-submit"
+                >
+                    <i class="fa-solid fa-paper-plane"></i>
+                    إرسال الرسالة
+                </button>
+            </div>
+
+        </form>
+    </div>
 </div>
 <!-- END ADMIN MESSAGE SENDER -->
 

@@ -3659,6 +3659,149 @@ tbody tr:hover{
     }
 }
       
+
+/* ============================================================
+   TABIBK ADMIN — FINAL PREMIUM FINISH
+============================================================ */
+#section-support-messages > .card {
+    border: 1px solid rgba(185,154,86,.28);
+    border-radius: 22px;
+    background: linear-gradient(145deg,#fff 0%,#fcf9ff 100%);
+    box-shadow: 0 12px 34px rgba(53,16,68,.07);
+    padding: clamp(14px,2.2vw,24px);
+}
+#section-support-messages .card-head h3,
+#section-support-messages .support-doctors-card > h3 {
+    color: #351044;
+    font-family: "Cairo",sans-serif;
+    font-weight: 900;
+    letter-spacing: -.2px;
+}
+#section-support-messages .card-head p { color:#82738b;font-size:12px;line-height:1.9; }
+#section-support-messages .card-head .btn {
+    border:1px solid #e4d7eb;border-radius:12px;background:#f7f1fb;color:#54216e;
+    font-weight:800;box-shadow:0 4px 12px rgba(53,16,68,.05);
+}
+#section-support-messages .support-doctors-card {
+    padding:18px;border:1px solid #eee4f3;border-radius:18px;background:rgba(255,255,255,.94);
+}
+#section-support-messages #supportDoctorsList { display:grid;gap:9px;padding-top:10px; }
+#section-support-messages #supportDoctorsList button {
+    width:100%;min-width:0;padding:13px 14px !important;border:1px solid #e9dfef !important;
+    border-radius:14px !important;background:linear-gradient(135deg,#fff,#fbf7fd) !important;
+    color:#40204f !important;font-family:"Cairo",sans-serif;font-size:13px;line-height:1.8;
+    box-shadow:0 3px 10px rgba(53,16,68,.035);
+}
+#section-support-messages #supportDoctorsList button:hover,
+#section-support-messages #supportDoctorsList button:focus-visible {
+    border-color:#c5a45d !important;box-shadow:0 6px 16px rgba(53,16,68,.075);outline:none;
+}
+#section-support-messages .support-chat-card {
+    padding:18px;border:1px solid rgba(185,154,86,.3);border-radius:18px;background:#fff;
+}
+#section-support-messages .support-chat-header {
+    border-radius:15px;background:linear-gradient(135deg,#fcf9ff,#fffdf8);
+}
+#section-support-messages #supportConversation,
+#section-support-messages .support-message-bubble { font-family:"Cairo",sans-serif;line-height:1.9;overflow-wrap:anywhere; }
+#section-support-messages #adminSupportReplyForm {
+    border-color:#e8dced;box-shadow:0 5px 18px rgba(53,16,68,.04);
+}
+#section-support-messages #adminSupportReply {
+    border:1.5px solid #dfd0e8;border-radius:13px;background:#fdfbff;font-family:"Cairo",sans-serif;
+}
+#section-support-messages #adminSupportReply:focus {
+    border-color:#9b76ad;box-shadow:0 0 0 4px rgba(112,39,160,.09);
+}
+#section-patient-ads #patientAdsManagerCard {
+    margin-top:0 !important;border:1px solid rgba(185,154,86,.3);border-radius:22px;
+    background:linear-gradient(145deg,#fff 0%,#fcf9ff 100%);
+    box-shadow:0 12px 34px rgba(53,16,68,.065);overflow:hidden;
+}
+#section-patient-ads #patientAdsManagerCard > .card-head {
+    padding:5px 0 17px;border-bottom:1px solid #eee5f3;
+}
+#section-patient-ads #patientAdsManagerCard .card-head h3 {
+    font-family:"Cairo",sans-serif;font-weight:900;color:#351044;
+}
+#section-patient-ads #patientAdsManagerCard .card-head p { color:#81758b;line-height:1.9; }
+#section-patient-ads #patientAdsEditor {
+    border:1px solid rgba(185,154,86,.42) !important;border-radius:20px !important;
+    padding:clamp(14px,2vw,24px) !important;background:linear-gradient(145deg,#fff,#fbf7fe) !important;
+    box-shadow:0 10px 28px rgba(53,16,68,.07) !important;
+}
+#section-patient-ads #multiPatientAdTitle,
+#section-patient-ads #multiPatientAdUrl {
+    min-height:51px !important;padding:13px 15px !important;border:1.5px solid #d9c8e5 !important;
+    border-radius:13px !important;background:#fff !important;box-shadow:0 3px 10px rgba(53,16,68,.035) !important;
+    font-family:"Cairo",sans-serif;transition:border-color .2s ease,box-shadow .2s ease;
+}
+#section-patient-ads #multiPatientAdTitle:focus,
+#section-patient-ads #multiPatientAdUrl:focus {
+    border-color:#b99a56 !important;box-shadow:0 0 0 4px rgba(201,151,50,.12) !important;outline:none;
+}
+#section-patient-ads #multiPatientAdUrl { direction:ltr;text-align:left;font-family:Arial,sans-serif; }
+#section-patient-ads #multiPatientAdImage {
+    display:block;width:100%;max-width:100%;padding:12px;border:1.5px dashed #d4c1e1;
+    border-radius:13px;background:#fff;color:#5b4269;
+}
+#section-patient-ads #patientAdsEditor button,
+#section-patient-ads #patientAdsManagerCard button {
+    font-family:"Cairo",sans-serif;font-weight:800;
+    transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+}
+#section-patient-ads #patientAdsEditor button:hover,
+#section-patient-ads #patientAdsManagerCard button:hover { box-shadow:0 7px 18px rgba(53,16,68,.10); }
+#section-patient-ads #patientAdsEditor button:focus-visible,
+#section-patient-ads #patientAdsManagerCard button:focus-visible {
+    outline:3px solid rgba(201,151,50,.45);outline-offset:3px;
+}
+#section-patient-ads #patientAdsList > div {
+    border-color:#e7dced !important;border-radius:18px !important;box-shadow:0 7px 22px rgba(53,16,68,.055) !important;
+}
+#section-patient-ads #patientAdsList button[data-patient-ad-action="edit"],
+#section-patient-ads #patientAdsList button[data-patient-ad-action="toggle"],
+#section-patient-ads #patientAdsList button[data-patient-ad-action="delete"] { border-radius:11px; }
+#section-patient-ads #patientAdsList button[data-patient-ad-action="edit"] { border:1px solid #dfd0e9; }
+#section-patient-ads #patientAdsList button[data-patient-ad-action="toggle"] { border:1px solid #ead8a8; }
+#section-patient-ads .card,#section-support-messages .card { min-width:0; }
+@media (max-width:700px) {
+    #section-support-messages > .card { padding:13px;border-radius:17px; }
+    #section-support-messages .support-doctors-card,#section-support-messages .support-chat-card { padding:13px; }
+    #section-patient-ads #patientAdsManagerCard { padding:16px;border-radius:17px; }
+    #section-patient-ads #patientAdsEditor { padding:14px !important; }
+}
+/* تأكيد تسجيل الخروج */
+.tabibk-logout-overlay {
+    position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;
+    padding:20px;background:rgba(22,12,31,.52);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+    opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease;
+}
+.tabibk-logout-overlay.show { opacity:1;visibility:visible; }
+.tabibk-logout-dialog {
+    width:min(100%,420px);padding:27px;border:1px solid rgba(201,151,50,.45);border-radius:23px;
+    background:linear-gradient(145deg,#fff 0%,#fbf7fe 100%);box-shadow:0 24px 80px rgba(15,7,23,.25);
+    text-align:center;transform:translateY(8px) scale(.985);transition:transform .2s ease;font-family:"Cairo",sans-serif;
+}
+.tabibk-logout-overlay.show .tabibk-logout-dialog { transform:translateY(0) scale(1); }
+.tabibk-logout-icon {
+    display:grid;place-items:center;width:58px;height:58px;margin:0 auto 15px;border:1px solid #e7d9ef;
+    border-radius:18px;background:#f4ebfa;color:#7027a0;font-size:22px;
+}
+.tabibk-logout-dialog h3 { margin:0 0 8px;color:#351044;font-size:20px;font-weight:900; }
+.tabibk-logout-dialog p { margin:0;color:#7c7084;font-size:13px;line-height:1.9; }
+.tabibk-logout-actions { display:flex;gap:10px;margin-top:23px; }
+.tabibk-logout-actions button {
+    flex:1;min-height:45px;border-radius:12px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;
+}
+.tabibk-logout-cancel { border:1px solid #e4d9eb;background:#fff;color:#5c4868; }
+.tabibk-logout-confirm {
+    border:1px solid #5c1d7e;background:linear-gradient(135deg,#7027a0,#4f176e);color:#fff;
+    box-shadow:0 6px 16px rgba(112,39,160,.18);
+}
+.tabibk-logout-actions button:focus-visible { outline:3px solid rgba(201,151,50,.55);outline-offset:3px; }
+@media (prefers-reduced-motion:reduce) { .tabibk-logout-overlay,.tabibk-logout-dialog { transition:none; } }
+
 </style>
 
 </head>
@@ -3810,18 +3953,7 @@ tbody tr:hover{
             </span>
         </button>
 
-        <button
-            class="nav-item"
-            id="refreshBtn"
-        >
 
-            <i class="fa-solid fa-arrows-rotate"></i>
-
-            <span>
-                تحديث البيانات
-            </span>
-
-        </button>
 
         <button
             class="nav-item"
@@ -4226,100 +4358,7 @@ tbody tr:hover{
     class="section"
     id="section-patient-ads"
 >
-    <div class="card">
-        <div class="card-head">
-            <div>
-                <h3>إعلانات المرضى</h3>
-                <p>إدارة الإعلان الذي يظهر داخل تطبيق طبيبك</p>
-            </div>
-        </div>
-
-        <div style="padding:20px 0;">
-
-            <label for="patientAdTitle">
-                عنوان الإعلان
-            </label>
-
-            <input
-                id="patientAdTitle"
-                type="text"
-                maxlength="120"
-                placeholder="مثال: عرض خاص على الخدمات الطبية"
-                style="width:100%; margin:10px 0 20px;"
-            >
-
-            <label for="patientAdUrl">
-                رابط الإعلان عند الضغط على الصورة
-            </label>
-
-            <input
-                id="patientAdUrl"
-                type="url"
-                placeholder="https://example.com"
-                style="width:100%; margin:10px 0 20px;"
-            >
-
-            <label for="patientAdImage">
-                صورة الإعلان
-            </label>
-
-            <input
-                id="patientAdImage"
-                type="file"
-                accept="image/png,image/jpeg,image/webp"
-                style="display:block; width:100%; margin:10px 0 20px;"
-            >
-
-            <div
-                id="patientAdPreviewBox"
-                style="display:none; margin:15px 0;"
-            >
-                <p style="margin-bottom:10px;">
-                    معاينة الإعلان
-                </p>
-
-                <img
-                    id="patientAdPreview"
-                    alt="معاينة صورة الإعلان"
-                    style="display:block; width:100%; max-width:650px; max-height:260px; object-fit:contain; border-radius:16px; border:1px solid #b99a56; background:#1c0e2b;"
-                >
-            </div>
-
-            <label style="display:flex; align-items:center; gap:10px; margin:20px 0;">
-                <input
-                    id="patientAdEnabled"
-                    type="checkbox"
-                    style="width:18px; height:18px;"
-                >
-                تفعيل الإعلان للمرضى
-            </label>
-
-            <button
-                type="button"
-                class="btn btn-gold"
-                onclick="savePatientAd()"
-            >
-                <i class="fa-solid fa-floppy-disk"></i>
-                حفظ إعدادات الإعلان
-            </button>
-
-            <button
-                type="button"
-                class="btn"
-                onclick="loadPatientAd()"
-                style="margin-right:8px;"
-            >
-                إعادة تحميل الإعدادات
-            </button>
-
-            <p
-                id="patientAdStatus"
-                style="margin-top:15px;"
-            ></p>
-
-        </div>
-    </div>
-              <!-- MULTIPLE PATIENT ADS MANAGER -->
+    <!-- MULTIPLE PATIENT ADS MANAGER -->
         <div class="card" id="patientAdsManagerCard" style="margin-top:22px;">
             <div class="card-head">
                 <div>
@@ -4762,7 +4801,6 @@ let doctors = [];
 
 let wilayas = [];
 
-let autoRefresh;
 
 /* ============================================================
    ELEMENTS
@@ -5122,7 +5160,6 @@ function enterApp(){
 
     loadAll();
 
-    startAutoRefresh();
 }
 
 function logout(){
@@ -5133,9 +5170,6 @@ function logout(){
 
     adminKey = "";
 
-    clearInterval(
-        autoRefresh
-    );
 
     app.classList.remove(
         "visible"
@@ -5152,12 +5186,52 @@ function logout(){
     closeSidebar();
 }
 
+function showLogoutConfirmation() {
+    let modal = document.getElementById("tabibkLogoutConfirm");
+
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "tabibkLogoutConfirm";
+        modal.className = "tabibk-logout-overlay";
+        modal.innerHTML = `
+            <div class="tabibk-logout-dialog"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="tabibkLogoutTitle">
+                <div class="tabibk-logout-icon">
+                    <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+                </div>
+                <h3 id="tabibkLogoutTitle">تأكيد تسجيل الخروج</h3>
+                <p>هل تريد تسجيل الخروج من لوحة إدارة طبيبك؟</p>
+                <div class="tabibk-logout-actions">
+                    <button type="button" class="tabibk-logout-cancel" data-logout-cancel>إلغاء</button>
+                    <button type="button" class="tabibk-logout-confirm" data-logout-confirm>تسجيل الخروج</button>
+                </div>
+            </div>
+        `;
+
+        modal.addEventListener("click", event => {
+            if (event.target === modal || event.target.closest("[data-logout-cancel]")) {
+                modal.classList.remove("show");
+                return;
+            }
+
+            if (event.target.closest("[data-logout-confirm]")) {
+                modal.remove();
+                logout();
+            }
+        });
+
+        document.body.appendChild(modal);
+    }
+
+    modal.classList.add("show");
+    modal.querySelector("[data-logout-confirm]")?.focus();
+}
+
 document
     .getElementById("logoutBtn")
-    .addEventListener(
-        "click",
-        logout
-    );
+    .addEventListener("click", showLogoutConfirmation);
 
 /* ============================================================
    NAVIGATION
@@ -5186,12 +5260,8 @@ function showSection(name) {
     if (name === "doctors") loadDoctors();
     if (name === "support-messages") {
         loadSupportInbox();
-        startSupportAutoRefresh();
-    } else {
-        stopSupportAutoRefresh();
     }
     if (name === "patient-ads") {
-        loadPatientAd();
         loadMultiplePatientAds();
     }
 }
@@ -6339,7 +6409,7 @@ async function refreshAll() {
         } else if (sectionId === "section-support-messages") {
             await loadSupportInbox();
         } else if (sectionId === "section-patient-ads") {
-            await Promise.all([loadPatientAd(), loadMultiplePatientAds()]);
+            await loadMultiplePatientAds();
         } else {
             await loadAll();
         }
@@ -6348,21 +6418,7 @@ async function refreshAll() {
         showToast(error.message || "تعذر تحديث البيانات", "error");
     }
 }
-document.getElementById("refreshBtn").addEventListener("click", refreshAll);
 document.getElementById("topRefresh").addEventListener("click", refreshAll);
-
-function startAutoRefresh() {
-    clearInterval(autoRefresh);
-    autoRefresh = setInterval(() => {
-        if (document.visibilityState !== "visible") return;
-        const activeSection = document.querySelector(".section.active");
-        if (activeSection?.id === "section-doctors") {
-            loadDoctors();
-        } else if (activeSection?.id === "section-patient-ads") {
-            loadMultiplePatientAds();
-        }
-    }, 30000);
-}
 
 /* ============================================================
    CLOSE MODALS BY BACKGROUND
@@ -6387,171 +6443,6 @@ document
 
         }
     );
-
-/* ============================================================
-   PATIENT ADS - ADMIN
-============================================================ */
-
-let patientAdImageData = "";
-
-const patientAdImageInput =
-    document.getElementById("patientAdImage");
-
-if (patientAdImageInput) {
-    patientAdImageInput.addEventListener("change", function () {
-        const file = this.files && this.files[0];
-
-        if (!file) return;
-
-        const allowedTypes = [
-            "image/jpeg",
-            "image/png",
-            "image/webp"
-        ];
-
-        if (!allowedTypes.includes(file.type)) {
-            showToast("اختر صورة PNG أو JPG أو WEBP", "error");
-            this.value = "";
-            return;
-        }
-
-        if (file.size > 1.5 * 1024 * 1024) {
-            showToast("حجم الصورة يجب ألا يتجاوز 1.5 ميغابايت", "error");
-            this.value = "";
-            return;
-        }
-
-        const reader = new FileReader();
-
-        reader.onload = function () {
-            patientAdImageData = reader.result;
-
-            const preview =
-                document.getElementById("patientAdPreview");
-
-            const previewBox =
-                document.getElementById("patientAdPreviewBox");
-
-            preview.src = patientAdImageData;
-            previewBox.style.display = "block";
-        };
-
-        reader.onerror = function () {
-            showToast("تعذرت قراءة الصورة", "error");
-        };
-
-        reader.readAsDataURL(file);
-    });
-}
-
-/* LOAD PATIENT AD */
-
-async function loadPatientAd() {
-    const status = document.getElementById("patientAdStatus");
-
-    try {
-        status.textContent = "جاري تحميل إعدادات الإعلان...";
-
-        const data = await adminFetch(
-            "/api/admin/patient-ad"
-        );
-
-        const ad = data.patientAd || {};
-
-        document.getElementById("patientAdTitle").value =
-            ad.title || "";
-
-        document.getElementById("patientAdUrl").value =
-            ad.targetUrl || "";
-
-        document.getElementById("patientAdEnabled").checked =
-            ad.enabled === true;
-
-        patientAdImageData = ad.imageData || "";
-
-        const preview =
-            document.getElementById("patientAdPreview");
-
-        const previewBox =
-            document.getElementById("patientAdPreviewBox");
-
-        if (patientAdImageData) {
-            preview.src = patientAdImageData;
-            previewBox.style.display = "block";
-        } else {
-            preview.removeAttribute("src");
-            previewBox.style.display = "none";
-        }
-
-        status.textContent = "تم تحميل إعدادات الإعلان.";
-    } catch (error) {
-        status.textContent =
-            error.message || "تعذر تحميل إعدادات الإعلان.";
-
-        showToast(status.textContent, "error");
-    }
-}
-
-/* SAVE PATIENT AD */
-
-async function savePatientAd() {
-    const status = document.getElementById("patientAdStatus");
-
-    const title =
-        document.getElementById("patientAdTitle").value.trim();
-
-    const targetUrl =
-        document.getElementById("patientAdUrl").value.trim();
-
-    const enabled =
-        document.getElementById("patientAdEnabled").checked;
-
-    if (enabled && !patientAdImageData) {
-        showToast("اختر صورة للإعلان أولاً", "error");
-        return;
-    }
-
-    if (targetUrl) {
-        try {
-            const parsedUrl = new URL(targetUrl);
-
-            if (!["http:", "https:"].includes(parsedUrl.protocol)) {
-                throw new Error("invalid");
-            }
-        } catch {
-            showToast("أدخل رابطاً صحيحاً يبدأ بـ https:// أو http://", "error");
-            return;
-        }
-    }
-
-    if (enabled && !targetUrl) {
-        showToast("أدخل رابط الإعلان قبل تفعيله", "error");
-        return;
-    }
-
-    try {
-        status.textContent = "جاري حفظ إعدادات الإعلان...";
-
-        await adminFetch("/api/admin/patient-ad", {
-            method: "POST",
-            body: {
-                title: title,
-                targetUrl: targetUrl,
-                imageData: patientAdImageData,
-                enabled: enabled
-            }
-        });
-
-        status.textContent = "تم حفظ إعدادات الإعلان بنجاح.";
-        showToast("تم حفظ إعدادات الإعلان بنجاح");
-    } catch (error) {
-        status.textContent =
-            error.message || "تعذر حفظ إعدادات الإعلان.";
-
-        showToast(status.textContent, "error");
-    }
-}
-
 
 /* ============================================================
    DOCTOR SUPPORT INBOX - ADMIN
@@ -6908,62 +6799,6 @@ async function sendAdminSupportReply(event) {
 
       
 
-/* ============================================================
-   TABIBK - SUPPORT CHAT AUTO REFRESH
-============================================================ */
-
-let supportInboxRefreshTimer = null;
-let supportConversationRefreshTimer = null;
-
-function startSupportAutoRefresh() {
-    // منع إنشاء مؤقّتات مكررة.
-    stopSupportAutoRefresh();
-
-    supportInboxRefreshTimer = setInterval(() => {
-        const section = document.getElementById(
-            "section-support-messages"
-        );
-
-        if (!section || !section.classList.contains("active")) {
-            return;
-        }
-
-        loadSupportInbox();
-    }, 15000);
-
-    supportConversationRefreshTimer = setInterval(() => {
-        const section = document.getElementById(
-            "section-support-messages"
-        );
-
-        const doctorId = Number(selectedSupportDoctorIdForChat);
-
-        if (
-            !section ||
-            !section.classList.contains("active") ||
-            !Number.isSafeInteger(doctorId) ||
-            doctorId <= 0
-        ) {
-            return;
-        }
-
-        loadAdminSupportConversation(doctorId);
-    }, 5000);
-}
-
-function stopSupportAutoRefresh() {
-    if (supportInboxRefreshTimer !== null) {
-        clearInterval(supportInboxRefreshTimer);
-        supportInboxRefreshTimer = null;
-    }
-
-    if (supportConversationRefreshTimer !== null) {
-        clearInterval(supportConversationRefreshTimer);
-        supportConversationRefreshTimer = null;
-    }
-}
-
-      
 /* ============================================================
    TABIBK - MULTIPLE PATIENT ADS MANAGER
 ============================================================ */

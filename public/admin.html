@@ -401,43 +401,6 @@ body::after{
         0 0 0 4px rgba(201,151,50,.11);
 }
 
-.input-group .password-toggle{
-    position:absolute;
-    left:12px;
-    right:auto;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:3;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:36px;
-    height:36px;
-    padding:0;
-    border:1px solid #e4d7eb;
-    border-radius:10px;
-    background:#fbf7fd;
-    color:#51216f;
-    cursor:pointer;
-    transition:background .18s,border-color .18s,color .18s;
-}
-.input-group .password-toggle:hover{
-    background:#f0e5f7;
-    border-color:#c99732;
-    color:#351044;
-}
-.input-group .password-toggle:focus-visible{
-    outline:2px solid #c99732;
-    outline-offset:2px;
-}
-.input-group input#adminKey{
-    padding-left:58px;
-    padding-right:48px;
-    direction:ltr;
-    text-align:left;
-    letter-spacing:.2px;
-}
-
 .login-btn{
 
     width:100%;
@@ -495,7 +458,23 @@ body::after{
     min-height:20px;
 }
 
+.demo-key{
 
+    margin-top:18px;
+
+    padding:12px;
+
+    border-radius:13px;
+
+    background:var(--purple-pale);
+
+    color:#73677d;
+
+    font-size:12px;
+
+    border:
+        1px solid var(--border);
+}
 
 /* =========================================================
    APP
@@ -3533,49 +3512,8 @@ tbody tr:hover{
 }
 
       
-
-#section-patient-ads #patientAdsList>div{display:grid!important;grid-template-columns:180px minmax(180px,1fr) auto!important;gap:18px!important;align-items:center!important;padding:17px!important;margin:13px 0!important;border:1px solid #e6d8ef!important;border-radius:17px!important;background:linear-gradient(115deg,#fff,#fcf9ff 70%,#f9f3fd)!important;box-shadow:0 5px 17px rgba(53,16,68,.05)!important;transition:border-color .18s,box-shadow .18s}
-#section-patient-ads #patientAdsList>div:hover{border-color:#cdb2dd!important;box-shadow:0 9px 22px rgba(53,16,68,.09)!important}
-#section-patient-ads #patientAdsList>div>img{width:100%!important;height:118px!important;object-fit:contain!important;padding:5px!important;border:1px solid #eadff1!important;border-radius:13px!important;background:#f7f2fa!important;box-sizing:border-box!important}
-#section-patient-ads #patientAdsList>div>div:nth-child(2)>h4{margin:0 0 9px!important;color:#351044!important;font-size:15px!important;font-weight:900!important;line-height:1.7!important}
-#section-patient-ads #patientAdsList>div>div:nth-child(2)>div{padding:9px 11px!important;margin-bottom:10px!important;border:1px solid #eadff1!important;border-radius:10px!important;background:#fff!important;color:#71617c!important;font-size:11px!important;line-height:1.8!important}
-#section-patient-ads #patientAdsList>div>div:nth-child(3){display:flex!important;flex-direction:column!important;gap:8px!important;min-width:112px!important}
-#section-patient-ads #patientAdsList [data-patient-ad-action]{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;width:100%!important;min-height:39px!important;padding:9px 12px!important;border:1px solid #d9c6e5!important;border-radius:11px!important;background:#fff!important;color:#51216f!important;font-size:12px!important;font-weight:800!important;cursor:pointer!important;transition:transform .16s,box-shadow .16s!important}
-#section-patient-ads #patientAdsList [data-patient-ad-action]:hover{transform:translateY(-1px)!important;box-shadow:0 6px 14px rgba(53,16,68,.12)!important}
-#section-patient-ads #patientAdsList [data-patient-ad-action="toggle"]{background:linear-gradient(135deg,#f8edcf,#f1dfa7)!important;border-color:#e3ca82!important;color:#62480d!important}
-#section-patient-ads #patientAdsList [data-patient-ad-action="delete"]{background:#fff1f1!important;border-color:#f0caca!important;color:#a12e3a!important}
-#section-patient-ads #patientAdsList>p{padding:25px!important;border:1px dashed #d8c6e5!important;border-radius:15px!important;background:linear-gradient(145deg,#fff,#faf6fd)!important;color:#786783!important;line-height:1.9!important}
-@media(max-width:760px){#section-patient-ads #patientAdsList>div{grid-template-columns:1fr!important;gap:13px!important;padding:13px!important}#section-patient-ads #patientAdsList>div>img{height:170px!important}#section-patient-ads #patientAdsList>div>div:nth-child(3){display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;min-width:0!important}#section-patient-ads #patientAdsList [data-patient-ad-action]{padding:8px 5px!important;font-size:11px!important}}
 </style>
 
-<style>
-/* TABIBK admin navigation refinement */
-.sidebar{
-    background:linear-gradient(165deg,#24102f 0%,#351044 48%,#21102b 100%);
-    border-left:1px solid rgba(201,151,50,.45);
-    box-shadow:8px 0 28px rgba(25,8,34,.12);
-}
-.nav-item{
-    min-height:47px;margin:5px 12px;width:calc(100% - 24px);
-    border:1px solid transparent;border-radius:12px;font-weight:700;
-    transition:background .18s,border-color .18s,transform .18s,box-shadow .18s;
-}
-.nav-item i{font-size:15px;width:22px}
-.nav-item:hover{
-    border-color:rgba(201,151,50,.24);
-    background:linear-gradient(100deg,rgba(201,151,50,.13),rgba(112,39,160,.2));
-}
-.nav-item.active{
-    border-color:rgba(201,151,50,.5);
-    background:linear-gradient(105deg,rgba(201,151,50,.23),rgba(112,39,160,.34));
-    box-shadow:inset -3px 0 #d8bd78,0 7px 18px rgba(0,0,0,.12);
-}
-.nav-item.active i{color:#f0d58b}
-.logout-side{margin-top:18px;border-color:rgba(201,151,50,.16)}
-@media(max-width:760px){
-    .nav-item{min-height:45px;margin:4px 8px;width:calc(100% - 16px)}
-}
-</style>
 </head>
 
 <body>
@@ -3618,23 +3556,10 @@ tbody tr:hover{
                 <input
                     type="password"
                     id="adminKey"
-                    placeholder="أدخل كلمة مرور الإدارة"
+                    placeholder="مفتاح الإدارة"
                     autocomplete="current-password"
-                    autocapitalize="off"
-                    spellcheck="false"
                     required
                 >
-
-                <button
-                    type="button"
-                    class="password-toggle"
-                    id="toggleAdminKey"
-                    aria-label="إظهار كلمة المرور"
-                    aria-pressed="false"
-                    title="إظهار كلمة المرور"
-                >
-                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
-                </button>
 
             </div>
 
@@ -3655,6 +3580,13 @@ tbody tr:hover{
             class="login-error"
             id="loginError"
         ></div>
+
+        <div class="demo-key">
+
+            مفتاح الإدارة الافتراضي:
+            <strong>TABIBK_ADMIN_2026</strong>
+
+        </div>
 
     </div>
 
@@ -3731,6 +3663,18 @@ tbody tr:hover{
             </span>
         </button>
 
+        <button
+            class="nav-item"
+            id="refreshBtn"
+        >
+
+            <i class="fa-solid fa-arrows-rotate"></i>
+
+            <span>
+                تحديث البيانات
+            </span>
+
+        </button>
 
         <button
             class="nav-item"
@@ -3788,6 +3732,15 @@ tbody tr:hover{
 
             <div class="top-actions">
 
+                <button
+                    class="icon-btn"
+                    id="topRefresh"
+                    title="تحديث"
+                >
+
+                    <i class="fa-solid fa-arrows-rotate"></i>
+
+                </button>
 
                 <div class="admin-badge">
 
@@ -3815,29 +3768,6 @@ tbody tr:hover{
     class="section active"
     id="section-doctors"
 >
-<style>
-#section-doctors .doctor-directory-identity{display:flex;align-items:center;gap:11px;min-width:190px}
-#section-doctors .doctor-directory-avatar{display:flex;align-items:center;justify-content:center;flex:0 0 43px;width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#f5e9fc,#e8d8f4);border:1px solid #ddc5ec;color:#7027a0;font-size:19px;box-shadow:inset 0 1px 0 #fff}
-#section-doctors .doctor-directory-name-wrap{display:flex;flex-direction:column;gap:5px;min-width:0}
-#section-doctors .doctor-directory-name-wrap strong{font-size:13px;font-weight:900;color:#351044;overflow-wrap:anywhere}
-#section-doctors .doctor-directory-name-wrap small{font-size:10px;color:#95869f;display:flex;align-items:center;gap:5px}
-#section-doctors .doctor-directory-specialty{display:inline-flex;align-items:center;gap:7px;color:#51216f;background:#f7f0fb;border:1px solid #eadcf2;border-radius:9px;padding:6px 9px;font-size:12px;font-weight:800}
-#section-doctors .doctor-directory-specialty i{color:#c99732}
-#section-doctors .doctor-directory-location{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:7px;color:#81758a;font-size:11px}
-#section-doctors .doctor-directory-location i{color:#c99732}
-#section-doctors .doctor-directory-phone{padding:15px 14px;text-align:right;color:#51405b;white-space:nowrap;font-size:12px;font-weight:700}
-#section-doctors .doctor-directory-phone i{color:#7027a0;margin-left:7px}
-#section-doctors .doctor-directory-date{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800}
-#section-doctors #doctorsTable>div[style*="overflow-x:auto"]{border-color:#e6d8ef!important;box-shadow:0 8px 22px rgba(53,16,68,.045)}
-#section-doctors #doctorsTable table thead th{font-size:11px;letter-spacing:.1px;border-bottom:1px solid #e9dff0;white-space:nowrap}
-#section-doctors #doctorsTable tbody tr{transition:background .15s}
-#section-doctors #doctorsTable tbody tr:hover{background:#fcf8ff}
-#section-doctors #doctorsTable tbody td{border-bottom:1px solid #f0eaf4}
-#section-doctors #doctorsTable .action-group .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:8px 11px;border-radius:10px;font-size:11px;font-weight:800;white-space:nowrap}
-#section-doctors #doctorsTable .action-group .btn i{font-size:11px}
-@media(max-width:760px){#section-doctors .doctor-directory-identity{min-width:170px}#section-doctors .doctor-directory-avatar{flex-basis:38px;width:38px;height:38px;border-radius:12px}}
-</style>
-
 
     <div class="card">
 
@@ -4018,8 +3948,6 @@ tbody tr:hover{
     id="section-support-messages"
 >
 
-
-
     <div class="card">
 
         <div class="card-head">
@@ -4032,6 +3960,14 @@ tbody tr:hover{
                 </p>
             </div>
 
+            <button
+                class="btn btn-light"
+                type="button"
+                onclick="loadSupportInbox()"
+            >
+                <i class="fa-solid fa-arrows-rotate"></i>
+                تحديث الرسائل
+            </button>
 
         </div>
 
@@ -4042,7 +3978,7 @@ tbody tr:hover{
 
                 <div id="supportDoctorsList">
                     <div class="loading">
-                        اختر طبيبًا من القائمة لعرض المحادثات
+                        اختر تحديث الرسائل لعرض المحادثات
                     </div>
                 </div>
             </div>
@@ -4133,29 +4069,6 @@ tbody tr:hover{
 
     </div>
 
-<style>
-#section-support-messages .support-doctors-card,
-#section-support-messages .support-chat-card{
-    border:1px solid #c99732;
-    background:linear-gradient(145deg,#fbf7ff,#f3eafa);
-}
-#section-support-messages .support-doctors-card>h3{
-    background:linear-gradient(110deg,#351044,#51216f);
-    color:#fff;
-    border-bottom:1px solid #c99732;
-}
-#section-support-messages #supportConversation{
-    background:linear-gradient(180deg,#f7f0fb,#fffaf0);
-    border-color:#d8bd78;
-}
-#section-support-messages #adminSupportReplyForm{
-    background:#f5eef9;
-    border:1px solid #d8bd78;
-}
-#section-support-messages #adminSupportReplyForm textarea{
-    border-color:#cdb5dc;
-}
-</style>
 </section>
 
 <!-- =========================================================
@@ -4166,127 +4079,7 @@ tbody tr:hover{
     class="section"
     id="section-patient-ads"
 >
-
-<style>
-#section-patient-ads{--ads-purple:#51216f;--ads-purple-deep:#351044;--ads-gold:#c99732;--ads-border:#e6d8ef;--ads-muted:#786783}
-#section-patient-ads .patient-ads-hero{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:24px;margin-bottom:22px;border-radius:20px;background:linear-gradient(120deg,#351044,#51216f 58%,#7040a0);color:#fff;box-shadow:0 12px 30px rgba(53,16,68,.16)}
-#section-patient-ads .patient-ads-hero:after{content:"";position:absolute;width:190px;height:190px;border:1px solid rgba(255,255,255,.14);border-radius:50%;left:-55px;top:-85px;box-shadow:0 0 0 22px rgba(255,255,255,.035),0 0 0 44px rgba(255,255,255,.025);pointer-events:none}
-#section-patient-ads .patient-ads-hero h2{margin:0 0 7px;font-size:22px;font-weight:900;color:#fff}
-#section-patient-ads .patient-ads-hero p{margin:0;color:rgba(255,255,255,.8);font-size:13px;line-height:1.8}
-#section-patient-ads .patient-ads-hero-icon{width:58px;height:58px;display:flex;align-items:center;justify-content:center;border-radius:17px;background:linear-gradient(145deg,#f7e6b4,#c99732);color:#351044;font-size:25px;box-shadow:0 8px 20px rgba(0,0,0,.15);flex-shrink:0}
-#section-patient-ads .patient-ad-single-card,#section-patient-ads .patient-ads-manager-card{border:1px solid var(--ads-border);border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#fff,#fdfbff);box-shadow:0 8px 25px rgba(53,16,68,.055)}
-#section-patient-ads .card-head{padding:20px 22px;border-bottom:1px solid #f0e7f5;background:linear-gradient(100deg,#fff,#faf5ff)}
-#section-patient-ads .card-head h3{color:var(--ads-purple-deep);font-size:17px;font-weight:900}
-#section-patient-ads .card-head p{margin-top:6px;color:var(--ads-muted);font-size:12px;line-height:1.8}
-#section-patient-ads .patient-ads-content{padding:22px}
-#section-patient-ads .patient-ad-field{margin:0 0 20px}
-#section-patient-ads .patient-ad-field label{display:block;margin-bottom:8px;color:var(--ads-purple-deep);font-size:13px;font-weight:800}
-#section-patient-ads .patient-ad-field input:not([type=file]):not([type=checkbox]){display:block;width:100%;min-height:48px;padding:12px 14px;margin:0;border:1.5px solid #ded0e8;border-radius:12px;background:#fff;color:var(--ads-purple-deep);font-size:14px;box-sizing:border-box;transition:border-color .18s,box-shadow .18s}
-#section-patient-ads .patient-ad-field input:focus{outline:none;border-color:var(--ads-purple);box-shadow:0 0 0 3px rgba(112,39,160,.10)}
-#section-patient-ads .patient-ad-hint{display:block;margin-top:7px;color:#8a7a94;font-size:11px;line-height:1.8}
-#section-patient-ads .patient-ad-upload{padding:16px;border:1.5px dashed #cdb5dc;border-radius:14px;background:linear-gradient(145deg,#fff,#faf6fd)}
-#section-patient-ads input[type=file]{max-width:100%;color:#5c4269;font-size:12px}
-#section-patient-ads .patient-ad-preview{display:block;width:100%;max-width:760px;max-height:300px;object-fit:contain;border:1px solid #e4d5ed;border-radius:14px;background:linear-gradient(145deg,#351044,#51216f);padding:6px;box-sizing:border-box}
-#section-patient-ads .patient-ad-enabled-panel{display:flex;align-items:center;gap:12px;padding:15px 16px;margin:18px 0;border:1px solid #e6d8ef;border-radius:14px;background:linear-gradient(110deg,#fff,#f9f4fd)}
-#section-patient-ads .patient-ad-enabled-panel input{width:19px;height:19px;accent-color:#7027a0;flex-shrink:0}
-#section-patient-ads .patient-ad-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:11px 17px;border:1px solid transparent;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;transition:transform .16s,box-shadow .16s,filter .16s;box-sizing:border-box}
-#section-patient-ads .patient-ad-btn:hover{transform:translateY(-1px);filter:brightness(1.02);box-shadow:0 7px 16px rgba(53,16,68,.12)}
-#section-patient-ads .patient-ad-btn:disabled{opacity:.55;cursor:wait;transform:none;box-shadow:none}
-#section-patient-ads .patient-ad-btn-primary{background:linear-gradient(135deg,#d9b45d,#b98520);color:#351044;box-shadow:0 5px 13px rgba(201,151,50,.18)}
-#section-patient-ads .patient-ad-btn-secondary{background:#fff;color:#51216f;border-color:#d9c6e5}
-#section-patient-ads .patient-ad-btn-purple{background:linear-gradient(135deg,#7027a0,#51216f);color:#fff;box-shadow:0 5px 13px rgba(81,33,111,.17)}
-#section-patient-ads .patient-ad-btn-success{background:#e7f7ed;color:#176b38;border-color:#c4e9d0}
-#section-patient-ads .patient-ad-btn-danger{background:#fff1f1;color:#a12e3a;border-color:#f0caca}
-#section-patient-ads .patient-ad-single-card .patient-ads-content>div[style*="display:flex"]{align-items:stretch}
-#section-patient-ads .patient-ad-single-card .patient-ad-btn{min-width:190px;min-height:46px;padding:12px 18px;border-radius:13px;line-height:1.25}
-#section-patient-ads .patient-ad-single-card .patient-ad-btn i{font-size:14px}
-#section-patient-ads .patient-ad-single-card .patient-ad-btn-primary{border-color:#c99732}
-#section-patient-ads .patient-ad-single-card .patient-ad-btn-secondary{border-color:#d8c6e5;background:linear-gradient(180deg,#fff,#faf6fd)}
-@media(max-width:600px){#section-patient-ads .patient-ad-single-card .patient-ad-btn{flex:1;min-width:0;width:100%;padding:11px 9px;font-size:12px}}
-#section-patient-ads .patient-ad-status{padding:10px 13px;border-radius:10px;background:#f8f4fb;color:#65536f;font-size:12px;line-height:1.8}
-#section-patient-ads .patient-ads-list-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:22px 0 12px;padding-top:20px;border-top:1px solid #eee4f3}
-#section-patient-ads .patient-ads-list-heading h4{margin:0;color:#351044;font-weight:900;font-size:15px}
-#section-patient-ads .patient-ads-count{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid #e5d7ef;border-radius:999px;background:#f8f1fc;color:#51216f;font-size:12px;font-weight:800}
-#section-patient-ads .patient-ad-item{display:grid;grid-template-columns:180px minmax(180px,1fr) auto;gap:18px;align-items:center;padding:17px;margin:13px 0;border:1px solid #e6d8ef;border-radius:17px;background:linear-gradient(115deg,#fff,#fcf9ff 70%,#f9f3fd);box-shadow:0 5px 17px rgba(53,16,68,.05);transition:border-color .18s,box-shadow .18s}
-#section-patient-ads .patient-ad-item:hover{border-color:#cdb2dd;box-shadow:0 9px 22px rgba(53,16,68,.09)}
-#section-patient-ads .patient-ad-item-image{display:block;width:100%;height:118px;object-fit:contain;padding:5px;border:1px solid #eadff1;border-radius:13px;background:#f7f2fa;box-sizing:border-box}
-#section-patient-ads .patient-ad-item-title{margin:0 0 9px;color:#351044;font-size:15px;font-weight:900;line-height:1.7;overflow-wrap:anywhere}
-#section-patient-ads .patient-ad-item-url{padding:9px 11px;margin-bottom:10px;border:1px solid #eadff1;border-radius:10px;background:#fff;color:#71617c;font-size:11px;line-height:1.8;overflow-wrap:anywhere}
-#section-patient-ads .patient-ad-item-actions{display:flex;flex-direction:column;gap:8px;min-width:112px}
-#section-patient-ads .patient-ad-item-actions .patient-ad-btn{width:100%;min-height:38px;padding:8px 11px;font-size:12px}
-#section-patient-ads .patient-ad-state{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900}
-#section-patient-ads .patient-ad-state.is-enabled{background:#e5f7eb;color:#176b38}
-#section-patient-ads .patient-ad-state.is-disabled{background:#f2edf5;color:#76647f}
-#section-patient-ads .patient-ads-empty{padding:27px 18px;border:1px dashed #d8c6e5;border-radius:15px;background:linear-gradient(145deg,#fff,#faf6fd);color:#786783;text-align:center;line-height:1.9}
-#section-patient-ads .patient-ads-empty i{display:block;margin-bottom:9px;color:#b48b37;font-size:25px}
-@media(max-width:760px){#section-patient-ads .patient-ads-content{padding:15px}#section-patient-ads .card-head{padding:17px}#section-patient-ads .patient-ads-hero{padding:19px}#section-patient-ads .patient-ads-hero h2{font-size:19px}#section-patient-ads .patient-ad-item{grid-template-columns:1fr;gap:13px;padding:13px}#section-patient-ads .patient-ad-item-image{height:170px}#section-patient-ads .patient-ad-item-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));min-width:0}#section-patient-ads .patient-ad-item-actions .patient-ad-btn{padding:8px 5px;font-size:11px}#section-patient-ads .patient-ad-btn{width:100%}}
-
-/* Premium purple surfaces with refined gold borders */
-#section-patient-ads .patient-ad-single-card,
-#section-patient-ads .patient-ads-manager-card{
-    border:1.5px solid #c99732;
-    background:linear-gradient(145deg,#f8f1fc,#fffaf0);
-    box-shadow:0 12px 30px rgba(53,16,68,.09);
-}
-#section-patient-ads .card-head{
-    border-bottom:1px solid #d8bd78;
-    background:linear-gradient(110deg,#f2e7f8,#fff8e7);
-}
-#section-patient-ads .patient-ad-field input:not([type=file]):not([type=checkbox]),
-#section-patient-ads .patient-ad-field textarea,
-#section-patient-ads .patient-ad-field select{
-    border-color:#c9a85d;background:#fff;border-radius:12px;
-}
-#section-patient-ads .patient-ad-upload{
-    border:1.5px dashed #c99732;
-    background:linear-gradient(145deg,#f3eafa,#fffaf0);
-}
-#section-patient-ads input[type=file]{
-    display:block;width:100%;max-width:100%;padding:9px;
-    border:1px solid #d8bd78;border-radius:12px;background:#fff;
-    color:#351044;box-sizing:border-box;
-}
-#section-patient-ads input[type=file]::file-selector-button{
-    margin-inline-end:12px;padding:10px 15px;border:1px solid #c99732;
-    border-radius:9px;background:linear-gradient(135deg,#d9b45d,#b98520);
-    color:#351044;font:inherit;font-weight:800;cursor:pointer;
-    transition:filter .18s,transform .18s;
-}
-#section-patient-ads input[type=file]::file-selector-button:hover{
-    filter:brightness(1.04);transform:translateY(-1px);
-}
-#section-patient-ads .patient-ad-enabled-panel{
-    border-color:#d8bd78;background:linear-gradient(110deg,#f3eafa,#fffaf0);
-}
-#section-patient-ads .patient-ad-single-card .patient-ad-btn-primary{
-    min-width:210px;min-height:48px;border:1px solid #b98520;
-    border-radius:13px;background:linear-gradient(135deg,#e6c979,#c99732);
-    box-shadow:0 6px 16px rgba(201,151,50,.2);color:#351044;font-weight:900;
-}
-#section-patient-ads .patient-ad-single-card .patient-ad-btn-primary:hover{
-    box-shadow:0 9px 20px rgba(201,151,50,.26);transform:translateY(-1px);
-}
-#section-patient-ads #patientAdStatus,
-#section-patient-ads #multiPatientAdStatus,
-#section-patient-ads #patientAdsListStatus{border-radius:11px}
-#section-patient-ads #patientAdsEditor{
-    border:1px solid #c99732!important;
-    background:linear-gradient(145deg,#f3eafa,#fffaf0)!important;
-}
-@media(max-width:600px){
-    #section-patient-ads .patient-ad-single-card .patient-ad-btn-primary{width:100%;min-width:0}
-    #section-patient-ads input[type=file]::file-selector-button{margin-inline-end:6px;padding:9px 10px}
-}
-</style>
-<div class="patient-ads-hero">
-    <div style="display:flex;align-items:center;gap:15px;position:relative;z-index:1;">
-        <div class="patient-ads-hero-icon"><i class="fa-solid fa-rectangle-ad"></i></div>
-        <div><h2>مركز إعلانات المرضى</h2><p>صمّم إعلاناتك، راجع المعاينة، وتحكم في ظهورها داخل تطبيق طبيبك.</p></div>
-    </div>
-    <div style="position:relative;z-index:1;display:flex;align-items:center;gap:8px;font-size:12px;color:#fff3d1;font-weight:800;"><i class="fa-solid fa-shield-heart"></i> إدارة الإعلانات</div>
-</div>
-
-    <div class="card patient-ad-single-card">
+    <div class="card">
         <div class="card-head">
             <div>
                 <h3>إعلانات المرضى</h3>
@@ -4294,53 +4087,58 @@ tbody tr:hover{
             </div>
         </div>
 
-        <div class="patient-ads-content">
+        <div style="padding:20px 0;">
 
-            <div class="patient-ad-field"><label for="patientAdTitle"><i class="fa-solid fa-heading" style="color:#c99732;margin-left:7px;"></i>عنوان الإعلان</label>
+            <label for="patientAdTitle">
+                عنوان الإعلان
+            </label>
 
             <input
                 id="patientAdTitle"
                 type="text"
                 maxlength="120"
                 placeholder="مثال: عرض خاص على الخدمات الطبية"
+                style="width:100%; margin:10px 0 20px;"
             >
-            <small class="patient-ad-hint">اختر عنوانًا مختصرًا وواضحًا يلفت انتباه المرضى.</small></div>
 
-            <div class="patient-ad-field"><label for="patientAdUrl"><i class="fa-solid fa-link" style="color:#c99732;margin-left:7px;"></i>رابط الإعلان عند الضغط على الصورة</label>
+            <label for="patientAdUrl">
+                رابط الإعلان عند الضغط على الصورة
+            </label>
 
             <input
                 id="patientAdUrl"
                 type="url"
                 placeholder="https://example.com"
-                dir="ltr"
-                style="text-align:left;"
+                style="width:100%; margin:10px 0 20px;"
             >
-            <small class="patient-ad-hint">يجب أن يبدأ الرابط بـ https:// أو http://</small></div>
 
-            <div class="patient-ad-field"><label for="patientAdImage"><i class="fa-solid fa-image" style="color:#c99732;margin-left:7px;"></i>صورة الإعلان</label><div class="patient-ad-upload">
+            <label for="patientAdImage">
+                صورة الإعلان
+            </label>
 
             <input
                 id="patientAdImage"
                 type="file"
                 accept="image/png,image/jpeg,image/webp"
-                style="display:block;width:100%;margin:0;"
+                style="display:block; width:100%; margin:10px 0 20px;"
             >
-            <small class="patient-ad-hint">الصيغ المدعومة: PNG وJPG وWEBP.</small></div></div>
 
             <div
                 id="patientAdPreviewBox"
                 style="display:none; margin:15px 0;"
             >
-                <p style="margin-bottom:10px;color:#351044;font-weight:900;"><i class="fa-regular fa-eye" style="color:#c99732;margin-left:7px;"></i>معاينة الإعلان</p>
+                <p style="margin-bottom:10px;">
+                    معاينة الإعلان
+                </p>
 
                 <img
                     id="patientAdPreview"
                     alt="معاينة صورة الإعلان"
-                    class="patient-ad-preview"
+                    style="display:block; width:100%; max-width:650px; max-height:260px; object-fit:contain; border-radius:16px; border:1px solid #b99a56; background:#1c0e2b;"
                 >
             </div>
 
-            <div class="patient-ad-enabled-panel"><label style="display:flex;align-items:center;gap:11px;color:#351044;font-weight:800;cursor:pointer;">
+            <label style="display:flex; align-items:center; gap:10px; margin:20px 0;">
                 <input
                     id="patientAdEnabled"
                     type="checkbox"
@@ -4358,17 +4156,24 @@ tbody tr:hover{
                 حفظ إعدادات الإعلان
             </button>
 
-</div>
+            <button
+                type="button"
+                class="btn"
+                onclick="loadPatientAd()"
+                style="margin-right:8px;"
+            >
+                إعادة تحميل الإعدادات
+            </button>
 
             <p
                 id="patientAdStatus"
-                class="patient-ad-status" style="margin-top:14px;"
+                style="margin-top:15px;"
             ></p>
 
         </div>
     </div>
               <!-- MULTIPLE PATIENT ADS MANAGER -->
-        <div class="card patient-ads-manager-card" id="patientAdsManagerCard" style="margin-top:22px;">
+        <div class="card" id="patientAdsManagerCard" style="margin-top:22px;">
             <div class="card-head">
                 <div>
                     <h3>إدارة الإعلانات المتعددة</h3>
@@ -4376,13 +4181,15 @@ tbody tr:hover{
                 </div>
             </div>
 
-            <div class="patient-ads-content">
-                <button type="button" class="patient-ad-btn patient-ad-btn-purple" onclick="openMultiPatientAdEditor()">
-                    <i class="fa-solid fa-plus"></i> إضافة إعلان جديد
+            <div style="padding:16px 0;">
+                <button type="button"
+                        class="btn btn-gold"
+                        onclick="openMultiPatientAdEditor()">
+                    + إضافة إعلان جديد
                 </button>
 
                 <div id="patientAdsEditor"
-                     style="display:none;border:1px solid #d9c4e6;border-radius:17px;padding:20px;margin-top:18px;background:linear-gradient(145deg,#fff,#faf6fd);box-shadow:0 7px 20px rgba(53,16,68,.06);">
+                     style="display:none;border:1px solid #b99a56;border-radius:14px;padding:16px;margin-top:18px;">
 
                     <h4 id="multiPatientAdHeading">إضافة إعلان جديد</h4>
 
@@ -4474,14 +4281,14 @@ tbody tr:hover{
 
 <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;">
     <button type="button"
-            class="patient-ad-btn patient-ad-btn-primary"
+            class="btn btn-gold"
             onclick="saveMultiplePatientAd()"
             style="flex:1;min-width:150px;min-height:46px;border-radius:12px;font-weight:800;">
         ✓ حفظ الإعلان
     </button>
 
     <button type="button"
-            class="patient-ad-btn patient-ad-btn-secondary"
+            class="btn"
             onclick="closeMultiPatientAdEditor()"
             style="flex:1;min-width:110px;min-height:46px;border:1px solid #d8c6e5;border-radius:12px;background:#fff;color:#351044;font-weight:700;">
         إلغاء
@@ -4493,11 +4300,18 @@ tbody tr:hover{
 
                 <hr style="margin:22px 0;">
 
-                <div class="patient-ads-list-heading"><h4><i class="fa-solid fa-layer-group" style="color:#c99732;margin-left:8px;"></i>الإعلانات المحفوظة</h4><span id="patientAdsCountBadge" class="patient-ads-count"><i class="fa-solid fa-bullhorn"></i> جاري الإحصاء...</span></div>
+                <h4>الإعلانات المحفوظة</h4>
 
                 <div id="patientAdsList" style="margin-top:14px;">
                     جاري تحميل الإعلانات...
                 </div>
+
+                <button type="button"
+                        class="btn"
+                        style="margin-top:14px;"
+                        onclick="loadMultiplePatientAds()">
+                    تحديث قائمة الإعلانات
+</button>
 
 <p id="patientAdsListStatus" style="margin-top:12px;"></p>
  </div>
@@ -4801,6 +4615,7 @@ let doctors = [];
 
 let wilayas = [];
 
+let autoRefresh;
 
 /* ============================================================
    ELEMENTS
@@ -5028,28 +4843,6 @@ async function adminFetch(
 }
 
 /* ============================================================
-   LOGIN - PASSWORD VISIBILITY
-============================================================ */
-
-const adminKeyInput = document.getElementById("adminKey");
-const toggleAdminKey = document.getElementById("toggleAdminKey");
-
-toggleAdminKey.addEventListener("click", () => {
-    const showPassword = adminKeyInput.type === "password";
-    adminKeyInput.type = showPassword ? "text" : "password";
-    toggleAdminKey.innerHTML = showPassword
-        ? '<i class="fa-solid fa-eye-slash" aria-hidden="true"></i>'
-        : '<i class="fa-solid fa-eye" aria-hidden="true"></i>';
-    toggleAdminKey.setAttribute("aria-pressed", String(showPassword));
-    toggleAdminKey.setAttribute(
-        "aria-label",
-        showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"
-    );
-    toggleAdminKey.title = showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور";
-    adminKeyInput.focus();
-});
-
-/* ============================================================
    LOGIN
 ============================================================ */
 
@@ -5078,12 +4871,7 @@ document
                 );
 
             error.textContent =
-                "جاري التحقق من كلمة المرور...";
-
-            const submitButton = event.currentTarget.querySelector('button[type="submit"]');
-            const originalButtonHtml = submitButton.innerHTML;
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جارٍ التحقق...';
+                "جاري التحقق...";
 
             try{
 
@@ -5105,12 +4893,8 @@ document
                         }
                     );
 
-                let data;
-                try {
-                    data = await response.json();
-                } catch {
-                    throw new Error("تعذر قراءة رد الخادم. تحقق من اتصال الخدمة ثم أعد المحاولة.");
-                }
+                const data =
+                    await response.json();
 
                 if(
                     !response.ok ||
@@ -5138,11 +4922,8 @@ document
             }catch(error){
 
                 error.textContent =
-                    error.message || "تعذر تسجيل الدخول. تحقق من كلمة المرور واتصال الخادم.";
+                    error.message;
 
-            } finally {
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalButtonHtml;
             }
 
         }
@@ -5194,6 +4975,7 @@ function enterApp(){
 
     loadAll();
 
+    startAutoRefresh();
 }
 
 function logout(){
@@ -5203,6 +4985,10 @@ function logout(){
     );
 
     adminKey = "";
+
+    clearInterval(
+        autoRefresh
+    );
 
     app.classList.remove(
         "visible"
@@ -5221,7 +5007,10 @@ function logout(){
 
 document
     .getElementById("logoutBtn")
-    .addEventListener("click", logout);
+    .addEventListener(
+        "click",
+        logout
+    );
 
 /* ============================================================
    NAVIGATION
@@ -5250,6 +5039,9 @@ function showSection(name) {
     if (name === "doctors") loadDoctors();
     if (name === "support-messages") {
         loadSupportInbox();
+        startSupportAutoRefresh();
+    } else {
+        stopSupportAutoRefresh();
     }
     if (name === "patient-ads") {
         loadPatientAd();
@@ -5844,22 +5636,7 @@ function formatDoctorRegistrationDate(doctor){
 }
 
 function filterDoctorsDirectory(){
-    const active = document.activeElement;
-    const activeId = active && active.id;
-    const cursor = activeId === "doctorDirectorySearch" &&
-        typeof active.selectionStart === "number" ? active.selectionStart : null;
-
     renderDoctors();
-
-    if(activeId){
-        const restored = document.getElementById(activeId);
-        if(restored){
-            restored.focus({ preventScroll:true });
-            if(cursor !== null && typeof restored.setSelectionRange === "function"){
-                restored.setSelectionRange(cursor, cursor);
-            }
-        }
-    }
 }
 
 function renderDoctors(){
@@ -5869,16 +5646,8 @@ function renderDoctors(){
 
     const queryInput = document.getElementById("doctorDirectorySearch");
     const statusInput = document.getElementById("doctorDirectoryStatus");
-    const specialtyInput = document.getElementById("doctorDirectorySpecialty");
-    const wilayaInput = document.getElementById("doctorDirectoryWilaya");
-    const sortInput = document.getElementById("doctorDirectorySort");
     const query = (queryInput ? queryInput.value : "").trim().toLocaleLowerCase("ar");
     const selectedStatus = statusInput ? statusInput.value : "all";
-    const selectedSpecialty = specialtyInput ? specialtyInput.value : "all";
-    const selectedWilaya = wilayaInput ? wilayaInput.value : "all";
-    const selectedSort = sortInput ? sortInput.value : "newest";
-    const uniqueSorted = key => [...new Set(allDoctors.map(d => String(d[key] || "").trim()).filter(Boolean))]
-        .sort((a,b) => a.localeCompare(b, "ar"));
 
     const allDoctors = Array.isArray(doctors) ? doctors.slice() : [];
     const activeCount = allDoctors.filter(doctor =>
@@ -5891,6 +5660,11 @@ function renderDoctors(){
     ).length;
 
     const filteredDoctors = allDoctors
+        .sort((a,b) => {
+            const dateA = Date.parse(a.createdAt || a.registeredAt || a.registrationDate || a.created_at || "");
+            const dateB = Date.parse(b.createdAt || b.registeredAt || b.registrationDate || b.created_at || "");
+            return (Number.isNaN(dateB) ? 0 : dateB) - (Number.isNaN(dateA) ? 0 : dateA);
+        })
         .filter(doctor => {
             const searchable = [
                 doctor.name, doctor.specialty, doctor.wilaya,
@@ -5907,22 +5681,7 @@ function renderDoctors(){
                     !(doctor.active !== false &&
                       (doctor.status === "active" || doctor.status === "approved")) &&
                     doctor.status !== "pending");
-            const matchesSpecialty = selectedSpecialty === "all" || String(doctor.specialty || "") === selectedSpecialty;
-            const matchesWilaya = selectedWilaya === "all" || String(doctor.wilaya || "") === selectedWilaya;
-            return matchesQuery && matchesStatus && matchesSpecialty && matchesWilaya;
-        })
-        .sort((a,b) => {
-            if(selectedSort === "name"){
-                return String(a.name || "").localeCompare(String(b.name || ""), "ar");
-            }
-            if(selectedSort === "oldest"){
-                const dateA = Date.parse(a.createdAt || a.registeredAt || a.registrationDate || a.created_at || "");
-                const dateB = Date.parse(b.createdAt || b.registeredAt || b.registrationDate || b.created_at || "");
-                return (Number.isNaN(dateA) ? 0 : dateA) - (Number.isNaN(dateB) ? 0 : dateB);
-            }
-            const dateA = Date.parse(a.createdAt || a.registeredAt || a.registrationDate || a.created_at || "");
-            const dateB = Date.parse(b.createdAt || b.registeredAt || b.registrationDate || b.created_at || "");
-            return (Number.isNaN(dateB) ? 0 : dateB) - (Number.isNaN(dateA) ? 0 : dateA);
+            return matchesQuery && matchesStatus;
         });
 
     container.innerHTML = `
@@ -5965,19 +5724,6 @@ function renderDoctors(){
                     <option value="active" ${selectedStatus==="active"?"selected":""}>نشط</option>
                     <option value="pending" ${selectedStatus==="pending"?"selected":""}>قيد المراجعة</option>
                     <option value="inactive" ${selectedStatus==="inactive"?"selected":""}>غير نشط / مرفوض</option>
-                </select>
-                <select id="doctorDirectorySpecialty" onchange="filterDoctorsDirectory()" style="padding:11px 13px;border:1px solid #e5dbea;border-radius:11px;background:#fff;color:#351044;max-width:190px;">
-                    <option value="all">كل التخصصات</option>
-                    ${uniqueSorted("specialty").map(value => `<option value="${escapeHtml(value)}" ${selectedSpecialty===value?"selected":""}>${escapeHtml(value)}</option>`).join("")}
-                </select>
-                <select id="doctorDirectoryWilaya" onchange="filterDoctorsDirectory()" style="padding:11px 13px;border:1px solid #e5dbea;border-radius:11px;background:#fff;color:#351044;max-width:190px;">
-                    <option value="all">كل الولايات</option>
-                    ${uniqueSorted("wilaya").map(value => `<option value="${escapeHtml(value)}" ${selectedWilaya===value?"selected":""}>${escapeHtml(value)}</option>`).join("")}
-                </select>
-                <select id="doctorDirectorySort" onchange="filterDoctorsDirectory()" aria-label="ترتيب الأطباء" style="padding:11px 13px;border:1px solid #e5dbea;border-radius:11px;background:#fff;color:#351044;">
-                    <option value="newest" ${selectedSort==="newest"?"selected":""}>الأحدث تسجيلًا</option>
-                    <option value="oldest" ${selectedSort==="oldest"?"selected":""}>الأقدم تسجيلًا</option>
-                    <option value="name" ${selectedSort==="name"?"selected":""}>حسب الاسم</option>
                 </select>
             </div>
         </div>
@@ -6024,22 +5770,17 @@ function renderDoctors(){
                                 <tr style="border-bottom:1px solid #f0eaf4;">
                                     <td style="padding:15px 14px;color:#8b7c94;font-weight:700;">#${escapeHtml(String(doctor.id ?? ""))}</td>
                                     <td style="padding:15px 14px;">
-                                        <div class="doctor-directory-identity">
-                                            <span class="doctor-directory-avatar"><i class="fa-solid fa-user-doctor"></i></span>
-                                            <span class="doctor-directory-name-wrap">
-                                                <strong>${escapeHtml(doctor.name || "بدون اسم")}</strong>
-                                                <small><i class="fa-solid fa-id-badge"></i> ملف الطبيب #${escapeHtml(String(doctor.id ?? ""))}</small>
-                                            </span>
-                                        </div>
+                                        <div style="font-weight:800;color:#351044;">${escapeHtml(doctor.name || "بدون اسم")}</div>
+                                        <div style="font-size:11px;color:#9a8da2;margin-top:5px;">ملف الطبيب</div>
                                     </td>
                                     <td style="padding:15px 14px;">
-                                        <div class="doctor-directory-specialty"><i class="fa-solid fa-stethoscope"></i> ${escapeHtml(doctor.specialty || "تخصص غير محدد")}</div>
-                                        <div class="doctor-directory-location"><i class="fa-solid fa-location-dot"></i> ${escapeHtml(doctor.wilaya || "ولاية غير محددة")} <span>•</span> ${escapeHtml(doctor.municipality || "بلدية غير محددة")}</div>
+                                        <div style="font-weight:700;color:#4f3a5a;">${escapeHtml(doctor.specialty || "غير محدد")}</div>
+                                        <div style="font-size:12px;color:#81758a;margin-top:5px;">${escapeHtml(doctor.wilaya || "—")} • ${escapeHtml(doctor.municipality || "—")}</div>
                                     </td>
-                                    <td dir="ltr" class="doctor-directory-phone"><i class="fa-solid fa-phone"></i> ${escapeHtml(doctor.phone || "—")}</td>
+                                    <td dir="ltr" style="padding:15px 14px;text-align:right;color:#51405b;white-space:nowrap;">${escapeHtml(doctor.phone || "—")}</td>
                                     <td style="padding:15px 14px;white-space:nowrap;">
-                                        <div class="doctor-directory-date" style="color:${registered==="غير متوفر"?"#9a8da2":"#5b4269"};">
-                                            <i class="fa-regular fa-calendar-check"></i>
+                                        <div style="display:flex;align-items:center;gap:7px;color:${registered==="غير متوفر"?"#9a8da2":"#5b4269"};font-size:12px;font-weight:700;">
+                                            <i class="fa-regular fa-calendar" style="color:#c99732;"></i>
                                             ${escapeHtml(registered)}
                                         </div>
                                         ${registered!=="غير متوفر" ? '<div style="font-size:10px;color:#a195aa;margin-top:5px;">تاريخ إنشاء الحساب</div>' : '<div style="font-size:10px;color:#a195aa;margin-top:5px;">لم يُحفظ التاريخ لهذا الحساب</div>'}
@@ -6437,7 +6178,47 @@ async function deleteDoctor(id){
     }
 }
 
+/* ============================================================
+   REFRESH
+============================================================ */
 
+async function refreshAll() {
+    showToast("جاري تحديث البيانات...");
+    const activeSection = document.querySelector(".section.active");
+    const sectionId = activeSection ? activeSection.id : "";
+    try {
+        if (sectionId === "section-doctors") {
+            await Promise.all([loadDoctors(), loadWilayas()]);
+        } else if (sectionId === "section-support-messages") {
+            await loadSupportInbox();
+        } else if (sectionId === "section-patient-ads") {
+            await Promise.all([loadPatientAd(), loadMultiplePatientAds()]);
+        } else {
+            await loadAll();
+        }
+        showToast("تم تحديث البيانات");
+    } catch (error) {
+        showToast(error.message || "تعذر تحديث البيانات", "error");
+    }
+}
+document.getElementById("refreshBtn").addEventListener("click", refreshAll);
+document.getElementById("topRefresh").addEventListener("click", refreshAll);
+
+function startAutoRefresh() {
+    clearInterval(autoRefresh);
+    autoRefresh = setInterval(() => {
+        if (document.visibilityState !== "visible") return;
+        const activeSection = document.querySelector(".section.active");
+        if (activeSection?.id === "section-doctors") {
+            loadDoctors();
+        } else if (activeSection?.id === "section-patient-ads") {
+            loadMultiplePatientAds();
+        }
+    }, 30000);
+}
+
+/* ============================================================
+   CLOSE MODALS BY BACKGROUND
 ============================================================ */
 
 document
@@ -6980,7 +6761,64 @@ async function sendAdminSupportReply(event) {
 
       
 
+/* ============================================================
+   TABIBK - SUPPORT CHAT AUTO REFRESH
+============================================================ */
 
+let supportInboxRefreshTimer = null;
+let supportConversationRefreshTimer = null;
+
+function startSupportAutoRefresh() {
+    // منع إنشاء مؤقّتات مكررة.
+    stopSupportAutoRefresh();
+
+    supportInboxRefreshTimer = setInterval(() => {
+        const section = document.getElementById(
+            "section-support-messages"
+        );
+
+        if (!section || !section.classList.contains("active")) {
+            return;
+        }
+
+        loadSupportInbox();
+    }, 15000);
+
+    supportConversationRefreshTimer = setInterval(() => {
+        const section = document.getElementById(
+            "section-support-messages"
+        );
+
+        const doctorId = Number(selectedSupportDoctorIdForChat);
+
+        if (
+            !section ||
+            !section.classList.contains("active") ||
+            !Number.isSafeInteger(doctorId) ||
+            doctorId <= 0
+        ) {
+            return;
+        }
+
+        loadAdminSupportConversation(doctorId);
+    }, 5000);
+}
+
+function stopSupportAutoRefresh() {
+    if (supportInboxRefreshTimer !== null) {
+        clearInterval(supportInboxRefreshTimer);
+        supportInboxRefreshTimer = null;
+    }
+
+    if (supportConversationRefreshTimer !== null) {
+        clearInterval(supportConversationRefreshTimer);
+        supportConversationRefreshTimer = null;
+    }
+}
+
+      
+/* ============================================================
+   TABIBK - MULTIPLE PATIENT ADS MANAGER
 ============================================================ */
 
 let multiPatientAds = [];

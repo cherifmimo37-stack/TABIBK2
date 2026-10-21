@@ -5248,6 +5248,17 @@ function enterApp(){
 
     loadAll();
 
+      loadAdminNotifications();
+
+if (adminNotificationsTimer) {
+    clearInterval(adminNotificationsTimer);
+}
+
+adminNotificationsTimer = setInterval(
+    loadAdminNotifications,
+    15000
+);
+
     // تسجيل رمز الهاتف إذا وصل قبل تسجيل دخول الإدارة.
     if (
         typeof window.pendingAdminFcmToken === "string" &&
@@ -5260,14 +5271,20 @@ function enterApp(){
 
 }
 
+
 function logout(){
+
+    // إيقاف التحديث التلقائي لإشعارات الإدارة.
+    if (adminNotificationsTimer) {
+        clearInterval(adminNotificationsTimer);
+        adminNotificationsTimer = null;
+    }
 
     localStorage.removeItem(
         ADMIN_KEY_STORAGE
     );
 
     adminKey = "";
-
 
     app.classList.remove(
         "visible"
@@ -5283,6 +5300,7 @@ function logout(){
 
     closeSidebar();
 }
+
 
 function showLogoutConfirmation() {
     let modal = document.getElementById("tabibkLogoutConfirm");
@@ -7267,7 +7285,153 @@ window.setTabibkAndroidFcmToken = async function (token) {
         );
     }
 };
-     
+
+ 
+
+/* ============================================================
+   ADMIN NOTIFICATIONS BELL
+============================================================ */
+
+let adminNotificationsTimer = null;
+let adminNotificationsBusy = false;
+
+async function loadAdminNotifications() {
+
+    if (!adminKey || adminNotificationsBusy) {
+        return;
+    }
+
+    const badge = document.getElementById(
+        "adminNotificationCount"
+    );
+
+    if (!badge) {
+        return;
+    }
+
+    adminNotificationsBusy = true;
+
+    try {
+
+        const result = await adminFetch(
+            "/api/admin/notifications"
+        );
+
+        if (!result || !result.success) {
+            return;
+        }
+
+        const count =
+            Number(result.unreadCount) || 0;
+
+        badge.textContent =
+            count > 99 ? "99+" : String(count);
+
+        badge.hidden = count === 0;
+
+    } catch (error) {
+
+        console.error(
+            "Failed to refresh admin notification count:",
+            error.message
+        );
+
+    } finally {
+
+        adminNotificationsBusy = false;
+    }
+}
+
+
+// Open the admin notifications.
+document
+    .getElementById("adminNotificationsBtn")
+    ?.addEventListener("click", async function () {
+
+        if (!adminKey) {
+            return;
+        }
+
+        try {
+
+            const result = await adminFetch(
+                "/api/admin/notifications"
+            );
+
+            if (!result || !result.success) {
+
+                alert(
+                    "تعذر تحميل إشعارات الإدارة."
+                );
+
+                return;
+            }
+
+            const notifications =
+                Array.isArray(result.notifications)
+                    ? result.notifications
+                    : [];
+
+            const unread = notifications.filter(
+                item => item.read !== true
+            );
+
+            if (unread.length === 0) {
+
+                alert(
+                    "ما كاين حتى إشعار جديد."
+                );
+
+            } else {
+
+                const message = unread
+                    .slice(0, 10)
+                    .map(item =>
+                        `${item.title}\n${item.message}`
+                    )
+                    .join(
+                        "\n\n──────────\n\n"
+                    );
+
+                alert(message);
+
+                // Mark only the notifications displayed
+                // as read, not newer notifications.
+                for (const item of unread.slice(0, 10)) {
+
+                    await adminFetch(
+                        "/api/admin/notifications/read",
+                        {
+                            method: "POST",
+                            body: {
+                                id: item.id
+                            }
+                        }
+                    );
+                }
+            }
+
+            if (
+                typeof showSection === "function"
+            ) {
+                showSection("doctors");
+            }
+
+            await loadAdminNotifications();
+
+        } catch (error) {
+
+            console.error(
+                "Admin notification click failed:",
+                error.message
+            );
+
+            alert(
+                "حدث خطأ أثناء فتح إشعارات الإدارة."
+            );
+        }
+    });
+
 /* ============================================================
    INITIALIZE
 ============================================================ */

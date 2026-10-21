@@ -3968,6 +3968,28 @@ tbody tr:hover{
             الإدارة
         </div>
 
+          
+        <!-- إشعارات الإدارة -->
+        <button
+            class="nav-item admin-notifications-item"
+            id="adminNotificationsBtn"
+            type="button"
+            title="إشعارات الإدارة"
+        >
+            <i class="fa-solid fa-bell"></i>
+
+            <span>
+                إشعارات الإدارة
+            </span>
+
+            <span
+                class="admin-notification-count"
+                id="adminNotificationCount"
+                hidden
+            >0</span>
+        </button>
+
+          
         <button
             class="nav-item active"
             data-section="doctors"
@@ -7196,6 +7218,46 @@ function updateSupportChatMobileView() {
 /* ============================================================
    END MULTIPLE PATIENT ADS MANAGER
 ============================================================ */
+ 
+/* ============================================================
+   ADMIN FCM TOKEN RECEIVER
+============================================================ */
+
+window.setTabibkAndroidFcmToken = async function (token) {
+    if (typeof token !== "string" || !token.trim()) {
+        return;
+    }
+
+    // Keep the latest token until the admin is logged in.
+    window.pendingAdminFcmToken = token.trim();
+
+    if (!adminKey) {
+        return;
+    }
+
+    try {
+        const result = await adminFetch(
+            "/api/admin/fcm-token",
+            {
+                method: "POST",
+                body: {
+                    token: window.pendingAdminFcmToken
+                }
+            }
+        );
+
+        if (result.success) {
+            window.pendingAdminFcmToken = "";
+            console.log("Admin notification token registered.");
+        }
+    } catch (error) {
+        console.error(
+            "Admin notification token registration failed:",
+            error.message
+        );
+    }
+};
+     
 /* ============================================================
    INITIALIZE
 ============================================================ */

@@ -4450,6 +4450,56 @@ tbody tr:hover{
 >
 
     <div class="card">
+        <div class="card-head">
+            <div>
+                <h3><i class="fa-solid fa-bullhorn"></i> إرسال إعلان أو تنبيه</h3>
+                <p>إرسال رسالة إدارية لطبيب محدد أو لجميع الأطباء المعتمدين والنشطين</p>
+            </div>
+        </div>
+
+        <form id="doctorAnnouncementForm">
+            <div class="form-field" style="margin-bottom:13px">
+                <label for="doctorAnnouncementTarget">المستلمون</label>
+                <select id="doctorAnnouncementTarget" required>
+                    <option value="" selected disabled>اختر طبيبًا أو الإرسال للجميع</option>
+                    <option value="all">جميع الأطباء المعتمدين والنشطين</option>
+                </select>
+            </div>
+
+            <div class="form-field" style="margin-bottom:13px">
+                <label for="doctorAnnouncementTitle">عنوان التنبيه *</label>
+                <input
+                    id="doctorAnnouncementTitle"
+                    type="text"
+                    maxlength="120"
+                    placeholder="مثال: إعلان إداري مهم"
+                    required
+                >
+            </div>
+
+            <div class="form-field" style="margin-bottom:13px">
+                <label for="doctorAnnouncementMessage">محتوى الرسالة *</label>
+                <textarea
+                    id="doctorAnnouncementMessage"
+                    rows="4"
+                    maxlength="3000"
+                    placeholder="اكتب الإعلان أو التنبيه الموجه للطبيب..."
+                    required
+                    style="width:100%;border:1px solid var(--border);border-radius:11px;padding:12px;font-family:inherit;resize:vertical"
+                ></textarea>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <button class="btn btn-gold" type="submit" id="doctorAnnouncementSubmit">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    إرسال التنبيه
+                </button>
+                <small style="color:var(--muted)">سيُحفظ التنبيه عند الطبيب، وستتم محاولة إرسال إشعار للهاتف إذا كان لديه رمز إشعارات مسجلًا.</small>
+            </div>
+        </form>
+    </div>
+
+    <div class="card">
 
         <div class="card-head">
 
@@ -6984,6 +7034,105 @@ document
     );
 
 /* ============================================================
+   DOCTOR ANNOUNCEMENTS — ADMIN
+============================================================ */
+
+function populateDoctorAnnouncementTargets() {
+    const select = document.getElementById("doctorAnnouncementTarget");
+    if (!select) return;
+
+    const currentValue = select.value;
+    select.replaceChildren();
+
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.disabled = true;
+    placeholder.textContent = "اختر طبيبًا أو الإرسال للجميع";
+    select.appendChild(placeholder);
+
+    const allOption = document.createElement("option");
+    allOption.value = "all";
+    allOption.textContent = "جميع الأطباء المعتمدين والنشطين";
+    select.appendChild(allOption);
+
+    const eligibleDoctors = (Array.isArray(doctors) ? doctors : [])
+        .filter(doctor =>
+            doctor &&
+            doctor.status === "approved" &&
+            doctor.active !== false &&
+            Number.isSafeInteger(Number(doctor.id)) &&
+            Number(doctor.id) > 0
+        );
+
+    eligibleDoctors.forEach(doctor => {
+        const option = document.createElement("option");
+        option.value = String(Number(doctor.id));
+        option.textContent = doctor.name || `الطبيب رقم ${doctor.id}`;
+        select.appendChild(option);
+    });
+
+    if ([...select.options].some(option => option.value === currentValue)) {
+        select.value = currentValue;
+    } else {
+        select.value = "";
+    }
+}
+
+document
+    .getElementById("doctorAnnouncementForm")
+    ?.addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const target = document.getElementById("doctorAnnouncementTarget");
+        const titleInput = document.getElementById("doctorAnnouncementTitle");
+        const messageInput = document.getElementById("doctorAnnouncementMessage");
+        const submitButton = document.getElementById("doctorAnnouncementSubmit");
+
+        const doctorId = target?.value || "";
+        const title = titleInput?.value.trim() || "";
+        const message = messageInput?.value.trim() || "";
+
+        if (!doctorId || !title || !message) {
+            showToast("اختر المستلمين واكتب عنوان الرسالة ومحتواها", "error");
+            return;
+        }
+
+        if (doctorId === "all" && !confirm(
+            "تأكيد الإرسال الجماعي؟\nسيُرسل هذا التنبيه إلى جميع الأطباء المعتمدين والنشطين."
+        )) {
+            return;
+        }
+
+        const originalButtonText = submitButton?.innerHTML || "";
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الإرسال...';
+        }
+
+        try {
+            const result = await adminFetch("/api/admin/doctor-announcements", {
+                method: "POST",
+                body: { doctorId, title, message }
+            });
+
+            showToast(
+                `تم حفظ التنبيه لـ ${Number(result.sentCount) || 0} طبيب`
+            );
+
+            if (titleInput) titleInput.value = "";
+            if (messageInput) messageInput.value = "";
+            if (target) target.value = "";
+        } catch (error) {
+            showToast(error.message || "تعذر إرسال التنبيه", "error");
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+            }
+        }
+    });
+
+/* ============================================================
    DOCTOR SUPPORT INBOX - ADMIN
 ============================================================ */
 
@@ -7005,6 +7154,8 @@ async function loadSupportInbox() {
         if (!Array.isArray(doctors) || !doctors.length) {
             await loadDoctors();
         }
+
+        populateDoctorAnnouncementTargets();
 
         const data = await adminFetch("/api/admin/support-messages");
         if (requestId !== supportInboxRequestId) return;

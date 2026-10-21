@@ -11479,7 +11479,9 @@ async function loadSupportMessages() {
 
     if (!container) return;
 
+    if (!container.childElementCount) {
     container.textContent = "جاري تحميل الرسائل...";
+}
 
     try {
         const data = await apiFetch("/api/doctor/support-messages");

@@ -276,6 +276,31 @@ body::after{
     outline:none;
 }
 .password-toggle:focus-visible{box-shadow:0 0 0 3px rgba(112,39,160,.13);}
+.nav-count{
+    margin-right:auto;min-width:22px;height:22px;padding:0 6px;border-radius:999px;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#c99732,#e2bd6b);color:#351044;font-size:11px;font-weight:900;
+    box-shadow:0 3px 9px rgba(201,151,50,.22)
+}
+.nav-count[hidden]{display:none!important}
+.admin-notifications-list{display:grid;gap:10px}
+.admin-notification-item{
+    display:flex;align-items:center;gap:13px;padding:15px;border:1px solid rgba(112,39,160,.12);
+    border-radius:15px;background:#fff;color:var(--purple-900);transition:background .18s,border-color .18s
+}
+.admin-notification-item:hover{background:#fbf8fd;border-color:rgba(112,39,160,.28)}
+.admin-notification-item.unread{background:#fbf7ff;border-color:rgba(112,39,160,.25)}
+.admin-notification-icon{
+    width:44px;height:44px;min-width:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    color:var(--purple);background:linear-gradient(145deg,rgba(112,39,160,.10),rgba(201,151,50,.18));font-size:18px
+}
+.admin-notification-copy{display:grid;gap:5px;flex:1;min-width:0}
+.admin-notification-copy strong{font-size:14px;font-weight:900}
+.admin-notification-copy span{font-size:13px;color:#65536f;overflow-wrap:anywhere}
+.admin-notification-copy small{font-size:11px;color:#877c8d}
+.admin-notification-dot{width:9px;height:9px;border-radius:50%;background:#c99732;flex-shrink:0}
+@media(max-width:520px){.admin-notification-item{padding:12px;gap:9px}.admin-notification-icon{width:38px;height:38px;min-width:38px}}
+
 #adminKey{padding-left:58px;}
 .login-btn{
     display:flex;
@@ -3969,6 +3994,16 @@ tbody tr:hover{
         </div>
 
         <button
+            class="nav-item"
+            data-section="admin-notifications"
+            style="position:relative"
+        >
+            <i class="fa-solid fa-bell"></i>
+            <span>إشعارات الإدارة</span>
+            <span id="adminNotificationsBadge" class="nav-count" hidden>0</span>
+        </button>
+
+        <button
             class="nav-item active"
             data-section="doctors"
         >
@@ -4091,6 +4126,26 @@ tbody tr:hover{
 <!-- =========================================================
      DOCTORS
 ========================================================= -->
+<section
+    class="section"
+    id="section-admin-notifications"
+>
+    <div class="card">
+        <div class="card-head">
+            <div>
+                <h3>إشعارات الإدارة</h3>
+                <p>متابعة طلبات تسجيل الأطباء الجديدة</p>
+            </div>
+            <button type="button" class="btn" onclick="loadAdminNotifications()">
+                <i class="fa-solid fa-rotate"></i> تحديث
+            </button>
+        </div>
+        <div id="adminNotificationsList" class="admin-notifications-list">
+            <div class="loading"><div class="spinner"></div> جاري تحميل الإشعارات...</div>
+        </div>
+    </div>
+</section>
+
 <section
     class="section active"
     id="section-doctors"
@@ -4845,6 +4900,30 @@ let adminKey =
         ADMIN_KEY_STORAGE
     ) || "";
 
+// Android can deliver the FCM token before admin.html finishes loading.
+let pendingAdminFcmToken = "";
+let lastRegisteredAdminFcmToken = "";
+let adminNotificationsPoll = null;
+
+window.setTabibkAndroidFcmToken = function(token) {
+    if (typeof token !== "string" || !token.trim()) return;
+    pendingAdminFcmToken = token.trim();
+    if (adminKey) void registerAdminFcmToken();
+};
+
+async function registerAdminFcmToken() {
+    if (!adminKey || !pendingAdminFcmToken || pendingAdminFcmToken === lastRegisteredAdminFcmToken) return;
+    try {
+        await adminFetch("/api/admin/fcm-token", {
+            method: "POST",
+            body: { token: pendingAdminFcmToken }
+        });
+        lastRegisteredAdminFcmToken = pendingAdminFcmToken;
+    } catch (error) {
+        console.warn("Admin push registration failed:", error?.message || error);
+    }
+}
+
 let doctors = [];
 
 let wilayas = [];
@@ -5224,6 +5303,8 @@ function enterApp(){
         "visible"
     );
 
+    void registerAdminFcmToken();
+    startAdminNotificationPolling();
     loadAll();
 
 }
@@ -5236,6 +5317,10 @@ function logout(){
 
     adminKey = "";
 
+    if (adminNotificationsPoll) {
+        clearInterval(adminNotificationsPoll);
+        adminNotificationsPoll = null;
+    }
 
     app.classList.remove(
         "visible"
@@ -5300,17 +5385,98 @@ document
     .addEventListener("click", showLogoutConfirmation);
 
 /* ============================================================
+   ADMIN NOTIFICATIONS
+============================================================ */
+
+function updateAdminNotificationsBadge(count) {
+    const badge = document.getElementById("adminNotificationsBadge");
+    if (!badge) return;
+    const value = Math.max(0, Number(count) || 0);
+    badge.textContent = value > 99 ? "99+" : String(value);
+    badge.hidden = value === 0;
+}
+
+async function loadAdminNotifications() {
+    const container = document.getElementById("adminNotificationsList");
+    if (!container) return;
+    container.innerHTML = '<div class="loading"><div class="spinner"></div> جاري تحميل الإشعارات...</div>';
+
+    try {
+        const data = await adminFetch("/api/admin/notifications");
+        const notifications = Array.isArray(data.notifications) ? data.notifications : [];
+        updateAdminNotificationsBadge(data.unreadCount);
+
+        if (!notifications.length) {
+            container.innerHTML = '<div class="empty"><i class="fa-regular fa-bell-slash"></i><p>ما كاين حتى إشعار جديد حاليًا</p></div>';
+            return;
+        }
+
+        container.innerHTML = notifications.map(item => {
+            const created = item.createdAt ? formatDateTime(item.createdAt) : "";
+            const unread = item.read !== true;
+            return `
+                <button type="button" class="admin-notification-item ${unread ? "unread" : ""}"
+                    data-admin-notification-doctor="${Number(item.doctorId) || 0}"
+                    style="width:100%;text-align:right;cursor:pointer">
+                    <span class="admin-notification-icon"><i class="fa-solid fa-user-doctor"></i></span>
+                    <span class="admin-notification-copy">
+                        <strong>طلب تسجيل طبيب جديد</strong>
+                        <span>${escapeHtml(item.doctorName || "طبيب جديد")} — ${escapeHtml(item.specialty || "تخصص غير محدد")}</span>
+                        <small>${escapeHtml([item.municipality, item.wilaya].filter(Boolean).join("، "))}${created ? " · " + escapeHtml(created) : ""}</small>
+                    </span>
+                    ${unread ? '<span class="admin-notification-dot" aria-label="غير مقروء"></span>' : ""}
+                </button>`;
+        }).join("");
+
+        container.querySelectorAll("[data-admin-notification-doctor]").forEach(button => {
+            button.addEventListener("click", async () => {
+                try {
+                    await adminFetch("/api/admin/notifications/read", { method: "POST", body: {} });
+                    updateAdminNotificationsBadge(0);
+                } catch (error) {
+                    console.warn("Could not mark notifications read:", error?.message || error);
+                }
+                showSection("doctors");
+            });
+        });
+    } catch (error) {
+        container.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><p>${escapeHtml(error.message || "تعذر تحميل الإشعارات")}</p></div>`;
+    }
+}
+
+async function refreshAdminNotificationBadge() {
+    if (!adminKey) return;
+    try {
+        const data = await adminFetch("/api/admin/notifications");
+        updateAdminNotificationsBadge(data.unreadCount);
+    } catch (error) {
+        console.warn("Admin notification refresh failed:", error?.message || error);
+    }
+}
+
+function startAdminNotificationPolling() {
+    if (adminNotificationsPoll) clearInterval(adminNotificationsPoll);
+    void refreshAdminNotificationBadge();
+    adminNotificationsPoll = setInterval(() => {
+        if (document.visibilityState === "visible" && adminKey) {
+            void refreshAdminNotificationBadge();
+        }
+    }, 15000);
+}
+
+/* ============================================================
    NAVIGATION
 ============================================================ */
 
 const sectionTitles = {
+    "admin-notifications": ["إشعارات الإدارة", "متابعة طلبات تسجيل الأطباء الجديدة"],
     doctors: ["إدارة الأطباء", "إضافة وتعديل وحذف الأطباء"],
     "support-messages": ["رسائل الأطباء", "استقبال رسائل الأطباء والرد عليها"],
     "patient-ads": ["إعلانات المرضى", "إدارة الإعلانات التي تظهر للمرضى"]
 };
 
 function showSection(name) {
-    const allowedSections = ["doctors", "support-messages", "patient-ads"];
+    const allowedSections = ["admin-notifications", "doctors", "support-messages", "patient-ads"];
     if (!allowedSections.includes(name)) return;
     document.querySelectorAll(".section").forEach(section => section.classList.remove("active"));
     const target = document.getElementById("section-" + name);
@@ -5323,6 +5489,7 @@ function showSection(name) {
         document.getElementById("pageSubtitle").textContent = info[1];
     }
     closeSidebar();
+    if (name === "admin-notifications") loadAdminNotifications();
     if (name === "doctors") loadDoctors();
     if (name === "support-messages") {
         loadSupportInbox();

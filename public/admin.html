@@ -5702,6 +5702,8 @@ adminNotificationsTimer = setInterval(
 
 function logout(){
 
+  stopSupportAutoRefresh();    
+
     // إيقاف التحديث التلقائي لإشعارات الإدارة.
     if (adminNotificationsTimer) {
         clearInterval(adminNotificationsTimer);
@@ -5802,9 +5804,14 @@ function showSection(name) {
     }
     closeSidebar();
     if (name === "doctors") loadDoctors();
-    if (name === "support-messages") {
-        loadSupportInbox();
-    }
+
+if (name === "support-messages") {
+    loadSupportInbox();
+    startSupportAutoRefresh();
+} else {
+    stopSupportAutoRefresh();
+}
+      
     if (name === "patient-ads") {
         loadMultiplePatientAds();
     }
@@ -7456,6 +7463,44 @@ document
 let selectedSupportDoctorIdForChat = null;
 let supportInboxRequestId = 0;
 let supportConversationRequestId = 0;
+
+      
+/* ============================================================
+   SUPPORT MESSAGES - AUTO REFRESH
+============================================================ */
+
+let supportAutoRefreshTimer = null;
+
+function startSupportAutoRefresh() {
+    if (supportAutoRefreshTimer) {
+        clearInterval(supportAutoRefreshTimer);
+    }
+
+    supportAutoRefreshTimer = setInterval(async () => {
+        const section = document.getElementById(
+            "section-support-messages"
+        );
+
+        // التحديث فقط عندما يكون قسم الرسائل مفتوحًا.
+        if (
+            !section ||
+            !section.classList.contains("active") ||
+            !adminKey
+        ) {
+            return;
+        }
+
+        // تحديث قائمة المحادثات والمحادثة المختارة.
+        await loadSupportInbox();
+    }, 5000);
+}
+
+function stopSupportAutoRefresh() {
+    if (supportAutoRefreshTimer) {
+        clearInterval(supportAutoRefreshTimer);
+        supportAutoRefreshTimer = null;
+    }
+}
 
 async function loadSupportInbox() {
     const requestId = ++supportInboxRequestId;

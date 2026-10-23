@@ -8357,7 +8357,6 @@ app.get(
 // ============================================================
 
 
-
 let patientRemindersProcessing = false;
 
 async function processPatientReminders() {
@@ -8376,11 +8375,10 @@ async function processPatientReminders() {
             Array.isArray(database.appointments)
                 ? database.appointments
                 : []
-        ).filter(
-            appointment =>
-                ["confirmed", "accepted"].includes(
-                    appointment.status
-                )
+        ).filter(appointment =>
+            ["confirmed", "accepted"].includes(
+                appointment.status
+            )
         );
 
         for (const appointment of appointments) {
@@ -8399,69 +8397,76 @@ async function processPatientReminders() {
             const minutesLeft =
                 (appointmentTime - now) / (60 * 1000);
 
-            // Reminder approximately 24 hours before appointment
+            const reminders = [];
+
             if (
                 minutesLeft <= 1440 &&
                 minutesLeft > 60 &&
                 !appointment.reminder24hSent
             ) {
-                const reminder = {
-                    appointmentId: appointment.id,
-                    patientPhone: appointment.patientPhone,
-                    bookingNumber: appointment.bookingNumber,
+                reminders.push({
+                    flag: "reminder24hSent",
                     type: "reminder_24h",
                     title: "تذكير بموعدك 📅",
                     message:
                         `تذكير: لديك موعد مع ${appointment.doctorName} غدا بتاريخ ${appointment.date} على الساعة ${appointment.time}.`
-                };
-
-                const sent =
-                    await sendPatientPushNotification(
-                        appointment,
-                        reminder
-                    );
-
-                if (sent) {
-                    createNotification(database, reminder);
-                    appointment.reminder24hSent = true;
-                    changed = true;
-                } else {
-                    console.warn(
-                        "24-hour reminder not delivered to FCM; will retry:",
-                        appointment.bookingNumber
-                    );
-                }
+                });
             }
 
-            // Reminder one hour before appointment
             if (
                 minutesLeft <= 60 &&
                 minutesLeft > 0 &&
                 !appointment.reminder1hSent
             ) {
-                const reminder = {
-                    appointmentId: appointment.id,
-                    patientPhone: appointment.patientPhone,
-                    bookingNumber: appointment.bookingNumber,
+                reminders.push({
+                    flag: "reminder1hSent",
                     type: "reminder_1h",
                     title: "موعدك بعد قليل ⏰",
                     message:
                         `تذكير: موعدك مع ${appointment.doctorName} بعد أقل من ساعة، على الساعة ${appointment.time}.`
+                });
+            }
+
+            for (const item of reminders) {
+                const notificationData = {
+                    appointmentId: appointment.id,
+                    patientPhone: appointment.patientPhone,
+                    bookingNumber: appointment.bookingNumber,
+                    type: item.type,
+                    title: item.title,
+                    message: item.message
                 };
 
+                // Keep one in-app reminder, even if Push fails.
+                const existingNotification =
+                    database.notifications.find(notification =>
+                        String(notification.appointmentId) ===
+                            String(appointment.id) &&
+                        notification.type === item.type
+                    );
+
+                if (!existingNotification) {
+                    createNotification(
+                        database,
+                        notificationData
+                    );
+                    changed = true;
+                }
+
+                // Retry Push until Firebase accepts a send.
                 const sent =
                     await sendPatientPushNotification(
                         appointment,
-                        reminder
+                        notificationData
                     );
 
                 if (sent) {
-                    createNotification(database, reminder);
-                    appointment.reminder1hSent = true;
+                    appointment[item.flag] = true;
                     changed = true;
                 } else {
                     console.warn(
-                        "1-hour reminder not delivered to FCM; will retry:",
+                        "Patient reminder Push will be retried:",
+                        item.type,
                         appointment.bookingNumber
                     );
                 }
@@ -8473,7 +8478,7 @@ async function processPatientReminders() {
 
             if (saveResult === false) {
                 console.error(
-                    "Patient reminder flags could not be saved."
+                    "Patient reminder data could not be saved."
                 );
             }
         }
@@ -8486,7 +8491,6 @@ async function processPatientReminders() {
         patientRemindersProcessing = false;
     }
 }
-
 // ============================================================
 // CLEAN EXPIRED SESSIONS
 // ============================================================

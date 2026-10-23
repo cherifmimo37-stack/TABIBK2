@@ -18461,6 +18461,144 @@ function updateWorkingHoursStatusUI() {
     );
 }
 
+ 
+/* =========================================================
+   WORKING HOURS — LOAD & SAVE
+========================================================= */
+
+let savingWorkingHours = false;
+
+async function loadWorkingHours() {
+    const data = await apiFetch(
+        "/api/doctor/working-hours"
+    );
+
+    const hours = data?.workingHours;
+
+    if (!hours) {
+        throw new Error("تعذر تحميل أوقات العمل");
+    }
+
+    const enabledInput = $("workingHoursEnabled");
+    const openInput = $("workingHoursOpen");
+    const closeInput = $("workingHoursClose");
+
+    if (enabledInput) {
+        enabledInput.checked = hours.enabled !== false;
+    }
+
+    if (openInput) {
+        openInput.value = hours.open || "08:00";
+    }
+
+    if (closeInput) {
+        closeInput.value = hours.close || "17:00";
+    }
+
+    const savedDays = Array.isArray(hours.days)
+        ? hours.days.map(Number)
+        : [0, 1, 2, 3, 4];
+
+    for (let day = 0; day <= 6; day++) {
+        const checkbox = $("day" + day);
+
+        if (checkbox) {
+            checkbox.checked = savedDays.includes(day);
+        }
+    }
+
+    updateWorkingHoursStatusUI();
+}
+
+async function saveWorkingHours() {
+    if (savingWorkingHours) {
+        return;
+    }
+
+    const enabledInput = $("workingHoursEnabled");
+    const openInput = $("workingHoursOpen");
+    const closeInput = $("workingHoursClose");
+    const button = $("saveWorkingHoursButton");
+    const message = $("workingHoursMessage");
+
+    if (!enabledInput || !openInput || !closeInput) {
+        return;
+    }
+
+    const days = [];
+
+    for (let day = 0; day <= 6; day++) {
+        const checkbox = $("day" + day);
+
+        if (checkbox?.checked) {
+            days.push(day);
+        }
+    }
+
+    const payload = {
+        enabled: enabledInput.checked,
+        days,
+        open: openInput.value,
+        close: closeInput.value
+    };
+
+    const originalButtonHTML = button?.innerHTML;
+
+    savingWorkingHours = true;
+
+    if (button) {
+        button.disabled = true;
+        button.innerHTML = "جارٍ حفظ أوقات العمل...";
+    }
+
+    if (message) {
+        message.textContent = "";
+        message.className = "setting-message";
+    }
+
+    try {
+        const result = await apiFetch(
+            "/api/doctor/working-hours",
+            {
+                method: "PUT",
+                body: JSON.stringify(payload)
+            }
+        );
+
+        if (result?.success !== true) {
+            throw new Error("لم يؤكد الخادم حفظ أوقات العمل");
+        }
+
+        if (message) {
+            message.textContent = "تم حفظ أيام وساعات العمل بنجاح";
+            message.className = "setting-message success";
+        }
+
+        updateWorkingHoursStatusUI();
+
+        if (typeof showToast === "function") {
+            showToast("تم حفظ أوقات العمل", "success");
+        }
+
+    } catch (error) {
+        if (message) {
+            message.textContent =
+                error.message || "تعذر حفظ أوقات العمل";
+            message.className = "setting-message error";
+        }
+
+        console.error("Save working hours:", error);
+
+    } finally {
+        savingWorkingHours = false;
+
+        if (button) {
+            button.disabled = false;
+            button.innerHTML =
+                originalButtonHTML || "حفظ أوقات العمل";
+        }
+    }
+}       
 /* =========================================================
    VACATION — STATUS UI
 ========================================================= */

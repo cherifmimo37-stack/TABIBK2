@@ -11712,19 +11712,20 @@ async function sendSupportMessage(event) {
         `;
 
         const bubble = document.createElement("div");
-        bubble.style.cssText = `
-            display:flex;
-            flex-direction:column;
-            gap:5px;
-            max-width:85%;
-            padding:10px 13px;
-            border:1px solid #c5a04b;
-            border-radius:15px;
-            background:linear-gradient(135deg,#4b205e,#351044);
-            box-shadow:0 3px 9px rgba(53,16,68,.08);
-            color:#fff;
-            overflow-wrap:anywhere;
-        `;
+
+bubble.style.cssText = `
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    max-width:85%;
+    padding:10px 13px;
+    border:1px solid #e5e7eb;
+    border-radius:15px;
+    background:#ffffff;
+    box-shadow:0 2px 7px rgba(15,23,42,.06);
+    color:#374151;
+    overflow-wrap:anywhere;
+`;
 
         const body = document.createElement("div");
         body.textContent = message;
@@ -11743,11 +11744,12 @@ async function sendSupportMessage(event) {
             hour: "2-digit",
             minute: "2-digit"
         });
-        time.style.cssText = `
-            align-self:flex-end;
-            font-size:10px;
-            color:#f1d78e;
-        `;
+        
+time.style.cssText = `
+    align-self:flex-end;
+    font-size:10px;
+    color:#6b7280;
+`;
 
         bubble.append(body, time);
         row.appendChild(bubble);
@@ -22676,19 +22678,23 @@ if (
     box-shadow: none !important;
 }
 
+
 #section-support .doctor-support-compose {
-    display: grid;
-    grid-template-columns: 44px minmax(0, 1fr);
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
     direction: rtl;
-    padding: 5px;
+    padding: 4px;
 }
+    
+
 #section-support #doctorSupportInput {
     display: block;
+    flex: 1 1 auto;
     width: 100%;
     min-width: 0;
     height: 46px !important;
@@ -22697,10 +22703,10 @@ if (
     box-sizing: border-box;
     margin: 0 !important;
     padding: 10px 14px !important;
-    border: 1px solid #cbd5e1 !important;
+    border: 1px solid #d5d0df !important;
     border-radius: 10px !important;
     outline: none;
-    background: #fff !important;
+    background: #ffffff !important;
     color: #374151 !important;
     font-family: inherit;
     font-size: 13px;
@@ -22709,9 +22715,15 @@ if (
     text-align: right;
     resize: none !important;
     overflow-y: auto;
-    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.06) !important;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04),
+                0 2px 5px rgba(15, 23, 42, 0.06) !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+#section-support #doctorSupportInput:focus {
+    border-color: #9870b5 !important;
+    box-shadow: 0 0 0 3px rgba(112, 39, 160, 0.09) !important;
+}
 #section-support #doctorSupportInput:focus {
     border-color: #9ca3af !important;
     box-shadow: 0 0 0 2px rgba(107,114,128,.08) !important;
@@ -22776,26 +22788,30 @@ if (
     }
 
 #section-support .doctor-support-compose {
-    grid-template-columns: 42px minmax(0, 1fr);
-    gap: 9px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
     padding: 3px;
 }
 
-#section-support .doctor-support-send-button {
-    width: 42px !important;
-    min-width: 42px !important;
-    max-width: 42px !important;
-    height: 42px !important;
-    min-height: 42px !important;
-}
 
-    #section-support .doctor-support-send-button {
-        flex-basis: 42px;
-        width: 42px;
-        min-width: 42px;
-        height: 42px;
-        min-height: 42px;
-    }
+#section-support .doctor-support-send-button {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: auto !important;
+    min-width: 88px !important;
+    max-width: none !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    box-sizing: border-box;
+    padding: 0 12px !important;
+    border-radius: 9px !important;
+    white-space: nowrap;
+}
 }
 </style>
     

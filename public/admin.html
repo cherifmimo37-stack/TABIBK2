@@ -4735,6 +4735,92 @@ tbody tr:hover{
 </style>
 
 
+<!-- TABIBK — DOCTOR / ADMIN LIVE SUPPORT CHAT -->
+<div class="support-messages-layout">
+
+    <!-- قائمة الأطباء -->
+    <div class="card support-doctors-card">
+        <div class="card-head">
+            <div>
+                <h3>محادثات الأطباء</h3>
+                <p>اختر طبيبًا لعرض الرسائل والرد عليها</p>
+            </div>
+            <button type="button" class="btn"
+                    onclick="loadSupportInbox()">
+                <i class="fa-solid fa-rotate"></i>
+                تحديث
+            </button>
+        </div>
+
+        <div id="supportDoctorsList"
+             aria-live="polite"
+             style="display:flex;flex-direction:column;gap:10px;min-height:180px;">
+            جاري تحميل رسائل الأطباء...
+        </div>
+    </div>
+
+    <!-- المحادثة -->
+    <div class="card support-chat-card">
+
+        <div class="support-chat-header">
+            <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+                <img id="supportDoctorAvatar"
+                     class="support-doctor-avatar"
+                     src="/images/doctor.png"
+                     alt="صورة الطبيب">
+
+                <div class="support-chat-heading">
+                    <h3 id="supportConversationTitle">
+                        اختر طبيبًا لعرض المحادثة
+                    </h3>
+
+                    <div class="support-chat-status">
+                        <span></span>
+                        رسائل الدعم والمساعدة
+                    </div>
+                </div>
+            </div>
+
+            <button type="button"
+                    class="support-back-button"
+                    onclick="closeSupportChatMobile()">
+                <i class="fa-solid fa-arrow-right"></i>
+                قائمة الأطباء
+            </button>
+        </div>
+
+        <div id="supportConversation"
+             aria-live="polite"
+             style="min-height:240px;max-height:480px;overflow-y:auto;">
+            اختر طبيبًا من القائمة لعرض الرسائل.
+        </div>
+
+        <!-- إرسال رد الإدارة -->
+        <form id="adminSupportReplyForm"
+              onsubmit="sendAdminSupportReply(event)">
+
+            <label for="adminSupportReply">
+                الرد على الطبيب
+            </label>
+
+            <textarea id="adminSupportReply"
+                      rows="3"
+                      maxlength="3000"
+                      placeholder="اكتب ردك هنا..."
+                      required></textarea>
+
+            <button type="submit"
+                    id="adminSupportReplyButton"
+                    class="btn">
+                <i class="fa-solid fa-paper-plane"></i>
+                إرسال الرد
+            </button>
+
+        </form>
+    </div>
+</div>
+<!-- END TABIBK DOCTOR / ADMIN LIVE SUPPORT CHAT -->
+      
 <!-- ADMIN MESSAGE SENDER -->
 <div class="card tbk-message-card">
 
@@ -8176,7 +8262,16 @@ function updateSupportChatMobileView() {
         section.classList.add("support-chat-open");
     }
 }
-      
+ 
+function closeSupportChatMobile() {
+    const section = document.getElementById(
+        "section-support-messages"
+    );
+
+    if (section) {
+        section.classList.remove("support-chat-open");
+    }
+}     
 /* ============================================================
    END MULTIPLE PATIENT ADS MANAGER
 ============================================================ */

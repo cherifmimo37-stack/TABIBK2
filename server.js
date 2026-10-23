@@ -3022,106 +3022,117 @@ app.get(
     }
 );
 
-// ============================================================
-// VACATION - UPDATE
-// ============================================================
+
+ // ============================================================
+ // VACATION - UPDATE
+ // ============================================================
 
 app.put(
     "/api/doctor/vacation",
     checkDoctorAuth,
-    (req, res) => {
+    async (req, res) => {
 
-        const {
-            enabled,
-            startDate,
-            endDate
-        } = req.body;
+        try {
 
-        if (
-            typeof enabled !==
-            "boolean"
-        ) {
-
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message:
-                        "حالة العطلة غير صحيحة"
-                });
-        }
-
-        if (enabled) {
+            const {
+                enabled,
+                startDate,
+                endDate
+            } = req.body;
 
             if (
-                !startDate ||
-                !endDate
+                typeof enabled !== "boolean"
             ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "حالة العطلة غير صحيحة"
+                });
+            }
 
-                return res
-                    .status(400)
-                    .json({
+            if (enabled) {
+
+                if (!startDate || !endDate) {
+                    return res.status(400).json({
                         success: false,
                         message:
                             "يجب تحديد تاريخ بداية ونهاية العطلة"
                     });
-            }
+                }
 
-            if (
-                String(startDate) >
-                String(endDate)
-            ) {
+                const dateRegex =
+                    /^\d{4}-\d{2}-\d{2}$/;
 
-                return res
-                    .status(400)
-                    .json({
+                if (
+                    !dateRegex.test(String(startDate)) ||
+                    !dateRegex.test(String(endDate)) ||
+                    String(startDate) > String(endDate)
+                ) {
+                    return res.status(400).json({
                         success: false,
                         message:
-                            "تاريخ النهاية يجب أن يكون بعد البداية"
+                            "تحقق من تاريخ بداية ونهاية العطلة"
                     });
+                }
             }
-        }
 
-        const database =
-            readDatabase();
+            const database = readDatabase();
 
-        const doctor =
-            database.doctors.find(
+            const doctor = database.doctors.find(
                 item =>
                     Number(item.id) ===
                     Number(req.doctor.id)
             );
 
-        doctor.vacation = {
+            if (!doctor) {
+                return res.status(404).json({
+                    success: false,
+                    message: "لم يتم العثور على حساب الطبيب"
+                });
+            }
 
-            enabled,
+            const vacation = {
+                enabled,
+                startDate: startDate || "",
+                endDate: endDate || ""
+            };
 
-            startDate:
-                startDate || "",
+            doctor.vacation = vacation;
 
-            endDate:
-                endDate || ""
+            const saveResult =
+                await saveDatabase(database);
 
-        };
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message:
+                        "تعذر حفظ العطلة في قاعدة البيانات. حاول مجددًا."
+                });
+            }
 
-        saveDatabase(
-            database
-        );
+            return res.json({
+                success: true,
+                message: "تم حفظ إعدادات العطلة",
+                vacation: doctor.vacation
+            });
 
-        res.json({
+        } catch (error) {
 
-            success: true,
+            console.error(
+                "Save doctor vacation error:",
+                error
+            );
 
-            message:
-                "تم حفظ إعدادات العطلة",
-
-            vacation:
-                doctor.vacation
-
-        });
+            return res.status(500).json({
+                success: false,
+                message: "حدث خطأ أثناء حفظ إعدادات العطلة"
+            });
+        }
     }
 );
 
+// ============================================================
+// DOCTOR NOTIFICATIONS - GET
+// ============================================================
 // ============================================================
 // DOCTOR NOTIFICATIONS - GET
 // ============================================================

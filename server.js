@@ -725,7 +725,39 @@ function readDatabase() {
 // Safe serialized PostgreSQL writes
 // ============================================================
 
+
 function saveDatabase(database) {
+
+    // Preserve the latest saved vacation settings
+    // when another request submits an older database snapshot.
+    if (
+        databaseCache &&
+        Array.isArray(databaseCache.doctors) &&
+        database &&
+        Array.isArray(database.doctors)
+    ) {
+        const latestVacations = new Map(
+            databaseCache.doctors.map(doctor => [
+                Number(doctor.id),
+                doctor.vacation &&
+                typeof doctor.vacation === "object"
+                    ? { ...doctor.vacation }
+                    : null
+            ])
+        );
+
+        database.doctors = database.doctors.map(doctor => {
+            const latestVacation =
+                latestVacations.get(Number(doctor.id));
+
+            return latestVacation
+                ? {
+                    ...doctor,
+                    vacation: { ...latestVacation }
+                }
+                : doctor;
+        });
+    }
 
     databaseCache =
         normalizeDatabase(database);
@@ -769,14 +801,11 @@ function saveDatabase(database) {
                             updated_at = NOW()
                         `,
                         [
-                            JSON.stringify(
-                                snapshot
-                            )
+                            JSON.stringify(snapshot)
                         ]
                     )
             )
             .catch(error => {
-
                 console.error(
                     "PostgreSQL save error:",
                     error
@@ -787,7 +816,6 @@ function saveDatabase(database) {
 
     return databaseSaveQueue;
 }
-
 // ============================================================
 // INITIALIZE DATABASE
 // ============================================================

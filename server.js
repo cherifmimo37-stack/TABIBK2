@@ -6315,6 +6315,65 @@ app.post(
     }
 );
 
+
+/* ============================================================
+   DOCTOR: DELETE ENTIRE SUPPORT CONVERSATION
+============================================================ */
+
+app.delete(
+    "/api/doctor/support-messages",
+    checkDoctorAuth,
+    async (req, res) => {
+        try {
+            const database = readDatabase();
+
+            if (!Array.isArray(database.supportMessages)) {
+                database.supportMessages = [];
+            }
+
+            const doctorId = Number(req.doctor.id);
+
+            const previousCount =
+                database.supportMessages.length;
+
+            database.supportMessages =
+                database.supportMessages.filter(
+                    item => Number(item.doctorId) !== doctorId
+                );
+
+            const deletedCount =
+                previousCount -
+                database.supportMessages.length;
+
+            const saveResult =
+                await saveDatabase(database);
+
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حذف المحادثة. حاول مرة أخرى."
+                });
+            }
+
+            return res.json({
+                success: true,
+                deletedCount,
+                message: "تم حذف المحادثة بنجاح"
+            });
+
+        } catch (error) {
+            console.error(
+                "Doctor support conversation deletion error:",
+                error
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "حدث خطأ أثناء حذف المحادثة"
+            });
+        }
+    }
+);
  // Admin: get all support messages, or one doctor's conversation
 app.get(
     "/api/admin/support-messages",

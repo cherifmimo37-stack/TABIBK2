@@ -1291,6 +1291,7 @@ async function sendAdminPushNotification(notification) {
    PATIENT PUSH NOTIFICATIONS
 ============================================================ */
 
+
 async function sendPatientPushNotification(
     appointment,
     notification
@@ -1300,15 +1301,13 @@ async function sendPatientPushNotification(
         !appointment ||
         !notification
     ) {
-        return;
+        return false;
     }
 
     const tokens = [
         ...new Set(
             (
-                Array.isArray(
-                    appointment.patientFcmTokens
-                )
+                Array.isArray(appointment.patientFcmTokens)
                     ? appointment.patientFcmTokens
                     : []
             ).filter(
@@ -1320,7 +1319,10 @@ async function sendPatientPushNotification(
     ];
 
     if (tokens.length === 0) {
-        return;
+        console.warn(
+            "Patient reminder skipped: no registered FCM token."
+        );
+        return false;
     }
 
     const results = await Promise.allSettled(
@@ -1338,9 +1340,7 @@ async function sendPatientPushNotification(
                 },
 
                 data: {
-                    type: String(
-                        notification.type || ""
-                    ),
+                    type: String(notification.type || ""),
                     bookingNumber: String(
                         appointment.bookingNumber || ""
                     ),
@@ -1360,14 +1360,20 @@ async function sendPatientPushNotification(
         )
     );
 
+    let sent = false;
+
     results.forEach(result => {
-        if (result.status === "rejected") {
+        if (result.status === "fulfilled") {
+            sent = true;
+        } else {
             console.error(
                 "Patient push notification failed:",
                 result.reason?.message || "Unknown error"
             );
         }
     });
+
+    return sent;
 }
 
 
@@ -8351,15 +8357,30 @@ app.get(
 // ============================================================
 
 
-function processPatientReminders() {
+
+let patientRemindersProcessing = false;
+
+async function processPatientReminders() {
+    if (patientRemindersProcessing) {
+        return;
+    }
+
+    patientRemindersProcessing = true;
+
     try {
         const database = readDatabase();
         const now = Date.now();
         let changed = false;
 
-        const appointments = database.appointments.filter(
+        const appointments = (
+            Array.isArray(database.appointments)
+                ? database.appointments
+                : []
+        ).filter(
             appointment =>
-                ["confirmed", "accepted"].includes(appointment.status)
+                ["confirmed", "accepted"].includes(
+                    appointment.status
+                )
         );
 
         for (const appointment of appointments) {
@@ -8378,13 +8399,13 @@ function processPatientReminders() {
             const minutesLeft =
                 (appointmentTime - now) / (60 * 1000);
 
-            // تذكير قبل الموعد بـ24 ساعة تقريبًا
+            // Reminder approximately 24 hours before appointment
             if (
                 minutesLeft <= 1440 &&
                 minutesLeft > 60 &&
                 !appointment.reminder24hSent
             ) {
-                const reminder = createNotification(database, {
+                const reminder = {
                     appointmentId: appointment.id,
                     patientPhone: appointment.patientPhone,
                     bookingNumber: appointment.bookingNumber,
@@ -8392,27 +8413,33 @@ function processPatientReminders() {
                     title: "تذكير بموعدك 📅",
                     message:
                         `تذكير: لديك موعد مع ${appointment.doctorName} غدا بتاريخ ${appointment.date} على الساعة ${appointment.time}.`
-                });
+                };
 
-                sendPatientPushNotification(appointment, reminder)
-                    .catch(error => {
-                        console.error(
-                            "24-hour patient reminder push error:",
-                            error.message
-                        );
-                    });
+                const sent =
+                    await sendPatientPushNotification(
+                        appointment,
+                        reminder
+                    );
 
-                appointment.reminder24hSent = true;
-                changed = true;
+                if (sent) {
+                    createNotification(database, reminder);
+                    appointment.reminder24hSent = true;
+                    changed = true;
+                } else {
+                    console.warn(
+                        "24-hour reminder not delivered to FCM; will retry:",
+                        appointment.bookingNumber
+                    );
+                }
             }
 
-            // تذكير قبل الموعد بساعة
+            // Reminder one hour before appointment
             if (
                 minutesLeft <= 60 &&
                 minutesLeft > 0 &&
                 !appointment.reminder1hSent
             ) {
-                const reminder = createNotification(database, {
+                const reminder = {
                     appointmentId: appointment.id,
                     patientPhone: appointment.patientPhone,
                     bookingNumber: appointment.bookingNumber,
@@ -8420,29 +8447,43 @@ function processPatientReminders() {
                     title: "موعدك بعد قليل ⏰",
                     message:
                         `تذكير: موعدك مع ${appointment.doctorName} بعد أقل من ساعة، على الساعة ${appointment.time}.`
-                });
+                };
 
-                sendPatientPushNotification(appointment, reminder)
-                    .catch(error => {
-                        console.error(
-                            "1-hour patient reminder push error:",
-                            error.message
-                        );
-                    });
+                const sent =
+                    await sendPatientPushNotification(
+                        appointment,
+                        reminder
+                    );
 
-                appointment.reminder1hSent = true;
-                changed = true;
+                if (sent) {
+                    createNotification(database, reminder);
+                    appointment.reminder1hSent = true;
+                    changed = true;
+                } else {
+                    console.warn(
+                        "1-hour reminder not delivered to FCM; will retry:",
+                        appointment.bookingNumber
+                    );
+                }
             }
         }
 
         if (changed) {
-            saveDatabase(database);
+            const saveResult = await saveDatabase(database);
+
+            if (saveResult === false) {
+                console.error(
+                    "Patient reminder flags could not be saved."
+                );
+            }
         }
     } catch (error) {
         console.error(
             "Reminder processing error:",
             error
         );
+    } finally {
+        patientRemindersProcessing = false;
     }
 }
 

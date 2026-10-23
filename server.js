@@ -8350,156 +8350,95 @@ app.get(
 // PATIENT REMINDERS
 // ============================================================
 
+
 function processPatientReminders() {
-
     try {
-
-        const database =
-            readDatabase();
-
-        const now =
-            Date.now();
-
+        const database = readDatabase();
+        const now = Date.now();
         let changed = false;
 
-        const appointments =
-            database.appointments.filter(
-                appointment =>
-                    [
-                        "confirmed",
-                        "accepted"
-                    ].includes(
-                        appointment.status
-                    )
-            );
+        const appointments = database.appointments.filter(
+            appointment =>
+                ["confirmed", "accepted"].includes(appointment.status)
+        );
 
-        for (
-            const appointment
-            of appointments
-        ) {
-
-            if (
-                !appointment.date ||
-                !appointment.time
-            ) {
+        for (const appointment of appointments) {
+            if (!appointment.date || !appointment.time) {
                 continue;
             }
 
-            const appointmentTime =
-                new Date(
-                    `${appointment.date}T${appointment.time}:00+01:00`
-                ).getTime();
+            const appointmentTime = new Date(
+                `${appointment.date}T${appointment.time}:00+01:00`
+            ).getTime();
 
-            if (
-                Number.isNaN(
-                    appointmentTime
-                )
-            ) {
+            if (Number.isNaN(appointmentTime)) {
                 continue;
             }
 
             const minutesLeft =
-                (
-                    appointmentTime -
-                    now
-                ) /
-                (
-                    60 *
-                    1000
-                );
+                (appointmentTime - now) / (60 * 1000);
 
-            // ------------------------------------------------
-            // 24-hour reminder
-            // ------------------------------------------------
-
+            // تذكير قبل الموعد بـ24 ساعة تقريبًا
             if (
                 minutesLeft <= 1440 &&
                 minutesLeft > 60 &&
                 !appointment.reminder24hSent
             ) {
+                const reminder = createNotification(database, {
+                    appointmentId: appointment.id,
+                    patientPhone: appointment.patientPhone,
+                    bookingNumber: appointment.bookingNumber,
+                    type: "reminder_24h",
+                    title: "تذكير بموعدك 📅",
+                    message:
+                        `تذكير: لديك موعد مع ${appointment.doctorName} غدا بتاريخ ${appointment.date} على الساعة ${appointment.time}.`
+                });
 
-                createNotification(
-                    database,
-                    {
+                sendPatientPushNotification(appointment, reminder)
+                    .catch(error => {
+                        console.error(
+                            "24-hour patient reminder push error:",
+                            error.message
+                        );
+                    });
 
-                        appointmentId:
-                            appointment.id,
-
-                        patientPhone:
-                            appointment.patientPhone,
-
-                        bookingNumber:
-                            appointment.bookingNumber,
-
-                        type:
-                            "reminder_24h",
-
-                        title:
-                            "تذكير بموعدك 📅",
-
-                        message:
-                            `تذكير: لديك موعد مع ${appointment.doctorName} غدا بتاريخ ${appointment.date} على الساعة ${appointment.time}.`
-
-                    }
-                );
-
-                appointment.reminder24hSent =
-                    true;
-
+                appointment.reminder24hSent = true;
                 changed = true;
             }
 
-            // ------------------------------------------------
-            // 1-hour reminder
-            // ------------------------------------------------
-
+            // تذكير قبل الموعد بساعة
             if (
                 minutesLeft <= 60 &&
                 minutesLeft > 0 &&
                 !appointment.reminder1hSent
             ) {
+                const reminder = createNotification(database, {
+                    appointmentId: appointment.id,
+                    patientPhone: appointment.patientPhone,
+                    bookingNumber: appointment.bookingNumber,
+                    type: "reminder_1h",
+                    title: "موعدك بعد قليل ⏰",
+                    message:
+                        `تذكير: موعدك مع ${appointment.doctorName} بعد أقل من ساعة، على الساعة ${appointment.time}.`
+                });
 
-                createNotification(
-                    database,
-                    {
+                sendPatientPushNotification(appointment, reminder)
+                    .catch(error => {
+                        console.error(
+                            "1-hour patient reminder push error:",
+                            error.message
+                        );
+                    });
 
-                        appointmentId:
-                            appointment.id,
-
-                        patientPhone:
-                            appointment.patientPhone,
-
-                        bookingNumber:
-                            appointment.bookingNumber,
-
-                        type:
-                            "reminder_1h",
-
-                        title:
-                            "موعدك بعد قليل ⏰",
-
-                        message:
-                            `تذكير: موعدك مع ${appointment.doctorName} بعد أقل من ساعة، على الساعة ${appointment.time}.`
-
-                    }
-                );
-
-                appointment.reminder1hSent =
-                    true;
-
+                appointment.reminder1hSent = true;
                 changed = true;
             }
         }
 
         if (changed) {
-
-            saveDatabase(
-                database
-            );
+            saveDatabase(database);
         }
-
     } catch (error) {
-
         console.error(
             "Reminder processing error:",
             error

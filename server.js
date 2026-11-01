@@ -5470,6 +5470,91 @@ appointment.ratedAt =
     }
 );
 
+
+// ============================================================
+// DELETE ONE DOCTOR RATING — KEEP APPOINTMENT
+// ============================================================
+
+app.delete(
+    "/api/doctor/ratings/:bookingNumber",
+    checkDoctorAuth,
+    async (req, res) => {
+
+        try {
+
+            const database = readDatabase();
+
+            const doctorId = Number(req.doctor.id);
+
+            const bookingNumber =
+                String(req.params.bookingNumber || "").trim();
+
+            if (!bookingNumber) {
+                return res.status(400).json({
+                    success: false,
+                    message: "رقم الحجز غير صالح"
+                });
+            }
+
+            const appointment =
+                database.appointments.find(item =>
+                    Number(item.doctorId) === doctorId &&
+                    String(item.bookingNumber || item.booking || item.id || "").trim()
+                        === bookingNumber
+                );
+
+            if (!appointment) {
+                return res.status(404).json({
+                    success: false,
+                    message: "التقييم أو الموعد غير موجود"
+                });
+            }
+
+            const rating = Number(appointment.doctorRating);
+
+            if (
+                !Number.isInteger(rating) ||
+                rating < 1 ||
+                rating > 5
+            ) {
+                return res.status(404).json({
+                    success: false,
+                    message: "هذا الموعد لا يحتوي على تقييم"
+                });
+            }
+
+            // حذف بيانات التقييم فقط، دون حذف الموعد
+            delete appointment.doctorRating;
+            delete appointment.doctorReview;
+            delete appointment.reviewerName;
+            delete appointment.ratedAt;
+
+            appointment.updatedAt = new Date().toISOString();
+
+            await saveDatabase(database);
+
+            return res.json({
+                success: true,
+                message: "تم حذف التقييم بنجاح"
+            });
+
+        } catch (error) {
+
+            console.error(
+                "DELETE DOCTOR RATING ERROR:",
+                error
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "تعذر حذف التقييم حاليًا"
+            });
+
+        }
+    }
+);
+
+
 // ============================================================
 // GET DOCTOR RATING
 // ============================================================

@@ -17623,74 +17623,63 @@ async function deleteNotification(
 }
 
 
+
 /* =========================================================
-   DELETE ALL NOTIFICATIONS
+   DELETE ALL NOTIFICATIONS — PREMIUM CONFIRM
 ========================================================= */
 
-
-
-async function deleteAllNotifications(
-    event
-) {
+function deleteAllNotifications(event) {
 
     if (event) {
-
         event.preventDefault();
-
         event.stopPropagation();
-
     }
 
+    openActionConfirm({
 
-    if (!confirm(
-        "هل تريد حذف جميع الإشعارات؟"
-    )) {
+        title: "حذف جميع الإشعارات",
 
-        return;
+        message: "هل أنت متأكد من حذف جميع الإشعارات؟ لا يمكن التراجع عن هذه العملية.",
 
-    }
+        confirmText: "تأكيد الحذف",
 
+        onConfirm: async function () {
 
-    try {
+            try {
 
-        await apiFetch(
-            "/api/doctor/notifications",
-            {
-                method: "DELETE"
+                await apiFetch(
+                    "/api/doctor/notifications",
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+                lastNotificationCount = 0;
+
+                updateNotificationCount(0);
+
+                showToast(
+                    "تم حذف جميع الإشعارات",
+                    "success"
+                );
+
+                await loadNotifications();
+
+            } catch (error) {
+
+                showToast(
+                    error.message ||
+                    "تعذر حذف الإشعارات",
+                    "error"
+                );
+
             }
-        );
 
+        }
 
-        lastNotificationCount =
-            0;
-
-
-        updateNotificationCount(
-            0
-        );
-
-
-        showToast(
-            "تم حذف جميع الإشعارات",
-            "success"
-        );
-
-
-        await loadNotifications();
-
-
-    } catch (error) {
-
-        showToast(
-            error.message ||
-            "تعذر حذف الإشعارات",
-            "error"
-        );
-
-    }
+    });
 
 }
-
 
 /* =========================================================
    MARK NOTIFICATION READ

@@ -18340,9 +18340,16 @@ function renderRatings() {
                                 )}
                             </div>
 
-                        </div>
-
-
+<button
+    type="button"
+    class="rating-delete-button"
+    data-booking="${escapeHtml(item.booking)}"
+    onclick="deleteDoctorRating(this.dataset.booking)"
+    title="حذف التقييم"
+>
+    <i class="fa-solid fa-trash"></i>
+    حذف
+</button>
                         ${
                             item.comment
                             ? `
@@ -18468,6 +18475,76 @@ function renderRatings() {
 }
 
 
+
+/* =========================================================
+   DELETE ONE DOCTOR RATING
+========================================================= */
+
+async function deleteDoctorRating(bookingNumber) {
+
+    if (!bookingNumber) {
+        showToast("رقم التقييم غير صالح", "error");
+        return;
+    }
+
+    openActionConfirm({
+
+        title: "تأكيد حذف التقييم",
+
+        message:
+            "هل تريد حذف هذا التقييم نهائيًا؟ " +
+            "سيبقى موعد المريض محفوظًا ولن يتم حذفه.",
+
+        confirmText: "حذف التقييم",
+
+        onConfirm: async function () {
+
+            try {
+
+                const result = await apiFetch(
+                    "/api/doctor/ratings/" +
+                    encodeURIComponent(bookingNumber),
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+                if (!result || result.success !== true) {
+                    throw new Error(
+                        result?.message ||
+                        "تعذر حذف التقييم"
+                    );
+                }
+
+                showToast(
+                    result.message || "تم حذف التقييم بنجاح",
+                    "success"
+                );
+
+                await loadAppointments(true);
+
+                renderRatings();
+
+            } catch (error) {
+
+                console.error(
+                    "DELETE DOCTOR RATING ERROR:",
+                    error
+                );
+
+                showToast(
+                    error.message ||
+                    "حدث خطأ أثناء حذف التقييم",
+                    "error"
+                );
+
+            }
+
+        }
+
+    });
+
+}
 
 /* =========================================================
    WORKING HOURS — STATUS UI
@@ -21197,6 +21274,39 @@ if (
             border-color:rgba(112,39,160,.10) !important;
             background:rgba(255,255,255,.82) !important;
         }
+
+        
+/* =========================================================
+   RATING DELETE BUTTON
+========================================================= */
+
+.rating-delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 11px;
+    border: 1px solid #eadde0;
+    border-radius: 9px;
+    background: #fff;
+    color: #9b5360;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    flex-shrink: 0;
+}
+
+.rating-delete-button:hover {
+    background: #fbf3f4;
+    border-color: #d9b8bf;
+}
+
+.rating-delete-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 
         /* ---------- MOBILE ---------- */
 

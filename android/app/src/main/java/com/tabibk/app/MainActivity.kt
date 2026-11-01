@@ -238,6 +238,39 @@ override fun onPageFinished(
         webView.loadUrl("https://tabibk2.onrender.com")
     }
 
+    
+    private fun createTabibkNotificationChannel() {
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+            val soundUri = Uri.parse(
+                "android.resource://$packageName/${R.raw.tabibk_notification}"
+            )
+
+            val audioAttributes = AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build()
+
+            val channel = NotificationChannel(
+                "tabibk_patient_reminders_v1",
+                "تذكيرات مواعيد المرضى",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "تذكيرات المرضى قبل موعد الطبيب"
+                enableVibration(true)
+                vibrationPattern = longArrayOf(0, 300, 200, 300)
+                setSound(soundUri, audioAttributes)
+            }
+
+            val manager =
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+            manager.createNotificationChannel(channel)
+        }
+    }
+
+    
     // ============================================================
     // INTRO VIDEO
     // File: app/src/main/res/raw/tabibk_intro.mp4

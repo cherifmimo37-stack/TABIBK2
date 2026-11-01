@@ -11024,6 +11024,44 @@ transition: none;
     </div>
 </div>
 
+ 
+<!-- TABIBK — APPOINTMENT RESULT MODAL -->
+<div class="modal-overlay" id="appointmentResultModal">
+    <div class="modal" style="max-width:420px;text-align:center;">
+
+        <div class="modal-top"></div>
+
+        <div class="modal-body" style="padding:30px 24px;">
+
+            <div id="appointmentResultIcon"
+                 style="font-size:42px;margin-bottom:15px;color:#279b68;">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <h3 id="appointmentResultTitle"
+                style="font-size:19px;margin-bottom:12px;">
+                تمت العملية بنجاح
+            </h3>
+
+            <p id="appointmentResultMessage"
+               style="font-size:14px;line-height:1.9;color:#666;">
+                تم حذف الموعد بنجاح.
+            </p>
+
+            <div class="modal-actions" style="justify-content:center;margin-top:24px;">
+                <button
+                    type="button"
+                    class="modal-confirm"
+                    onclick="closeAppointmentResult()"
+                    style="min-width:130px;">
+                    حسنًا
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
     
 <!-- =======================================================
      TABIBK — PASSWORD RECOVERY MODAL
@@ -11181,6 +11219,39 @@ const selectedAppointmentBookings = new Set();
 
 let pendingActionConfirm = null;
 
+ // ============================================================
+// TABIBK — APPOINTMENT RESULT MODAL
+// ============================================================
+
+function showAppointmentResult(title, message, type = "success") {
+
+    const modal = $("appointmentResultModal");
+    const icon = $("appointmentResultIcon");
+
+    if (!modal || !icon) return;
+
+    $("appointmentResultTitle").textContent = title;
+    $("appointmentResultMessage").textContent = message;
+
+    if (type === "success") {
+        icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+        icon.style.color = "#279b68";
+    } else {
+        icon.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
+        icon.style.color = "#c58b32";
+    }
+
+    modal.classList.add("show");
+}
+
+function closeAppointmentResult() {
+    const modal = $("appointmentResultModal");
+
+    if (modal) {
+        modal.classList.remove("show");
+    }
+}
+        
 function openActionConfirm(options = {}) {
     const modal = $("actionConfirmModal");
 

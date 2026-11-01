@@ -1,4 +1,4 @@
-```kotlin
+kotlin
 package com.tabibk.app
 
 import android.os.Bundle
@@ -342,4 +342,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-```
+

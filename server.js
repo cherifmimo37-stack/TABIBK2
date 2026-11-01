@@ -1339,20 +1339,21 @@ async function sendPatientPushNotification(
                     )
                 },
 
-                data: {
+                                data: {
                     type: String(notification.type || ""),
                     bookingNumber: String(
                         appointment.bookingNumber || ""
                     ),
                     appointmentId: String(
                         appointment.id || ""
-                    )
+                    ),
+                    channelId: "tabibk_patient_reminders_v1"
                 },
 
                 android: {
                     priority: "high",
                     notification: {
-                        channelId: "tabibk_notifications_v2",
+                        channelId: "tabibk_patient_reminders_v1",
                         sound: "tabibk_notification"
                     }
                 }

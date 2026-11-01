@@ -14515,7 +14515,6 @@ function renderActions(
 }
 
 
-
 /* =========================================================
    DELETE APPOINTMENT — TABIBK PREMIUM CONFIRMATION
 ========================================================= */
@@ -14527,52 +14526,41 @@ async function deleteAppointment(bookingNumber) {
         return;
     }
 
-    if (typeof window.tabibkConfirmAction !== "function") {
-        showToast(
-            "واجهة تأكيد الحذف غير متوفرة، لم يتم حذف الموعد",
-            "error"
-        );
-        return;
-    }
-
-    const confirmed = await window.tabibkConfirmAction({
+    openActionConfirm({
         title: "تأكيد حذف الموعد",
-        message: "هل أنت متأكد من حذف هذا الموعد؟",
-        details: "بعد الحذف، لن تتمكن من استرجاع الموعد من هذه الواجهة.",
+        message: "هل أنت متأكد من حذف هذا الموعد؟ لا يمكن التراجع عن الحذف بعد تنفيذه.",
         confirmText: "تأكيد الحذف",
-        cancelText: "الاحتفاظ بالموعد"
-    });
 
-    if (!confirmed) {
-        return;
-    }
+        onConfirm: async function () {
 
-    try {
+            try {
 
-        await apiFetch(
-            `/api/doctor/appointments/${encodeURIComponent(
-                bookingNumber
-            )}`,
-            {
-                method: "DELETE"
+                await apiFetch(
+                    `/api/doctor/appointments/${encodeURIComponent(
+                        bookingNumber
+                    )}`,
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+                showToast(
+                    "تم حذف الموعد بنجاح",
+                    "success"
+                );
+
+                await loadAppointments();
+
+            } catch (error) {
+
+                showToast(
+                    error.message || "تعذر حذف الموعد",
+                    "error"
+                );
+
             }
-        );
-
-        showToast(
-            "تم حذف الموعد بنجاح",
-            "success"
-        );
-
-        await loadAppointments();
-
-    } catch (error) {
-
-        showToast(
-            error.message,
-            "error"
-        );
-
-    }
+        }
+    });
 }
 
 /* =========================================================

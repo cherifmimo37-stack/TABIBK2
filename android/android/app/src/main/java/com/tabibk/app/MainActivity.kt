@@ -2,6 +2,11 @@ kotlin
 package com.tabibk.app
 
 import android.os.Bundle
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.media.AudioAttributes
+import android.net.Uri
+import android.os.Build
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable

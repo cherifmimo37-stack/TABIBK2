@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        createTabibkNotificationChannel()
 
         window.statusBarColor = Color.rgb(28, 14, 43)
         window.navigationBarColor = Color.rgb(28, 14, 43)
@@ -341,5 +343,35 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+    private fun createTabibkNotificationChannel() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+        val soundUri = Uri.parse(
+            "android.resource://$packageName/${R.raw.tabibk_notification}"
+        )
+
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        val channel = NotificationChannel(
+            "tabibk_patient_reminders_v1",
+            "تذكيرات مواعيد المرضى",
+            NotificationManager.IMPORTANCE_HIGH
+        ).apply {
+            description = "تذكيرات المرضى قبل موعد الطبيب"
+            enableVibration(true)
+            vibrationPattern = longArrayOf(0, 300, 200, 300)
+            setSound(soundUri, audioAttributes)
+        }
+
+        val manager =
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+        manager.createNotificationChannel(channel)
+    }
+}
 }
 

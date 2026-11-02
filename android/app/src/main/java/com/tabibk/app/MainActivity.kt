@@ -8,6 +8,9 @@ import android.content.Intent
 import org.json.JSONObject
 import android.graphics.Color
 import android.net.Uri
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.media.AudioAttributes
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -41,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        createTabibkNotificationChannel()
 
         
         // Firebase notifications token

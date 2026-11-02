@@ -1324,6 +1324,15 @@ async function sendPatientPushNotification(
         );
         return false;
     }
+    
+    const isPatientReminder =
+        notification.type === "reminder_24h" ||
+        notification.type === "reminder_1h";
+
+    const patientChannelId = isPatientReminder
+        ? "tabibk_patient_reminders_v1"
+        : "tabibk_notifications_v2";
+
 
     const results = await Promise.allSettled(
         tokens.map(token =>
@@ -1346,14 +1355,13 @@ async function sendPatientPushNotification(
                     ),
                     appointmentId: String(
                         appointment.id || ""
-                    ),
-                    channelId: "tabibk_patient_reminders_v1"
+                    )
                 },
 
                 android: {
                     priority: "high",
                     notification: {
-                        channelId: "tabibk_patient_reminders_v1",
+                        channelId: patientChannelId,
                         sound: "tabibk_notification"
                     }
                 }

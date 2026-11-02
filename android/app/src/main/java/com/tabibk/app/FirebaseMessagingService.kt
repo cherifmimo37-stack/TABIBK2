@@ -160,3 +160,4 @@ private fun createNotificationChannel() {
         manager.createNotificationChannel(patientChannel)
     }
 }
+}

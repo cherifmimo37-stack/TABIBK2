@@ -1151,7 +1151,7 @@ async function sendDoctorPushNotification(
     !firebaseMessaging ||
     !doctor ||
     !notification ||
-    !["new_appointment", "admin", "admin_announcement"].includes(notification.type)
+    !["new_appointment", "admin", "admin_announcement", "support_message"].includes(notification.type)
 ) {
     return;
 }
@@ -6437,6 +6437,21 @@ app.post(
                 });
             }
 
+            // Notify admin when a doctor sends a support message
+try {
+    await sendAdminPushNotification({
+        type: "support_message",
+        title: "رسالة دعم جديدة من طبيب",
+        message: message,
+        doctorId: Number(req.doctor.id)
+    });
+} catch (pushError) {
+    console.error(
+        "Admin support push failed:",
+        pushError.message
+    );
+}
+
             return res.json({
                 success: true,
                 message: "تم إرسال رسالتك",
@@ -6648,6 +6663,26 @@ app.post(
                     message: "تعذر حفظ الرد. حاول مرة أخرى."
                 });
             }
+
+            // Notify doctor when admin replies to support
+try {
+    const targetDoctor = database.doctors.find(
+        doctor => Number(doctor.id) === doctorId
+    );
+
+    if (targetDoctor) {
+        await sendDoctorPushNotification(targetDoctor, {
+            type: "support_message",
+            title: "رد جديد من إدارة طبيبك",
+            message: message
+        });
+    }
+} catch (pushError) {
+    console.error(
+        "Doctor support push failed:",
+        pushError.message
+    );
+}
 
             return res.json({
                 success: true,

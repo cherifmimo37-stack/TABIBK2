@@ -1151,7 +1151,7 @@ async function sendDoctorPushNotification(
     !firebaseMessaging ||
     !doctor ||
     !notification ||
-    !["new_appointment", "admin_announcement"].includes(notification.type)
+    !["new_appointment", "admin", "admin_announcement"].includes(notification.type)
 ) {
     return;
 }

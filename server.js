@@ -1148,13 +1148,13 @@ async function sendDoctorPushNotification(
     notification
 ) {
     if (
-        !firebaseMessaging ||
-        !doctor ||
-        !notification ||
-        notification.type !== "new_appointment"
-    ) {
-        return;
-    }
+    !firebaseMessaging ||
+    !doctor ||
+    !notification ||
+    !["new_appointment", "admin_announcement"].includes(notification.type)
+) {
+    return;
+}
 
     const tokens = [
         ...new Set(
@@ -7905,8 +7905,8 @@ app.get(
 
 app.post(
     "/api/admin/notifications",
-    checkAdminKey,
-    (req, res) => {
+        checkAdminKey,
+    async (req, res) => {
 
         const {
 
@@ -7966,9 +7966,35 @@ app.post(
                 }
             );
 
-        saveDatabase(
-            database
-        );
+               const saveResult = await saveDatabase(database);
+
+        if (saveResult === false) {
+            return res.status(500).json({
+                success: false,
+                message: "تعذر حفظ الإشعار"
+            });
+        }
+
+        // Send audible push notification to the target doctor.
+        if (
+            notification.doctorId !== null &&
+            ["admin", "admin_announcement"].includes(notification.type)
+        ) {
+            const doctor = Array.isArray(database.doctors)
+                ? database.doctors.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(notification.doctorId)
+                )
+                : null;
+
+            if (doctor) {
+                await sendDoctorPushNotification(
+                    doctor,
+                    notification
+                );
+            }
+        }
 
         res
             .status(201)

@@ -5955,11 +5955,10 @@ function showSection(name) {
     }
 
     if (name === "support-messages") {
-        loadSupportInbox();
-        startSupportAutoRefresh();
-    } else {
-        stopSupportAutoRefresh();
-    }
+    loadSupportInbox();
+} else {
+    stopSupportAutoRefresh();
+}
 
     if (name === "patient-ads") {
         loadMultiplePatientAds();

@@ -11638,6 +11638,12 @@ async function loadSupportMessages() {
     ? data.messages
     : [];
 
+        if (
+    document.getElementById("section-support")
+        ?.classList.contains("active")
+) {
+    markDoctorSupportMessagesAsRead(messages);
+}
 
 console.log("[TABIBK] Support messages loaded:", messages.length, messages);
 
@@ -12867,6 +12873,19 @@ async function initializeDoctor() {
         );
 
     }
+
+    try {
+
+    await loadDoctorSupportBadge();
+
+} catch (error) {
+
+    console.error(
+        "Support badge:",
+        error
+    );
+
+}
 
 
     startAutoRefresh();
@@ -17568,7 +17587,134 @@ function updateNotificationCount(
 
 }
 
+/* =========================================================
+   SUPPORT — UNREAD MESSAGE BADGE
+========================================================= */
 
+function updateDoctorSupportBadge(count) {
+
+    const badge = $("doctorSupportBadge");
+
+    if (!badge) return;
+
+    if (!count || count <= 0) {
+        badge.style.display = "none";
+        badge.textContent = "";
+        return;
+    }
+
+    badge.style.display = "inline-flex";
+    badge.textContent = count > 99 ? "99+" : String(count);
+}
+
+    /* =========================================================
+   SUPPORT — UNREAD MESSAGES TRACKING
+========================================================= */
+
+function getDoctorSupportReadKey() {
+    if (!currentDoctor?.id) return null;
+
+    return `tabibk_support_last_read_${currentDoctor.id}`;
+}
+
+
+async function loadDoctorSupportBadge() {
+
+    const readKey = getDoctorSupportReadKey();
+
+    if (!readKey) return;
+
+    try {
+
+        const data = await apiFetch(
+            "/api/doctor/support-messages"
+        );
+
+        const messages = Array.isArray(data.messages)
+            ? data.messages
+            : [];
+
+        const adminMessages = messages.filter(
+            item => item.sender === "admin"
+        );
+
+        const lastRead = localStorage.getItem(readKey);
+
+        // أول استعمال: لا نعتبر الردود القديمة رسائل جديدة
+        if (lastRead === null) {
+
+            const latestTime = adminMessages.reduce(
+                (latest, item) => {
+                    const time = Date.parse(item.createdAt || "");
+                    return Number.isNaN(time)
+                        ? latest
+                        : Math.max(latest, time);
+                },
+                0
+            );
+
+            localStorage.setItem(
+                readKey,
+                String(latestTime)
+            );
+
+            updateDoctorSupportBadge(0);
+            return;
+        }
+
+        const lastReadTime = Number(lastRead);
+
+        const unreadCount = adminMessages.filter(item => {
+
+            const time = Date.parse(item.createdAt || "");
+
+            return !Number.isNaN(time) &&
+                time > lastReadTime;
+
+        }).length;
+
+        updateDoctorSupportBadge(unreadCount);
+
+    } catch (error) {
+
+        console.error(
+            "Doctor support badge:",
+            error
+        );
+
+    }
+}
+
+
+function markDoctorSupportMessagesAsRead(messages) {
+
+    const readKey = getDoctorSupportReadKey();
+
+    if (!readKey) return;
+
+    const latestTime = messages
+        .filter(item => item.sender === "admin")
+        .reduce((latest, item) => {
+
+            const time = Date.parse(item.createdAt || "");
+
+            return Number.isNaN(time)
+                ? latest
+                : Math.max(latest, time);
+
+        }, 0);
+
+    const previousTime = Number(
+        localStorage.getItem(readKey) || 0
+    );
+
+    localStorage.setItem(
+        readKey,
+        String(Math.max(previousTime, latestTime))
+    );
+
+    updateDoctorSupportBadge(0);
+}    
 /* =========================================================
    DELETE ONE NOTIFICATION
 ========================================================= */

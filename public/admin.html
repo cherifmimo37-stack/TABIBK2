@@ -4228,17 +4228,29 @@ tbody tr:hover{
             </span>
 
         </button>
-        <button
-            class="nav-item"
-            data-section="support-messages"
+        <!-- رسائل الأطباء الفردية والجماعية -->
+<button
+    class="nav-item"
+    data-section="doctor-messages"
 >
-            <i class="fa-solid fa-headset"></i>
+    <i class="fa-solid fa-envelope-open-text"></i>
 
-            <span>
-                رسائل الأطباء
-            </span>
+    <span>
+        رسائل الأطباء
+    </span>
+</button>
 
-        </button>
+<!-- الدعم والمساعدة المباشرة -->
+<button
+    class="nav-item"
+    data-section="support-messages"
+>
+    <i class="fa-solid fa-headset"></i>
+
+    <span>
+        الدعم والمساعدة
+    </span>
+</button>
           
         <button
             class="nav-item"
@@ -4820,7 +4832,16 @@ tbody tr:hover{
     </div>
 </div>
 <!-- END TABIBK DOCTOR / ADMIN LIVE SUPPORT CHAT -->
-      
+
+</section>
+  <!-- =========================================================
+     ADMIN DOCTOR MESSAGES
+========================================================= -->
+<section
+    class="section"
+    id="section-doctor-messages"
+>
+
 <!-- ADMIN MESSAGE SENDER -->
 <div class="card tbk-message-card">
 
@@ -4930,7 +4951,7 @@ tbody tr:hover{
         </form>
     </div>
 </div>
-<!-- END ADMIN MESSAGE SENDER -->
+<!-- END ADMIN MESSAGE SENDER -->            
 
 </section>
 
@@ -5871,34 +5892,75 @@ document
 ============================================================ */
 
 const sectionTitles = {
-    doctors: ["إدارة الأطباء", "إضافة وتعديل وحذف الأطباء"],
-    "support-messages": ["رسائل الأطباء", "استقبال رسائل الأطباء والرد عليها"],
-    "patient-ads": ["إعلانات المرضى", "إدارة الإعلانات التي تظهر للمرضى"]
+    doctors: [
+        "إدارة الأطباء",
+        "إضافة وتعديل وحذف الأطباء"
+    ],
+
+    "doctor-messages": [
+        "رسائل الأطباء",
+        "إرسال رسائل فردية وجماعية للأطباء"
+    ],
+
+    "support-messages": [
+        "الدعم والمساعدة",
+        "محادثات الدعم المباشر مع الأطباء"
+    ],
+
+    "patient-ads": [
+        "إعلانات المرضى",
+        "إدارة الإعلانات التي تظهر للمرضى"
+    ]
 };
 
 function showSection(name) {
-    const allowedSections = ["doctors", "support-messages", "patient-ads"];
+
+    const allowedSections = [
+        "doctors",
+        "doctor-messages",
+        "support-messages",
+        "patient-ads"
+    ];
+
     if (!allowedSections.includes(name)) return;
-    document.querySelectorAll(".section").forEach(section => section.classList.remove("active"));
+
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+    });
+
     const target = document.getElementById("section-" + name);
+
     if (!target) return;
+
     target.classList.add("active");
-    document.querySelectorAll(".nav-item[data-section]").forEach(item => item.classList.toggle("active", item.dataset.section === name));
+
+    document.querySelectorAll(".nav-item[data-section]").forEach(item => {
+        item.classList.toggle(
+            "active",
+            item.dataset.section === name
+        );
+    });
+
     const info = sectionTitles[name];
+
     if (info) {
         document.getElementById("pageTitle").textContent = info[0];
         document.getElementById("pageSubtitle").textContent = info[1];
     }
-    closeSidebar();
-    if (name === "doctors") loadDoctors();
 
-if (name === "support-messages") {
-    loadSupportInbox();
-    startSupportAutoRefresh();
-} else {
-    stopSupportAutoRefresh();
-}
-      
+    closeSidebar();
+
+    if (name === "doctors") {
+        loadDoctors();
+    }
+
+    if (name === "support-messages") {
+        loadSupportInbox();
+        startSupportAutoRefresh();
+    } else {
+        stopSupportAutoRefresh();
+    }
+
     if (name === "patient-ads") {
         loadMultiplePatientAds();
     }

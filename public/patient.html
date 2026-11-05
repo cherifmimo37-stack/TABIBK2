@@ -5092,7 +5092,7 @@ box.style.cssText = [
             "font-size:12px;font-weight:900;";
 
         const label = document.createElement("span");
-        label.textContent = "📢 إعلان";
+        label.textContent = "✦ اكتشف خدمات وعروض جديدة";
 
         const counter = document.createElement("span");
         counter.style.cssText = "color:#8b6b24;font-size:11px;";
@@ -5150,18 +5150,44 @@ image.style.cssText =
             link.appendChild(image);
 
  
+// تفاصيل الإعلان
+const details = document.createElement("div");
+details.style.cssText =
+    "padding:14px 12px 16px;background:linear-gradient(145deg,#fff,#faf7fd);" +
+    "text-align:center;box-sizing:border-box;";
+
 if (ad.title) {
-    const title = document.createElement("p");
+    const title = document.createElement("h3");
     title.textContent = ad.title;
     title.style.cssText =
-        "display:block;margin:10px 4px 6px;padding:10px 12px;" +
-        "color:#351044;font-size:14px;font-weight:900;" +
-        "line-height:1.7;text-align:center;white-space:normal;" +
-        "overflow-wrap:anywhere;box-sizing:border-box;" +
-        "background:#faf7fd;border:1px solid rgba(201,162,77,.45);" +
-        "border-radius:10px;";
-    link.appendChild(title);
+        "margin:0 0 8px;color:#351044;font-size:16px;" +
+        "font-weight:900;line-height:1.8;overflow-wrap:anywhere;";
+    details.appendChild(title);
 }
+
+if (ad.description) {
+    const description = document.createElement("p");
+    description.textContent = ad.description;
+    description.style.cssText =
+        "margin:0 0 14px;color:#685773;font-size:13px;" +
+        "font-weight:500;line-height:1.9;overflow-wrap:anywhere;";
+    details.appendChild(description);
+}
+
+// زر اكتشف المزيد
+const discover = document.createElement("a");
+discover.href = new URL(ad.targetUrl, location.origin).href;
+discover.target = "_blank";
+discover.rel = "noopener noreferrer";
+discover.textContent = "اكتشف المزيد ←";
+discover.style.cssText =
+    "display:inline-block;padding:11px 26px;border-radius:12px;" +
+    "background:linear-gradient(135deg,#7027a0,#4d1763);" +
+    "border:1px solid #c99732;color:#fff;font-size:13px;" +
+    "font-weight:900;text-decoration:none;box-shadow:0 4px 12px rgba(80,30,100,.18);";
+
+details.appendChild(discover);
+slide.appendChild(details);
 
 
             image.addEventListener("error", () => {
@@ -5174,8 +5200,8 @@ if (ad.title) {
                 }
             });
 
-            slide.appendChild(link);
-            track.appendChild(slide);
+           slide.appendChild(link);
+           track.appendChild(slide);
             slides.push(slide);
 
             const dot = document.createElement("button");

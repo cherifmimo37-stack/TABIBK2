@@ -8066,13 +8066,14 @@ app.get("/api/ads/patient", (req, res) => {
             )
             : [];
 
-                        let ads = validAds.map(ad => ({
-            id: ad.id,
-            enabled: true,
-            imageData: ad.imageData,
-            targetUrl: ad.targetUrl,
-            title: ad.title || ""
-        }));
+            let ads = validAds.map(ad => ({
+    id: ad.id,
+    enabled: true,
+    imageData: ad.imageData,
+    targetUrl: ad.targetUrl,
+    title: ad.title || "",
+    description: ad.description || ""
+}));
 
         // التوافق مع الإعلان القديم إذا لم توجد إعلانات جديدة مفعّلة
         if (
@@ -8289,15 +8290,15 @@ app.post(
             }
 
             const ad = {
-                id: "ad-" + Date.now() + "-" +
-                    Math.random().toString(36).slice(2, 8),
-                title,
-                description
-                imageData,
-                targetUrl,
-                enabled,
-                updatedAt: new Date().toISOString()
-            };
+    id: "ad-" + Date.now() + "-" +
+        Math.random().toString(36).slice(2, 8),
+    title,
+    description,
+    imageData,
+    targetUrl,
+    enabled,
+    updatedAt: new Date().toISOString()
+};
 
             database.patientAds.push(ad);
             await saveDatabase(database);

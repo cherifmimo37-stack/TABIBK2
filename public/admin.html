@@ -8045,6 +8045,7 @@ function openMultiPatientAdEditor(adId = null) {
     const editor = document.getElementById("patientAdsEditor");
     const heading = document.getElementById("multiPatientAdHeading");
     const title = document.getElementById("multiPatientAdTitle");
+    const description = document.getElementById("multiPatientAdDescription");  
     const url = document.getElementById("multiPatientAdUrl");
     const image = document.getElementById("multiPatientAdImage");
     const enabled = document.getElementById("multiPatientAdEnabled");
@@ -8069,7 +8070,8 @@ function openMultiPatientAdEditor(adId = null) {
 
     heading.textContent = ad ? "تعديل الإعلان" : "إضافة إعلان جديد";
     title.value = ad ? (ad.title || "") : "";
-    url.value = ad ? (ad.targetUrl || "") : "";
+description.value = ad ? (ad.description || "") : "";
+url.value = ad ? (ad.targetUrl || "") : "";
     image.value = "";
     enabled.checked = ad ? ad.enabled === true : true;
     status.textContent = "";
@@ -8205,6 +8207,7 @@ async function loadMultiplePatientAds() {
 
 async function saveMultiplePatientAd() {
     const title = document.getElementById("multiPatientAdTitle").value.trim();
+    const description = document.getElementById("multiPatientAdDescription").value.trim();  
     const targetUrl = document.getElementById("multiPatientAdUrl").value.trim();
     const enabled = document.getElementById("multiPatientAdEnabled").checked;
     const status = document.getElementById("multiPatientAdStatus");
@@ -8232,7 +8235,7 @@ async function saveMultiplePatientAd() {
         }
     }
 
-    const payload = { title, targetUrl, imageData, enabled };
+    const payload = { title, description, targetUrl, imageData, enabled };
     const editingId = multiPatientAdEditingId;
 
     status.textContent = "جاري حفظ الإعلان...";

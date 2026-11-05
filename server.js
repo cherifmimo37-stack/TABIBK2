@@ -8237,6 +8237,11 @@ app.post(
             const title = typeof body.title === "string"
                 ? body.title.trim().slice(0, 120)
                 : "";
+
+            const description = typeof body.description === "string"
+    ? body.description.trim().slice(0, 250)
+    : "";
+            
             const imageData = typeof body.imageData === "string"
                 ? body.imageData
                 : "";
@@ -8287,6 +8292,7 @@ app.post(
                 id: "ad-" + Date.now() + "-" +
                     Math.random().toString(36).slice(2, 8),
                 title,
+                description
                 imageData,
                 targetUrl,
                 enabled,
@@ -8348,6 +8354,10 @@ app.put(
                 ? ad.title
                 : body.title;
 
+            const description = body.description === undefined
+    ? (ad.description || "")
+    : body.description;
+
             const enabled = body.enabled === undefined
                 ? ad.enabled
                 : body.enabled;
@@ -8364,10 +8374,13 @@ app.put(
             }
 
             if (
-                typeof enabled !== "boolean" ||
-                typeof title !== "string" ||
-                typeof targetUrl !== "string"
-            ) {
+    typeof enabled !== "boolean" ||
+    typeof title !== "string" ||
+    typeof description !== "string" ||
+    typeof targetUrl !== "string"
+)
+            
+            {
                 return res.status(400).json({
                     success: false,
                     message: "بيانات الإعلان غير صالحة."
@@ -8398,6 +8411,7 @@ app.put(
             }
 
             ad.title = title.trim().slice(0, 120);
+            ad.description = description.trim().slice(0, 250);
             ad.imageData = imageData;
             ad.targetUrl = safeUrl;
             ad.enabled = enabled;

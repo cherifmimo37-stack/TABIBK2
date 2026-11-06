@@ -1771,7 +1771,38 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
                 </div>
 
+<!-- PATIENT QUEUE CARD -->
+<div
+    id="bookingQueueCard"
+    class="queue-grid"
+    style="
+        grid-template-columns:1fr;
+        max-width:260px;
+        margin:18px auto;
+    ">
 
+    <div class="queue-item">
+
+        <i class="fa-solid fa-ticket"></i>
+
+        <strong id="bookingQueueNumber">-</strong>
+
+        <span>رقم دورك عند الطبيب</span>
+
+        <small
+            id="bookingQueueStatus"
+            style="
+                display:block;
+                margin-top:8px;
+                color:#9a7628;
+                font-weight:600;
+            ">
+            بانتظار تأكيد الطبيب
+        </small>
+
+    </div>
+
+</div>
                 <div
                     style="
                         display:grid;

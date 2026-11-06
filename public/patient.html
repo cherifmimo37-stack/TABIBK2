@@ -5130,7 +5130,7 @@ viewport.style.cssText =
 
             const link = document.createElement("a");
             link.href = new URL(ad.targetUrl, location.origin).href;
-            link.target = "_blank";
+            link.target = "_self";
             link.rel = "noopener noreferrer";
             link.style.cssText =
                 "display:block;width:100%;text-decoration:none;";
@@ -5148,6 +5148,7 @@ image.style.cssText =
 
 
             link.appendChild(image);
+           slide.appendChild(link);   
 
  
 // تفاصيل الإعلان
@@ -5177,8 +5178,8 @@ if (ad.description) {
 // زر اكتشف المزيد
 const discover = document.createElement("a");
 discover.href = new URL(ad.targetUrl, location.origin).href;
-discover.target = "_blank";
-discover.rel = "noopener noreferrer";
+discover.target = "_self";
+  discover.rel = "noopener noreferrer";
 discover.textContent = "اكتشف المزيد ←";
 discover.style.cssText =
     "display:inline-block;padding:11px 26px;border-radius:12px;" +
@@ -5200,7 +5201,6 @@ slide.appendChild(details);
                 }
             });
 
-           slide.appendChild(link);
            track.appendChild(slide);
             slides.push(slide);
 

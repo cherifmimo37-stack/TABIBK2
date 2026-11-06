@@ -5192,46 +5192,6 @@ discover.style.cssText =
 details.appendChild(discover);
 slide.appendChild(details); 
 
- 
-if (ad.title) {
-    const title = document.createElement("p");
-    title.textContent = ad.title;
-    title.style.cssText =
-        "display:block;margin:10px 4px 6px;padding:10px 12px;" +
-        "color:#351044;font-size:14px;font-weight:900;" +
-        "line-height:1.7;text-align:center;white-space:normal;" +
-        "overflow-wrap:anywhere;box-sizing:border-box;" +
-        "background:#faf7fd;border:1px solid rgba(201,162,77,.45);" +
-        "border-radius:10px;";
-    link.appendChild(title);
-}
-              
-// زر اكتشف المزيد
-const discover = document.createElement("a");
-discover.href = new URL(ad.targetUrl, location.origin).href;
-discover.target = "_self";
-  discover.rel = "noopener noreferrer";
-  discover.addEventListener("click", function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const targetUrl = this.href;
-
-    if (targetUrl) {
-        window.location.href = targetUrl;
-    }
-});            
-discover.textContent = "اكتشف المزيد ←";
-discover.style.cssText =
-    "display:inline-block;padding:11px 26px;border-radius:12px;" +
-    "background:linear-gradient(135deg,#7027a0,#4d1763);" +
-    "border:1px solid #c99732;color:#fff;font-size:13px;" +
-    "font-weight:900;text-decoration:none;box-shadow:0 4px 12px rgba(80,30,100,.18);";
-
-details.appendChild(discover);
-slide.appendChild(details);
-
-
             image.addEventListener("error", () => {
                 slide.style.display = "none";
                 dotButtons[index].style.display = "none";

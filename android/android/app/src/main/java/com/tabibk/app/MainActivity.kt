@@ -1,6 +1,9 @@
 kotlin
 package com.tabibk.app
-
+import android.content.Intent
+import android.webkit.WebChromeClient
+import android.webkit.ValueCallback
+import android.webkit.WebResourceRequest
 import android.os.Bundle
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -32,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var loadingScreen: LinearLayout
     private lateinit var message: TextView
     private lateinit var progress: ProgressBar
+    private var fileChooserCallback: ValueCallback<Array<Uri>>? = null
+private val FILE_CHOOSER_REQUEST_CODE = 1001
 
     private val handler = Handler(Looper.getMainLooper())
     private val executor = Executors.newSingleThreadExecutor()
@@ -63,6 +68,34 @@ class MainActivity : AppCompatActivity() {
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.loadsImagesAutomatically = true
+
+            webChromeClient = object : WebChromeClient() {
+    override fun onShowFileChooser(
+        webView: WebView?,
+        filePathCallback: ValueCallback<Array<Uri>>?,
+        fileChooserParams: WebChromeClient.FileChooserParams?
+    ): Boolean {
+        this@MainActivity.fileChooserCallback?.onReceiveValue(null)
+        this@MainActivity.fileChooserCallback = filePathCallback
+
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/*"
+        }
+
+        return try {
+            startActivityForResult(
+                Intent.createChooser(intent, "اختر صورة الإعلان"),
+                FILE_CHOOSER_REQUEST_CODE
+            )
+            true
+        } catch (error: Exception) {
+            this@MainActivity.fileChooserCallback?.onReceiveValue(null)
+            this@MainActivity.fileChooserCallback = null
+            false
+        }
+    }
+}
 
             webViewClient = object : WebViewClient() {
 
@@ -327,7 +360,31 @@ class MainActivity : AppCompatActivity() {
         handler.removeCallbacks(checkAgain)
         handler.postDelayed(checkAgain, 8000)
     }
+@Deprecated("Deprecated in Java")
+override fun onActivityResult(
+    requestCode: Int,
+    resultCode: Int,
+    data: Intent?
+) {
+    super.onActivityResult(requestCode, resultCode, data)
 
+    if (requestCode == FILE_CHOOSER_REQUEST_CODE) {
+        val results = if (resultCode == RESULT_OK) {
+            val clipData = data?.clipData
+
+            when {
+                clipData != null -> Array(clipData.itemCount) { index ->
+                    clipData.getItemAt(index).uri
+                }
+                data?.data != null -> arrayOf(data.data!!)
+                else -> null
+            }
+        } else null
+
+        fileChooserCallback?.onReceiveValue(results)
+        fileChooserCallback = null
+    }
+}
     override fun onDestroy() {
         handler.removeCallbacksAndMessages(null)
         executor.shutdownNow()

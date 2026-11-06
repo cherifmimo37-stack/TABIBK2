@@ -8084,12 +8084,13 @@ app.get("/api/ads/patient", (req, res) => {
             database.patientAd.imageData.startsWith("data:image/")
         ) {
             ads = [{
-                id: "legacy-patient-ad",
-                enabled: true,
-                imageData: database.patientAd.imageData,
-                targetUrl: database.patientAd.targetUrl || "",
-                title: database.patientAd.title || ""
-            }];
+    id: "legacy-patient-ad",
+    enabled: true,
+    imageData: database.patientAd.imageData,
+    targetUrl: database.patientAd.targetUrl || "",
+    title: database.patientAd.title || "",
+    description: database.patientAd.description || ""
+}];
         }
 
         return res.json({

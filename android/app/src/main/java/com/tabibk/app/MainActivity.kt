@@ -165,12 +165,11 @@ val isExternalSupportLink =
                 e
             )
 
-            val message =
-                if (isMessenger) {
-                    "تعذر فتح Messenger. جرّب فتح الرابط في المتصفح."
-                } else {
-                    "تعذر فتح واتساب. تحقق من تثبيته أو جرّب المتصفح."
-                }
+            val message = when {
+    isFacebook -> "تعذر فتح Facebook. جرّب فتح الرابط في المتصفح."
+    isMessenger -> "تعذر فتح Messenger. جرّب فتح الرابط في المتصفح."
+    else -> "تعذر فتح واتساب. تحقق من تثبيته أو جرّب المتصفح."
+}
 
             android.widget.Toast.makeText(
                 this@MainActivity,

@@ -4040,25 +4040,36 @@ if(doctorRatingCard){
 
 
     const queueNumber =
-        appointment.queueNumber ??
-        appointment.turnNumber ??
-        appointment.queue ??
-        "-";
+    appointment.queueNumber ??
+    appointment.turnNumber ??
+    appointment.queue ??
+    "-";
 
+// Show live queue details only after doctor confirmation.
+const queueIsActive = [
+    "confirmed",
+    "accepted",
+    "started"
+].includes(status);
 
-    const patientsAhead =
-        appointment.patientsAhead ??
-        appointment.ahead ??
-        calculatePatientsAhead(
-            appointment
-        );
+const patientsAhead =
+    queueIsActive
+        ? (
+            appointment.patientsAhead ??
+            appointment.ahead ??
+            calculatePatientsAhead(appointment)
+        )
+        : "-";
 
-
-    const currentTurn =
-        appointment.currentTurn ??
-        appointment.currentQueue ??
-        appointment.currentNumber ??
-        "-";
+const currentTurn =
+    queueIsActive
+        ? (
+            appointment.currentTurn ??
+            appointment.currentQueue ??
+            appointment.currentNumber ??
+            "-"
+        )
+        : "-";
 
 
     document.getElementById(

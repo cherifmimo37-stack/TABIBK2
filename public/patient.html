@@ -5161,7 +5161,36 @@ link.addEventListener("click", function(event) {
 });
 
 slide.appendChild(link);
-track.appendChild(slide);  
+
+const details = document.createElement("div");
+details.style.cssText =
+    "display:flex;flex-direction:column;align-items:center;" +
+    "gap:8px;padding:8px 4px 12px;";
+
+if (ad.title) {
+    const title = document.createElement("p");
+    title.textContent = ad.title;
+    title.style.cssText =
+        "margin:4px;padding:10px 12px;width:100%;" +
+        "color:#351044;font-size:14px;font-weight:900;" +
+        "text-align:center;line-height:1.7;" +
+        "background:#faf7fd;border:1px solid rgba(201,162,77,.45);" +
+        "border-radius:10px;";
+    details.appendChild(title);
+}
+
+// زر اكتشف المزيد
+const discover = document.createElement("a");
+discover.href = new URL(ad.targetUrl, location.origin).href;
+discover.textContent = "اكتشف المزيد ←";
+discover.style.cssText =
+    "display:inline-block;padding:11px 26px;border-radius:12px;" +
+    "background:linear-gradient(135deg,#7027a0,#4d1763);" +
+    "border:1px solid #c99732;color:#fff;font-size:13px;" +
+    "font-weight:900;text-decoration:none;";
+
+details.appendChild(discover);
+slide.appendChild(details); 
 
  
 if (ad.title) {

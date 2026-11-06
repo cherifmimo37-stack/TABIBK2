@@ -138,8 +138,14 @@ override fun shouldOverrideUrlLoading(
         host == "messenger.com" ||
         host == "www.messenger.com"
 
-    val isExternalSupportLink =
-        isWhatsApp || isMessenger
+val isFacebook =
+    host == "facebook.com" ||
+    host.endsWith(".facebook.com") ||
+    host == "fb.watch" ||
+    host == "fb.me"
+
+val isExternalSupportLink =
+    isWhatsApp || isMessenger || isFacebook
 
     if (isExternalSupportLink) {
 

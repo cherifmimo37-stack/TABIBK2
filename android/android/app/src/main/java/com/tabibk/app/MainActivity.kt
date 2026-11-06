@@ -23,6 +23,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import android.os.Handler
 import android.os.Looper
 import java.net.HttpURLConnection
@@ -30,6 +31,18 @@ import java.net.URL
 import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
+
+        private val imagePicker =
+        registerForActivityResult(
+            ActivityResultContracts.GetContent()
+        ) { uri ->
+            val results = uri?.let {
+                arrayOf(it)
+            }
+
+            fileChooserCallback?.onReceiveValue(results)
+            fileChooserCallback = null
+        }
 
     private lateinit var webView: WebView
     private lateinit var loadingScreen: LinearLayout
@@ -78,16 +91,8 @@ private val FILE_CHOOSER_REQUEST_CODE = 1001
         this@MainActivity.fileChooserCallback?.onReceiveValue(null)
         this@MainActivity.fileChooserCallback = filePathCallback
 
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "image/*"
-        }
-
-        return try {
-            startActivityForResult(
-                Intent.createChooser(intent, "اختر صورة الإعلان"),
-                FILE_CHOOSER_REQUEST_CODE
-            )
+                return try {
+            imagePicker.launch("image/*")
             true
         } catch (error: Exception) {
             this@MainActivity.fileChooserCallback?.onReceiveValue(null)

@@ -5177,16 +5177,7 @@ if (ad.title) {
         "font-weight:900;line-height:1.8;overflow-wrap:anywhere;";
     details.appendChild(title);
 }
-
-if (ad.description) {
-    const description = document.createElement("p");
-    description.textContent = ad.description;
-    description.style.cssText =
-        "margin:0 0 14px;color:#685773;font-size:13px;" +
-        "font-weight:500;line-height:1.9;overflow-wrap:anywhere;";
-    details.appendChild(description);
-}
-
+              
 // زر اكتشف المزيد
 const discover = document.createElement("a");
 discover.href = new URL(ad.targetUrl, location.origin).href;

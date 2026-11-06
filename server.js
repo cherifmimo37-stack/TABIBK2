@@ -8071,8 +8071,7 @@ app.get("/api/ads/patient", (req, res) => {
     enabled: true,
     imageData: ad.imageData,
     targetUrl: ad.targetUrl,
-    title: ad.title || "",
-    description: ad.description || ""
+    title: ad.title || ""
 }));
 
         // التوافق مع الإعلان القديم إذا لم توجد إعلانات جديدة مفعّلة
@@ -8088,8 +8087,7 @@ app.get("/api/ads/patient", (req, res) => {
     enabled: true,
     imageData: database.patientAd.imageData,
     targetUrl: database.patientAd.targetUrl || "",
-    title: database.patientAd.title || "",
-    description: database.patientAd.description || ""
+    title: database.patientAd.title || ""
 }];
         }
 
@@ -8239,10 +8237,6 @@ app.post(
             const title = typeof body.title === "string"
                 ? body.title.trim().slice(0, 120)
                 : "";
-
-            const description = typeof body.description === "string"
-    ? body.description.trim().slice(0, 250)
-    : "";
             
             const imageData = typeof body.imageData === "string"
                 ? body.imageData
@@ -8294,7 +8288,6 @@ app.post(
     id: "ad-" + Date.now() + "-" +
         Math.random().toString(36).slice(2, 8),
     title,
-    description,
     imageData,
     targetUrl,
     enabled,
@@ -8356,10 +8349,6 @@ app.put(
                 ? ad.title
                 : body.title;
 
-            const description = body.description === undefined
-    ? (ad.description || "")
-    : body.description;
-
             const enabled = body.enabled === undefined
                 ? ad.enabled
                 : body.enabled;
@@ -8377,9 +8366,8 @@ app.put(
 
             if (
     typeof enabled !== "boolean" ||
-    typeof title !== "string" ||
-    typeof description !== "string" ||
-    typeof targetUrl !== "string"
+typeof title !== "string" ||
+typeof targetUrl !== "string"
 )
             
             {
@@ -8413,7 +8401,6 @@ app.put(
             }
 
             ad.title = title.trim().slice(0, 120);
-            ad.description = description.trim().slice(0, 250);
             ad.imageData = imageData;
             ad.targetUrl = safeUrl;
             ad.enabled = enabled;

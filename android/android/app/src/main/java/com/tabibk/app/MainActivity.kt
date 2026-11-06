@@ -474,7 +474,7 @@ override fun onActivityResult(
             .setUsage(AudioAttributes.USAGE_NOTIFICATION)
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .build()
-
+            
         val channel = NotificationChannel(
             "tabibk_patient_reminders_v1",
             "تذكيرات مواعيد المرضى",

@@ -180,6 +180,23 @@ private val FILE_CHOOSER_REQUEST_CODE = 1001
                         scheduleCheck()
                     }
                 }
+
+                                override fun shouldOverrideUrlLoading(
+                    view: WebView?,
+                    request: WebResourceRequest?
+                ): Boolean {
+                    val url = request?.url?.toString() ?: return false
+                    return handleTabibkUrl(url)
+                }
+
+                @Suppress("DEPRECATION")
+                override fun shouldOverrideUrlLoading(
+                    view: WebView?,
+                    url: String?
+                ): Boolean {
+                    if (url.isNullOrBlank()) return false
+                    return handleTabibkUrl(url)
+                }
             }
         }
 

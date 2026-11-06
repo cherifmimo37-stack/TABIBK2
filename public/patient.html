@@ -3804,12 +3804,30 @@ async function trackAppointment(
             );
         }
 
-        const appointment =
-            data.appointment ||
-            data.data ||
-            data;
+        const appointmentData =
+    data.appointment ||
+    data.data ||
+    data;
 
-        currentAppointment = appointment;
+const appointment = {
+    ...appointmentData,
+
+    queueNumber:
+        data.queueNumber ??
+        appointmentData.queueNumber,
+
+    currentTurn:
+        data.currentTurn ??
+        appointmentData.currentTurn,
+
+    patientsAhead:
+        data.patientsBefore ??
+        data.patientsAhead ??
+        appointmentData.patientsAhead ??
+        appointmentData.ahead
+};
+
+currentAppointment = appointment;
 
         currentBookingNumber =
             String(

@@ -377,6 +377,41 @@ private val FILE_CHOOSER_REQUEST_CODE = 1001
         handler.removeCallbacks(checkAgain)
         handler.postDelayed(checkAgain, 8000)
     }
+
+        private fun handleTabibkUrl(url: String): Boolean {
+        val uri = Uri.parse(url)
+        val scheme = uri.scheme?.lowercase()
+
+        if (scheme == "http" || scheme == "https") {
+
+            if (uri.host.equals(
+                    "tabibk2.onrender.com",
+                    ignoreCase = true
+                )
+            ) {
+                return false
+            }
+
+            return try {
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+                true
+            } catch (e: Exception) {
+                true
+            }
+        }
+
+        if (scheme == "tel" || scheme == "mailto") {
+            return try {
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+                true
+            } catch (e: Exception) {
+                true
+            }
+        }
+
+        return false
+    }
+        
 @Deprecated("Deprecated in Java")
 override fun onActivityResult(
     requestCode: Int,

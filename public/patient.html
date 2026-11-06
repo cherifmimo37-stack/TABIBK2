@@ -3587,6 +3587,23 @@ async function createAppointment(){
 
         currentBookingNumber = String(bookingNumber);
 
+          // Display the real queue number after booking.
+const bookingQueueNumber =
+    appointment.queueNumber ??
+    data.queueNumber ??
+    "-";
+
+document.getElementById(
+    "bookingQueueNumber"
+).textContent = bookingQueueNumber;
+
+document.getElementById(
+    "bookingQueueStatus"
+).textContent =
+    appointment.status === "pending"
+        ? "بانتظار تأكيد الطبيب"
+        : "تم تسجيل دورك عند الطبيب";
+
         localStorage.setItem("tabibkPatientPhone", patientPhone);
 
         localStorage.setItem(

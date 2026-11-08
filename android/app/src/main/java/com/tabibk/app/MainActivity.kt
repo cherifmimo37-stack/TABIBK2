@@ -150,15 +150,50 @@ val isExternalSupportLink =
     if (isExternalSupportLink) {
 
         try {
-            
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                url
-            )
+            if (isFacebook) {
+                // Open Facebook directly when the official app is installed.
+                val facebookIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    url
+                ).apply {
+                    addCategory(Intent.CATEGORY_BROWSABLE)
+                    setPackage("com.facebook.katana")
+                }
 
-            startActivity(intent)
+                try {
+                    startActivity(facebookIntent)
+                } catch (_: Exception) {
+                    // If Facebook cannot handle the link, try Chrome.
+                    val chromeIntent = Intent(
+                        Intent.ACTION_VIEW,
+                        url
+                    ).apply {
+                        addCategory(Intent.CATEGORY_BROWSABLE)
+                        setPackage("com.android.chrome")
+                    }
 
-                } catch (e: Exception) {
+                    try {
+                        startActivity(chromeIntent)
+                    } catch (_: Exception) {
+                        // Last fallback: any installed browser.
+                        val browserIntent = Intent(
+                            Intent.ACTION_VIEW,
+                            url
+                        ).apply {
+                            addCategory(Intent.CATEGORY_BROWSABLE)
+                        }
+                        startActivity(browserIntent)
+                    }
+                }
+            } else {
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    url
+                )
+                startActivity(intent)
+            }
+
+        } catch (e: Exception) {
             Log.e(
                 "TABIBK_SUPPORT",
                 "Could not open support link: $url",

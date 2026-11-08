@@ -383,7 +383,6 @@ private val FILE_CHOOSER_REQUEST_CODE = 1001
         handler.postDelayed(checkAgain, 8000)
     }
 
-        
 
 private fun handleTabibkUrl(url: String): Boolean {
     val uri = try {
@@ -402,6 +401,7 @@ private fun handleTabibkUrl(url: String): Boolean {
             return false
         }
 
+        // روابط Facebook تفتح في المتصفح الخارجي
         val isFacebook =
             host == "facebook.com" ||
             host?.endsWith(".facebook.com") == true ||
@@ -410,37 +410,31 @@ private fun handleTabibkUrl(url: String): Boolean {
             host == "fb.watch" ||
             host == "fb.me"
 
-        // فتح روابط Facebook في التطبيق أولاً
-        if (isFacebook) {
-            try {
-                val facebookIntent =
-                    Intent(Intent.ACTION_VIEW, uri).apply {
-                        setPackage("com.facebook.katana")
-                    }
-
-                startActivity(facebookIntent)
-                return true
-
-            } catch (_: Exception) {
-                // إذا لم يفتح تطبيق Facebook ننتقل للمتصفح
-            }
-        }
-
-        // فتح الروابط الخارجية في تطبيق مناسب أو المتصفح
         return try {
-            val browserIntent =
-                Intent(Intent.ACTION_VIEW, uri)
-
-            startActivity(
-                Intent.createChooser(
-                    browserIntent,
-                    "فتح الرابط باستعمال"
-                )
+            val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                uri
             )
+
+            if (isFacebook) {
+                startActivity(
+                    Intent.createChooser(
+                        browserIntent,
+                        "فتح رابط Facebook في المتصفح"
+                    )
+                )
+            } else {
+                startActivity(
+                    Intent.createChooser(
+                        browserIntent,
+                        "فتح الرابط باستعمال"
+                    )
+                )
+            }
 
             true
         } catch (_: Exception) {
-            true
+            false
         }
     }
 
@@ -450,7 +444,7 @@ private fun handleTabibkUrl(url: String): Boolean {
             startActivity(Intent(Intent.ACTION_VIEW, uri))
             true
         } catch (_: Exception) {
-            true
+            false
         }
     }
 

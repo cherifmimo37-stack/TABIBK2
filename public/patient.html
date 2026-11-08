@@ -5254,8 +5254,8 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
                 }
 
                 .tbk-cinema-image-wrap {
-                    position: relative;
-                    flex: 0 0 43%;
+    position: relative;
+    flex: 0 0 32%;
                     min-width: 0;
                     min-height: 190px;
                     overflow: hidden;
@@ -5263,11 +5263,14 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
                 }
 
                 .tbk-cinema-image {
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                    min-height: 190px;
-                    object-fit: cover;
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 190px;
+    object-fit: contain;
+    padding: 5px;
+    box-sizing: border-box;
+    background: #fff;
                     transition: transform 1.2s ease;
                 }
 
@@ -5416,9 +5419,9 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
                         min-height: 165px;
                     }
 
-                    .tbk-cinema-image-wrap {
-                        flex-basis: 40%;
-                    }
+                   .tbk-cinema-image-wrap {
+    flex-basis: 32%;
+}
 
                     .tbk-cinema-content {
                         padding: 12px 10px;

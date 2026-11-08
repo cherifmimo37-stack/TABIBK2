@@ -384,11 +384,12 @@ private val FILE_CHOOSER_REQUEST_CODE = 1001
     }
 
 
+
 private fun handleTabibkUrl(url: String): Boolean {
     val uri = try {
         Uri.parse(url.trim())
     } catch (_: Exception) {
-        return false
+        return true
     }
 
     val scheme = uri.scheme?.lowercase()
@@ -401,40 +402,21 @@ private fun handleTabibkUrl(url: String): Boolean {
             return false
         }
 
-        // روابط Facebook تفتح في المتصفح الخارجي
-        val isFacebook =
-            host == "facebook.com" ||
-            host?.endsWith(".facebook.com") == true ||
-            host == "fb.com" ||
-            host?.endsWith(".fb.com") == true ||
-            host == "fb.watch" ||
-            host == "fb.me"
-
+        // فتح الروابط الخارجية خارج WebView
         return try {
-            val browserIntent = Intent(
+            val externalIntent = Intent(
                 Intent.ACTION_VIEW,
                 uri
-            )
-
-            if (isFacebook) {
-                startActivity(
-                    Intent.createChooser(
-                        browserIntent,
-                        "فتح رابط Facebook في المتصفح"
-                    )
-                )
-            } else {
-                startActivity(
-                    Intent.createChooser(
-                        browserIntent,
-                        "فتح الرابط باستعمال"
-                    )
-                )
+            ).apply {
+                addCategory(Intent.CATEGORY_BROWSABLE)
             }
 
+            startActivity(externalIntent)
             true
+
         } catch (_: Exception) {
-            false
+            // منع WebView من محاولة فتح الرابط داخلياً
+            true
         }
     }
 
@@ -444,7 +426,7 @@ private fun handleTabibkUrl(url: String): Boolean {
             startActivity(Intent(Intent.ACTION_VIEW, uri))
             true
         } catch (_: Exception) {
-            false
+            true
         }
     }
 

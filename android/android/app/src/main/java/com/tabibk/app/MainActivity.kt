@@ -384,13 +384,20 @@ private val FILE_CHOOSER_REQUEST_CODE = 1001
     }
 
         
+
 private fun handleTabibkUrl(url: String): Boolean {
-    val uri = Uri.parse(url)
+    val uri = try {
+        Uri.parse(url.trim())
+    } catch (_: Exception) {
+        return false
+    }
+
     val scheme = uri.scheme?.lowercase()
     val host = uri.host?.lowercase()
 
     if (scheme == "http" || scheme == "https") {
 
+        // إبقاء موقع طبيبك داخل التطبيق
         if (host == "tabibk2.onrender.com") {
             return false
         }
@@ -398,33 +405,46 @@ private fun handleTabibkUrl(url: String): Boolean {
         val isFacebook =
             host == "facebook.com" ||
             host?.endsWith(".facebook.com") == true ||
+            host == "fb.com" ||
+            host?.endsWith(".fb.com") == true ||
             host == "fb.watch" ||
             host == "fb.me"
 
-        return try {
-            if (isFacebook) {
-                try {
-                    val facebookIntent =
-                        Intent(Intent.ACTION_VIEW, uri).apply {
-                            setPackage("com.facebook.katana")
-                        }
+        // فتح روابط Facebook في التطبيق أولاً
+        if (isFacebook) {
+            try {
+                val facebookIntent =
+                    Intent(Intent.ACTION_VIEW, uri).apply {
+                        setPackage("com.facebook.katana")
+                    }
 
-                    startActivity(facebookIntent)
-                } catch (_: Exception) {
-                    val browserIntent =
-                        Intent(Intent.ACTION_VIEW, uri)
+                startActivity(facebookIntent)
+                return true
 
-                    startActivity(browserIntent)
-                }
-            } else {
-                startActivity(Intent(Intent.ACTION_VIEW, uri))
+            } catch (_: Exception) {
+                // إذا لم يفتح تطبيق Facebook ننتقل للمتصفح
             }
+        }
+
+        // فتح الروابط الخارجية في تطبيق مناسب أو المتصفح
+        return try {
+            val browserIntent =
+                Intent(Intent.ACTION_VIEW, uri)
+
+            startActivity(
+                Intent.createChooser(
+                    browserIntent,
+                    "فتح الرابط باستعمال"
+                )
+            )
+
             true
         } catch (_: Exception) {
             true
         }
     }
 
+    // روابط الاتصال والبريد الإلكتروني
     if (scheme == "tel" || scheme == "mailto") {
         return try {
             startActivity(Intent(Intent.ACTION_VIEW, uri))

@@ -5098,19 +5098,16 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
       
 
 /* =====================================================
-   TABIBK - RESPONSIVE PATIENT ADS SLIDER
+   TABIBK - PATIENT ADS PURPLE/GOLD CONTINUOUS TICKER
+   Replaces the previous patient ads slider.
+   Keeps the existing patient ads API and admin data format.
    ===================================================== */
-(async function loadTabibkPatientAdsSlider() {
+(async function loadTabibkPatientAdsTicker() {
     try {
-        const response = await fetch("/api/ads/patient", {
-            cache: "no-store"
-        });
-
+        const response = await fetch("/api/ads/patient", { cache: "no-store" });
         if (!response.ok) return;
 
         const result = await response.json();
-
-        // يدعم قائمة الإعلانات، مع التوافق مع الإعلان القديم
         let ads = [];
 
         if (result && result.success && Array.isArray(result.ads)) {
@@ -5120,20 +5117,11 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
         }
 
         ads = ads.filter(ad => {
-            if (
-                !ad ||
-                ad.enabled !== true ||
-                typeof ad.imageData !== "string" ||
-                !ad.imageData.startsWith("data:image/")
-            ) return false;
-
-            if (typeof ad.targetUrl !== "string" || !ad.targetUrl.trim()) {
-                return false;
-            }
-
+            if (!ad || ad.enabled !== true) return false;
+            if (typeof ad.targetUrl !== "string" || !ad.targetUrl.trim()) return false;
             try {
-                const url = new URL(ad.targetUrl, location.origin);
-                return ["http:", "https:"].includes(url.protocol);
+                const url = new URL(ad.targetUrl.trim(), location.origin);
+                return url.protocol === "http:" || url.protocol === "https:";
             } catch {
                 return false;
             }
@@ -5142,232 +5130,305 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
         if (!ads.length) return;
 
         const main = document.querySelector("main.container");
-        if (!main) return;
+        if (!main || document.querySelector("[data-tbk-patient-ads-ticker]")) return;
+
+        const style = document.createElement("style");
+        style.textContent = `
+            .tbk-patient-ticker {
+                direction: rtl;
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                width: 100%;
+                min-height: 66px;
+                box-sizing: border-box;
+                margin: 18px auto 24px;
+                padding: 8px 10px;
+                overflow: hidden;
+                border: 1.5px solid #c99732;
+                border-radius: 16px;
+                background: linear-gradient(110deg,#ffffff 0%,#fbf8ff 55%,#ffffff 100%);
+                box-shadow: 0 4px 15px rgba(75,31,99,.09), inset 0 0 0 1px rgba(201,151,50,.10);
+            }
+            .tbk-ticker-brand {
+                direction: rtl;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                flex: 0 0 auto;
+                padding: 5px 8px;
+                border: 1px solid #c99732;
+                border-radius: 11px;
+                background: #7027a0;
+                color: #fff;
+                white-space: nowrap;
+            }
+            .tbk-ticker-app-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 34px;
+                height: 34px;
+                flex: 0 0 34px;
+                border: 1px solid rgba(255,255,255,.65);
+                border-radius: 9px;
+                background: #fff;
+                color: #7027a0;
+                font-size: 20px;
+                line-height: 1;
+            }
+            .tbk-ticker-brand-name {
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+                color: #fff;
+                font-size: 12px;
+                font-weight: 900;
+                line-height: 1.3;
+            }
+            .tbk-ticker-brand-name small {
+                color: #f2d99d;
+                font-size: 9px;
+                font-weight: 800;
+            }
+            .tbk-ticker-viewport {
+                direction: ltr;
+                position: relative;
+                flex: 1 1 auto;
+                min-width: 0;
+                overflow: hidden;
+                border: 1px solid rgba(201,151,50,.35);
+                border-radius: 11px;
+                background: #fff;
+                touch-action: pan-y;
+            }
+            .tbk-ticker-track {
+                display: flex;
+                width: max-content;
+                align-items: center;
+                animation: tbkPatientTickerLTR var(--tbk-ticker-duration,28s) linear infinite;
+                will-change: transform;
+            }
+            .tbk-ticker-viewport:hover .tbk-ticker-track,
+            .tbk-ticker-viewport:focus-within .tbk-ticker-track,
+            .tbk-ticker-viewport.is-paused .tbk-ticker-track {
+                animation-play-state: paused;
+            }
+            .tbk-ticker-group {
+                direction: ltr;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                gap: 12px;
+                flex: 0 0 auto;
+                min-width: 100%;
+                box-sizing: border-box;
+                padding: 4px 10px;
+            }
+            .tbk-ticker-item {
+                direction: rtl;
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                flex: 0 0 auto;
+                max-width: min(72vw,360px);
+                min-height: 40px;
+                box-sizing: border-box;
+                padding: 5px 9px;
+                border: 1px solid rgba(112,39,160,.15);
+                border-radius: 10px;
+                background: linear-gradient(135deg,#fff,#fcf9ff);
+                color: #351044;
+                text-decoration: none !important;
+                white-space: nowrap;
+            }
+            .tbk-ticker-item:focus-visible {
+                outline: 2px solid #c99732;
+                outline-offset: 2px;
+            }
+            .tbk-ticker-thumb {
+                display: block;
+                width: 30px;
+                height: 30px;
+                flex: 0 0 30px;
+                object-fit: cover;
+                border: 1px solid rgba(201,151,50,.5);
+                border-radius: 8px;
+                background: #fff;
+            }
+            .tbk-ticker-symbol {
+                flex: 0 0 auto;
+                color: #c99732;
+                font-size: 15px;
+            }
+            .tbk-ticker-copy {
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                gap: 1px;
+                line-height: 1.35;
+            }
+            .tbk-ticker-title {
+                overflow: hidden;
+                color: #7027a0;
+                font-size: 12px;
+                font-weight: 900;
+                text-overflow: ellipsis;
+            }
+            .tbk-ticker-description {
+                overflow: hidden;
+                max-width: 230px;
+                color: #76657d;
+                font-size: 10px;
+                font-weight: 600;
+                text-overflow: ellipsis;
+            }
+            .tbk-ticker-action {
+                flex: 0 0 auto;
+                padding: 5px 8px;
+                border: 1px solid rgba(201,151,50,.55);
+                border-radius: 8px;
+                background: #7027a0;
+                color: #fff;
+                font-size: 10px;
+                font-weight: 900;
+            }
+            @keyframes tbkPatientTickerLTR {
+                from { transform: translateX(-50%); }
+                to { transform: translateX(0); }
+            }
+            @media (max-width: 420px) {
+                .tbk-patient-ticker { gap: 6px; min-height: 60px; padding: 6px; }
+                .tbk-ticker-brand { gap: 4px; padding: 4px 5px; }
+                .tbk-ticker-app-icon { width: 30px; height: 30px; flex-basis: 30px; font-size: 18px; }
+                .tbk-ticker-brand-name { font-size: 10px; }
+                .tbk-ticker-brand-name small { font-size: 8px; }
+                .tbk-ticker-item { gap: 5px; max-width: 78vw; min-height: 36px; padding: 4px 6px; }
+                .tbk-ticker-thumb { width: 26px; height: 26px; flex-basis: 26px; }
+                .tbk-ticker-title { font-size: 11px; }
+                .tbk-ticker-description { max-width: 135px; font-size: 9px; }
+                .tbk-ticker-action { padding: 4px 6px; font-size: 9px; }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .tbk-ticker-track { animation: none !important; transform: none !important; }
+                .tbk-ticker-viewport { overflow-x: auto; }
+            }
+        `;
+        document.head.appendChild(style);
 
         const box = document.createElement("section");
-        box.setAttribute("aria-label", "إعلانات طبيبك");
-        
-box.style.cssText = [
-    "position:relative",
-    "display:block",
-    "width:100%",
-    "max-width:100%",
-    "box-sizing:border-box",
-    "margin:24px auto 28px",
-    "padding:12px",
-    "background:linear-gradient(145deg,#ffffff 0%,#faf7fd 100%)",
-    "border:1.5px solid #c9a24d",
-    "border-radius:20px",
-    "box-shadow:0 8px 26px rgba(53,16,68,.12),inset 0 0 0 1px rgba(201,162,77,.10)",
-    "overflow:hidden"
-].join(";");
+        box.className = "tbk-patient-ticker";
+        box.setAttribute("data-tbk-patient-ads-ticker", "true");
+        box.setAttribute("aria-label", "إعلانات وخدمات طبيبك");
 
+        const brand = document.createElement("div");
+        brand.className = "tbk-ticker-brand";
 
-        const header = document.createElement("div");
-        header.style.cssText =
-            "display:flex;align-items:center;justify-content:space-between;" +
-            "gap:8px;margin-bottom:10px;color:#4d1763;" +
-            "font-size:12px;font-weight:900;";
+        const appIcon = document.createElement("span");
+        appIcon.className = "tbk-ticker-app-icon";
+        appIcon.setAttribute("aria-hidden", "true");
+        appIcon.textContent = "✚";
 
-        const label = document.createElement("span");
-        label.textContent = "📢 إعلان";
+        const brandName = document.createElement("span");
+        brandName.className = "tbk-ticker-brand-name";
+        brandName.append("طبيبك");
+        const brandSub = document.createElement("small");
+        brandSub.textContent = "TABIBK";
+        brandName.appendChild(brandSub);
+        brand.append(appIcon, brandName);
 
-        const counter = document.createElement("span");
-        counter.style.cssText = "color:#8b6b24;font-size:11px;";
-        header.append(label, counter);
-
-const viewport = document.createElement("div");
-viewport.style.cssText =
-    "position:relative;width:100%;" +
-    "overflow:hidden;border:1px solid rgba(107,50,128,.18);" +
-    "border-radius:14px;background:#f7f3fa;" +
-    "box-sizing:border-box;touch-action:pan-y;";
-
+        const viewport = document.createElement("div");
+        viewport.className = "tbk-ticker-viewport";
+        viewport.setAttribute("aria-label", "اضغط على الإعلان لفتح رابطه");
 
         const track = document.createElement("div");
-        track.style.cssText =
-            "display:flex;width:100%;transition:transform .45s ease;" +
-            "will-change:transform;";
+        track.className = "tbk-ticker-track";
+        track.style.setProperty(
+            "--tbk-ticker-duration",
+            Math.min(60, Math.max(20, ads.length * 6)) + "s"
+        );
 
-        const dots = document.createElement("div");
-        dots.style.cssText =
-            "display:flex;justify-content:center;align-items:center;" +
-            "gap:7px;padding-top:12px;";
+        function createAdGroup() {
+            const group = document.createElement("div");
+            group.className = "tbk-ticker-group";
 
-        const slides = [];
-        const dotButtons = [];
-        let current = 0;
-        let startX = 0;
-        let deltaX = 0;
-        let timer = null;
+            ads.forEach((ad, index) => {
+                const link = document.createElement("a");
+                link.className = "tbk-ticker-item";
+                link.href = new URL(ad.targetUrl.trim(), location.origin).href;
+                link.target = "_self";
+                link.rel = "noopener noreferrer";
 
-        ads.forEach((ad, index) => {
-            const slide = document.createElement("div");
-            slide.style.cssText =
-                "flex:0 0 100%;width:100%;min-width:0;box-sizing:border-box;";
+                const titleText = String(ad.title || "").trim();
+                const descriptionText = String(ad.description || "").trim();
+                link.setAttribute("aria-label",
+                    (titleText || descriptionText || "إعلان طبيبك") + " - اكتشف المزيد"
+                );
 
-            const link = document.createElement("a");
-            link.href = new URL(ad.targetUrl, location.origin).href;
-            link.target = "_self";
-            link.rel = "noopener noreferrer";
-            link.style.cssText =
-                "display:block;width:100%;text-decoration:none;";
-
-            const image = document.createElement("img");
-            image.src = ad.imageData;
-            image.alt = ad.title || "إعلان طبيبك";
-            image.loading = index === 0 ? "eager" : "lazy";
-            
-image.style.cssText =
-    "display:block;width:100%;height:clamp(180px,35vw,280px);max-width:100%;" +
-    "object-fit:contain;object-position:center;" +
-    "border-radius:12px;background:#f7f3fa;" +
-    "box-sizing:border-box;padding:8px;";
-
-
-            link.appendChild(image);
-
-link.addEventListener("click", function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const targetUrl = this.href;
-
-    if (targetUrl) {
-        window.location.href = targetUrl;
-    }
-});
-
-slide.appendChild(link);
-
-const details = document.createElement("div");
-details.style.cssText =
-    "display:flex;flex-direction:column;align-items:center;" +
-    "gap:8px;padding:8px 4px 12px;";
-
-if (ad.title) {
-    const title = document.createElement("p");
-    title.textContent = ad.title;
-    title.style.cssText =
-        "margin:4px;padding:10px 12px;width:100%;" +
-        "color:#351044;font-size:14px;font-weight:900;" +
-        "text-align:center;line-height:1.7;" +
-        "background:#faf7fd;border:1px solid rgba(201,162,77,.45);" +
-        "border-radius:10px;";
-    details.appendChild(title);
-}
-
-// زر اكتشف المزيد
-const discover = document.createElement("a");
-discover.href = new URL(ad.targetUrl, location.origin).href;
-discover.textContent = "اكتشف المزيد ←";
-discover.style.cssText =
-    "display:inline-block;padding:11px 26px;border-radius:12px;" +
-    "background:linear-gradient(135deg,#7027a0,#4d1763);" +
-    "border:1px solid #c99732;color:#fff;font-size:13px;" +
-    "font-weight:900;text-decoration:none;";
-
-details.appendChild(discover);
-slide.appendChild(details); 
-
-            image.addEventListener("error", () => {
-                slide.style.display = "none";
-                dotButtons[index].style.display = "none";
-                if (slides.filter(item => item.style.display !== "none").length === 0) {
-                    box.remove();
-                } else {
-                    showSlide(Math.min(current, slides.length - 1));
+                if (
+                    typeof ad.imageData === "string" &&
+                    /^data:image\/(png|jpeg|jpg|webp);base64,/i.test(ad.imageData)
+                ) {
+                    const thumb = document.createElement("img");
+                    thumb.className = "tbk-ticker-thumb";
+                    thumb.src = ad.imageData;
+                    thumb.alt = "";
+                    thumb.loading = "lazy";
+                    link.appendChild(thumb);
                 }
+
+                const symbol = document.createElement("span");
+                symbol.className = "tbk-ticker-symbol";
+                symbol.setAttribute("aria-hidden", "true");
+                symbol.textContent = ["✦", "★", "✚", "✨", "◆"][index % 5];
+
+                const copy = document.createElement("span");
+                copy.className = "tbk-ticker-copy";
+
+                const title = document.createElement("span");
+                title.className = "tbk-ticker-title";
+                title.textContent = titleText || descriptionText || "اكتشف خدمات العيادة";
+                copy.appendChild(title);
+
+                if (descriptionText && titleText) {
+                    const description = document.createElement("span");
+                    description.className = "tbk-ticker-description";
+                    description.textContent = descriptionText;
+                    copy.appendChild(description);
+                }
+
+                const action = document.createElement("span");
+                action.className = "tbk-ticker-action";
+                action.textContent = "اكتشف المزيد ←";
+
+                link.append(symbol, copy, action);
+                group.appendChild(link);
             });
-
-           track.appendChild(slide);
-            slides.push(slide);
-
-            const dot = document.createElement("button");
-            dot.type = "button";
-            dot.setAttribute("aria-label", "عرض الإعلان " + (index + 1));
-            dot.style.cssText =
-                "width:8px;height:8px;padding:0;border:0;border-radius:50%;" +
-                "background:#d8c9df;cursor:pointer;";
-
-            dot.addEventListener("click", () => {
-                showSlide(index);
-                restartTimer();
-            });
-
-            dots.appendChild(dot);
-            dotButtons.push(dot);
-        });
-
-        function showSlide(index) {
-            if (!slides.length) return;
-
-            current = (index + slides.length) % slides.length;
-            track.style.transform =
-                "translateX(" + (current * 100) + "%)";
-
-            counter.textContent = (current + 1) + " / " + slides.length;
-
-            dotButtons.forEach((dot, i) => {
-                dot.style.background = i === current ? "#6b3280" : "#d8c9df";
-                dot.style.transform = i === current ? "scale(1.25)" : "scale(1)";
-            });
+            return group;
         }
 
-        function restartTimer() {
-            if (timer) clearInterval(timer);
-            if (ads.length > 1) {
-                timer = setInterval(() => showSlide(current + 1), 5000);
-            }
-        }
+        // Duplicate the ad group for seamless continuous left-to-right motion.
+        track.append(createAdGroup(), createAdGroup());
 
-        viewport.addEventListener("touchstart", event => {
-            startX = event.changedTouches[0].clientX;
-            deltaX = 0;
-        }, { passive: true });
-
-        viewport.addEventListener("touchmove", event => {
-            deltaX = event.changedTouches[0].clientX - startX;
-        }, { passive: true });
-
-        viewport.addEventListener("touchend", () => {
-            if (Math.abs(deltaX) > 45 && ads.length > 1) {
-                showSlide(current + (deltaX < 0 ? 1 : -1));
-                restartTimer();
-            }
-        }, { passive: true });
-
-        box.addEventListener("mouseenter", () => {
-            if (timer) clearInterval(timer);
-        });
-
-        box.addEventListener("mouseleave", restartTimer);
+        viewport.addEventListener("touchstart",
+            () => viewport.classList.add("is-paused"), { passive: true });
+        const resume = () => viewport.classList.remove("is-paused");
+        viewport.addEventListener("touchend", resume, { passive: true });
+        viewport.addEventListener("touchcancel", resume, { passive: true });
 
         viewport.appendChild(track);
-        box.append(header, viewport);
+        box.append(brand, viewport);
 
-        if (ads.length > 1) box.appendChild(dots);
-
-        
-
-const tabs = main.querySelector(".tabs");
-
-box.style.margin = "24px auto 28px";
-
-if (tabs && tabs.parentNode === main) {
-    tabs.insertAdjacentElement("afterend", box);
-} else {
-    main.prepend(box);
-}
-
-        showSlide(0);
-        restartTimer();
-
+        const tabs = main.querySelector(".tabs");
+        if (tabs && tabs.parentNode === main) {
+            tabs.insertAdjacentElement("afterend", box);
+        } else {
+            main.prepend(box);
+        }
     } catch (error) {
-        console.warn("TABIBK patient ads slider:", error);
+        console.warn("TABIBK patient ads ticker:", error);
     }
 })();
-
 </script>
 
 </body>

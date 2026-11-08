@@ -5096,12 +5096,14 @@ window.addEventListener(
 document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true,passive:true});
 
 
+
 /* =====================================================
-   TABIBK - PREMIUM FIXED BRAND + MOVING ADS TICKER
+   TABIBK - CINEMATIC PATIENT ADS CARDS
+   Sequential dramatic presentation
    Purple / White / Gold
    ===================================================== */
 
-(async function loadTabibkPatientAdsTicker() {
+(async function loadTabibkCinematicAds() {
     try {
         const response = await fetch("/api/ads/patient", {
             cache: "no-store"
@@ -5113,22 +5115,14 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
 
         let ads = [];
 
-        if (result && result.success && Array.isArray(result.ads)) {
+        if (Array.isArray(result.ads)) {
             ads = result.ads;
-        } else if (result && result.success && result.ad) {
+        } else if (result.ad) {
             ads = [result.ad];
         }
 
-        /* الإعلانات التي تحتوي على صورة ورابط صالح */
         ads = ads.filter(ad => {
-            if (
-                !ad ||
-                ad.enabled !== true ||
-                typeof ad.imageData !== "string" ||
-                !ad.imageData.startsWith("data:image/") ||
-                typeof ad.targetUrl !== "string" ||
-                !ad.targetUrl.trim()
-            ) return false;
+            if (!ad || ad.enabled !== true) return false;
 
             try {
                 const url = new URL(ad.targetUrl, location.origin);
@@ -5143,259 +5137,315 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
         const main = document.querySelector("main.container");
         if (!main) return;
 
-        /* منع تكرار الشريط */
-        const oldTicker = document.getElementById("tbkPatientAdsTicker");
-        if (oldTicker) oldTicker.remove();
+        /* منع التكرار */
+        document.getElementById("tbkCinematicAds")?.remove();
 
         /* =================================================
-           STYLE
+           CSS
            ================================================= */
 
-        if (!document.getElementById("tbkPatientTickerStyle")) {
+        if (!document.getElementById("tbkCinematicAdsStyle")) {
             const style = document.createElement("style");
-            style.id = "tbkPatientTickerStyle";
+            style.id = "tbkCinematicAdsStyle";
 
             style.textContent = `
-                .tbk-premium-ticker {
+                .tbk-cinema-section {
                     direction: rtl;
+                    width: 100%;
+                    margin: 24px auto;
+                    box-sizing: border-box;
+                }
+
+                .tbk-cinema-heading {
+                    display: flex;
+                    align-items: center;
+                    gap: 11px;
+                    margin-bottom: 13px;
+                    padding: 0 5px;
+                }
+
+                .tbk-cinema-logo {
+                    width: 43px;
+                    height: 43px;
+                    flex: 0 0 43px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 14px;
+                    color: #fff;
+                    font-size: 21px;
+                    background: linear-gradient(145deg,#7027a0,#351044);
+                    border: 2px solid #c99732;
+                    box-shadow: 0 4px 12px rgba(112,39,160,.18);
+                }
+
+                .tbk-cinema-heading-text {
+                    min-width: 0;
+                }
+
+                .tbk-cinema-heading-text strong {
+                    display: block;
+                    color: #4d1763;
+                    font-size: 15px;
+                    font-weight: 900;
+                }
+
+                .tbk-cinema-heading-text small {
+                    display: block;
+                    color: #98752f;
+                    font-size: 10px;
+                    margin-top: 3px;
+                }
+
+                .tbk-cinema-frame {
+                    position: relative;
+                    width: 100%;
+                    min-height: 190px;
+                    overflow: hidden;
+                    box-sizing: border-box;
+                    border: 1.5px solid #c99732;
+                    border-radius: 19px;
+                    background: #fff;
+                    box-shadow: 0 8px 25px rgba(53,16,68,.10);
+                }
+
+                .tbk-cinema-card {
                     display: flex;
                     align-items: stretch;
                     width: 100%;
-                    max-width: 100%;
-                    min-width: 0;
-                    box-sizing: border-box;
-                    margin: 22px auto 28px;
+                    min-height: 190px;
                     overflow: hidden;
-                    border: 1.5px solid #c99732;
-                    border-radius: 17px;
-                    background: #fff;
-                    box-shadow: 0 7px 23px rgba(53,16,68,.10);
-                }
-
-                /* البطاقة الثابتة */
-                .tbk-fixed-brand {
-                    direction: rtl;
-                    position: relative;
-                    z-index: 2;
-                    flex: 0 0 126px;
-                    min-width: 0;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 7px;
-                    box-sizing: border-box;
-                    padding: 10px 7px;
-                    color: #fff;
-                    text-align: center;
                     background:
-                        radial-gradient(circle at 50% 0%,
-                        rgba(233,196,93,.22),transparent 60%),
-                        linear-gradient(145deg,#7027a0,#351044);
-                    border-left: 2px solid #c99732;
+                        radial-gradient(circle at 100% 0%,
+                        rgba(201,151,50,.08),transparent 40%),
+                        #fff;
+                    text-decoration: none;
+                    color: inherit;
+                    opacity: 1;
+                    transform: translateX(0) scale(1);
+                    transition:
+                        opacity .65s ease,
+                        transform .75s cubic-bezier(.2,.8,.2,1);
                 }
 
-                .tbk-fixed-brand-icon {
-                    width: 39px;
-                    height: 39px;
+                .tbk-cinema-card.tbk-cinema-exit {
+                    opacity: 0;
+                    transform: translateX(-45px) scale(.96);
+                }
+
+                .tbk-cinema-card.tbk-cinema-enter {
+                    animation: tbkCinemaEnter .85s cubic-bezier(.16,1,.3,1);
+                }
+
+                @keyframes tbkCinemaEnter {
+                    0% {
+                        opacity: 0;
+                        transform: translateX(65px) scale(.94);
+                        filter: blur(5px);
+                    }
+                    65% {
+                        opacity: 1;
+                        filter: blur(0);
+                    }
+                    100% {
+                        opacity: 1;
+                        transform: translateX(0) scale(1);
+                    }
+                }
+
+                .tbk-cinema-image-wrap {
+                    position: relative;
+                    flex: 0 0 43%;
+                    min-width: 0;
+                    min-height: 190px;
+                    overflow: hidden;
+                    background: linear-gradient(145deg,#7027a0,#351044);
+                }
+
+                .tbk-cinema-image {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    min-height: 190px;
+                    object-fit: cover;
+                    transition: transform 1.2s ease;
+                }
+
+                .tbk-cinema-card.tbk-cinema-enter .tbk-cinema-image {
+                    transform: scale(1.06);
+                }
+
+                .tbk-cinema-image-placeholder {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border: 2px solid #c99732;
-                    border-radius: 13px;
-                    background: #fff;
-                    color: #7027a0;
-                    font-size: 21px;
-                    box-shadow: 0 3px 10px rgba(0,0,0,.15);
+                    width: 100%;
+                    min-height: 190px;
+                    color: #f3d58e;
+                    font-size: 48px;
                 }
 
-                .tbk-fixed-brand strong {
-                    display: block;
-                    color: #fff;
-                    font-size: 12px;
-                    font-weight: 900;
-                    line-height: 1.6;
+                .tbk-cinema-image-wrap::after {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(
+                        90deg,
+                        transparent 55%,
+                        rgba(53,16,68,.15)
+                    );
+                    pointer-events: none;
                 }
 
-                .tbk-fixed-brand small {
-                    color: #f4dfa8;
-                    font-size: 9px;
-                    font-weight: 700;
-                    line-height: 1.5;
-                }
-
-                .tbk-brand-decoration {
-                    color: #e9c45d;
-                    font-size: 12px;
-                    letter-spacing: 3px;
-                }
-
-                /* مساحة الإعلانات */
-                .tbk-ticker-viewport {
-                    direction: ltr;
-                    position: relative;
+                .tbk-cinema-content {
+                    direction: rtl;
                     flex: 1 1 auto;
                     min-width: 0;
                     display: flex;
-                    align-items: center;
-                    overflow: hidden;
-                    background: #fff;
-                }
-
-                .tbk-ticker-track {
-                    direction: ltr;
-                    display: flex;
-                    align-items: center;
-                    width: max-content;
-                    flex: 0 0 auto;
-                    will-change: transform;
-                    animation: tbkPremiumTickerLTR 35s linear infinite;
-                }
-
-                .tbk-premium-ticker:hover .tbk-ticker-track,
-                .tbk-premium-ticker:focus-within .tbk-ticker-track {
-                    animation-play-state: paused;
-                }
-
-                .tbk-ticker-group {
-                    direction: ltr;
-                    display: flex;
-                    align-items: center;
-                    flex: 0 0 auto;
-                    width: max-content;
-                }
-
-                /* بطاقة الإعلان */
-                .tbk-premium-ad {
-                    direction: rtl;
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-                    gap: 9px;
-                    min-width: 190px;
-                    max-width: 230px;
-                    min-height: 76px;
-                    padding: 9px 12px;
-                    box-sizing: border-box;
-                    color: #351044;
-                    background: #fff;
-                    text-decoration: none;
-                    border: 1px solid #eee8f1;
-                    border-radius: 12px;
-                    margin: 5px 3px;
-                    transition: background .2s ease;
-                }
-
-                .tbk-premium-ad:active {
-                    background: #f8f3fa;
-                }
-
-                .tbk-premium-ad img {
-                    display: block;
-                    width: 65px;
-                    height: 54px;
-                    flex: 0 0 65px;
-                    object-fit: cover;
-                    object-position: center;
-                    border-radius: 9px;
-                    border: 1px solid rgba(201,151,50,.65);
-                    background: #f7f3fa;
-                }
-
-                .tbk-premium-ad-info {
-                    display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    min-width: 0;
+                    align-items: flex-start;
+                    padding: 17px 15px;
+                    box-sizing: border-box;
+                }
+
+                .tbk-cinema-tag {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 5px;
+                    color: #98701d;
+                    font-size: 9px;
+                    font-weight: 900;
+                    margin-bottom: 9px;
+                    letter-spacing: .3px;
+                }
+
+                .tbk-cinema-title {
+                    color: #4d1763;
+                    font-size: 16px;
+                    font-weight: 900;
+                    line-height: 1.7;
+                    margin: 0 0 13px;
+                    overflow-wrap: anywhere;
+                }
+
+                .tbk-cinema-button {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 7px;
+                    padding: 9px 15px;
+                    border-radius: 10px;
+                    color: #fff;
+                    font-size: 10px;
+                    font-weight: 900;
+                    background: linear-gradient(110deg,#7027a0,#4d1763);
+                    border: 1px solid #c99732;
+                    box-shadow: 0 3px 9px rgba(112,39,160,.16);
+                }
+
+                .tbk-cinema-footer {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 10px;
+                    padding: 10px 12px;
+                    background: #fff;
+                    border-top: 1px solid #f0e8f2;
+                }
+
+                .tbk-cinema-dots {
+                    display: flex;
+                    align-items: center;
                     gap: 5px;
                 }
 
-                .tbk-premium-ad-title {
-                    color: #4d1763;
-                    font-size: 11px;
-                    font-weight: 900;
-                    line-height: 1.6;
-                    white-space: normal;
-                    overflow: hidden;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
+                .tbk-cinema-dot {
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 20px;
+                    background: #ded3e4;
+                    transition: all .3s ease;
                 }
 
-                .tbk-premium-ad-action {
-                    color: #98701d;
-                    font-size: 9px;
+                .tbk-cinema-dot.active {
+                    width: 19px;
+                    background: #7027a0;
+                    box-shadow: 0 0 5px rgba(112,39,160,.25);
+                }
+
+                .tbk-cinema-counter {
+                    color: #98752f;
+                    font-size: 10px;
                     font-weight: 800;
                     white-space: nowrap;
                 }
 
-                /* شعار طبيبك بين الإعلانات */
-                .tbk-ticker-separator {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex: 0 0 34px;
-                    width: 34px;
-                    height: 34px;
-                    margin: 0 5px;
-                    border: 1px solid #c99732;
-                    border-radius: 11px;
-                    background: linear-gradient(145deg,#7027a0,#4d1763);
-                    color: #f4d78f;
-                    font-size: 17px;
-                    box-shadow: 0 2px 7px rgba(53,16,68,.12);
+                .tbk-cinema-progress {
+                    height: 3px;
+                    width: 100%;
+                    background: #f0e8f2;
+                    overflow: hidden;
                 }
 
-                @keyframes tbkPremiumTickerLTR {
-                    from {
-                        transform: translateX(-50%);
-                    }
-                    to {
-                        transform: translateX(0);
-                    }
+                .tbk-cinema-progress-bar {
+                    display: block;
+                    width: 0;
+                    height: 100%;
+                    background: linear-gradient(90deg,#c99732,#7027a0);
                 }
 
-                @media (max-width: 480px) {
-                    .tbk-fixed-brand {
-                        flex-basis: 104px;
-                        padding: 8px 5px;
+                .tbk-cinema-progress-bar.running {
+                    animation: tbkCinemaProgress 6s linear forwards;
+                }
+
+                @keyframes tbkCinemaProgress {
+                    from { width: 0; }
+                    to { width: 100%; }
+                }
+
+                @media(max-width:480px) {
+                    .tbk-cinema-frame,
+                    .tbk-cinema-card {
+                        min-height: 165px;
                     }
 
-                    .tbk-fixed-brand-icon {
-                        width: 34px;
-                        height: 34px;
-                        font-size: 18px;
+                    .tbk-cinema-image-wrap,
+                    .tbk-cinema-image,
+                    .tbk-cinema-image-placeholder {
+                        min-height: 165px;
                     }
 
-                    .tbk-fixed-brand strong {
-                        font-size: 11px;
+                    .tbk-cinema-image-wrap {
+                        flex-basis: 40%;
                     }
 
-                    .tbk-premium-ad {
-                        min-width: 165px;
-                        max-width: 185px;
-                        min-height: 68px;
-                        gap: 7px;
-                        padding: 7px;
+                    .tbk-cinema-content {
+                        padding: 12px 10px;
                     }
 
-                    .tbk-premium-ad img {
-                        width: 55px;
-                        height: 48px;
-                        flex-basis: 55px;
+                    .tbk-cinema-title {
+                        font-size: 13px;
+                        margin-bottom: 10px;
                     }
 
-                    .tbk-ticker-separator {
-                        flex-basis: 30px;
-                        width: 30px;
-                        height: 30px;
-                        font-size: 15px;
+                    .tbk-cinema-button {
+                        padding: 8px 11px;
+                        font-size: 9px;
                     }
                 }
 
-                @media (prefers-reduced-motion: reduce) {
-                    .tbk-ticker-track {
-                        animation-duration: 90s;
+                @media(prefers-reduced-motion:reduce) {
+                    .tbk-cinema-card,
+                    .tbk-cinema-image,
+                    .tbk-cinema-dot {
+                        transition: none !important;
+                        animation: none !important;
+                    }
+
+                    .tbk-cinema-progress-bar.running {
+                        animation: none !important;
+                        width: 100%;
                     }
                 }
             `;
@@ -5404,131 +5454,238 @@ document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true
         }
 
         /* =================================================
-           MAIN CONTAINER
+           HTML ELEMENTS
            ================================================= */
 
-        const box = document.createElement("section");
-        box.id = "tbkPatientAdsTicker";
-        box.className = "tbk-premium-ticker";
-        box.setAttribute("aria-label", "إعلانات طبيبك");
+        const section = document.createElement("section");
+        section.id = "tbkCinematicAds";
+        section.className = "tbk-cinema-section";
 
-        /* البطاقة الثابتة */
-        const brand = document.createElement("div");
-        brand.className = "tbk-fixed-brand";
+        const heading = document.createElement("div");
+        heading.className = "tbk-cinema-heading";
 
-        const brandIcon = document.createElement("div");
-        brandIcon.className = "tbk-fixed-brand-icon";
+        const logo = document.createElement("div");
+        logo.className = "tbk-cinema-logo";
 
-        const heart = document.createElement("i");
-        heart.className = "fa-solid fa-heart-pulse";
-        brandIcon.appendChild(heart);
+        const logoIcon = document.createElement("i");
+        logoIcon.className = "fa-solid fa-heart-pulse";
+        logo.appendChild(logoIcon);
 
-        const brandTitle = document.createElement("strong");
-        brandTitle.textContent = "إعلانات طبيبك";
+        const headingText = document.createElement("div");
+        headingText.className = "tbk-cinema-heading-text";
 
-        const brandSubtitle = document.createElement("small");
-        brandSubtitle.textContent = "اكتشف الجديد";
+        const headingTitle = document.createElement("strong");
+        headingTitle.textContent = "إعلانات طبيبك";
 
-        const decoration = document.createElement("div");
-        decoration.className = "tbk-brand-decoration";
-        decoration.textContent = "✦ ✧ ✦";
+        const headingSubtitle = document.createElement("small");
+        headingSubtitle.textContent = "اكتشف الخدمات والعروض الجديدة";
 
-        brand.append(
-            brandIcon,
-            brandTitle,
-            brandSubtitle,
-            decoration
-        );
+        headingText.append(headingTitle, headingSubtitle);
+        heading.append(logo, headingText);
 
-        /* منطقة الحركة */
-        const viewport = document.createElement("div");
-        viewport.className = "tbk-ticker-viewport";
+        const frame = document.createElement("div");
+        frame.className = "tbk-cinema-frame";
 
-        const track = document.createElement("div");
-        track.className = "tbk-ticker-track";
+        const footer = document.createElement("div");
+        footer.className = "tbk-cinema-footer";
 
-        /* إنشاء مجموعة الإعلانات */
-        function createGroup() {
-            const group = document.createElement("div");
-            group.className = "tbk-ticker-group";
+        const dots = document.createElement("div");
+        dots.className = "tbk-cinema-dots";
 
-            ads.forEach(ad => {
-                const link = document.createElement("a");
+        const counter = document.createElement("span");
+        counter.className = "tbk-cinema-counter";
 
-                link.className = "tbk-premium-ad";
-                link.href = new URL(ad.targetUrl, location.origin).href;
-                link.target = "_self";
-                link.rel = "noopener noreferrer";
-                link.setAttribute("aria-label", ad.title || "اكتشف الإعلان");
+        const progress = document.createElement("div");
+        progress.className = "tbk-cinema-progress";
 
-                const image = document.createElement("img");
-                image.src = ad.imageData;
-                image.alt = ad.title || "صورة الإعلان";
-                image.loading = "lazy";
+        const progressBar = document.createElement("span");
+        progressBar.className = "tbk-cinema-progress-bar";
+        progress.appendChild(progressBar);
 
-                const info = document.createElement("div");
-                info.className = "tbk-premium-ad-info";
+        footer.append(dots, counter);
 
-                const title = document.createElement("span");
-                title.className = "tbk-premium-ad-title";
-                title.textContent = ad.title || "اكتشف هذا الإعلان";
+        section.append(heading, frame, footer, progress);
 
-                const action = document.createElement("span");
-                action.className = "tbk-premium-ad-action";
-                action.textContent = "اكتشف المزيد ←";
+        /* =================================================
+           BUILD DOTS
+           ================================================= */
 
-                info.append(title, action);
-                link.append(image, info);
-                group.appendChild(link);
+        ads.forEach((ad, index) => {
+            const dot = document.createElement("span");
+            dot.className = "tbk-cinema-dot";
+            dots.appendChild(dot);
+        });
 
-                /* شعار طبيبك بين الإعلانات */
-                const separator = document.createElement("span");
-                separator.className = "tbk-ticker-separator";
+        let currentIndex = 0;
+        let rotationTimer = null;
+        let paused = false;
+        const DISPLAY_TIME = 6000;
 
-                const separatorIcon = document.createElement("i");
-                separatorIcon.className = "fa-solid fa-heart-pulse";
+        /* =================================================
+           BUILD CARD
+           ================================================= */
 
-                separator.appendChild(separatorIcon);
-                group.appendChild(separator);
-            });
+        function createCard(ad) {
+            const link = document.createElement("a");
 
-            return group;
+            link.className = "tbk-cinema-card";
+            link.href = new URL(ad.targetUrl, location.origin).href;
+            link.target = "_self";
+            link.rel = "noopener noreferrer";
+
+            const imageWrap = document.createElement("div");
+            imageWrap.className = "tbk-cinema-image-wrap";
+
+            if (
+                typeof ad.imageData === "string" &&
+                /^data:image\//i.test(ad.imageData)
+            ) {
+                const img = document.createElement("img");
+                img.className = "tbk-cinema-image";
+                img.src = ad.imageData;
+                img.alt = ad.title || "إعلان طبيبك";
+                img.loading = "lazy";
+
+                img.onerror = function() {
+                    imageWrap.innerHTML = "";
+                    const placeholder = document.createElement("div");
+                    placeholder.className = "tbk-cinema-image-placeholder";
+                    placeholder.textContent = "✚";
+                    imageWrap.appendChild(placeholder);
+                };
+
+                imageWrap.appendChild(img);
+            } else {
+                const placeholder = document.createElement("div");
+                placeholder.className = "tbk-cinema-image-placeholder";
+                placeholder.textContent = "✚";
+                imageWrap.appendChild(placeholder);
+            }
+
+            const content = document.createElement("div");
+            content.className = "tbk-cinema-content";
+
+            const tag = document.createElement("span");
+            tag.className = "tbk-cinema-tag";
+            tag.textContent = "✦ إعلان مميز";
+
+            const title = document.createElement("h3");
+            title.className = "tbk-cinema-title";
+            title.textContent = ad.title || "اكتشف هذا الإعلان";
+
+            const button = document.createElement("span");
+            button.className = "tbk-cinema-button";
+            button.textContent = "اكتشف المزيد ←";
+
+            content.append(tag, title, button);
+            link.append(imageWrap, content);
+
+            return link;
         }
 
-        /* تكرار المجموعة لضمان حركة مستمرة */
-        const firstGroup = createGroup();
-        const secondGroup = createGroup();
+        /* =================================================
+           DISPLAY CARD
+           ================================================= */
 
-        track.append(firstGroup, secondGroup);
-        viewport.appendChild(track);
+        function updateIndicators() {
+            Array.from(dots.children).forEach((dot, index) => {
+                dot.classList.toggle("active", index === currentIndex);
+            });
 
-        box.append(brand, viewport);
+            counter.textContent =
+                (currentIndex + 1) + " / " + ads.length;
+        }
 
-        /* وضع الشريط بعد تبويبات المريض */
+        function startProgress() {
+            progressBar.classList.remove("running");
+            progressBar.style.width = "0%";
+
+            void progressBar.offsetWidth;
+
+            progressBar.classList.add("running");
+        }
+
+        function showCard(index, animate = true) {
+            currentIndex = index;
+
+            const card = createCard(ads[currentIndex]);
+
+            if (animate) {
+                card.classList.add("tbk-cinema-enter");
+            }
+
+            frame.replaceChildren(card);
+            updateIndicators();
+            startProgress();
+        }
+
+        function nextCard() {
+            if (paused || ads.length < 2) return;
+
+            const oldCard = frame.querySelector(".tbk-cinema-card");
+
+            if (oldCard) {
+                oldCard.classList.add("tbk-cinema-exit");
+            }
+
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % ads.length;
+                showCard(currentIndex, true);
+            }, 550);
+        }
+
+        /* =================================================
+           AUTO ROTATION
+           ================================================= */
+
+        function startRotation() {
+            clearInterval(rotationTimer);
+
+            if (ads.length > 1) {
+                rotationTimer = setInterval(nextCard, DISPLAY_TIME);
+            }
+        }
+
+        section.addEventListener("mouseenter", () => {
+            paused = true;
+            progressBar.style.animationPlayState = "paused";
+        });
+
+        section.addEventListener("mouseleave", () => {
+            paused = false;
+            progressBar.style.animationPlayState = "running";
+        });
+
+        section.addEventListener("focusin", () => {
+            paused = true;
+            progressBar.style.animationPlayState = "paused";
+        });
+
+        section.addEventListener("focusout", () => {
+            paused = false;
+            progressBar.style.animationPlayState = "running";
+        });
+
+        /* =================================================
+           INSERT INTO PATIENT PAGE
+           ================================================= */
+
+        showCard(0, false);
+
         const tabs = main.querySelector(".tabs");
 
         if (tabs && tabs.parentNode === main) {
-            tabs.insertAdjacentElement("afterend", box);
+            tabs.insertAdjacentElement("afterend", section);
         } else {
-            main.prepend(box);
+            main.prepend(section);
         }
 
-        /* سرعة الحركة حسب عدد الإعلانات */
-        track.style.animationDuration =
-            Math.max(25, ads.length * 9) + "s";
-
-        /* إذا لم توجد صور صالحة لا نعرض إعلاناً فارغاً */
-        firstGroup.querySelectorAll("img").forEach(img => {
-            img.addEventListener("error", function() {
-                this.style.visibility = "hidden";
-            });
-        });
+        startRotation();
 
     } catch (error) {
-        console.warn("TABIBK premium patient ads ticker:", error);
+        console.warn("TABIBK cinematic ads:", error);
     }
 })();
-;
 
 </script>
 

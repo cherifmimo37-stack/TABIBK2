@@ -1,0 +1,65 @@
+name: Build TABIBK Google Play AAB
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-aab:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate signing secrets
+        shell: bash
+        env:
+          KEYSTORE_BASE64: ${{ secrets.TABIBK_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.TABIBK_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.TABIBK_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.TABIBK_KEY_PASSWORD }}
+        run: |
+          for name in KEYSTORE_BASE64 KEYSTORE_PASSWORD KEY_ALIAS KEY_PASSWORD; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Missing GitHub secret for ${name}. Add all TABIBK signing secrets before running this workflow."
+              exit 1
+            fi
+          done
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+
+      - name: Restore upload keystore
+        shell: bash
+        env:
+          KEYSTORE_BASE64: ${{ secrets.TABIBK_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.TABIBK_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.TABIBK_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.TABIBK_KEY_PASSWORD }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > android/upload-key.jks
+          cat > android/key.properties <<EOF
+          storeFile=upload-key.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
+
+      - name: Build signed Google Play AAB
+        run: gradle -p android :app:bundleRelease --stacktrace
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: tabibk-google-play-aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+          retention-days: 30

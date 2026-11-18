@@ -216,93 +216,9 @@ val isExternalSupportLink =
         return true
     }
 
-        // Open external websites in the phone browser.
-    // Keep TABIBK pages inside the application.
-    if (
-        (scheme == "http" || scheme == "https") &&
-        host.isNotBlank() &&
-        host != "tabibk2.onrender.com"
-    ) {
-        try {
-            val browserIntent = Intent(
-                Intent.ACTION_VIEW,
-                url
-            ).apply {
-                addCategory(Intent.CATEGORY_BROWSABLE)
-            }
-
-            startActivity(browserIntent)
-
-        } catch (e: Exception) {
-            Log.e(
-                "TABIBK_EXTERNAL_LINK",
-                "Could not open external link: $url",
-                e
-            )
-
-            android.widget.Toast.makeText(
-                this@MainActivity,
-                "تعذر فتح الرابط. تحقق من وجود متصفح على الهاتف.",
-                android.widget.Toast.LENGTH_LONG
-            ).show()
-        }
-
-        return true
-    }
-
     return false
 }
 
-
-@Suppress("DEPRECATION")
-override fun shouldOverrideUrlLoading(
-    view: WebView?,
-    url: String?
-): Boolean {
-
-    if (url.isNullOrBlank()) return false
-
-    val uri = Uri.parse(url)
-    val scheme = uri.scheme?.lowercase() ?: return false
-    val host = uri.host?.lowercase() ?: ""
-
-    val isExternal =
-        (scheme == "http" || scheme == "https") &&
-        host.isNotBlank() &&
-        host != "tabibk2.onrender.com"
-
-    val isWhatsApp = scheme == "whatsapp"
-
-    if (!isExternal && !isWhatsApp) {
-        return false
-    }
-
-    try {
-        val browserIntent = Intent(
-            Intent.ACTION_VIEW,
-            uri
-        ).apply {
-            addCategory(Intent.CATEGORY_BROWSABLE)
-        }
-
-        startActivity(browserIntent)
-
-    } catch (e: Exception) {
-        Log.e(
-            "TABIBK_EXTERNAL_LINK",
-            "Could not open link: $url",
-            e
-        )
-
-        android.widget.Toast.makeText(
-            this@MainActivity,
-            "تعذر فتح الرابط. تحقق من وجود متصفح على الهاتف.",
-            android.widget.Toast.LENGTH_LONG
-        ).show()
-    }
-
-    return true
-}
 
             
 override fun onPageFinished(

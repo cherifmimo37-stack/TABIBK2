@@ -1001,7 +1001,18 @@ function cleanDoctors(doctors) {
         cleanDoctor
     );
 }
+function cleanPublicDoctor(doctor) {
 
+    const result = cleanDoctor(doctor);
+
+    if (!result) {
+        return null;
+    }
+
+    delete result.fcmTokens;
+
+    return result;
+}
 // ------------------------------------------------------------
 
 const PASSWORD_HASH_PREFIX = "scrypt";
@@ -2001,14 +2012,14 @@ const nextAppointment =
                     : 0;
 
 
-            return {
+           return {
 
-    ...cleanDoctor(
+    ...cleanPublicDoctor(
         doctor
     ),
 
     rating,
-
+               
     ratingCount,
 
     nextAppointment:

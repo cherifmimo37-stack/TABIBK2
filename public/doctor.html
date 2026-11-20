@@ -11560,7 +11560,39 @@ window.setTabibkAndroidFcmToken = function(token) {
     }
 };
  
-        
+ // انتظار رمز FCM قبل تسجيل الطبيب
+async function waitForTabibkFcmToken(timeoutMs = 15000) {
+
+    const isAndroidApp =
+        navigator.userAgent.includes("TABIBK-Android");
+
+    if (!isAndroidApp) {
+        return "";
+    }
+
+    const startTime = Date.now();
+
+    while (Date.now() - startTime < timeoutMs) {
+
+        const token =
+            window.TABIBK_ANDROID_FCM_TOKEN;
+
+        if (
+            typeof token === "string" &&
+            token.trim()
+        ) {
+            return token.trim();
+        }
+
+        await new Promise(resolve =>
+            setTimeout(resolve, 250)
+        );
+    }
+
+    throw new Error(
+        "تعذر تجهيز إشعارات الهاتف، أغلق التطبيق وافتحه مجدداً ثم أعد التسجيل."
+    );
+}       
 
 /* =========================================================
    DOCTOR SUPPORT MESSAGES
@@ -12609,6 +12641,10 @@ async function registerDoctor(event){
 
     try{
 
+        // انتظار رمز الهاتف قبل تسجيل الطبيب
+        const registrationFcmToken =
+            await waitForTabibkFcmToken();
+
         const response =
             await fetch(
                 API +
@@ -12634,8 +12670,7 @@ async function registerDoctor(event){
                             duration,
                             password,
                             fcmToken:
-    window.TABIBK_ANDROID_FCM_TOKEN || ""
-
+    registrationFcmToken
 })
 
                 }

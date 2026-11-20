@@ -6938,8 +6938,8 @@ app.post(
 
 app.post(
     "/api/admin/doctors/:id/approve",
-    checkAdminKey,
-    (req, res) => {
+checkAdminKey,
+async (req, res) => {
 
         try {
 
@@ -6966,7 +6966,8 @@ app.post(
 
             }
 
-
+const shouldNotifyDoctor =
+    doctor.status === "pending";
             doctor.status =
                 "approved";
 
@@ -6989,11 +6990,47 @@ for (const [token, session] of doctorSessions) {
 doctor.approvedAt =
     new Date().toISOString();
 
-            saveDatabase(
-                database
-            );
+            const saveResult = await saveDatabase(database);
 
+if (saveResult === false) {
+    return res.status(500).json({
+        success: false,
+        message: "تعذر حفظ الموافقة، يرجى المحاولة مرة أخرى"
+    });
+}
 
+if (shouldNotifyDoctor) {
+
+    const approvalNotification = createNotification(database, {
+        doctorId: Number(doctor.id),
+        type: "doctor_approved",
+        title: "🎉 تم تأكيد تسجيلك في طبيبك",
+        message: "تمت الموافقة على حسابك بنجاح، ويمكنك الدخول الآن إلى تطبيق طبيبك والبدء في استعمال خدماته."
+    });
+
+    try {
+    const notificationSaveResult =
+        await saveDatabase(database);
+
+    if (notificationSaveResult === false) {
+        console.error(
+            "تعذر حفظ إشعار الموافقة للطبيب"
+        );
+    } else {
+        await sendDoctorPushNotification(
+            doctor,
+            approvalNotification
+        );
+    }
+
+} catch (pushError) {
+        console.error(
+            "خطأ في إرسال إشعار الموافقة للطبيب:",
+            pushError
+        );
+    }
+
+}
             res.json({
 
                 success: true,
@@ -7041,7 +7078,7 @@ doctor.approvedAt =
 app.post(
     "/api/admin/doctors/:id/reject",
     checkAdminKey,
-    (req, res) => {
+async (req, res) => {
 
         try {
 
@@ -7068,7 +7105,6 @@ app.post(
 
             }
 
-
             doctor.status =
 "rejected";
 
@@ -7092,11 +7128,14 @@ doctorSessions.delete(token);
                 new Date().toISOString();
 
 
-            saveDatabase(
-                database
-            );
+            const saveResult = await saveDatabase(database);
 
-
+if (saveResult === false) {
+    return res.status(500).json({
+        success: false,
+        message: "تعذر حفظ رفض الطلب، يرجى المحاولة مرة أخرى"
+    });
+}
             res.json({
 
                 success: true,

@@ -2241,6 +2241,18 @@ app.post(
             ? fcmToken.trim()
            : "";
 
+            // التأكد من وصول رمز الإشعارات من تطبيق أندرويد
+const isTabibkAndroid =
+    String(req.headers["user-agent"] || "")
+        .includes("TABIBK-Android");
+
+if (isTabibkAndroid && !submittedFcmToken) {
+    return res.status(400).json({
+        success: false,
+        message: "لم يتم تجهيز إشعارات الهاتف، يرجى المحاولة مجدداً."
+    });
+}
+
             const doctor = {
 
                 id:

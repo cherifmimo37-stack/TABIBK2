@@ -12632,9 +12632,11 @@ async function registerDoctor(event){
                             phone,
                             whatsapp,
                             duration,
-                            password
+                            password,
+                            fcmToken:
+    window.TABIBK_ANDROID_FCM_TOKEN || ""
 
-                        })
+})
 
                 }
             );

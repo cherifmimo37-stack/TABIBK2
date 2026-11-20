@@ -1162,7 +1162,7 @@ async function sendDoctorPushNotification(
     !firebaseMessaging ||
     !doctor ||
     !notification ||
-    !["new_appointment", "admin", "admin_announcement", "support_message"].includes(notification.type)
+    !["new_appointment", "admin", "admin_announcement", "support_message", "doctor_approved"].includes(notification.type)
 ) {
     return;
 }
@@ -2118,8 +2118,9 @@ app.post(
                 whatsapp,
                 duration,
                 password,
-                loginPassword
-            } = req.body;
+                loginPassword,
+                fcmToken
+                } = req.body;
 
 
             // ------------------------------------------------
@@ -2233,6 +2234,13 @@ app.post(
 
             const hashedPassword = await hashDoctorPassword(submittedPassword);
 
+            const submittedFcmToken =
+            typeof fcmToken === "string" &&
+            fcmToken.trim().length > 0 &&
+            fcmToken.trim().length <= 4096
+            ? fcmToken.trim()
+           : "";
+
             const doctor = {
 
                 id:
@@ -2287,7 +2295,10 @@ app.post(
 
                 online:
                     false,
-
+fcmTokens:
+    submittedFcmToken
+        ? [submittedFcmToken]
+        : [],
                 loginPassword:
                     hashedPassword,
 

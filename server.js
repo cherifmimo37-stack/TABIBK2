@@ -3336,9 +3336,17 @@ app.post(
             };
 
             database.privateAppointments.push(appointment);
-            await saveDatabase(database);
 
-            return res.status(201).json({
+const saveResult = await saveDatabase(database);
+
+if (saveResult === false) {
+    return res.status(500).json({
+        success: false,
+        message: "تعذر حفظ الموعد في قاعدة البيانات"
+    });
+}
+
+return res.status(201).json({
                 success: true,
                 appointment
             });
@@ -3392,12 +3400,19 @@ app.put(
                 Number(req.body.reminderMinutes ?? 0);
             appointment.updatedAt = new Date().toISOString();
 
-            await saveDatabase(database);
+            const saveResult = await saveDatabase(database);
 
-            return res.json({
-                success: true,
-                appointment
-            });
+if (saveResult === false) {
+    return res.status(500).json({
+        success: false,
+        message: "تعذر حفظ تعديل الموعد في قاعدة البيانات"
+    });
+}
+
+return res.json({
+    success: true,
+    appointment
+});
 
         } catch (error) {
             console.error("Update private appointment failed:", error);
@@ -3432,12 +3447,20 @@ app.delete(
             }
 
             database.privateAppointments.splice(index, 1);
-            await saveDatabase(database);
 
-            return res.json({
-                success: true,
-                message: "تم حذف الموعد الخاص"
-            });
+const saveResult = await saveDatabase(database);
+
+if (saveResult === false) {
+    return res.status(500).json({
+        success: false,
+        message: "تعذر حفظ حذف الموعد في قاعدة البيانات"
+    });
+}
+
+return res.json({
+    success: true,
+    message: "تم حذف الموعد الخاص"
+});
 
         } catch (error) {
             console.error("Delete private appointment failed:", error);

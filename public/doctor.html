@@ -9739,7 +9739,7 @@ transition: none;
                                 </div>
                                 <p class="private-appointment-reminder-note">
                                     <i class="fa-solid fa-circle-info"></i>
-                                    إعداد التذكير يُحفظ مع الموعد؛ تفعيل إرسال الإشعارات سيأتي بعد اختبار نظام التذكير.
+                                    سيظهر التذكير داخل التطبيق ويُرسل إلى هاتفك عند حلول وقته، إذا كانت إشعارات الهاتف مفعّلة.
                                 </p>
                             </form>
                         </div>
@@ -11608,7 +11608,7 @@ function renderPrivateAppointments() {
                         <span class="private-appointment-status ${isPast ? "past" : "upcoming"}">${isPast ? "منقضٍ" : "قادم"}</span>
                     </div>
                     <p>${escapeHtml(item.note || "بدون ملاحظة")}</p>
-                    <small><i class="fa-regular fa-bell"></i> ${escapeHtml(getPrivateAppointmentReminderLabel(item.reminderMinutes))}</small>
+                    <small><i class="fa-regular fa-bell"></i> ${item.reminderInAppSentAt ? "تم إرسال التذكير داخل التطبيق" : escapeHtml(getPrivateAppointmentReminderLabel(item.reminderMinutes))}</small>
                 </div>
                 <div class="private-appointment-actions">
                     <button type="button" onclick="editPrivateAppointment('${escapeHtml(item.id)}')" aria-label="تعديل الموعد">

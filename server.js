@@ -1174,7 +1174,7 @@ async function sendDoctorPushNotification(
     !notification ||
     !["new_appointment", "admin", "admin_announcement", "support_message", "doctor_approved", "doctor_private_appointment_reminder"].includes(notification.type)
 ) {
-    return;
+    return false;
 }
 
     const tokens = [

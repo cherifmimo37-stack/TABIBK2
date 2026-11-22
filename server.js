@@ -211,7 +211,9 @@ function createEmptyDatabase() {
 
         appointments: [],
 
-                notifications: [],
+        privateAppointments: [],
+
+        notifications: [],
 
                 patientAd: {
             enabled: false,
@@ -261,6 +263,14 @@ function normalizeDatabase(database) {
         )
     ) {
         database.appointments = [];
+    }
+
+    if (
+        !Array.isArray(
+            database.privateAppointments
+        )
+    ) {
+        database.privateAppointments = [];
     }
 
     if (
@@ -2898,6 +2908,238 @@ app.get(
                     req.doctor
                 )
         });
+    }
+);
+
+// ============================================================
+// DOCTOR PRIVATE APPOINTMENTS — ISOLATED CRUD
+// These records are separate from patient bookings.
+// ============================================================
+
+const PRIVATE_APPOINTMENT_TYPES = [
+    "personal",
+    "professional",
+    "conference",
+    "administrative",
+    "vacation",
+    "other"
+];
+
+const PRIVATE_APPOINTMENT_REMINDERS = [
+    0,
+    15,
+    30,
+    60,
+    1440
+];
+
+function validatePrivateAppointmentPayload(body = {}) {
+    const type = String(body.type || "personal").trim();
+    const note = String(body.note || "").trim();
+    const date = String(body.date || "").trim();
+    const time = String(body.time || "").trim();
+    const reminderMinutes = Number(body.reminderMinutes ?? 0);
+
+    if (!PRIVATE_APPOINTMENT_TYPES.includes(type)) {
+        return { error: "نوع الموعد غير صالح" };
+    }
+
+    if (note.length > 240) {
+        return { error: "الملاحظة طويلة جداً (الحد الأقصى 240 حرفاً)" };
+    }
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        return { error: "تاريخ الموعد غير صالح" };
+    }
+
+    const [year, month, day] = date.split("-").map(Number);
+    const parsedDate = new Date(Date.UTC(year, month - 1, day));
+
+    if (
+        parsedDate.getUTCFullYear() !== year ||
+        parsedDate.getUTCMonth() !== month - 1 ||
+        parsedDate.getUTCDate() !== day
+    ) {
+        return { error: "تاريخ الموعد غير صحيح" };
+    }
+
+    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) {
+        return { error: "وقت الموعد غير صالح" };
+    }
+
+    if (!PRIVATE_APPOINTMENT_REMINDERS.includes(reminderMinutes)) {
+        return { error: "مدة التذكير غير صالحة" };
+    }
+
+    return {
+        value: {
+            type,
+            note,
+            date,
+            time,
+            reminderMinutes
+        }
+    };
+}
+
+app.get(
+    "/api/doctor/private-appointments",
+    checkDoctorAuth,
+    (req, res) => {
+        const database = readDatabase();
+        const doctorId = Number(req.doctor.id);
+
+        const appointments = database.privateAppointments
+            .filter(item => Number(item.doctorId) === doctorId)
+            .sort((a, b) =>
+                (String(a.date) + " " + String(a.time))
+                    .localeCompare(String(b.date) + " " + String(b.time))
+            );
+
+        return res.json({
+            success: true,
+            appointments
+        });
+    }
+);
+
+app.post(
+    "/api/doctor/private-appointments",
+    checkDoctorAuth,
+    async (req, res) => {
+        try {
+            const validation = validatePrivateAppointmentPayload(req.body);
+
+            if (validation.error) {
+                return res.status(400).json({
+                    success: false,
+                    message: validation.error
+                });
+            }
+
+            const database = readDatabase();
+            const doctorId = Number(req.doctor.id);
+            const doctorCount = database.privateAppointments.filter(
+                item => Number(item.doctorId) === doctorId
+            ).length;
+
+            if (doctorCount >= 300) {
+                return res.status(409).json({
+                    success: false,
+                    message: "وصلت إلى الحد الأقصى للمواعيد الخاصة"
+                });
+            }
+
+            const now = new Date().toISOString();
+            const appointment = {
+                id: crypto.randomUUID(),
+                doctorId,
+                ...validation.value,
+                createdAt: now,
+                updatedAt: now
+            };
+
+            database.privateAppointments.push(appointment);
+            await saveDatabase(database);
+
+            return res.status(201).json({
+                success: true,
+                appointment,
+                message: "تم حفظ الموعد الخاص"
+            });
+        } catch (error) {
+            console.error("Private appointment create error:", error);
+            return res.status(500).json({
+                success: false,
+                message: "تعذر حفظ الموعد الخاص"
+            });
+        }
+    }
+);
+
+app.put(
+    "/api/doctor/private-appointments/:id",
+    checkDoctorAuth,
+    async (req, res) => {
+        try {
+            const validation = validatePrivateAppointmentPayload(req.body);
+
+            if (validation.error) {
+                return res.status(400).json({
+                    success: false,
+                    message: validation.error
+                });
+            }
+
+            const database = readDatabase();
+            const appointment = database.privateAppointments.find(
+                item =>
+                    String(item.id) === String(req.params.id) &&
+                    Number(item.doctorId) === Number(req.doctor.id)
+            );
+
+            if (!appointment) {
+                return res.status(404).json({
+                    success: false,
+                    message: "الموعد الخاص غير موجود"
+                });
+            }
+
+            Object.assign(appointment, validation.value, {
+                updatedAt: new Date().toISOString()
+            });
+
+            await saveDatabase(database);
+
+            return res.json({
+                success: true,
+                appointment,
+                message: "تم تحديث الموعد الخاص"
+            });
+        } catch (error) {
+            console.error("Private appointment update error:", error);
+            return res.status(500).json({
+                success: false,
+                message: "تعذر تحديث الموعد الخاص"
+            });
+        }
+    }
+);
+
+app.delete(
+    "/api/doctor/private-appointments/:id",
+    checkDoctorAuth,
+    async (req, res) => {
+        try {
+            const database = readDatabase();
+            const doctorId = Number(req.doctor.id);
+            const index = database.privateAppointments.findIndex(
+                item =>
+                    String(item.id) === String(req.params.id) &&
+                    Number(item.doctorId) === doctorId
+            );
+
+            if (index === -1) {
+                return res.status(404).json({
+                    success: false,
+                    message: "الموعد الخاص غير موجود"
+                });
+            }
+
+            database.privateAppointments.splice(index, 1);
+            await saveDatabase(database);
+
+            return res.json({
+                success: true,
+                message: "تم حذف الموعد الخاص"
+            });
+        } catch (error) {
+            console.error("Private appointment delete error:", error);
+            return res.status(500).json({
+                success: false,
+                message: "تعذر حذف الموعد الخاص"
+            });
+        }
     }
 );
 

@@ -8976,6 +8976,20 @@ transition: none;
 
                 </button>
 
+                <!-- DOCTOR PRIVATE APPOINTMENTS -->
+
+<button
+    class="nav-item"
+    data-section="private-appointments"
+    onclick="showSection('private-appointments')"
+>
+
+    <i class="fa-solid fa-calendar-plus"></i>
+
+    <span>مواعيدي الخاصة</span>
+
+</button>
+
 
                 <button
                     class="nav-item"
@@ -9620,6 +9634,57 @@ transition: none;
 
                 </section>
 
+
+<!-- =========================================
+     DOCTOR PRIVATE APPOINTMENTS
+========================================== -->
+
+<section
+    class="dashboard-section"
+    id="section-private-appointments"
+>
+
+    <div class="private-appointments-section">
+
+        <div class="private-appointments-header">
+
+            <div>
+                <h2 class="private-appointments-title">
+                    <i class="fa-solid fa-calendar-star"></i>
+                    مواعيدي الخاصة
+                </h2>
+
+                <p class="private-appointments-subtitle">
+                    نظّم مواعيدك الشخصية والمهنية بعيداً عن حجوزات المرضى
+                </p>
+            </div>
+
+            <button
+                type="button"
+                class="private-appointment-add-btn"
+                onclick="openPrivateAppointmentModal()"
+            >
+                <i class="fa-solid fa-plus"></i>
+                إضافة موعد خاص
+            </button>
+
+        </div>
+
+        <div
+            id="privateAppointmentsList"
+            class="private-appointments-list"
+        >
+
+            <div class="private-appointments-empty">
+                <i class="fa-solid fa-calendar-days"></i>
+                <p>لم يتم تحميل المواعيد الخاصة بعد</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
                 <!-- =========================================
                      PATIENTS
@@ -12155,6 +12220,461 @@ function showApp() {
 
 }
 
+
+/* =========================================================
+   TABIBK — PRIVATE APPOINTMENTS STATE
+========================================================= */
+
+let privateAppointmentsCache = [];
+
+const privateAppointmentTypes = {
+    personal: "موعد شخصي",
+    professional: "موعد مهني",
+    conference: "مؤتمر أو تكوين",
+    administrative: "موعد إداري",
+    vacation: "عطلة أو غياب",
+    other: "موعد آخر"
+};
+
+
+/* =========================================================
+   LOAD PRIVATE APPOINTMENTS
+========================================================= */
+
+async function loadPrivateAppointments() {
+
+    const container = document.getElementById(
+        "privateAppointmentsList"
+    );
+
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="private-appointments-empty">
+            جارٍ تحميل المواعيد الخاصة...
+        </div>
+    `;
+
+    try {
+
+        const data = await apiFetch(
+            "/api/doctor/private-appointments"
+        );
+
+        privateAppointmentsCache =
+            Array.isArray(data)
+                ? data
+                : (
+                    data?.appointments ||
+                    []
+                );
+
+        renderPrivateAppointments();
+
+    } catch (error) {
+
+        console.warn(
+            "Private appointments loading:",
+            error
+        );
+
+        container.innerHTML = `
+            <div class="private-appointments-empty">
+                تعذر تحميل المواعيد الخاصة.
+                حاول فتح القسم مجدداً.
+            </div>
+        `;
+
+        showToast(
+            error.message || "تعذر تحميل المواعيد",
+            "error"
+        );
+
+    }
+}
+
+
+/* =========================================================
+   RENDER PRIVATE APPOINTMENTS
+========================================================= */
+
+function renderPrivateAppointments() {
+
+    const container = document.getElementById(
+        "privateAppointmentsList"
+    );
+
+    if (!container) return;
+
+    if (!privateAppointmentsCache.length) {
+
+        container.innerHTML = `
+            <div class="private-appointments-empty">
+                <i class="fa-solid fa-calendar-days"></i>
+                <p>لا توجد مواعيد خاصة حالياً</p>
+                <p>أضف موعدك الأول لتنظيم جدولك</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    const escape = value =>
+        escapeHtml(String(value ?? "—"));
+
+    const sorted = [...privateAppointmentsCache].sort(
+        (a, b) => {
+
+            const first =
+                `${a.date || ""} ${a.time || ""}`;
+
+            const second =
+                `${b.date || ""} ${b.time || ""}`;
+
+            return first.localeCompare(second);
+        }
+    );
+
+    container.innerHTML = sorted.map(item => {
+
+        const type =
+            privateAppointmentTypes[item.type] ||
+            "موعد خاص";
+
+        const reminderLabels = {
+            0: "بدون تذكير",
+            15: "قبل 15 دقيقة",
+            30: "قبل 30 دقيقة",
+            60: "قبل ساعة",
+            1440: "قبل يوم"
+        };
+
+        const reminder =
+            reminderLabels[item.reminderMinutes] ||
+            "بدون تذكير";
+
+        return `
+            <article class="private-appointment-card">
+
+                <div class="private-appointment-card-header">
+
+                    <span class="private-appointment-type">
+                        ${escape(type)}
+                    </span>
+
+                    <span class="private-appointment-date">
+                        ${escape(item.date)}
+                        — ${escape(item.time)}
+                    </span>
+
+                </div>
+
+                ${
+                    item.note
+                        ? `
+                            <p class="private-appointment-note">
+                                ${escape(item.note)}
+                            </p>
+                        `
+                        : ""
+                }
+
+                <div class="private-appointment-date">
+                    <i class="fa-regular fa-bell"></i>
+                    ${escape(reminder)}
+                </div>
+
+                <div class="private-appointment-actions">
+
+                    <button
+                        type="button"
+                        class="private-appointment-edit"
+                        onclick="editPrivateAppointment('${escapeJs(item.id)}')"
+                    >
+                        <i class="fa-solid fa-pen"></i>
+                        تعديل
+                    </button>
+
+                    <button
+                        type="button"
+                        class="private-appointment-delete"
+                        onclick="deletePrivateAppointment('${escapeJs(item.id)}')"
+                    >
+                        <i class="fa-solid fa-trash"></i>
+                        حذف
+                    </button>
+
+                </div>
+
+            </article>
+        `;
+
+    }).join("");
+
+}
+        
+/* =========================================================
+   TABIBK — OPEN / CLOSE PRIVATE APPOINTMENT MODAL
+========================================================= */
+
+function openPrivateAppointmentModal() {
+
+    const modal = document.getElementById(
+        "privateAppointmentModal"
+    );
+
+    const form = document.getElementById(
+        "privateAppointmentForm"
+    );
+
+    if (!modal || !form) return;
+
+    form.reset();
+
+    document.getElementById(
+        "privateAppointmentId"
+    ).value = "";
+
+    document.getElementById(
+        "privateAppointmentTitle"
+    ).innerHTML =
+        '<i class="fa-solid fa-calendar-plus"></i> إضافة موعد خاص';
+
+    modal.style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+function closePrivateAppointmentModal() {
+
+    const modal = document.getElementById(
+        "privateAppointmentModal"
+    );
+
+    if (!modal) return;
+
+    modal.style.display = "none";
+
+    document.body.style.overflow = "";
+
+}
+
+/* =========================================================
+   TABIBK — OPEN / CLOSE PRIVATE APPOINTMENT MODAL
+========================================================= */
+
+function openPrivateAppointmentModal() {
+
+    const modal = document.getElementById(
+        "privateAppointmentModal"
+    );
+
+    const form = document.getElementById(
+        "privateAppointmentForm"
+    );
+
+    if (!modal || !form) return;
+
+    form.reset();
+
+    document.getElementById(
+        "privateAppointmentId"
+    ).value = "";
+
+    document.getElementById(
+        "privateAppointmentTitle"
+    ).innerHTML =
+        '<i class="fa-solid fa-calendar-plus"></i> إضافة موعد خاص';
+
+    modal.style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+function closePrivateAppointmentModal() {
+
+    const modal = document.getElementById(
+        "privateAppointmentModal"
+    );
+
+    if (!modal) return;
+
+    modal.style.display = "none";
+
+    document.body.style.overflow = "";
+
+}  
+
+/* =========================================================
+   TABIBK — SAVE PRIVATE APPOINTMENT
+========================================================= */
+
+async function savePrivateAppointment(event) {
+
+    event.preventDefault();
+
+    const id = document.getElementById(
+        "privateAppointmentId"
+    ).value;
+
+    const appointment = {
+
+        type: document.getElementById(
+            "privateAppointmentType"
+        ).value,
+
+        note: document.getElementById(
+            "privateAppointmentNote"
+        ).value.trim(),
+
+        date: document.getElementById(
+            "privateAppointmentDate"
+        ).value,
+
+        time: document.getElementById(
+            "privateAppointmentTime"
+        ).value,
+
+        reminderMinutes: Number(
+            document.getElementById(
+                "privateAppointmentReminder"
+            ).value
+        )
+
+    };
+
+    if (
+        !appointment.date ||
+        !appointment.time
+    ) {
+
+        showToast(
+            "يرجى تحديد تاريخ وساعة الموعد",
+            "error"
+        );
+
+        return;
+    }
+
+    const submitButton =
+        event.submitter ||
+        document.querySelector(
+            "#privateAppointmentForm button[type='submit']"
+        );
+
+    if (submitButton) {
+        submitButton.disabled = true;
+    }
+
+    try {
+
+        const url = id
+            ? `/api/doctor/private-appointments/${encodeURIComponent(id)}`
+            : "/api/doctor/private-appointments";
+
+        const result = await apiFetch(url, {
+
+            method: id ? "PUT" : "POST",
+
+            body: JSON.stringify(appointment)
+
+        });
+
+        showToast(
+            id
+                ? "تم تعديل الموعد بنجاح"
+                : "تمت إضافة الموعد بنجاح",
+            "success"
+        );
+
+        closePrivateAppointmentModal();
+
+        await loadPrivateAppointments();
+
+    } catch (error) {
+
+        console.error(
+            "Save private appointment:",
+            error
+        );
+
+        showToast(
+            error.message || "تعذر حفظ الموعد",
+            "error"
+        );
+
+    } finally {
+
+        if (submitButton) {
+            submitButton.disabled = false;
+        }
+
+    }
+
+}      
+
+/* =========================================================
+   TABIBK — DELETE PRIVATE APPOINTMENT
+========================================================= */
+
+async function deletePrivateAppointment(id) {
+
+    const appointment =
+        privateAppointmentsCache.find(
+            item => String(item.id) === String(id)
+        );
+
+    if (!appointment) {
+
+        showToast(
+            "لم يتم العثور على الموعد",
+            "error"
+        );
+
+        return;
+    }
+
+    const confirmed = window.confirm(
+        "هل أنت متأكد من حذف هذا الموعد الخاص؟"
+    );
+
+    if (!confirmed) return;
+
+    try {
+
+        await apiFetch(
+            `/api/doctor/private-appointments/${encodeURIComponent(id)}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        showToast(
+            "تم حذف الموعد بنجاح",
+            "success"
+        );
+
+        await loadPrivateAppointments();
+
+    } catch (error) {
+
+        console.error(
+            "Delete private appointment:",
+            error
+        );
+
+        showToast(
+            error.message || "تعذر حذف الموعد",
+            "error"
+        );
+
+    }
+
+}        
 /* =========================================================
    DOCTOR REGISTRATION MODAL
 ========================================================= */
@@ -13204,6 +13724,12 @@ const sectionInfo = {
             "تنظيم أوقات استقبال المرضى والعطلة"
     },
 
+    private-appointments: {
+    title: "مواعيدي الخاصة",
+    subtitle:
+        "تنظيم مواعيدك الشخصية والمهنية"
+},
+
     settings: {
         title: "الإعدادات",
         subtitle:
@@ -13357,6 +13883,10 @@ function showSection(sectionName) {
     if (sectionName === "support") {
         loadSupportMessages();
     }
+
+        if (sectionName === "private-appointments") {
+    loadPrivateAppointments();
+}
 
 }
   
@@ -21895,6 +22425,149 @@ if (
 
 </script>
 
+ 
+<!-- =======================================================
+     TABIBK — PRIVATE APPOINTMENT MODAL
+======================================================= -->
+
+<div
+    id="privateAppointmentModal"
+    class="modal-overlay"
+>
+
+    <div
+        class="modal private-appointment-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="privateAppointmentTitle"
+        style="
+            width:min(92%,520px);
+            max-height:85vh;
+            overflow-y:auto;
+            margin:auto;
+            border-radius:20px;
+        "
+    >
+
+        <div class="modal-top"></div>
+
+        <div class="modal-body">
+
+            <h3 id="privateAppointmentTitle">
+                <i class="fa-solid fa-calendar-plus"></i>
+                إضافة موعد خاص
+            </h3>
+
+            <form
+                id="privateAppointmentForm"
+                class="private-appointment-form"
+                onsubmit="savePrivateAppointment(event)"
+            >
+
+                <input
+                    type="hidden"
+                    id="privateAppointmentId"
+                >
+
+                <div>
+                    <label for="privateAppointmentType">
+                        نوع الموعد
+                    </label>
+
+                    <select
+                        id="privateAppointmentType"
+                        required
+                    >
+                        <option value="personal">موعد شخصي</option>
+                        <option value="professional">موعد مهني</option>
+                        <option value="conference">مؤتمر أو تكوين</option>
+                        <option value="administrative">موعد إداري</option>
+                        <option value="vacation">عطلة أو غياب</option>
+                        <option value="other">موعد آخر</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="privateAppointmentNote">
+                        الملاحظة
+                    </label>
+
+                    <textarea
+                        id="privateAppointmentNote"
+                        maxlength="240"
+                        placeholder="اكتب ملاحظة حول الموعد..."
+                    ></textarea>
+                </div>
+
+                <div>
+                    <label for="privateAppointmentDate">
+                        التاريخ
+                    </label>
+
+                    <input
+                        type="date"
+                        id="privateAppointmentDate"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="privateAppointmentTime">
+                        الساعة
+                    </label>
+
+                    <input
+                        type="time"
+                        id="privateAppointmentTime"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="privateAppointmentReminder">
+                        التذكير قبل الموعد
+                    </label>
+
+                    <select id="privateAppointmentReminder">
+                        <option value="0">بدون تذكير</option>
+                        <option value="15">15 دقيقة</option>
+                        <option value="30">30 دقيقة</option>
+                        <option value="60">ساعة واحدة</option>
+                        <option value="1440">يوم واحد</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+
+                    <button
+                        type="submit"
+                        class="btn btn-gold"
+                    >
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        حفظ الموعد
+                    </button>
+
+                    <button
+                        type="button"
+                        class="modal-cancel"
+                        onclick="closePrivateAppointmentModal()"
+                    >
+                        إلغاء
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- END PRIVATE APPOINTMENT MODAL -->
+
+    
 <!-- =======================================================
      DOCTOR REGISTRATION MODAL
 ======================================================= -->

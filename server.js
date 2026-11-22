@@ -1172,7 +1172,7 @@ async function sendDoctorPushNotification(
     !firebaseMessaging ||
     !doctor ||
     !notification ||
-    !["new_appointment", "admin", "admin_announcement", "support_message", "doctor_approved"].includes(notification.type)
+    !["new_appointment", "admin", "admin_announcement", "support_message", "doctor_approved", "doctor_private_appointment_reminder"].includes(notification.type)
 ) {
     return;
 }
@@ -1192,7 +1192,7 @@ async function sendDoctorPushNotification(
     ];
 
     if (tokens.length === 0) {
-        return;
+        return false;
     }
 
     const results =
@@ -1211,7 +1211,9 @@ async function sendDoctorPushNotification(
                         bookingNumber:
                             String(notification.bookingNumber || ""),
                         appointmentId:
-                            String(notification.appointmentId || "")
+                            String(notification.appointmentId || ""),
+                        privateAppointmentId:
+                            String(notification.privateAppointmentId || "")
                     },
 
                     android: {
@@ -1233,6 +1235,8 @@ async function sendDoctorPushNotification(
             );
         }
     });
+
+    return results.some(result => result.status === "fulfilled");
 }
 
 
@@ -3085,6 +3089,27 @@ app.put(
                 });
             }
 
+            const reminderScheduleChanged =
+                appointment.date !== validation.value.date ||
+                appointment.time !== validation.value.time ||
+                Number(appointment.reminderMinutes || 0) !==
+                    validation.value.reminderMinutes;
+
+            if (reminderScheduleChanged) {
+                delete appointment.reminderInAppSentAt;
+                delete appointment.reminderPushSentAt;
+
+                database.notifications =
+                    database.notifications.filter(notification =>
+                        !(
+                            String(notification.privateAppointmentId) ===
+                                String(appointment.id) &&
+                            notification.type ===
+                                "doctor_private_appointment_reminder"
+                        )
+                    );
+            }
+
             Object.assign(appointment, validation.value, {
                 updatedAt: new Date().toISOString()
             });
@@ -3125,6 +3150,19 @@ app.delete(
                     message: "الموعد الخاص غير موجود"
                 });
             }
+
+            const deletedAppointment =
+                database.privateAppointments[index];
+
+            database.notifications =
+                database.notifications.filter(notification =>
+                    !(
+                        String(notification.privateAppointmentId) ===
+                            String(deletedAppointment.id) &&
+                        notification.type ===
+                            "doctor_private_appointment_reminder"
+                    )
+                );
 
             database.privateAppointments.splice(index, 1);
             await saveDatabase(database);
@@ -8964,6 +9002,130 @@ async function processPatientReminders() {
         patientRemindersProcessing = false;
     }
 }
+ 
+// ============================================================
+// DOCTOR PRIVATE APPOINTMENT REMINDERS
+// ============================================================
+
+let doctorPrivateRemindersProcessing = false;
+
+async function processDoctorPrivateAppointmentReminders() {
+    if (doctorPrivateRemindersProcessing) {
+        return;
+    }
+
+    doctorPrivateRemindersProcessing = true;
+
+    try {
+        const database = readDatabase();
+        const now = Date.now();
+        let changed = false;
+
+        const appointments = Array.isArray(database.privateAppointments)
+            ? database.privateAppointments
+            : [];
+
+        for (const appointment of appointments) {
+            const reminderMinutes = Number(appointment.reminderMinutes || 0);
+
+            if (
+                !appointment.id ||
+                !appointment.doctorId ||
+                !appointment.date ||
+                !appointment.time ||
+                !PRIVATE_APPOINTMENT_REMINDERS.includes(reminderMinutes) ||
+                reminderMinutes === 0 ||
+                appointment.reminderPushSentAt
+            ) {
+                continue;
+            }
+
+            const appointmentTime = new Date(
+                `${appointment.date}T${appointment.time}:00+01:00`
+            ).getTime();
+
+            if (Number.isNaN(appointmentTime)) {
+                continue;
+            }
+
+            const minutesLeft = (appointmentTime - now) / (60 * 1000);
+
+            if (minutesLeft > reminderMinutes || minutesLeft <= 0) {
+                continue;
+            }
+
+            const doctor = database.doctors.find(
+                item => Number(item.id) === Number(appointment.doctorId)
+            );
+
+            if (!doctor) {
+                continue;
+            }
+
+            let notification = database.notifications.find(item =>
+                String(item.privateAppointmentId) ===
+                    String(appointment.id) &&
+                item.type === "doctor_private_appointment_reminder"
+            );
+
+            if (!notification) {
+                const dateLabel = appointment.date;
+                notification = createNotification(database, {
+                    doctorId: Number(doctor.id),
+                    type: "doctor_private_appointment_reminder",
+                    title: "تذكير بموعدك الخاص 📅",
+                    message:
+                        `لديك ${getPrivateAppointmentTypeLabelForServer(appointment.type)} بتاريخ ${dateLabel} على الساعة ${appointment.time}.`
+                });
+
+                notification.privateAppointmentId = appointment.id;
+                appointment.reminderInAppSentAt = new Date().toISOString();
+                changed = true;
+            }
+
+            const sent = await sendDoctorPushNotification(
+                doctor,
+                notification
+            );
+
+            if (sent) {
+                appointment.reminderPushSentAt = new Date().toISOString();
+                changed = true;
+            }
+        }
+
+        if (changed) {
+            const saveResult = await saveDatabase(database);
+
+            if (saveResult === false) {
+                console.error(
+                    "Doctor private appointment reminders could not be saved."
+                );
+            }
+        }
+    } catch (error) {
+        console.error(
+            "Doctor private appointment reminder processing error:",
+            error
+        );
+    } finally {
+        doctorPrivateRemindersProcessing = false;
+    }
+}
+
+function getPrivateAppointmentTypeLabelForServer(type) {
+    const labels = {
+        personal: "موعد شخصي",
+        professional: "اجتماع مهني",
+        conference: "مؤتمر أو تكوين",
+        administrative: "موعد إداري",
+        vacation: "عطلة أو غياب",
+        other: "موعد خاص"
+    };
+
+    return labels[type] || "موعد خاص";
+}
+
 // ============================================================
 // CLEAN EXPIRED SESSIONS
 // ============================================================
@@ -9072,12 +9234,18 @@ async function startServer() {
 
         await initializeDatabase();
 
-        // Process reminders once at startup
+        // Process patient and doctor reminders once at startup
         processPatientReminders();
+        processDoctorPrivateAppointmentReminders();
 
-        // Reminders every minute
+        // Process reminders every minute
         setInterval(
             processPatientReminders,
+            60 * 1000
+        );
+
+        setInterval(
+            processDoctorPrivateAppointmentReminders,
             60 * 1000
         );
 

@@ -25135,7 +25135,182 @@ if (
     }
 }
 
+/* =========================================================
+   TABIBK — DOCTOR PRIVATE APPOINTMENTS
+========================================================= */
 
+.private-appointments-section {
+    width: 100%;
+    margin: 18px 0;
+    direction: rtl;
+    box-sizing: border-box;
+}
+
+.private-appointments-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.private-appointments-title {
+    color: #7027a0;
+    font-size: 19px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.private-appointments-subtitle {
+    color: #777;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.private-appointment-add-btn {
+    background: linear-gradient(135deg, #7027a0, #8d55b0);
+    color: #fff;
+    border: 0;
+    border-radius: 12px;
+    padding: 11px 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.private-appointments-list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+}
+
+.private-appointment-card {
+    background: #fff;
+    border: 1px solid rgba(112, 39, 160, 0.16);
+    border-right: 4px solid #c99732;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 3px 12px rgba(40, 20, 60, 0.05);
+    min-width: 0;
+}
+
+.private-appointment-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.private-appointment-type {
+    color: #7027a0;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.private-appointment-date {
+    color: #555;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.private-appointment-note {
+    color: #444;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+    margin: 8px 0;
+}
+
+.private-appointment-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.private-appointment-actions button {
+    border-radius: 9px;
+    padding: 8px 13px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.private-appointment-edit {
+    background: #f4edf8;
+    color: #7027a0;
+    border: 1px solid #e4d4ef;
+}
+
+.private-appointment-delete {
+    background: #fff;
+    color: #765050;
+    border: 1px solid #eadede;
+}
+
+.private-appointments-empty {
+    text-align: center;
+    padding: 28px 15px;
+    color: #888;
+    background: #faf8fc;
+    border: 1px dashed #d9c9e5;
+    border-radius: 14px;
+    font-size: 14px;
+}
+
+.private-appointment-form {
+    display: grid;
+    gap: 13px;
+    direction: rtl;
+}
+
+.private-appointment-form label {
+    display: block;
+    color: #555;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.private-appointment-form input,
+.private-appointment-form select,
+.private-appointment-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ded5e5;
+    border-radius: 10px;
+    padding: 11px;
+    font-family: inherit;
+    font-size: 14px;
+    background: #fff;
+    color: #333;
+}
+
+.private-appointment-form textarea {
+    min-height: 85px;
+    resize: vertical;
+}
+
+@media (max-width: 480px) {
+    .private-appointments-header {
+        align-items: stretch;
+    }
+
+    .private-appointment-add-btn {
+        width: 100%;
+    }
+
+    .private-appointment-card {
+        padding: 12px;
+    }
+
+    .private-appointment-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
 /* TABIBK — Patient Appointments Modal */
 
 .patient-appointments-modal {

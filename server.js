@@ -6362,15 +6362,42 @@ app.get(
         appointments.length,
 
     appointments:
-        appointments.map(appointment => ({
+    appointments.map(appointment => {
+
+        const doctor =
+            database.doctors.find(
+                item =>
+                    Number(item.id) ===
+                    Number(appointment.doctorId)
+            );
+
+        return {
 
             id: appointment.id,
 
-            patientName:
-                appointment.patientName || "",
+            bookingNumber:
+                appointment.bookingNumber || "",
+
+            doctorId:
+                appointment.doctorId || "",
 
             doctorName:
                 appointment.doctorName || "",
+
+            doctorStatus:
+                doctor
+                    ? (
+                        doctor.status ||
+                        (
+                            doctor.active === false
+                                ? "inactive"
+                                : "approved"
+                        )
+                    )
+                    : "deleted",
+
+            patientName:
+                appointment.patientName || "",
 
             date:
                 appointment.date || "",
@@ -6384,7 +6411,9 @@ app.get(
             createdAt:
                 appointment.createdAt || ""
 
-        }))
+        };
+
+    })
 
 });
     }

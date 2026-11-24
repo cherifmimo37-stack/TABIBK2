@@ -6448,11 +6448,21 @@ app.delete(
                 });
             }
 
-            const doctor =
-                database.doctors.find(
-                    item =>
-                        Number(item.id) === doctorId
-                );
+            const doctors =
+    Array.isArray(database.doctors)
+        ? database.doctors
+        : [];
+
+const appointments =
+    Array.isArray(database.appointments)
+        ? database.appointments
+        : [];
+
+const doctor =
+    doctors.find(
+        item =>
+            Number(item.id) === doctorId
+    );
 
             if (!doctor) {
                 return res.status(404).json({
@@ -6462,14 +6472,14 @@ app.delete(
             }
 
             const remainingAppointments =
-                database.appointments.filter(
-                    appointment =>
-                        Number(appointment.doctorId) !== doctorId
-                );
+    appointments.filter(
+        appointment =>
+            Number(appointment.doctorId) !== doctorId
+    );
 
-            const deletedCount =
-                database.appointments.length -
-                remainingAppointments.length;
+const deletedCount =
+    appointments.length -
+    remainingAppointments.length;
 
             if (deletedCount === 0) {
                 return res.json({
@@ -6480,7 +6490,7 @@ app.delete(
             }
 
             database.appointments =
-                remainingAppointments;
+    remainingAppointments;
 
             const saveResult =
                 await saveDatabase(database);
@@ -7770,7 +7780,7 @@ app.put(
 app.delete(
     "/api/admin/doctors/:id",
     checkAdminKey,
-    (req, res) => {
+    async (req, res) => {
 
         const database =
             readDatabase();
@@ -7840,11 +7850,19 @@ app.delete(
             1
         );
 
-        saveDatabase(
-            database
-        );
+        const saveResult =
+    await saveDatabase(database);
 
-        res.json({
+if (saveResult === false) {
+
+    return res.status(500).json({
+        success: false,
+        message: "تعذر حفظ عملية حذف الطبيب."
+    });
+
+}
+
+return res.json({
 
             success: true,
 

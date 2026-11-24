@@ -5711,7 +5711,7 @@ async function adminFetch(
 }
 
 /* ============================================================
-   ADMIN APPOINTMENT HISTORY
+   ADMIN APPOINTMENT HISTORY — DOCTORS GROUPED
 ============================================================ */
 
 async function loadAdminAppointments(){
@@ -5732,7 +5732,7 @@ async function loadAdminAppointments(){
         document.getElementById("adminAppointmentDate").value;
 
     container.innerHTML =
-        '<p>جاري تحميل الحجوزات...</p>';
+        '<p>جاري تحميل سجل الحجوزات...</p>';
 
     count.textContent = "";
 
@@ -5748,39 +5748,46 @@ async function loadAdminAppointments(){
             "/api/admin/appointments?" + params.toString()
         );
 
+        const doctors =
+            Array.isArray(data.doctors)
+                ? data.doctors
+                : [];
+
         const appointments =
             Array.isArray(data.appointments)
                 ? data.appointments
                 : [];
 
         count.textContent =
-            "إجمالي الحجوزات: " + appointments.length;
-
-        if(!appointments.length){
-
-            container.innerHTML = `
-                <div class="empty-state">
-                    لا توجد حجوزات مطابقة للبحث.
-                </div>
-            `;
-
-            return;
-        }
+            "عدد الأطباء: " + doctors.length +
+            " · إجمالي الحجوزات المطابقة: " +
+            appointments.length;
 
         const groups = new Map();
 
+        doctors.forEach(doctor => {
+
+            groups.set(String(doctor.id), {
+                id: doctor.id,
+                name: doctor.name || "طبيب بدون اسم",
+                status: doctor.status || "approved",
+                active: doctor.active !== false,
+                appointments: []
+            });
+
+        });
+
         appointments.forEach(appointment => {
 
-            const key =
-                appointment.doctorId
-                    ? String(appointment.doctorId)
-                    : "unknown-" + (appointment.doctorName || "doctor");
+            const key = String(appointment.doctorId);
 
             if(!groups.has(key)){
 
-                groups.set(key,{
+                groups.set(key, {
+                    id: appointment.doctorId,
                     name: appointment.doctorName || "طبيب غير معروف",
                     status: appointment.doctorStatus || "deleted",
+                    active: false,
                     appointments: []
                 });
 
@@ -5799,96 +5806,174 @@ async function loadAdminAppointments(){
             deleted: "غير موجود حالياً"
         };
 
+        const appointmentStatusLabels = {
+            pending: "قيد الانتظار",
+            confirmed: "مؤكد",
+            accepted: "مقبول",
+            started: "قيد الكشف",
+            completed: "مكتمل",
+            rejected: "مرفوض",
+            cancelled: "ملغى"
+        };
+
+        if(!groups.size){
+
+            container.innerHTML = `
+                <div class="empty-state">
+                    لا يوجد أطباء أو حجوزات لعرضها.
+                </div>
+            `;
+
+            return;
+        }
+
         let html = "";
 
         groups.forEach(doctor => {
 
+            const doctorAppointments =
+                doctor.appointments;
+
             html += `
                 <div class="card" style="
                     margin-bottom:20px;
-                    border:1px solid #eadff0;
+                    padding:0;
+                    border:1px solid #e8dced;
                     border-radius:16px;
                     overflow:hidden;
+                    background:#fff;
+                    box-shadow:0 3px 12px rgba(65,30,80,.04);
                 ">
 
                     <div style="
                         padding:16px;
-                        background:#f8f3fb;
+                        background:#f7f2fa;
                         border-bottom:1px solid #eadff0;
                         display:flex;
                         justify-content:space-between;
                         align-items:center;
                         flex-wrap:wrap;
-                        gap:10px;
+                        gap:12px;
                     ">
 
-                        <strong style="color:#54216d;">
-                            <i class="fa-solid fa-user-doctor"></i>
-                            ${escapeHtml(doctor.name)}
-                        </strong>
+                        <div>
+                            <strong style="
+                                display:block;
+                                color:#54216d;
+                                font-size:16px;
+                            ">
+                                <i class="fa-solid fa-user-doctor"></i>
+                                ${escapeHtml(doctor.name)}
+                            </strong>
 
-                        <span style="
-                            color:#806b89;
-                            font-size:13px;
-                        ">
-                            ${escapeHtml(
-                                doctorStatusLabels[doctor.status] ||
-                                doctor.status
-                            )}
-                            · ${doctor.appointments.length} حجز
-                        </span>
+                            <span style="
+                                display:block;
+                                margin-top:6px;
+                                color:#806b89;
+                                font-size:12px;
+                            ">
+                                ${escapeHtml(
+                                    doctorStatusLabels[doctor.status] ||
+                                    doctor.status
+                                )}
+                                · ${doctorAppointments.length} حجز
+                            </span>
+                        </div>
 
-                    </div>
-
-                    <div style="overflow-x:auto;">
-
-                        <table style="
-                            width:100%;
-                            border-collapse:collapse;
-                            text-align:right;
-                            min-width:620px;
-                        ">
-
-                            <thead>
-                                <tr style="background:#fffaf0;">
-                                    <th style="padding:13px;">المريض</th>
-                                    <th style="padding:13px;">التاريخ</th>
-                                    <th style="padding:13px;">الساعة</th>
-                                    <th style="padding:13px;">الحالة</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                                ${doctor.appointments.map(appointment => `
-
-                                    <tr style="border-top:1px solid #f0eaf3;">
-
-                                        <td style="padding:13px;">
-                                            ${escapeHtml(appointment.patientName || "-")}
-                                        </td>
-
-                                        <td style="padding:13px;">
-                                            ${escapeHtml(appointment.date || "-")}
-                                        </td>
-
-                                        <td style="padding:13px;">
-                                            ${escapeHtml(appointment.time || "-")}
-                                        </td>
-
-                                        <td style="padding:13px;">
-                                            ${statusBadge(appointment.status)}
-                                        </td>
-
-                                    </tr>
-
-                                `).join("")}
-
-                            </tbody>
-
-                        </table>
+                        <button
+                            type="button"
+                            class="admin-delete-doctor-appointments"
+                            data-doctor-id="${escapeHtml(doctor.id)}"
+                            style="
+                                padding:9px 13px;
+                                border:1px solid #e2c7d7;
+                                border-radius:10px;
+                                background:#fff;
+                                color:#873c63;
+                                font-family:inherit;
+                                font-size:12px;
+                                font-weight:800;
+                                cursor:pointer;
+                                ${doctorAppointments.length ? "" : "opacity:.55;"}
+                            "
+                            ${doctorAppointments.length ? "" : "disabled"}
+                        >
+                            <i class="fa-solid fa-trash-can"></i>
+                            حذف سجلات الحجوزات
+                        </button>
 
                     </div>
+
+                    ${
+                        doctorAppointments.length
+                        ? `
+                            <div style="overflow-x:auto;">
+
+                                <table style="
+                                    width:100%;
+                                    border-collapse:collapse;
+                                    text-align:right;
+                                    min-width:560px;
+                                ">
+
+                                    <thead>
+                                        <tr style="
+                                            background:#fffaf0;
+                                            color:#604b32;
+                                        ">
+                                            <th style="padding:13px;">المريض</th>
+                                            <th style="padding:13px;">التاريخ</th>
+                                            <th style="padding:13px;">الساعة</th>
+                                            <th style="padding:13px;">الحالة</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        ${doctorAppointments.map(appointment => `
+
+                                            <tr style="
+                                                border-top:1px solid #f0eaf3;
+                                            ">
+
+                                                <td style="padding:13px;">
+                                                    ${escapeHtml(appointment.patientName || "-")}
+                                                </td>
+
+                                                <td style="padding:13px;">
+                                                    ${escapeHtml(appointment.date || "-")}
+                                                </td>
+
+                                                <td style="padding:13px;">
+                                                    ${escapeHtml(appointment.time || "-")}
+                                                </td>
+
+                                                <td style="padding:13px;">
+                                                    ${statusBadge(appointment.status)}
+                                                </td>
+
+                                            </tr>
+
+                                        `).join("")}
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                        `
+                        : `
+                            <div style="
+                                padding:22px 15px;
+                                text-align:center;
+                                color:#94869a;
+                                font-size:13px;
+                            ">
+                                <i class="fa-regular fa-calendar-xmark"></i>
+                                لا توجد حجوزات لهذا الطبيب حالياً.
+                            </div>
+                        `
+                    }
 
                 </div>
             `;
@@ -5902,15 +5987,14 @@ async function loadAdminAppointments(){
         container.innerHTML = `
             <div class="empty-state">
                 ${escapeHtml(
-                    error.message || "تعذر تحميل الحجوزات."
+                    error.message || "تعذر تحميل سجل الحجوزات."
                 )}
             </div>
         `;
 
     }
 
-} 
-
+}
 // ربط البحث والتصفية في سجل الحجوزات
 
 document
@@ -5924,7 +6008,79 @@ document
 document
     .getElementById("adminAppointmentDate")
     .addEventListener("change", loadAdminAppointments);
-      
+ /* ============================================================
+   ADMIN — DELETE DOCTOR APPOINTMENT RECORDS
+============================================================ */
+
+document
+    .getElementById("adminAppointmentsTable")
+    .addEventListener("click", async function(event){
+
+        const button =
+            event.target.closest(
+                ".admin-delete-doctor-appointments"
+            );
+
+        if(!button || button.disabled) return;
+
+        const doctorId =
+            button.dataset.doctorId;
+
+        const doctorCard =
+            button.closest(".card");
+
+        const doctorName =
+            doctorCard?.querySelector("strong")?.textContent
+                .trim() || "هذا الطبيب";
+
+        const confirmed =
+            await showDoctorRegistrationConfirm({
+
+                title: "تأكيد حذف سجلات الحجوزات",
+
+                message:
+                    `هل تريد حذف جميع سجلات حجوزات ${doctorName}؟ ` +
+                    "سيتم الاحتفاظ بحساب الطبيب وبياناته دون تغيير. لا يمكن التراجع عن الحذف.",
+
+                confirmText: "حذف السجلات",
+
+                danger: true
+
+            });
+
+        if(!confirmed) return;
+
+        button.disabled = true;
+        button.style.opacity = ".55";
+
+        try{
+
+            const result = await adminFetch(
+                `/api/admin/doctors/${encodeURIComponent(doctorId)}/appointments`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+            showToast(
+                result.message || "تم حذف سجلات الحجوزات بنجاح."
+            );
+
+            await loadAdminAppointments();
+
+        }catch(error){
+
+            showToast(
+                error.message || "تعذر حذف سجلات الحجوزات.",
+                "error"
+            );
+
+            button.disabled = false;
+            button.style.opacity = "1";
+
+        }
+
+    });     
 /* ============================================================
    LOGIN — PASSWORD VISIBILITY
 ============================================================ */

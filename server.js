@@ -6256,8 +6256,7 @@ app.get(
     checkAdminKey,
     (req, res) => {
 
-        const database =
-            readDatabase();
+        const database = readDatabase();
 
         const {
             status,
@@ -6266,41 +6265,36 @@ app.get(
             search
         } = req.query;
 
+        const doctors =
+            Array.isArray(database.doctors)
+                ? database.doctors
+                : [];
+
         let appointments =
             [...database.appointments];
 
         if (status) {
-
             appointments =
                 appointments.filter(
                     appointment =>
-                        appointment.status ===
-                        status
+                        appointment.status === status
                 );
         }
 
         if (doctorId) {
-
             appointments =
                 appointments.filter(
                     appointment =>
-                        Number(
-                            appointment.doctorId
-                        ) ===
-                        Number(
-                            doctorId
-                        )
+                        Number(appointment.doctorId) ===
+                        Number(doctorId)
                 );
         }
 
         if (date) {
-
             appointments =
                 appointments.filter(
                     appointment =>
-                        String(
-                            appointment.date
-                        ) ===
+                        String(appointment.date) ===
                         String(date)
                 );
         }
@@ -6308,114 +6302,109 @@ app.get(
         if (search) {
 
             const query =
-                String(
-                    search
-                )
-                .toLowerCase()
-                .trim();
+                String(search).toLowerCase().trim();
 
             appointments =
-                appointments.filter(
-                    appointment => {
+                appointments.filter(appointment => {
 
-                        return (
-
-                            String(
-                                appointment.patientName
-                            )
-                            .toLowerCase()
-                            .includes(query) ||
-
-                            String(
-                                appointment.patientPhone
-                            )
-                            .toLowerCase()
-                            .includes(query) ||
-
-                            String(
-                                appointment.bookingNumber
-                            )
-                            .toLowerCase()
-                            .includes(query)
-
+                    const doctor =
+                        doctors.find(
+                            item =>
+                                Number(item.id) ===
+                                Number(appointment.doctorId)
                         );
 
-                    }
-                );
+                    return (
+                        String(appointment.patientName || "")
+                            .toLowerCase().includes(query) ||
+
+                        String(appointment.patientPhone || "")
+                            .toLowerCase().includes(query) ||
+
+                        String(appointment.bookingNumber || "")
+                            .toLowerCase().includes(query) ||
+
+                        String(
+                            appointment.doctorName ||
+                            (doctor && doctor.name) ||
+                            ""
+                        ).toLowerCase().includes(query)
+                    );
+
+                });
         }
 
         appointments.sort(
             (a, b) =>
-                new Date(
-                    b.createdAt || 0
-                ) -
-                new Date(
-                    a.createdAt || 0
-                )
+                new Date(b.createdAt || 0) -
+                new Date(a.createdAt || 0)
         );
 
         res.json({
 
-    success: true,
+            success: true,
 
-    count:
-        appointments.length,
+            count: appointments.length,
 
-    appointments:
-    appointments.map(appointment => {
+            // جميع الأطباء المسجلين حالياً
+            doctors: doctors.map(doctor => ({
+                id: doctor.id,
+                name: doctor.name || "طبيب بدون اسم",
+                status: doctor.status || "approved",
+                active: doctor.active !== false
+            })),
 
-        const doctor =
-            database.doctors.find(
-                item =>
-                    Number(item.id) ===
-                    Number(appointment.doctorId)
-            );
+            // الحجوزات فقط دون بيانات المريض الخاصة
+            appointments: appointments.map(appointment => {
 
-        return {
+                const doctor =
+                    doctors.find(
+                        item =>
+                            Number(item.id) ===
+                            Number(appointment.doctorId)
+                    );
 
-            id: appointment.id,
+                return {
 
-            bookingNumber:
-                appointment.bookingNumber || "",
+                    id: appointment.id,
 
-            doctorId:
-                appointment.doctorId || "",
+                    bookingNumber:
+                        appointment.bookingNumber || "",
 
-            doctorName:
-                appointment.doctorName || "",
+                    doctorId:
+                        appointment.doctorId || "",
 
-            doctorStatus:
-                doctor
-                    ? (
-                        doctor.status ||
-                        (
-                            doctor.active === false
-                                ? "inactive"
-                                : "approved"
-                        )
-                    )
-                    : "deleted",
+                    doctorName:
+                        appointment.doctorName ||
+                        (doctor && doctor.name) ||
+                        "",
 
-            patientName:
-                appointment.patientName || "",
+                    doctorStatus:
+                        doctor
+                            ? doctor.status || "approved"
+                            : "deleted",
 
-            date:
-                appointment.date || "",
+                    patientName:
+                        appointment.patientName || "",
 
-            time:
-                appointment.time || "",
+                    date:
+                        appointment.date || "",
 
-            status:
-                appointment.status || "",
+                    time:
+                        appointment.time || "",
 
-            createdAt:
-                appointment.createdAt || ""
+                    status:
+                        appointment.status || "",
 
-        };
+                    createdAt:
+                        appointment.createdAt || ""
 
-    })
+                };
 
-});
+            })
+
+        });
+
     }
 );
 
@@ -7665,108 +7654,273 @@ app.delete(
     }
 );
 
-// ============================================================
-// ADMIN ACCEPT APPOINTMENT
-// ============================================================
+/* ============================================================
+   ADMIN APPOINTMENT HISTORY
+============================================================ */
 
-app.post(
-    "/api/admin/appointments/:bookingNumber/accept",
-    checkAdminKey,
-    (req, res) => {
+async function loadAdminAppointments(){
 
-        const database =
-            readDatabase();
+    const container =
+        document.getElementById("adminAppointmentsTable");
 
-        const appointment =
-            database.appointments.find(
-                item =>
-                    String(
-                        item.bookingNumber
-                    ) ===
-                    String(
-                        req.params.bookingNumber
-                    )
-            );
+    const count =
+        document.getElementById("adminAppointmentsCount");
 
-        if (!appointment) {
+    const search =
+        document.getElementById("adminAppointmentSearch").value.trim();
 
-            return res
-                .status(404)
-                .json({
-                    success: false,
-                    message:
-                        "الموعد غير موجود"
-                });
-        }
+    const status =
+        document.getElementById("adminAppointmentStatus").value;
 
-        if (
-            appointment.status !==
-            "pending"
-        ) {
+    const date =
+        document.getElementById("adminAppointmentDate").value;
 
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message:
-                        "لا يمكن قبول الموعد في حالته الحالية"
-                });
-        }
+    container.innerHTML =
+        '<p style="text-align:center;padding:25px;color:#7027a0;">جاري تحميل السجلات...</p>';
 
-        appointment.status =
-            "confirmed";
+    count.textContent = "";
 
-        appointment.confirmedAt =
-            new Date().toISOString();
+    try{
 
-        appointment.updatedAt =
-            new Date().toISOString();
+        const params = new URLSearchParams();
 
-        createNotification(
-            database,
-            {
+        if(search) params.set("search", search);
+        if(status) params.set("status", status);
+        if(date) params.set("date", date);
 
-                doctorId:
-                    appointment.doctorId,
-
-                appointmentId:
-                    appointment.id,
-
-                patientPhone:
-                    appointment.patientPhone,
-
-                bookingNumber:
-                    appointment.bookingNumber,
-
-                type:
-                    "appointment_confirmed",
-
-                title:
-                    "تم تأكيد الموعد من الإدارة",
-
-                message:
-                    `تم تأكيد موعدك مع ${appointment.doctorName}.`
-
-            }
+        const data = await adminFetch(
+            "/api/admin/appointments?" + params.toString()
         );
 
-        saveDatabase(
-            database
-        );
+        const appointments =
+            Array.isArray(data.appointments)
+                ? data.appointments
+                : [];
 
-        res.json({
+        const doctors =
+            Array.isArray(data.doctors)
+                ? data.doctors
+                : [];
 
-            success: true,
+        count.textContent =
+            "إجمالي الحجوزات: " + appointments.length +
+            " · عدد الأطباء: " + doctors.length;
 
-            message:
-                "تم قبول الموعد",
+        const groups = new Map();
 
-            appointment
+        doctors.forEach(doctor => {
+
+            groups.set(String(doctor.id), {
+                id: doctor.id,
+                name: doctor.name || "طبيب بدون اسم",
+                status: doctor.status || "approved",
+                appointments: []
+            });
 
         });
-    }
-);
 
+        appointments.forEach(appointment => {
+
+            const key = String(appointment.doctorId || "");
+
+            if(!groups.has(key)){
+
+                groups.set(key, {
+                    id: appointment.doctorId,
+                    name: appointment.doctorName || "طبيب غير معروف",
+                    status: appointment.doctorStatus || "deleted",
+                    appointments: []
+                });
+
+            }
+
+            groups.get(key).appointments.push(appointment);
+
+        });
+
+        const doctorStatusLabels = {
+            active: "نشط",
+            approved: "مقبول",
+            pending: "قيد المراجعة",
+            rejected: "مرفوض",
+            inactive: "غير نشط",
+            deleted: "غير موجود حالياً"
+        };
+
+        const statusColors = {
+            approved: "#23845b",
+            active: "#23845b",
+            pending: "#b78322",
+            rejected: "#bd4545",
+            inactive: "#77717e",
+            deleted: "#77717e"
+        };
+
+        let html = "";
+
+        groups.forEach(doctor => {
+
+            const doctorAppointments =
+                doctor.appointments;
+
+            html += `
+                <div style="
+                    margin-bottom:22px;
+                    background:#f1eff3;
+                    border:1px solid #e2d9e9;
+                    border-radius:16px;
+                    overflow:hidden;
+                    box-shadow:0 3px 12px rgba(50,30,65,.05);
+                ">
+
+                    <div style="
+                        padding:17px;
+                        background:linear-gradient(110deg,#f5eff9,#eee9f2);
+                        border-bottom:2px solid #c99732;
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        flex-wrap:wrap;
+                        gap:12px;
+                    ">
+
+                        <div>
+                            <strong style="
+                                color:#54216d;
+                                font-size:16px;
+                            ">
+                                <i class="fa-solid fa-user-doctor"></i>
+                                ${escapeHtml(doctor.name)}
+                            </strong>
+
+                            <div style="
+                                margin-top:7px;
+                                font-size:12px;
+                                color:${statusColors[doctor.status] || "#777"};
+                            ">
+                                ${escapeHtml(
+                                    doctorStatusLabels[doctor.status] ||
+                                    doctor.status
+                                )}
+                                · ${doctorAppointments.length} حجز
+                            </div>
+                        </div>
+
+                        <button
+                            type="button"
+                            disabled
+                            title="سيتم تفعيل الحذف بعد تجهيز المسار الآمن"
+                            style="
+                                border:1px solid #d9b6b6;
+                                background:#f7eeee;
+                                color:#a34b4b;
+                                padding:10px 14px;
+                                border-radius:9px;
+                                font-weight:600;
+                                opacity:.65;
+                                cursor:not-allowed;
+                            "
+                        >
+                            <i class="fa-solid fa-trash"></i>
+                            حذف سجلات الحجوزات
+                        </button>
+
+                    </div>
+
+                    ${
+                        doctorAppointments.length
+                        ? `
+                            <div style="overflow-x:auto;">
+
+                                <table style="
+                                    width:100%;
+                                    min-width:580px;
+                                    border-collapse:collapse;
+                                    text-align:right;
+                                    color:#403748;
+                                ">
+
+                                    <thead>
+                                        <tr style="
+                                            background:#e8e2ec;
+                                            color:#54216d;
+                                        ">
+                                            <th style="padding:14px;">المريض</th>
+                                            <th style="padding:14px;">التاريخ</th>
+                                            <th style="padding:14px;">الساعة</th>
+                                            <th style="padding:14px;">الحالة</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        ${doctorAppointments.map(appointment => `
+
+                                            <tr style="
+                                                border-top:1px solid #e5dfe9;
+                                                background:#f8f7f9;
+                                            ">
+
+                                                <td style="padding:13px;">
+                                                    ${escapeHtml(appointment.patientName || "-")}
+                                                </td>
+
+                                                <td style="padding:13px;">
+                                                    ${escapeHtml(appointment.date || "-")}
+                                                </td>
+
+                                                <td style="padding:13px;">
+                                                    ${escapeHtml(appointment.time || "-")}
+                                                </td>
+
+                                                <td style="padding:13px;">
+                                                    ${statusBadge(appointment.status)}
+                                                </td>
+
+                                            </tr>
+
+                                        `).join("")}
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                        `
+                        : `
+                            <div style="
+                                padding:24px;
+                                text-align:center;
+                                color:#817889;
+                                font-size:13px;
+                            ">
+                                <i class="fa-regular fa-calendar-xmark"></i>
+                                لا توجد حجوزات لهذا الطبيب حالياً.
+                            </div>
+                        `
+                    }
+
+                </div>
+            `;
+
+        });
+
+        container.innerHTML = html ||
+            '<div class="empty-state">لا يوجد أطباء مسجلون حالياً.</div>';
+
+    }catch(error){
+
+        container.innerHTML = `
+            <div class="empty-state">
+                ${escapeHtml(
+                    error.message || "تعذر تحميل الحجوزات."
+                )}
+            </div>
+        `;
+
+    }
+
+}
 // ============================================================
 // ADMIN REJECT APPOINTMENT
 // ============================================================

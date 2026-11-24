@@ -6098,7 +6098,99 @@ document
 
         }
 
-    });     
+    });  
+
+     /* ============================================================
+   ADMIN — CLEAN ORPHANED APPOINTMENTS
+============================================================ */
+
+document
+    .getElementById("adminCleanOrphanedAppointmentsBtn")
+    .addEventListener("click", async function(){
+
+        const button = this;
+
+        button.disabled = true;
+
+        try {
+
+            // جلب جميع السجلات دون فلاتر لحساب العدد الحقيقي
+            const data = await adminFetch(
+                "/api/admin/appointments"
+            );
+
+            const doctors =
+                Array.isArray(data.doctors)
+                    ? data.doctors
+                    : [];
+
+            const appointments =
+                Array.isArray(data.appointments)
+                    ? data.appointments
+                    : [];
+
+            const doctorIds = new Set(
+                doctors.map(doctor => String(doctor.id))
+            );
+
+            const orphanedCount =
+                appointments.filter(appointment =>
+                    !doctorIds.has(String(appointment.doctorId))
+                ).length;
+
+            if (orphanedCount === 0) {
+
+                showToast(
+                    "لا توجد سجلات تابعة لأطباء محذوفين."
+                );
+
+                return;
+            }
+
+            const confirmed =
+                await showDoctorRegistrationConfirm({
+
+                    title: "تنظيف سجلات الأطباء المحذوفين",
+
+                    message:
+                        `تم العثور على ${orphanedCount} سجل حجز تابع لأطباء حُذفت حساباتهم. ` +
+                        "هل تريد حذف هذه السجلات فقط؟ ستبقى جميع حسابات الأطباء الموجودين وحجوزاتهم دون تغيير.",
+
+                    confirmText: "تأكيد التنظيف",
+
+                    danger: true
+
+                });
+
+            if (!confirmed) return;
+
+            const result = await adminFetch(
+                "/api/admin/appointments/orphaned",
+                {
+                    method: "DELETE"
+                }
+            );
+
+            showToast(
+                result.message || "تم تنظيف السجلات بنجاح."
+            );
+
+            await loadAdminAppointments();
+
+        } catch(error) {
+
+            showToast(
+                error.message || "تعذر تنظيف السجلات.",
+                "error"
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+        }
+
+    }); 
 /* ============================================================
    LOGIN — PASSWORD VISIBILITY
 ============================================================ */

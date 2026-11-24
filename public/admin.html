@@ -5037,7 +5037,21 @@ tbody tr:hover{
 
         </div>
 
-        <div id="adminAppointmentsCount"></div>
+        <div
+    id="adminAppointmentsCount"
+    style="
+        margin-top:18px;
+        padding:12px 16px;
+        background:#f7f2fa;
+        border:1px solid #eadff0;
+        border-right:4px solid #c99732;
+        border-radius:10px;
+        color:#54216d;
+        font-size:13px;
+        font-weight:800;
+        line-height:1.8;
+    "
+></div>
 
         <div
             id="adminAppointmentsTable"
@@ -6100,7 +6114,7 @@ document
 
     });  
 
-     /* ============================================================
+/* ============================================================
    ADMIN — CLEAN ORPHANED APPOINTMENTS
 ============================================================ */
 
@@ -6117,20 +6131,6 @@ document
             // جلب جميع السجلات دون فلاتر لحساب العدد الحقيقي
             const data = await adminFetch(
                 "/api/admin/appointments"
-            );
-
-            const doctors =
-                Array.isArray(data.doctors)
-                    ? data.doctors
-                    : [];
-
-            const appointments =
-                Array.isArray(data.appointments)
-                    ? data.appointments
-                    : [];
-
-            const doctorIds = new Set(
-                doctors.map(doctor => String(doctor.id))
             );
 
             const orphanedCount = Number(data.orphanedCount || 0);

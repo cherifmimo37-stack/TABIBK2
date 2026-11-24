@@ -6270,8 +6270,13 @@ app.get(
                 ? database.doctors
                 : [];
 
-        let appointments =
-            [...database.appointments];
+        const allAppointments =
+    Array.isArray(database.appointments)
+        ? [...database.appointments]
+        : [];
+
+let appointments =
+    [...allAppointments];
 
         if (status) {
             appointments =
@@ -6340,11 +6345,21 @@ app.get(
                 new Date(a.createdAt || 0)
         );
 
+        const orphanedCount =
+    allAppointments.filter(appointment =>
+        !doctors.some(doctor =>
+            Number(doctor.id) ===
+            Number(appointment.doctorId)
+        )
+    ).length;
+
         res.json({
 
-            success: true,
+    success: true,
 
-            count: appointments.length,
+    count: appointments.length,
+
+    orphanedCount: orphanedCount,
 
             // جميع الأطباء المسجلين حالياً
             doctors: doctors.map(doctor => ({

@@ -5717,54 +5717,36 @@ async function adminFetch(
 async function loadAdminAppointments(){
 
     const container =
-        document.getElementById(
-            "adminAppointmentsTable"
-        );
+        document.getElementById("adminAppointmentsTable");
 
     const count =
-        document.getElementById(
-            "adminAppointmentsCount"
-        );
+        document.getElementById("adminAppointmentsCount");
 
     const search =
-        document.getElementById(
-            "adminAppointmentSearch"
-        ).value.trim();
+        document.getElementById("adminAppointmentSearch").value.trim();
 
     const status =
-        document.getElementById(
-            "adminAppointmentStatus"
-        ).value;
+        document.getElementById("adminAppointmentStatus").value;
 
     const date =
-        document.getElementById(
-            "adminAppointmentDate"
-        ).value;
+        document.getElementById("adminAppointmentDate").value;
 
     container.innerHTML =
-        "<p>جاري تحميل الحجوزات...</p>";
+        '<p>جاري تحميل الحجوزات...</p>';
 
     count.textContent = "";
 
     try{
 
-        const params =
-            new URLSearchParams();
+        const params = new URLSearchParams();
 
-        if(search)
-            params.set("search", search);
+        if(search) params.set("search", search);
+        if(status) params.set("status", status);
+        if(date) params.set("date", date);
 
-        if(status)
-            params.set("status", status);
-
-        if(date)
-            params.set("date", date);
-
-        const data =
-            await adminFetch(
-                "/api/admin/appointments?" +
-                params.toString()
-            );
+        const data = await adminFetch(
+            "/api/admin/appointments?" + params.toString()
+        );
 
         const appointments =
             Array.isArray(data.appointments)
@@ -5772,8 +5754,7 @@ async function loadAdminAppointments(){
                 : [];
 
         count.textContent =
-            "عدد الحجوزات: " +
-            appointments.length;
+            "إجمالي الحجوزات: " + appointments.length;
 
         if(!appointments.length){
 
@@ -5786,81 +5767,144 @@ async function loadAdminAppointments(){
             return;
         }
 
-        container.innerHTML = `
-            <div style="overflow-x:auto;">
+        const groups = new Map();
 
-                <table style="
-                    width:100%;
-                    border-collapse:collapse;
-                    text-align:right;
+        appointments.forEach(appointment => {
+
+            const key =
+                appointment.doctorId
+                    ? String(appointment.doctorId)
+                    : "unknown-" + (appointment.doctorName || "doctor");
+
+            if(!groups.has(key)){
+
+                groups.set(key,{
+                    name: appointment.doctorName || "طبيب غير معروف",
+                    status: appointment.doctorStatus || "deleted",
+                    appointments: []
+                });
+
+            }
+
+            groups.get(key).appointments.push(appointment);
+
+        });
+
+        const doctorStatusLabels = {
+            active: "نشط",
+            approved: "مقبول",
+            pending: "قيد المراجعة",
+            rejected: "مرفوض",
+            inactive: "غير نشط",
+            deleted: "غير موجود حالياً"
+        };
+
+        let html = "";
+
+        groups.forEach(doctor => {
+
+            html += `
+                <div class="card" style="
+                    margin-bottom:20px;
+                    border:1px solid #eadff0;
+                    border-radius:16px;
+                    overflow:hidden;
                 ">
 
-                    <thead>
-                        <tr>
-                            <th>المريض</th>
-                            <th>الطبيب</th>
-                            <th>تاريخ الموعد</th>
-                            <th>الساعة</th>
-                            <th>الحالة</th>
-                        </tr>
-                    </thead>
+                    <div style="
+                        padding:16px;
+                        background:#f8f3fb;
+                        border-bottom:1px solid #eadff0;
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        flex-wrap:wrap;
+                        gap:10px;
+                    ">
 
-                    <tbody>
+                        <strong style="color:#54216d;">
+                            <i class="fa-solid fa-user-doctor"></i>
+                            ${escapeHtml(doctor.name)}
+                        </strong>
 
-                        ${appointments.map(appointment => `
+                        <span style="
+                            color:#806b89;
+                            font-size:13px;
+                        ">
+                            ${escapeHtml(
+                                doctorStatusLabels[doctor.status] ||
+                                doctor.status
+                            )}
+                            · ${doctor.appointments.length} حجز
+                        </span>
 
-                            <tr>
+                    </div>
 
-                                <td>
-                                    ${escapeHtml(
-                                        appointment.patientName || "-"
-                                    )}
-                                </td>
+                    <div style="overflow-x:auto;">
 
-                                <td>
-                                    ${escapeHtml(
-                                        appointment.doctorName || "-"
-                                    )}
-                                </td>
+                        <table style="
+                            width:100%;
+                            border-collapse:collapse;
+                            text-align:right;
+                            min-width:620px;
+                        ">
 
-                                <td>
-                                    ${escapeHtml(
-                                        appointment.date || "-"
-                                    )}
-                                </td>
+                            <thead>
+                                <tr style="background:#fffaf0;">
+                                    <th style="padding:13px;">المريض</th>
+                                    <th style="padding:13px;">التاريخ</th>
+                                    <th style="padding:13px;">الساعة</th>
+                                    <th style="padding:13px;">الحالة</th>
+                                </tr>
+                            </thead>
 
-                                <td>
-                                    ${escapeHtml(
-                                        appointment.time || "-"
-                                    )}
-                                </td>
+                            <tbody>
 
-                                <td>
-                                    ${statusBadge(
-                                        appointment.status
-                                    )}
-                                </td>
+                                ${doctor.appointments.map(appointment => `
 
-                            </tr>
+                                    <tr style="border-top:1px solid #f0eaf3;">
 
-                        `).join("")}
+                                        <td style="padding:13px;">
+                                            ${escapeHtml(appointment.patientName || "-")}
+                                        </td>
 
-                    </tbody>
+                                        <td style="padding:13px;">
+                                            ${escapeHtml(appointment.date || "-")}
+                                        </td>
 
-                </table>
+                                        <td style="padding:13px;">
+                                            ${escapeHtml(appointment.time || "-")}
+                                        </td>
 
-            </div>
-        `;
+                                        <td style="padding:13px;">
+                                            ${statusBadge(appointment.status)}
+                                        </td>
+
+                                    </tr>
+
+                                `).join("")}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+            `;
+
+        });
+
+        container.innerHTML = html;
 
     }catch(error){
 
         container.innerHTML = `
-            <p style="color:#b42318;">
+            <div class="empty-state">
                 ${escapeHtml(
-                    error.message ||
-                    "تعذر تحميل الحجوزات."
+                    error.message || "تعذر تحميل الحجوزات."
                 )}
-            </p>
+            </div>
         `;
 
     }

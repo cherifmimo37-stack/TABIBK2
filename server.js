@@ -6407,7 +6407,99 @@ app.get(
 
     }
 );
+// ============================================================
+// ADMIN — DELETE ALL APPOINTMENTS OF ONE DOCTOR
+// ============================================================
 
+app.delete(
+    "/api/admin/doctors/:doctorId/appointments",
+    checkAdminKey,
+    async (req, res) => {
+
+        try {
+
+            const database = readDatabase();
+
+            const doctorId =
+                Number(req.params.doctorId);
+
+            if (
+                !Number.isSafeInteger(doctorId) ||
+                doctorId <= 0
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "رقم الطبيب غير صالح."
+                });
+            }
+
+            const doctor =
+                database.doctors.find(
+                    item =>
+                        Number(item.id) === doctorId
+                );
+
+            if (!doctor) {
+                return res.status(404).json({
+                    success: false,
+                    message: "الطبيب غير موجود."
+                });
+            }
+
+            const remainingAppointments =
+                database.appointments.filter(
+                    appointment =>
+                        Number(appointment.doctorId) !== doctorId
+                );
+
+            const deletedCount =
+                database.appointments.length -
+                remainingAppointments.length;
+
+            if (deletedCount === 0) {
+                return res.json({
+                    success: true,
+                    deletedCount: 0,
+                    message: "لا توجد حجوزات لحذفها."
+                });
+            }
+
+            database.appointments =
+                remainingAppointments;
+
+            const saveResult =
+                await saveDatabase(database);
+
+            if (saveResult === false) {
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ عملية الحذف."
+                });
+            }
+
+            return res.json({
+                success: true,
+                deletedCount,
+                message:
+                    `تم حذف ${deletedCount} حجزاً، مع الاحتفاظ بحساب الطبيب.`
+            });
+
+        } catch (error) {
+
+            console.error(
+                "ADMIN DELETE DOCTOR APPOINTMENTS ERROR:",
+                error
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "حدث خطأ أثناء حذف الحجوزات."
+            });
+
+        }
+
+    }
+);
 // ============================================================
 // ADMIN DOCTORS
 // ============================================================

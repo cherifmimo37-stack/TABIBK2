@@ -6500,6 +6500,100 @@ app.delete(
 
     }
 );
+
+// ============================================================
+// ADMIN — CLEAN ORPHANED APPOINTMENTS
+// حذف حجوزات الأطباء الذين حذفت حساباتهم فقط
+// ============================================================
+
+app.delete(
+    "/api/admin/appointments/orphaned",
+    checkAdminKey,
+    async (req, res) => {
+
+        try {
+
+            const database = readDatabase();
+
+            const doctors =
+                Array.isArray(database.doctors)
+                    ? database.doctors
+                    : [];
+
+            const appointments =
+                Array.isArray(database.appointments)
+                    ? database.appointments
+                    : [];
+
+            // الاحتفاظ بحجوزات الأطباء الموجودين حالياً
+            const remainingAppointments =
+                appointments.filter(appointment => {
+
+                    return doctors.some(doctor =>
+
+                        Number(doctor.id) ===
+                        Number(appointment.doctorId)
+
+                    );
+
+                });
+
+            const deletedCount =
+                appointments.length -
+                remainingAppointments.length;
+
+            if (deletedCount === 0) {
+
+                return res.json({
+                    success: true,
+                    deletedCount: 0,
+                    message: "لا توجد سجلات لأطباء محذوفين."
+                });
+
+            }
+
+            database.appointments =
+                remainingAppointments;
+
+            const saveResult =
+                await saveDatabase(database);
+
+            if (saveResult === false) {
+
+                return res.status(500).json({
+                    success: false,
+                    message: "تعذر حفظ عملية التنظيف."
+                });
+
+            }
+
+            return res.json({
+
+                success: true,
+
+                deletedCount,
+
+                message:
+                    `تم تنظيف ${deletedCount} سجل حجز تابع لأطباء محذوفين.`
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "ADMIN CLEAN ORPHANED APPOINTMENTS ERROR:",
+                error
+            );
+
+            return res.status(500).json({
+                success: false,
+                message: "حدث خطأ أثناء تنظيف السجلات."
+            });
+
+        }
+
+    }
+);
 // ============================================================
 // ADMIN DOCTORS
 // ============================================================

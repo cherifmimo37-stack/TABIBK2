@@ -6356,14 +6356,37 @@ app.get(
 
         res.json({
 
-            success: true,
+    success: true,
 
-            count:
-                appointments.length,
+    count:
+        appointments.length,
 
-            appointments
+    appointments:
+        appointments.map(appointment => ({
 
-        });
+            id: appointment.id,
+
+            patientName:
+                appointment.patientName || "",
+
+            doctorName:
+                appointment.doctorName || "",
+
+            date:
+                appointment.date || "",
+
+            time:
+                appointment.time || "",
+
+            status:
+                appointment.status || "",
+
+            createdAt:
+                appointment.createdAt || ""
+
+        }))
+
+});
     }
 );
 

@@ -6133,10 +6133,7 @@ document
                 doctors.map(doctor => String(doctor.id))
             );
 
-            const orphanedCount =
-                appointments.filter(appointment =>
-                    !doctorIds.has(String(appointment.doctorId))
-                ).length;
+            const orphanedCount = Number(data.orphanedCount || 0);
 
             if (orphanedCount === 0) {
 

@@ -4070,6 +4070,150 @@ tbody tr:hover{
     }
 }
 
+
+/* =========================================================
+   TABIBK — PREMIUM APPOINTMENT HISTORY FILTERS
+========================================================= */
+
+#section-appointment-history .appointment-history-filters {
+    display: grid;
+    grid-template-columns: minmax(220px, 2fr) minmax(150px, 1fr) minmax(150px, 1fr);
+    gap: 16px;
+    align-items: end;
+    margin-top: 24px;
+    padding: 20px;
+    border: 1px solid #eadff0;
+    border-radius: 17px;
+    background: linear-gradient(145deg, #fff, #fbf8fd);
+}
+
+#section-appointment-history .appointment-history-filters > div {
+    min-width: 0;
+}
+
+#section-appointment-history .appointment-history-filters label {
+    display: block;
+    margin-bottom: 9px;
+    color: #431766;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+#section-appointment-history .appointment-history-filters label i {
+    margin-left: 5px;
+    color: #b18a42;
+}
+
+#section-appointment-history .appointment-search-control {
+    position: relative;
+}
+
+#section-appointment-history .appointment-search-control > i {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #9875a7;
+    pointer-events: none;
+}
+
+#section-appointment-history .appointment-search-control input,
+#section-appointment-history .appointment-filter-status select,
+#section-appointment-history .appointment-filter-date input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 49px;
+    padding: 10px 14px;
+    border: 1px solid #dfd2e8;
+    border-radius: 11px;
+    outline: none;
+    background: #fff;
+    color: #32104f;
+    font-family: "Cairo", sans-serif;
+    font-size: 13px;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+#section-appointment-history .appointment-search-control input {
+    padding-right: 43px;
+}
+
+#section-appointment-history .appointment-history-filters input::placeholder {
+    color: #a397ad;
+}
+
+#section-appointment-history .appointment-history-filters input:focus,
+#section-appointment-history .appointment-history-filters select:focus {
+    border-color: #c99732;
+    box-shadow: 0 0 0 3px rgba(201,151,50,.12);
+}
+
+#section-appointment-history .appointment-history-filters select {
+    cursor: pointer;
+}
+
+#section-appointment-history .appointment-filter-button,
+#section-appointment-history .appointment-clean-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 47px;
+    padding: 10px 18px;
+    border-radius: 11px;
+    font-family: "Cairo", sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background .2s, border-color .2s, box-shadow .2s;
+}
+
+#section-appointment-history .appointment-filter-button {
+    border: 1px solid #5b2677;
+    background: linear-gradient(135deg, #7027a0, #431766);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(67,23,102,.12);
+}
+
+#section-appointment-history .appointment-filter-button:hover {
+    background: #32104f;
+    box-shadow: 0 6px 15px rgba(67,23,102,.17);
+}
+
+#section-appointment-history .appointment-clean-button {
+    border: 1px solid #d8c397;
+    background: #fffaf0;
+    color: #76551c;
+}
+
+#section-appointment-history .appointment-clean-button:hover {
+    border-color: #c99732;
+    background: #fff4d9;
+}
+
+#section-appointment-history .appointment-history-filters button:focus-visible {
+    outline: 3px solid rgba(201,151,50,.35);
+    outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+    #section-appointment-history .appointment-history-filters {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 13px;
+        padding: 15px;
+    }
+
+    #section-appointment-history .appointment-history-filters button {
+        width: 100%;
+    }
+
+    #section-appointment-history .appointment-search-control input,
+    #section-appointment-history .appointment-filter-status select,
+    #section-appointment-history .appointment-filter-date input {
+        font-size: 14px;
+    }
+}
       
 </style>
 

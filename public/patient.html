@@ -5095,6 +5095,774 @@ window.addEventListener(
 // Prime the notification audio after the first user gesture.
 document.addEventListener("click",()=>{ prepareNotificationAudio(); },{once:true,passive:true});
 
+
+
+/* ============================================================
+   TABIBK — PREMIUM PATIENT ADVERTISEMENT EXPERIENCE
+   Responsive Carousel | Touch Swipe | Auto Play
+   Purple / Gold | Safe DOM | Existing API Compatible
+============================================================ */
+
+(async function TABIBKPatientAds() {
+    "use strict";
+
+    const API_URL = "/api/ads/patient";
+    const DISPLAY_TIME = 6500;
+    const TRANSITION_TIME = 450;
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "GET",
+            cache: "no-store",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if (!response.ok) return;
+
+        const result = await response.json();
+
+        let ads = Array.isArray(result.ads)
+            ? result.ads
+            : result.ad
+                ? [result.ad]
+                : [];
+
+        function safeUrl(value) {
+            if (typeof value !== "string") return "";
+
+            const raw = value.trim();
+            if (!raw) return "";
+
+            try {
+                const url = new URL(
+                    /^https?:\/\//i.test(raw)
+                        ? raw
+                        : "https://" + raw,
+                    location.origin
+                );
+
+                return ["http:", "https:"].includes(url.protocol)
+                    ? url.href
+                    : "";
+            } catch {
+                return "";
+            }
+        }
+
+        ads = ads
+            .filter(ad =>
+                ad &&
+                ad.enabled === true &&
+                typeof ad.imageData === "string" &&
+                /^data:image\/(png|jpeg|jpg|webp);base64,/i.test(ad.imageData)
+            )
+            .map(ad => ({
+                title: String(ad.title || "اكتشف إعلان طبيبك"),
+                image: ad.imageData,
+                url: safeUrl(ad.targetUrl)
+            }))
+            .filter(ad => ad.url);
+
+        if (!ads.length) return;
+
+        const main = document.querySelector("main.container");
+        if (!main) return;
+
+        document.getElementById("tbkPatientAds")?.remove();
+        document.getElementById("tbkPatientAdsStyle")?.remove();
+
+        /* =========================
+           STYLES
+        ========================= */
+
+        const style = document.createElement("style");
+        style.id = "tbkPatientAdsStyle";
+
+        style.textContent = `
+            #tbkPatientAds {
+                direction: rtl;
+                width: 100%;
+                margin: 0 auto 22px;
+                overflow: hidden;
+                border-radius: 23px;
+                background: #fff;
+                border: 1px solid rgba(199,154,50,.30);
+                box-shadow: 0 12px 34px rgba(53,16,68,.10);
+                position: relative;
+                isolation: isolate;
+            }
+
+            #tbkPatientAds * {
+                box-sizing: border-box;
+            }
+
+            .tbk-pa-heading {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 15px 17px;
+                background:
+                    radial-gradient(circle at 0 0,
+                        rgba(233,196,93,.16),
+                        transparent 45%),
+                    linear-gradient(120deg,#21082d,#4d1763);
+                color: #fff;
+            }
+
+            .tbk-pa-icon {
+                width: 43px;
+                height: 43px;
+                flex: 0 0 43px;
+                display: grid;
+                place-items: center;
+                border-radius: 14px;
+                color: #e9c45d;
+                background: rgba(255,255,255,.10);
+                border: 1px solid rgba(233,196,93,.40);
+                font-size: 18px;
+            }
+
+            .tbk-pa-heading-text {
+                min-width: 0;
+                flex: 1;
+            }
+
+            .tbk-pa-heading-text strong {
+                display: block;
+                font-size: 14px;
+                font-weight: 900;
+            }
+
+            .tbk-pa-heading-text small {
+                display: block;
+                margin-top: 3px;
+                color: #e8ddec;
+                font-size: 10px;
+            }
+
+            .tbk-pa-label {
+                padding: 6px 10px;
+                border-radius: 20px;
+                color: #f6dc8b;
+                background: rgba(255,255,255,.08);
+                border: 1px solid rgba(233,196,93,.25);
+                font-size: 9px;
+                font-weight: 900;
+                white-space: nowrap;
+            }
+
+            .tbk-pa-viewport {
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+                background: #fff;
+                touch-action: pan-y;
+                user-select: none;
+                -webkit-user-select: none;
+            }
+
+            .tbk-pa-card {
+                display: flex;
+                width: 100%;
+                min-height: 230px;
+                color: inherit;
+                text-decoration: none !important;
+                background: #fff;
+                opacity: 1;
+                transform: translateX(0);
+                transition:
+                    opacity .4s ease,
+                    transform .45s cubic-bezier(.2,.8,.2,1);
+            }
+
+            .tbk-pa-card.is-leaving {
+                opacity: 0;
+                transform: translateX(-45px);
+            }
+
+            .tbk-pa-card.is-entering {
+                animation: tbkPaEnter .48s ease both;
+            }
+
+            @keyframes tbkPaEnter {
+                from {
+                    opacity: 0;
+                    transform: translateX(45px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            .tbk-pa-image-wrap {
+                width: 48%;
+                min-width: 0;
+                min-height: 230px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                background: #fff;
+                border-left: 1px solid rgba(199,154,50,.20);
+            }
+
+            .tbk-pa-image {
+                display: block;
+                width: 100%;
+                height: 230px;
+                object-fit: contain;
+                object-position: center;
+                background: #fff;
+                pointer-events: none;
+            }
+
+            .tbk-pa-content {
+                flex: 1;
+                min-width: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                padding: 22px;
+            }
+
+            .tbk-pa-tag {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                color: #a47a23;
+                font-size: 10px;
+                font-weight: 900;
+                margin-bottom: 12px;
+            }
+
+            .tbk-pa-title {
+                margin: 0 0 18px;
+                color: #351044;
+                font-size: 19px;
+                line-height: 1.8;
+                font-weight: 900;
+                overflow-wrap: anywhere;
+            }
+
+            .tbk-pa-action {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 10px 16px;
+                border-radius: 12px;
+                color: #fff;
+                background: linear-gradient(120deg,#70238a,#351044);
+                border: 1px solid #c79a32;
+                font-size: 11px;
+                font-weight: 900;
+                box-shadow: 0 7px 17px rgba(53,16,68,.15);
+            }
+
+            .tbk-pa-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 11px 14px;
+                background: #fffdf9;
+                border-top: 1px solid #f0e8f2;
+            }
+
+            .tbk-pa-navigation {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+            }
+
+            .tbk-pa-nav {
+                width: 31px;
+                height: 31px;
+                display: grid;
+                place-items: center;
+                border-radius: 10px;
+                border: 1px solid rgba(199,154,50,.30);
+                color: #4d1763;
+                background: #fff;
+                cursor: pointer;
+                font-size: 13px;
+            }
+
+            .tbk-pa-nav:disabled {
+                opacity: .35;
+                cursor: default;
+            }
+
+            .tbk-pa-dots {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                flex: 1;
+            }
+
+            .tbk-pa-dot {
+                width: 7px;
+                height: 7px;
+                padding: 0;
+                border: 0;
+                border-radius: 20px;
+                background: #ded3e4;
+                cursor: pointer;
+                transition: .25s ease;
+            }
+
+            .tbk-pa-dot.active {
+                width: 22px;
+                background: #70238a;
+            }
+
+            .tbk-pa-counter {
+                color: #98752f;
+                font-size: 10px;
+                font-weight: 900;
+                white-space: nowrap;
+                direction: ltr;
+            }
+
+            .tbk-pa-progress {
+                height: 3px;
+                width: 100%;
+                overflow: hidden;
+                background: #f0e8f2;
+            }
+
+            .tbk-pa-progress-bar {
+                display: block;
+                width: 0;
+                height: 100%;
+                background: linear-gradient(90deg,#c79a32,#70238a);
+            }
+
+            .tbk-pa-progress-bar.running {
+                animation: tbkPaProgress 6.5s linear forwards;
+            }
+
+            @keyframes tbkPaProgress {
+                from { width: 0; }
+                to { width: 100%; }
+            }
+
+            @media(max-width:600px) {
+                #tbkPatientAds {
+                    border-radius: 19px;
+                    margin-bottom: 17px;
+                }
+
+                .tbk-pa-heading {
+                    padding: 12px 13px;
+                }
+
+                .tbk-pa-heading-text strong {
+                    font-size: 12px;
+                }
+
+                .tbk-pa-label {
+                    font-size: 8px;
+                    padding: 5px 8px;
+                }
+
+                .tbk-pa-card {
+                    flex-direction: column;
+                    min-height: 0;
+                }
+
+                .tbk-pa-image-wrap {
+                    width: 100%;
+                    min-height: 0;
+                    height: 205px;
+                    border-left: 0;
+                    border-bottom: 1px solid rgba(199,154,50,.20);
+                }
+
+                .tbk-pa-image {
+                    height: 205px;
+                }
+
+                .tbk-pa-content {
+                    padding: 14px 16px 17px;
+                }
+
+                .tbk-pa-tag {
+                    margin-bottom: 5px;
+                }
+
+                .tbk-pa-title {
+                    font-size: 15px;
+                    margin-bottom: 12px;
+                }
+
+                .tbk-pa-action {
+                    padding: 9px 13px;
+                    font-size: 10px;
+                }
+            }
+
+            @media(max-width:360px) {
+                .tbk-pa-image-wrap,
+                .tbk-pa-image {
+                    height: 180px;
+                }
+
+                .tbk-pa-title {
+                    font-size: 14px;
+                }
+
+                .tbk-pa-label {
+                    display: none;
+                }
+            }
+
+            @media(prefers-reduced-motion:reduce) {
+                .tbk-pa-card,
+                .tbk-pa-dot,
+                .tbk-pa-progress-bar {
+                    animation: none !important;
+                    transition: none !important;
+                }
+            }
+        `;
+
+        document.head.appendChild(style);
+
+        /* =========================
+           BUILD SECTION
+        ========================= */
+
+        const section = document.createElement("section");
+        section.id = "tbkPatientAds";
+
+        const heading = document.createElement("div");
+        heading.className = "tbk-pa-heading";
+
+        const icon = document.createElement("div");
+        icon.className = "tbk-pa-icon";
+        icon.innerHTML = '<i class="fa-solid fa-heart-pulse"></i>';
+
+        const headingText = document.createElement("div");
+        headingText.className = "tbk-pa-heading-text";
+
+        const headingTitle = document.createElement("strong");
+        headingTitle.textContent = "إعلانات طبيبك";
+
+        const headingSubtitle = document.createElement("small");
+        headingSubtitle.textContent =
+            "اكتشف الخدمات والعروض الجديدة";
+
+        headingText.append(headingTitle, headingSubtitle);
+
+        const label = document.createElement("span");
+        label.className = "tbk-pa-label";
+        label.textContent = "إعلانات مميزة";
+
+        heading.append(icon, headingText, label);
+
+        const viewport = document.createElement("div");
+        viewport.className = "tbk-pa-viewport";
+
+        const footer = document.createElement("div");
+        footer.className = "tbk-pa-footer";
+
+        const navigation = document.createElement("div");
+        navigation.className = "tbk-pa-navigation";
+
+        const previous = document.createElement("button");
+        previous.type = "button";
+        previous.className = "tbk-pa-nav";
+        previous.textContent = "›";
+        previous.setAttribute("aria-label", "الإعلان السابق");
+
+        const next = document.createElement("button");
+        next.type = "button";
+        next.className = "tbk-pa-nav";
+        next.textContent = "‹";
+        next.setAttribute("aria-label", "الإعلان التالي");
+
+        navigation.append(previous, next);
+
+        const dots = document.createElement("div");
+        dots.className = "tbk-pa-dots";
+
+        const counter = document.createElement("span");
+        counter.className = "tbk-pa-counter";
+
+        footer.append(navigation, dots, counter);
+
+        const progress = document.createElement("div");
+        progress.className = "tbk-pa-progress";
+
+        const progressBar = document.createElement("span");
+        progressBar.className = "tbk-pa-progress-bar";
+
+        progress.appendChild(progressBar);
+        section.append(heading, viewport, footer, progress);
+
+        /* =========================
+           CAROUSEL LOGIC
+        ========================= */
+
+        let currentIndex = 0;
+        let rotationTimer = null;
+        let transitionTimer = null;
+        let paused = false;
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        const reducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        function createCard(ad, entering) {
+            const card = document.createElement("a");
+            card.className = "tbk-pa-card";
+
+            if (entering && !reducedMotion) {
+                card.classList.add("is-entering");
+            }
+
+            card.href = ad.url;
+            card.target = "_self";
+            card.rel = "noopener noreferrer";
+
+            const imageWrap = document.createElement("div");
+            imageWrap.className = "tbk-pa-image-wrap";
+
+            const image = document.createElement("img");
+            image.className = "tbk-pa-image";
+            image.src = ad.image;
+            image.alt = ad.title;
+            image.loading = "eager";
+            image.draggable = false;
+
+            image.onerror = function() {
+                imageWrap.replaceChildren();
+
+                const fallback = document.createElement("div");
+                fallback.textContent = "✚";
+                fallback.style.cssText =
+                    "width:100%;height:100%;display:grid;place-items:center;color:#c79a32;font-size:45px;background:#f8f2fa";
+
+                imageWrap.appendChild(fallback);
+            };
+
+            imageWrap.appendChild(image);
+
+            const content = document.createElement("div");
+            content.className = "tbk-pa-content";
+
+            const tag = document.createElement("span");
+            tag.className = "tbk-pa-tag";
+            tag.textContent = "✦ إعلان مميز";
+
+            const title = document.createElement("h3");
+            title.className = "tbk-pa-title";
+            title.textContent = ad.title;
+
+            const action = document.createElement("span");
+            action.className = "tbk-pa-action";
+            action.textContent = "اكتشف المزيد ←";
+
+            content.append(tag, title, action);
+            card.append(imageWrap, content);
+
+            return card;
+        }
+
+        ads.forEach((ad, index) => {
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.className = "tbk-pa-dot";
+            dot.setAttribute(
+                "aria-label",
+                "عرض الإعلان " + (index + 1)
+            );
+
+            dot.addEventListener("click", () => {
+                showAd(index);
+                restartRotation();
+            });
+
+            dots.appendChild(dot);
+        });
+
+        function updateControls() {
+            Array.from(dots.children).forEach((dot, index) => {
+                dot.classList.toggle(
+                    "active",
+                    index === currentIndex
+                );
+                dot.setAttribute(
+                    "aria-current",
+                    index === currentIndex ? "true" : "false"
+                );
+            });
+
+            counter.textContent =
+                (currentIndex + 1) + " / " + ads.length;
+
+            previous.disabled = ads.length < 2;
+            next.disabled = ads.length < 2;
+        }
+
+        function startProgress() {
+            progressBar.classList.remove("running");
+            progressBar.style.width = "0%";
+
+            if (!reducedMotion && !paused && ads.length > 1) {
+                void progressBar.offsetWidth;
+                progressBar.classList.add("running");
+            }
+        }
+
+        function showAd(index) {
+            currentIndex = (index + ads.length) % ads.length;
+
+            const card = createCard(
+                ads[currentIndex],
+                true
+            );
+
+            viewport.replaceChildren(card);
+
+            updateControls();
+            startProgress();
+        }
+
+        function changeAd(direction) {
+            if (ads.length < 2) return;
+
+            clearTimeout(transitionTimer);
+
+            const oldCard = viewport.querySelector(".tbk-pa-card");
+
+            if (oldCard && !reducedMotion) {
+                oldCard.classList.add("is-leaving");
+            }
+
+            transitionTimer = setTimeout(() => {
+                showAd(currentIndex + direction);
+            }, reducedMotion ? 0 : TRANSITION_TIME);
+        }
+
+        function startRotation() {
+            clearInterval(rotationTimer);
+
+            if (!paused && ads.length > 1 && !reducedMotion) {
+                rotationTimer = setInterval(() => {
+                    changeAd(1);
+                }, DISPLAY_TIME);
+            }
+        }
+
+        function restartRotation() {
+            clearInterval(rotationTimer);
+            startProgress();
+            startRotation();
+        }
+
+        previous.addEventListener("click", () => {
+            changeAd(-1);
+            restartRotation();
+        });
+
+        next.addEventListener("click", () => {
+            changeAd(1);
+            restartRotation();
+        });
+
+        section.addEventListener("mouseenter", () => {
+            paused = true;
+            clearInterval(rotationTimer);
+            progressBar.style.animationPlayState = "paused";
+        });
+
+        section.addEventListener("mouseleave", () => {
+            paused = false;
+            progressBar.style.animationPlayState = "running";
+            restartRotation();
+        });
+
+        section.addEventListener("focusin", () => {
+            paused = true;
+            clearInterval(rotationTimer);
+            progressBar.style.animationPlayState = "paused";
+        });
+
+        section.addEventListener("focusout", event => {
+            if (!section.contains(event.relatedTarget)) {
+                paused = false;
+                restartRotation();
+            }
+        });
+
+        /* Touch swipe */
+
+        viewport.addEventListener("touchstart", event => {
+            if (!event.touches.length) return;
+
+            touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
+        }, { passive: true });
+
+        viewport.addEventListener("touchend", event => {
+            if (!event.changedTouches.length) return;
+
+            const deltaX =
+                event.changedTouches[0].clientX - touchStartX;
+
+            const deltaY =
+                event.changedTouches[0].clientY - touchStartY;
+
+            if (
+                Math.abs(deltaX) < 45 ||
+                Math.abs(deltaX) < Math.abs(deltaY)
+            ) return;
+
+            changeAd(deltaX > 0 ? 1 : -1);
+            restartRotation();
+        }, { passive: true });
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                clearInterval(rotationTimer);
+            } else {
+                restartRotation();
+            }
+        });
+
+        /* =========================
+           INSERT SECTION
+        ========================= */
+
+        showAd(0);
+
+        const tabs = main.querySelector(".tabs");
+
+        if (tabs && tabs.parentNode === main) {
+            tabs.insertAdjacentElement("afterend", section);
+        } else {
+            main.prepend(section);
+        }
+
+        startRotation();
+
+    } catch (error) {
+        console.warn(
+            "TABIBK patient advertisements:",
+            error
+        );
+    }
+})();
+      
 </script>
 
 </body>
